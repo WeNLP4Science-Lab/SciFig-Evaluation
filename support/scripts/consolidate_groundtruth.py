@@ -13,7 +13,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 INPUT_DIR = BASE_DIR / "Dataset" / "groundtruth"
 OUTPUT_DIR = BASE_DIR / "Dataset" / "groundtruth_consolidated"
 

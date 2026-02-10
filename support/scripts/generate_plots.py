@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 
-BASE = Path(__file__).resolve().parent
+BASE = Path(__file__).resolve().parent.parent.parent / "Dataset"
 GT = BASE / "groundtruth"
-PLOTS_DIR = BASE / "plots"
+PLOTS_DIR = BASE / "distributions"
 PLOTS_DIR.mkdir(exist_ok=True)
 
 SUBFOLDERS = ["bulgarian_only", "chinese_only", "english_only", "german_only", "multi_language"]

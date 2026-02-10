@@ -30,7 +30,7 @@ Dataset/
 │   ├── english_only/         # 279 files
 │   ├── german_only/          # 152 files
 │   └── multi_language/       # 111 files
-├── plots/                    # Summary visualizations
+├── distributions/                    # Summary visualizations
 └── README.md
 ```
 
@@ -114,7 +114,7 @@ The dataset covers 7 figure types. The three dominant types are Line Plots, Bar 
 | Scatter Plot | 2 | 0.2% |
 | Flow Diagram | 1 | 0.1% |
 
-![Figure Type Distribution by Subset](plots/figure_type_distribution.png)
+![Figure Type Distribution by Subset](distributions/figure_type_distribution.png)
 
 ## Annotation Language Distribution
 
@@ -127,13 +127,13 @@ Annotations are written in four languages. English is the most represented due t
 | German | 258 | 18.3% |
 | Chinese | 187 | 13.3% |
 
-![Annotation Language Distribution](plots/annotation_language_distribution.png)
+![Annotation Language Distribution](distributions/annotation_language_distribution.png)
 
 ## Figures and Annotations per Subset
 
 The multi-language subset has the highest annotation density (~4 annotations per figure), while single-language subsets have exactly 1:1 figure-to-annotation ratios.
 
-![Figures and Annotations per Subset](plots/figures_and_annotations_per_subset.png)
+![Figures and Annotations per Subset](distributions/figures_and_annotations_per_subset.png)
 
 ## Annotator Contributions
 
@@ -150,7 +150,7 @@ Eight annotators contributed to the dataset. Annotators 2, 3, and 7 are primaril
 | 8 | 98 | English |
 | 1 | 11 | English |
 
-![Annotator Contributions by Language](plots/annotator_contributions.png)
+![Annotator Contributions by Language](distributions/annotator_contributions.png)
 
 ## Annotation Length
 
@@ -164,7 +164,7 @@ Average annotation length varies by subset, primarily driven by language charact
 | Bulgarian | 979 |
 | Chinese | 409 |
 
-![Annotation Length Distribution by Subset](plots/annotation_length_distribution.png)
+![Annotation Length Distribution by Subset](distributions/annotation_length_distribution.png)
 
 ## Annotations per Figure
 
