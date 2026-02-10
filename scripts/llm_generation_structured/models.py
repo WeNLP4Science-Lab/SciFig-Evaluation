@@ -1,14 +1,13 @@
-"""LLM model abstractions for figure description generation.
+"""LLM model abstractions for structured figure description generation.
 
-Each model implements the FigureAnnotator interface. To add a new model,
-subclass FigureAnnotator and implement annotate_figure() and model_name.
-
-All models route through OpenRouter (https://openrouter.ai).
-Set the OPENROUTER_API_KEY environment variable before use.
+Same architecture as llm_generation/models.py but requests JSON output
+containing both a description paragraph and a structured breakdown.
 """
 
 import base64
+import json
 import os
+import re
 import time
 import logging
 from abc import ABC, abstractmethod
@@ -20,32 +19,24 @@ OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 class FigureAnnotator(ABC):
-    """Abstract base class for LLM-based figure annotators."""
+    """Abstract base class for structured LLM-based figure annotators."""
 
     @property
     @abstractmethod
     def model_name(self) -> str:
-        """Short identifier for this model (used in filenames and logs)."""
         ...
 
     @property
     @abstractmethod
     def router_model_id(self) -> str:
-        """OpenRouter model identifier (e.g. 'openai/gpt-4o-mini')."""
         ...
 
     @abstractmethod
-    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
-        """Generate a text description of a scientific figure.
-
-        Args:
-            prompt: The system/instruction prompt for figure description.
-            image_path: Path to the figure image file (PNG).
-            caption: The original figure caption from the paper.
-            paper_title: Title of the source paper (provides context).
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> dict:
+        """Generate a structured description of a scientific figure.
 
         Returns:
-            Generated figure description as a string.
+            dict with "description" (str) and "breakdown" (dict) keys.
         """
         ...
 
@@ -54,13 +45,11 @@ class FigureAnnotator(ABC):
 
 
 def _encode_image_base64(image_path: Path) -> str:
-    """Read an image file and return its base64-encoded string."""
     with open(image_path, "rb") as f:
         return base64.b64encode(f.read()).decode("utf-8")
 
 
 def _retry(func, max_retries: int = 3, backoff: float = 2.0):
-    """Simple retry wrapper with exponential backoff."""
     delay = 1.0
     for attempt in range(1, max_retries + 1):
         try:
@@ -75,7 +64,6 @@ def _retry(func, max_retries: int = 3, backoff: float = 2.0):
 
 
 def _get_openrouter_client():
-    """Create an OpenAI client pointed at OpenRouter."""
     from openai import OpenAI
 
     api_key = os.environ.get("OPENROUTER_API_KEY")
@@ -84,14 +72,34 @@ def _get_openrouter_client():
     return OpenAI(base_url=OPENROUTER_BASE_URL, api_key=api_key)
 
 
+def _extract_json(text: str) -> dict:
+    """Extract JSON from model response, handling markdown fences."""
+    # Try direct parse first
+    text = text.strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        pass
+
+    # Strip markdown code fences
+    match = re.search(r"```(?:json)?\s*\n?(.*?)\n?\s*```", text, re.DOTALL)
+    if match:
+        try:
+            return json.loads(match.group(1).strip())
+        except json.JSONDecodeError:
+            pass
+
+    raise ValueError(f"Could not parse JSON from model response: {text[:200]}...")
+
+
 # ---------------------------------------------------------------------------
-# GPT-4o-mini via OpenRouter
+# GPT-4o-mini via OpenRouter (structured output)
 # ---------------------------------------------------------------------------
 
 class GPT4oMiniAnnotator(FigureAnnotator):
-    """GPT-4o-mini via OpenRouter."""
+    """GPT-4o-mini via OpenRouter — structured output."""
 
-    def __init__(self, max_tokens: int = 1024):
+    def __init__(self, max_tokens: int = 2048):
         self.max_tokens = max_tokens
 
     @property
@@ -102,7 +110,7 @@ class GPT4oMiniAnnotator(FigureAnnotator):
     def router_model_id(self) -> str:
         return "openai/gpt-4o-mini"
 
-    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> dict:
         client = _get_openrouter_client()
         b64 = _encode_image_base64(image_path)
 
@@ -127,14 +135,16 @@ class GPT4oMiniAnnotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                response_format={"type": "json_object"},
             )
-            return response.choices[0].message.content.strip()
+            raw = response.choices[0].message.content.strip()
+            return _extract_json(raw)
 
         return _retry(_call)
 
 
 # ---------------------------------------------------------------------------
-# Registry — maps model_name strings to annotator classes
+# Registry
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
@@ -143,18 +153,6 @@ MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
 
 
 def get_annotator(model_name: str, **kwargs) -> FigureAnnotator:
-    """Instantiate an annotator by model name.
-
-    Args:
-        model_name: Key from MODEL_REGISTRY (e.g. "gpt-4o-mini").
-        **kwargs: Passed to the annotator constructor.
-
-    Returns:
-        An instance of the requested FigureAnnotator.
-
-    Raises:
-        ValueError: If model_name is not in the registry.
-    """
     if model_name not in MODEL_REGISTRY:
         available = ", ".join(sorted(MODEL_REGISTRY.keys()))
         raise ValueError(f"Unknown model {model_name!r}. Available: {available}")
