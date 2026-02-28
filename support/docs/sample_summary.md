@@ -1,127 +1,149 @@
-# Sample Evaluation Summary
+# Evaluation Summary — Multi-Model Comparison
 
-> MQM-based evaluation of GPT-4o-mini figure annotations (20 sample figures)
+> MQM-based evaluation of 3 models on 50 sample figures
+> Models: **gpt-4o-mini**, **gpt-5.2**, **opus-4.6**
 > 
 > - **Unstructured**: paragraph-only descriptions
-> - **Structured**: paragraph + component breakdown (Option C: paragraph MQM for fair comparison)
+> - **Structured**: paragraph + component breakdown (paragraph MQM for fair comparison)
 
-## Overview
+## Cross-Model Overview
+
+![Cross-Model Overview](eval_plots/cross_model_overview.png)
+
+| Metric |gpt-4o-mini (U) | gpt-4o-mini (S) | gpt-5.2 (U) | gpt-5.2 (S) | opus-4.6 (U) | opus-4.6 (S) |
+|---|---|---|---|---|---|---|
+| Evaluations | 77 | 77 | 77 | 74 | 77 | 61 |
+| MQM Mean | 83.5 | 83.9 | 80.1 | 80.8 | 79.5 | 79.0 |
+| MQM Median | 83.5 | 85.0 | 81.5 | 81.5 | 81.5 | 80.0 |
+| MQM Std Dev | 5.4 | 6.5 | 8.0 | 8.1 | 10.1 | 8.9 |
+| MQM Min | 70.0 | 60.0 | 60.0 | 43.0 | 48.5 | 60.0 |
+| MQM Max | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 | 100.0 |
+| Avg Errors/Fig | 4.0 | 3.8 | 4.6 | 4.4 | 4.7 | 4.7 |
+| Total Errors | 311 | 291 | 351 | 328 | 364 | 286 |
+| Avg Penalty | 16.5 | 16.1 | 19.9 | 19.2 | 20.5 | 21.0 |
+
+## MQM by Language — All Models
+
+![Cross-Model by Language](eval_plots/cross_model_by_language.png)
+
+| Language |gpt-4o-mini | gpt-5.2 | opus-4.6 |
+|---|---|---|---|
+| Bulgarian | 85.1 | 80.7 | 81.5 |
+| Chinese | 85.5 | 81.6 | 78.1 |
+| English | 82.7 | 81.8 | 81.1 |
+| German | 81.1 | 76.5 | 77.2 |
+
+## MQM by Figure Type — All Models
+
+![Cross-Model by Figure Type](eval_plots/cross_model_by_figure_type.png)
+
+| Figure Type |gpt-4o-mini | gpt-5.2 | opus-4.6 |
+|---|---|---|---|
+| Bar Chart | 84.3 | 78.7 | 76.5 |
+| Line Plot | 82.4 | 80.6 | 80.0 |
+| Pie Chart | 85.2 | 81.8 | 85.3 |
+
+## Score Distribution — All Models
+
+![Score Distribution](eval_plots/cross_model_score_distribution.png)
+
+---
+
+## Model: gpt-4o-mini
+
+### Unstructured vs Structured
+
+![gpt-4o-mini Comparison](eval_plots/mqm_comparison_gpt-4o-mini.png)
 
 | Metric | Unstructured | Structured |
 |---|---|---|
-| Evaluations | 30 | 30 |
-| MQM Mean | 82.5 | 83.5 |
-| MQM Median | 83.2 | 85.0 |
-| MQM Std Dev | 5.0 | 6.8 |
-| MQM Min | 70.5 | 60.0 |
-| MQM Max | 90.5 | 94.0 |
-| Avg Errors/Figure | 4.3 | 3.9 |
-| Total Errors | 129 | 117 |
-| Avg Penalty | 17.5 | 16.6 |
-| Breakdown Field Completeness | — | 100% |
-| Breakdown Count Consistency | — | 83% |
+| Evaluations | 77 | 77 |
+| MQM Mean | 83.5 | 83.9 |
+| MQM Median | 83.5 | 85.0 |
+| MQM Std Dev | 5.4 | 6.5 |
+| Avg Errors/Figure | 4.0 | 3.8 |
+| Total Errors | 311 | 291 |
+| Breakdown Completeness | — | 100% |
+| Count Consistency | — | 86% |
 
-## MQM Score Comparison
+### Error Distribution
 
-![MQM Comparison](eval_plots/mqm_comparison_bar.png)
-
-## Per-Figure Results
-
-### Single-Language Figures
-
-| Figure | Type | Unstruct MQM | Unstruct Errors | Struct MQM | Struct Errors | Breakdown |
-|---|---|---|---|---|---|---|
-| bulgarian_fig_001 | Line Plot | 80.0 | 5 | 81.5 | 4 | 100% |
-| bulgarian_fig_002 | Line Plot | 76.5 | 5 | 75.5 | 6 | 100% |
-| bulgarian_fig_003 | Line Plot | 85.5 | 4 | 85.5 | 4 | 100% |
-| bulgarian_fig_004 | Pie Chart | 82.0 | 5 | 86.5 | 3 | 100% |
-| chinese_fig_001 | Line Plot | 81.5 | 4 | 85.0 | 3 | 100% |
-| chinese_fig_002 | Line Plot | 86.5 | 3 | 90.5 | 3 | 100% |
-| chinese_fig_003 | Line Plot | 88.0 | 3 | 81.5 | 4 | 100% |
-| chinese_fig_004 | Bar Chart | 81.0 | 6 | 80.0 | 4 | 100% |
-| english_fig_001 | Pie Chart | 70.5 | 7 | 73.0 | 6 | 100% |
-| english_fig_002 | Pie Chart | 85.5 | 4 | 89.5 | 3 | 100% |
-| english_fig_003 | Line Plot | 86.5 | 3 | 85.0 | 3 | 100% |
-| english_fig_004 | Line Plot | 81.5 | 4 | 81.5 | 4 | 100% |
-| german_fig_001 | Line Plot | 88.5 | 3 | 90.5 | 3 | 100% |
-| german_fig_002 | Bar Chart | 78.5 | 5 | 60.0 | 8 | 100% |
-| german_fig_003 | Bar Chart | 71.5 | 6 | 85.5 | 4 | 100% |
-| german_fig_004 | Bar Chart | 81.5 | 4 | 83.0 | 4 | 100% |
-
-### Multi-Language Figures
-
-| Figure | Language | Unstruct MQM | Unstruct Errors | Struct MQM | Struct Errors |
-|---|---|---|---|---|---|
-| multi_fig_001 | Bulgarian | 75.0 | 5 | 85.0 | 3 |
-| multi_fig_001 | Chinese | 81.5 | 4 | 86.5 | 3 |
-| multi_fig_001 | English | 85.5 | 4 | 73.0 | 6 |
-| multi_fig_001 | German | 73.5 | 6 | 86.5 | 3 |
-| multi_fig_002 | Bulgarian | 85.5 | 4 | 91.5 | 2 |
-| multi_fig_002 | Chinese | 90.5 | 3 | 85.0 | 3 |
-| multi_fig_002 | English | 83.5 | 4 | 85.5 | 4 |
-| multi_fig_002 | German | 86.5 | 3 | 94.0 | 2 |
-| multi_fig_003 | Bulgarian | 85.5 | 5 | 83.0 | 4 |
-| multi_fig_003 | English | 83.0 | 4 | 81.5 | 4 |
-| multi_fig_003 | German | 81.5 | 4 | 84.0 | 5 |
-| multi_fig_004 | Bulgarian | 85.5 | 4 | 88.0 | 3 |
-| multi_fig_004 | English | 86.0 | 5 | 75.5 | 6 |
-| multi_fig_004 | German | 86.5 | 3 | 90.5 | 3 |
-
-## Score Distribution
-
-![Score Distribution](eval_plots/score_distribution.png)
-
-## MQM by Language
-
-![MQM by Language](eval_plots/mqm_by_language.png)
-
-| Language | Unstruct Mean | Struct Mean |
-|---|---|---|
-| Bulgarian | 81.9 | 84.6 |
-| Chinese | 84.8 | 84.8 |
-| English | 82.8 | 80.6 |
-| German | 81.0 | 84.2 |
-
-## MQM by Figure Type
-
-![MQM by Figure Type](eval_plots/mqm_by_figure_type.png)
-
-| Figure Type | Unstruct Mean | Struct Mean |
-|---|---|---|
-| Bar Chart | 82.6 | 83.0 |
-| Line Plot | 82.3 | 83.7 |
-| Pie Chart | 82.7 | 83.8 |
-
-## Error Analysis
-
-![Error Distribution](eval_plots/error_distribution.png)
-
-### Error Counts by Category and Severity
+![gpt-4o-mini Errors](eval_plots/error_distribution_gpt-4o-mini.png)
 
 | Category | Severity | Unstructured | Structured |
 |---|---|---|---|
-| Accuracy | Major | 80 | 78 |
-| Accuracy | Minor | 1 | 2 |
-| Completeness | Major | 29 | 26 |
-| Completeness | Minor | 6 | 1 |
+| Accuracy | Major | 193 | 195 |
+| Accuracy | Minor | 1 | 3 |
+| Completeness | Major | 72 | 66 |
+| Completeness | Minor | 13 | 4 |
 | Clarity and Readability | Major | 0 | 0 |
-| Clarity and Readability | Minor | 13 | 10 |
+| Clarity and Readability | Minor | 32 | 23 |
 
-### Error Sub-types
+---
 
-![Error Sub-types](eval_plots/error_subtypes.png)
+## Model: gpt-5.2
 
-| Sub-type | Unstructured | Structured |
+### Unstructured vs Structured
+
+![gpt-5.2 Comparison](eval_plots/mqm_comparison_gpt-5_2.png)
+
+| Metric | Unstructured | Structured |
 |---|---|---|
-| Incorrect Numerical Value | 46 | 47 |
-| Missing Key Information | 34 | 26 |
-| Incorrect Trend Interpretation | 19 | 18 |
-| Incorrect Axis or Legend Interpretation | 10 | 9 |
-| Ambiguous Description | 8 | 8 |
-| Incorrect Label Mapping | 6 | 6 |
-| Missing Takeaway | 4 | 2 |
-| Hallucinated Content | 1 | 1 |
-| Over-Generalization | 1 | 0 |
+| Evaluations | 77 | 74 |
+| MQM Mean | 80.1 | 80.8 |
+| MQM Median | 81.5 | 81.5 |
+| MQM Std Dev | 8.0 | 8.1 |
+| Avg Errors/Figure | 4.6 | 4.4 |
+| Total Errors | 351 | 328 |
+| Breakdown Completeness | — | 100% |
+| Count Consistency | — | 100% |
+
+### Error Distribution
+
+![gpt-5.2 Errors](eval_plots/error_distribution_gpt-5_2.png)
+
+| Category | Severity | Unstructured | Structured |
+|---|---|---|---|
+| Accuracy | Major | 252 | 229 |
+| Accuracy | Minor | 3 | 3 |
+| Completeness | Major | 67 | 68 |
+| Completeness | Minor | 10 | 5 |
+| Clarity and Readability | Major | 0 | 0 |
+| Clarity and Readability | Minor | 19 | 23 |
+
+---
+
+## Model: opus-4.6
+
+### Unstructured vs Structured
+
+![opus-4.6 Comparison](eval_plots/mqm_comparison_opus-4_6.png)
+
+| Metric | Unstructured | Structured |
+|---|---|---|
+| Evaluations | 77 | 61 |
+| MQM Mean | 79.5 | 79.0 |
+| MQM Median | 81.5 | 80.0 |
+| MQM Std Dev | 10.1 | 8.9 |
+| Avg Errors/Figure | 4.7 | 4.7 |
+| Total Errors | 364 | 286 |
+| Breakdown Completeness | — | 100% |
+| Count Consistency | — | 100% |
+
+### Error Distribution
+
+![opus-4.6 Errors](eval_plots/error_distribution_opus-4_6.png)
+
+| Category | Severity | Unstructured | Structured |
+|---|---|---|---|
+| Accuracy | Major | 266 | 219 |
+| Accuracy | Minor | 1 | 0 |
+| Completeness | Major | 58 | 47 |
+| Completeness | Minor | 12 | 6 |
+| Clarity and Readability | Major | 0 | 0 |
+| Clarity and Readability | Minor | 24 | 14 |
+
+---
 
 ## Scoring Methodology
 
@@ -136,4 +158,4 @@ MQM Score = max(0, 100 - total_penalty)
 - **100** = error-free description
 - **0** = penalties exceed 100 points
 - Judge model: `gpt-4o-mini` via OpenRouter
-- Sample: 20 figures (4 per language folder), 20 single-language + multi-language per-language evaluations
+- Sample: 50 figures (10 per language folder), 3 models

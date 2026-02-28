@@ -1,8 +1,8 @@
 """Generate evaluation summary with plots and markdown report.
 
-Reads all MQM evaluation results from output/evaluation/ and
-output/evaluation_structured/, computes statistics, generates plots,
-and writes a summary markdown document.
+Auto-discovers all model subdirectories under output/evaluation/ and
+output/evaluation_structured/, computes statistics, generates plots
+(including cross-model comparisons), and writes a summary markdown document.
 
 Usage:
     python3 support/scripts/generate_eval_summary.py
@@ -16,7 +16,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
+import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 EVAL_DIR = ROOT / "output" / "evaluation"
@@ -26,7 +26,6 @@ OUTPUT_MD = ROOT / "support" / "docs" / "sample_summary.md"
 
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
-# MQM weights reference
 MQM_WEIGHTS = {
     ("Accuracy", "Major"): 5.0, ("Accuracy", "Minor"): 2.0,
     ("Completeness", "Major"): 3.5, ("Completeness", "Minor"): 1.5,
@@ -42,10 +41,30 @@ SUBFOLDER_LABELS = {
     "multi_language": "Multi-Lang",
 }
 
+# Consistent colors for models
+MODEL_COLORS = {
+    "gpt-4o-mini": "#4C72B0",
+    "gpt-5.2": "#55A868",
+    "opus-4.6": "#C44E52",
+}
+
+def _model_color(model: str) -> str:
+    return MODEL_COLORS.get(model, "#8C8C8C")
+
 
 # ── Data loading ──────────────────────────────────────────────────────
 
-def load_eval_results(base_dir: Path, model: str = "gpt-4o-mini") -> list[dict]:
+def discover_models(base_dir: Path) -> list[str]:
+    """Auto-discover model subdirectories."""
+    if not base_dir.exists():
+        return []
+    return sorted(
+        d.name for d in base_dir.iterdir()
+        if d.is_dir() and any((d / sf).exists() for sf in SUBFOLDERS)
+    )
+
+
+def load_eval_results(base_dir: Path, model: str) -> list[dict]:
     """Load all evaluation JSON files, flattening multi-language into per-language entries."""
     results = []
     model_dir = base_dir / model
@@ -59,7 +78,6 @@ def load_eval_results(base_dir: Path, model: str = "gpt-4o-mini") -> list[dict]:
             data["subfolder"] = subfolder
 
             if "mqm_by_language" in data:
-                # Multi-language: expand into per-language entries
                 for lang, lang_result in data["mqm_by_language"].items():
                     entry = {
                         "figure_key": data["figure_key"],
@@ -70,7 +88,6 @@ def load_eval_results(base_dir: Path, model: str = "gpt-4o-mini") -> list[dict]:
                         "is_multi": True,
                         **lang_result,
                     }
-                    # Add breakdown if structured
                     bv = data.get("breakdown_verification_by_language", {}).get(lang)
                     if bv:
                         entry["breakdown_verification"] = bv
@@ -102,7 +119,6 @@ def compute_stats(results: list[dict]) -> dict:
     penalties = [r["total_penalty"] for r in results]
     error_counts = [r["error_count"] for r in results]
 
-    # Error category breakdown
     cat_counter = Counter()
     sub_counter = Counter()
     sev_counter = Counter()
@@ -117,22 +133,18 @@ def compute_stats(results: list[dict]) -> dict:
             sev_counter[sev] += 1
             cat_sev_counter[(cat, sev)] += 1
 
-    # By figure type
     by_type = defaultdict(list)
     for r in results:
         by_type[r["figure_type"]].append(r["mqm_score"])
 
-    # By language
     by_lang = defaultdict(list)
     for r in results:
         by_lang[r["language"]].append(r["mqm_score"])
 
-    # By subfolder
     by_sub = defaultdict(list)
     for r in results:
         by_sub[r["subfolder"]].append(r["mqm_score"])
 
-    # Breakdown stats (structured only)
     bv_completeness = []
     bv_count_consistent = 0
     bv_total = 0
@@ -169,12 +181,134 @@ def compute_stats(results: list[dict]) -> dict:
 
 # ── Plots ─────────────────────────────────────────────────────────────
 
-def plot_mqm_comparison(unstruct: list[dict], struct: list[dict]):
-    """Bar chart comparing MQM scores per figure (single-language only)."""
-    # Get single-language figures only for clean comparison
+def plot_cross_model_overview(all_data: dict[str, dict]):
+    """Grouped bar chart: mean MQM per model, unstructured vs structured."""
+    models = sorted(all_data.keys())
+    approaches = ["unstructured", "structured"]
+    approach_labels = {"unstructured": "Unstructured", "structured": "Structured"}
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x = np.arange(len(models))
+    w = 0.35
+
+    for i, approach in enumerate(approaches):
+        means = []
+        for m in models:
+            stats = all_data[m].get(f"{approach}_stats")
+            means.append(stats["mqm_mean"] if stats and stats["n"] > 0 else 0)
+        offset = (i - 0.5) * w
+        bars = ax.bar(x + offset, means, w, label=approach_labels[approach],
+                      color=[_model_color(m) for m in models], alpha=0.6 + 0.3 * i,
+                      edgecolor="white", linewidth=0.5)
+        for bar, val in zip(bars, means):
+            if val > 0:
+                ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5,
+                        f"{val:.1f}", ha="center", va="bottom", fontsize=8)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(models, fontsize=11)
+    ax.set_ylabel("Mean MQM Score")
+    ax.set_title("Cross-Model MQM Comparison")
+    ax.set_ylim(0, 105)
+    ax.legend()
+    ax.grid(axis="y", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(PLOTS_DIR / "cross_model_overview.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_cross_model_by_language(all_data: dict[str, dict]):
+    """MQM by language across all models (unstructured only for clarity)."""
+    models = sorted(all_data.keys())
+    all_langs = set()
+    for m in models:
+        stats = all_data[m].get("unstructured_stats")
+        if stats:
+            all_langs |= set(stats["by_lang"].keys())
+    langs = sorted(all_langs)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x = np.arange(len(langs))
+    n = len(models)
+    w = 0.8 / n
+
+    for i, m in enumerate(models):
+        stats = all_data[m].get("unstructured_stats")
+        means = [stats["by_lang"].get(l, 0) if stats else 0 for l in langs]
+        offset = (i - (n - 1) / 2) * w
+        ax.bar(x + offset, means, w, label=m, color=_model_color(m))
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(langs)
+    ax.set_ylabel("Mean MQM Score")
+    ax.set_title("MQM by Language (Unstructured) — All Models")
+    ax.set_ylim(0, 105)
+    ax.legend()
+    ax.grid(axis="y", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(PLOTS_DIR / "cross_model_by_language.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_cross_model_by_figure_type(all_data: dict[str, dict]):
+    """MQM by figure type across all models (unstructured)."""
+    models = sorted(all_data.keys())
+    all_types = set()
+    for m in models:
+        stats = all_data[m].get("unstructured_stats")
+        if stats:
+            all_types |= set(stats["by_type"].keys())
+    types = sorted(all_types)
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x = np.arange(len(types))
+    n = len(models)
+    w = 0.8 / n
+
+    for i, m in enumerate(models):
+        stats = all_data[m].get("unstructured_stats")
+        means = [stats["by_type"].get(t, 0) if stats else 0 for t in types]
+        offset = (i - (n - 1) / 2) * w
+        ax.bar(x + offset, means, w, label=m, color=_model_color(m))
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(types, fontsize=9)
+    ax.set_ylabel("Mean MQM Score")
+    ax.set_title("MQM by Figure Type (Unstructured) — All Models")
+    ax.set_ylim(0, 105)
+    ax.legend()
+    ax.grid(axis="y", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(PLOTS_DIR / "cross_model_by_figure_type.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_score_distribution_all(all_data: dict[str, dict]):
+    """Overlayed histogram of MQM scores for all models (unstructured)."""
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bins = range(40, 101, 5)
+    for m in sorted(all_data.keys()):
+        results = all_data[m].get("unstructured", [])
+        scores = [r["mqm_score"] for r in results]
+        if scores:
+            ax.hist(scores, bins=bins, alpha=0.5, label=m, color=_model_color(m), edgecolor="white")
+    ax.set_xlabel("MQM Score")
+    ax.set_ylabel("Count")
+    ax.set_title("MQM Score Distribution (Unstructured) — All Models")
+    ax.legend()
+    ax.grid(axis="y", alpha=0.3)
+    fig.tight_layout()
+    fig.savefig(PLOTS_DIR / "cross_model_score_distribution.png", dpi=150)
+    plt.close(fig)
+
+
+def plot_per_model_comparison(model: str, unstruct: list[dict], struct: list[dict]):
+    """Bar chart comparing MQM scores per figure for one model (single-language only)."""
     u_scores = {r["figure_key"]: r["mqm_score"] for r in unstruct if not r["is_multi"]}
     s_scores = {r["figure_key"]: r["mqm_score"] for r in struct if not r["is_multi"]}
     keys = sorted(set(u_scores) & set(s_scores))
+    if not keys:
+        return
 
     fig, ax = plt.subplots(figsize=(14, 5))
     x = range(len(keys))
@@ -184,23 +318,23 @@ def plot_mqm_comparison(unstruct: list[dict], struct: list[dict]):
     ax.set_xticks(list(x))
     ax.set_xticklabels([k.replace("_fig_", "\n") for k in keys], fontsize=7, rotation=45, ha="right")
     ax.set_ylabel("MQM Score (100 = perfect)")
-    ax.set_title("MQM Scores: Unstructured vs Structured (Single-Language Figures)")
+    ax.set_title(f"MQM Scores: {model} — Unstructured vs Structured")
     ax.set_ylim(0, 105)
     ax.legend()
     ax.grid(axis="y", alpha=0.3)
     fig.tight_layout()
-    fig.savefig(PLOTS_DIR / "mqm_comparison_bar.png", dpi=150)
+    fig.savefig(PLOTS_DIR / f"mqm_comparison_{model.replace('.', '_')}.png", dpi=150)
     plt.close(fig)
 
 
-def plot_error_distribution(unstruct_stats: dict, struct_stats: dict):
+def plot_error_distribution(model: str, u_stats: dict, s_stats: dict):
     """Stacked bar chart of error categories for both approaches."""
     cats = ["Accuracy", "Completeness", "Clarity and Readability"]
     sevs = ["Major", "Minor"]
     colors = {"Major": "#C44E52", "Minor": "#CCB974"}
 
     fig, axes = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
-    for ax, stats, title in [(axes[0], unstruct_stats, "Unstructured"), (axes[1], struct_stats, "Structured")]:
+    for ax, stats, title in [(axes[0], u_stats, "Unstructured"), (axes[1], s_stats, "Structured")]:
         bottoms = [0] * len(cats)
         for sev in sevs:
             vals = [stats["cat_sev_counter"].get((c, sev), 0) for c in cats]
@@ -210,280 +344,189 @@ def plot_error_distribution(unstruct_stats: dict, struct_stats: dict):
         ax.set_ylabel("Error Count")
         ax.legend()
         ax.grid(axis="y", alpha=0.3)
-        # Wrap long label
         ax.set_xticklabels(["Accuracy", "Completeness", "Clarity &\nReadability"], fontsize=9)
 
-    fig.suptitle("Error Distribution by Category and Severity", fontsize=13, y=1.02)
+    fig.suptitle(f"Error Distribution — {model}", fontsize=13, y=1.02)
     fig.tight_layout()
-    fig.savefig(PLOTS_DIR / "error_distribution.png", dpi=150, bbox_inches="tight")
-    plt.close(fig)
-
-
-def plot_error_subtypes(unstruct_stats: dict, struct_stats: dict):
-    """Horizontal bar of error sub-types across both approaches."""
-    all_subs = sorted(set(unstruct_stats["sub_counter"]) | set(struct_stats["sub_counter"]))
-    u_vals = [unstruct_stats["sub_counter"].get(s, 0) for s in all_subs]
-    s_vals = [struct_stats["sub_counter"].get(s, 0) for s in all_subs]
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    y = range(len(all_subs))
-    h = 0.35
-    ax.barh([i + h/2 for i in y], u_vals, h, label="Unstructured", color="#4C72B0")
-    ax.barh([i - h/2 for i in y], s_vals, h, label="Structured", color="#DD8452")
-    ax.set_yticks(list(y))
-    ax.set_yticklabels(all_subs, fontsize=8)
-    ax.set_xlabel("Count")
-    ax.set_title("Error Sub-types: Unstructured vs Structured")
-    ax.legend()
-    ax.grid(axis="x", alpha=0.3)
-    fig.tight_layout()
-    fig.savefig(PLOTS_DIR / "error_subtypes.png", dpi=150)
-    plt.close(fig)
-
-
-def plot_by_language(unstruct: list[dict], struct: list[dict]):
-    """MQM scores by language for both approaches."""
-    u_by_lang = defaultdict(list)
-    s_by_lang = defaultdict(list)
-    for r in unstruct:
-        u_by_lang[r["language"]].append(r["mqm_score"])
-    for r in struct:
-        s_by_lang[r["language"]].append(r["mqm_score"])
-
-    langs = sorted(set(u_by_lang) | set(s_by_lang))
-    u_means = [statistics.mean(u_by_lang[l]) if l in u_by_lang else 0 for l in langs]
-    s_means = [statistics.mean(s_by_lang[l]) if l in s_by_lang else 0 for l in langs]
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    x = range(len(langs))
-    w = 0.35
-    ax.bar([i - w/2 for i in x], u_means, w, label="Unstructured", color="#4C72B0")
-    ax.bar([i + w/2 for i in x], s_means, w, label="Structured", color="#DD8452")
-    ax.set_xticks(list(x))
-    ax.set_xticklabels(langs)
-    ax.set_ylabel("Mean MQM Score")
-    ax.set_title("Mean MQM Score by Language")
-    ax.set_ylim(0, 105)
-    ax.legend()
-    ax.grid(axis="y", alpha=0.3)
-    fig.tight_layout()
-    fig.savefig(PLOTS_DIR / "mqm_by_language.png", dpi=150)
-    plt.close(fig)
-
-
-def plot_by_figure_type(unstruct: list[dict], struct: list[dict]):
-    """MQM scores by figure type."""
-    u_by_type = defaultdict(list)
-    s_by_type = defaultdict(list)
-    for r in unstruct:
-        u_by_type[r["figure_type"]].append(r["mqm_score"])
-    for r in struct:
-        s_by_type[r["figure_type"]].append(r["mqm_score"])
-
-    types = sorted(set(u_by_type) | set(s_by_type))
-    u_means = [statistics.mean(u_by_type[t]) if t in u_by_type else 0 for t in types]
-    s_means = [statistics.mean(s_by_type[t]) if t in s_by_type else 0 for t in types]
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    x = range(len(types))
-    w = 0.35
-    ax.bar([i - w/2 for i in x], u_means, w, label="Unstructured", color="#4C72B0")
-    ax.bar([i + w/2 for i in x], s_means, w, label="Structured", color="#DD8452")
-    ax.set_xticks(list(x))
-    ax.set_xticklabels(types)
-    ax.set_ylabel("Mean MQM Score")
-    ax.set_title("Mean MQM Score by Figure Type")
-    ax.set_ylim(0, 105)
-    ax.legend()
-    ax.grid(axis="y", alpha=0.3)
-    fig.tight_layout()
-    fig.savefig(PLOTS_DIR / "mqm_by_figure_type.png", dpi=150)
-    plt.close(fig)
-
-
-def plot_score_distribution(unstruct: list[dict], struct: list[dict]):
-    """Histogram of MQM score distributions."""
-    u_scores = [r["mqm_score"] for r in unstruct]
-    s_scores = [r["mqm_score"] for r in struct]
-
-    fig, ax = plt.subplots(figsize=(8, 5))
-    bins = range(55, 101, 5)
-    ax.hist(u_scores, bins=bins, alpha=0.6, label="Unstructured", color="#4C72B0", edgecolor="white")
-    ax.hist(s_scores, bins=bins, alpha=0.6, label="Structured", color="#DD8452", edgecolor="white")
-    ax.set_xlabel("MQM Score")
-    ax.set_ylabel("Count")
-    ax.set_title("MQM Score Distribution")
-    ax.legend()
-    ax.grid(axis="y", alpha=0.3)
-    fig.tight_layout()
-    fig.savefig(PLOTS_DIR / "score_distribution.png", dpi=150)
+    fig.savefig(PLOTS_DIR / f"error_distribution_{model.replace('.', '_')}.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
 
 
 # ── Markdown ──────────────────────────────────────────────────────────
 
-def generate_markdown(
-    unstruct: list[dict], struct: list[dict],
-    u_stats: dict, s_stats: dict,
-) -> str:
+def generate_markdown(all_data: dict[str, dict]) -> str:
+    models = sorted(all_data.keys())
     lines = []
-    lines.append("# Sample Evaluation Summary")
+    lines.append("# Evaluation Summary — Multi-Model Comparison")
     lines.append("")
-    lines.append("> MQM-based evaluation of GPT-4o-mini figure annotations (20 sample figures)")
+    n_figs = 50  # 10 per folder × 5 folders
+    lines.append(f"> MQM-based evaluation of {len(models)} models on {n_figs} sample figures")
+    lines.append(f"> Models: {', '.join(f'**{m}**' for m in models)}")
     lines.append("> ")
     lines.append("> - **Unstructured**: paragraph-only descriptions")
-    lines.append("> - **Structured**: paragraph + component breakdown (Option C: paragraph MQM for fair comparison)")
+    lines.append("> - **Structured**: paragraph + component breakdown (paragraph MQM for fair comparison)")
     lines.append("")
 
-    # ── Overview
-    lines.append("## Overview")
+    # ── Cross-Model Overview
+    lines.append("## Cross-Model Overview")
     lines.append("")
-    lines.append("| Metric | Unstructured | Structured |")
-    lines.append("|---|---|---|")
-    lines.append(f"| Evaluations | {u_stats['n']} | {s_stats['n']} |")
-    lines.append(f"| MQM Mean | {u_stats['mqm_mean']:.1f} | {s_stats['mqm_mean']:.1f} |")
-    lines.append(f"| MQM Median | {u_stats['mqm_median']:.1f} | {s_stats['mqm_median']:.1f} |")
-    lines.append(f"| MQM Std Dev | {u_stats['mqm_stdev']:.1f} | {s_stats['mqm_stdev']:.1f} |")
-    lines.append(f"| MQM Min | {u_stats['mqm_min']:.1f} | {s_stats['mqm_min']:.1f} |")
-    lines.append(f"| MQM Max | {u_stats['mqm_max']:.1f} | {s_stats['mqm_max']:.1f} |")
-    lines.append(f"| Avg Errors/Figure | {u_stats['errors_mean']:.1f} | {s_stats['errors_mean']:.1f} |")
-    lines.append(f"| Total Errors | {u_stats['errors_total']} | {s_stats['errors_total']} |")
-    lines.append(f"| Avg Penalty | {u_stats['penalty_mean']:.1f} | {s_stats['penalty_mean']:.1f} |")
-    if s_stats["bv_completeness_mean"] is not None:
-        lines.append(f"| Breakdown Field Completeness | — | {s_stats['bv_completeness_mean']*100:.0f}% |")
-    if s_stats["bv_count_consistent_pct"] is not None:
-        lines.append(f"| Breakdown Count Consistency | — | {s_stats['bv_count_consistent_pct']:.0f}% |")
+    lines.append("![Cross-Model Overview](eval_plots/cross_model_overview.png)")
     lines.append("")
 
-    # ── Score comparison plot
-    lines.append("## MQM Score Comparison")
-    lines.append("")
-    lines.append("![MQM Comparison](eval_plots/mqm_comparison_bar.png)")
+    # Summary table
+    header = "| Metric |" + " | ".join(f"{m} (U) | {m} (S)" for m in models) + " |"
+    sep = "|---|" + " | ".join(["---", "---"] * len(models)) + " |"
+    lines.append(header)
+    lines.append(sep.replace(" | ", "---|").replace("|---|", "|---").rstrip(" |") + "|")
+
+    # Build a cleaner separator
+    cols = 1 + len(models) * 2
+    lines[-1] = "|" + "---|" * cols
+
+    metrics = [
+        ("Evaluations", "n", "{}", False),
+        ("MQM Mean", "mqm_mean", "{:.1f}", False),
+        ("MQM Median", "mqm_median", "{:.1f}", False),
+        ("MQM Std Dev", "mqm_stdev", "{:.1f}", False),
+        ("MQM Min", "mqm_min", "{:.1f}", False),
+        ("MQM Max", "mqm_max", "{:.1f}", False),
+        ("Avg Errors/Fig", "errors_mean", "{:.1f}", False),
+        ("Total Errors", "errors_total", "{}", False),
+        ("Avg Penalty", "penalty_mean", "{:.1f}", False),
+    ]
+
+    for label, key, fmt, struct_only in metrics:
+        row = f"| {label} |"
+        for m in models:
+            u_stats = all_data[m].get("unstructured_stats", {})
+            s_stats = all_data[m].get("structured_stats", {})
+            u_val = fmt.format(u_stats[key]) if u_stats and key in u_stats else "—"
+            s_val = fmt.format(s_stats[key]) if s_stats and key in s_stats else "—"
+            row += f" {u_val} | {s_val} |"
+        lines.append(row)
     lines.append("")
 
-    # ── Per-figure table
-    lines.append("## Per-Figure Results")
+    # ── Cross-model plots
+    lines.append("## MQM by Language — All Models")
     lines.append("")
-    lines.append("### Single-Language Figures")
-    lines.append("")
-    lines.append("| Figure | Type | Unstruct MQM | Unstruct Errors | Struct MQM | Struct Errors | Breakdown |")
-    lines.append("|---|---|---|---|---|---|---|")
-
-    u_by_key = {}
-    s_by_key = {}
-    for r in unstruct:
-        if not r["is_multi"]:
-            u_by_key[r["figure_key"]] = r
-    for r in struct:
-        if not r["is_multi"]:
-            s_by_key[r["figure_key"]] = r
-
-    for key in sorted(set(u_by_key) | set(s_by_key)):
-        u = u_by_key.get(key, {})
-        s = s_by_key.get(key, {})
-        ft = u.get("figure_type", s.get("figure_type", ""))
-        u_mqm = f"{u['mqm_score']:.1f}" if u else "—"
-        u_err = str(u.get("error_count", "—")) if u else "—"
-        s_mqm = f"{s['mqm_score']:.1f}" if s else "—"
-        s_err = str(s.get("error_count", "—")) if s else "—"
-        bv = s.get("breakdown_verification", {})
-        bv_str = f"{bv['field_completeness']*100:.0f}%" if bv else "—"
-        lines.append(f"| {key} | {ft} | {u_mqm} | {u_err} | {s_mqm} | {s_err} | {bv_str} |")
+    lines.append("![Cross-Model by Language](eval_plots/cross_model_by_language.png)")
     lines.append("")
 
-    # Multi-language table
-    lines.append("### Multi-Language Figures")
-    lines.append("")
-    lines.append("| Figure | Language | Unstruct MQM | Unstruct Errors | Struct MQM | Struct Errors |")
-    lines.append("|---|---|---|---|---|---|")
+    # Language comparison table
+    all_langs = set()
+    for m in models:
+        u_stats = all_data[m].get("unstructured_stats")
+        if u_stats:
+            all_langs |= set(u_stats["by_lang"].keys())
+    langs = sorted(all_langs)
 
-    u_multi = defaultdict(dict)
-    s_multi = defaultdict(dict)
-    for r in unstruct:
-        if r["is_multi"]:
-            u_multi[r["figure_key"]][r["language"]] = r
-    for r in struct:
-        if r["is_multi"]:
-            s_multi[r["figure_key"]][r["language"]] = r
-
-    for key in sorted(set(u_multi) | set(s_multi)):
-        langs = sorted(set(list(u_multi.get(key, {}).keys()) + list(s_multi.get(key, {}).keys())))
-        for lang in langs:
-            u = u_multi.get(key, {}).get(lang, {})
-            s = s_multi.get(key, {}).get(lang, {})
-            u_mqm = f"{u['mqm_score']:.1f}" if u else "—"
-            u_err = str(u.get("error_count", "—")) if u else "—"
-            s_mqm = f"{s['mqm_score']:.1f}" if s else "—"
-            s_err = str(s.get("error_count", "—")) if s else "—"
-            lines.append(f"| {key} | {lang} | {u_mqm} | {u_err} | {s_mqm} | {s_err} |")
+    header = "| Language |" + " | ".join(models) + " |"
+    lines.append(header)
+    lines.append("|---|" + "---|" * len(models))
+    for lang in langs:
+        row = f"| {lang} |"
+        for m in models:
+            u_stats = all_data[m].get("unstructured_stats")
+            val = f"{u_stats['by_lang'][lang]:.1f}" if u_stats and lang in u_stats["by_lang"] else "—"
+            row += f" {val} |"
+        lines.append(row)
     lines.append("")
 
-    # ── Score distribution
-    lines.append("## Score Distribution")
+    lines.append("## MQM by Figure Type — All Models")
     lines.append("")
-    lines.append("![Score Distribution](eval_plots/score_distribution.png)")
-    lines.append("")
-
-    # ── By language
-    lines.append("## MQM by Language")
-    lines.append("")
-    lines.append("![MQM by Language](eval_plots/mqm_by_language.png)")
-    lines.append("")
-    lines.append("| Language | Unstruct Mean | Struct Mean |")
-    lines.append("|---|---|---|")
-    all_langs = sorted(set(u_stats["by_lang"]) | set(s_stats["by_lang"]))
-    for lang in all_langs:
-        u_val = f"{u_stats['by_lang'][lang]:.1f}" if lang in u_stats["by_lang"] else "—"
-        s_val = f"{s_stats['by_lang'][lang]:.1f}" if lang in s_stats["by_lang"] else "—"
-        lines.append(f"| {lang} | {u_val} | {s_val} |")
+    lines.append("![Cross-Model by Figure Type](eval_plots/cross_model_by_figure_type.png)")
     lines.append("")
 
-    # ── By figure type
-    lines.append("## MQM by Figure Type")
-    lines.append("")
-    lines.append("![MQM by Figure Type](eval_plots/mqm_by_figure_type.png)")
-    lines.append("")
-    lines.append("| Figure Type | Unstruct Mean | Struct Mean |")
-    lines.append("|---|---|---|")
-    all_types = sorted(set(u_stats["by_type"]) | set(s_stats["by_type"]))
-    for ft in all_types:
-        u_val = f"{u_stats['by_type'][ft]:.1f}" if ft in u_stats["by_type"] else "—"
-        s_val = f"{s_stats['by_type'][ft]:.1f}" if ft in s_stats["by_type"] else "—"
-        lines.append(f"| {ft} | {u_val} | {s_val} |")
+    # Figure type comparison table
+    all_types = set()
+    for m in models:
+        u_stats = all_data[m].get("unstructured_stats")
+        if u_stats:
+            all_types |= set(u_stats["by_type"].keys())
+    types = sorted(all_types)
+
+    header = "| Figure Type |" + " | ".join(models) + " |"
+    lines.append(header)
+    lines.append("|---|" + "---|" * len(models))
+    for ft in types:
+        row = f"| {ft} |"
+        for m in models:
+            u_stats = all_data[m].get("unstructured_stats")
+            val = f"{u_stats['by_type'][ft]:.1f}" if u_stats and ft in u_stats["by_type"] else "—"
+            row += f" {val} |"
+        lines.append(row)
     lines.append("")
 
-    # ── Error analysis
-    lines.append("## Error Analysis")
+    lines.append("## Score Distribution — All Models")
     lines.append("")
-    lines.append("![Error Distribution](eval_plots/error_distribution.png)")
-    lines.append("")
-    lines.append("### Error Counts by Category and Severity")
-    lines.append("")
-    lines.append("| Category | Severity | Unstructured | Structured |")
-    lines.append("|---|---|---|---|")
-    for cat in ["Accuracy", "Completeness", "Clarity and Readability"]:
-        for sev in ["Major", "Minor"]:
-            u_val = u_stats["cat_sev_counter"].get((cat, sev), 0)
-            s_val = s_stats["cat_sev_counter"].get((cat, sev), 0)
-            lines.append(f"| {cat} | {sev} | {u_val} | {s_val} |")
+    lines.append("![Score Distribution](eval_plots/cross_model_score_distribution.png)")
     lines.append("")
 
-    # ── Error sub-types
-    lines.append("### Error Sub-types")
-    lines.append("")
-    lines.append("![Error Sub-types](eval_plots/error_subtypes.png)")
-    lines.append("")
-    lines.append("| Sub-type | Unstructured | Structured |")
-    lines.append("|---|---|---|")
-    all_subs = sorted(set(u_stats["sub_counter"]) | set(s_stats["sub_counter"]),
-                      key=lambda s: -(u_stats["sub_counter"].get(s, 0) + s_stats["sub_counter"].get(s, 0)))
-    for sub in all_subs:
-        u_val = u_stats["sub_counter"].get(sub, 0)
-        s_val = s_stats["sub_counter"].get(sub, 0)
-        lines.append(f"| {sub} | {u_val} | {s_val} |")
-    lines.append("")
+    # ── Per-Model Detail Sections
+    for m in models:
+        lines.append(f"---")
+        lines.append("")
+        lines.append(f"## Model: {m}")
+        lines.append("")
 
-    # ── MQM formula reminder
+        u_stats = all_data[m].get("unstructured_stats")
+        s_stats = all_data[m].get("structured_stats")
+        unstruct = all_data[m].get("unstructured", [])
+        struct = all_data[m].get("structured", [])
+
+        if not u_stats or u_stats["n"] == 0:
+            lines.append("*No unstructured evaluation results available.*")
+            lines.append("")
+            continue
+
+        safe_name = m.replace(".", "_")
+
+        # Per-figure comparison plot
+        lines.append(f"### Unstructured vs Structured")
+        lines.append("")
+        lines.append(f"![{m} Comparison](eval_plots/mqm_comparison_{safe_name}.png)")
+        lines.append("")
+
+        # Overview table
+        lines.append("| Metric | Unstructured | Structured |")
+        lines.append("|---|---|---|")
+        lines.append(f"| Evaluations | {u_stats['n']} | {s_stats['n'] if s_stats else '—'} |")
+        def _sf(stats, key, fmt=".1f"):
+            """Format a stat value or return '—' if stats is None."""
+            if not stats:
+                return "—"
+            return f"{stats[key]:{fmt}}"
+
+        lines.append(f"| MQM Mean | {u_stats['mqm_mean']:.1f} | {_sf(s_stats, 'mqm_mean')} |")
+        lines.append(f"| MQM Median | {u_stats['mqm_median']:.1f} | {_sf(s_stats, 'mqm_median')} |")
+        lines.append(f"| MQM Std Dev | {u_stats['mqm_stdev']:.1f} | {_sf(s_stats, 'mqm_stdev')} |")
+        lines.append(f"| Avg Errors/Figure | {u_stats['errors_mean']:.1f} | {_sf(s_stats, 'errors_mean')} |")
+        lines.append(f"| Total Errors | {u_stats['errors_total']} | {s_stats['errors_total'] if s_stats else '—'} |")
+        if s_stats and s_stats.get("bv_completeness_mean") is not None:
+            lines.append(f"| Breakdown Completeness | — | {s_stats['bv_completeness_mean']*100:.0f}% |")
+        if s_stats and s_stats.get("bv_count_consistent_pct") is not None:
+            lines.append(f"| Count Consistency | — | {s_stats['bv_count_consistent_pct']:.0f}% |")
+        lines.append("")
+
+        # Error distribution plot
+        lines.append(f"### Error Distribution")
+        lines.append("")
+        lines.append(f"![{m} Errors](eval_plots/error_distribution_{safe_name}.png)")
+        lines.append("")
+
+        # Error table
+        lines.append("| Category | Severity | Unstructured | Structured |")
+        lines.append("|---|---|---|---|")
+        for cat in ["Accuracy", "Completeness", "Clarity and Readability"]:
+            for sev in ["Major", "Minor"]:
+                u_val = u_stats["cat_sev_counter"].get((cat, sev), 0)
+                s_val = s_stats["cat_sev_counter"].get((cat, sev), 0) if s_stats else "—"
+                lines.append(f"| {cat} | {sev} | {u_val} | {s_val} |")
+        lines.append("")
+
+    # ── Scoring methodology
+    lines.append("---")
+    lines.append("")
     lines.append("## Scoring Methodology")
     lines.append("")
     lines.append("MQM Score = max(0, 100 - total_penalty)")
@@ -497,7 +540,7 @@ def generate_markdown(
     lines.append("- **100** = error-free description")
     lines.append("- **0** = penalties exceed 100 points")
     lines.append("- Judge model: `gpt-4o-mini` via OpenRouter")
-    lines.append("- Sample: 20 figures (4 per language folder), 20 single-language + multi-language per-language evaluations")
+    lines.append(f"- Sample: {n_figs} figures (10 per language folder), {len(models)} models")
     lines.append("")
 
     return "\n".join(lines)
@@ -506,37 +549,74 @@ def generate_markdown(
 # ── Main ──────────────────────────────────────────────────────────────
 
 def main():
-    print("Loading evaluation results...")
-    unstruct = load_eval_results(EVAL_DIR)
-    struct = load_eval_results(EVAL_STRUCT_DIR)
-    print(f"  Unstructured: {len(unstruct)} evaluations")
-    print(f"  Structured:   {len(struct)} evaluations")
+    # Auto-discover models
+    u_models = discover_models(EVAL_DIR)
+    s_models = discover_models(EVAL_STRUCT_DIR)
+    all_models = sorted(set(u_models) | set(s_models))
 
-    print("Computing statistics...")
-    u_stats = compute_stats(unstruct)
-    s_stats = compute_stats(struct)
+    if not all_models:
+        print("No evaluation results found.")
+        return
 
-    print("Generating plots...")
-    plot_mqm_comparison(unstruct, struct)
-    print("  ✓ mqm_comparison_bar.png")
-    plot_error_distribution(u_stats, s_stats)
-    print("  ✓ error_distribution.png")
-    plot_error_subtypes(u_stats, s_stats)
-    print("  ✓ error_subtypes.png")
-    plot_by_language(unstruct, struct)
-    print("  ✓ mqm_by_language.png")
-    plot_by_figure_type(unstruct, struct)
-    print("  ✓ mqm_by_figure_type.png")
-    plot_score_distribution(unstruct, struct)
-    print("  ✓ score_distribution.png")
+    print(f"Discovered models: {', '.join(all_models)}")
 
-    print("Writing summary markdown...")
-    md = generate_markdown(unstruct, struct, u_stats, s_stats)
+    # Load all data
+    all_data: dict[str, dict] = {}
+    for model in all_models:
+        print(f"\nLoading {model}...")
+        unstruct = load_eval_results(EVAL_DIR, model) if model in u_models else []
+        struct = load_eval_results(EVAL_STRUCT_DIR, model) if model in s_models else []
+        u_stats = compute_stats(unstruct) if unstruct else None
+        s_stats = compute_stats(struct) if struct else None
+        all_data[model] = {
+            "unstructured": unstruct,
+            "structured": struct,
+            "unstructured_stats": u_stats,
+            "structured_stats": s_stats,
+        }
+        print(f"  Unstructured: {len(unstruct)} evaluations")
+        print(f"  Structured:   {len(struct)} evaluations")
+
+    # Generate cross-model plots
+    print("\nGenerating cross-model plots...")
+    plot_cross_model_overview(all_data)
+    print("  + cross_model_overview.png")
+    plot_cross_model_by_language(all_data)
+    print("  + cross_model_by_language.png")
+    plot_cross_model_by_figure_type(all_data)
+    print("  + cross_model_by_figure_type.png")
+    plot_score_distribution_all(all_data)
+    print("  + cross_model_score_distribution.png")
+
+    # Generate per-model plots
+    for model in all_models:
+        d = all_data[model]
+        unstruct = d["unstructured"]
+        struct = d["structured"]
+        u_stats = d["unstructured_stats"]
+        s_stats = d["structured_stats"]
+
+        if unstruct and struct:
+            plot_per_model_comparison(model, unstruct, struct)
+            print(f"  + mqm_comparison_{model.replace('.', '_')}.png")
+        if u_stats and s_stats:
+            plot_error_distribution(model, u_stats, s_stats)
+            print(f"  + error_distribution_{model.replace('.', '_')}.png")
+
+    # Generate markdown
+    print("\nWriting summary markdown...")
+    md = generate_markdown(all_data)
     OUTPUT_MD.write_text(md, encoding="utf-8")
-    print(f"  ✓ {OUTPUT_MD}")
+    print(f"  + {OUTPUT_MD}")
 
-    print()
-    print(f"Summary: Unstructured MQM={u_stats['mqm_mean']:.1f} vs Structured MQM={s_stats['mqm_mean']:.1f}")
+    # Print quick summary
+    print("\n=== Quick Summary ===")
+    for model in all_models:
+        u = all_data[model]["unstructured_stats"]
+        s = all_data[model]["structured_stats"]
+        u_mqm = f"{u['mqm_mean']:.1f}" if u else "N/A"
+        s_mqm = f"{s['mqm_mean']:.1f}" if s else "N/A"
+        print(f"  {model}: Unstructured={u_mqm}, Structured={s_mqm}")
     print("Done.")
 
 
