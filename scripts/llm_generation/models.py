@@ -134,11 +134,111 @@ class GPT4oMiniAnnotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
+# GPT-5.2 via OpenRouter
+# ---------------------------------------------------------------------------
+
+class GPT52Annotator(FigureAnnotator):
+    """GPT-5.2 via OpenRouter."""
+
+    def __init__(self, max_tokens: int = 1024):
+        self.max_tokens = max_tokens
+
+    @property
+    def model_name(self) -> str:
+        return "gpt-5.2"
+
+    @property
+    def router_model_id(self) -> str:
+        return "openai/gpt-5.2"
+
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
+        client = _get_openrouter_client()
+        b64 = _encode_image_base64(image_path)
+
+        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
+
+        user_content = [
+            {
+                "type": "image_url",
+                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
+            },
+            {
+                "type": "text",
+                "text": user_text,
+            },
+        ]
+
+        def _call():
+            response = client.chat.completions.create(
+                model=self.router_model_id,
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": user_content},
+                ],
+                max_tokens=self.max_tokens,
+            )
+            return response.choices[0].message.content.strip()
+
+        return _retry(_call)
+
+
+# ---------------------------------------------------------------------------
+# Claude Opus 4.6 via OpenRouter
+# ---------------------------------------------------------------------------
+
+class Opus46Annotator(FigureAnnotator):
+    """Claude Opus 4.6 via OpenRouter."""
+
+    def __init__(self, max_tokens: int = 1024):
+        self.max_tokens = max_tokens
+
+    @property
+    def model_name(self) -> str:
+        return "opus-4.6"
+
+    @property
+    def router_model_id(self) -> str:
+        return "anthropic/claude-opus-4.6"
+
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
+        client = _get_openrouter_client()
+        b64 = _encode_image_base64(image_path)
+
+        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
+
+        user_content = [
+            {
+                "type": "image_url",
+                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
+            },
+            {
+                "type": "text",
+                "text": user_text,
+            },
+        ]
+
+        def _call():
+            response = client.chat.completions.create(
+                model=self.router_model_id,
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": user_content},
+                ],
+                max_tokens=self.max_tokens,
+            )
+            return response.choices[0].message.content.strip()
+
+        return _retry(_call)
+
+
+# ---------------------------------------------------------------------------
 # Registry — maps model_name strings to annotator classes
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
     "gpt-4o-mini": GPT4oMiniAnnotator,
+    "gpt-5.2": GPT52Annotator,
+    "opus-4.6": Opus46Annotator,
 }
 
 

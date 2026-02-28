@@ -36,13 +36,13 @@ SUBFOLDERS = [
     "multi_language",
 ]
 
-# Figures to process: first 4 from each folder
+# Figures to process: first 10 from each folder
 SAMPLE_PREFIXES = {
-    "bulgarian_only": [f"bulgarian_fig_{i:03d}" for i in range(1, 5)],
-    "chinese_only": [f"chinese_fig_{i:03d}" for i in range(1, 5)],
-    "english_only": [f"english_fig_{i:03d}" for i in range(1, 5)],
-    "german_only": [f"german_fig_{i:03d}" for i in range(1, 5)],
-    "multi_language": [f"multi_fig_{i:03d}" for i in range(1, 5)],
+    "bulgarian_only": [f"bulgarian_fig_{i:03d}" for i in range(1, 11)],
+    "chinese_only": [f"chinese_fig_{i:03d}" for i in range(1, 11)],
+    "english_only": [f"english_fig_{i:03d}" for i in range(1, 11)],
+    "german_only": [f"german_fig_{i:03d}" for i in range(1, 11)],
+    "multi_language": [f"multi_fig_{i:03d}" for i in range(1, 11)],
 }
 
 
@@ -175,4 +175,4 @@ def run(model_name: str = "gpt-4o-mini"):
 
 
 if __name__ == "__main__":
-    run()
+    run(sys.argv[1] if len(sys.argv) > 1 else "gpt-4o-mini")
