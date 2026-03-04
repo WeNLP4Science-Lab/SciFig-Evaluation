@@ -93,57 +93,6 @@ def _extract_json(text: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# GPT-4o-mini via OpenRouter (structured output)
-# ---------------------------------------------------------------------------
-
-class GPT4oMiniAnnotator(FigureAnnotator):
-    """GPT-4o-mini via OpenRouter — structured output."""
-
-    def __init__(self, max_tokens: int = 2048):
-        self.max_tokens = max_tokens
-
-    @property
-    def model_name(self) -> str:
-        return "gpt-4o-mini"
-
-    @property
-    def router_model_id(self) -> str:
-        return "openai/gpt-4o-mini"
-
-    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> dict:
-        client = _get_openrouter_client()
-        b64 = _encode_image_base64(image_path)
-
-        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
-
-        user_content = [
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
-            },
-            {
-                "type": "text",
-                "text": user_text,
-            },
-        ]
-
-        def _call():
-            response = client.chat.completions.create(
-                model=self.router_model_id,
-                messages=[
-                    {"role": "system", "content": prompt},
-                    {"role": "user", "content": user_content},
-                ],
-                max_tokens=self.max_tokens,
-                response_format={"type": "json_object"},
-            )
-            raw = response.choices[0].message.content.strip()
-            return _extract_json(raw)
-
-        return _retry(_call)
-
-
-# ---------------------------------------------------------------------------
 # GPT-5.2 via OpenRouter (structured output)
 # ---------------------------------------------------------------------------
 
@@ -195,51 +144,60 @@ class GPT52Annotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
-# Claude Opus 4.6 via OpenRouter (structured output)
+# Gemini 3.1 Pro via Vertex AI (structured output)
 # ---------------------------------------------------------------------------
 
-class Opus46Annotator(FigureAnnotator):
-    """Claude Opus 4.6 via OpenRouter — structured output."""
+def _get_vertex_client():
+    from google import genai
 
-    def __init__(self, max_tokens: int = 2048):
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT")
+    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
+    if not project:
+        raise EnvironmentError(
+            "GOOGLE_CLOUD_PROJECT environment variable is not set. "
+            "Set it to your GCP project ID."
+        )
+    return genai.Client(vertexai=True, project=project, location=location)
+
+
+class Gemini31ProAnnotator(FigureAnnotator):
+    """Gemini 3.1 Pro Preview via Vertex AI — structured output."""
+
+    def __init__(self, max_tokens: int = 4096):
         self.max_tokens = max_tokens
 
     @property
     def model_name(self) -> str:
-        return "opus-4.6"
+        return "gemini-3.1-pro"
 
     @property
     def router_model_id(self) -> str:
-        return "anthropic/claude-opus-4.6"
+        return "gemini-3.1-pro-preview"
 
     def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> dict:
-        client = _get_openrouter_client()
-        b64 = _encode_image_base64(image_path)
+        from google.genai import types
 
+        client = _get_vertex_client()
+
+        image_bytes = image_path.read_bytes()
         user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
 
-        user_content = [
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
-            },
-            {
-                "type": "text",
-                "text": user_text,
-            },
+        contents = [
+            prompt,
+            types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
+            user_text,
         ]
 
         def _call():
-            response = client.chat.completions.create(
+            response = client.models.generate_content(
                 model=self.router_model_id,
-                messages=[
-                    {"role": "system", "content": prompt},
-                    {"role": "user", "content": user_content},
-                ],
-                max_tokens=self.max_tokens,
-                response_format={"type": "json_object"},
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    max_output_tokens=self.max_tokens,
+                    response_mime_type="application/json",
+                ),
             )
-            raw = response.choices[0].message.content.strip()
+            raw = response.text.strip()
             return _extract_json(raw)
 
         return _retry(_call)
@@ -250,9 +208,8 @@ class Opus46Annotator(FigureAnnotator):
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
-    "gpt-4o-mini": GPT4oMiniAnnotator,
     "gpt-5.2": GPT52Annotator,
-    "opus-4.6": Opus46Annotator,
+    "gemini-3.1-pro": Gemini31ProAnnotator,
 }
 
 

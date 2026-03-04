@@ -3,8 +3,7 @@
 Each model implements the FigureAnnotator interface. To add a new model,
 subclass FigureAnnotator and implement annotate_figure() and model_name.
 
-All models route through OpenRouter (https://openrouter.ai).
-Set the OPENROUTER_API_KEY environment variable before use.
+GPT-5.2 routes through OpenRouter; Gemini 3.1 Pro uses Vertex AI directly.
 """
 
 import base64
@@ -25,28 +24,15 @@ class FigureAnnotator(ABC):
     @property
     @abstractmethod
     def model_name(self) -> str:
-        """Short identifier for this model (used in filenames and logs)."""
         ...
 
     @property
     @abstractmethod
     def router_model_id(self) -> str:
-        """OpenRouter model identifier (e.g. 'openai/gpt-4o-mini')."""
         ...
 
     @abstractmethod
     def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
-        """Generate a text description of a scientific figure.
-
-        Args:
-            prompt: The system/instruction prompt for figure description.
-            image_path: Path to the figure image file (PNG).
-            caption: The original figure caption from the paper.
-            paper_title: Title of the source paper (provides context).
-
-        Returns:
-            Generated figure description as a string.
-        """
         ...
 
     def __repr__(self) -> str:
@@ -54,13 +40,11 @@ class FigureAnnotator(ABC):
 
 
 def _encode_image_base64(image_path: Path) -> str:
-    """Read an image file and return its base64-encoded string."""
     with open(image_path, "rb") as f:
         return base64.b64encode(f.read()).decode("utf-8")
 
 
 def _retry(func, max_retries: int = 3, backoff: float = 2.0):
-    """Simple retry wrapper with exponential backoff."""
     delay = 1.0
     for attempt in range(1, max_retries + 1):
         try:
@@ -75,7 +59,6 @@ def _retry(func, max_retries: int = 3, backoff: float = 2.0):
 
 
 def _get_openrouter_client():
-    """Create an OpenAI client pointed at OpenRouter."""
     from openai import OpenAI
 
     api_key = os.environ.get("OPENROUTER_API_KEY")
@@ -84,53 +67,17 @@ def _get_openrouter_client():
     return OpenAI(base_url=OPENROUTER_BASE_URL, api_key=api_key)
 
 
-# ---------------------------------------------------------------------------
-# GPT-4o-mini via OpenRouter
-# ---------------------------------------------------------------------------
+def _get_vertex_client():
+    from google import genai
 
-class GPT4oMiniAnnotator(FigureAnnotator):
-    """GPT-4o-mini via OpenRouter."""
-
-    def __init__(self, max_tokens: int = 1024):
-        self.max_tokens = max_tokens
-
-    @property
-    def model_name(self) -> str:
-        return "gpt-4o-mini"
-
-    @property
-    def router_model_id(self) -> str:
-        return "openai/gpt-4o-mini"
-
-    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
-        client = _get_openrouter_client()
-        b64 = _encode_image_base64(image_path)
-
-        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
-
-        user_content = [
-            {
-                "type": "image_url",
-                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
-            },
-            {
-                "type": "text",
-                "text": user_text,
-            },
-        ]
-
-        def _call():
-            response = client.chat.completions.create(
-                model=self.router_model_id,
-                messages=[
-                    {"role": "system", "content": prompt},
-                    {"role": "user", "content": user_content},
-                ],
-                max_tokens=self.max_tokens,
-            )
-            return response.choices[0].message.content.strip()
-
-        return _retry(_call)
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT")
+    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
+    if not project:
+        raise EnvironmentError(
+            "GOOGLE_CLOUD_PROJECT environment variable is not set. "
+            "Set it to your GCP project ID."
+        )
+    return genai.Client(vertexai=True, project=project, location=location)
 
 
 # ---------------------------------------------------------------------------
@@ -140,7 +87,7 @@ class GPT4oMiniAnnotator(FigureAnnotator):
 class GPT52Annotator(FigureAnnotator):
     """GPT-5.2 via OpenRouter."""
 
-    def __init__(self, max_tokens: int = 1024):
+    def __init__(self, max_tokens: int = 2048):
         self.max_tokens = max_tokens
 
     @property
@@ -183,22 +130,67 @@ class GPT52Annotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
-# Claude Opus 4.6 via OpenRouter
+# Gemini 3.1 Pro via Vertex AI
 # ---------------------------------------------------------------------------
 
-class Opus46Annotator(FigureAnnotator):
-    """Claude Opus 4.6 via OpenRouter."""
+class Gemini31ProAnnotator(FigureAnnotator):
+    """Gemini 3.1 Pro Preview via Vertex AI."""
 
-    def __init__(self, max_tokens: int = 1024):
+    def __init__(self, max_tokens: int = 4096):
         self.max_tokens = max_tokens
 
     @property
     def model_name(self) -> str:
-        return "opus-4.6"
+        return "gemini-3.1-pro"
 
     @property
     def router_model_id(self) -> str:
-        return "anthropic/claude-opus-4.6"
+        return "gemini-3.1-pro-preview"
+
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
+        from google.genai import types
+
+        client = _get_vertex_client()
+
+        image_bytes = image_path.read_bytes()
+        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
+
+        contents = [
+            prompt,
+            types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
+            user_text,
+        ]
+
+        def _call():
+            response = client.models.generate_content(
+                model=self.router_model_id,
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    max_output_tokens=self.max_tokens,
+                ),
+            )
+            return response.text.strip()
+
+        return _retry(_call)
+
+
+# ---------------------------------------------------------------------------
+# Llama 4 Maverick via OpenRouter
+# ---------------------------------------------------------------------------
+
+class Llama4MaverickAnnotator(FigureAnnotator):
+    """Llama 4 Maverick via OpenRouter."""
+
+    def __init__(self, max_tokens: int = 2048):
+        self.max_tokens = max_tokens
+
+    @property
+    def model_name(self) -> str:
+        return "llama4-maverick"
+
+    @property
+    def router_model_id(self) -> str:
+        return "meta-llama/llama-4-maverick-17b-128e-instruct"
 
     def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
         client = _get_openrouter_client()
@@ -232,30 +224,30 @@ class Opus46Annotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
-# Registry — maps model_name strings to annotator classes
+# Registry
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
-    "gpt-4o-mini": GPT4oMiniAnnotator,
     "gpt-5.2": GPT52Annotator,
-    "opus-4.6": Opus46Annotator,
+    "gemini-3.1-pro": Gemini31ProAnnotator,
+    "llama4-maverick": Llama4MaverickAnnotator,
 }
 
 
+def _get_all_models() -> dict[str, type[FigureAnnotator]]:
+    """Merge closed-source and open-source model registries."""
+    all_models = dict(MODEL_REGISTRY)
+    try:
+        from llm_generation.models_opensource import OPENSOURCE_MODEL_REGISTRY
+        all_models.update(OPENSOURCE_MODEL_REGISTRY)
+    except ImportError:
+        pass
+    return all_models
+
+
 def get_annotator(model_name: str, **kwargs) -> FigureAnnotator:
-    """Instantiate an annotator by model name.
-
-    Args:
-        model_name: Key from MODEL_REGISTRY (e.g. "gpt-4o-mini").
-        **kwargs: Passed to the annotator constructor.
-
-    Returns:
-        An instance of the requested FigureAnnotator.
-
-    Raises:
-        ValueError: If model_name is not in the registry.
-    """
-    if model_name not in MODEL_REGISTRY:
-        available = ", ".join(sorted(MODEL_REGISTRY.keys()))
+    all_models = _get_all_models()
+    if model_name not in all_models:
+        available = ", ".join(sorted(all_models.keys()))
         raise ValueError(f"Unknown model {model_name!r}. Available: {available}")
-    return MODEL_REGISTRY[model_name](**kwargs)
+    return all_models[model_name](**kwargs)
