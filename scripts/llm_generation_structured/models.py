@@ -93,22 +93,22 @@ def _extract_json(text: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# GPT-4o-mini via OpenRouter (structured output)
+# GPT-5.2 via OpenRouter (structured output)
 # ---------------------------------------------------------------------------
 
-class GPT4oMiniAnnotator(FigureAnnotator):
-    """GPT-4o-mini via OpenRouter — structured output."""
+class GPT52Annotator(FigureAnnotator):
+    """GPT-5.2 via OpenRouter — structured output."""
 
     def __init__(self, max_tokens: int = 2048):
         self.max_tokens = max_tokens
 
     @property
     def model_name(self) -> str:
-        return "gpt-4o-mini"
+        return "gpt-5.2"
 
     @property
     def router_model_id(self) -> str:
-        return "openai/gpt-4o-mini"
+        return "openai/gpt-5.2"
 
     def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> dict:
         client = _get_openrouter_client()
@@ -144,11 +144,72 @@ class GPT4oMiniAnnotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
+# Gemini 3.1 Pro via Vertex AI (structured output)
+# ---------------------------------------------------------------------------
+
+def _get_vertex_client():
+    from google import genai
+
+    project = os.environ.get("GOOGLE_CLOUD_PROJECT")
+    location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
+    if not project:
+        raise EnvironmentError(
+            "GOOGLE_CLOUD_PROJECT environment variable is not set. "
+            "Set it to your GCP project ID."
+        )
+    return genai.Client(vertexai=True, project=project, location=location)
+
+
+class Gemini31ProAnnotator(FigureAnnotator):
+    """Gemini 3.1 Pro Preview via Vertex AI — structured output."""
+
+    def __init__(self, max_tokens: int = 4096):
+        self.max_tokens = max_tokens
+
+    @property
+    def model_name(self) -> str:
+        return "gemini-3.1-pro"
+
+    @property
+    def router_model_id(self) -> str:
+        return "gemini-3.1-pro-preview"
+
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> dict:
+        from google.genai import types
+
+        client = _get_vertex_client()
+
+        image_bytes = image_path.read_bytes()
+        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
+
+        contents = [
+            prompt,
+            types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
+            user_text,
+        ]
+
+        def _call():
+            response = client.models.generate_content(
+                model=self.router_model_id,
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    max_output_tokens=self.max_tokens,
+                    response_mime_type="application/json",
+                ),
+            )
+            raw = response.text.strip()
+            return _extract_json(raw)
+
+        return _retry(_call)
+
+
+# ---------------------------------------------------------------------------
 # Registry
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
-    "gpt-4o-mini": GPT4oMiniAnnotator,
+    "gpt-5.2": GPT52Annotator,
+    "gemini-3.1-pro": Gemini31ProAnnotator,
 }
 
 

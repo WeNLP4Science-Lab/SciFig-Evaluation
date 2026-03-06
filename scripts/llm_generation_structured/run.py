@@ -38,17 +38,14 @@ SUBFOLDERS = [
     "multi_language",
 ]
 
-# Figures to process: first 4 from each folder
-SAMPLE_PREFIXES = {
-    "bulgarian_only": [f"bulgarian_fig_{i:03d}" for i in range(1, 5)],
-    "chinese_only": [f"chinese_fig_{i:03d}" for i in range(1, 5)],
-    "english_only": [f"english_fig_{i:03d}" for i in range(1, 5)],
-    "german_only": [f"german_fig_{i:03d}" for i in range(1, 5)],
-    "multi_language": [f"multi_fig_{i:03d}" for i in range(1, 5)],
-}
+def _discover_figures(subfolder: str) -> list[str]:
+    """Discover all figure keys in a groundtruth subfolder."""
+    gt_folder = GROUNDTRUTH_DIR / subfolder
+    keys = sorted(p.stem for p in gt_folder.glob("*.json"))
+    return keys
 
 
-def run(model_name: str = "gpt-4o-mini"):
+def run(model_name: str = "gpt-5.2"):
     annotator = get_annotator(model_name)
     prompts = load_prompts()
     model_output_dir = OUTPUT_DIR / annotator.model_name
@@ -68,7 +65,7 @@ def run(model_name: str = "gpt-4o-mini"):
         out_folder = model_output_dir / subfolder
         out_folder.mkdir(parents=True, exist_ok=True)
 
-        figures_to_process = SAMPLE_PREFIXES[subfolder]
+        figures_to_process = _discover_figures(subfolder)
 
         for fig_key in figures_to_process:
             total += 1
@@ -183,4 +180,4 @@ def run(model_name: str = "gpt-4o-mini"):
 
 
 if __name__ == "__main__":
-    run()
+    run(sys.argv[1] if len(sys.argv) > 1 else "gpt-5.2")
