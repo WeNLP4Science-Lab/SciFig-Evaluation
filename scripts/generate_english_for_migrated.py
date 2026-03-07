@@ -84,13 +84,14 @@ def _process_figure(annotator, prompts, fig_key, model_output_dir):
     return True, fig_key, "done"
 
 
-def run(model_name: str = "gpt-5.2", workers: int = 1):
+def run(model_name: str = "gpt-5.2", workers: int = 1, output_as: str | None = None):
     annotator = get_annotator(model_name)
     prompts = load_prompts()
-    model_output_dir = OUTPUT_DIR / annotator.model_name
+    output_name = output_as or annotator.model_name
+    model_output_dir = OUTPUT_DIR / output_name
 
     logger.info(f"Model: {annotator.model_name}")
-    logger.info(f"Output: {model_output_dir}")
+    logger.info(f"Output dir: {model_output_dir}" + (f" (output-as={output_name})" if output_as else ""))
     logger.info(f"Workers: {workers}")
     logger.info(f"Task: Add English annotations to migrated figures (multi_fig_112..177)")
     print()
@@ -168,5 +169,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("model", nargs="?", default="gpt-5.2", help="Model name")
     parser.add_argument("--workers", type=int, default=1, help="Number of parallel workers")
+    parser.add_argument("--output-as", type=str, default=None,
+                        help="Write output to this model's directory (e.g. use qwen3-vl-32b-or but save as qwen3-vl-32b)")
     args = parser.parse_args()
-    run(args.model, args.workers)
+    run(args.model, args.workers, args.output_as)
