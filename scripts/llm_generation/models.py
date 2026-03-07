@@ -224,6 +224,64 @@ class Llama4MaverickAnnotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
+# Generic OpenRouter annotator (for models that follow the standard pattern)
+# ---------------------------------------------------------------------------
+
+class OpenRouterAnnotator(FigureAnnotator):
+    """Generic annotator for any model available via OpenRouter."""
+
+    def __init__(self, name: str, router_id: str, max_tokens: int = 2048):
+        self._model_name = name
+        self._router_model_id = router_id
+        self.max_tokens = max_tokens
+
+    @property
+    def model_name(self) -> str:
+        return self._model_name
+
+    @property
+    def router_model_id(self) -> str:
+        return self._router_model_id
+
+    def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
+        client = _get_openrouter_client()
+        b64 = _encode_image_base64(image_path)
+
+        user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
+
+        user_content = [
+            {
+                "type": "image_url",
+                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
+            },
+            {
+                "type": "text",
+                "text": user_text,
+            },
+        ]
+
+        def _call():
+            response = client.chat.completions.create(
+                model=self.router_model_id,
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": user_content},
+                ],
+                max_tokens=self.max_tokens,
+            )
+            return response.choices[0].message.content.strip()
+
+        return _retry(_call)
+
+
+def _openrouter_factory(name: str, router_id: str):
+    """Create a factory function for an OpenRouter model."""
+    def factory(**kwargs):
+        return OpenRouterAnnotator(name, router_id, **kwargs)
+    return factory
+
+
+# ---------------------------------------------------------------------------
 # Registry
 # ---------------------------------------------------------------------------
 
@@ -233,10 +291,24 @@ MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
     "llama4-maverick": Llama4MaverickAnnotator,
 }
 
+# Additional OpenRouter models (using generic annotator)
+OPENROUTER_MODELS = {
+    "qwen3-vl-8b": "qwen/qwen3-vl-8b-instruct",
+    "qwen3-vl-30b-a3b": "qwen/qwen3-vl-30b-a3b-instruct",
+    "qwen3-vl-235b-a22b": "qwen/qwen3-vl-235b-a22b-instruct",
+    "llama4-scout": "meta-llama/llama-4-scout",
+    # Temporary OpenRouter fallbacks (normally these run on Vertex AI)
+    "qwen3-vl-32b-or": "qwen/qwen3-vl-32b-instruct",
+    "gemma3-27b-it-or": "google/gemma-3-27b-it",
+}
 
-def _get_all_models() -> dict[str, type[FigureAnnotator]]:
-    """Merge closed-source and open-source model registries."""
+
+def _get_all_models() -> dict:
+    """Merge all model registries."""
     all_models = dict(MODEL_REGISTRY)
+    # Add generic OpenRouter models
+    for name, router_id in OPENROUTER_MODELS.items():
+        all_models[name] = _openrouter_factory(name, router_id)
     try:
         from llm_generation.models_opensource import OPENSOURCE_MODEL_REGISTRY
         all_models.update(OPENSOURCE_MODEL_REGISTRY)
