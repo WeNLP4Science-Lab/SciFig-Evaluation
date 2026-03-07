@@ -136,21 +136,24 @@ def _process_figure(annotator, prompts, subfolder, fig_key, model_output_dir):
     return True, fig_key, "done"
 
 
-def run(model_name: str = "gpt-5.2", workers: int = 1):
+def run(model_name: str = "gpt-5.2", workers: int = 1, subfolder_filter: str | None = None):
     annotator = get_annotator(model_name)
     prompts = load_prompts()
     model_output_dir = OUTPUT_DIR / annotator.model_name
 
+    subfolders = [subfolder_filter] if subfolder_filter else SUBFOLDERS
+
     logger.info(f"Model: {annotator.model_name}")
     logger.info(f"Output: {model_output_dir}")
     logger.info(f"Workers: {workers}")
+    logger.info(f"Subfolders: {subfolders}")
     logger.info(f"Loaded {len(prompts)} prompts")
     print()
 
     # Collect all work items, filtering out already-done and missing files
     work_items = []
     skipped = 0
-    for subfolder in SUBFOLDERS:
+    for subfolder in subfolders:
         gt_folder = GROUNDTRUTH_DIR / subfolder
         fig_folder = FIGURES_DIR / subfolder
         out_folder = model_output_dir / subfolder
@@ -226,5 +229,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate figure descriptions with LLMs")
     parser.add_argument("model", nargs="?", default="gpt-5.2", help="Model name")
     parser.add_argument("--workers", type=int, default=1, help="Number of parallel workers")
+    parser.add_argument("--subfolder", type=str, default=None, help="Process only this subfolder")
     args = parser.parse_args()
-    run(args.model, args.workers)
+    run(args.model, args.workers, args.subfolder)
