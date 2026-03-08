@@ -297,6 +297,8 @@ OPENROUTER_MODELS = {
     "qwen3-vl-30b-a3b": "qwen/qwen3-vl-30b-a3b-instruct",
     "qwen3-vl-235b-a22b": "qwen/qwen3-vl-235b-a22b-instruct",
     "llama4-scout": "meta-llama/llama-4-scout",
+    "gemma3-4b-it": "google/gemma-3-4b-it",
+    "gemma3-12b-it": "google/gemma-3-12b-it",
     # Temporary OpenRouter fallbacks (normally these run on Vertex AI)
     "qwen3-vl-32b-or": "qwen/qwen3-vl-32b-instruct",
     "gemma3-27b-it-or": "google/gemma-3-27b-it",
