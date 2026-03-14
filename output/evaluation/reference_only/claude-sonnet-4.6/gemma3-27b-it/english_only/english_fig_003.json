@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_003",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_only",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "it starts at approximately 1.5% at Layer1-4, decreases to around -1.5% at Layer5-12, remains near -1.5% at Layer13-20, then increases to about 1.5% at Layer21-28 and ends at approximately 4.5% at Layer29-32",
+      "evidence": "Reference states the yellow line (LB-Avg of 2×tokens,8-bit) starts near 0% at Layer1-4 and maintains a consistent trend across all layers. The machine-generated description reports very different values including 1.5%, -1.5%, and 4.5%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starting at roughly 1% at Layer1-4, declining to -6% at Layer5-12, further decreasing to -13% at Layer13-20, then rising to about -9% at Layer21-28 and finally ending near -12% at Layer29-32",
+      "evidence": "Reference states the light blue line (RULER4k of 2×tokens,8-bit) starts around 0% at Layer1-4, moves to around 5% at Layer13-20, and returns just below 0% by Layer29-32. The machine-generated description reports negative values throughout, including -13% at Layer13-20, which contradicts the reference's +5%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "it begins at about -2% at Layer1-4, decreases to approximately -6% at Layer5-12, then rises to around -3.5% at Layer13-20, continuing upwards to a value of approximately 2.5% at Layer21-28 and finally reaching about 3% at Layer29-32",
+      "evidence": "Reference states the red line (LB-Avg of 1×tokens,16-bit) starts at 0%, dips slightly, and returns close to 0% by Layer29-32. The machine-generated description reports values as low as -6% and as high as 3%, which significantly differs from the near-zero trajectory described in the reference."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starting at approximately -4% at Layer1-4, dropping to -14% at Layer5-12, increasing to -11% at Layer13-20, rising further to -1% at Layer21-28 and concluding at approximately 3% at Layer29-32",
+      "evidence": "Reference states the dark blue line (RULER4k of 1×tokens,16-bit) starts near -2% at Layer1-4, drops to near -15% at Layer13-20, and increases to around -2% at Layer29-32. The machine-generated description places the low point at Layer5-12 (-14%) rather than Layer13-20, and ends at +3% instead of -2%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A light blue line, labeled \"RULER4k of 2×tokens,8-bit,\" is plotted with circular markers and a solid line style, starting at roughly 1% at Layer1-4, declining to -6% at Layer5-12, further decreasing to -13% at Layer13-20",
+      "evidence": "Reference states RULER4k of 2×tokens,8-bit starts around 0% and moves to around +5% at Layer13-20, not -13%. The machine-generated description appears to have swapped behavioral descriptions between the light blue and dark blue lines."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The plot illustrates the relative change in performance for various configurations of KV cache compression, applied layer-wise to Llama-3-8B-Instruct, using SnapKV as the pruning method and comparing to a 4-bit baseline.",
+      "evidence": "This introductory statement is derived from the caption rather than the figure itself, but it is acceptable context-setting and largely matches the reference."
+    }
+  ],
+  "mqm_score": 73.5,
+  "total_penalty": 26.5,
+  "error_count": 6
+}
