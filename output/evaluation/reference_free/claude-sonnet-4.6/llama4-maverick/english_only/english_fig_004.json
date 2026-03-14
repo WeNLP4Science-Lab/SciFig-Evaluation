@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_004",
+  "model_name": "llama4-maverick",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "a yellow line with circle markers for LB-Avg of 2×tokens, 8-bit",
+      "evidence": "The LB-Avg of 2×tokens, 8-bit line appears orange/golden-yellow with circle markers, which is accurate enough, but the red line (LB-Avg of 1×tokens, 16-bit) uses square markers, not circle markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a red line with circle markers for LB-Avg of 1×tokens, 16-bit",
+      "evidence": "The LB-Avg of 1×tokens, 16-bit line uses square markers (as visible in the legend and the plot), not circle markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "decreasing from around -2% to -12% then increasing to -5%",
+      "evidence": "The RULER4k of 2×tokens, 8-bit (light blue) line drops to approximately -13% at Layer13-20, not -12%, and begins at around -2% at Layer1-4. The ending value at Layer29-32 appears closer to -2% to -3%, not -5%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "a dark blue line with square markers for RULER4k of 1×tokens, 16-bit, decreasing from around -3% to -25% then increasing to -5%",
+      "evidence": "The dark blue RULER4k of 1×tokens, 16-bit line starts at around -3% at Layer1-4, drops to -25% at Layer13-20, but ends at around -4% at Layer29-32, which is close but the intermediate value at Layer5-12 is about -4.5% and at Layer21-28 about -5.5%, making the terminal value description slightly off."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the gray dashed baseline line is flat at 0% throughout all layer ranges, which is an important visual feature."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The yellow and red lines remain relatively stable, while the light blue and dark blue lines show a more pronounced decline followed by an increase.",
+      "evidence": "The prompt explicitly states to avoid comparisons between lines. This sentence makes a comparative statement between the line groups."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 6
+}

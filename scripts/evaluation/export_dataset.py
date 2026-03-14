@@ -23,6 +23,7 @@ FIGURES_DIR = ROOT / "Dataset" / "figures"
 DASHBOARD_PUBLIC = ROOT / "dashboard" / "public"
 
 ALL_SUBFOLDERS = ["bulgarian_only", "chinese_only", "english_only", "german_only", "multi_language"]
+TRANSFORMS_DIR = ROOT / "transforms"
 
 
 def export():
@@ -80,6 +81,61 @@ def export():
 
         subfolder_counts[subfolder] = count
         print(f"  {subfolder}: {count} figures")
+
+    # Include adversarial transforms
+    if TRANSFORMS_DIR.exists():
+        for transform_dir in sorted(TRANSFORMS_DIR.iterdir()):
+            if not transform_dir.is_dir():
+                continue
+            transform_name = transform_dir.name
+            gt_base = transform_dir / "groundtruth"
+            fig_base = transform_dir / "figures"
+            if not gt_base.exists():
+                continue
+
+            for sub_dir in sorted(gt_base.iterdir()):
+                if not sub_dir.is_dir():
+                    continue
+                subfolder_key = f"transform_{transform_name}"
+                count = 0
+                for gt_path in sorted(sub_dir.glob("*.json")):
+                    fig_key = gt_path.stem
+                    with open(gt_path) as f:
+                        gt = json.load(f)
+
+                    annotations = []
+                    for ann in gt.get("annotations", []):
+                        annotations.append({
+                            "annotation_language": ann.get("annotation_language", ""),
+                            "annotation": ann.get("annotation", ""),
+                            "annotated_by": ann.get("annotated_by"),
+                            "figure_type": ann.get("figure_type", ""),
+                        })
+
+                    # Copy transformed figure image
+                    fig_src = fig_base / sub_dir.name / f"{fig_key}.png"
+                    fig_rel = f"figures/{subfolder_key}/{fig_key}.png"
+                    if fig_src.exists():
+                        dest = img_dir / subfolder_key / f"{fig_key}.png"
+                        dest.parent.mkdir(parents=True, exist_ok=True)
+                        if not dest.exists():
+                            shutil.copy2(fig_src, dest)
+
+                    figures.append({
+                        "figure_key": fig_key,
+                        "subfolder": subfolder_key,
+                        "paper_title": gt.get("paper_title", ""),
+                        "paper_language": gt.get("paper_language", ""),
+                        "caption": gt.get("caption", ""),
+                        "figure_type": gt.get("figure_type", ""),
+                        "figure_image": fig_rel,
+                        "annotations": annotations,
+                    })
+                    count += 1
+
+                if count:
+                    subfolder_counts[subfolder_key] = count
+                    print(f"  {subfolder_key}: {count} figures")
 
     manifest = {
         "generated_at": datetime.now().isoformat(),
