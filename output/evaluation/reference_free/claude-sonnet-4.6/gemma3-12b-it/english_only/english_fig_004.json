@@ -1,0 +1,92 @@
+{
+  "figure_key": "english_fig_004",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description is vague about the chart purpose. It should mention that this shows layer-wise quantized pruning results comparing different token counts and bit precisions (2×tokens,8-bit vs 1×tokens,16-bit) on two metrics (LB-Avg and RULER4k), relative to a baseline of 4×tokens,4-bit."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The x-axis is labeled \"Layer\" and represents layer numbers from 1 to 32, divided into four segments: Layer1-4, Layer5-12, Layer13-20, Layer21-28, and Layer29-32.",
+      "evidence": "The description says 'four segments' but then lists five segments (Layer1-4, Layer5-12, Layer13-20, Layer21-28, Layer29-32). There are five tick positions on the x-axis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "includes tick marks at -20%, -15%, -10%, -5%, 0%, 5% and 10%",
+      "evidence": "The y-axis shows tick marks at -25%, -15%, -5%, 0%, 5% (approximately). The description incorrectly lists -20%, -10%, and 10% as tick marks, and misses -25%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A blue line with circular markers begins at approximately -1% at Layer 1 and descends to a minimum value of -16% at Layer 13",
+      "evidence": "There are two blue lines in the figure: a light blue (cyan) line representing 'RULER4k of 2×tokens,8-bit' with circular markers, and a dark blue line representing 'RULER4k of 1×tokens,16-bit' with square markers. The dark blue line descends to approximately -25% at Layer 13-20, not -16%. The cyan line descends to approximately -13% at Layer 13-20. The description conflates these two lines."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description only mentions three lines (blue, orange, red, and gray dashed baseline) but there are four data lines in the figure: LB-Avg of 2×tokens,8-bit (yellow/orange), LB-Avg of 1×tokens,16-bit (red), RULER4k of 2×tokens,8-bit (light blue/cyan), and RULER4k of 1×tokens,16-bit (dark blue). The description misses one distinct line and conflates two blue lines."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "An orange line with triangular markers begins at approximately 1% at Layer 1",
+      "evidence": "The yellow/orange line (LB-Avg of 2×tokens,8-bit) uses circular markers, not triangular markers. Also, the description identifies it as orange but it appears yellow in the figure."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "descends to a minimum value of -16% at Layer 13",
+      "evidence": "The cyan line (RULER4k of 2×tokens,8-bit) appears to descend to approximately -13% at Layer 13-20, not -16%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "before rising to a value of -2% at Layer 28, and ending at -3% at Layer 32",
+      "evidence": "The dark navy blue line (RULER4k of 1×tokens,16-bit) descends to approximately -25% at Layer 13-20, recovers to about -5% at Layer 21-28, and ends around -3.5% at Layer 29-32. The description's values for recovery are inconsistent with what is shown."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "A gray dashed line represents a baseline, starting and ending at 0% across the entire x-axis range.",
+      "evidence": "The baseline is already described earlier in the same paragraph ('A gray dashed line represents 0%'), creating a redundant and confusing duplicate mention. This is also an internal contradiction."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "likely in response to some modification",
+      "evidence": "The prompt instructs to avoid interpreting causes of changes. Saying 'likely in response to some modification' is an inference."
+    }
+  ],
+  "mqm_score": 70.5,
+  "total_penalty": 29.5,
+  "error_count": 10
+}

@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_008",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "数值刻度间隔为0.001",
+      "evidence": "The y-axis tick marks are spaced at 0.01 intervals (0.71, 0.72, 0.73, 0.74, 0.75, 0.76, 0.77), not 0.001."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "TransE（0.753）、Random（0.739）、Original（0.738）",
+      "evidence": "The ordering lists TransE as 0.753 but places it after ConvE (0.755) and TransR (0.757). The value 0.753 is correct for TransE, but listing it after SemNE (0.752) and before Random breaks the stated 'high to low' order since 0.753 > 0.752."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "TransR（0.746）、SemNE（0.748）",
+      "evidence": "For Bioformer, SemNE shows 0.748 and TransR shows 0.746 in the figure. The description claims 'from high to low' order but lists TransR (0.746) before SemNE (0.748), which is incorrect ordering. SemNE (0.748) is higher than TransR (0.746)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Original（0.743）",
+      "evidence": "For PubMedBERT, the description lists Original as 0.743 but places it last in the 'high to low' ordering despite 0.743 being higher than Random (0.734) and ConvE (0.741). This inconsistency in the stated ordering is misleading."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "各柱值从高到低依次为：TransR（0.757）、ConvE（0.755）、SemNE（0.752）、TransE（0.753）、Random（0.739）、Original（0.738）",
+      "evidence": "The description claims values are listed from high to low, but TransE (0.753) is placed after SemNE (0.752), violating the stated descending order."
+    }
+  ],
+  "mqm_score": 88.0,
+  "total_penalty": 12.0,
+  "error_count": 5
+}

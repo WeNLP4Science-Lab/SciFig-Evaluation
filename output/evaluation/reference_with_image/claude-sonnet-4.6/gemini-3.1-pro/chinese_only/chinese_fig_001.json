@@ -1,0 +1,60 @@
+{
+  "figure_key": "chinese_fig_001",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "其数值从x轴起始点mBERT-0处的最低点（低于刻度82）开始上升",
+      "evidence": "The Precision line at mBERT-0 starts at approximately 81%, which is indeed below 82, but the reference states it starts at about 82%. The description says 'below the 82 mark' which is consistent with the image showing ~81%, so this is actually accurate. However, it's a borderline case worth noting."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在终点mBERT-100处达到该线的最高点（略低于刻度90）",
+      "evidence": "The Precision line at mBERT-100 reaches approximately 89%, which is indeed slightly below 90. However, the reference description states Precision rises to about 87%, not close to 90%. Looking at the image, the blue line at mBERT-100 appears to be around 89%, slightly below 90. This is actually consistent with what the image shows."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在mBERT-10至mBERT-30节点区间内的上升幅度相对平缓",
+      "evidence": "Looking at the image, the Precision line rises steeply from mBERT-0 to mBERT-10, then more gradually from mBERT-10 to mBERT-30. The description says the rise is relatively flat between mBERT-10 and mBERT-30, which is roughly correct, but it omits the steep rise from mBERT-0 to mBERT-10."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description mentions the y-axis range as 82 to 90 but does not mention that the actual y-axis appears to start slightly below 82 (around 81) to accommodate the Precision starting value."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that Recall consistently leads above Precision and F1 Score throughout the entire range, and that F1 Score sits between Recall and Precision — an important visual relationship shown in the chart."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The caption mentions this is about the effect of new vocabulary size on model performance (新增词汇量大小对模型性能的影响), which the description does not fully convey — it says 'model vocabulary size' rather than 'newly added vocabulary size'."
+    }
+  ],
+  "mqm_score": 86.5,
+  "total_penalty": 13.5,
+  "error_count": 6
+}
