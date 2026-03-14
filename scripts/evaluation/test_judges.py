@@ -48,8 +48,8 @@ def _get_reference(gt, lang):
     return ""
 
 
-def _run_one(model_name, fig_key, subfolder, judge_model):
-    """Run all 3 judges for one figure/model combo. Returns list of (judge_type, result_or_error)."""
+def _run_one(model_name, fig_key, subfolder, judge_model, skip_ref_only=False):
+    """Run judges for one figure/model combo. Returns list of (judge_type, result_or_error)."""
     gen_path = GENERATION_DIR / model_name / subfolder / f"{fig_key}.json"
     gt_path = GROUNDTRUTH_DIR / subfolder / f"{fig_key}.json"
     fig_path = FIGURES_DIR / subfolder / f"{fig_key}.png"
@@ -69,7 +69,8 @@ def _run_one(model_name, fig_key, subfolder, judge_model):
 
     results = []
 
-    for judge_type in ["reference_free", "reference_only", "reference_with_image"]:
+    judge_types = ["reference_free", "reference_with_image"] if skip_ref_only else ["reference_free", "reference_only", "reference_with_image"]
+    for judge_type in judge_types:
         out_dir = OUTPUT_BASE / judge_type / slug / model_name / subfolder
         out_path = out_dir / f"{fig_key}.json"
 
@@ -123,6 +124,7 @@ def main():
     parser.add_argument("--workers", type=int, default=5, help="Parallel workers")
     parser.add_argument("--subfolder", default="german_only")
     parser.add_argument("--judge", default="openai/gpt-4o-mini")
+    parser.add_argument("--skip-ref-only", action="store_true", help="Skip reference_only judge type")
     args = parser.parse_args()
 
     models = sorted(d.name for d in GENERATION_DIR.iterdir() if d.is_dir())
@@ -130,7 +132,8 @@ def main():
         p.stem for p in (GENERATION_DIR / models[0] / args.subfolder).glob("*.json")
     )[:args.limit]
 
-    logger.info(f"Testing {len(fig_keys)} figures x {len(models)} models x 3 judges = {len(fig_keys)*len(models)*3} evaluations")
+    n_judges = 2 if args.skip_ref_only else 3
+    logger.info(f"Testing {len(fig_keys)} figures x {len(models)} models x {n_judges} judges = {len(fig_keys)*len(models)*n_judges} evaluations")
     logger.info(f"Figures: {fig_keys}")
     logger.info(f"Models: {models}")
     logger.info(f"Judge: {args.judge}")
@@ -141,7 +144,7 @@ def main():
     done, failed = 0, 0
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
         futs = {
-            ex.submit(_run_one, m, fk, args.subfolder, args.judge): (m, fk)
+            ex.submit(_run_one, m, fk, args.subfolder, args.judge, args.skip_ref_only): (m, fk)
             for m, fk in work
         }
         for f in as_completed(futs):
@@ -155,10 +158,10 @@ def main():
             except Exception as e:
                 m, fk = futs[f]
                 logger.error(f"  UNEXPECTED {m}/{fk}: {e}")
-                failed += 3
+                failed += n_judges
 
     print()
-    logger.info(f"Done. {done} succeeded, {failed} failed out of {len(work)*3} total.")
+    logger.info(f"Done. {done} succeeded, {failed} failed out of {len(work)*n_judges} total.")
 
 
 if __name__ == "__main__":
