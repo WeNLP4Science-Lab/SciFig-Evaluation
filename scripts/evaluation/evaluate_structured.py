@@ -9,12 +9,15 @@ evaluation results to output/evaluation_structured/.
 
 Usage:
     export OPENROUTER_API_KEY=sk-or-...
-    python3 scripts/evaluation/evaluate_structured.py
+    python3 scripts/evaluation/evaluate_structured.py <model_name> [--workers N] [--subfolder X] [--judge MODEL]
 """
 
+import argparse
 import json
 import logging
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -33,21 +36,13 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-SUBFOLDERS = [
+ALL_SUBFOLDERS = [
     "bulgarian_only",
     "chinese_only",
     "english_only",
     "german_only",
     "multi_language",
 ]
-
-SAMPLE_PREFIXES = {
-    "bulgarian_only": [f"bulgarian_fig_{i:03d}" for i in range(1, 11)],
-    "chinese_only": [f"chinese_fig_{i:03d}" for i in range(1, 11)],
-    "english_only": [f"english_fig_{i:03d}" for i in range(1, 11)],
-    "german_only": [f"german_fig_{i:03d}" for i in range(1, 11)],
-    "multi_language": [f"multi_fig_{i:03d}" for i in range(1, 11)],
-}
 
 # Expected breakdown fields per figure type
 EXPECTED_FIELDS = {
@@ -77,14 +72,10 @@ DEFAULT_EXPECTED = {
 
 
 def verify_breakdown_programmatic(breakdown: dict, figure_type: str) -> dict:
-    """Run programmatic checks on breakdown fields. No LLM needed.
-
-    Returns dict with check results and issues found.
-    """
+    """Run programmatic checks on breakdown fields. No LLM needed."""
     spec = EXPECTED_FIELDS.get(figure_type, DEFAULT_EXPECTED)
     issues = []
 
-    # Check field presence
     required = spec["required"]
     present = [f for f in required if f in breakdown]
     missing = [f for f in required if f not in breakdown]
@@ -93,7 +84,6 @@ def verify_breakdown_programmatic(breakdown: dict, figure_type: str) -> dict:
     if missing:
         issues.append(f"Missing required fields: {missing}")
 
-    # Check count consistency (e.g., num_lines matches len(lines))
     count_consistent = None
     array_field = spec.get("array_field")
     count_field = spec.get("count_field")
@@ -109,7 +99,6 @@ def verify_breakdown_programmatic(breakdown: dict, figure_type: str) -> dict:
                     f"{array_field} has {len(array_val)} items"
                 )
 
-    # Check for empty/null values in array items
     empty_fields_in_items = 0
     total_fields_in_items = 0
     if array_field and isinstance(breakdown.get(array_field), list):
@@ -125,7 +114,6 @@ def verify_breakdown_programmatic(breakdown: dict, figure_type: str) -> dict:
         if total_fields_in_items > 0 else 1.0
     )
 
-    # Check has_legend is boolean
     has_legend = breakdown.get("has_legend")
     if has_legend is not None and not isinstance(has_legend, bool):
         issues.append(f"has_legend should be boolean, got: {type(has_legend).__name__}")
@@ -142,162 +130,199 @@ def verify_breakdown_programmatic(breakdown: dict, figure_type: str) -> dict:
     }
 
 
-def evaluate_single(
-    fig_key: str,
-    gen: dict,
-    fig_path: Path,
-    judge_model: str,
-    model_name: str,
-) -> dict | None:
-    """Evaluate a single-language structured output. Returns eval dict or None on failure."""
-    annotation = gen.get("model_annotation", "")
-    breakdown = gen.get("breakdown", {})
+def _discover_figures(subfolder: str, model_name: str) -> list[str]:
+    """Discover all figure keys that have generation output."""
+    gen_folder = GENERATION_DIR / model_name / subfolder
+    if not gen_folder.exists():
+        return []
+    return sorted(p.stem for p in gen_folder.glob("*.json"))
+
+
+def _process_figure(fig_key, subfolder, gen_folder, fig_folder, out_folder, judge_model):
+    """Evaluate a single figure. Returns (ok, fig_key, status)."""
+    gen_path = gen_folder / f"{fig_key}.json"
+    fig_path = fig_folder / f"{fig_key}.png"
+    out_path = out_folder / f"{fig_key}.json"
+
+    if out_path.exists():
+        return True, fig_key, "skip"
+
+    if not gen_path.exists() or not fig_path.exists():
+        return True, fig_key, "skip"
+
+    with open(gen_path) as f:
+        gen = json.load(f)
+
+    model_name = gen.get("model_name", "")
     figure_type = gen.get("figure_type", "")
 
-    # Tier 1: Paragraph MQM (same as unstructured)
-    try:
-        mqm_result = evaluate_annotation(
-            image_path=fig_path,
-            annotation=annotation,
-            caption=gen.get("caption", ""),
-            paper_title=gen.get("paper_title", ""),
-            figure_type=figure_type,
-            judge_model=judge_model,
+    if "model_annotations" in gen:
+        # Multi-language
+        mqm_by_lang = {}
+        breakdown_by_lang = {}
+        annotations = gen["model_annotations"]
+        breakdowns = gen.get("breakdowns", {})
+
+        for lang in sorted(annotations.keys()):
+            annotation = annotations[lang]
+            breakdown = breakdowns.get(lang, {})
+
+            try:
+                mqm_result = evaluate_annotation(
+                    image_path=fig_path,
+                    annotation=annotation,
+                    caption=gen.get("caption", ""),
+                    paper_title=gen.get("paper_title", ""),
+                    figure_type=figure_type,
+                    judge_model=judge_model,
+                )
+                mqm_by_lang[lang] = mqm_result
+                breakdown_by_lang[lang] = verify_breakdown_programmatic(breakdown, figure_type)
+            except Exception as e:
+                logger.error(f"  FAIL {fig_key} ({lang}): {e}")
+                return False, fig_key, str(e)
+
+        avg_mqm = sum(r["mqm_score"] for r in mqm_by_lang.values()) / len(mqm_by_lang)
+        eval_result = {
+            "figure_key": fig_key,
+            "model_name": model_name,
+            "figure_type": figure_type,
+            "evaluation_type": "structured",
+            "mqm_by_language": mqm_by_lang,
+            "mqm_score_avg": round(avg_mqm, 2),
+            "breakdown_verification_by_language": breakdown_by_lang,
+        }
+        logger.info(f"  OK   {fig_key}: avg MQM={avg_mqm:.1f} ({len(mqm_by_lang)} langs)")
+
+    else:
+        # Single language
+        annotation = gen.get("model_annotation", "")
+        breakdown = gen.get("breakdown", {})
+
+        try:
+            mqm_result = evaluate_annotation(
+                image_path=fig_path,
+                annotation=annotation,
+                caption=gen.get("caption", ""),
+                paper_title=gen.get("paper_title", ""),
+                figure_type=figure_type,
+                judge_model=judge_model,
+            )
+        except Exception as e:
+            logger.error(f"  FAIL {fig_key} (MQM): {e}")
+            return False, fig_key, str(e)
+
+        breakdown_result = verify_breakdown_programmatic(breakdown, figure_type)
+
+        eval_result = {
+            "figure_key": fig_key,
+            "model_name": model_name,
+            "figure_type": figure_type,
+            "evaluation_type": "structured",
+            **mqm_result,
+            "breakdown_verification": breakdown_result,
+        }
+        logger.info(
+            f"  OK   {fig_key}: MQM={mqm_result['mqm_score']}, "
+            f"{mqm_result['error_count']} errors"
         )
-    except Exception as e:
-        logger.error(f"  FAIL {fig_key} (MQM): {e}")
-        return None
 
-    # Tier 2: Breakdown verification (programmatic)
-    breakdown_result = verify_breakdown_programmatic(breakdown, figure_type)
-
-    return {
-        "figure_key": fig_key,
-        "model_name": model_name,
-        "figure_type": figure_type,
-        "evaluation_type": "structured",
-        **mqm_result,
-        "breakdown_verification": breakdown_result,
-    }
+    with open(out_path, "w") as f:
+        json.dump(eval_result, f, indent=2, ensure_ascii=False)
+    return True, fig_key, "done"
 
 
-def run(model_name: str = "gpt-4o-mini", judge_model: str = "openai/gpt-4o-mini"):
-    gen_model_dir = GENERATION_DIR / model_name
+def run(model_name: str, judge_model: str = "openai/gpt-4o-mini",
+        workers: int = 1, subfolder_filter: str | None = None):
+    subfolders = [subfolder_filter] if subfolder_filter else ALL_SUBFOLDERS
     eval_output_dir = OUTPUT_DIR / model_name
 
     logger.info(f"Evaluating model: {model_name} (structured)")
     logger.info(f"Judge model: {judge_model}")
-    logger.info(f"Source: {gen_model_dir}")
+    logger.info(f"Workers: {workers}")
+    logger.info(f"Subfolders: {subfolders}")
     logger.info(f"Output: {eval_output_dir}")
     print()
 
-    total = 0
-    success = 0
-    error_count = 0
-
-    for subfolder in SUBFOLDERS:
+    work_items = []
+    skipped = 0
+    for subfolder in subfolders:
         fig_folder = FIGURES_DIR / subfolder
-        gen_folder = gen_model_dir / subfolder
+        gen_folder = GENERATION_DIR / model_name / subfolder
         out_folder = eval_output_dir / subfolder
         out_folder.mkdir(parents=True, exist_ok=True)
 
-        for fig_key in SAMPLE_PREFIXES[subfolder]:
-            total += 1
-            gen_path = gen_folder / f"{fig_key}.json"
+        for fig_key in _discover_figures(subfolder, model_name):
             fig_path = fig_folder / f"{fig_key}.png"
             out_path = out_folder / f"{fig_key}.json"
 
-            if not gen_path.exists():
-                logger.warning(f"  SKIP {fig_key} — generation output not found")
-                continue
             if not fig_path.exists():
-                logger.warning(f"  SKIP {fig_key} — figure image not found")
                 continue
             if out_path.exists():
-                logger.info(f"  SKIP {fig_key} — already evaluated")
-                success += 1
+                skipped += 1
                 continue
 
-            with open(gen_path) as f:
-                gen = json.load(f)
+            work_items.append((fig_key, subfolder, gen_folder, fig_folder, out_folder))
 
-            if "model_annotations" in gen:
-                # Multi-language: evaluate each language
-                logger.info(f"  [{subfolder}] {fig_key} — multi-language evaluation")
-                mqm_by_lang = {}
-                breakdown_by_lang = {}
-                failed = False
+    total = len(work_items) + skipped
+    logger.info(f"Total: {total} ({skipped} already done, {len(work_items)} to evaluate)")
+    print()
 
-                annotations = gen["model_annotations"]
-                breakdowns = gen.get("breakdowns", {})
+    if not work_items:
+        logger.info("Nothing to do — all figures already evaluated.")
+        return
 
-                for lang in sorted(annotations.keys()):
-                    annotation = annotations[lang]
-                    breakdown = breakdowns.get(lang, {})
-                    figure_type = gen.get("figure_type", "")
+    success = skipped
+    errors = 0
+    lock = threading.Lock()
 
-                    logger.info(f"         evaluating {lang}...")
-                    try:
-                        mqm_result = evaluate_annotation(
-                            image_path=fig_path,
-                            annotation=annotation,
-                            caption=gen.get("caption", ""),
-                            paper_title=gen.get("paper_title", ""),
-                            figure_type=figure_type,
-                            judge_model=judge_model,
-                        )
-                        mqm_by_lang[lang] = mqm_result
-                        breakdown_by_lang[lang] = verify_breakdown_programmatic(
-                            breakdown, figure_type
-                        )
-                        logger.info(
-                            f"         {lang}: MQM={mqm_result['mqm_score']}, "
-                            f"{mqm_result['error_count']} errors, "
-                            f"breakdown completeness={breakdown_by_lang[lang]['field_completeness']}"
-                        )
-                    except Exception as e:
-                        logger.error(f"  FAIL {fig_key} ({lang}): {e}")
-                        failed = True
-                        break
-
-                if failed:
-                    error_count += 1
-                    continue
-
-                avg_mqm = sum(r["mqm_score"] for r in mqm_by_lang.values()) / len(mqm_by_lang)
-
-                eval_result = {
-                    "figure_key": fig_key,
-                    "model_name": model_name,
-                    "figure_type": gen.get("figure_type", ""),
-                    "evaluation_type": "structured",
-                    "mqm_by_language": mqm_by_lang,
-                    "mqm_score_avg": round(avg_mqm, 2),
-                    "breakdown_verification_by_language": breakdown_by_lang,
-                }
-
+    def _on_complete(ok, fig_key, status):
+        nonlocal success, errors
+        with lock:
+            if ok:
+                success += 1
             else:
-                # Single language
-                logger.info(f"  [{subfolder}] {fig_key} ({gen.get('figure_type', '')})...")
-                eval_result = evaluate_single(fig_key, gen, fig_path, judge_model, model_name)
+                errors += 1
+            done = success + errors - skipped
+            if done % 10 == 0 or not ok:
+                logger.info(f"  Progress: {done}/{len(work_items)} "
+                            f"(success={success - skipped}, errors={errors})")
 
-                if eval_result is None:
-                    error_count += 1
-                    continue
-
-                logger.info(
-                    f"  OK   {fig_key}: MQM={eval_result['mqm_score']}, "
-                    f"{eval_result['error_count']} errors, "
-                    f"breakdown completeness={eval_result['breakdown_verification']['field_completeness']}"
-                )
-
-            with open(out_path, "w") as f:
-                json.dump(eval_result, f, indent=2, ensure_ascii=False)
-            success += 1
+    if workers == 1:
+        for fig_key, subfolder, gen_folder, fig_folder, out_folder in work_items:
+            ok, key, status = _process_figure(
+                fig_key, subfolder, gen_folder, fig_folder, out_folder, judge_model
+            )
+            _on_complete(ok, key, status)
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            futures = {
+                executor.submit(
+                    _process_figure, fig_key, subfolder, gen_folder, fig_folder, out_folder, judge_model
+                ): fig_key
+                for fig_key, subfolder, gen_folder, fig_folder, out_folder in work_items
+            }
+            for future in as_completed(futures):
+                try:
+                    ok, key, status = future.result()
+                    _on_complete(ok, key, status)
+                except Exception as e:
+                    fig_key = futures[future]
+                    logger.error(f"  UNEXPECTED {fig_key}: {e}")
+                    with lock:
+                        errors += 1
 
     print()
-    logger.info(f"Done. {success}/{total} evaluated, {error_count} failures.")
+    logger.info(f"Done. {success}/{total} evaluated, {errors} failures.")
 
 
 if __name__ == "__main__":
-    run(sys.argv[1] if len(sys.argv) > 1 else "gpt-4o-mini")
+    parser = argparse.ArgumentParser(
+        description="Evaluate structured LLM annotations using MQM + breakdown verification"
+    )
+    parser.add_argument("model", help="Model name to evaluate")
+    parser.add_argument("--judge", type=str, default="openai/gpt-4o-mini", help="Judge model (OpenRouter ID)")
+    parser.add_argument("--workers", type=int, default=1, help="Number of parallel workers")
+    parser.add_argument("--subfolder", type=str, default=None, help="Process only this subfolder")
+    args = parser.parse_args()
+    run(args.model, args.judge, args.workers, args.subfolder)

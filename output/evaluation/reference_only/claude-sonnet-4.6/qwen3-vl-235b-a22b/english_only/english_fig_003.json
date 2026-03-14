@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_003",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_only",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "RULER4k of 2×tokens,8-bit (light blue line with circle markers) starts near 0%, declines to ~-3% at Layer5-12, falls further to ~-6% at Layer13-20, rises to ~-4% at Layer21-28, and ends near 0% at Layer29-32.",
+      "evidence": "According to the reference, the RULER4k of 2×tokens,8-bit line starts around 0%, moves to around +5% at Layer13-20 (positive, not -6%), and returns just below 0% by Layer29-32. The machine description reports negative values for this line when the reference indicates it goes positive."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "RULER4k of 1×tokens,16-bit (dark blue line with square markers) begins near 0%, drops sharply to ~-6% at Layer5-12, plunges to ~-15% at Layer13-20, recovers to ~-11% at Layer21-28, and ends near -2% at Layer29-32.",
+      "evidence": "The reference states the dark blue line starts near -2% at Layer1-4 (not 0%), and the machine description's intermediate values may be inaccurate. Also, the starting point discrepancy is notable."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "LB-Avg of 2×tokens,8-bit (orange line with circle markers)",
+      "evidence": "The reference describes this line as yellow, not orange. While these colors are similar, the reference specifically uses 'yellow' for this series."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Five configurations are plotted",
+      "evidence": "The reference describes four lines plus a baseline dashed grey line, which is consistent with five total visual elements. However, the machine description counts the baseline separately as a 'gray dashed line' and then says 'Five configurations are plotted,' which is ambiguous but could be interpreted as five lines excluding the baseline (six total), which contradicts the reference showing four lines plus baseline."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The reference mentions the legend is placed at the top center of the figure, which the machine description does not mention."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "All lines show non-monotonic behavior across layers, with the dark blue line exhibiting the largest negative deviation in the middle layers.",
+      "evidence": "This interpretive statement goes beyond what is explicitly shown in the figure description and introduces comparative analysis not present in the reference."
+    }
+  ],
+  "mqm_score": 80.0,
+  "total_penalty": 20.0,
+  "error_count": 6
+}

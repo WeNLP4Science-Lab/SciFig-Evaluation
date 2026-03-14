@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_003",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_only",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A gray line, with diamond markers and solid style, representing \"LB-Avg of 2×tokens,8-bit,\" starts at approximately -2% at Layer1-4 and declines to approximately -13% at Layer29-32.",
+      "evidence": "According to the reference, 'LB-Avg of 2×tokens,8-bit' is a yellow line with circular markers that starts near 0% at Layer1-4 and maintains a consistent trend (not declining to -13%). The machine description assigns it a gray color with diamond markers and shows a steep decline, which is incorrect."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A blue line, with circle markers and solid style, representing \"LB-Avg of 1×tokens,16-bit,\" begins at approximately -1% at Layer1-4, decreases to approximately -15% at Layer29-32.",
+      "evidence": "According to the reference, 'LB-Avg of 1×tokens,16-bit' is a red line with square markers that starts at 0%, dips slightly, and returns close to 0% by Layer29-32 — not a blue line declining to -15%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A darker blue dashed line, representing \"RULER4k of 2×tokens,8-bit,\" starts at approximately -2% at Layer1-4 and declines to around -13% at Layer29-32.",
+      "evidence": "According to the reference, 'RULER4k of 2×tokens,8-bit' is a light blue line with circular markers and solid style (not dashed) that starts around 0% at Layer1-4, rises to ~5% at Layer13-20, and returns just below 0% by Layer29-32 — not declining to -13%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A black line, with square markers and solid style, representing \"RULER4k of 1×tokens,16-bit,\" begins near -1% at Layer1-4 and decreases to approximately -12% at Layer29-32.",
+      "evidence": "According to the reference, 'RULER4k of 1×tokens,16-bit' is a dark blue line with square markers that starts near -2% at Layer1-4, drops to a low near -15% at Layer13-20, and then increases to around -2% at Layer29-32. The machine description uses black color and says it declines monotonically to -12%, which is incorrect."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "begins near -1% at Layer1-4 and decreases to approximately -12% at Layer29-32",
+      "evidence": "According to the reference, 'RULER4k of 1×tokens,16-bit' drops to its lowest point (~-15%) at Layer13-20 and then recovers to around -2% at Layer29-32. The machine description does not capture this non-monotonic behavior and misreports the final value."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The machine description completely misses the non-monotonic trend of 'RULER4k of 1×tokens,16-bit' (which drops to -15% at Layer13-20 and then recovers) and the rising trend of 'RULER4k of 2×tokens,8-bit' (which rises to ~5% at Layer13-20). The described trends are generally monotonically decreasing, which contradicts the reference."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The machine description does not mention the legend placement at the top center of the figure, which is noted in the reference."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The x-axis is labeled \"Layer\"",
+      "evidence": "The reference does not mention that the x-axis has a label called 'Layer'; it only states the x-axis represents different groupings of layers by their names (Layer1-4, Layer5-12, etc.). The machine may be hallucinating an explicit axis label."
+    }
+  ],
+  "mqm_score": 68.0,
+  "total_penalty": 32.0,
+  "error_count": 8
+}
