@@ -1,0 +1,100 @@
+{
+  "figure_key": "english_fig_004",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_only",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "includes tick marks at -20%, -15%, -10%, -5%, 0%, 5% and 10%",
+      "evidence": "Reference states tick marks are at -25%, -15%, -5%, 0%, and 5%. The machine description lists incorrect tick mark values (-20% instead of -25%, adds -10%, and includes 10% which doesn't exist)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The reference describes four distinct lines: yellow (LB-Avg of 2×tokens,8-bit), red (LB-Avg of 1×tokens,16-bit), light blue (RULER4k of 2×tokens,8-bit), and dark blue (RULER4k of 1×tokens,16-bit), plus a gray dashed baseline. The machine description only mentions three lines (blue, orange/red, and gray dashed), missing one line entirely and misidentifying colors and legend labels."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "An orange line with triangular markers begins at approximately 1% at Layer 1, declines to -5% at Layer 13",
+      "evidence": "The reference does not mention any orange line with triangular markers. The lines described in the reference are yellow (circle markers), red (square markers), light blue (circle markers), and dark blue (square markers). There is no orange/triangular marker line."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A blue line with circular markers begins at approximately -1% at Layer 1 and descends to a minimum value of -16% at Layer 13",
+      "evidence": "The reference describes a dark blue line dipping to about -25% at Layer13-20, not -16% as stated. The light blue line dips to around -12%, not -16%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A blue line with circular markers",
+      "evidence": "The reference distinguishes between a light blue line (circle markers, RULER4k 2×tokens,8-bit) and a dark blue line (square markers, RULER4k 1×tokens,16-bit). The machine description conflates these into a single 'blue line with circular markers', losing an entire data series."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A red line with square markers begins at approximately -1% at Layer 1, declines to -6% at Layer 13",
+      "evidence": "The reference describes the red line (LB-Avg of 1×tokens,16-bit) as starting at 0% and showing only a small dip around Layer13-20, not declining to -6%. The machine description's numerical values are incorrect."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The reference mentions a yellow line with circle markers representing 'LB-Avg of 2×tokens,8-bit' and a gray dashed baseline labeled 'Baseline of 4×tokens,4-bit'. The machine description does not mention a yellow line at all and omits the legend labels for all lines."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The machine description vaguely states 'likely in response to some modification' without mentioning that this is about Layer-Wise Quantized Pruning, SnapKV pruning method, or KV cache compression, as stated in the caption."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "divided into four segments: Layer1-4, Layer5-12, Layer13-20, Layer21-28, and Layer29-32",
+      "evidence": "The machine description says 'divided into four segments' but then lists five segments (Layer1-4, Layer5-12, Layer13-20, Layer21-28, Layer29-32), which is inconsistent."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "A gray dashed line represents 0%",
+      "evidence": "The machine description mentions two gray dashed lines—one representing 0% and another as the baseline—but the reference only describes one gray dashed baseline at 0%."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "likely in response to some modification",
+      "evidence": "This is speculative interpretation not supported by the figure or reference description."
+    }
+  ],
+  "mqm_score": 65.0,
+  "total_penalty": 35.0,
+  "error_count": 11
+}

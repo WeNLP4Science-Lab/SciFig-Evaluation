@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_003",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_only",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The LB-Avg of 2×tokens,8-bit configuration shows a slight increase in relative change from approximately -1% to around 1%.",
+      "evidence": "Reference states the yellow line starts near 0% at Layer1-4 and maintains a consistent trend across all layers, not starting at -1% and increasing to 1%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The RULER4k of 2×tokens,8-bit configuration starts at around -1%, decreases to approximately -7% at Layer13-20, and then increases back to around 0%.",
+      "evidence": "Reference states the light blue line (RULER4k of 2×tokens,8-bit) starts around 0% at Layer1-4, moves to around +5% at Layer13-20 (not -7%), and returns just below 0% by Layer29-32. The machine description has both the direction and magnitude wrong."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The RULER4k of 1×tokens,16-bit configuration starts at around -1%, decreases to approximately -15% at Layer13-20, further decreases to around -12% at Layer21-28, and then increases to approximately -3% at Layer29-32.",
+      "evidence": "Reference states the dark blue line starts near -2% at Layer1-4 (not -1%), and increases to around -2% at Layer29-32 (not -3%). The intermediate values at Layer21-28 are not described as -12% in the reference."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The LB-Avg of 1×tokens,16-bit configuration remains relatively stable, fluctuating between approximately -2% and 1%.",
+      "evidence": "Reference describes the red line as starting at 0%, dipping slightly, and returning close to 0% by Layer29-32. Saying it fluctuates between -2% and 1% overstates the range."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The reference mentions a legend placed at the top center representing different layers and corresponding colors, which is not mentioned in the machine-generated description."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The reference specifies tick intervals at every 5% for the y-axis, which is not mentioned in the machine-generated description."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 6
+}

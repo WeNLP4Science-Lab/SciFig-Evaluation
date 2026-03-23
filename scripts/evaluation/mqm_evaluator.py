@@ -1,10 +1,11 @@
 """Core MQM evaluation logic — LLM-as-judge for figure annotation quality.
 
 Uses the MQM (Multidimensional Quality Metrics) framework from the project's
-human evaluation guidelines. An LLM judge examines the figure image and
-evaluates the model-generated annotation against it.
+human evaluation guidelines. Supports three judge configurations:
 
-This module is shared by both evaluate_unstructured.py and evaluate_structured.py.
+  Reference-free: image + generation prompt + caption + model output (no groundtruth)
+  Reference-only: groundtruth annotation + model output (no image)
+  Reference-with-image: image + groundtruth annotation + model output
 """
 
 import base64
@@ -18,6 +19,8 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+GCP_PROJECT = "myai-life-prod"
+GCP_LOCATION = "us-central1"
 
 # MQM weights from the guidelines (Table 2)
 MQM_WEIGHTS = {
@@ -34,59 +37,59 @@ VALID_SEVERITIES = {"Major", "Minor"}
 VALID_SUB_TYPES = {
     "Accuracy": {
         "Incorrect Numerical Value",
-        "Incorrect Trend Interpretation",
         "Incorrect Axis or Legend Interpretation",
-        "Incorrect Label Mapping",
+        "Incorrect Visual Attribute Mapping",
+        "Incorrect Structural Description",
     },
     "Completeness": {
-        "Missing Key Information",
+        "Missing Chart Purpose",
+        "Missing Axis Description",
+        "Missing Visual Features",
         "Hallucinated Content",
+        "Unwanted Interpretation",
     },
     "Clarity and Readability": {
         "Ambiguous Description",
-        "Missing Takeaway",
         "Over-Generalization",
         "Overly Verbose Description",
         "Poor Sentence Structure",
     },
 }
 
-MQM_JUDGE_PROMPT = """\
-You are an expert evaluator assessing the quality of a machine-generated scientific figure description.
-
-## Your Task
-Examine the provided figure image carefully. Then evaluate the machine-generated description against WHAT YOU ACTUALLY SEE in the figure. Identify ALL errors.
-
+_MQM_ERROR_CATEGORIES = """\
 ## MQM Error Categories
 
 ### Accuracy Errors
-- **Incorrect Numerical Value**: Reports incorrect numbers, percentages, or quantities.
-- **Incorrect Trend Interpretation**: Misrepresents the overall pattern or direction of data.
-- **Incorrect Axis or Legend Interpretation**: Incorrectly describes axis labels, units, or legend.
-- **Incorrect Label Mapping**: Assigns wrong category names to visual elements (bars, lines, pie segments).
+- **Incorrect Numerical Value**: Reports incorrect numbers, percentages, or quantities. Example: Reporting "60%" when the plot shows approximately "45%".
+- **Incorrect Axis or Legend Interpretation**: Incorrectly describes axis labels, units, or legend information. Example: Stating that the x-axis represents temperature when it represents time.
+- **Incorrect Visual Attribute Mapping**: Assigns incorrect category names, series, values, marker shapes, or labels to visual elements such as bars, lines, pie segments, or datasets. Example: Assigning the blue bar to Method A when it corresponds to Method B.
+- **Incorrect Structural Description**: Misrepresents the structural organization of the chart. Example: Describing grouped bars as stacked, reporting 5 slices when 4 exist, or misstating axis orientation.
 
 ### Completeness Errors
-- **Missing Key Information**: Omits essential elements (major data points, axis labels, units, key categories).
-- **Hallucinated Content**: Introduces information or visual elements that do not exist in the figure.
+- **Missing Chart Purpose**: The description does not state what the chart represents based on visible labels or title.
+- **Missing Axis Description**: Omits essential axis information such as axis labels, units, scale type, value range, or tick intervals.
+- **Missing Visual Features**: Misses visual and stylistic features such as grouped/stacked structure, legend presence, sorting or ordering, or visual emphasis (highlighted bar, exploded slice).
+- **Hallucinated Content**: Introduces information or visual elements that do not exist in the figure. Example: Stating that the chart contains five categories when only four are present.
+- **Unwanted Interpretation**: Includes interpretation or inference beyond what is explicitly shown in the figure, introduces comparisons not explicitly indicated in the chart, or uses subjective or evaluative language (e.g., "significant increase").
 
 ### Clarity and Readability Errors
-- **Ambiguous Description**: Contains vague or unclear references.
-- **Missing Takeaway**: Fails to summarize the main pattern or insight.
-- **Over-Generalization**: Oversimplifies or exaggerates visual information.
-- **Overly Verbose Description**: Unnecessary repetition or excessive detail.
-- **Poor Sentence Structure**: Grammatical errors or awkward phrasing.
+- **Ambiguous Description**: Contains vague or unclear references. Example: Using phrases such as "this increases significantly" without specifying the subject.
+- **Over-Generalization**: Oversimplifies or exaggerates visual information. Example: Claiming that all methods perform similarly despite visible variation.
+- **Overly Verbose Description**: Contains unnecessary repetition or excessive detail that does not add informational value.
+- **Poor Sentence Structure**: Contains grammatical errors or awkward phrasing that reduces readability.
 
 ## Severity Levels
-- **Major**: Makes the description factually unusable or misleading, or significantly degrades scientific correctness.
-- **Minor**: Stylistic or readability issues that do not affect core factual meaning.
+- **Major**: Errors that make the description factually unusable or misleading, or significantly degrade usability or scientific correctness.
+- **Minor**: Stylistic or readability issues that do not affect the core factual meaning of the annotation."""
 
-## Instructions
-1. Examine the figure image thoroughly — note axes, labels, data series, values, colors, legends, trends.
-2. Read the machine-generated description.
-3. Compare each claim in the description against what you see in the figure.
-4. Identify ALL errors. Be thorough but fair — minor approximations in numerical values are acceptable.
-5. For each error, classify by category, sub_type, and severity, and provide specific evidence.
+# Sub-types where the error refers to MISSING information (no text span to highlight)
+NON_ANNOTATABLE_SUB_TYPES = {
+    "Missing Chart Purpose",
+    "Missing Axis Description",
+    "Missing Visual Features",
+}
 
+_MQM_OUTPUT_FORMAT = """\
 ## Output Format
 Return a JSON object with this exact structure:
 {
@@ -95,13 +98,104 @@ Return a JSON object with this exact structure:
       "category": "Accuracy",
       "sub_type": "Incorrect Numerical Value",
       "severity": "Major",
+      "text_span": "with a final value of 60%",
       "evidence": "Description says 60% but figure shows approximately 45%"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "text_span": null,
+      "evidence": "The description does not mention the y-axis units (percentage)"
     }
   ]
 }
 
+## text_span rules
+- For errors about INCORRECT or UNWANTED content (Accuracy errors, Hallucinated Content, Unwanted Interpretation, all Clarity errors): set "text_span" to the EXACT substring from the machine-generated description that contains the error. Copy it verbatim — do not paraphrase.
+- For errors about MISSING content (Missing Chart Purpose, Missing Axis Description, Missing Visual Features): set "text_span" to null, since there is no text to highlight.
+
 If there are no errors, return: {"errors": []}
 Return ONLY the JSON object. No extra text."""
+
+# ---------------------------------------------------------------------------
+# Reference-free (image + generation prompt + caption + model output, no groundtruth)
+# ---------------------------------------------------------------------------
+JUDGE_A_PROMPT = f"""\
+You are an expert evaluator assessing the quality of a machine-generated scientific figure description.
+
+## Your Task
+Examine the provided figure image carefully. You are also given the GENERATION PROMPT that was used to instruct the model — this defines what the description should cover. Evaluate the machine-generated description against WHAT YOU ACTUALLY SEE in the figure AND whether it fulfills the requirements of the generation prompt. Identify ALL errors.
+
+{_MQM_ERROR_CATEGORIES}
+
+## Instructions
+1. Examine the figure image thoroughly — note axes, labels, data series, values, colors, legends, trends.
+2. Read the generation prompt to understand what the model was asked to describe.
+3. Read the machine-generated description.
+4. Compare each claim in the description against what you see in the figure (for Accuracy).
+5. Check whether the description covers everything the generation prompt requested (for Completeness). If the prompt asks for specific elements (e.g., axes, legend, colors, values) and the description omits them, flag as a Completeness error.
+6. Identify ALL errors. Be thorough but fair — minor approximations in numerical values are acceptable.
+7. For each error, classify by category, sub_type, and severity, and provide specific evidence.
+
+{_MQM_OUTPUT_FORMAT}"""
+
+# ---------------------------------------------------------------------------
+# Reference-only (groundtruth + model output, no image)
+# ---------------------------------------------------------------------------
+JUDGE_B_PROMPT = f"""\
+You are an expert evaluator assessing the quality of a machine-generated scientific figure description.
+
+## Your Task
+You are given a REFERENCE description written by a human expert and a MACHINE-GENERATED description of the same scientific figure. Compare the machine-generated description against the reference to identify errors.
+
+Use the reference as the source of truth for what the figure contains, since you do not have access to the image.
+
+{_MQM_ERROR_CATEGORIES}
+
+## Instructions
+1. Read the reference description carefully — it tells you what the figure actually shows.
+2. Read the machine-generated description.
+3. Compare each claim in the machine-generated description against the reference.
+4. Any claim that contradicts the reference is an Accuracy error.
+5. Any important information present in the reference but missing from the machine output is a Completeness error.
+6. Any information in the machine output that is NOT mentioned in the reference should be flagged as Hallucinated Content (it may be fabricated since you cannot verify it visually).
+7. Assess clarity and readability of the machine-generated description on its own merits.
+8. For each error, classify by category, sub_type, and severity, and provide specific evidence.
+
+{_MQM_OUTPUT_FORMAT}"""
+
+# ---------------------------------------------------------------------------
+# Reference-with-image (image + groundtruth + model output)
+# ---------------------------------------------------------------------------
+JUDGE_C_PROMPT = f"""\
+You are an expert evaluator assessing the quality of a machine-generated scientific figure description.
+
+## Your Task
+You are given the FIGURE IMAGE, a REFERENCE description written by a human expert, and a MACHINE-GENERATED description. Use BOTH the image and the reference to evaluate the machine-generated description. Identify ALL errors.
+
+The image is the primary source of truth. The reference description provides additional context about what a human expert considered important to mention.
+
+{_MQM_ERROR_CATEGORIES}
+
+## Instructions
+1. Examine the figure image thoroughly — note axes, labels, data series, values, colors, legends, trends.
+2. Read the reference description to understand what a human expert highlighted.
+3. Read the machine-generated description.
+4. Compare each claim in the machine-generated description against BOTH the image and the reference.
+5. Identify ALL errors. Be thorough but fair — minor approximations in numerical values are acceptable.
+6. Use the image to verify factual claims. Use the reference to identify important omissions.
+7. For each error, classify by category, sub_type, and severity, and provide specific evidence.
+
+{_MQM_OUTPUT_FORMAT}"""
+
+# Keep backward compatibility
+MQM_JUDGE_PROMPT = JUDGE_A_PROMPT
+
+
+def _is_gemini(model: str) -> bool:
+    """Check if model should use Vertex AI / Google GenAI."""
+    return model.startswith("gemini-")
 
 
 def _get_client():
@@ -110,6 +204,13 @@ def _get_client():
     if not api_key:
         raise EnvironmentError("OPENROUTER_API_KEY environment variable is not set.")
     return OpenAI(base_url=OPENROUTER_BASE_URL, api_key=api_key)
+
+
+def _get_gemini_client(model: str = ""):
+    from google import genai
+    # Gemini 3+ preview models require location='global'
+    location = "global" if "preview" in model or "gemini-3" in model else GCP_LOCATION
+    return genai.Client(vertexai=True, project=GCP_PROJECT, location=location)
 
 
 def _encode_image(path: Path) -> str:
@@ -180,68 +281,52 @@ def validate_errors(errors: list[dict]) -> list[dict]:
         if sev not in VALID_SEVERITIES:
             sev = "Minor"  # default to Minor if unclear
 
+        # Handle text_span
+        text_span = err.get("text_span")
+        if text_span is not None:
+            text_span = str(text_span).strip() if text_span else None
+        # Force null for non-annotatable sub-types
+        if sub in NON_ANNOTATABLE_SUB_TYPES:
+            text_span = None
+
         validated.append({
             "category": cat,
             "sub_type": sub,
             "severity": sev,
             "weight": MQM_WEIGHTS.get((cat, sev), 0.0),
+            "text_span": text_span,
             "evidence": err.get("evidence", ""),
         })
     return validated
 
 
-def evaluate_annotation(
-    image_path: Path,
-    annotation: str,
-    caption: str,
-    paper_title: str = "",
-    figure_type: str = "",
-    judge_model: str = "openai/gpt-4o-mini",
-    max_tokens: int = 2048,
-) -> dict:
-    """Evaluate a single annotation against its figure using MQM.
-
-    Args:
-        image_path: Path to the figure image.
-        annotation: The model-generated description to evaluate.
-        caption: Original figure caption from the paper.
-        paper_title: Title of the source paper.
-        figure_type: Type of figure (Line Plot, Bar Chart, etc.).
-        judge_model: OpenRouter model ID for the judge.
-        max_tokens: Max tokens for judge response.
-
-    Returns:
-        dict with errors, mqm_score, total_penalty.
-    """
-    client = _get_client()
-    b64 = _encode_image(image_path)
-
-    context_parts = []
+def _build_context_text(annotation: str, caption: str = "", paper_title: str = "",
+                        figure_type: str = "", reference: str = "",
+                        generation_prompt: str = "") -> str:
+    """Build the user-facing context text for the judge."""
+    parts = []
     if paper_title:
-        context_parts.append(f"Paper: {paper_title}")
+        parts.append(f"Paper: {paper_title}")
     if caption:
-        context_parts.append(f"Caption: {caption}")
+        parts.append(f"Caption: {caption}")
     if figure_type:
-        context_parts.append(f"Figure type: {figure_type}")
-    context_parts.append(f"\n--- Machine-generated description to evaluate ---\n{annotation}")
-    user_text = "\n".join(context_parts)
+        parts.append(f"Figure type: {figure_type}")
+    if generation_prompt:
+        parts.append(f"\n--- Generation prompt (given to the model) ---\n{generation_prompt}")
+    if reference:
+        parts.append(f"\n--- Reference description (human expert) ---\n{reference}")
+    parts.append(f"\n--- Machine-generated description to evaluate ---\n{annotation}")
+    return "\n".join(parts)
 
-    user_content = [
-        {
-            "type": "image_url",
-            "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
-        },
-        {
-            "type": "text",
-            "text": user_text,
-        },
-    ]
 
+def _run_judge(client, judge_model: str, system_prompt: str,
+               user_content, max_tokens: int = 2048) -> dict:
+    """Call the judge LLM and return validated MQM result."""
     def _call():
         response = client.chat.completions.create(
             model=judge_model,
             messages=[
-                {"role": "system", "content": MQM_JUDGE_PROMPT},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content},
             ],
             max_tokens=max_tokens,
@@ -261,3 +346,137 @@ def evaluate_annotation(
         "error_count": len(errors),
         "judge_model": judge_model,
     }
+
+
+def _run_judge_gemini(judge_model: str, system_prompt: str,
+                      user_content_parts, max_tokens: int = 32768) -> dict:
+    """Call a Gemini model via Vertex AI and return validated MQM result."""
+    from google.genai import types
+
+    client = _get_gemini_client(judge_model)
+
+    def _call():
+        response = client.models.generate_content(
+            model=judge_model,
+            contents=user_content_parts,
+            config=types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                max_output_tokens=max_tokens,
+                response_mime_type="application/json",
+            ),
+        )
+        raw = response.text.strip()
+        return _extract_json(raw)
+
+    result = _retry(_call)
+    errors = validate_errors(result.get("errors", []))
+    mqm_score, total_penalty = compute_mqm_score(errors)
+
+    return {
+        "errors": errors,
+        "mqm_score": round(mqm_score, 2),
+        "total_penalty": round(total_penalty, 2),
+        "error_count": len(errors),
+        "judge_model": judge_model,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Reference-free
+# ---------------------------------------------------------------------------
+
+def evaluate_annotation(
+    image_path: Path,
+    annotation: str,
+    caption: str,
+    paper_title: str = "",
+    figure_type: str = "",
+    generation_prompt: str = "",
+    judge_model: str = "openai/gpt-4o-mini",
+    max_tokens: int = 2048,
+) -> dict:
+    """Reference-free — evaluate annotation against the figure image + generation prompt."""
+    user_text = _build_context_text(annotation, caption, paper_title, figure_type,
+                                    generation_prompt=generation_prompt)
+
+    if _is_gemini(judge_model):
+        from google.genai import types
+        img_bytes = Path(image_path).read_bytes()
+        parts = [
+            types.Part.from_bytes(data=img_bytes, mime_type="image/png"),
+            user_text,
+        ]
+        return _run_judge_gemini(judge_model, JUDGE_A_PROMPT, parts)
+
+    client = _get_client()
+    b64 = _encode_image(image_path)
+    user_content = [
+        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}},
+        {"type": "text", "text": user_text},
+    ]
+    return _run_judge(client, judge_model, JUDGE_A_PROMPT, user_content, max_tokens)
+
+
+# Alias for backward compatibility
+evaluate_judge_a = evaluate_annotation
+
+
+# ---------------------------------------------------------------------------
+# Reference-only (no image)
+# ---------------------------------------------------------------------------
+
+def evaluate_judge_b(
+    annotation: str,
+    reference: str,
+    caption: str,
+    paper_title: str = "",
+    figure_type: str = "",
+    judge_model: str = "openai/gpt-4o-mini",
+    max_tokens: int = 2048,
+) -> dict:
+    """Reference-only — evaluate annotation against the reference (no image)."""
+    user_text = _build_context_text(annotation, caption, paper_title, figure_type, reference)
+
+    if _is_gemini(judge_model):
+        return _run_judge_gemini(judge_model, JUDGE_B_PROMPT, [user_text])
+
+    client = _get_client()
+    user_content = [
+        {"type": "text", "text": user_text},
+    ]
+    return _run_judge(client, judge_model, JUDGE_B_PROMPT, user_content, max_tokens)
+
+
+# ---------------------------------------------------------------------------
+# Reference-with-image (image + reference)
+# ---------------------------------------------------------------------------
+
+def evaluate_judge_c(
+    image_path: Path,
+    annotation: str,
+    reference: str,
+    caption: str,
+    paper_title: str = "",
+    figure_type: str = "",
+    judge_model: str = "openai/gpt-4o-mini",
+    max_tokens: int = 2048,
+) -> dict:
+    """Reference-with-image — evaluate annotation against both the image and reference."""
+    user_text = _build_context_text(annotation, caption, paper_title, figure_type, reference)
+
+    if _is_gemini(judge_model):
+        from google.genai import types
+        img_bytes = Path(image_path).read_bytes()
+        parts = [
+            types.Part.from_bytes(data=img_bytes, mime_type="image/png"),
+            user_text,
+        ]
+        return _run_judge_gemini(judge_model, JUDGE_C_PROMPT, parts)
+
+    client = _get_client()
+    b64 = _encode_image(image_path)
+    user_content = [
+        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}},
+        {"type": "text", "text": user_text},
+    ]
+    return _run_judge(client, judge_model, JUDGE_C_PROMPT, user_content, max_tokens)

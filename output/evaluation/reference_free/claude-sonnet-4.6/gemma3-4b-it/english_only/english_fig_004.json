@@ -1,0 +1,100 @@
+{
+  "figure_key": "english_fig_004",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The plot illustrates the relative change in the LB-Avg of 2×tokens for Layer-12, Layer-13-20, Layer-21-28, and Layer-29-32, compared to the Baseline of 4× tokens.",
+      "evidence": "The plot shows four lines: LB-Avg of 2×tokens,8-bit; LB-Avg of 1×tokens,16-bit; RULER4k of 2×tokens,8-bit; RULER4k of 1×tokens,16-bit. The description incorrectly characterizes the purpose and omits that it shows both LB-Avg and RULER4k metrics."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The y-axis is a logarithmic scale ranging from -25% to 5%, with tick intervals of 5%.",
+      "evidence": "The y-axis appears to be a linear scale, not a logarithmic scale. The tick marks are at regular intervals (-25%, -15%, -5%, 0%, 5%), which is characteristic of a linear scale."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The first line, colored orange and represented by a circle marker and a solid line, shows a value of approximately -10% at Layer-1-4 and fluctuates around -6% across the subsequent layers.",
+      "evidence": "The orange/yellow line (LB-Avg of 2×tokens,8-bit) starts near 0% at Layer1-4, not -10%. It stays close to 0% across most layers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The second line, colored red and represented by a circle marker and a solid line, remains consistently around -2% from Layer-1-4 until Layer-13-20, then decreases to approximately -8% at Layer-21-28 and -10% at Layer-29-32.",
+      "evidence": "The red line (LB-Avg of 1×tokens,16-bit) starts near 0% at Layer1-4, dips to about -4.5% at Layer13-20, and recovers to near 0% at Layer29-32. It does not decrease to -8% or -10% at later layers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A third line, colored teal and represented by a circle marker and a dashed line, begins at approximately -18% at Layer-1-4, and steadily decrements to approximately -28% at Layer-21-28.",
+      "evidence": "The teal line (RULER4k of 2×tokens,8-bit) is solid, not dashed. It begins at approximately -2% at Layer1-4, drops dramatically to about -13% at Layer13-20, then recovers. It does not start at -18% or reach -28%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The fourth line, colored blue and represented by a circle marker and a dashed line, remains at approximately -6% from Layer-1-4 until Layer-13-20, then decreases to approximately -14% at Layer-21-28 and -16% at Layer-29-32.",
+      "evidence": "The dark blue line (RULER4k of 1×tokens,16-bit) is solid, not dashed. It starts around -3% at Layer1-4, drops dramatically to approximately -25% at Layer13-20, then recovers to about -5% at Layer29-32."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the dashed gray baseline line (Baseline of 4×tokens,4-bit) at 0% that is clearly visible in the figure."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description fails to mention that all four lines use square markers for some series and circle markers for others — the legend shows both circle and square markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "represented by a circle marker and a solid line",
+      "evidence": "The red line (LB-Avg of 1×tokens,16-bit) uses a square marker, not a circle marker, as shown in the legend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "represented by a circle marker and a dashed line",
+      "evidence": "The dark blue line (RULER4k of 1×tokens,16-bit) uses a square marker and solid line, not a circle marker and dashed line."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that this is about layer-wise quantized pruning on Mistral-7B or that all lines represent performance relative to a 4×tokens,4-bit baseline."
+    }
+  ],
+  "mqm_score": 59.5,
+  "total_penalty": 40.5,
+  "error_count": 11
+}
