@@ -1,0 +1,27 @@
+{
+  "backends": {
+    "openrouter": {
+      "type": "openai_compat",
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": "OPENROUTER_API_KEY"
+    },
+    "azure": {
+      "type": "openai_compat",
+      "azure": true,
+      "endpoint_env": "AZURE_OPENAI_ENDPOINT",
+      "api_key_env": "AZURE_OPENAI_API_KEY",
+      "api_version": "2024-12-01-preview"
+    },
+    "vertex": {
+      "type": "vertex_ai",
+      "project_env": "GCP_PROJECT",
+      "project_default": "myai-life-prod",
+      "location": "us-central1"
+    }
+  },
+  "routes": [
+    {"prefix": "azure/", "backend": "azure", "strip_prefix": true},
+    {"prefix": "gemini-", "backend": "vertex", "strip_prefix": false},
+    {"prefix": "*", "backend": "openrouter", "strip_prefix": false}
+  ]
+}

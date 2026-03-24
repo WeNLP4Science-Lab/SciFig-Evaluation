@@ -1,0 +1,194 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly mention that the chart represents 'Massive Activation of baseline,' which is stated in the chart title."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "синя пунктирена линия с кръгли маркери; „attn_residual“ – с тънка оранжева пунктирена линия с кръгли маркери; „ffn_output“ – с тънка зелена пунктирена линия с кръгли маркери",
+          "evidence": "The description incorrectly states there are round markers on the lines, but no markers are visible on the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "до около 200 при слой 22. Линията „attn_residual“ започва със стойност близо до 0",
+          "evidence": "The attn_output line ends closer to about 100, not 200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "стойност близо до 0 до слой 5",
+          "evidence": "The attn_residual line rises sharply between layers 6 and 22, not remaining at 0 till layer 5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the visualization style of each line (dashed, dotted, etc.) and does not mention the legend presence."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the chart's purpose related to massive activation or attention sink phenomena even though it is provided in the caption."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "blue dashed line labeled \"attn_output\" starts at 0 at layer 0, remains near 0 until layer 21, and then sharply increases to approximately 270 at layer 22.",
+          "evidence": "The blue dashed line does not have a sharp increase at layer 22; it remains near 0 throughout."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "orange dotted line labeled \"attn_residual\" begins at 0 at layer 0, rises to approximately 1480 at layer 5, remains high until layer 14, and then sharply drops to approximately 300 at layer 21 before rising again to approximately 1580 at layer 22.",
+          "evidence": "The attn_residual line rises sharply at layer 4 not layer 5, then fluctuates but doesn't drop to 300 until after reaching 1600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "green dash-dotted line labeled \"ffn_output\" starts at 0 at layer 0, remains near 0 until layer 5, rises to a peak of approximately 1000 at layer 6, drops to 0 at layer 7, rises to a peak of approximately 750 at layer 13, and then drops to 0 at layer 14 before rising again to approximately 1200 at layer 21 and then dropping to 0 at layer 22.",
+          "evidence": "The ffn_output line doesn't rise to 1000 at layer 6, the peaks are different: around layer 6 it is much lower than 1000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "red solid line labeled \"ffn_residual\" starts at 0 at layer 0, remains near 0 until layer 5, rises to approximately 1450 at layer 6, remains high until layer 14, drops to approximately 450 at layer 21, and then rises to approximately 1580 at layer 22.",
+          "evidence": "The ffn_residual line starts rising around layer 4 and reaches 1600 not 1450 at layer 6."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where it sharply increases to approximately 250",
+          "evidence": "The blue dashed line ('attn_output') increases to approximately 300, not 250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "peaking at about 1200",
+          "evidence": "The green dash-dotted line ('ffn_output') peaks at approximately 800, not 1200."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the purpose as comparing massive activations and attention sinks across different gating configurations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The `attn_output` (blue dashed line) remains near zero until layer 21",
+          "evidence": "The blue dashed line ('attn_output') has a small peak around layer 15, not mentioned."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state that the chart represents 'Massive Activation of baseline' as indicated in the title."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wo sie leicht ansteigt",
+          "evidence": "The description incorrectly states that `attn_output` slightly rises at layer 22, but in the figure, it shows a notable increase starting before layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "erreicht bei der 22. Schicht einen Wert von etwa 280",
+          "evidence": "The description states `attn_residual` reaches a value of 280 at layer 22, but the figure does not show values near 280."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "auf einen Spitzenwert von etwa 1200 bei der 13. Schicht",
+          "evidence": "The `ffn_output` line reaches a lower peak at around layer 13 than stated in the description, closer to 800."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fällt dann abrupt auf etwa 500 bei der 22. Schicht",
+          "evidence": "The `ffn_residual` line drops to about 1500 at layer 22 instead of approximately 500 as described."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 78.88
+}

@@ -1,0 +1,113 @@
+{
+  "figure_key": "multi_fig_007",
+  "model_name": "gpt-5.2",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [],
+      "mqm_score": 100.0,
+      "total_penalty": 0.0,
+      "error_count": 0,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "并对比门控前、门控后，以及用“平均门控分数×门控前隐状态”得到的稀疏率测量结果",
+          "evidence": "The phrase '并对比' (and compares) introduces a comparison between the lines, which the prompt explicitly forbids ('avoid comparing different lines')."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "蓝色虚线",
+          "evidence": "The blue line is a dashed line, not a dotted line as described. The description in Chinese is '虚线' which means dashed line, this is correct. However, the line style is technically dash-dotted, not simply dashed. The correct Chinese term would be '点划线' or '虚点线'. I will mark this as minor as '虚线' is a close approximation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "同样在 Layer 0 处接近 1.0",
+          "evidence": "The word '同样' (similarly/also) implicitly compares the starting point of the green line to the previously described orange line, which violates the instruction to not compare lines."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "更平滑地持续下降",
+          "evidence": "The phrase '更平滑地' (more smoothly) is a subjective comparison of the green line's trend relative to the orange line's trend. The prompt asks to avoid comparisons."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "约 Layer 15–20 在 0.09–0.11 左右轻微波动",
+          "evidence": "The description states the green line fluctuates between 0.09 and 0.11 from Layer 15 to 20. However, the value at Layer 19 is approximately 0.08, which is outside the specified range."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "decreases to about 0.75 by around layer 4",
+          "evidence": "The description states the orange line decreases to about 0.75 by around layer 4. However, the value at layer 4 is visibly higher, at approximately 0.82. The value at layer 5 is closer to 0.75."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "shows a small bump to roughly 0.12 near layer 21",
+          "evidence": "The description mischaracterizes the location and value of the bump on the green line. The peak of the bump is at layer 20, not 21, and its value is approximately 0.13, not 0.12. At layer 21, the value has already decreased to about 0.10."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "liegt um Layer 10 herum ungefähr bei 0,30",
+          "evidence": "The description states that the orange line is at approximately 0.30 at Layer 10, but the plot shows the value is clearly higher, at approximately 0.35."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "ebenfalls",
+          "evidence": "The use of the word \"ebenfalls\" (also) to describe the starting point of the green line implicitly compares it to the orange line, which the prompt instructions advise against."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 94.5
+}

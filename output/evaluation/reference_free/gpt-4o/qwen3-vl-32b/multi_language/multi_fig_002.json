@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the chart is used for comparison with logarithmic results due to significant differences in values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "подредени в азбучен (нарастващ) ред",
+          "evidence": "The sparsity rates are ordered in increasing numerical order, not alphabetical."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the presence of the legend background in light shading."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "пер-слоевата перплексност достига около 10^2, докато пер-изходната е малко под 10^2.",
+          "evidence": "Both bars at 70% are closer to 10^2, with Per-Layer slightly higher."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "пер-изходната е около 10^2.5",
+          "evidence": "Per-Output at 80% is below 10^2.5."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "两者在每个稀疏率下均以相同高度呈现，表明在各稀疏率下两种策略的困惑度数值非常接近",
+          "evidence": "The bars for 'Per-Output' and 'Per-Layer' do not display the same height at each sparsity rate; they vary significantly, especially at higher rates."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Output reaches approximately 200",
+          "evidence": "The Per-Output bar at 80% sparsity rate exceeds the 10³ gridline, indicating it is closer to 1000, not 200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Layer exceeds 1000 (just above 10³)",
+          "evidence": "The Per-Layer bar at 80% sparsity rate is below the 10³ gridline, indicating it is less than 1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state the overall purpose of illustrating the impact of sparsity rate on perplexity for two pruning strategies."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the information about the legend explaining 'Per-Output' and 'Per-Layer' categorizations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Output consistently slightly lower than Per-Layer",
+          "evidence": "At several sparsity rates (20%, 30%, 40%), Per-Layer has lower or equal values compared to Per-Output, not consistently higher."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der blaue Balken bei etwa 10²,⁵ (ca. 300)",
+          "evidence": "The blue bar at 80% sparsity exceeds 300, closer to 700–800."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der orangefarbene Balken bei etwa 10³ (1000)",
+          "evidence": "The orange bar at 80% sparsity does not reach 1000; it's between 500-700."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 60% Sparsity steigen beide Werte auf etwa 10¹,5 (ca. 30–40)",
+          "evidence": "Values at 60% sparsity are closer to 10² (around 100) than 10¹,5 (30–40)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description misses explaining that the chart illustrates the effect of sparsity on perplexity for different pruning strategies."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 83.62
+}

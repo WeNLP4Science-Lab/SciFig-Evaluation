@@ -19,11 +19,9 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
 
-logger = logging.getLogger(__name__)
+from evaluation.judge_backends import resolve_backend, get_openai_compat_client, get_vertex_client
 
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-GCP_PROJECT = "myai-life-prod"
-GCP_LOCATION = "us-central1"
+logger = logging.getLogger(__name__)
 
 # MQM weights from the guidelines (Table 2)
 MQM_WEIGHTS = {
@@ -196,24 +194,6 @@ The image is the primary source of truth. The reference description provides add
 MQM_JUDGE_PROMPT = JUDGE_A_PROMPT
 
 
-def _is_gemini(model: str) -> bool:
-    """Check if model should use Vertex AI / Google GenAI."""
-    return model.startswith("gemini-")
-
-
-def _get_client():
-    from openai import OpenAI
-    api_key = os.environ.get("OPENROUTER_API_KEY")
-    if not api_key:
-        raise EnvironmentError("OPENROUTER_API_KEY environment variable is not set.")
-    return OpenAI(base_url=OPENROUTER_BASE_URL, api_key=api_key)
-
-
-def _get_gemini_client(model: str = ""):
-    from google import genai
-    # Gemini 3+ preview models require location='global'
-    location = "global" if "preview" in model or "gemini-3" in model else GCP_LOCATION
-    return genai.Client(vertexai=True, project=GCP_PROJECT, location=location)
 
 
 def _encode_image(path: Path) -> str:
@@ -352,21 +332,28 @@ def _run_judge(client, judge_model: str, system_prompt: str,
 
 
 def _run_judge_gemini(judge_model: str, system_prompt: str,
-                      user_content_parts, max_tokens: int = 32768) -> dict:
+                      user_content_parts, backend_config: dict,
+                      max_tokens: int = 32768) -> dict:
     """Call a Gemini model via Vertex AI and return validated MQM result."""
     from google.genai import types
 
-    client = _get_gemini_client(judge_model)
+    client = get_vertex_client(backend_config, judge_model)
 
     def _call():
+        config_kwargs = {
+            "system_instruction": system_prompt,
+            "max_output_tokens": max_tokens,
+            "response_mime_type": "application/json",
+        }
+        # Thinking models (2.5 Pro, etc.) need a thinking config to avoid truncation
+        if "2.5" in judge_model or "2-5" in judge_model:
+            config_kwargs["thinking_config"] = types.ThinkingConfig(
+                thinking_budget=4096,
+            )
         response = client.models.generate_content(
             model=judge_model,
             contents=user_content_parts,
-            config=types.GenerateContentConfig(
-                system_instruction=system_prompt,
-                max_output_tokens=max_tokens,
-                response_mime_type="application/json",
-            ),
+            config=types.GenerateContentConfig(**config_kwargs),
         )
         raw = response.text.strip()
         return _extract_json(raw)
@@ -382,6 +369,38 @@ def _run_judge_gemini(judge_model: str, system_prompt: str,
         "error_count": len(errors),
         "judge_model": judge_model,
     }
+
+
+def _get_judge_result(judge_model: str, system_prompt: str, text_content: str,
+                      image_path=None, max_tokens: int = 2048) -> dict:
+    """Unified judge dispatcher. Routes to the correct backend."""
+    backend_type, backend_config, model_id = resolve_backend(judge_model)
+
+    if backend_type == "openai_compat":
+        client = get_openai_compat_client(backend_config)
+        user_content = []
+        if image_path:
+            b64 = _encode_image(image_path)
+            user_content.append({
+                "type": "image_url",
+                "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"},
+            })
+        user_content.append({"type": "text", "text": text_content})
+        return _run_judge(client, model_id, system_prompt, user_content, max_tokens)
+
+    elif backend_type == "vertex_ai":
+        from google.genai import types
+        parts = []
+        if image_path:
+            parts.append(types.Part.from_bytes(
+                data=Path(image_path).read_bytes(), mime_type="image/png",
+            ))
+        parts.append(text_content)
+        # Vertex AI / Gemini needs higher token budget (thinking tokens are separate)
+        return _run_judge_gemini(model_id, system_prompt, parts, backend_config, max_tokens=8192)
+
+    else:
+        raise ValueError(f"Unknown backend type: {backend_type}")
 
 
 # ---------------------------------------------------------------------------
@@ -401,23 +420,8 @@ def evaluate_annotation(
     """Reference-free — evaluate annotation against the figure image + generation prompt."""
     user_text = _build_context_text(annotation, caption, paper_title, figure_type,
                                     generation_prompt=generation_prompt)
-
-    if _is_gemini(judge_model):
-        from google.genai import types
-        img_bytes = Path(image_path).read_bytes()
-        parts = [
-            types.Part.from_bytes(data=img_bytes, mime_type="image/png"),
-            user_text,
-        ]
-        return _run_judge_gemini(judge_model, JUDGE_A_PROMPT, parts)
-
-    client = _get_client()
-    b64 = _encode_image(image_path)
-    user_content = [
-        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}},
-        {"type": "text", "text": user_text},
-    ]
-    return _run_judge(client, judge_model, JUDGE_A_PROMPT, user_content, max_tokens)
+    return _get_judge_result(judge_model, JUDGE_A_PROMPT, user_text,
+                             image_path=image_path, max_tokens=max_tokens)
 
 
 # Alias for backward compatibility
@@ -439,15 +443,8 @@ def evaluate_judge_b(
 ) -> dict:
     """Reference-only — evaluate annotation against the reference (no image)."""
     user_text = _build_context_text(annotation, caption, paper_title, figure_type, reference)
-
-    if _is_gemini(judge_model):
-        return _run_judge_gemini(judge_model, JUDGE_B_PROMPT, [user_text])
-
-    client = _get_client()
-    user_content = [
-        {"type": "text", "text": user_text},
-    ]
-    return _run_judge(client, judge_model, JUDGE_B_PROMPT, user_content, max_tokens)
+    return _get_judge_result(judge_model, JUDGE_B_PROMPT, user_text,
+                             max_tokens=max_tokens)
 
 
 # ---------------------------------------------------------------------------
@@ -466,20 +463,5 @@ def evaluate_judge_c(
 ) -> dict:
     """Reference-with-image — evaluate annotation against both the image and reference."""
     user_text = _build_context_text(annotation, caption, paper_title, figure_type, reference)
-
-    if _is_gemini(judge_model):
-        from google.genai import types
-        img_bytes = Path(image_path).read_bytes()
-        parts = [
-            types.Part.from_bytes(data=img_bytes, mime_type="image/png"),
-            user_text,
-        ]
-        return _run_judge_gemini(judge_model, JUDGE_C_PROMPT, parts)
-
-    client = _get_client()
-    b64 = _encode_image(image_path)
-    user_content = [
-        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}},
-        {"type": "text", "text": user_text},
-    ]
-    return _run_judge(client, judge_model, JUDGE_C_PROMPT, user_content, max_tokens)
+    return _get_judge_result(judge_model, JUDGE_C_PROMPT, user_text,
+                             image_path=image_path, max_tokens=max_tokens)

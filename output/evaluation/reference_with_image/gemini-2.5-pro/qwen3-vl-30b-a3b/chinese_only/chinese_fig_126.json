@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_126",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "每个饼图均包含七个类别",
+      "evidence": "Chart (a) contains eight categories, not seven. The categories are: 预测为空, 一个为0, 预测过长, 预测过短, 下一层级, 上一层级, 超出NTC, 其他."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其次是预测过短（18%）、预测过长（17%）和下一个层级（16%）",
+      "evidence": "The description incorrectly maps percentages to categories for chart (a). The correct mappings are: 预测过长 is 18%, 下一层级 is 17%, and 预测过短 is 16%. The description has swapped these three."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "预测为一个0（9%）",
+      "evidence": "In chart (b), the percentage for '预测为一个0' (one is 0) is 8%, not 9%. The category with 9% is '上一层级' (previous level)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其余类别如下一个层级、上一层级、超出NTC和其它的占比分别为8%、6%、6%和6%",
+      "evidence": "The list of percentages for the remaining categories in chart (b) is incorrect. The correct values are: 下一个层级 is 6% (not 8%), 上一层级 is 9% (not 6%), and 其他 is 6%. The category '超出NTC' does not exist in chart (b)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "超出NTC",
+      "evidence": "The description hallucinates the category '超出NTC' for chart (b). This category only exists in chart (a)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "所有切片均以大小递减的顺序排列",
+      "evidence": "The slices in neither pie chart are arranged in descending order of size. For example, in chart (a), the order of percentages is 37%, 0%, 18%, 16%, 17%, etc., which is not sorted."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "在篇章级小句复合体结构自动分析任务中",
+      "evidence": "This phrase describes the context of the task, which is taken from the paper title provided externally, not from the figure itself (which includes the charts, titles, and legend). It is an interpretation beyond the visual information presented."
+    }
+  ],
+  "mqm_score": 70.0,
+  "total_penalty": 30.0,
+  "error_count": 7
+}
