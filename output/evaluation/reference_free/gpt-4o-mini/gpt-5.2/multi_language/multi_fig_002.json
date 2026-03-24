@@ -4,49 +4,231 @@
   "figure_type": "Bar Chart",
   "judge_type": "reference_free",
   "judge_model": "openai/gpt-4o-mini",
-  "errors": [
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Chart Purpose",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention what the chart represents regarding 'per-output' and 'per-layer' perplexity."
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "при 60% синьото е около ~9–10, а оранжевото около ~11, при 70% синьото е около ~20, а оранжовото около ~35–40",
+          "evidence": "Figure shows approximately 9 for Per-Output and 11 for Per-Layer at 60%, and around 18 for Per-Output and 35 for Per-Layer at 70%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state the overall purpose or comparison intention of the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "Does not mention that the bars are grouped and refers to them as 'съседни стълба' instead of clearly stating grouped structure."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not provide details about the axes, such as labels, scales, and value ranges."
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在 10%–30% 稀疏率处两种系列的困惑度均在约 5–6 左右",
+          "evidence": "The description states values of 5-6 for perplexity at 10%-30% sparsity rate, but the figure shows values closer to 10^1 (around 10)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "60% 处蓝色约 9–10、橙色约 10–11",
+          "evidence": "The description states blue is around 9-10 and orange 10-11 at 60%, but the figure shows blue closer to 10 and orange around 11."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "70% 处蓝色约 20、橙色约 35–40",
+          "evidence": "The description states blue is around 20 and orange between 35-40 at 70%, but the figure shows blue is closer to 30 and orange closer to 50."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "80% 处蓝色约 5×10^2（数百量级）、橙色接近 10^3（约 9×10^2 到 10^3 左右）",
+          "evidence": "The description states blue is approximately 5×10^2 at 80%, but the figure actually shows it is around 4×10^2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly mention the chart's purpose of comparing perplexity values as indicated in the prompt."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description omits information about the grouped structure of bars and the legend."
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "just above 5 (approximately ~5–6)",
+          "evidence": "Description states ~5–6 at 10% sparsity, but figure shows around 10"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around ~10",
+          "evidence": "Description states ~10 at 60% sparsity, but figure shows around 20"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around ~20",
+          "evidence": "Description states ~20 at 70% sparsity, but figure shows around 40"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "blue bar rises to roughly ~500",
+          "evidence": "Description states ~500 at 80% sparsity, but figure shows around 600"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the orange bar is close to ~900",
+          "evidence": "Description states ~900 at 80% sparsity, but figure shows around 800"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention specific tick intervals on the y-axis, which are critical for understanding the logarithmic scale."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention whether the bars are sorted, though they are in increasing order of sparsity."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 7,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention that the y-axis uses a logarithmic scale."
-    },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not note any visual emphasis in the bars."
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 10% liegen beide Balken im unteren einstelligen Bereich (etwa um 5–6)",
+          "evidence": "Der Wert bei 10% liegt bei etwa 10, nicht im einstelligen Bereich."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 20% und 30% ebenfalls um ca. 5–6",
+          "evidence": "Die Werte bei 20% und 30% liegen ebenfalls bei etwa 10, was nicht korrekt ist."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 40% um ca. 6–7",
+          "evidence": "Der Wert bei 40% ist näher bei 20, nicht bei 6-7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 50% um ca. 7–8",
+          "evidence": "Der Wert bei 50% liegt näher an 30, nicht an 7-8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 60% etwa um 9–11",
+          "evidence": "Der Wert bei 60% liegt näher bei 50, nicht bei 9-11."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 70% steigt der blaue Balken auf ungefähr 20 und der orangefarbene auf ungefähr 35–40",
+          "evidence": "Der Wert bei 70% liegt näher bei 200 für den blauen Balken und 400 für den orangefarbenen."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 80% liegen die Balken im hohen dreistelligen Bereich, wobei „Per-Output“ etwa um 500 und „Per-Layer“ nahe 900–1000 liegt",
+          "evidence": "Beide Balken bei 80% liegen deutlich höher, bei mindestens 1000 und 2000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Die Beschreibung erwähnt nicht den Vergleich der Methoden für unterschiedliche Sparsity-Raten."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "Es wird nicht erwähnt, dass die Balken nebeneinander gruppiert sind."
+        }
+      ],
+      "mqm_score": 60.0,
+      "total_penalty": 40.0,
+      "error_count": 9,
+      "judge_model": "openai/gpt-4o-mini"
     }
-  ],
-  "mqm_score": 82.5,
-  "total_penalty": 17.5,
-  "error_count": 5
+  },
+  "mqm_score_avg": 74.12
 }

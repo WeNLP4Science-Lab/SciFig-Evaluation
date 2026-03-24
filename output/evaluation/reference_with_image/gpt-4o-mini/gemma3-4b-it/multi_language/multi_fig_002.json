@@ -4,49 +4,231 @@
   "figure_type": "Bar Chart",
   "judge_type": "reference_with_image",
   "judge_model": "openai/gpt-4o-mini",
-  "errors": [
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Chart Purpose",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention that the chart compares perplexity values 'Per-Output' and 'Per-Layer' at different sparsity rates."
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "показва стойности около 60%, 40%, 30%, 20% и 10%",
+          "evidence": "The description inaccurately lists values for Per-Output perplexity that do not match the figure; the figure shows values below 10^1 for those percentages."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "показва стойности около 80%, 60%, 40%, 10% и 5%",
+          "evidence": "The values ascribed to Per-Layer perplexity are wrong; the actual figure shows values significantly higher, particularly at 80%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "показва perplexity, изразена в логаритмична скала, започваща от 1 и достигаща до 2",
+          "evidence": "The description incorrectly states the vertical axis ranges from 1 to 2; it actually ranges from 10^1 to 10^3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that it compares per-output and per-layer perplexity or provide context about the significance of these comparisons at different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the dual-bar structure for each sparsity rate, which is essential to understand the comparative nature of the chart."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention the vertical axis is on a logarithmic scale or its range (10^1 to 10^3)."
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "垂直轴标注了“Perplexity 稀疏率”",
+          "evidence": "The y-axis is labeled 'Perplexity', not 'Perplexity Sparsity Rate'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "范围从 1e-1 到 8e2",
+          "evidence": "The range on the y-axis in the figure is from 10^1 to 10^3, not 1e-1 to 8e2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The purpose of comparing per-output and per-layer perplexity is not stated."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the bar colors correspond to 'Per-Output' and 'Per-Layer' in the legend."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The vertical axis description does not provide the logarithmic scale information."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "两个柱状图的长度大致相同，因此，该图表明确地展示了在不同斯帕西蒂率下，每输出和每层似然率之间的表示。",
+          "evidence": "The statement 'the lengths of the two bar graphs are roughly the same' is unclear in context and may imply incorrect comparison."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 6,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description lacks detail about the increase in heights of the bars at higher sparsity rates."
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue bar reaches a value of approximately 8,000 at 70% sparsity",
+          "evidence": "The figure shows the blue bar at 70% sparsity to be below 10^3, not 8,000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the orange bar reaches a value of approximately 10 at 50% sparsity",
+          "evidence": "The figure shows that the orange bar at 50% is below 10 and not 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue bar is consistently taller than the orange bar across the entire range of sparsity rates",
+          "evidence": "At 50%, 60%, 70%, and 80% sparsity, the orange bars are taller than the blue bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that there are pairs of bars for each sparsity rate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state the chart's purpose of comparing perplexity for two different methods."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Accuracy",
-      "sub_type": "Incorrect Visual Attribute Mapping",
-      "severity": "Major",
-      "weight": 5.0,
-      "text_span": "orange bar is slightly above 10^1 while the blue bar is still below 10^1",
-      "evidence": "At 60%, the orange bar is not significantly above 10^1 as previously stated."
-    },
-    {
-      "category": "Accuracy",
-      "sub_type": "Incorrect Numerical Value",
-      "severity": "Major",
-      "weight": 5.0,
-      "text_span": "starting from around 2 at 10% sparsity",
-      "evidence": "The actual value at 10% sparsity is closer to 10 and not approximately 2."
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "die Y-Achse stellt die Perplexität dar, die von 1 bis 10 ansteigt",
+          "evidence": "The y-axis is labeled with a logarithmic scale, ranging from 10^1 to 10^3, not linear from 1 to 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der längste blaue Balken entspricht etwa 9,5",
+          "evidence": "The longest blue bar is close to 10^3, not 9.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "der kürzeste Blaue-Balken etwa 6,5 entspricht",
+          "evidence": "The shortest blue bar is below 10^1, not 6.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der längste orange Balken entspricht etwa 7,5",
+          "evidence": "The longest orange bar is close to 10^3, not 7.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "der kürzeste orange Balken etwa 5,5 entspricht",
+          "evidence": "The shortest orange bar is below 10^1, not 5.5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the logarithmic scaling of the y-axis or the labeled markings."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The purpose of the comparison is not clearly stated, particularly the significance of the difference in perplexity at different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the bars are presented in pairs for each sparsity rate."
+        }
+      ],
+      "mqm_score": 64.5,
+      "total_penalty": 35.5,
+      "error_count": 8,
+      "judge_model": "openai/gpt-4o-mini"
     }
-  ],
-  "mqm_score": 79.5,
-  "total_penalty": 20.5,
-  "error_count": 5
+  },
+  "mqm_score_avg": 74.75
 }

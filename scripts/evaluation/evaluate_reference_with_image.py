@@ -46,9 +46,25 @@ def _output_dir(judge_model):
     return ROOT / "output" / "evaluation" / "reference_with_image" / _judge_slug(judge_model)
 
 
-def _discover(subfolder, model_name):
+def _load_samples(samples_path):
+    """Load samples.json and return a dict of {subfolder: set(fig_keys)}."""
+    with open(samples_path) as f:
+        data = json.load(f)
+    result = {}
+    for subfolder, types in data["samples"].items():
+        keys = set()
+        for fig_type, figs in types.items():
+            keys.update(figs)
+        result[subfolder] = keys
+    return result
+
+
+def _discover(subfolder, model_name, sample_keys=None):
     folder = GENERATION_DIR / model_name / subfolder
-    return sorted(p.stem for p in folder.glob("*.json")) if folder.exists() else []
+    keys = sorted(p.stem for p in folder.glob("*.json")) if folder.exists() else []
+    if sample_keys is not None and subfolder in sample_keys:
+        keys = [k for k in keys if k in sample_keys[subfolder]]
+    return keys
 
 
 def _get_reference(gt, lang):
@@ -135,16 +151,19 @@ def _process(fig_key, subfolder, model_name, judge_model):
     return True, fig_key, "done"
 
 
-def run(model_name, judge_model="openai/gpt-4o-mini", workers=1, subfolder_filter=None):
+def run(model_name, judge_model="openai/gpt-4o-mini", workers=1, subfolder_filter=None, samples_path=None):
     subfolders = [subfolder_filter] if subfolder_filter else ALL_SUBFOLDERS
+    sample_keys = _load_samples(samples_path) if samples_path else None
     out_base = _output_dir(judge_model)
     logger.info(f"Reference-with-image | model={model_name} | judge={judge_model} | workers={workers}")
+    if samples_path:
+        logger.info(f"Samples filter: {samples_path}")
     logger.info(f"Output: {out_base / model_name}")
 
     work_items, skipped = [], 0
     for sub in subfolders:
         (out_base / model_name / sub).mkdir(parents=True, exist_ok=True)
-        for fig_key in _discover(sub, model_name):
+        for fig_key in _discover(sub, model_name, sample_keys):
             out_path = out_base / model_name / sub / f"{fig_key}.json"
             gt_path = GROUNDTRUTH_DIR / sub / f"{fig_key}.json"
             fig_path = FIGURES_DIR / sub / f"{fig_key}.png"
@@ -193,5 +212,6 @@ if __name__ == "__main__":
     p.add_argument("--judge", default="openai/gpt-4o-mini", help="Judge model")
     p.add_argument("--workers", type=int, default=1)
     p.add_argument("--subfolder", default=None)
+    p.add_argument("--samples", default=None, help="Path to samples.json to filter figures")
     a = p.parse_args()
-    run(a.model, a.judge, a.workers, a.subfolder)
+    run(a.model, a.judge, a.workers, a.subfolder, a.samples)

@@ -4,41 +4,175 @@
   "figure_type": "Bar Chart",
   "judge_type": "reference_with_image",
   "judge_model": "openai/gpt-4o-mini",
-  "errors": [
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Chart Purpose",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention the purpose of comparing per-output and per-layer perplexity."
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “Per-Layer” bars consistently being taller than the “Per-Output” bars across all sparsity rates",
+          "evidence": "The figure shows that at lower sparsity rates (like 10% and 20%), ‘Per-Output’ has values that are comparable to or higher than ‘Per-Layer’, contradicting this claim."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state that the chart compares the perplexity values between pruning strategies for analysis."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the chart is a bar chart in grouped format, which is important for visual clarity."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not include specific units for the axes, specifically the logarithmic nature of the perplexity axis."
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “Per-Output” bar reaches approximately 10^2.5 (around 316)",
+          "evidence": "The figure shows the Per-Output bar at approximately 10^1.9, not 10^2.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “Per-Layer” bar is significantly taller, reaching approximately 10^2.8 (around 631)",
+          "evidence": "The figure shows the Per-Layer bar at approximately 10^2.4, not 10^2.8."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the chart's purpose of comparing perplexity under different pruning strategies."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits mentioning that the bars are color-coded according to pruning methods."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "with major gridlines and tick marks at powers of ten (10, 100, 1000)",
+          "evidence": "This phrase could confuse readers about the logarithmic scale format."
+        }
+      ],
+      "mqm_score": 84.0,
+      "total_penalty": 16.0,
+      "error_count": 5,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Accuracy",
-      "sub_type": "Incorrect Visual Attribute Mapping",
-      "severity": "Major",
-      "weight": 5.0,
-      "text_span": "The blue bar represents Per-Layer and the orange bar represents Per-Output.",
-      "evidence": "The blue bar represents Per-Output, while the orange bar represents Per-Layer."
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "both bars are approximately equal in height",
+          "evidence": "The blue bars (Per-Output) are consistently shorter than the orange bars (Per-Layer) for several sparsity rates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "both are approximately 10^1 (10)",
+          "evidence": "The values are not equivalent at the lower sparsity rates; the blue bar at 10% is slightly below 10, and both bars do not have equal heights in other instances as well."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "both are approximately 10^3 (1000)",
+          "evidence": "At 80% sparsity, the blue bar does not reach 10^3; it is shorter than the orange bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the orange bars are taller than the blue bars at 50%, 60%, 70%, and 80% sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state the purpose of the chart, which is to compare per-output and per-layer perplexity values."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description fails to mention the sequential ordering of sparsity rates or the use of a logarithmic scale on the y-axis."
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “Per-Layer” bars generally being taller than the “Per-Output” bars at each point",
+          "evidence": "The bars for 'Per-Output' are not consistently shorter than those for 'Per-Layer'; at 80%, the 'Per-Output' bar is very close in height to 'Per-Layer'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “Per-Output” bar appearing to the left of the “Per-Layer” bar",
+          "evidence": "The machine-generated description states the order of the bars incorrectly; 'Per-Output' (blue) is always on the left."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the chart compares per-output and per-layer perplexity at different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the bars are in pairs next to each other for each sparsity rate."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "openai/gpt-4o-mini"
     }
-  ],
-  "mqm_score": 84.5,
-  "total_penalty": 15.5,
-  "error_count": 4
+  },
+  "mqm_score_avg": 84.25
 }

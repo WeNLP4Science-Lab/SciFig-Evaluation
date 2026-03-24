@@ -4,41 +4,151 @@
   "figure_type": "Bar Chart",
   "judge_type": "reference_free",
   "judge_model": "openai/gpt-4o-mini",
-  "errors": [
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Chart Purpose",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not state what the chart represents based on visible labels or title."
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достига стойност малко под 10^3",
+          "evidence": "Description inaccurately claims the orange bar reaches just below 10^3, but the figure shows it clearly above 10^3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not specify units for 'Perplexity' on the y-axis."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description omits essential axis information such as axis labels, units, and scale type."
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色和橙色柱子的近似值均在5到6之间（低于$10^1$刻度线）",
+          "evidence": "The description states values around 5 to 6 for the shortest bars, but they are actually closer to 1 for the logarithmic scale."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description mentions a comparison but does not explicitly state the overall purpose of depicting the perplexity based on different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the horizontal grid lines, which are a notable visual feature of the chart."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The visual arrangement of grouped bars and their colors (blue for Per-Output and orange for Per-Layer) is not described."
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where the blue 'Per-Output' bar reaches an approximate value of 500 and the orange 'Per-Layer' bar approaches nearly 900",
+          "evidence": "The blue bar for 'Per-Output' at 80% shows a value around 600, and the orange bar for 'Per-Layer' shows a value around 800."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits mentioning that the bars represent perplexity metrics for two different methods based on sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that the height of the bars remains below 10 in 10%, 20%, 30%, 40%, and 50%, but the scale reaches logarithmic representation from there."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention that the y-axis is in a logarithmic scale."
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ungefähr einen Wert von 5",
+          "evidence": "Description states approximately 5 at 10%, but the figure shows that the bars are much lower than 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einen Wert von etwa 20",
+          "evidence": "Description states blue bar reaches approximately 20 at 70%, but it is closer to 15."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einen Wert von etwa 40",
+          "evidence": "Description states orange bar reaches approximately 40 at 70%, but it should be closer to 30."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "auf etwa 500",
+          "evidence": "Description states blue bar reaches approximately 500 at 80%, while it is closer to 350."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit einem Wert von nahezu 900",
+          "evidence": "Description states orange bar reaches approximately 900 at 80%, but it is lower than that, around 750."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state the purpose of the chart as comparing perplexity at different sparsity rates."
+        }
+      ],
+      "mqm_score": 71.5,
+      "total_penalty": 28.5,
+      "error_count": 6,
+      "judge_model": "openai/gpt-4o-mini"
     }
-  ],
-  "mqm_score": 86.0,
-  "total_penalty": 14.0,
-  "error_count": 4
+  },
+  "mqm_score_avg": 85.75
 }

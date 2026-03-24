@@ -4,49 +4,159 @@
   "figure_type": "Bar Chart",
   "judge_type": "reference_free",
   "judge_model": "openai/gpt-4o-mini",
-  "errors": [
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Chart Purpose",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not state what the chart represents regarding per-output and per-layer perplexity across different sparsity rates."
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "перплексията и за двата подхода е ниска и почти еднаква, като стойностите са под $10^1$",
+          "evidence": "The description incorrectly states that perplexity is below $10^1$, but the figures for both methods at lower sparsity rates appear to have a minimum value closer to $10^1$."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly mention the purpose of illustrating the comparison of per-output and per-layer perplexity."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that the bars are grouped and the distinct colors representing each method (blue for Per-Output and orange for Per-Layer)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not provide information regarding the tick intervals or structural detail on the y-axis scale for perplexity."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Poor Sentence Structure",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "перплексията и за двата подхода е ниска и почти еднаква",
+          "evidence": "The phrase is awkwardly constructed and reduces clarity regarding the measurement of perplexity across the methods."
+        }
+      ],
+      "mqm_score": 85.5,
+      "total_penalty": 14.5,
+      "error_count": 5,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Axis Description",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "The description does not mention the y-axis units (Perplexity) or the logarithmic scale."
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At the lowest sparsity rate of 10%, both blue and orange bars are approximately at 4.",
+          "evidence": "Description says 4, but figure shows that both bars are near 10"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue bars reaching around 7 at 60%, and the orange bars reaching around 10 at 60%",
+          "evidence": "Description says blue bars are around 7 and orange bars around 10, while figure shows them near 100 and 300 respectively"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue bar is approximately at 400 and the orange bar is approximately at 1000.",
+          "evidence": "Description says the blue bar is approximately 400 and the orange bar is approximately 1000 when it appears to be around 800 for blue and 3000 for orange"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the bars are grouped by sparsity rates and have distinct colors indicated in the legend"
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "No mention of the colors used to represent 'Per-Output' (blue) and 'Per-Layer' (orange) or the legend."
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Output and Per-Layer having perplexity values of around 3 and 3 at 60%, 13 and 5 at 70%, and 400 and 800 at 80%",
+          "evidence": "Description incorrectly states perplexity values at 60% and 70%. The figure shows values different from 3 and 5 for Per-Output and Per-Layer at 60% and 70%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not clarify that the chart is comparing per-output and per-layer perplexity specifically."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific value range on the y-axis beyond logarithmic scale description."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "openai/gpt-4o-mini"
     },
-    {
-      "category": "Accuracy",
-      "sub_type": "Incorrect Visual Attribute Mapping",
-      "severity": "Major",
-      "weight": 5.0,
-      "text_span": "Per-Output and Per-Layer perplexity at different sparsity rates",
-      "evidence": "The machine-generated description does not clearly articulate how the bars are grouped according to the Per-Output and Per-Layer categories."
-    },
-    {
-      "category": "Completeness",
-      "sub_type": "Missing Visual Features",
-      "severity": "Major",
-      "weight": 3.5,
-      "text_span": null,
-      "evidence": "Omission of information about which bars are taller and specific values related to the height of bars at 70% and 80% sparsity rates."
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not clearly state the overall purpose of the chart regarding the comparison of perplexity values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 80% erreichen die Balken Werte von ungefähr 600 für Per-Output und 1000 für Per-Layer",
+          "evidence": "The description says 600 for Per-Output and 1000 for Per-Layer, but the figure shows approximately 700 for Per-Output and 1300 for Per-Layer."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the presence of a legend, which is important for understanding what the colors represent."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "openai/gpt-4o-mini"
     }
-  ],
-  "mqm_score": 81.0,
-  "total_penalty": 19.0,
-  "error_count": 5
+  },
+  "mqm_score_avg": 85.75
 }
