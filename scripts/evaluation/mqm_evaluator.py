@@ -306,13 +306,15 @@ def _run_judge(client, judge_model: str, system_prompt: str,
                user_content, max_tokens: int = 2048) -> dict:
     """Call the judge LLM and return validated MQM result."""
     def _call():
+        # Newer models (GPT-5.x+) use max_completion_tokens instead of max_tokens
+        token_param = "max_completion_tokens" if any(v in judge_model for v in ["gpt-5", "gpt-4.1"]) else "max_tokens"
         response = client.chat.completions.create(
             model=judge_model,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content},
             ],
-            max_tokens=max_tokens,
+            **{token_param: max_tokens},
             response_format={"type": "json_object"},
         )
         raw = response.choices[0].message.content.strip()

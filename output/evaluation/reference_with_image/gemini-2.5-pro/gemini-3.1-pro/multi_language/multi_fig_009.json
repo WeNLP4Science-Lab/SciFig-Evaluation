@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "покачва се рязко до около 1400 при X=6",
+          "evidence": "The orange line ('attn_residual') rises to a value of approximately 1200 at X=6, not 1400. It reaches a value close to 1400 at X=7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достига до ново плато от около 1580 между X=14 и X=21",
+          "evidence": "The orange line ('attn_residual') does not reach a new plateau of 1580. It maintains a plateau at approximately 1480. The red line ('ffn_residual') is the one that has a plateau around 1580 in this range."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "图表包含四条无标记的线条。",
+          "evidence": "The chart contains a legend that clearly labels the four lines as 'attn_output', 'attn_residual', 'ffn_output', and 'ffn_residual'. The description incorrectly states they are unmarked."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在x=6处急剧上升至约1400",
+          "evidence": "For the 'attn_residual' line, the sharp rise occurs between layer 5 and 6. At layer 6, the value is closer to 1500, not 1400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "该线在x=13处出现约1000的第二个峰值",
+          "evidence": "For the 'ffn_output' line, the second peak is at layer 12, not 13, and its value is approximately 800, not 1000."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "gradually climbs to near 1600 by layer 15",
+          "evidence": "The orange 'attn_residual' line climbs to approximately 1500 around layer 8 and remains below 1600 for its entire plateau phase. It does not reach 'near 1600'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "drops sharply to roughly 250 at layer 23",
+          "evidence": "The orange 'attn_residual' line drops to a value of approximately 200 at layer 23, which aligns with a y-axis tick mark. The value 250 is an overestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "drops to near 100 at layer 14",
+          "evidence": "For the green 'ffn_output' line, after the spike at layer 13, the value drops back to a value very close to 0 at layer 14 (approximately 20-30), not 100."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "erreicht bei Schicht 15 etwa 1580",
+          "evidence": "The description states that the 'attn_residual' line reaches a value of about 1580 at layer 15. However, the plot shows the value at layer 15 is approximately 1480. The peak of this line, which occurs around layer 20, is only about 1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "verbleibt bis Schicht 22 konstant auf diesem hohen Niveau",
+          "evidence": "The description claims the 'attn_residual' line remains at a high constant level until layer 22. The plot clearly shows a sharp drop starting at layer 21, and by layer 22 the value has already decreased significantly to about 1100 from its peak of ~1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fällt bei Schicht 23 abrupt auf ungefähr 250 ab",
+          "evidence": "The description states that the 'attn_residual' line drops abruptly to ~250 at layer 23. The drop is not abrupt at layer 23; it is a continuation of the steep decline that started at layer 21. The value at layer 23 is indeed around 250, but the characterization of the drop's timing is inaccurate."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.5
+}

@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_019",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectStructuralDescription",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart is divided into two main concentric rings",
+      "evidence": "The chart is a sunburst chart with three hierarchical levels, corresponding to three concentric data rings, not two."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "each further segmented by sentiment into \"Negative,\" \"Mixed,\" or \"Neutral.\"",
+      "evidence": "This is an incorrect generalization. For the \"Abusive\" category, the subcategories \"Racial,\" \"Sexist,\" and \"Religious\" are only segmented into \"Negative,\" not \"Mixed\" or \"Neutral\"."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the 'Not Abusive' category is divided into 'Political,' 'Other,' 'Positive,' 'Neutral,' and 'Mixed,'",
+      "evidence": "This incorrectly mixes categories from two different hierarchical levels. The second ring under \"Not Abusive\" contains content types ('Political,' 'Other,' 'Religious,' 'Sexist,' 'Racial'), while the labels 'Positive,' 'Neutral,' and 'Mixed' belong to the third, outermost ring."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with 'Negative' sentiment segments appearing most frequently and occupying the largest portions in both the abusive and non-abusive categories.",
+      "evidence": "This is incorrect for the non-abusive category. For several subcategories under 'Not Abusive' (e.g., 'Other,' 'Political,' 'Religious'), the 'Positive' sentiment segment is visibly larger than the 'Negative' segment."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "'Abusive' content appears to be more prevalent overall than 'Not Abusive' content.",
+      "evidence": "The chart shows the opposite. The 'Not Abusive' segment (golden yellow) is visibly larger than the 'Abusive' segment (light teal)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The design uses a color gradient from teal to yellow",
+      "evidence": "The chart does not use a color gradient. It uses two distinct color palettes: shades of teal for the 'Abusive' category and shades of yellow for the 'Not Abusive' category."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with consistent color coding for sentiment types across both rings.",
+      "evidence": "This is false. There is no consistent color coding for sentiment. The color of a segment is determined by its top-level category ('Abusive' or 'Not Abusive'), not its sentiment label. For example, 'Negative' is teal in the 'Abusive' section and yellow in the 'Not Abusive' section."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "HallucinatedContent",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "For the \"Abusive\" category, the subcategories include \"Political,\" \"Racial,\" \"Sexist,\" \"Religious,\" and \"Other,\"",
+      "evidence": "This list of subcategories for \"Abusive\" is incomplete; it omits the \"Mixed\" subcategory, which is clearly visible in the chart."
+    }
+  ],
+  "mqm_score": 64.5,
+  "total_penalty": 35.5,
+  "error_count": 8
+}

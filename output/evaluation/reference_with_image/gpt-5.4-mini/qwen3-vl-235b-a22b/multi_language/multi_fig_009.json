@@ -1,0 +1,250 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "обхващаща диапазона от 0 до 22",
+          "evidence": "The x-axis in the figure extends to 24 (with data points through layer 23), not 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Линията „ffn_residual“ започва с ниска стойност около 0 до слой 5, след което рязко се издига до около 1400 при слой 6, остава на ниво около 1500 до слой 20, след което спада рязко до около 400 при слой 22.",
+          "evidence": "The red ffn_residual line drops much lower at the end, to about 500 at layer 23, not about 400 at layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Линията „attn_residual“ следва подобен, но по-мек профил — започва от 0, се издига до около 1400 при слой 6, остава на ниво около 1500 до слой 20, след което спада до около 200 при слой 22.",
+          "evidence": "The orange attn_residual line falls to roughly 250 at the final point (layer 23), not about 200 at layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Линията „ffn_output“ започва от 0, достига връх около 1300 при слой 6, спада до 0 до слой 12, след което се вдига отново до около 1200 при слой 22.",
+          "evidence": "The green ffn_output line peaks near 1400 at layer 5 and has additional nonzero fluctuations between layers 13–17 before rising again near layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Линията „attn_output“ остава близо до 0 до слой 20, след което се издига до около 300 при слой 22.",
+          "evidence": "The blue attn_output line stays near zero until about layer 21–22 and rises to about 250 at the last point, not 300."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "Всички линии показват значително нарастване на активациите след слой 5, което съответства на описанието за „massive activation“ и „attention sink“ в първия ред на сравнението.",
+          "evidence": "This is interpretive and goes beyond the visible plot; the figure itself does not explicitly state causation or confirm the attention-sink phenomenon."
+        }
+      ],
+      "mqm_score": 87.0,
+      "total_penalty": 13.0,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The x-axis, labeled “Layer,” spans from 0 to approximately 23",
+          "evidence": "The figure’s x-axis runs to 24 (as stated in the reference), with layer values shown through the end of the plot; describing it as approximately 23 is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The attn_output (blue dashed line) remains near zero until layer 21, then sharply rises to approximately 250 by layer 23.",
+          "evidence": "In the figure, attn_output stays near zero for most layers and only rises modestly near the last layers, but the rise is closer to about 200–250 beginning around layer 22; the stated onset at layer 21 is off relative to the plotted values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The attn_residual (orange dotted line) begins near zero, spikes abruptly to 1400 at layer 5, plateaus near 1550 until layer 21, then drops sharply to 300 by layer 23.",
+          "evidence": "The orange line rises to about 1400 around layer 5, but the plateau is closer to 1480–1580 and the drop occurs after layer 21 to roughly 250–300 near the end; the summary is broadly close but numerically imprecise at multiple points."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The ffn_output (green dash-dot line) stays near zero until layer 5, surges to 1400, drops to near zero by layer 7, briefly rises to 100 around layer 13, then returns to near zero until layer 21, after which it spikes to 1200 by layer 23.",
+          "evidence": "The green series has a peak near 1400 at layer 5 and another around 800 at layer 13, then a later spike near 1200 around layer 22; the description understates the middle peak and places the final spike too late."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The ffn_residual (red solid line) remains near zero until layer 5, jumps to 1400, rises slightly to 1550 by layer 13, maintains that level until layer 21, then plunges to 400 by layer 23.",
+          "evidence": "The red line indeed jumps near layer 5 and stays high, but the drop near the end goes to about 400 at layer 22 and then rebounds to around 600 by the final layer; saying it plunges to 400 by layer 23 misses the rebound and misstates the endpoint."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "across 22 model layers",
+          "evidence": "The x-axis shows layers from 0 to 24, not 22 model layers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The x-axis, labeled “Layer,” spans from 0 to 22 with integer tick marks at every 5 layers.",
+          "evidence": "The axis runs from 0 to 24 with tick labels at intervals of 5, not 0 to 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_output rises to ~1200 by layer 6 and then declines",
+          "evidence": "The blue attn_output line stays near zero for most layers and only rises to about 200 near layers 22–23; it does not reach 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_residual peaks at ~1500 by layer 6 and remains high until layer 21 before dropping",
+          "evidence": "The orange attn_residual line peaks around 1400 at layer 5, stays roughly 1400–1600 through about layer 22, and then drops; it does not peak at 1500 by layer 6 or drop by layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_output surges to ~1200 at layer 6, drops to near zero by layer 8, spikes again to ~1200 at layer 13, then falls and rises again to ~1200 at layer 22",
+          "evidence": "The green ffn_output line spikes to about 1400 at layer 5, then near-zero around layers 6–12, spikes to about 900–1000 at layer 13, and to about 1150–1200 near layer 22; the stated values and layer positions are inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_residual jumps to ~1400 at layer 5, plateaus near 1500 through layer 20, then drops sharply to ~400 at layer 22",
+          "evidence": "The red ffn_residual line rises to about 1400 at layer 5, is roughly 1480–1580 through around layer 22, and then drops to about 400 at layer 22–23; the plateau end and drop timing are misstated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The plot visually confirms the caption’s claim that the baseline configuration exhibits massive activations and attention sinks emerging after the 6th layer, as evidenced by the sustained high values and abrupt drops across multiple components.",
+          "evidence": "The figure shows massive activations, but attention sinks are not directly visualized in this line plot; this is an inference beyond the plotted data."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with a slight rise to approximately 200 near layer 22",
+          "evidence": "The blue dashed attn_output line stays near zero until the final layer, where it rises to about 250–300, not 200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "rises slightly to ~200 at layer 13",
+          "evidence": "The green ffn_output line spikes to around 900–1000 near layer 13 in the figure, not 200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "then returns to near zero until layer 21, where it spikes again to ~1200 before falling to ~600 at layer 22",
+          "evidence": "The green ffn_output line is not near zero between layers 13 and 21; it stays around tens to ~100 and then spikes near layer 22, not layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "then drops to ~400 at layer 22 before rising again to ~600 at layer 22",
+          "evidence": "The red ffn_residual line drops to about 400 around layer 22 and then rises to about 600 at the next point; the description incorrectly places both values at layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "before rising again to ~600 at layer 22",
+          "evidence": "The red ffn_residual series has two distinct final points at different x-values, with the rise to ~600 occurring after the drop to ~400, not at the same layer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ranging from 0 to approximately 22",
+          "evidence": "The x-axis extends to layer 24 (with points shown up to 23/24), not approximately 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the exact x-axis tick structure visible in the figure and reference (ticks every 5 layers from 0 to 20/24 range) and does not mention the legend placement in the center."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "All lines exhibit a sharp onset of high activation after layer 5, followed by a decline or fluctuation toward the final layers",
+          "evidence": "This summarizes a trend, but the figure shows different late-layer behaviors across series; it is a broad interpretive statement rather than a direct visual description."
+        }
+      ],
+      "mqm_score": 69.5,
+      "total_penalty": 30.5,
+      "error_count": 8,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 74.88
+}

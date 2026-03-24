@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_042",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "针对不同任务类型（实体识别、角色识别、异常识别、空间推理、同义识别）",
+      "evidence": "Figure title/caption concerns semantic spatial reasoning; the third category label in the chart is '异常识别' (not enough evidence to verify the broader task-type framing from the image alone), but the main issue is that the description treats the chart as comparing task types in general without noting the visible paper/caption context. However this is not clearly incorrect from the figure itself, so no major axis error is warranted."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "空间推理任务中，训练集数量为1210",
+      "evidence": "The blue bar for 空间推理 is labeled 1210, but the user's prompt asks only for figure evaluation; this value is correct. No error."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图中包含三组数据：蓝色柱状图代表训练集数量，橙色柱状图代表验证集数量，灰色折线图代表准确率。",
+      "evidence": "This mapping matches the legend and chart exactly, so it is not an error."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "从数据可见，空间推理任务的训练集数量最多，同义识别任务的训练集数量最少，而角色识别任务的准确率最高，空间推理任务的准确率最低。",
+      "evidence": "The prompt explicitly says to avoid interpretation or drawing conclusions. This sentence interprets and compares the data beyond direct visual description."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "各任务的训练集数量普遍高于验证集数量，且训练集数量与准确率之间无明显正相关关系。",
+      "evidence": "This is an analytical conclusion not requested by the prompt and goes beyond objective visual description."
+    }
+  ],
+  "mqm_score": 81.0,
+  "total_penalty": 19.0,
+  "error_count": 5
+}

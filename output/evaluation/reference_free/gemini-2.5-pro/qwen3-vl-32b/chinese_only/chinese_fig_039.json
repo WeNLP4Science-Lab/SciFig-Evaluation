@@ -1,0 +1,36 @@
+{
+  "figure_key": "chinese_fig_039",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "呈现先上升后下降的趋势",
+      "evidence": "The description states the blue line 'first rises then falls', but the data shows it first decreases from A1 (0.0049) to A2 (0.0047), then rises to B1 (0.0051), and then decreases for the rest of the points."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "在C1和C2处，两条线均出现显著下降，且在C2处两条线的值相同，均为0.0033。",
+      "evidence": "The prompt explicitly forbids comparing lines (\"两条线均...两条线的值相同\" - 'both lines... the value of the two lines are the same') and using subjective language (\"显著\" - 'significant'). This sentence does both."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "C1和C2处的蓝色和红色数据点均带有垂直误差棒，表示数据的不确定性。",
+      "evidence": "The figure does not contain error bars. The short vertical lines connected to the data points are leader lines to connect the numerical labels to the points on the plot. The description hallucinates the presence and meaning of error bars."
+    }
+  ],
+  "mqm_score": 88.0,
+  "total_penalty": 12.0,
+  "error_count": 3
+}

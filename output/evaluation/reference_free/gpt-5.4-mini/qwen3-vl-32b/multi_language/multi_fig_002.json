@@ -1,0 +1,186 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "подредени в азбучен (нарастващ) ред",
+          "evidence": "The x-axis categories are percentages increasing numerically from 10% to 80%, not alphabetically ordered."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "При 70% разреденост пер-слоевата перплексност достига около 10^2, докато пер-изходната е малко под 10^2.",
+          "evidence": "At 70% sparsity, the orange Per-Layer bar is around 40 and the blue Per-Output bar is around 20, both well below 10^2 (100)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "При 80% разреденост пер-слоевата перплексност надхвърля 10^2, а пер-изходната е около 10^2.5",
+          "evidence": "At 80% sparsity, the orange bar is near 800 and the blue bar is near 500; 10^2.5 is about 316, so the blue value is not about 10^2.5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the y-axis is shown on a logarithmic scale, which is a key visible feature requested by the prompt."
+        }
+      ],
+      "mqm_score": 92.5,
+      "total_penalty": 7.5,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "两者在每个稀疏率下均以相同高度呈现",
+          "evidence": "图中蓝色 Per-Output 与橙色 Per-Layer 在各稀疏率下并不等高，尤其在70%和80%处橙色柱明显高于蓝色柱。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在70%稀疏率时，两者困惑度均上升至约10²（100左右），在80%稀疏率时则进一步升高至约10³（1000左右）",
+          "evidence": "图中70%时 Per-Output 约为20、Per-Layer 约为40；80%时 Per-Output 约为500、Per-Layer 约为850，并非都接近100或1000。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在10%至60%稀疏率区间，所有柱状图高度均低于10（即在10⁰至10¹之间）",
+          "evidence": "70%和80%以外的点大致低于10这一说法基本成立，但60%处橙色柱约略高于10，且“所有柱状图”过于绝对。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "困惑度呈指数级增长",
+          "evidence": "图中只能看出数值随稀疏率增加而上升并使用对数坐标；“指数级增长”属于趋势推断，且不是图中直接标注的信息。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "描述未明确说明这是成对分组柱状图中每个稀疏率下的两根柱子并排排列的视觉结构，虽然提到了“并列”但未完整覆盖分组方式与图例对应关系的视觉呈现细节。"
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 80% sparsity, Per-Output reaches approximately 200 (between 10² and 10³), while Per-Layer exceeds 1000 (just above 10³).",
+          "evidence": "The 80% Per-Output bar is around 500, not 200. The 80% Per-Layer bar is around 850–900, not above 1000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Layer exceeds 1000 (just above 10³).",
+          "evidence": "The orange Per-Layer bar at 80% is below the 10³ tick, roughly around 850–900."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "At lower sparsity rates (10% to 50%), both methods exhibit similar, relatively low perplexity values, with Per-Output consistently slightly lower than Per-Layer, though the difference is minimal.",
+          "evidence": "Between 10% and 50%, the two series are close, but the description asserts a consistent ordering and comparative pattern not explicitly marked by the chart; this is an interpretive comparison rather than a direct visual attribute description."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the value axis uses logarithmic tick marks at 10^1, 10^2, and 10^3 explicitly as chart labels (it mentions the scale but not the visible tick labels/range precisely), and it omits the paper/caption context visible in the figure."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die vertikale Achse zeigt die Perplexität auf einer logarithmischen Skala, die von 10⁰ (1) bis 10³ (1000) reicht, mit Tick-Markierungen bei 10⁰, 10¹, 10² und 10³.",
+          "evidence": "The y-axis uses a logarithmic scale with visible major ticks at 10^1, 10^2, and 10^3; 10^0 is not shown on the axis. The lowest visible values are above 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Bei 60% Sparsity steigen beide Werte auf etwa 10¹,5 (ca. 30–40).",
+          "evidence": "At 60% sparsity, the bars are around 9–11, not 30–40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Bei 70% Sparsity erreichen die Werte etwa 10² (100), wobei der orangefarbene Balken leicht über dem blauen liegt.",
+          "evidence": "At 70% sparsity, the blue bar is around 20 and the orange bar around 40, not about 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Bei 80% Sparsity steigen die Perplexitätswerte stark an, wobei der blaue Balken bei etwa 10²,⁵ (ca. 300) und der orangefarbene Balken bei etwa 10³ (1000) liegt.",
+          "evidence": "At 80% sparsity, the blue bar is around 500 and the orange bar around 800, not 300 and 1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not state the chart title or paper context shown in the figure, though it does describe the plotted quantities. The prompt asks for the overall purpose based on what is depicted."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 88.5
+}

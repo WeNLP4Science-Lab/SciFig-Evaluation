@@ -1,0 +1,250 @@
+{
+  "figure_key": "multi_fig_006",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "започва при стойност около 0.1 в слой 0",
+          "evidence": "The blue line for 'hidden state mean before gate' starts at a value very close to 0 at Layer 0, not at 0.1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "остава почти постоянна с леко колеблюща се тенденция между 0.1 и 0.3 до слой 19",
+          "evidence": "The blue line does not stay between 0.1 and 0.3. It fluctuates and reaches values as high as approximately 0.9 around layer 19, and exceeds 0.4 several times before that."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "рязко нараства до около 4 в слой 22",
+          "evidence": "For the blue line, the value at layer 22 is approximately 2.5, not 4. The line reaches a value greater than 4 at the final data point, which appears to be at layer 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "леко се увеличава до около 0.03 в слой 22",
+          "evidence": "The orange line for 'hidden state mean after gate' ends at a value closer to 0.08, which is noticeably higher than the stated 0.03."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "остава почти постоянна на ниво около 0.02 до слой 22, без забележими колебания",
+          "evidence": "The green line for 'hidden state mean of baseline' does not remain at a constant level of 0.02. It shows a clear, gradual increase, ending at a value of approximately 0.1 at the final layer."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Визуално се вижда, че стойностите след врата и в базовия модел са много близки и ниски по целия диапазон на слоевете, докато стойностите преди врата са значително по-високи, особено в края на последните слоеве.",
+          "evidence": "The generation prompt explicitly forbids comparing the lines ('Избягвайте... да сравнявате линиите'). This sentence directly compares the three lines, which violates the instructions."
+        }
+      ],
+      "mqm_score": 74.5,
+      "total_penalty": 25.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "范围从0到22",
+          "evidence": "The data for the x-axis (Layer) extends beyond 22 to approximately 23. Stating the range ends at 22 is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "（dash-dotted）",
+          "evidence": "The blue line is a dashed line ('--'), not a dash-dotted line ('-.'). The Chinese term '虚线' is acceptable for dashed, but the parenthetical English clarification is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在层0处约为0.2",
+          "evidence": "The value for the blue line at layer 0 is very close to 0, not approximately 0.2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在层10至层19间波动于0.2至0.5之间",
+          "evidence": "The value of the blue line is approximately 0.8 at layer 19, which is outside the stated range of 0.2 to 0.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "层22处急剧上升至约4.0",
+          "evidence": "The value at layer 22 is approximately 2.5. The sharp rise to over 4.0 occurs at the final data point, which is at layer 23, not layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "点划线（dotted）",
+          "evidence": "The orange line is a dotted line (':'). The Chinese term '点划线' means dash-dotted ('-.'), which is incorrect. The parenthetical English term is correct, but the primary Chinese description is wrong."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "与橙色点划线几乎重合",
+          "evidence": "The generation prompt explicitly states to avoid comparing different lines. This phrase directly compares the green and orange lines."
+        }
+      ],
+      "mqm_score": 72.5,
+      "total_penalty": 27.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with square markers",
+          "evidence": "The blue dashed line does not have any markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts near 0.2 at layer 0",
+          "evidence": "The blue dashed line starts very close to 0 at layer 0, not 0.2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 0.2–0.3",
+          "evidence": "In the range up to layer 18, the blue line's value fluctuates and at times exceeds 0.3 (e.g., reaching approx. 0.4 around layer 12), so the stated range is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "approximately 4.0 at layer 22",
+          "evidence": "The blue line ends at a value closer to 4.3 at layer 22, so 4.0 is a slight underestimate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with circular markers",
+          "evidence": "The orange dotted line does not have any markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with a slight dip to approximately 0.02 at layer 22",
+          "evidence": "The orange dotted line shows a slight increase across the x-axis, not a dip at the end. It ends at a value higher than its starting point."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ends near 0.05 at layer 22",
+          "evidence": "The green solid line ends at a value closer to 0.1 at layer 22, not 0.05."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "reflecting the overall trends",
+          "evidence": "This phrase offers an interpretation of the relationship between the average values and the line trends, rather than just stating objective facts as requested by the prompt."
+        }
+      ],
+      "mqm_score": 69.5,
+      "total_penalty": 30.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "mit Quadratmarkierungen",
+          "evidence": "The description claims the blue dashed line has square markers, but there are no markers visible on any of the lines in the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "beginnt bei etwa 0,1 im ersten Schicht",
+          "evidence": "The blue line starts at layer 0 with a value very close to 0, not 0.1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt durchgehend nahe bei 0,05 über alle Schichten, mit Werten zwischen 0,04 und 0,06",
+          "evidence": "The description incorrectly states that the orange line remains constant. The plot shows that this line starts near 0 and gradually increases to a value of approximately 0.1 at layer 22. The description seems to be using the average value from the legend rather than describing the line's actual trend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "verläuft ebenfalls nahe bei 0,04 über alle Schichten, mit Werten zwischen 0,03 und 0,05",
+          "evidence": "The description incorrectly states that the green line remains constant. The plot shows that this line starts at 0 and gradually increases to a value of approximately 0.1 at layer 22. The description seems to be using the average value from the legend rather than describing the line's actual trend."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Die Werte der beiden unteren Linien (nach Gating und Baseline) sind sehr ähnlich und zeigen keine signifikante Änderung über die Schichten hinweg.",
+          "evidence": "The prompt explicitly forbids making comparisons between lines and using interpretive or subjective language. This sentence violates both rules by comparing the two bottom lines ('sind sehr ähnlich') and making a subjective judgment about the change ('keine signifikante Änderung')."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 74.38
+}

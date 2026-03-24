@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the baseline Mistral-v0.2-Base model (light blue bars) and the same model fine-tuned on data from six different clinical specialties: Cardio (light peach), Gastro (peach), Infect (orange), Neuro (dark orange), Obstetrics (brown), and Pediatrics (dark brown)",
+      "evidence": "The figure's legend shows the fine-tuning colors do not correspond to these exact color names, and the machine description omits/mislabels the legend order and shades; more importantly, it presents the categories as model variants rather than the specialty term groups shown on the x-axis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the baseline Mistral-v0.2-Base model (light blue bars) is consistently the shortest",
+      "evidence": "In the chart, the light blue baseline bar is generally the tallest in each group, not the shortest."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "indicating the highest negative log-probability (i.e., lowest probability of generating relevant tokens) across all specialties.",
+      "evidence": "This infers probabilistic meaning and comparative performance beyond what is directly encoded; the figure only shows negative log probabilities, not explicit 'highest' as an interpretation of the bars being shortest."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The fine-tuned models show progressively taller bars (lower negative log-probabilities, meaning higher token probabilities) within their respective specialty groups; for example, the Pediatrics fine-tuned model (dark brown) shows the tallest bar in the Pediatrics group, while the Neuro fine-tuned model (dark orange) shows the tallest bar in the Neuro group.",
+      "evidence": "The bars do not monotonically progress in height within each group, and the baseline blue bar is typically tallest. The cited dark brown and dark orange bars are not the tallest in those groups."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "In general, the fine-tuned models exhibit improved performance (lower negative log-probabilities) in their corresponding specialty, with the most significant improvements observed when the model is fine-tuned on the same specialty as the test tokens.",
+      "evidence": "The chart does not explicitly report 'performance' or 'improvements'; this is an interpretation beyond the visualized values."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The bars are grouped by specialty and sorted in the same order as the x-axis labels",
+      "evidence": "The figure shows grouped bars aligned with the x-axis labels, but it does not indicate any sorting; 'sorted' is an unsupported characterization."
+    }
+  ],
+  "mqm_score": 73.0,
+  "total_penalty": 27.0,
+  "error_count": 6
+}

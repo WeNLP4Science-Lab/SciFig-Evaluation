@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis groups bars by “Per-specialty terms,” meaning each group corresponds to tokens relevant to a specific specialty (e.g., “Cardio” group contains tokens relevant to cardiology).",
+      "evidence": "The x-axis label is “Per-specialty terms,” but the groups are simply the specialty terms themselves (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics), not tokens described as relevant to another specialty. The figure does not indicate that each group contains terms relevant to a specific specialty beyond the labels shown."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the Cardio-fine-tuned model (light orange) performs better than the baseline",
+      "evidence": "In the Cardio group, the light orange Cardio bar is much shorter/less negative than the baseline light blue bar; since the chart plots negative log-probability, a less negative value is not visually shown as clearly 'better' and the figure itself does not label performance improvement. This is an interpretive claim not directly supported by the chart."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the Neuro-fine-tuned model (brown) performs best within the “Neuro” group.",
+      "evidence": "The shortest (least negative) bar in the Neuro group is the baseline light blue bar around -25.3? Actually the group bars range roughly from -25.3 to -24.7, with the brown Neuro bar not clearly the shortest. The chart does not support the claim that the Neuro-fine-tuned bar performs best."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the Neuro-fine-tuned model (brown) performs worse than the baseline.",
+      "evidence": "The chart shows the baseline light blue bar in the Cardio group around -26.8, while the Neuro-fine-tuned brown bar in the same group is around -26.0, which is less negative rather than more negative. The description’s claim that it performs worse than baseline is not supported by the plotted values."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with lower values indicating higher model confidence (i.e., better prediction).",
+      "evidence": "This is an interpretation of what the metric means and whether lower is better, not something explicitly shown in the figure."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "In general, fine-tuning tends to reduce the negative log-probability (improve performance)",
+      "evidence": "This is a comparative conclusion/inference about the effect of fine-tuning, which the prompt explicitly asks the model to avoid and the figure does not directly state."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart visually demonstrates that fine-tuning on specialty-specific data improves the model’s ability to predict relevant tokens within that specialty, while potentially degrading performance on others, highlighting the trade-offs in domain adaptation for medical LLMs.",
+      "evidence": "This is a substantive interpretation and conclusion about model performance and trade-offs, not a neutral description of the figure."
+    }
+  ],
+  "mqm_score": 65.0,
+  "total_penalty": 35.0,
+  "error_count": 7
+}

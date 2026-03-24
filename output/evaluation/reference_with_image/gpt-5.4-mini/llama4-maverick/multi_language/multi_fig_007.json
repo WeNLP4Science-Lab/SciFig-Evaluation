@@ -1,0 +1,194 @@
+{
+  "figure_key": "multi_fig_007",
+  "model_name": "llama4-maverick",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ranges from 0 to 23",
+          "evidence": "The x-axis shows layers from 0 to about 23, but the reference and figure indicate ticks at 0, 5, 10, 15, 20 and the plotted extent is approximately 0–23/24; the description overstates the axis range as an exact labeled span. More importantly, the reference notes the axis label is effectively \"Layer\" with layers up to 25 in the narrative context."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a green dash-dotted line",
+          "evidence": "The green series in the figure is dash-dot, but the machine description does not explicitly mis-map the legend; however, if strict matching to the visual style is required, the line style is correct. No error here would be warranted from the image alone."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The blue line starts at approximately 0.18 at layer 0 and gradually decreases to around 0.01 by layer 23.",
+          "evidence": "The blue series starts near 0.18, which is close, but the endpoint is slightly below 0.01 in the figure (approximately 0.0 to 0.005). This is a minor numerical approximation issue."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The green line also starts at 1.0 at layer 0, drops to around 0.1 by layer 10, and remains relatively stable between 0.1 and 0.2 from layer 12 to 23, with minor fluctuations.",
+          "evidence": "The green line is closer to about 0.15 by layer 12 and then stays roughly around 0.09–0.12, dipping near 0.05 at the end; describing it as stable between 0.1 and 0.2 is somewhat imprecise but not fundamentally wrong."
+        }
+      ],
+      "mqm_score": 89.0,
+      "total_penalty": 11.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "从层0时的约0.17开始，在层1时下降到约0.05，随着层数的增加逐渐下降到层23时的约0.01",
+          "evidence": "图中蓝色虚线在第0层约为0.18，第1层约为0.08，后续在多数层接近0.03到0.00，末层也接近0.00；描述中的多个数值与图不符，且第23层不应读为0.01。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在层12时下降到约0.2，然后在层23时波动上升到约0.4",
+          "evidence": "橙色曲线在第12层附近约为0.25，并非0.2；第23层约为0.38到0.39，不能简单写成0.4作为明显误差不大，但与前文层12的读数组合构成不精确描述。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在层9时下降到约0.2，然后大致稳定在0.1左右，直到层23时下降到约0.05",
+          "evidence": "绿色曲线在第9层更接近0.25而非0.2；第23层约为0.05是合理的，但中段与第9层读数不符。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "x轴标记为“层”，具有从0到23的数值刻度，间隔为5",
+          "evidence": "图中x轴刻度显示为0、5、10、15、20，没有标出23作为刻度；23只是数据终点，不是轴刻度。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "一条橙色点线代表门控后的稀疏性比率",
+          "evidence": "图例和曲线样式显示橙色曲线是点状虚线（dotted line），但这里用“点线”表述不够准确；不过此问题较轻微。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "虽然提到SDPA输出稀疏性比率，但未明确点出该图是“不同层上”的稀疏比率变化（层间趋势）作为图表主要目的的表述不够完整。"
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ranging from 0.0 to 1.0, with tick labels at intervals of 0.2",
+          "evidence": "The x-axis in the figure shows ticks at 0, 5, 10, 15, and 20, with data extending to about layer 23, not a tick-labeled range out to 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "starts at approximately 0.16 at layer 0 and decreases to around 0.01 at layer 23",
+          "evidence": "The blue dashed line starts closer to 0.18 and ends near 0.00, with the last visible layer around 23; the numeric values are only approximate but the stated endpoints are slightly off."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "decreases to approximately 0.1 at layer 10",
+          "evidence": "The green dash-dot line is still around 0.18 at layer 10, not 0.1; it reaches roughly 0.1 closer to layers 14-15."
+        }
+      ],
+      "mqm_score": 94.0,
+      "total_penalty": 6.0,
+      "error_count": 3,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with the x-axis ranging from 0 to 22 in intervals of roughly 5",
+          "evidence": "The x-axis tick labels in the figure run from 0 to 20 (with data extending to about 23), and the reference describes ticks at 0, 5, 10, 15, 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue line starts at approximately 0.18 at layer 0 and decreases to around 0.01 at layer 22.",
+          "evidence": "The blue line does start near 0.18, but it drops to about 0.03 by layer 2 and then stays near 0.03, only reaching roughly 0.0-0.02 at the end; the reference states it remains around 0.05 after layer 2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The orange line begins at 1.0 at layer 0, decreases to 0.2 at layer 10",
+          "evidence": "The orange line is still around 0.3 near layer 10 and reaches about 0.2 only around layer 12; the reference states it falls to about 0.2 by layer 12."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The green line starts at 1.0 at layer 0, decreases to 0.1 at layer 10, remains relatively stable around 0.1 from layer 12 to 18, and then decreases to around 0.05 at layer 22.",
+          "evidence": "The green line is closer to 0.2 at layer 10, around 0.15 at layer 12, and stays near 0.1 afterward with small fluctuations; it does not show the specific values/timing stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "a green dash-dotted line",
+          "evidence": "The green series in the figure is shown with a dash-dot line, but the description’s styling is otherwise acceptable; this is a minor mismatch if the dash pattern is interpreted literally."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend location in the upper right, which is visible in the figure and noted in the reference."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 85.5
+}

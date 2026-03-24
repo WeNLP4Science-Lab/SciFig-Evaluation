@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_019",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "其中参数量为17时，MR值约为83.1%；参数量为19时，MR值约为83.4%；参数量为22时，MR值约为83.8%；参数量为25时，MR值约为83.9%",
+      "evidence": "图中四个水平柱的末端大致分别位于83.1、83.4、83.7和83.5附近，而不是83.8和83.9；其中25对应的柱并非最右，22对应的柱看起来更长。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图中包含四条水平柱状图",
+      "evidence": "图中实际只有4个水平柱，但标题写的是“3个数据集平均值”，并且柱子对应的是4个参数量类别（17、19、22、25）；这里把图表结构表述为“4条柱状图”虽数量上为4，但与标题/意图不符，且后文又将其描述为“三个数据集”的平均值，造成结构与对象混淆。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "纵轴表示参数量（M），标签为“参数量(M)”",
+      "evidence": "图中纵轴旁的标签实际上是“参数量(M)”没错，但该轴对应的是类别/参数量取值（17、19、22、25），而不是连续的值轴；更关键的是横轴标签是“MR(%)”，描述正确，但把纵轴称作“参数量（M）”为值轴的说法不充分且将其当作轴的定量刻度来描述，忽略其作为类别轴的性质。"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "描述没有体现图题“3个数据集平均值”，也没有说明图表标题所传达的整体主题。"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明柱状图的排序依据只是按参数量列出，也未指出图中无图例；同时未提到柱子为浅蓝色带黑色边框这一可见样式特征。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "用于评估MITF方法在跨模态图文检索任务中的性能",
+      "evidence": "图中并未直接说明“用于评估MITF方法在跨模态图文检索任务中的性能”，这属于基于论文上下文的推断，而非图内可见信息。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "长度随参数量增加而逐渐增长，显示出MR值随模型规模扩大而提升的趋势",
+      "evidence": "图中只展示数值位置，不应据此做趋势解释；且柱长并未严格随参数量单调增长（25对应柱并不是最长）。"
+    }
+  ],
+  "mqm_score": 75.0,
+  "total_penalty": 25.0,
+  "error_count": 7
+}

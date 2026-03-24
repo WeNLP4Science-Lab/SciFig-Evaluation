@@ -1,0 +1,242 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "подредени от низходящ ред",
+          "evidence": "The x-axis categories increase from 10% to 80% in ascending order, not descending order."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Вертикалната ос показва perplexity, изразена в логаритмична скала, започваща от 1 и достигаща до 2, с равномерни интервали от 10.",
+          "evidence": "The y-axis is logarithmic with tick marks at 10^1, 10^2, and 10^3, not a linear scale from 1 to 2 or intervals of 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбът с син цвят показва Per-Output perplexity, който показва стойности около 60%, 40%, 30%, 20% и 10%.",
+          "evidence": "The blue bars represent perplexity values around 5, 5.5, 5.8, 6.4, 7, 9, 20, and 500 across 10% to 80% sparsity, not percentages in the tens."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбът с оранжев цвят показва Per-Layer perplexity, който показва стойности около 80%, 60%, 40%, 10% и 5%.",
+          "evidence": "The orange bars represent perplexity values around 5.5, 5.7, 6, 6.6, 7.5, 11, 40, and 850 across 10% to 80% sparsity, not percentages in the single digits or tens."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "стойности около 60%, 40%, 30%, 20% и 10%",
+          "evidence": "These values are not mapped to any bar series in the figure; the chart shows perplexity values for multiple sparsity rates, not separate output/layer values listed this way."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis tick labels 10^1, 10^2, and 10^3 explicitly, which are important to the logarithmic scaling."
+        }
+      ],
+      "mqm_score": 73.5,
+      "total_penalty": 26.5,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "每输出和每层似然率",
+          "evidence": "The figure compares per-output and per-layer perplexity, not likelihood rates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "垂直轴标注了“Perplexity 稀疏率”，使用对数刻度，范围从 1e-1 到 8e2，单位为百分比",
+          "evidence": "The y-axis label is 'Perplexity' with a logarithmic scale from about 10^1 to 10^3; it is not 'Perplexity sparsity rate', does not use units of percent, and does not range from 1e-1 to 8e2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色柱状图高于橙色柱状图，其高度分别是 60% 和 80%，青色柱状图看起来比橙色柱状图要高，并注意其数值包含 40%, 50% 和 70%。橙色柱状图的数值是 10%, 30% 和 60%。",
+          "evidence": "This sentence misassigns values and colors. The chart has blue Per-Output and orange Per-Layer bars at sparsity rates 10% through 80%; there is no cyan series, and the bars are not labeled with percentages as values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "图表没有按特定方式排序",
+          "evidence": "The bars are ordered by increasing sparsity rate from 10% to 80%, so the chart is explicitly ordered."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色柱状图做出了强调，以与橙色柱状图区分开来",
+          "evidence": "The figure does not visually emphasize the blue bars beyond being one of the two series; there is no special highlighting indicated."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not clearly state that the figure shows perplexity comparison across sparsity rates for two pruning methods (Per-Output and Per-Layer) in the context of DLP."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "It fails to correctly describe the x-axis as sparsity rate and the y-axis as perplexity on a log scale from about 10^1 to 10^3."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue bar reaches a value of approximately 8,000 at 70% sparsity",
+          "evidence": "At 70% sparsity, the blue Per-Output bar is around 20, not 8,000; 8,000 is far above the plotted range (which tops out near 10^3)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while the orange bar reaches a value of approximately 10 at 50% sparsity",
+          "evidence": "At 50% sparsity, the orange Per-Layer bar is around 7–8, not 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue bar is consistently taller than the orange bar across the entire range of sparsity rates",
+          "evidence": "This is false: the orange Per-Layer bars are taller than the blue Per-Output bars at 50%, 60%, 70%, and 80% sparsity."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the y-axis spans roughly 10^1 to 10^3 as shown in the figure; instead it incorrectly states 1 to 10,000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The vertical axis, labeled “Perplexity,” uses a logarithmic scale and ranges from approximately 1 to 10,000",
+          "evidence": "The y-axis is logarithmic, but the plotted range is about 10^1 to 10^3, not 1 to 10,000."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Y-Achse stellt die Perplexität dar, die von 1 bis 10 ansteigt und in logarithmischen Schritten dargestellt ist.",
+          "evidence": "The y-axis is logarithmic with tick labels at 10^1, 10^2, and 10^3, not a linear range from 1 to 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die X-Achse stellt die Sparsity-Rate dar, die in 10%-, 20%-, 30%-, 40%-, 50%-, 60%-, 70%-, 80% Bedeutungen enthält.",
+          "evidence": "The x-axis is labeled 'Sparsity Rate' and shows categories 10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, but the phrasing 'Bedeutungen enthält' is incorrect and awkward; more importantly the axis description omits that these are tick labels/categories rather than 'meanings'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der längste blaue Balken entspricht etwa 9,5, während der kürzeste Blaue-Balken etwa 6,5 entspricht. Der längste orange Balken entspricht etwa 7,5, während der kürzeste orange Balken etwa 5,5 entspricht.",
+          "evidence": "The bars are on a log-scaled axis and the largest values are around 500–900 at 80% sparsity, while the smallest values are around 5–6 at 10% sparsity. The stated maxima of 9.5 and 7.5 are far too low and do not match the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not correctly mention the logarithmic scale/tick marks on the y-axis (10^1, 10^2, 10^3), which are essential to interpret the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that each sparsity rate is shown as a side-by-side bar pair, with blue bars on the left and orange bars on the right."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Poor Sentence Structure",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "die in 10%-, 20%-, 30%-, 40%-, 50%-, 60%-, 70%-, 80% Bedeutungen enthält",
+          "evidence": "This phrase is ungrammatical and unclear in German; it does not cleanly describe the x-axis categories."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Poor Sentence Structure",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "die Balkenstehle sind in Blau bzw. Orange eingefärbt",
+          "evidence": "'Balkenstehle' is a misspelling/awkward wording; the intended term is 'Balkenstiele' or simply 'Balken'. This reduces readability."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 75.0
+}

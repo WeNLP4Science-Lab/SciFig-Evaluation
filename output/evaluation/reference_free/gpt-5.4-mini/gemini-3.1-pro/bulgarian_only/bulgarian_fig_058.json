@@ -1,0 +1,36 @@
+{
+  "figure_key": "bulgarian_fig_058",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description states that the image is a pie chart and gives the topic, but it does not explicitly identify the chart as showing 'Брой и видове захранване на автопарка в България' as indicated by the caption/title context."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Тъмносиният сектор отразява категорията „други“ с вътрешен етикет за 414 098.",
+      "evidence": "In the figure, the dark blue sector corresponds to the label 'други' only if using the legend, but the visual assignment in the chart is light blue = бензин, orange = дизел, gray = електрически, yellow = хибридни, dark blue = други; however the description earlier says the chart has five sectors and then describes the dark blue sector as 'други' without acknowledging that the dark blue slice is also the smaller top-left segment. The more important issue is that the figure shows the label 414 098 inside the dark blue slice, but the chart's legend-color mapping is not as described for all categories: the description omits that the gray slice is actually the tiny 'електрически' sector, while the dark blue slice is the 414 098 sector and not a separate visually distinct data series. This is a mismatch in mapping the 414 098 label to the category assignment as stated."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Жълтият сектор представя категорията „хибридни“ и чрез външна линия сочи към числото 51 910.",
+      "evidence": "The yellow slice is indeed the small yellow wedge and the external callout 51 910 matches it; however, the description later assigns the smallest gray sector to 'електрически' with 13 466. In the actual figure, the gray legend swatch is 'електрически', but the tiny gray slice is not visible as a separate sector in the main pie in the same way the callout labels are shown; the mapping between the tiny slice and the callout/legend is ambiguous and the description overstates certainty about the category-color pairing of the smallest elements."
+    }
+  ],
+  "mqm_score": 88.5,
+  "total_penalty": 11.5,
+  "error_count": 3
+}

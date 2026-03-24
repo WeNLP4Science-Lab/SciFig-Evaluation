@@ -1,0 +1,186 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "На диаграмата са представени две групи стълби, оцветени в синьо за Per-Output и оранжево за Per-Layer.",
+          "evidence": "The figure shows a single grouped bar chart with two series, not two separate groups of bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the bars are grouped by sparsity rate with paired blue/orange bars for each category, which is a visible structural feature of the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При по-ниските степени на рядкост (от 10% до 50%), перплексията и за двата подхода е ниска и почти еднаква, като стойностите са под $10^1$.",
+          "evidence": "The prompt asks for objective description only. This sentence adds a subjective/interpretive claim ('ниска и почти еднаква') rather than strictly describing visible values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При 60% рядкост перплексията започва да се увеличава, като при 70% е около $10^2$ и достига до около $10^3$ при 80% рядкост.",
+          "evidence": "This describes a trend ('започва да се увеличава') and suggests progression beyond direct visual labeling; the bars at 70% and 80% are not exactly at $10^2$ and $10^3$ but around 20–40 and 500–900 respectively."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "като при 70% е около $10^2$ и достига до около $10^3$ при 80% рядкост",
+          "evidence": "The 70% bars are roughly around 20 and 40, not around 100; the 80% bars are roughly around 500 and 800, not around 1000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "При 60% рядкост перплексията започва да се увеличава",
+          "evidence": "At 60% the values are around 9–11, only slightly above the 50% values around 7–8; describing this as the point where it 'starts to increase' is an interpretive oversimplification rather than a directly visible threshold."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state the chart title/paper context visible in the figure, which is a comparison of per-output and per-layer perplexity at different sparsity rates."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "both blue and orange bars are approximately at 4",
+          "evidence": "At 10% sparsity, both bars are closer to about 5.5 than 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue bars reaching around 7 at 60%, and the orange bars reaching around 10 at 60%",
+          "evidence": "At 60% sparsity, the blue bar is about 9 and the orange bar is about 11, not 7 and 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue bar is approximately at 400 and the orange bar is approximately at 1000",
+          "evidence": "At 80% sparsity, the blue bar is about 500 and the orange bar is about 850, not 400 and 1000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Notably, at higher sparsity rates, the orange bars are consistently taller than the blue bars.",
+          "evidence": "This is a comparative interpretation beyond a neutral description; the prompt asks to avoid comparison or conclusions unless explicitly marked."
+        }
+      ],
+      "mqm_score": 92.0,
+      "total_penalty": 8.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At a sparsity rate of 10%, both Per-Output and Per-Layer have a perplexity of approximately 2.",
+          "evidence": "The 10% bars are around 5–6 perplexity, not approximately 2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "As the sparsity rate increases, the perplexity for both Per-Output and Per-Layer also increases, with Per-Output and Per-Layer having perplexity values of around 3 and 3 at 60%, 13 and 5 at 70%, and 400 and 800 at 80%, respectively.",
+          "evidence": "At 60% the bars are about 9 and 11, at 70% about 20 and 40, and at 80% about 500 and 850; the stated values are incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the vertical axis represents Perplexity on a logarithmic scale, ranging from 10^1 to 10^3.",
+          "evidence": "The y-axis is logarithmic, but the plotted data extend below 10^1 (around 5–6), so the stated data range is inaccurate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis tick labels/intervals (10^1, 10^2, 10^3) explicitly as ticks; it only gives a range."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei einer Sparsity Rate von 10% beginnen beide Balken bei etwa 3 auf der logarithmischen Skala",
+          "evidence": "At 10% sparsity, both bars are around 5–6 perplexity, not about 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Bei 80% erreichen die Balken Werte von ungefähr 600 für Per-Output und 1000 für Per-Layer.",
+          "evidence": "At 80% sparsity, Per-Output is roughly 500 and Per-Layer is roughly 850–900, not 600 and 1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the x-axis tick labels/range (10% to 80%) or the y-axis tick labels interval on the logarithmic scale (10^1, 10^2, 10^3)."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 3,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 86.25
+}

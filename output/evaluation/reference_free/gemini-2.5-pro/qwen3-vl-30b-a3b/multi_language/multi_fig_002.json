@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spanning from 10⁰ (1) to 10³ (1000)",
+          "evidence": "The y-axis labels shown in the figure are 10¹, 10², and 10³. The value 10⁰ (1) is not explicitly labeled on the axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "includes major gridlines at 10⁰, 10¹, and 10²",
+          "evidence": "The figure shows major horizontal gridlines at perplexity values of 10¹ (10) and 10² (100). There is no gridline at 10⁰ (1)."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "consistently higher",
+          "evidence": "The statement that per-layer perplexity is \"consistently higher\" is an over-generalization. At sparsity rates of 20% and 30%, the bars for both per-layer and per-output perplexity are nearly identical in height."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the per-layer perplexity reaches approximately 1000",
+          "evidence": "At 80% sparsity, the orange bar for per-layer perplexity is visibly below the 10³ (1000) line on the logarithmic scale. Its value is closer to 900."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart uses a logarithmic scale to effectively visualize the wide range of perplexity values, particularly highlighting the substantial increase at higher sparsity rates.",
+          "evidence": "This sentence explains the designer's intent or the function of the logarithmic scale, which is an interpretation beyond a neutral description of the chart's visual elements."
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with values ranging from 10⁻¹ to 10³",
+          "evidence": "The y-axis labels are 10¹, 10², and 10³. There is no 10⁻¹ label, and the lowest data point is approximately 5 (which is 10^0.7), not 0.1 (10⁻¹)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "At each sparsity rate, the Per-Output perplexity (blue) is consistently lower than the Per-Layer perplexity (orange).",
+          "evidence": "The prompt instructs to avoid comparing categories. This sentence makes a direct comparison between the 'Per-Output' and 'Per-Layer' data series."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the Per-Output values ranging from approximately 0.3 to 0.8 and the Per-Layer values from 0.4 to 1.2",
+          "evidence": "The model has severely misread the logarithmic y-axis. The values for sparsity rates from 10% to 50% are all between 5 and 10, not between 0.3 and 1.2. For example, at 10%, both values are around 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 60% sparsity, the Per-Output value is around 1.0, and the Per-Layer value is approximately 1.5.",
+          "evidence": "The model has misread the logarithmic y-axis. The first major gridline is 10. The Per-Output value at 60% is approximately 9 and the Per-Layer value is approximately 11, not 1.0 and 1.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 70% sparsity, the Per-Output value increases to about 2.0, while the Per-Layer value reaches approximately 5.0.",
+          "evidence": "The model has misread the logarithmic y-axis. The values at 70% sparsity are clearly above 10; they are approximately 25 for Per-Output and 45 for Per-Layer, not 2.0 and 5.0."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 10% sparsity, both per-output and per-layer perplexity are approximately 1. At 20%, both values increase slightly to about 2. At 30%, they remain around 2. At 40%, both are approximately 3. At 50%, both are around 4.",
+          "evidence": "The description systematically misreads the logarithmic y-axis and reports incorrect values for sparsity rates from 10% to 50%. For example, at 10% sparsity, the value is stated as approximately 1, but the bar height is clearly around 4 or 5. A similar underestimation occurs for all rates up to 50%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 60%, per-output perplexity is about 7, while per-layer is slightly higher at around 8.",
+          "evidence": "The description states the values for 60% sparsity are 7 and 8. However, on the logarithmic scale, the blue 'Per-Output' bar is at or just below the 10^1 (10) gridline, and the orange 'Per-Layer' bar is slightly above it, indicating values closer to 10 and 12, respectively."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 70%, per-output perplexity is approximately 15",
+          "evidence": "The description reports the 'Per-Output' value at 70% sparsity as approximately 15. Visually, this bar's height on the logarithmic scale between 10 and 100 is closer to 20 or 25."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart shows that both measures increase with sparsity, but per-layer perplexity consistently exceeds per-output perplexity, with the gap widening at higher sparsity rates.",
+          "evidence": "This sentence provides an interpretation of trends and compares the two data series, which violates the generation prompt's explicit instruction to \"Avoid interpreting causes or trends, and do not compare categories unless the comparison is explicitly labeled.\""
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "von 10⁰ bis 10³",
+          "evidence": "The description states that the y-axis scale ranges from 10⁰ to 10³. However, the labeled tick marks on the y-axis are 10¹, 10², and 10³. There is no tick mark for 10⁰ (which is 1)."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 84.62
+}

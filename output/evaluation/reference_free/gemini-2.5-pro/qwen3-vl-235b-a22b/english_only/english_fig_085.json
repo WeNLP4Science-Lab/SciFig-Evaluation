@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with lower values indicating higher model confidence (i.e., better prediction)",
+      "evidence": "The prompt asks to avoid making inferences or drawing conclusions. Stating that lower values mean 'higher model confidence' or 'better prediction' is an interpretation of the y-axis metric, not a description of it."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "meaning each group corresponds to tokens relevant to a specific specialty (e.g., “Cardio” group contains tokens relevant to cardiology)",
+      "evidence": "This statement interprets the meaning of the x-axis labels ('Per-specialty terms') rather than simply describing what is visually present. The prompt requires describing only what is shown."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "the baseline model’s performance, while the colored bars show performance after fine-tuning",
+      "evidence": "The word 'performance' is an interpretation of the data. The description should stick to the neutral y-axis label, 'Negative log probability'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "In general, fine-tuning tends to reduce the negative log-probability (improve performance) for tokens within the fine-tuned specialty — for example, in the “Cardio” group, the Cardio-fine-tuned model (light orange) performs better than the baseline, and similarly, the Neuro-fine-tuned model (brown) performs best within the “Neuro” group.",
+      "evidence": "This entire sentence summarizes trends and makes comparisons ('tends to reduce', 'improve performance', 'performs better', 'performs best'), which is explicitly forbidden by the prompt's instruction to 'Avoid interpreting causes or trends, and do not compare categories unless the comparison is explicitly labeled'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "However, fine-tuning on one specialty does not always improve performance on other specialties — for instance, in the “Cardio” group, the Neuro-fine-tuned model (brown) performs worse than the baseline.",
+      "evidence": "This sentence describes a trend and makes a comparison ('improve performance', 'performs worse'), violating the prompt's negative constraints against interpretation and comparison."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually demonstrates that fine-tuning on specialty-specific data improves the model’s ability to predict relevant tokens within that specialty, while potentially degrading performance on others, highlighting the trade-offs in domain adaptation for medical LLMs.",
+      "evidence": "This concluding sentence is a high-level summary and interpretation of the chart's scientific meaning, which is explicitly forbidden by the prompt's requirement to 'Focus solely on visual and labeled characteristics' and avoid drawing conclusions."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not provide any approximate numerical values for the bars. The prompt required including 'representative values from the shortest and tallest bars... using exact data from the chart'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the tick label interval for the y-axis, which is 1."
+    }
+  ],
+  "mqm_score": 76.0,
+  "total_penalty": 24.0,
+  "error_count": 8
+}

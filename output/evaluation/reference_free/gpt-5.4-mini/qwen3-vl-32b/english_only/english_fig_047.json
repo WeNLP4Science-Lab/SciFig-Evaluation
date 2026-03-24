@@ -1,0 +1,84 @@
+{
+  "figure_key": "english_fig_047",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis lists the three model variants in increasing size order",
+      "evidence": "The x-axis categories are LLaMA-2-7B, LLaMA-2-13B, and LLaMA-2-70B, which are ordered left to right by size, but the chart does not explicitly indicate an ordering rule such as \"in increasing size order\"; this is an inferred interpretation rather than a visible label."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the vertical axis represents the CoLeG-R score ranging from 0 to 80% with linear increments of 10%",
+      "evidence": "The y-axis is labeled \"CoLeG-R (%)\" and the tick labels shown run from 0 to 80 in 10-point increments; however, the top of the plotted range extends above 80 to about 86, so saying it ranges from 0 to 80% is inaccurate."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"+ SFT on D₀\" (light orange with horizontal stripes), \"+ SFT on D₀, D₁\" (light purple with diagonal stripes), and \"+ SFT on D₀, D₁, D₂\" (light red with no pattern).",
+      "evidence": "In the legend, '+ SFT on D₀' is orange with horizontal hatching, '+ SFT on D₀, D₁' is lavender with diagonal hatching, and '+ SFT on D₀, D₁, D₂' is pink with solid fill; this portion is mostly correct, but the description of the first bar series as 'light blue with diagonal stripes' is misleading because the hatch is diagonal backslash lines and the other series use distinct hatch orientations. This is a minor mapping issue."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For LLaMA-2-7B, scores rise from approximately 65% (no SFT) to 85% (SFT on D₀, D₁, D₂).",
+      "evidence": "The 7B bars are about 66-67%, 66-67%, 80-81%, and 83-84%; the final value is closer to 83-84%, not 85%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For LLaMA-2-13B, scores increase from about 70% to 82%.",
+      "evidence": "The 13B bars are about 70%, 74%, 84-85%, and 79-80%; the final value is around 79-80%, not 82%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For LLaMA-2-70B, scores start at around 75% and reach approximately 84%.",
+      "evidence": "The 70B bars are about 80-81%, 81-82%, 84-85%, and 83-84%; the starting value is around 80-81%, not 75%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The performance increases with each additional SFT dataset across all model sizes.",
+      "evidence": "The chart shows the bars do not increase monotonically for every model: for 13B and 70B, the full SFT bar is lower than the + SFT on D₀, D₁ bar. This is an interpretive conclusion and also not strictly supported by the displayed values."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart visually demonstrates that both increasing model size and expanding the SFT dataset lead to improved performance, with the largest model and full SFT dataset achieving the highest score.",
+      "evidence": "This states an inferred conclusion about improvement and an overall best case, which goes beyond objective description; additionally, the highest score is not uniquely the largest model with full SFT because some intermediate bars are similar or higher."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The bars are not sorted within each group, but are ordered according to the SFT configuration as defined in the legend.",
+      "evidence": "The grouped bars follow the same left-to-right legend order in each model group; saying they are 'not sorted within each group' is misleading because there is a consistent order."
+    }
+  ],
+  "mqm_score": 58.0,
+  "total_penalty": 42.0,
+  "error_count": 9
+}

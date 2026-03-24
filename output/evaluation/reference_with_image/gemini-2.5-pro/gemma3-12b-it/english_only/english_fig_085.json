@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a group of three bars",
+      "evidence": "Each group on the x-axis consists of seven bars, not three. There is one bar for the baseline model and six bars for the models fine-tuned on each specialty."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Cardio is represented in orange, Gastro in tan, Infect in orange, Neuro in orange, Obstetrics in orange, and Pediatrics in orange",
+      "evidence": "This incorrectly maps colors to the x-axis categories ('Per-specialty terms'). The legend clearly shows that colors represent the model used (either the baseline or which specialty it was fine-tuned on). The description also inaccurately simplifies the various shades of orange and brown into just 'orange' and 'tan'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "at approximately -27",
+      "evidence": "The most negative bar value in the chart is approximately -26.5 (the light blue bar in the 'Cardio' group), not -27."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the tallest bar, at about -22, is the model fine-tuned on Obstetrics data",
+      "evidence": "The bar with the least negative value (approximately -22) is the light orange bar in the 'Cardio' group. This bar represents the model fine-tuned on 'Cardio' data, not 'Obstetrics' data."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The bars for each specialty generally appear to decrease in height, moving from left to right across the chart.",
+      "evidence": "There is no general trend of decreasing height (or increasing/decreasing value) for the bar groups across the x-axis. For instance, the bars in the 'Infect' group are generally shorter (less negative) than those in the 'Gastro' group, and the bars in the 'Neuro' group are taller (more negative) than those in the 'Infect' group."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The shortest bar in the chart... the tallest bar",
+      "evidence": "Using 'shortest' and 'tallest' for bars with negative values is ambiguous. 'Shortest' is used to describe the most negative value (-27), and 'tallest' for the least negative (-22), which is counter-intuitive as the bar with the most negative value is visually the longest."
+    }
+  ],
+  "mqm_score": 74.0,
+  "total_penalty": 26.0,
+  "error_count": 6
+}

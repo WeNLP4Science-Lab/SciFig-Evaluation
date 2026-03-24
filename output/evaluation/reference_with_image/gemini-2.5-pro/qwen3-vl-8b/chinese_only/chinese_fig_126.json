@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_126",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "两个饼图均包含七个类别",
+      "evidence": "The description states that both pie charts contain seven categories, but chart (a) has eight categories."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "预测为空（白色）、一个为0（浅灰色）、预测过长（中灰色）、预测过短（深灰色）、下一层级（浅灰色）、上一层次（中灰色）、超出NTC（深灰色）以及“其他”（黑色）",
+      "evidence": "The generalized mapping of categories to colors is incorrect and inconsistent. For example, in chart (a), '预测过长' (Predicted too long) is light gray, not medium gray, and '下一层级' (Next level) is medium gray, not light gray."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "预测过短17%（深灰色）、预测过长16%（中灰色）、一个为018%（浅灰色）、下一层级6%（深灰色）、上一层次3%（中灰色）、超出NTC3%（深灰色）、其他0%（黑色）",
+      "evidence": "The values and categories for chart (a) are almost completely mismatched. For example, it states '预测过短' is 17% and '一个为0' is 18%, but the chart shows their values are 16% and 0% respectively. The value for '其他' is 3%, not 0%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "上一层次6%",
+      "evidence": "In the description for chart (b), the value for '上一层次' (Previous level) is stated as 6%, but the chart shows it is 9%."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "超出NTC9%（深灰色）",
+      "evidence": "The description lists '超出NTC' (Exceeds NTC) as a category for chart (b). This category does not exist in chart (b). The 9% value belongs to the '上一层级' (Previous level) category."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "未见图例",
+      "evidence": "The description incorrectly states that no legend is seen ('未见图例'), when in fact both charts have a legend to the right."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "上一层次",
+      "evidence": "The description uses the term '上一层次' instead of '上一层级' which is the term used in the chart's legend. This occurs multiple times."
+    }
+  ],
+  "mqm_score": 72.0,
+  "total_penalty": 28.0,
+  "error_count": 7
+}

@@ -1,0 +1,84 @@
+{
+  "figure_key": "english_fig_038",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention that the plot has broken axes for both the x and y axes, a critical structural feature used to display different scales on the same chart."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "with tick marks at intervals of 20K",
+      "evidence": "The tick marks are at intervals of 20K up to 80K, but then the axis breaks and the interval becomes 10K from 420K to 440K. The interval is not a consistent 20K across the entire displayed range."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with a unique marker",
+      "evidence": "The description claims each line has a unique marker, but the lines in the plot are solid and do not have any markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the blue line (ChemBART Medium 20M) begins near 0.78 and ends around 0.08",
+      "evidence": "The blue line ends at a training loss of approximately 0.05, not 0.08."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the green line (ChemBERTa Small 20M) starts at about 0.78 and ends near 0.08",
+      "evidence": "The green line ends with the highest training loss, at approximately 0.1, not 0.08."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the purple line (ChemLLaMA Small 20M) starts at approximately 0.78 and ends around 0.08",
+      "evidence": "The purple line ends at a training loss of approximately 0.04, not 0.08."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the brown line (ChemLLaMA Medium 20M) begins at about 0.78 and ends near 0.08",
+      "evidence": "The brown line ends with the lowest training loss, at approximately 0.03, not 0.08."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "compared to the others",
+      "evidence": "The description makes a comparison between the green line and the other lines, which violates the prompt's instruction to \"Avoid interpreting the cause of changes or making comparisons between lines.\""
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "the red line (ChemBART Small 20M) starts at approximately 0.78 and declines to about 0.08; the blue line (ChemBART Medium 20M) begins near 0.78 and ends around 0.08; the green line (ChemBERTa Small 20M) starts at about 0.78 and ends near 0.08; the orange line (ChemBERTa Medium 20M) begins at roughly 0.78 and concludes near 0.08; the purple line (ChemLLaMA Small 20M) starts at approximately 0.78 and ends around 0.08; and the brown line (ChemLLaMA Medium 20M) begins at about 0.78 and ends near 0.08.",
+      "evidence": "The description over-generalizes by stating that all six lines end at approximately the same value (0.08). In the plot, the final loss values are clearly distinct, ranging from about 0.03 to 0.1. This generalization makes the description highly misleading."
+    }
+  ],
+  "mqm_score": 64.0,
+  "total_penalty": 36.0,
+  "error_count": 9
+}

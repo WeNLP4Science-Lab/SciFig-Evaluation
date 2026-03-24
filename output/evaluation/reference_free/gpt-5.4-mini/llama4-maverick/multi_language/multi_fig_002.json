@@ -1,0 +1,210 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state the chart's purpose in terms of the paper context shown in the figure, namely that it is a comparison of per-output and per-layer perplexity at different sparsity rates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "illustrating how perplexity changes with varying levels of sparsity",
+          "evidence": "This adds interpretive language about how perplexity changes, rather than just describing the plotted variables neutrally as requested."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "At lower sparsity rates (10% to 50%), both 'Per-Output' and 'Per-Layer' perplexity values are relatively low and similar, with values slightly above 1.",
+          "evidence": "The phrase 'relatively low and similar' is an evaluative comparison, which the prompt asked the model to avoid."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "As the sparsity rate increases (60% to 80%), the perplexity values for both 'Per-Output' and 'Per-Layer' increase",
+          "evidence": "This states a trend/inference ('increase') rather than simply describing the bars; the prompt explicitly says not to draw conclusions or make comparisons unless inherent in the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with 'Per-Layer' perplexity being slightly higher at 70% and significantly higher at 80% sparsity rate",
+          "evidence": "This is comparative/interpretive wording ('slightly higher', 'significantly higher') that goes beyond neutral description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The 'Per-Output' perplexity also increases but remains lower than 'Per-Layer' at the higher sparsity rates.",
+          "evidence": "This is a comparison between series and an inferred trend, which the prompt asked to avoid."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The chart does not indicate any specific ordering or emphasis on particular sparsity rates beyond the increasing trend.",
+          "evidence": "This includes an inferred 'increasing trend' and commentary about ordering/emphasis rather than limiting itself to visible features."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "到80%时达到大约2 x 10^3用于“每输出”，和10^3用于“每层”",
+          "evidence": "The 80% Per-Output bar is around 5×10^2, not 2×10^3; the 80% Per-Layer bar is just under 10^3, not exactly 10^3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在稀疏率为10%时，柱状图相对较短，“每输出”和“每层”困惑度值都接近10^1",
+          "evidence": "At 10%, both bars are around 5–6, clearly below 10^1 on the log scale, so saying they are close to 10^1 is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在70%和80%的稀疏率，此时“每层”困惑度值显著高于“每输出”困惑度值",
+          "evidence": "The chart shows Per-Layer higher than Per-Output at 70% and 80%, but the word '显著' (significantly) is an evaluative emphasis not directly encoded by the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "它没有特定的比例类型，因为它是对类别的离散表示",
+          "evidence": "The x-axis is not simply an unlabeled categorical axis; it is explicitly labeled 'Sparsity Rate' with percentage tick labels from 10% to 80%."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The 'Per-Output' bars range from approximately 2.5 at 10% sparsity to around 400 at 80% sparsity, while the 'Per-Layer' bars range from about 2.5 at 10% sparsity to roughly 750 at 80% sparsity.",
+          "evidence": "The 10% bars are around 5.5, not 2.5; the 80% Per-Output bar is around 500, not 400; and the 80% Per-Layer bar is around 850-900, not 750."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend placement in the upper-left of the plot or that the y-axis uses logarithmic tick labels at 10^1, 10^2, and 10^3."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 2,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "At a 10% sparsity rate, both \"Per-Output\" and \"Per-Layer\" have a perplexity of approximately 4.",
+          "evidence": "The 10% bars are closer to about 5–6 perplexity, not approximately 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "while the vertical axis represents perplexity on a logarithmic scale, ranging from 10^1 to 10^3.",
+          "evidence": "The y-axis is logarithmic with major ticks at 10^1, 10^2, and 10^3, but the bars extend below 10^1 to around 5, so the stated range is incomplete/misleading."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the two bar series are shown in a legend in the upper-left corner."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the x-axis categories are ordered from 10% to 80% in increasing order."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "As the sparsity rate increases, the perplexity remains relatively stable until 50%, with both categories having similar values.",
+          "evidence": "This summarizes a trend/comparison rather than strictly describing visible values, which the prompt asks to avoid."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "However, at 60% sparsity, \"Per-Layer\" perplexity starts to rise slightly above \"Per-Output\",",
+          "evidence": "This introduces a comparative interpretation ('starts to rise slightly above') rather than an objective description of the bars."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The divergence becomes more pronounced at 70% sparsity, where \"Per-Output\" has a perplexity of around 15 and \"Per-Layer\" is at approximately 30.",
+          "evidence": "This uses comparative/interpretive language ('divergence becomes more pronounced') that is not purely descriptive."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Overall, the chart illustrates the relationship between sparsity rate and perplexity for both \"Per-Output\" and \"Per-Layer\" categories, with \"Per-Layer\" showing a more significant increase in perplexity at higher sparsity rates.",
+          "evidence": "This is an overall interpretation and comparison, which the prompt explicitly forbids."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 8,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 89.75
+}

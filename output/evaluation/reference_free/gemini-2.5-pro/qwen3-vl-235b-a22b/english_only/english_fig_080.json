@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_080",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to identify the fundamental structure of the chart, which is a grouped bar chart. Each of the 13 categories on the x-axis corresponds to a pair of bars (one in a light shade and one in a dark shade). This omission leads to incorrect descriptions of the chart's content throughout the paragraph."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The first two bars (blue) represent probes applied to the embedding layer and the first layer of the pre-trained model... The next five bars (green)... The following five bars (red)",
+      "evidence": "This description incorrectly counts the bars because it misses the grouped structure. There are not two blue bars, five green bars, and five red bars. Instead, there are two groups of blue bars (4 bars total), five groups of green bars (10 bars total), and five groups of red bars (10 bars total). The description mistakenly treats each group as a single bar."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "with accuracy values hovering around 80–82%",
+      "evidence": "This range accurately describes the darker green bars, but it ignores the lighter green bars in the same groups, which have a consistently lower accuracy of approximately 79.5%. The description over-generalizes the values for the green bars."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "indicating the highest performance",
+      "evidence": "This is a comparative statement that constitutes interpretation, which the prompt instructs to avoid."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually contrasts the impact of randomization and perturbation on probing accuracy, with the unperturbed trained models significantly outperforming all randomized variants.",
+      "evidence": "This final sentence provides a high-level summary and conclusion about the data, including a comparative judgment (\"significantly outperforming\"), which is explicitly forbidden by the prompt's instruction to avoid interpretation and drawing conclusions."
+    }
+  ],
+  "mqm_score": 86.5,
+  "total_penalty": 13.5,
+  "error_count": 5
+}

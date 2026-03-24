@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_119",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表共分为六个切片",
+      "evidence": "The chart is composed of 7 distinct slices, not 6. There is one slice for 'three styles', three for 'two styles', and three for 'one style'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最大的切片为橙色，代表“具备两类语体的同义词簇”，占比51.1%",
+      "evidence": "The largest single slice is orange (41.4%). However, the description incorrectly conflates this single slice with the entire group of '具备两类语体的同义词簇' (synonym clusters with two styles), which is a group of three slices totaling 51.1%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其内部进一步细分为“仅具备口语词和通用语词的词簇”（20.8%）、“仅具备口语词和书面语词的词簇”（10.2%）以及“仅具备通用语词和书面语词的词簇”（4.7%）",
+      "evidence": "The description incorrectly maps the values and categories for the sub-divisions. The values 20.8% and 10.2% belong to the 'one style' category, not the 'two styles' category. Furthermore, the 'two styles' sub-category values are 41.4% (spoken+general), 4.7% (spoken+written), and an unlabeled slice for (general+written)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其下包含“仅具备口语词的词簇”（1.5%）和“仅具备书面语词的词簇”（41.4% — 此处数据与标签存在视觉标注冲突，图中该部分实际标注为41.4%，但归类于“具备一类语体”下，应为笔误或归类错误，按图中标签应属“仅具备书面语词的词簇”）",
+      "evidence": "The description incorrectly assigns values to the 'one style' sub-categories. The value 41.4% belongs to the orange slice in the 'two styles' category. The 'one style' sub-categories are 'spoken' (1.5%), 'general' (10.2%), and 'written' (20.8%). The note about visual conflict incorrectly links 41.4% to this category."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最小的切片为灰色，代表“具备三类语体的同义词簇”，占比16.4%",
+      "evidence": "This statement has multiple errors. The smallest slice is the dark blue slice at 1.5% ('spoken only'). The grey slice is 4.7%. The 'three styles' category (light blue slice) has a value of 16.4% according to the summary label, but it is not the smallest slice."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention that the chart is a donut chart, not a standard pie chart. It also omits describing the hierarchical structure where three summary labels point to groups of slices, which is a key feature of the chart's organization."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "整体按顺时针方向从最大切片开始排列",
+      "evidence": "The slices are not arranged in any specific order such as size. For example, starting from the largest slice (orange, 41.4%), the next slices clockwise are light blue (group total 16.4%) and dark blue (20.8%), which is not a descending order."
+    }
+  ],
+  "mqm_score": 69.5,
+  "total_penalty": 30.5,
+  "error_count": 7
+}

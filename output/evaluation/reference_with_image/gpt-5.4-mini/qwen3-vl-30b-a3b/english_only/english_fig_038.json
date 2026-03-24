@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_038",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with values ranging from 0k to 440k in increments of 20k",
+      "evidence": "The x-axis has a broken scale: it runs from 0k to 80k, then jumps to 420k to 440k, not continuously from 0k to 440k in 20k increments."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with values ranging from 0.0 to 0.85",
+      "evidence": "The y-axis is broken: the main scale runs from 0.0 to 0.4, then jumps to a separate top segment around 0.75 to 0.85, not a single continuous 0.0 to 0.85 axis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "All models exhibit a sharp initial decrease in training loss, with the loss values starting above 0.75 at 0k steps and rapidly declining to below 0.4 within the first 20k steps.",
+      "evidence": "Some lines start around 0.80, but the claim that all models decline to below 0.4 within the first 20k steps is too broad; the green ChemBERTa Small 20M remains above 0.4 early on and the exact drop varies by model."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "by the end of the 440k steps",
+      "evidence": "The reference indicates the final losses are near ~0.02 for most models and ~0.05 for ChemBERTa Small 20M, not around 0.1 to 0.15."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The ChemBERTa models (both small and medium) consistently show slightly lower training loss compared to the ChemBART and ChemLLaMA models throughout the training process.",
+      "evidence": "This is an overgeneralization: the green ChemBERTa Small 20M is often the highest-loss curve among the models, not consistently lower than the others."
+    }
+  ],
+  "mqm_score": 81.0,
+  "total_penalty": 19.0,
+  "error_count": 5
+}

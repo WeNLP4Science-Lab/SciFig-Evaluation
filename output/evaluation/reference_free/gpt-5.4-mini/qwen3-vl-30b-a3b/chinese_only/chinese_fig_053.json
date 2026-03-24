@@ -1,0 +1,76 @@
+{
+  "figure_key": "chinese_fig_053",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "横轴表示义项出现的次数，从1到25以上，以整数形式依次排列，代表义项出现的具体频次；",
+      "evidence": "The x-axis categories are the occurrence-frequency bins 1, 2, 3, ..., 24, 25+, not a continuous count scale of \"occurrence次数\" itself. The description misstates the axis meaning by treating it as the number of occurrences rather than categorical bins."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "纵轴表示具有对应出现次数的义项数量，其刻度范围从0到800，以100为单位递增，单位为“义项数量”。",
+      "evidence": "The y-axis label in the figure is \"义项数量\", but the description omits that the x-axis is categorical bins and treats the y-axis as if the unit/label were explicitly stated on the plot. More importantly, the phrase \"具有对应出现次数的义项数量\" is an interpretation; the chart shows counts for each frequency bin, not a separately labeled measure beyond the bar labels."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "出现次数为1的义项数量最多，达到700个；出现次数为2的义项数量为415个，是数量第二多的类别。",
+      "evidence": "The figure does show 700 at category 1 and 415 at category 2, but the claim that category 2 is the \"second most\" is only valid after category 25+ is considered; the description later says 25+ has 218 and is the maximum? Actually the chart's 25+ bar is 218, so category 2 is second highest. This is not an error. No issue here."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "当出现次数达到10时，义项数量为176，之后数量持续减少，出现次数为16的义项数量为88，出现次数为18的义项数量为56。",
+      "evidence": "The displayed values are 10→176, 16→88, and 18→56, which are correct, but the phrase \"之后数量持续减少\" is inaccurate because the bars do not decrease monotonically after 10; for example 11 is 123, 12 is 101, 13 is 77, then 14 increases to 86, 15 is 84, 16 is 88, 17 drops to 59, 18 to 56, 19 rises to 59, 20 to 51, 21 to 41, 22 to 27, 23 to 32, 24 to 28, and 25+ rises to 218."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在出现次数为25以上时，义项数量回升至218，这是所有类别中数量最多的。",
+      "evidence": "The 25+ bar is 218, but it is not the largest category; category 1 is 700, which is much higher. So calling 218 \"all categories' most numerous\" is incorrect."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars are uniformly blue or that the chart includes value labels above each bar as a visible styling feature, although it does note the numeric labels."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "旨在呈现不同义项在语料库中被使用的频率",
+      "evidence": "The figure/caption shows a distribution of sense counts in the dataset, but the purpose is not explicitly to present usage frequency in a corpus; this adds an inferential interpretation beyond the visible labels."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "整体来看，该图表呈现了义项频率的幂律分布特征，即少数义项出现频率极高，而大多数义项出现频率较低。",
+      "evidence": "This states a power-law characteristic and interprets the shape of the distribution, which is not explicitly shown in the chart and goes beyond a neutral visual description."
+    }
+  ],
+  "mqm_score": 73.5,
+  "total_penalty": 26.5,
+  "error_count": 8
+}

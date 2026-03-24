@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_061",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "以直观比较两种方法在处理不同距离关系的事件要素时的性能差异",
+      "evidence": "The prompt instructs to avoid interpretation or drawing conclusions. This phrase interprets the purpose of the chart as a performance comparison, which is an inference beyond simply stating what the chart displays."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "左侧为“本文方法”（斜线填充），右侧为“基线模型”（灰色填充）",
+      "evidence": "The description of the bar patterns is inaccurate. Both bar types have diagonal lines. The '本文方法' bar is white with diagonal lines, and the '基线模型' bar is grey with diagonal lines. Describing the latter as just '灰色填充' (grey fill) is incorrect as it ignores the stripes, and describing the former as just '斜线填充' (diagonal line fill) misses the white background that distinguishes it from the grey bar."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "约为59.1%",
+      "evidence": "For the '远' distance category, the bar for '本文方法' is visibly below the 59% line, at approximately 58.9%. The stated value of 59.1% is an overestimation."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "整体可见，“本文方法”在所有距离条件下F1值均高于“基线模型”，且随着要素距离由“近”至“远”，“基线模型”性能下降明显，而“本文方法”相对稳定。",
+      "evidence": "This sentence makes direct comparisons between the two methods ('高于') and describes trends ('性能下降明显', '相对稳定'), which is explicitly forbidden by the generation prompt's instruction to avoid interpretation and comparison."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 4
+}

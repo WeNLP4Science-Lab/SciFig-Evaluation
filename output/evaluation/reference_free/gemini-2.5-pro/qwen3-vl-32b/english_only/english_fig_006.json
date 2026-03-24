@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_006",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The plot contains four distinct data series, organized as two pairs of closely plotted lines. The description simplifies this to only two lines, completely omitting the dark green dotted line and the light blue solid line."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "another in light green with triangular markers and a dashed line.",
+      "evidence": "The description incorrectly identifies the line style as 'dashed' when it is clearly 'dotted'. Furthermore, it conflates attributes from multiple lines; the description of the 'light green line' uses its color and marker shape, but then assigns it a starting point (at k=2^0) that belongs to the light blue line, as the light green line actually starts at k=2^1."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching about 0.58 at $k=2^8$",
+      "evidence": "The description states the dark blue line reaches about 0.58 at k=2^8. However, the plot shows this line ending at a value visibly above the 0.6 gridline, at approximately 0.61."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with the dark blue line consistently achieving higher accuracy than the light green line across all values of $k$",
+      "evidence": "The generation prompt explicitly instructed not to make comparisons between lines. This sentence directly compares the performance of the two described lines, violating the prompt's negative constraint."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "scaled linearly from 0.2 to 0.6",
+      "evidence": "The description states the y-axis is scaled from 0.2 to 0.6. The labeled tick marks on the axis actually range from 0.3 to 0.6."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description of the y-axis omits the tick label interval, which is 0.1, as required by the prompt."
+    }
+  ],
+  "mqm_score": 79.5,
+  "total_penalty": 20.5,
+  "error_count": 6
+}

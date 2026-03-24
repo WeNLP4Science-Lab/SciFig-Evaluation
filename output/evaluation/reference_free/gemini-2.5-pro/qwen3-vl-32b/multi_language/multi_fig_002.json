@@ -1,0 +1,210 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "подредени в азбучен (нарастващ) ред",
+          "evidence": "The description states that the x-axis categories are in alphabetical order, but they are in numerical increasing order (10%, 20%, 30%, etc.)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При 70% разреденост пер-слоевата перплексност достига около 10^2, докато пер-изходната е малко под 10^2.",
+          "evidence": "The description incorrectly states that at 70% sparsity, both values are close to 10^2 (100). In the figure, the Per-Layer (orange) value is approximately 35-40, and the Per-Output (blue) value is approximately 20, both significantly below 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При 80% разреденост пер-слоевата перплексност надхвърля 10^2, а пер-изходната е около 10^2.5",
+          "evidence": "The description inaccurately reports the values for 80% sparsity. The Per-Layer (orange) value is close to 10^3 (1000), which is a massive understatement of 'exceeds 10^2' (100). The Per-Output (blue) value is around 500-600, not 'around 10^2.5' (which is approximately 316)."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "刻度标记为10⁰、10¹、10²、10³",
+          "evidence": "The y-axis tick marks are labeled 10¹, 10², and 10³. There is no 10⁰ label shown on the axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "两者在每个稀疏率下均以相同高度呈现",
+          "evidence": "This is incorrect. While the bar heights are similar at low sparsity rates (10%-40%), the orange 'Per-Layer' bar is visibly taller than the blue 'Per-Output' bar at 50% and beyond. The difference is substantial at 70% and 80%."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "表明在各稀疏率下两种策略的困惑度数值非常接近",
+          "evidence": "This is an interpretive conclusion based on the false premise that the bars are the same height. The data actually shows the values diverging significantly at higher sparsity rates. The prompt instructs to avoid drawing conclusions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在10%至60%稀疏率区间，所有柱状图高度均低于10（即在10⁰至10¹之间）",
+          "evidence": "At the 60% sparsity rate, the orange bar ('Per-Layer') has a value slightly above 10 (10¹)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "而在70%稀疏率时，两者困惑度均上升至约10²（100左右）",
+          "evidence": "The values at 70% sparsity are far below 10² (100). The blue bar ('Per-Output') is at approximately 25 and the orange bar ('Per-Layer') is at approximately 35."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在80%稀疏率时则进一步升高至约10³（1000左右）",
+          "evidence": "This is a significant overestimation, particularly for the blue 'Per-Output' bar, which has a value of approximately 500-600. Only the orange 'Per-Layer' bar approaches 10³, but is still slightly below it (approx. 900)."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ranging from 10⁰ (1) to 10³ (1000)",
+          "evidence": "The labeled y-axis ticks start at 10¹, not 10⁰. While the values do go below 10, stating the range starts at 1 is an inference about the scale's origin rather than a description of the visible labels."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "with Per-Output consistently slightly lower than Per-Layer",
+          "evidence": "This is an over-generalization. At 10%, 20%, and 30% sparsity rates, the perplexity values for both methods are visually indistinguishable, not with Per-Output being consistently lower."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "rises sharply",
+          "evidence": "The phrase 'rises sharply' is a subjective interpretation of the trend, which the prompt instructs to avoid."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Output reaches approximately 200 (between 10² and 10³)",
+          "evidence": "The blue bar for 'Per-Output' at 80% sparsity represents a value much higher than 200. On the logarithmic scale, it is approximately halfway between 100 and 1000, suggesting a value around 500-600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Layer exceeds 1000 (just above 10³)",
+          "evidence": "The orange bar for 'Per-Layer' at 80% sparsity is clearly below the 10³ gridline, indicating its value is less than 1000, not exceeding it."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually emphasizes the exponential growth in perplexity with increasing sparsity, justifying the use of a logarithmic scale for comparison.",
+          "evidence": "This sentence offers an interpretation of the data trend ('exponential growth') and the chart's design ('justifying the use of a logarithmic scale'), which is explicitly forbidden by the prompt's instruction to avoid inferences and conclusions."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "die von 10⁰ (1) bis 10³ (1000) reicht, mit Tick-Markierungen bei 10⁰, 10¹, 10² und 10³",
+          "evidence": "The y-axis does not show a tick mark for 10⁰ (1). The labeled tick marks are 10¹, 10², and 10³."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei die blauen Balken leicht höher sind",
+          "evidence": "In the sparsity range from 10% to 50%, the orange bars (\"Per-Layer\") are consistently slightly higher than or equal to the blue bars (\"Per-Output\"). The description incorrectly states the blue bars are higher."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 60% Sparsity steigen beide Werte auf etwa 10¹,5 (ca. 30–40).",
+          "evidence": "At 60% sparsity, the perplexity values are approximately 10 (one bar just below 10¹, one just above). The estimate of 10^1.5 (approx. 31.6) and the range 30-40 is a significant overestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 70% Sparsity erreichen die Werte etwa 10² (100)",
+          "evidence": "At 70% sparsity, the blue bar is at a perplexity of approximately 20 and the orange bar is at approximately 40. Neither value is close to 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei der blaue Balken bei etwa 10²,⁵ (ca. 300)",
+          "evidence": "At 80% sparsity, the blue bar is visually well above the logarithmic midpoint between 10² and 10³ (which would be ~316), with a value closer to 500-600. The estimate of 300 is a significant underestimate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Die logarithmische Skala wird verwendet, um den großen Wertebereich zwischen niedrigen und hohen Sparsity-Raten darzustellen.",
+          "evidence": "This sentence explains the reason for using a logarithmic scale, which is an interpretation beyond describing the visual features of the chart and is explicitly forbidden by the prompt."
+        }
+      ],
+      "mqm_score": 73.5,
+      "total_penalty": 26.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.5
+}

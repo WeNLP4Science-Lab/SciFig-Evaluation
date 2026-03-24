@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_005",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "At $k = 2^0 = 1$, the coverage values are approximately 0.45 for Llama-3B, 0.50 for Llama-3B + FT, 0.25 for Llama-1B, and 0.30 for Llama-1B + FT.",
+      "evidence": "The start-point values are slightly off: the blue Llama-3B curve is closer to about 0.43, the green Llama-3B + FT curve is about 0.43-0.45, the light-blue Llama-1B curve is about 0.24-0.25, and the light-green Llama-1B + FT curve is about 0.25, not 0.30."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "At $k = 2^8 = 256$, the coverage values approach 0.80 for Llama-3B, 0.80 for Llama-3B + FT, 0.75 for Llama-1B, and 0.75 for Llama-1B + FT.",
+      "evidence": "The end-point values are somewhat misestimated: the blue and green curves end closer to about 0.90-0.92, while the light-blue and light-green curves end closer to about 0.86-0.88, not 0.80 and 0.75."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The y-axis, labeled \"Coverage,\" is linear and ranges from 0.0 to 0.8, with tick marks at intervals of 0.2.",
+      "evidence": "The y-axis is not shown from 0.0 to 0.8; the visible plotted range extends to about 0.9, with labeled ticks at 0.4, 0.6, and 0.8 (and lower ticks below the crop). The description understates the upper range and implies an incorrect maximum tick/range."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a dashed green line with triangular markers for \"Llama-3B + FT\", a dash-dotted light blue line with circular markers for \"Llama-1B\", and a dotted light green line with triangular markers for \"Llama-1B + FT\"",
+      "evidence": "The legend/line styles in the figure do not match these descriptions: Llama-3B + FT is shown with a green dashed line and triangle markers, Llama-1B is shown with a light-blue solid line with circle markers, and Llama-1B + FT is shown with a light-green dashed line with triangle markers. The description incorrectly assigns dash-dotted/dotted styles."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the lines use both marker shapes and distinct line styles as shown, beyond the partially incorrect style assignment; it also omits the visible legend frame/placement and the fact that the plot uses a grid/background styling."
+    }
+  ],
+  "mqm_score": 84.5,
+  "total_penalty": 15.5,
+  "error_count": 5
+}

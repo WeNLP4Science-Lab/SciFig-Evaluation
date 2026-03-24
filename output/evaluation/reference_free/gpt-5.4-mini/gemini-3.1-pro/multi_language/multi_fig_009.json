@@ -1,0 +1,210 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "обхваща диапазон от 0 до 23",
+          "evidence": "The x-axis tick labels shown are 0, 5, 10, 15, 20, and the plotted domain extends slightly past 20 to about 23, but the figure does not explicitly show a 23 tick or a labeled range of 0 to 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Линията, обозначена в легендата като „attn_output“, е синя, пунктирана и без маркери; тя започва от стойност близо до 0 при X=0, остава почти без визуална промяна до X=22, след което се покачва рязко, завършвайки на стойност около 250 при X=23.",
+          "evidence": "The blue attn_output line stays near 0 through most layers and rises only near the end, but the endpoint is closer to about 240 rather than exactly 250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "достига до ново плато от около 1580 между X=14 и X=21",
+          "evidence": "The orange attn_residual line is near 1570-1580 over that region, but the stated value is an approximate reading; this is acceptable only as a minor approximation error if treated strictly."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "достига трети връх от около 1200 при X=22",
+          "evidence": "The green ffn_output spike near layer 22 reaches about 1180, not 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "завършва със спад до около 550 при X=23",
+          "evidence": "The green ffn_output ends around 600, not 550."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "бележи рязък спад до около 400 при X=22",
+          "evidence": "The red ffn_residual line drops to about 390-400 at layer 22, so this is a close approximation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "завършва с покачване до около 600 при X=23",
+          "evidence": "The red ffn_residual ends around 600, which is consistent, so this is not an error."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "图表包含四条无标记的线条",
+          "evidence": "The figure’s legend indicates markerless lines, but the description omits the visible line-style details requested by the prompt? No—actually this is not an error in the figure itself. The visible issue is that all lines are described as having no markers, which matches the plot. Therefore no error here."
+        }
+      ],
+      "mqm_score": 98.0,
+      "total_penalty": 2.0,
+      "error_count": 1,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue dashed line, representing attn_output without markers",
+          "evidence": "In the figure, attn_output is shown as a blue dashed line, but it does not have markers; this part is correct. However, the description later implies exact per-line styling only partially and is otherwise accurate. No error here."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "starts at 0 at layer 0, remains flat near 0 across most layers, and rises to roughly 250 at layer 23",
+          "evidence": "The blue attn_output line ends closer to about 240 rather than exactly 250; this is a small approximation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "spikes abruptly to roughly 1400 at layer 6, gradually climbs to near 1600 by layer 15, remains steady until layer 22, and drops sharply to roughly 250 at layer 23",
+          "evidence": "The orange attn_residual line peaks around 1580-1590 and ends around 260; the stated values are close but approximate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "spikes again to roughly 1000 at layer 13, drops to near 100 at layer 14, remains low with minor fluctuations until a final spike to roughly 1200 at layer 22, and ends at roughly 550 at layer 23",
+          "evidence": "The green ffn_output values are approximate; the spike at layer 13 is closer to 900-950 and the final spike at layer 22 is closer to 1170-1180."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "drops sharply to roughly 400 at layer 22, and ends at roughly 600 at layer 23",
+          "evidence": "The red ffn_residual line drops to about 390-410 at layer 22 and ends around 600, so this is only a minor approximation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the plot uses a legend to identify the four lines, even though the legend is visible in the figure."
+        }
+      ],
+      "mqm_score": 85.5,
+      "total_penalty": 14.5,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die x-Achse ist mit \"Layer\" beschriftet, verwendet eine lineare Skala, umfasst einen Wertebereich von 0 bis 23 und weist in regelmäßigen Intervallen von 5 numerische Beschriftungen auf (0, 5, 10, 15, 20).",
+          "evidence": "The visible x-axis shows tick labels at 0, 5, 10, 15, 20, but the plotted range extends slightly beyond 23 and the description over-specifies the exact range as 0 to 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die y-Achse trägt die Beschriftung \"Max Activation Value\", ist ebenfalls linear skaliert und reicht von 0 bis 1600 mit regelmäßigen Beschriftungen in Intervallen von 200.",
+          "evidence": "The y-axis tick labels are shown up to 1600, but the lower bound is not explicitly labeled as 0 in the figure; the description asserts an exact 0-to-1600 range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die Linie für \"attn_output\" wird in Blau als gestrichelte Linie dargestellt; sie beginnt bei Schicht 0 auf einem Wert von nahezu 0, verläuft bis Schicht 22 konstant flach auf diesem Niveau und steigt am Ende der x-Achse bei Schicht 23 auf einen Wert von etwa 250 an.",
+          "evidence": "The blue dashed attn_output line stays near zero for most layers and rises at the end, but the final value is closer to about 240 rather than exactly 250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die Linie \"attn_residual\" ist orange und gepunktet. Sie startet bei Schicht 0 bei etwa 0, verbleibt bis Schicht 5 auf diesem Niveau und verzeichnet bei Schicht 6 einen starken Anstieg auf ungefähr 1400. Danach steigt sie leicht weiter an, erreicht bei Schicht 15 etwa 1580, verbleibt bis Schicht 22 konstant auf diesem hohen Niveau und fällt bei Schicht 23 abrupt auf ungefähr 250 ab.",
+          "evidence": "The orange dotted line rises to around 1400 at layer 6 and later is near 1580, but the final drop appears closer to about 260 than 250, and the plateau is not strictly constant."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die \"ffn_output\"-Linie ist grün und strichpunktiert. Sie beginnt bei Schicht 0 nahe 0, zeigt bei Schicht 5 eine starke Spitze auf etwa 1400, fällt bei Schicht 6 wieder auf einen Wert nahe 40 ab und verbleibt dort bis Schicht 12. Bei Schicht 13 verzeichnet sie einen erneuten Anstieg auf circa 1000, gefolgt von einem Abfall auf etwa 90 bei Schicht 14, verläuft anschließend auf einem niedrigen Niveau weiter, steigt bei Schicht 22 auf etwa 1180 an und endet bei Schicht 23 bei ungefähr 550.",
+          "evidence": "The green dash-dot line has a spike near 1400 at layer 5 and another around 1200 at layer 22, but the mid-plot spike is closer to about 900–950, and the final value is closer to about 600 than 550."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die \"ffn_residual\"-Linie wird in Rot als durchgezogene Linie abgebildet. Ausgehend von einem Wert nahe 0 bei Schicht 0 verläuft sie bis Schicht 4 flach, steigt bei Schicht 5 steil auf etwa 1400 und weiter auf rund 1480 bei Schicht 7 an. Von Schicht 7 bis 12 bleibt sie konstant, steigt bei Schicht 13 auf circa 1560 an und verläuft von Schicht 14 bis 19 konstant auf einem Niveau von etwa 1580. Nach einem leichten, graduellen Rückgang bis Schicht 21 fällt sie bei Schicht 22 drastisch auf circa 390 ab und endet mit einem Anstieg auf etwa 620 bei Schicht 23.",
+          "evidence": "The red solid line reaches around 1480 by layer 7 and about 1560–1580 later, but the drop at layer 22 is closer to about 400 and the final value is around 600."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits that there is a legend identifying the four series."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 7,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 88.5
+}

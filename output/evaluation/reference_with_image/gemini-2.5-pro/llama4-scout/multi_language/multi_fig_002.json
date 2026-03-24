@@ -1,0 +1,146 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "две групи стълби",
+          "evidence": "The description states there are 'two groups of bars' (blue and orange). A more accurate description would be that for each category on the x-axis, there is a group of two bars, one for each method. The current phrasing is ambiguous."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "като при 70% е около $10^2$",
+          "evidence": "The description states that at a 70% sparsity rate, the perplexity is around 10^2 (100). However, the chart shows the values for both bars are significantly lower than 100, with the Per-Output bar being around 20-30 and the Per-Layer bar being around 40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достига до около $10^3$ при 80% рядкост",
+          "evidence": "The description claims that the perplexity reaches around 10^3 (1000) at 80% sparsity. This is an over-generalization and is only true for the orange 'Per-Layer' bar. The blue 'Per-Output' bar is significantly lower, at a value of approximately 500-600, not 1000."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Няма ясно изразени последователни промени във височината при по-ниските степени на рядкост.",
+          "evidence": "The description incorrectly states that there are no clear consecutive changes in height at lower sparsity rates (10% to 50%). The chart clearly shows a consistent, albeit small, upward trend in bar height for both methods as the sparsity rate increases from 10% to 50%."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue bars reaching around 7 at 60%",
+          "evidence": "The blue bar at 60% sparsity is just below the 10^1 (10) line on the logarithmic y-axis, indicating a value of approximately 9. The stated value of 7 is a noticeable underestimation."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "The bars gradually increase in height",
+          "evidence": "This statement misrepresents the trend shown in the chart. While there is a slow increase for sparsity rates up to 60%, there is a very sharp, almost exponential, increase at 70% and 80%. Describing the overall trend as a 'gradual increase' is a significant over-generalization that misses the main point of the figure."
+        }
+      ],
+      "mqm_score": 96.0,
+      "total_penalty": 4.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At a sparsity rate of 10%, both Per-Output and Per-Layer have a perplexity of approximately 2.",
+          "evidence": "The description states the perplexity at 10% sparsity is approximately 2. However, the chart, which has a logarithmic y-axis, shows the values are closer to 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 3 and 3 at 60%",
+          "evidence": "The description states the perplexity values at a 60% sparsity rate are 'around 3 and 3'. In the chart, the values are approximately 9 (just below the 10^1 line) and 11 (just above the 10^1 line)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "13 and 5 at 70%",
+          "evidence": "The description reports perplexity values of '13 and 5' at 70% sparsity. The chart shows these values are approximately 20 and 40. The reported numbers are significantly incorrect, and their relative order is reversed (the chart shows Per-Layer is higher than Per-Output, but 5 is not higher than 13)."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die Werte auf der vertikalen Achse reichen von $10^1$ bis $10^3$.",
+          "evidence": "The y-axis range starts below 10^1, not at 10^1. The lowest bars have a value of approximately 4-5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnen beide Balken bei etwa 3",
+          "evidence": "At a sparsity rate of 10%, the perplexity values for both bars are approximately 4-5, not 3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not specify the range or intervals of the x-axis, which shows sparsity rates from 10% to 80% in 10% increments."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the grouped structure of the bar chart, where bars for 'Per-Output' and 'Per-Layer' are presented side-by-side for each sparsity rate."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.75
+}

@@ -1,0 +1,60 @@
+{
+  "figure_key": "chinese_fig_126",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "每个饼图均包含六个类别",
+      "evidence": "This is incorrect. Chart (a) displays 8 categories in its legend and slices (one being 0%). Chart (b) displays 7 categories."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "通过图例标识为：预测为空（白色）、一个为0（浅灰色）、预测过长（中灰色）、预测过短（深灰色）、下一层级（深灰）、上一层级（黑色）、其他（深黑）",
+      "evidence": "This list of categories is inaccurate for both charts. For chart (a), it omits the category '超出NTC'. The legend for chart (b) does not contain '超出NTC' but has 7 other categories. The color descriptions are also subjective and not consistently applied."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图(a)中，各切片按比例大小大致呈递减顺序排列，从最大切片37%（预测过长）开始，依次为18%（预测过短）、17%（预测为空）、16%（一个为0）、6%（下一层级）、3%（上一层级）、3%（其他）",
+      "evidence": "The assignment of percentage values to categories for chart (a) is completely incorrect. The correct assignments are: 37% is '预测为空', 18% is '预测过长', 17% is '下一层级', 16% is '预测过短', 6% is '上一层级', one 3% is '超出NTC', the other 3% is '其他', and 0% is '一个为0'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图(b)中，各切片按比例大小排列，从最大切片29%（预测过长）开始，依次为21%（预测为空）、21%（一个为0）、9%（预测过短）、8%（下一层级）、6%（上一层级）、6%（其他）",
+      "evidence": "The assignment of percentage values to categories for chart (b) is completely incorrect. The correct assignments are: 29% is '预测过短', one 21% is '预测为空' and the other 21% is '预测过长', 9% is '上一层级', 8% is '一个为0', one 6% is '下一层级' and the other 6% is '其他'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其中“上一层级”和“其他”比例相近且最小",
+      "evidence": "This comparison for chart (a) is incorrect. '上一层级' is 6% while '其他' is 3%. They are not similar, and they are not the smallest values, as '一个为0' is 0%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其中“预测为空”与“一个为0”比例相同且并列第二",
+      "evidence": "This comparison for chart (b) is incorrect. '预测为空' is 21% while '一个为0' is 8%. They are not the same. The two categories that are both 21% are '预测为空' and '预测过长'."
+    }
+  ],
+  "mqm_score": 70.0,
+  "total_penalty": 30.0,
+  "error_count": 6
+}
