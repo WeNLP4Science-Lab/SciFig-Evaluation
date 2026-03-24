@@ -62,7 +62,12 @@ function ThemeToggle() {
   )
 }
 
-export default function JudgeReview() {
+interface JudgeReviewProps {
+  manifestFile?: string
+  title?: string
+}
+
+export default function JudgeReview({ manifestFile = 'manifest.json', title = 'Judge Review' }: JudgeReviewProps) {
   const [manifest, setManifest] = useState<DataManifest | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -79,9 +84,11 @@ export default function JudgeReview() {
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/manifest.json`)
+    setLoading(true)
+    setManifest(null)
+    fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`)
       .then(r => {
-        if (!r.ok) throw new Error('Failed to load manifest.json')
+        if (!r.ok) throw new Error(`Failed to load ${manifestFile}`)
         return r.json()
       })
       .then((data: DataManifest) => {
@@ -92,7 +99,7 @@ export default function JudgeReview() {
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false))
-  }, [])
+  }, [manifestFile])
 
   const filteredFigures = useMemo(() => {
     if (!manifest) return []
@@ -225,7 +232,7 @@ export default function JudgeReview() {
             className="text-base font-medium"
             style={{ color: 'var(--m3-on-surface)', letterSpacing: '0.15px' }}
           >
-            Judge Review
+            {title}
           </h1>
         </div>
 

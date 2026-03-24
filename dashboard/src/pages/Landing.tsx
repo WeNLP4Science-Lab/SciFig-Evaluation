@@ -51,14 +51,29 @@ export default function Landing() {
       ),
     },
     {
-      to: '/review',
-      title: 'Evaluation Review',
-      desc: 'Review MQM judge evaluations with annotated error spans across models',
+      to: '/review/full',
+      title: 'Full Evaluation',
+      desc: 'MQM judge evaluations across the complete dataset with all models',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" />
           <rect x="9" y="3" width="6" height="4" rx="2" />
           <path d="M9 14l2 2 4-4" />
+        </svg>
+      ),
+    },
+    {
+      to: '/review/sample',
+      title: 'Sample Evaluation',
+      desc: 'Curated 120-figure sample with human evaluation comparison',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+          <path d="M12 11h4" />
+          <path d="M12 16h4" />
+          <path d="M8 11h.01" />
+          <path d="M8 16h.01" />
         </svg>
       ),
     },
@@ -143,7 +158,7 @@ export default function Landing() {
           </p>
 
           {/* Navigation Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left max-w-xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left max-w-3xl mx-auto">
             {navCards.map((card) => (
               <Link
                 key={card.to}

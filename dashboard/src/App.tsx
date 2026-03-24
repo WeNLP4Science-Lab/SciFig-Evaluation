@@ -8,7 +8,8 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/dataset" element={<DatasetBrowser />} />
-      <Route path="/review" element={<JudgeReview />} />
+      <Route path="/review/full" element={<JudgeReview manifestFile="manifest_full.json" title="Full Evaluation" />} />
+      <Route path="/review/sample" element={<JudgeReview manifestFile="manifest_sample.json" title="Sample Evaluation" />} />
     </Routes>
   )
 }
