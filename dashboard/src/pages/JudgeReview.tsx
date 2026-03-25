@@ -205,7 +205,7 @@ export default function JudgeReview({ manifestFile = 'manifest.json', title = 'J
         }}
       >
         <Link
-          to="/"
+          to="/evaluation"
           className="flex items-center gap-1.5 text-xs font-medium m3-state-hover px-2 py-1.5 -ml-2 rounded-lg"
           style={{
             color: 'var(--m3-on-surface-variant)',

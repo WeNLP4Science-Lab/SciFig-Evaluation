@@ -51,9 +51,9 @@ export default function Landing() {
       ),
     },
     {
-      to: '/review/full',
-      title: 'Full Evaluation',
-      desc: 'MQM judge evaluations across the complete dataset with all models',
+      to: '/evaluation',
+      title: 'Evaluation Review',
+      desc: 'Review MQM judge evaluations with annotated error spans across models',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" />
@@ -63,17 +63,12 @@ export default function Landing() {
       ),
     },
     {
-      to: '/review/sample',
-      title: 'Sample Evaluation',
-      desc: 'Curated 120-figure sample with human evaluation comparison',
+      to: '/analytics',
+      title: 'Analytics',
+      desc: 'Cross-model comparison charts, error analysis, and language breakdown',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
-          <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-          <path d="M12 11h4" />
-          <path d="M12 16h4" />
-          <path d="M8 11h.01" />
-          <path d="M8 16h.01" />
+          <path d="M18 20V10" /><path d="M12 20V4" /><path d="M6 20v-6" />
         </svg>
       ),
     },
