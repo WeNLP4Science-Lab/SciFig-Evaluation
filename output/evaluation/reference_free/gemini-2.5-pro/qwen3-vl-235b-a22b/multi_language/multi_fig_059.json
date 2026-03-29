@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_059",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "измерени върху четири бенчмарка",
+          "evidence": "This information is from the paper's caption, not the chart image itself. The description should only detail what is visually present in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "като всеки от тях е представен с два стълба — един за точност (ляво, с лявата Y-ос) и един за брой токени (дясно, с дясната Y-ос)",
+          "evidence": "The chart is not structured as four groups of two bars. It consists of two separate groups of four bars each. The first group of four bars shows the 'Accuracy' for each method, and the second group of four bars shows the 'Token Count' for each method."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "докато стълбовете за брой токени са със същите цветове, но с по-светли нюанси",
+          "evidence": "The bars for 'Token Count' use the exact same colors as the bars for 'Accuracy', not lighter shades. For instance, the 'CoT' bar is the same shade of red for both metrics."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбовете за точност са подредени по намаляващ ред",
+          "evidence": "The bars for 'Accuracy' are not sorted in descending order. The values are 91.19, 80.89, 88.50, and 88.40, which is not a sorted sequence."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "докато тези за брой токени — по нарастващ ред",
+          "evidence": "The bars for 'Token Count' are arranged in descending order (676.85, 534.24, 445.91, 354.46), not ascending order as stated."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "като CoUT има най-нисък брой токени и същевременно висока точност, близка до CoT",
+          "evidence": "This statement makes a subjective evaluation ('висока точност' - high accuracy) and a comparison ('близка до CoT' - close to CoT), which is explicitly forbidden by the prompt's instructions to avoid interpretation and comparison."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly mention the presence of a legend at the bottom of the chart that maps the colors (red, orange, light blue, green) to the methods (CoT, CoD, CCoT, CoUT)."
+        }
+      ],
+      "mqm_score": 73.5,
+      "total_penalty": 26.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with each method represented by two adjacent bars—one for accuracy (left-side scale) and one for token count (right-side scale).",
+          "evidence": "The chart does not show two adjacent bars per method. It shows two separate charts placed side-by-side. The first chart contains four bars representing the 'Accuracy' for each of the four methods. The second chart contains four bars representing the 'Token Count' for the same four methods."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "moderate",
+          "evidence": "The word 'moderate' is a subjective interpretation of the token count for CoD. The prompt requires objective description based only on what is explicitly shown."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "CoT achieves the highest accuracy at 91.19% and also incurs the highest token cost at 676.85.",
+          "evidence": "While CoT does have the highest accuracy, the bar with the value 676.85 is associated with the CCoT method on the x-axis, not CoT. The colors of the bars in the 'Token Count' section (red, orange, light blue, green) do not correspond to the order of the methods in the legend (CoT, CoD, CCoT, CoUT)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "CCoT achieves 88.50% accuracy with 445.91 tokens",
+          "evidence": "The token count bar with value 445.91 is colored light blue, which corresponds to CCoT in the legend. However, the text incorrectly assigns this value to the CCoT method in the description, when the highest token cost bar (676.85) is actually aligned with the CCoT label on the x-axis."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually emphasizes CoUT’s efficiency, delivering near-parity in accuracy with CCoT while using significantly fewer tokens, and highlights CoT’s high performance at the cost of computational expense.",
+          "evidence": "This sentence provides subjective interpretation and analysis (e.g., 'emphasizes efficiency', 'near-parity', 'significantly fewer', 'highlights high performance', 'cost of computational expense'), which is explicitly forbidden by the generation prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions about the data.'"
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Das Balkendiagramm vergleicht die durchschnittliche Genauigkeit in Prozent und die durchschnittliche Tokenanzahl für vier verschiedene Methoden — CoT, CoD, CCoT und CoUT — über vier Benchmark-Tests, wobei die Genauigkeit auf der linken y-Achse (Skala 70–100 %) und die Tokenanzahl auf der rechten y-Achse (Skala 0–800) abgetragen ist, während die x-Achse die vier Methoden als Kategorien anzeigt.",
+          "evidence": "The description incorrectly identifies the chart as a single dual-axis chart with four bars. The figure actually shows two separate bar charts side-by-side (one for Accuracy, one for Token Count), each containing four bars, for a total of eight bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Jede Methode wird durch einen einzelnen Balken dargestellt",
+          "evidence": "This is incorrect. As there are two separate charts (Accuracy and Token Count), each method is represented by two distinct bars, not one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der rote CoT-Balken erreicht eine Genauigkeit von 91,19 % und eine Tokenanzahl von 676,85, der orange CoD-Balken 80,89 % Genauigkeit und 534,24 Token, der hellblaue CCoT-Balken 88,50 % Genauigkeit und 445,91 Token sowie der grüne CoUT-Balken 88,40 % Genauigkeit und 354,46 Token.",
+          "evidence": "This sentence incorrectly states that a single bar for each method represents two values (Accuracy and Token Count). In reality, there are two separate bars for each method, one in each chart. For example, there is one red CoT bar for Accuracy with a value of 91.19, and a second red CoT bar for Token Count with a value of 676.85."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "(10 % für Genauigkeit, 100 Token für Tokenanzahl)",
+          "evidence": "The tick interval for the Accuracy axis is 5 percentage points (70, 75, 80, 85, etc.), not 10% as stated in the description."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 77.83
+}

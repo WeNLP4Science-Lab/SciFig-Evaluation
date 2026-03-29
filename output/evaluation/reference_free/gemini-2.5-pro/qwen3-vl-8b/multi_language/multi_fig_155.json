@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_155",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at intervals of 10⁻⁵, 10⁻⁴, and intermediate powers of ten",
+          "evidence": "This misrepresents how the logarithmic y-axis is labeled. The labels 10⁻⁵ and 10⁻⁴ are specific points, not intervals. The phrase 'intermediate powers of ten' is an incorrect description of the unlabeled minor tick marks."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart displays a series of grouped bars for each block index",
+          "evidence": "The chart does not show grouped bars. For each block index, there is only a single bar, which is either blue (4-Fbit) or green (2-Fbit)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the 4-Fbit bars consistently being taller than the corresponding 2-Fbit bars across most block indices",
+          "evidence": "This is an invalid comparison. The chart does not show corresponding 4-Fbit and 2-Fbit bars at the same block index to allow for such a direct comparison."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at block index 0, the sensitivity for 4-Fbit is approximately 10⁻⁵",
+          "evidence": "The chart does not contain a bar for the '4-Fbit' configuration at block index 0. There is only a '2-Fbit' (green) bar at this index."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at block index 63, the 4-Fbit sensitivity reaches approximately 10⁻³",
+          "evidence": "The tallest bar at block index 63 has a sensitivity value well above 10⁻⁴ but far below 10⁻³, approximately 2x10⁻⁴. The reported value is off by a factor of 5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the 2-Fbit sensitivity is approximately 10⁻⁴",
+          "evidence": "In the example for block index 63, the description claims a value for '2-Fbit' sensitivity, but there is no '2-Fbit' (green) bar at this index."
+        }
+      ],
+      "mqm_score": 77.5,
+      "total_penalty": 22.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 77.5
+}

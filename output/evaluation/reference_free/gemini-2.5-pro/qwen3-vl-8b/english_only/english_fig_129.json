@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_129",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with the vertical axis labeled “Inference Time (minute)”",
+      "evidence": "The description incorrectly states that the vertical axis is the value axis. In these horizontal bar charts, the horizontal axis represents the values ('Inference Time (minute)'), and the vertical axis displays the categories."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a linear scale ranging from 0 to 7 minutes",
+      "evidence": "This range is only correct for the 'QwQ-32B-Preview' chart. The 'Marco-o1-7B' chart has a horizontal axis scale that ranges from 0 to 2.5 minutes."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "sorted in descending order of inference time",
+      "evidence": "The bars are not sorted by inference time. They are presented in a fixed categorical order (Baseline, Fast-Solving Prompt, SFT, DPO, O1-Pruner from top to bottom). For the 'QwQ-32B-Preview' chart, the lengths are not in descending order either (e.g., Fast-Solving Prompt is shorter than DPO and SFT)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "followed by DPO (orange, ~5.7 minutes), SFT (gray, ~5.9 minutes), Fast-Solving Prompt (yellow, ~5.0 minutes)",
+      "evidence": "When describing the bars for QwQ-32B-Preview, the description lists them in an order (by value: 5.7, 5.9, 5.0) that does not match the actual ascending order of the bar lengths (4.0, ~5.1, ~5.7, ~5.9, ~6.2). This creates a confusing and inaccurate representation of the data."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to describe the vertical category axis and how the categories are defined by the legend. It also omits the tick mark intervals for the horizontal value axes (0.5 for the left chart, 1 for the right chart)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Fast-Solving Prompt (yellow, ~5.0 minutes), and Baseline (light green, ~6.0 minutes)",
+      "evidence": "The approximations for QwQ-32B-Preview are slightly inaccurate. The 'Fast-Solving Prompt' bar is closer to 5.1 minutes, and the 'Baseline' bar is closer to 6.2 minutes, not 6.0."
+    }
+  ],
+  "mqm_score": 74.5,
+  "total_penalty": 25.5,
+  "error_count": 6
+}

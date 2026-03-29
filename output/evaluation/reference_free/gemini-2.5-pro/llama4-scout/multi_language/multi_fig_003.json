@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "За всяка част от диаграмата са представени по четири стълба за двата метода при четирите различни нива на квантизация.",
+          "evidence": "This statement is incorrect and confusing. Each subplot contains 8 bars, not 4. There are 4 groups corresponding to the quantization bits, and each group has 2 bars (one for each method)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "стълбите са групирани по методите",
+          "evidence": "The bars are not grouped by method. They are grouped by the 'Quantization Bits' shown on the x-axis. Within each quantization bit group (e.g., '3'), there are two bars representing the two different methods ('Uniform' and 'Ours')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description mentions the range of the vertical axis for each plot but omits the tick mark intervals, which the prompt asks for. The intervals are every 5 units for plots (a) and (c), and every 50 units for plot (b)."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "27, and 27",
+          "evidence": "In chart (a), the blue bars for quantization bits 8 and 16 have an approximate value of 26.5. Reporting them as 27 is inaccurate as they are visibly shorter than the bar for 4 bits, which has a value of approximately 27."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "150, 130, and 130",
+          "evidence": "In chart (b), the orange bars for quantization bits 4, 8, and 16 have approximate values of 178, 182, and 182 respectively. The reported values of 150, 130, and 130 are significant underestimations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "27",
+          "evidence": "In chart (c), the blue bar for 3 quantization bits has a value of approximately 29. The reported value of 27 is a significant underestimation on a scale of 0-30."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "In each chart, there are two groups of bars, labeled \"Uniform\" and \"Ours,\"",
+          "evidence": "This misrepresents the chart's structure. There are four groups of bars, one for each x-axis category (Quantization Bits), and each of these groups contains two bars corresponding to \"Uniform\" and \"Ours\"."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the details of the y-axes for the three subplots, such as their ranges and tick intervals. The prompt requires describing the value axis including its scale, value range, and tick interval. The y-axis scales are significantly different across the plots (0-30 for (a) and (c), 0-400+ for (b)), making this a critical missing detail."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Im Diagramm (b) für PTB liegen die Werte für \"Uniform\" bei etwa 380 (3 Bits), 325 (4 Bits), 300 (8 Bits) und 290 (16 Bits), während die Werte für \"Ours\" bei etwa 250 (3 Bits), 165 (4 Bits), 150 (8 Bits) und 145 (16 Bits) liegen.",
+          "evidence": "Multiple values for plot (b) are incorrect. For the \"Uniform\" method, the value for 3 bits is exactly 400, not 380, and the value for 16 bits is 300, not 290. For the \"Ours\" method, the values for 8 bits and 16 bits are both approximately 180, not 150 and 145."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Im Diagramm (c) für C4 liegen die Werte für \"Uniform\" bei etwa 27,5 (3 Bits), 26 (4 Bits), 25,5 (8 Bits) und 25,5 (16 Bits), während die Werte für \"Ours\" bei etwa 20 (3 Bits), 17 (4 Bits), 16,5 (8 Bits) und 16,5 (16 Bits) liegen.",
+          "evidence": "Multiple values for plot (c) are incorrect. For the \"Uniform\" method, the value for 3 bits is approximately 29, not 27.5, and the value for 4 bits is exactly 25, not 26. For the \"Ours\" method, the values for 4, 8, and 16 bits are approximately 18.5, 18, and 18 respectively, not 17 and 16.5."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.0
+}

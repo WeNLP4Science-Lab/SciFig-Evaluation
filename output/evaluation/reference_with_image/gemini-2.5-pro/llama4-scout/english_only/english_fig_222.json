@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_222",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the '1e-6' multiplier for the y-axis, which is explicitly shown in the top left of the plot. This omission makes all reported y-values incorrect by a factor of one million."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ranging from 0.00 to 2.00",
+      "evidence": "Due to the omitted '1e-6' multiplier, the range of the y-axis is not 0.00 to 2.00, but 0.00e-6 to 2.00e-6."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starting at approximately 0.05",
+      "evidence": "The line starts at or very near 0 on the y-axis at training step 0. It then jumps sharply upwards, but it does not start at 0.05."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "sharply increasing to 2.00 at the first training step",
+      "evidence": "The learning rate peaks at 2.00 (x 1e-6) at a training step between 0 and 100 (approximately step 50-100), not at the very first training step."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "gradually decreasing to 0.05 at a training step of 1400",
+      "evidence": "At training step 1400, the learning rate is very close to 0, well below the 0.25 tick mark. 0.05 is an incorrect final value."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "a steady trend from 800 to 1400",
+      "evidence": "Describing the trend from 800 to 1400 as 'steady' is an over-generalization. The trend follows a curve with a continuously changing slope, not a steady (linear) decrease."
+    }
+  ],
+  "mqm_score": 75.5,
+  "total_penalty": 24.5,
+  "error_count": 6
+}

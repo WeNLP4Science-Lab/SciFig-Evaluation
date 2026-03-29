@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_212",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Each model is represented by two adjacent bars: a light blue bar for the “Large model” and a dark blue bar for the “Small model”, as indicated by the legend.",
+      "evidence": "The chart is not a grouped bar chart. Each model name on the x-axis corresponds to a single bar, not two adjacent bars. The color of the single bar indicates whether it is a 'Large model' or a 'Small model'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The approximate values for each bar are: Llama-3.3 70B Instruct (Large: 66.4, Small: 74.8), Claude 3.5 Sonnet (Large: 74.8, Small: 77.4), Qwen 2.5 14B-Instruct (Large: 77.9, Small: 78.2), GPT-4o (Large: 78.2, Small: 78.7), GPT-4o-mini (Large: 78.7, Small: 81.6), Qwen 2.5 72B-Instruct (Large: 81.6, Small: 89.8), Gemini Flash 1.5 (Large: 89.8, Small: 91.8), and phi-4 (Large: 91.8, Small: 91.8).",
+      "evidence": "This entire section incorrectly pairs bars and misreports their values based on the false assumption of a grouped bar chart. For example, it claims 'Claude 3.5 Sonnet' has a 'Small' model score of 77.4, but this value belongs to the next model, 'Qwen 2.5 14b-Instruct'. This error pattern continues for the entire list, completely misrepresenting the data."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with its large and small variants both scoring 91.8.",
+      "evidence": "The chart only shows one bar for the 'phi-4' model, which is a 'Small model' (dark blue) with a score of 91.8. There is no 'large variant' for phi-4 shown in the chart."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "The phi-4 model shows the highest performance",
+      "evidence": "The prompt instructs to avoid making inferences or comparisons. Stating which model has the 'highest performance' is a comparative interpretation."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "while the Llama-3.3 70B Instruct model shows the lowest score among the large models at 66.4.",
+      "evidence": "The prompt instructs to avoid making inferences or comparisons. Stating which model has the 'lowest score' is a comparative interpretation."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description fails to mention that the x-axis label 'phi-4' is visually emphasized by being rendered in bold font."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "indicating two standard deviations of the estimate",
+      "evidence": "This information is not present in the visual labels of the chart itself; it comes from the external caption. The prompt requires describing only what is shown in the figure, so this constitutes an interpretation beyond the visual information provided."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "The chart visually emphasizes the phi-4 model’s performance with its position at the far right and its high score",
+      "evidence": "The prompt asks for description of visual emphasis (like bolding or shading). Claiming that position or a high score constitutes emphasis is an interpretation of the data's presentation, not a description of an explicit visual feature."
+    }
+  ],
+  "mqm_score": 83.5,
+  "total_penalty": 16.5,
+  "error_count": 8
+}

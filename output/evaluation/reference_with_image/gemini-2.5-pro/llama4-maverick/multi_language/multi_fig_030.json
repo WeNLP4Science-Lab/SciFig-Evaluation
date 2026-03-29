@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_030",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "该图表包含两组并排的堆叠柱状图，每组代表一个任务，每组柱状图又细分为三个组成部分",
+          "evidence": "The chart is a grouped bar chart, not a side-by-side stacked bar chart. For each task category ('MCQ Eval', 'Generation Eval'), there are two bars side-by-side: a single bar for 'Base' and one stacked bar composed of 'RMU' and 'RMU with Enhanced GCG'. The description incorrectly implies that 'Base' is part of a stacked structure with the other two components."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“RMU with Enhanced GCG”组成部分的准确率约为0.539",
+          "evidence": "The value 0.539 represents the total height of the stacked bar for 'MCQ Eval' (the sum of 'RMU' and 'RMU with Enhanced GCG'). It is not the accuracy of the 'RMU with Enhanced GCG' component alone. The accuracy for the 'RMU with Enhanced GCG' component is 0.539 - 0.299 = 0.240."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "总准确率是这三个值的总和",
+          "evidence": "The chart compares the performance of different models/methods; it does not present them as parts of a whole that should be summed. The concept of a 'total accuracy' being the sum of these three values is an invention and misrepresents the purpose of the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "对于Generation Eval任务，相应的值分别约为0.597、0.263和0.106",
+          "evidence": "This sentence incorrectly implies that 0.263 is the value for the 'RMU with Enhanced GCG' component. In the 'Generation Eval' task, 0.263 is the total height of the stacked bar, which represents the sum of 'RMU' (0.106) and 'RMU with Enhanced GCG' (0.157)."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each category contains three stacked bars, colored red, green, and yellow",
+          "evidence": "The chart does not contain three stacked bars in each category. It is a grouped bar chart where each category has one simple bar ('Base') and one stacked bar which is composed of two segments ('RMU' and 'RMU with Enhanced GCG'). The 'Base' bar is not stacked."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the green bar (RMU with Enhanced GCG) has a value of 0.539",
+          "evidence": "The value 0.539 represents the total height of the stacked bar for 'RMU' and 'RMU with Enhanced GCG' combined. The individual value for the green 'RMU with Enhanced GCG' segment is the total (0.539) minus the bottom segment's value (0.299), which is 0.24."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "for Generation Eval, the corresponding values are 0.597, 0.263, and 0.106, respectively",
+          "evidence": "The value for the green bar ('RMU with Enhanced GCG') is stated to be 0.263. This is incorrect. 0.263 is the total height of the stacked bar. The individual value for the green segment is the total (0.263) minus the bottom segment (0.106), which is 0.157."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart effectively visualizes the accuracy of different models across two tasks, allowing for a straightforward comparison of their relative performance.",
+          "evidence": "This sentence provides subjective interpretation and evaluation of the chart's effectiveness ('effectively visualizes', 'straightforward comparison') rather than an objective description."
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the green \"RMU with Enhanced GCG\" bar",
+          "evidence": "The description refers to a \"green 'RMU with Enhanced GCG' bar\". This is incorrect. The bar in question is a stacked bar composed of a yellow segment at the bottom and a green segment on top. It is not a single green bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the green \"RMU with Enhanced GCG\" bar",
+          "evidence": "The description repeats the error of referring to a \"green 'RMU with Enhanced GCG' bar\". This is incorrect. The bar in question is a stacked bar composed of a yellow segment at the bottom and a green segment on top. It is not a single green bar."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.0
+}

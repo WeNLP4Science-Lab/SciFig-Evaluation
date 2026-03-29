@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_246",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectStructuralDescription",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart features three groups of bars, each corresponding to ROUGE-1, ROUGE-2, and ROUGE-L",
+      "evidence": "The chart has five groups of bars, corresponding to the five diffusion steps on the x-axis. Each of these five groups contains three bars for the different ROUGE metrics."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For ROUGE-2, the values are around 0.1, 3.0, 4.1, 15.9, and 19.1.",
+      "evidence": "The description incorrectly reports some values for the ROUGE-2 series. The value at diffusion step 250 is 0.4, not 3.0 (which is ROUGE-L at step 100). The value at step 1000 is 16.5, not 15.9 (which is ROUGE-L at step 500)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For ROUGE-L, the values are about 0.4, 8.3, 30.7, 33.4, and no value is provided for 100 but appears to be around 16.5, increasing to 33.4 at 2000.",
+      "evidence": "This sentence is highly confused and inaccurate. The correct values for ROUGE-L are 3.0, 8.3, 15.9, 30.7, and 33.4. The description incorrectly includes 0.4 (from ROUGE-2), omits 3.0 and 15.9, falsely states there is no value for step 100, and incorrectly suggests a value of 16.5 (which is from ROUGE-2 at step 1000)."
+    }
+  ],
+  "mqm_score": 85.0,
+  "total_penalty": 15.0,
+  "error_count": 3
+}

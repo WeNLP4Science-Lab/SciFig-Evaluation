@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_030",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each task, the chart displays a stacked bar, where the total height represents the accuracy of the \"Base\" model, and the segments below it represent the contributions of \"RMU with Enhanced GCG\" and \"RMU.\"",
+          "evidence": "The chart is a grouped bar chart, not a stacked bar chart where \"Base\" is the total height. Each task category on the x-axis has two bar structures side-by-side: a single bar for \"Base\" and a separate stacked bar composed of \"RMU\" (bottom) and a segment representing the additional contribution of \"Enhanced GCG\" (top)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the light green \"RMU with Enhanced GCG\" segment has a value of 0.539",
+          "evidence": "The value 0.539 represents the total height of the stacked bar for \"MCQ Eval\", corresponding to the overall accuracy of the \"RMU with Enhanced GCG\" model. The value of the light green segment itself is the difference between the total height and the bottom segment's height, which is 0.539 - 0.299 = 0.240."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the light green \"RMU with Enhanced GCG\" segment has a value of 0.263",
+          "evidence": "The value 0.263 represents the total height of the stacked bar for \"Generation Eval\", corresponding to the overall accuracy of the \"RMU with Enhanced GCG\" model. The value of the light green segment itself is the difference between the total height and the bottom segment's height, which is 0.263 - 0.106 = 0.157."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped side-by-side for each task",
+          "evidence": "The description fails to mention that for each task, the 'RMU' and 'RMU with Enhanced GCG' categories are presented as a stacked bar, not as two separate side-by-side bars. For each task, there is one simple bar ('Base') next to one stacked bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the 'RMU with Enhanced GCG' model achieves 0.539",
+          "evidence": "The value 0.539 represents the total height of the stacked bar for 'MCQ Eval', which is the sum of the 'RMU' model (0.299) and the 'RMU with Enhanced GCG' model. The value for the 'RMU with Enhanced GCG' model alone is the difference (0.539 - 0.299 = 0.24), not 0.539."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the 'RMU with Enhanced GCG' model achieves 0.263",
+          "evidence": "The value 0.263 represents the total height of the stacked bar for 'Generation Eval', which is the sum of the 'RMU' model (0.106) and the 'RMU with Enhanced GCG' model. The value for the 'RMU with Enhanced GCG' model alone is the difference (0.263 - 0.106 = 0.157), not 0.263."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually supports the caption's claim that Enhanced GCG's effectiveness varies significantly across tasks, showing high performance relative to the base model in MCQ Eval (0.539 vs 0.644) but much lower performance in Generation Eval (0.263 vs 0.597).",
+          "evidence": "This sentence provides an interpretation of the data by connecting it to the paper's caption and making a comparative claim. This goes beyond a factual description of the chart. Furthermore, the interpretation is based on the incorrect numerical values identified in other errors, making it highly misleading."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each task, three stacked bars represent the respective models: the bottom segment is “RMU” (light yellow), the middle segment is “RMU with Enhanced GCG” (light green), and the top segment is “Base” (reddish-orange).",
+          "evidence": "The chart is a grouped bar chart, not a stacked bar chart. For each task, there are two bars: a single bar for \"Base\" and a separate stacked bar composed of \"RMU\" and \"RMU with Enhanced GCG\". The description incorrectly states that all three models form a single stacked bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “RMU with Enhanced GCG” bar reaches 0.539",
+          "evidence": "The value 0.539 represents the total height of the stacked bar for \"RMU\" and \"RMU with Enhanced GCG\" combined in the \"MCQ Eval\" group. The value for the \"RMU with Enhanced GCG\" segment alone is the difference between 0.539 and 0.299, which is 0.24."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the “RMU with Enhanced GCG” bar reaches 0.263",
+          "evidence": "The value 0.263 represents the total height of the stacked bar for \"RMU\" and \"RMU with Enhanced GCG\" combined in the \"Generation Eval\" group. The value for the \"RMU with Enhanced GCG\" segment alone is the difference between 0.263 and 0.106, which is 0.157."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.83
+}

@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_130",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to describe the horizontal axis, which represents the four mathematical reasoning benchmarks: GSM8K, MATH500, AIME, and AMC."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and both bars are labeled with their exact generation length values",
+          "evidence": "This is incorrect. Only the 'Vanilla CoT' bars (light pink) have their exact generation length values labeled above them. The 'TLDR (Ours)' bars (dark red) do not have value labels."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "(from 679 to 240 words), MATH500 a 31% reduction (from 2951 to 2036 words), AIME a 4% reduction (from 6701 to 6433 words), and AMC a 16% reduction (from 4584 to 3851 words)",
+          "evidence": "The description states exact word counts for the 'TLDR (Ours)' method (240, 2036, 6433, 3851). These values are not labeled on the chart; they have been calculated by the model based on the 'Vanilla CoT' values and the percentage reduction labels. The prompt requires describing only what is visually and explicitly labeled."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart demonstrates that the TLDR method consistently shortens generation length across all datasets, with the most dramatic compression observed on GSM8K.",
+          "evidence": "This sentence provides a summary conclusion and interpretation of the data ('consistently shortens', 'most dramatic compression'), which is explicitly forbidden by the prompt's instruction to avoid drawing conclusions or interpreting trends."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "While the caption mentions accuracy and model scales (7B and 14B), these are not visually represented in the chart — the data shown is specific to the 14B model variant and focuses solely on generation length.",
+          "evidence": "This part of the description references external information (the caption) to state what is *not* in the chart, which goes beyond the prompt's instruction to describe only the visual and labeled characteristics of the figure itself."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.0
+}

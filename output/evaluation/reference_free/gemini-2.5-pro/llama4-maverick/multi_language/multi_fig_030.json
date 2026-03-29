@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_030",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "该图表包含两组并排的堆叠柱状图，每组代表一个任务，每组柱状图又细分为三个组成部分",
+          "evidence": "The description incorrectly states that the chart contains two groups of stacked bars, each with three components. The chart actually shows two groups ('MCQ Eval' and 'Generation Eval'), where each group contains two bars: one simple bar ('Base') and one stacked bar made of two components ('RMU' and 'RMU with Enhanced GCG')."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“RMU with Enhanced GCG”组成部分的准确率约为0.539",
+          "evidence": "The description misinterprets the labels on the stacked bars. For the 'MCQ Eval' task, 0.539 is the total height of the stacked bar, not the value of the 'RMU with Enhanced GCG' segment alone. The segment's actual value is the difference between the total height and the bottom segment (0.539 - 0.299 = 0.24). The same error is made for the 'Generation Eval' task, where 0.263 is reported instead of the correct segment value (0.263 - 0.106 = 0.157)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "总准确率是这三个值的总和",
+          "evidence": "The description invents the idea that a 'total accuracy' is the sum of the three components. The chart does not suggest this at all; it presents the 'Base' bar for comparison alongside the stacked bar, not as an additive component."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each category contains three stacked bars, colored red, green, and yellow, representing Base, RMU with Enhanced GCG, and RMU, respectively.",
+          "evidence": "The chart does not show three stacked bars per category. Each category on the x-axis has two bars side-by-side: one simple bar for 'Base' and one stacked bar composed of two sections ('RMU' and 'RMU with Enhanced GCG')."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the green bar (RMU with Enhanced GCG) has a value of 0.539",
+          "evidence": "The value 0.539 corresponds to the total height of the stacked bar, which represents 'RMU with Enhanced GCG'. The green section is only the top component of this stack, not a separate bar, and its individual value is the total (0.539) minus the bottom section (0.299), which is 0.240."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the components of each group stacked on top of one another",
+          "evidence": "This incorrectly describes the chart's structure. The 'Base' bar is a standalone bar within each group; it is not stacked with the other components."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the values are displayed above the bars",
+          "evidence": "This is not entirely accurate. For the stacked bars, the value for the bottom component (e.g., 0.299 and 0.106) is displayed within the area of the top component, not above the bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart effectively visualizes the accuracy of different models across two tasks, allowing for a straightforward comparison of their relative performance.",
+          "evidence": "The prompt instructs to avoid making inferences or drawing conclusions. This sentence provides an evaluation of the chart's effectiveness and its utility for comparison, which is a form of interpretation."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the green \"RMU with Enhanced GCG\" bar",
+          "evidence": "The description incorrectly refers to the stacked bar as \"the green... bar\". The chart shows a stacked bar composed of two distinct colored segments: a yellow \"RMU\" segment at the bottom and a green \"RMU with Enhanced GCG\" segment at the top. The entire bar is not green. This error occurs twice in the description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "\"Base\" (red)",
+          "evidence": "The bar for the \"Base\" category is orange-red, not red."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "\"RMU\" (yellow)",
+          "evidence": "The bar segment for the \"RMU\" category is a pale yellow-orange, not a primary yellow."
+        }
+      ],
+      "mqm_score": 91.0,
+      "total_penalty": 9.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.33
+}

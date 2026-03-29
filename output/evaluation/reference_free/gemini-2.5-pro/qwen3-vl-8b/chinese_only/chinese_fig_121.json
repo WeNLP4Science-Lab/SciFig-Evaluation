@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_121",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "按字母顺序排列了",
+      "evidence": "The categories on the horizontal axis are not in alphabetical order. For example, 'Aft' comes after 'Exp', and 'Cont' comes after 'Pat'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "范围从0%至6%，刻度间隔为1%",
+      "evidence": "The vertical axis is mirrored around a central zero line, with scales running from 0% to 6% upwards and 0% to 6% downwards. The actual range is effectively from -6% to 6%. The labeled tick interval is 2%, not 1%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "每个标签对应一个堆叠柱状图",
+      "evidence": "The chart is not a stacked bar chart. It is a diverging bar chart where two series are plotted in opposite directions from a central zero baseline. The bars are not stacked to represent a total."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "柱状图的总高度代表该标签在整体中的总占比，其上部蓝色部分高度对应古汉比例，下部橙色部分高度对应现汉比例，两者数值相加等于柱状图总高度所对应的百分比。",
+      "evidence": "This description is based on the incorrect assumption that the chart is a stacked bar chart. The chart does not show a 'total proportion' ('总占比') and the values of the two series are not meant to be added together. The description invents this concept."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "具体数值如下：Agt标签总占比4.86%，其中古汉比例3.85%，现汉比例1.08%；Exp标签总占比2.89%，其中古汉比例2.51%，现汉比例0.38%；Aft标签总占比1.08%，其中古汉比例0.31%，现汉比例0.77%；Poss标签总占比1.73%，其中古汉比例1.68%，现汉比例0.05%；Pat标签总占比4.61%，其中古汉比例2.26%，现汉比例2.35%；Cont标签总占比2.26%，其中古汉比例1.62%，现汉比例0.64%；Sco标签总占比0.53%，其中古汉比例0.53%，现汉比例0.00%；Desc标签总占比1.66%，其中古汉比例1.66%，现汉比例0.00%；Nmod标签总占比1.67%，其中古汉比例1.67%，现汉比例0.00%；Host标签总占比0.50%，其中古汉比例0.50%，现汉比例0.00%",
+      "evidence": "The entire list of detailed values is incorrect. The description confuses which value corresponds to which series and which category, and in some cases hallucinates values that do not appear in the chart. For example, for Agt, the actual values are 古汉比例 4.86% and 现汉比例 3.85%; the description incorrectly states them as 古汉比例 3.85% and 现汉比例 1.08%. This pattern of errors persists for all categories."
+    }
+  ],
+  "mqm_score": 75.0,
+  "total_penalty": 25.0,
+  "error_count": 5
+}

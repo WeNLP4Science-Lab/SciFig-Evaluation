@@ -1,0 +1,146 @@
+{
+  "figure_key": "multi_fig_025",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "In early layers (e.g., layers 1–5), G2 dominates with the largest segment",
+          "evidence": "This is an incorrect over-generalization. In layer 3, G1 is the largest segment (G1=3, G2=2). In layers 1 and 5, G1 and G2 are equal."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not provide representative values for the highest and lowest bars, as requested by the prompt. For example, it omits that the highest total number of experts is nearly 9 in layer 1, and the lowest total is 3, which occurs in multiple layers (e.g., 7, 11-15, 23-24)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description states that the vertical axis is scaled from 0 to 10 but does not mention that the labeled tick intervals are in increments of 2."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "with G1 often exceeding G2",
+          "evidence": "In the specified range of layers 19-22, G1 consistently exceeds G2 in all four layers. Using the word 'often' is imprecise and suggests variability that does not exist in this specific range."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "with G2 and G1 contributing roughly equally",
+          "evidence": "In layers 23 and 24, the contributions of G0, G1, and G2 are exactly equal (each is 1). Describing them as 'roughly equally' is unnecessarily vague."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart visually conveys how expert allocation varies across layers, with no single group dominating uniformly across all layers.",
+          "evidence": "This sentence provides a high-level summary or conclusion about the overall data pattern, which falls under the category of interpretation that the prompt advises against."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with some layers (like 1, 2, 4, and 5) hosting as many as 8 or 9 experts",
+          "evidence": "The description states that layer 5 hosts 8 or 9 experts, but the bar for layer 5 has a total height of 7 (1 for G0, 3 for G1, and 3 for G2)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with G1 consistently contributing the largest segment in most layers, followed by G2",
+          "evidence": "This statement is incorrect. In many layers, the segment for G2 (yellow) is larger than or equal to the segment for G1 (green). For example, in layers 2, 3, 4, and 10, G2 is larger than G1. In layers 1, 5, 6, 8, 9, and 16-18, G1 and G2 are equal in size. G1 is only the largest segment in layers 19-22."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "as described in the paper “Less, but Better: Efficient Multilingual Expansion for LLMs via Layer-wise Mixture-of-Experts.”",
+          "evidence": "This part of the description introduces information (the paper title) that is not present in the visual content of the figure itself, violating the prompt's instruction to focus solely on visual and labeled characteristics."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the vertical axis omits the tick label interval. The prompt asks for this information when numeric and regularly spaced, and the y-axis ticks are labeled every 2 units (0, 2, 4, 6, 8, 10)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting a strategic allocation of expert capacity across the model’s depth",
+          "evidence": "This phrase interprets the data by suggesting a purpose ('strategic allocation'), which is a conclusion that cannot be drawn from the visual information alone. The prompt explicitly forbids making inferences or drawing conclusions."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In Layer 1 beträgt die Gesamtzahl der Experten 9, aufgeteilt in 1 (G0), 4 (G1) und 4 (G2).",
+          "evidence": "The description states that for Layer 1, the value for G1 is 4. However, the green bar (G1) starts at 1 and ends at 5, meaning its value is 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "oben rechts",
+          "evidence": "The description places the legend in the top right corner, but it is located in the top center of the chart."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 91.5
+}

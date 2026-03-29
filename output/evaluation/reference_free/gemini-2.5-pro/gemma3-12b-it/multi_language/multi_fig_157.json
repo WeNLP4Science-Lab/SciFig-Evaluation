@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_157",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with integer tick labels at each 10-unit interval",
+          "evidence": "The tick labels on the horizontal axis are at 0, 19, 39, 59, and 79, which are not regular 10-unit intervals."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars representing the 2-Fbit values are arranged first, starting at the left edge of the chart... The bars representing the 4-Fbit values follow, beginning near block index 19",
+          "evidence": "The chart does not show the 2-Fbit (green) and 4-Fbit (blue) bars arranged sequentially. Instead, the two series are interspersed across the x-axis. For example, there are blue bars before index 59 and green bars after index 59."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the first bar near block index 0 having an approximate height corresponding to 10⁻⁵",
+          "evidence": "The first bar at block index 0 has a sensitivity value significantly below the 10⁻⁶ line, not 10⁻⁵."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the last bar, near block index 19, has an approximate height of 10⁻⁶",
+          "evidence": "The bar at block index 19 is one of the shortest on the chart, with a value well below 10⁻⁶."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and the last bar estimated at 10⁻⁴",
+          "evidence": "The last bar on the chart, at block index 79, has a value that is clearly above the 10⁻⁴ gridline, closer to 2x10⁻⁴."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 75.0
+}

@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_062",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Всички три линии показват обща тенденция към нарастване с увеличаване на популярността на въпросите, като увереността започва и завършва с най-високи стойности, а точността — с най-ниски.",
+          "evidence": "The generation prompt explicitly instructs to avoid comparing the lines (\"Избягвайте... да сравнявате линиите\"). This sentence summarizes a general trend for all lines and compares their relative values, which violates the negative constraint."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fluctuates slightly between 0.72 and 0.76 up to popularity 8.0",
+          "evidence": "The description states the fluctuation range for the Confidence line is between 0.72 and 0.76 up to a popularity of 8.0. However, the data point at popularity 8.0 has a value of approximately 0.78, which is outside this range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "shows minor fluctuations between 0.50 and 0.55 up to popularity 10.0",
+          "evidence": "The description states the fluctuation range for the Alignment line is between 0.50 and 0.55. However, the starting value at popularity 5.0 is approximately 0.49, which is below the stated lower bound of 0.50."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "All three lines exhibit a general upward trend, indicating that as question popularity increases, ChatGPT’s performance, perceived confidence, and alignment with expected responses also improve.",
+          "evidence": "The final sentence interprets the upward trend as an \"improvement.\" The prompt explicitly forbids making inferences, drawing conclusions, or using subjective/evaluative language. Stating that the values \"increase\" would be objective, while stating they \"improve\" is an interpretation of what that increase means."
+        }
+      ],
+      "mqm_score": 92.5,
+      "total_penalty": 7.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fluctuates slightly between 0.72 and 0.76 until 10.0",
+          "evidence": "The description states that the Confidence line fluctuates between 0.72 and 0.76 until a Question Popularity of 10.0. However, the data points at x=8.0 (value approx. 0.78) and x=10.0 (value approx. 0.83) are clearly outside and above this specified range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at 0.50 at 5.0, dips slightly to 0.50 at 6.25",
+          "evidence": "The description incorrectly characterizes the initial trend of the Alignment line. The line does not dip from its starting point. It begins at approximately 0.49 (at x=5.0), rises to about 0.53 (at x=6.0), and then has a small dip to about 0.51 (at x=6.5). The description misses the initial rise and provides an incorrect x-coordinate for the dip (6.25 instead of 6.5)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "All three lines show a general upward trend across the range of question popularity.",
+          "evidence": "The generation prompt explicitly instructed to \"Avoid... making comparisons between lines.\" This concluding sentence compares the general trend of all three lines, which violates a direct negative constraint of the prompt."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 91.83
+}

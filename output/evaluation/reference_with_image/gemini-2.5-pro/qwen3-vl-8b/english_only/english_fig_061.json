@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_061",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "A green dashed rectangle",
+      "evidence": "The figure does not show a green dashed rectangle. It shows a set of horizontal and vertical green dashed lines used to compare the training times required for the two models to reach a loss level of 2.50."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a label “1.26×” indicates that the loss of SepLLM is 1.26 times lower than that of Vanilla at the end of the training period",
+      "evidence": "The label “1.26×” does not refer to a ratio of loss values. It refers to the training time speedup. The green dashed lines show that the 'Vanilla' model takes approximately 250,000 seconds to reach a loss of 2.50, while the 'SepLLM' model takes approximately 200,000 seconds. The ratio of these times (250000/200000 = 1.25) corresponds to the 1.26x speedup."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "where the loss for both models stabilizes near 2.50",
+      "evidence": "The loss for the 'SepLLM' model does not stabilize at 2.50; it continues to decrease below this value, ending at approximately 2.48. Only the 'Vanilla' model's loss ends near 2.50."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 3
+}

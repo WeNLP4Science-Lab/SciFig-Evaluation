@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_240",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "as detailed in the paper \"Audio-Visual Efficient Conformer for Robust Speech Recognition.\"",
+      "evidence": "The description includes the title of the paper from which the figure was taken, but this information is not present in the figure image itself and is outside the scope of describing what is visually shown."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "followed by the red \"grouped attention (g=3)\" at about 0.15 Giga FLOPs,",
+      "evidence": "In Stage 1, the value for the red bar (\"grouped attention\") is approximately 0.16, as it is visibly above the halfway point between 0.1 and 0.2. The description states it is about 0.15, which is an underestimate."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "followed by the red \"grouped attention (g=3)\" at about 0.15 Giga FLOPs, the yellow \"patch attention (k=3)\" at approximately 0.11 Giga FLOPs, and the green \"feed-forward\" at around 0.12 Giga FLOPs.",
+      "evidence": "The phrase \"followed by\" implies a descending order of bar height. For Stage 1, after the tallest blue bar, the correct descending order of height is red (~0.16), green (~0.125), and then yellow (~0.11). The description incorrectly lists the order as red, yellow, and then green, which misrepresents the relative values of the bars."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "the yellow \"patch attention (k=3)\" is around 0.10 Giga FLOPs,",
+      "evidence": "In Stage 3, the red bar (\"grouped attention\") is at approximately 0.10. The yellow bar (\"patch attention\") is visibly shorter than the red bar, with a value closer to 0.095. Describing it as 'around 0.10' is imprecise and makes it sound equal in height to the red bar, which is also described as 'about 0.10'."
+    }
+  ],
+  "mqm_score": 89.5,
+  "total_penalty": 10.5,
+  "error_count": 4
+}

@@ -1,0 +1,50 @@
+{
+  "figure_key": "multi_fig_154",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Two sets of bars are plotted for each block index",
+          "evidence": "The chart does not show two bars for each block index. Instead, for each block index, there is a single bar that is either green (2-Fbit) or blue (4-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from approximately 10⁻⁶ to 10⁻⁴",
+          "evidence": "While the lower end of the range is approximately correct, the upper end of the data range is significantly higher than 10⁻⁴. The tallest bars are approximately at 3x10⁻⁴. The description later contradicts this by correctly stating that sensitivity exceeds 10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "In most blocks, 2-Fbit sensitivity is lower than or comparable to 4-Fbit, suggesting that finer precision (4-Fbit) may be more sensitive in earlier or mid-stage blocks, while later blocks show higher sensitivity regardless of precision.",
+          "evidence": "This sentence makes a comparison between 2-Fbit and 4-Fbit sensitivities that is not directly depicted in the chart (as there is only one bar per block, not a pair for comparison). It then makes an inference starting with 'suggesting that...', which violates the prompt's instruction to avoid interpretation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually supports the motivation for progressive mixed-precision quantization—allocating higher precision to more sensitive blocks—by revealing a clear trend of increasing sensitivity toward the end of the model.",
+          "evidence": "This sentence draws a conclusion about what the chart 'supports' and links it to the 'motivation' for a specific technique. This is an interpretation of the data's significance, which is explicitly forbidden by the prompt."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.0
+}

@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_148",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表中有两条线：",
+      "evidence": "The chart displays only one data series (a single line with markers), not two. The model has misinterpreted the change in marker style (from circles to stars) as two separate lines."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条是红色的虚线，标记为星号（*）",
+      "evidence": "The single line in the chart uses two different marker shapes. It starts with blue circle markers for the first few epochs (1-4) and then switches to blue star markers for the remaining epochs (5-30). The description incorrectly states the line is only marked with stars and completely omits the circle markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "上升到Epoch 5处的值约为0.0009",
+      "evidence": "The line reaches its peak value at Epoch 5, and the value is exactly 0.0010, not approximately 0.0009."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "随后在Epoch 10处的值约为0.0008",
+      "evidence": "At Epoch 10, the Learn Rate is just below 0.0010 (approximately 0.0098). The value of 0.0008 is not reached until around Epoch 15."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "并在Epoch 30处的值约为0.0001",
+      "evidence": "The line ends at Epoch 30 with a Learn Rate of exactly 0.0000, as it touches the x-axis."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "另一条是蓝色的实线，标记为加号（+），从Epoch 1处的值约为0.0002开始，持续下降，在Epoch 25处的值约为0.00005，至Epoch 30结束时值为0。",
+      "evidence": "This entire sentence describes a second line that does not exist in the figure. There is no blue solid line, no plus markers, and the described trend is fabricated."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "数值间隔为1",
+      "evidence": "While the underlying data points are likely at an interval of 1 epoch, the visible numerical labels on the x-axis (1, 5, 10, 15, 20, 25, 30) do not have a uniform interval of 1. The interval between the labels is mostly 5."
+    }
+  ],
+  "mqm_score": 69.5,
+  "total_penalty": 30.5,
+  "error_count": 7
+}

@@ -1,0 +1,154 @@
+{
+  "figure_key": "multi_fig_024",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Всеки слой е представен с три групи стълби",
+          "evidence": "The chart does not show grouped bars. It shows a single stacked bar for each layer, with each bar composed of three segments (G0, G1, G2)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "слой 1 показва около 10 експерти в G2",
+          "evidence": "The total number of experts for layer 1 is 10. The number of experts in group G2 (the yellow segment) is approximately 5, not 10. The description mistakes the total value of the stack for the value of a single component."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "слой 5 показва около 9 експерти в G2",
+          "evidence": "For layer 5, the total number of experts is 8. The number of experts in group G2 is 5. The value 9 is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "слой 2 показва около 8 експерти в G1 и G2 комбинирано",
+          "evidence": "For layer 2, the combined number of experts in G1 (green) and G2 (yellow) is 7 (3+4), not 8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "в някои слоеве като 7 и 8 броят на експертите е по-нисък, около 3-4 експерти във всички групи",
+          "evidence": "The total number of experts for layer 7 is 3, which fits the range. However, the total for layer 8 is 5, which is outside the specified range of '3-4'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Няма допълнително групиране или наслагване на стълбите освен групирането по G0, G1 и G2.",
+          "evidence": "This statement is contradictory and incorrect. It explicitly and incorrectly states there is no stacking ('наслагване'), when the chart is a stacked bar chart. It also misuses the term 'групиране' (grouping)."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with each layer having three bars representing G0, G1, and G2",
+          "evidence": "The chart shows a single stacked bar for each layer, composed of three segments (G0, G1, G2), not three separate bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "3 in G1",
+          "evidence": "In the example for layer 1, the G1 (green) segment represents approximately 4 experts (the stack goes from 1 to 5), not 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "6 in G2",
+          "evidence": "In the example for layer 1, the G2 (yellow) segment represents approximately 5 experts (the stack goes from 5 to 10), not 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "4 in G1",
+          "evidence": "In the example for layer 5, the G1 (green) segment represents approximately 2 experts (the stack goes from 1 to 3), not 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "totaling about 10 experts as well",
+          "evidence": "For layer 5, the total height of the bar is 8, not 10."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the tick interval for the y-axis. The prompt asks to describe the 'Tick-Beschriftungsintervall, wenn numerisch und regelmäßig verteilt' (tick label interval, if numeric and regularly distributed), and the y-axis clearly has tick labels at intervals of 2."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "significantly lower numbers",
+          "evidence": "The prompt explicitly states to avoid making comparisons or drawing conclusions. The phrase 'significantly lower' is subjective and interpretative, which violates this instruction."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G2 has the largest segment in most layers",
+          "evidence": "This statement is factually incorrect. A visual inspection shows that the G2 segment (yellow) is the single largest segment in only 6 of the 24 layers (layers 1, 2, 3, 6, 10, 23). In many other layers, the G1 segment is larger or equal in size to the G2 segment."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "while G0 consistently has the smallest segment across all layers",
+          "evidence": "While the G0 segment is small (value of 1), it is not consistently the *smallest*. In layers 7 and 11 through 17, all three segments (G0, G1, G2) are of equal size (value of 1). Therefore, stating it is consistently the smallest is an over-generalization."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.5
+}

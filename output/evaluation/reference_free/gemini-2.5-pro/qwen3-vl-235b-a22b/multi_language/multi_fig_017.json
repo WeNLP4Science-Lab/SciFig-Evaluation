@@ -1,0 +1,194 @@
+{
+  "figure_key": "multi_fig_017",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "от 0 до 25",
+          "evidence": "The description states the x-axis range is from 0 to 25, but the axis labels end at 20 and the data extends to approximately layer 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "синя пунктирана линия за attn_output, зелена пунктирана линия за ffn_output, оранжева пунктирана линия за attn_residual",
+          "evidence": "The description uses the same ambiguous term \"пунктирана\" (dotted/dashed) for three distinct line styles: dashed ('attn_output'), dash-dotted ('ffn_output'), and dotted ('attn_residual'). This makes it impossible to correctly associate the description with the lines based on their style."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада до 0 до слой 10, след това се повдига до около 1200 около слой 12, спада отново до 0 до слой 17",
+          "evidence": "The description of the 'ffn_output' line is incorrect. The line drops to 0 around layer 5 (not 10) and again around layer 14 (not 17)."
+        },
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Линията attn_residual започва близо до 0, се повдига до около 1200 около слой 4, спада до 0 до слой 10, след това се повдига до около 1500 около слой 13, спада до 0 до слой 17 и се повдига до около 1500 около слой 20, след което рязко спада до 0.",
+          "evidence": "The description for the 'attn_residual' line is almost entirely fabricated. It incorrectly describes the line as dropping to 0 multiple times, a behavior characteristic of the 'ffn_output' line. The actual 'attn_residual' line (orange, dotted) remains at high values between layers 5 and 20. Additionally, it states the line drops to 0 at the end, whereas it drops to a value of approximately 300."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Всички линии показват рязки промени в активацията, особено между слоевете 4 и 22, като най-високите стойности се наблюдават около слой 13 и 20.",
+          "evidence": "This sentence provides a summary and comparison of all lines, which the prompt instructs to avoid. The prompt requires describing each line individually without making such generalizations or comparisons."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "до около 400",
+          "evidence": "The 'attn_output' line rises to a value closer to 300-350, making 400 a slight overestimation."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "jumps to 1500 at layer 12",
+          "evidence": "The red line (ffn_residual) reaches its maximum value of approximately 1530 at layer 13. At layer 12, its value is approximately 1350, not 1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "peaking near 1500 at layer 13",
+          "evidence": "The orange dotted line (attn_residual) peaks near 1500 around layer 14, not at layer 13. At layer 13, the value is approximately 1450."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and rising to 500 at layer 22",
+          "evidence": "The orange dotted line (attn_residual) is falling at the end of the plot, from approximately 750 at layer 21 to 400 at layer 22. It is not rising."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "rises slightly to 50 at layer 11, remains near 0 until layer 20",
+          "evidence": "This description completely misses a second large spike in the green dash-dot line (ffn_output). Instead of rising slightly to 50, the line spikes to a peak of approximately 1180 at layer 12 before returning to 0 around layer 14."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spikes to 1000 at layer 3",
+          "evidence": "The first spike for the green line (ffn_output) occurs at layer 3, but the value is closer to 1050, not 1000."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "follows a similar trajectory",
+          "evidence": "The prompt instructs to avoid comparing different lines. This phrase compares the trajectory of the orange line to another line."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "mit Kreismarkierungen",
+          "evidence": "The description claims the 'attn_output' line has circle markers, but the blue dashed line in the plot has no visible markers."
+        },
+        {
+          "category": "Incorrect Visual Attribute Mapping",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "gestrichelt",
+          "evidence": "The description incorrectly identifies the line style for 'ffn_output' as 'gestrichelt' (dashed). The green line in the plot is clearly a dash-dot line."
+        },
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "mit Kreismarkierungen",
+          "evidence": "The description claims the 'ffn_output' line has circle markers, but the green dash-dot line in the plot has no visible markers."
+        },
+        {
+          "category": "Incorrect Visual Attribute Mapping",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "bleibt bis zur Schicht 10 nahe null",
+          "evidence": "The description states that the 'attn_output' line remains near zero until layer 10. However, the plot shows this line remains near zero until approximately layer 19."
+        },
+        {
+          "category": "Incorrect Visual Attribute Mapping",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "„ffn_output“ beginnt bei 0, steigt abrupt auf über 1000 bei Schicht 3, fällt dann auf 0 bei Schicht 6, bleibt bis Schicht 11 bei 0, steigt erneut auf über 1200 bei Schicht 12, fällt wieder auf 0 bei Schicht 15 und steigt erneut auf etwa 800 bei Schicht 22.",
+          "evidence": "The description of the 'ffn_output' line contains several positional inaccuracies. For instance, it falls to 0 at layer 5 (not 6), falls back to 0 at layer 14 (not 15), and the final peak is at layer 21 (not 22)."
+        },
+        {
+          "category": "Incorrect Visual Attribute Mapping",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "„attn_residual“ beginnt bei 0, steigt auf etwa 100 bei Schicht 3, erreicht etwa 1200 bei Schicht 6, bleibt bis Schicht 12 bei etwa 1500, fällt dann auf 0 bei Schicht 15 und steigt erneut auf etwa 1500 bei Schicht 20, bevor sie bei Schicht 23 auf etwa 300 abfällt.",
+          "evidence": "The entire description of the 'attn_residual' line's trend is incorrect. For example, it claims the line rises to 100 at layer 3 (it's actually ~600), claims it stays at 1500 until layer 12 (it stays at ~1200 until layer 10), and incorrectly states it falls to 0 at layer 15 and rises again (it actually stays high until layer 20 before falling)."
+        },
+        {
+          "category": "Incorrect Visual Attribute Mapping",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "fällt dann auf etwa 300 bei Schicht 23",
+          "evidence": "The description incorrectly states that the 'ffn_residual' line falls to about 300 at layer 23. In the plot, this line dips at layer 22 to ~350 and then rises again to approximately 650 at layer 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "was auf nichtlineare Aktivierungsverläufe hindeutet",
+          "evidence": "This phrase provides an interpretation of the data ('which indicates non-linear activation patterns'), which violates the prompt's instruction to avoid interpretation and stick to objective features."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.33
+}

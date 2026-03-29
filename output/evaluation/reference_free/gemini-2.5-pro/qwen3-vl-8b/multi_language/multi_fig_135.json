@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_135",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a blue line with square markers (L=512, S=512), a blue line with circle markers (L=512, S=256), a blue line with triangle markers (L=512, S=128), a red line with square markers (L=128, S=64), and a red line with circle markers (L=128, S=32)",
+          "evidence": "The description incorrectly maps marker shapes to the line colors (L,S configurations). The plot has two separate legends; one for the line colors (L,S values) and another for the marker shapes (Refresh intervals). Each colored line is a series that contains multiple points, each with a different marker shape corresponding to a different Refresh interval."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "For the L=512, S=512 configuration, performance starts at approximately 83% at 20 Tokens/s and declines to about 74% at 160 Tokens/s.",
+          "evidence": "The description claims the data series for the L=512, S=512 configuration extends to 160 Tokens/s. However, in the plot, this series ends at a speed of approximately 55 Tokens/s."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the L=128, S=64 configuration, performance starts at approximately 72% at 60 Tokens/s and declines to about 68% at 160 Tokens/s.",
+          "evidence": "The description states that the performance for the L=128, S=64 configuration declines to about 68% at 160 Tokens/s. The figure shows the last point for this series is at approximately 165 Tokens/s with a performance value of about 62%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The Cache Pareto Front line begins at approximately 83% at 20 Tokens/s and declines to about 65% at 160 Tokens/s.",
+          "evidence": "The description states that the Cache Pareto Front line ends with a performance of about 65%. In the figure, the line ends at a performance value of approximately 62%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The LLaDA Pareto Front line begins at approximately 83% at 20 Tokens/s and declines to about 65% at 160 Tokens/s.",
+          "evidence": "The description provides incorrect start and end points for the LLaDA Pareto Front line. The line starts at approximately 81% at 15 Tokens/s (not 83% at 20 Tokens/s) and ends around 90 Tokens/s (not 160 Tokens/s) with a performance of about 62% (not 65%)."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.0
+}

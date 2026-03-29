@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_090",
+  "model_name": "llama4-maverick",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starts at approximately 0.24 at step 0",
+      "evidence": "The blue line (Ex1 Accuracy) does not start at step 0. Its first data point is at a step value greater than 0 (approximately 2,500), where its value is indeed around 0.24. There is no data point for Ex1 at step 0."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "jumps to about 0.265 at step 5,000",
+      "evidence": "The chart does not show a data point for the teal line (Ex2 Accuracy) at step 5,000. The description is interpolating a value and presenting it as an explicit data point, which is a form of hallucination."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "continues to rise to approximately 0.30 at step 10,000",
+      "evidence": "At step 10,000, the value for the teal line (Ex2 Accuracy) is closer to 0.285. The data point before 10,000 (at ~8k steps) is at ~0.28, and the one after (at ~12k steps) is at ~0.29. The stated value of 0.30 is an overestimation."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description of the teal line (Ex2 Accuracy) stops at step 40,000, but the line continues to a final data point at approximately step 45,000 with a value of about 0.39. The description misses the final segment of the line's trend."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to compare the two lines, which is a primary purpose of the chart. It does not mention that Ex1 Accuracy is consistently higher than Ex2 Accuracy after the initial training phase."
+    }
+  ],
+  "mqm_score": 81.5,
+  "total_penalty": 18.5,
+  "error_count": 5
+}

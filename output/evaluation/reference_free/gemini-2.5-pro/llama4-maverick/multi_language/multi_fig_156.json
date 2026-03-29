@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_156",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from approximately $10^{-6}$ to $10^{-3}$",
+          "evidence": "The y-axis range shown in the plot does not extend to 10^-3. The highest data point is well below this, at approximately 3*10^-4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each block index has two bars: a green bar representing 2-Fbit and a blue bar representing 4-Fbit.",
+          "evidence": "This is a fundamental misinterpretation of the chart's structure. It is not a grouped bar chart. Each block index has only a single bar, which is either green (2-Fbit) or blue (4-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For block indices 0-30, only the green bar is visible",
+          "evidence": "This phrasing is misleading and based on the incorrect assumption of a grouped bar chart. For these indices, the bars shown *are* green; there is no hidden blue bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For block indices 31-63, both green and blue bars are visible",
+          "evidence": "This is incorrect. For any single block index, there is only one bar, which is either green or blue. For example, block indices 31 and 32 have only a blue bar, while indices 33 and 34 have only a green bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from approximately $4 * 10^{-5}$ to $1.2 * 10^{-4}$",
+          "evidence": "The stated maximum value for blue bars (1.2 * 10^-4) is incorrect. The tallest blue bar has a value of approximately 3 * 10^-4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by block index, with the 2-Fbit and 4-Fbit bars appearing side by side.",
+          "evidence": "The bars are not grouped. They are individual bars for each block index, arranged sequentially. The color of the single bar at each index indicates the category."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "from 10^-5 to 10^-4",
+          "evidence": "The description states the vertical axis has a range from 10^-5 to 10^-4, but these are just the values of the major grid lines. The actual data extends above 10^-4 and below 10^-5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with each group containing two bars",
+          "evidence": "The chart does not feature two bars for every block index. Many indices, particularly for lower block index values, only show one bar (the green 2-Fbit bar)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating a much lower sensitivity",
+          "evidence": "The prompt asks to avoid making inferences. Stating that the absence of a bar for 4-Fbit at index 0 'indicates' a lower sensitivity is an interpretation, not a direct description. The description should just state that the bar is not present."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at block index 61",
+          "evidence": "The tallest blue (4-Fbit) bar is located at block index 62, not 61 as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 6 x 10^-5",
+          "evidence": "The tallest green (2-Fbit) bar at block index 28 has a sensitivity value of approximately 3 x 10^-5. The stated value of 6 x 10^-5 is a significant overestimation."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 74.25
+}

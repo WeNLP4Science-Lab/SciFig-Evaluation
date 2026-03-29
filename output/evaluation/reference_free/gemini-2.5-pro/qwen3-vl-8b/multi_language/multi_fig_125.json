@@ -1,0 +1,50 @@
+{
+  "figure_key": "multi_fig_125",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizes near 0.24 for |S| values from 6 to 10",
+          "evidence": "For the \"Weight averaging\" method, the values for |S| from 6 to 10 are all closer to 0.23 (ranging from approx. 0.235 to 0.225), not 0.24. This is a consistent overestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "gradually declines to approximately 0.18 at |S| = 10",
+          "evidence": "For the \"QLoRA\" method, the value at |S| = 10 is approximately 0.16 (or 0.155), not 0.18. The reported value is significantly overestimated."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Both lines exhibit a general downward trend as |S| increases",
+          "evidence": "The prompt requires describing each line individually. Summarizing their trends together is a form of interpretation that combines data from both series, which is not what was requested."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the “QLoRA” line consistently below the “Weight averaging” line across the entire range",
+          "evidence": "The prompt explicitly forbids making comparisons between lines. This clause directly compares the relative positions of the two data series."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.0
+}

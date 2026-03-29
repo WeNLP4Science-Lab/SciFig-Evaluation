@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_156",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from approximately 10⁻⁶ to 10⁻⁴",
+          "evidence": "The y-axis range extends above 10⁻⁴. The tallest bar, corresponding to 4-Fbit near block 62, has a value significantly higher than 10⁻⁴, appearing closer to 3x10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting greater sensitivity to lower precision",
+          "evidence": "The prompt explicitly forbids making inferences. This phrase is a conclusion drawn from the data, not a direct description of it."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "surpassing 2-Fbit in many cases",
+          "evidence": "The prompt states to 'not compare categories unless the comparison is explicitly labeled'. This is a visual comparison between the two data series, which violates the prompt's instructions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where 4-Fbit sensitivity approaches 10⁻⁴",
+          "evidence": "The highest sensitivity for 4-Fbit, observed near block 62, does not approach 10⁻⁴; it is significantly higher, at approximately 3x10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "This pattern implies that later blocks are more sensitive to coarser quantization (4-Fbit) than earlier ones, which may inform a progressive mixed-precision quantization strategy—allocating higher precision to later blocks while using lower precision for earlier ones to optimize KV cache efficiency without significant performance degradation.",
+          "evidence": "This entire sentence is an interpretation of the data's meaning and its strategic implications, which is explicitly forbidden by the prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions about the data'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually supports the paper’s focus on adaptive, block-wise quantization for long-context LLMs.",
+          "evidence": "This sentence connects the chart to the broader context of the scientific paper, which is an inference that goes beyond describing the visual information presented in the chart itself."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that for many block indices, only one bar type (either 2-Fbit or 4-Fbit) is present, instead of a consistent pair of grouped bars. It also fails to report the approximate value of the shortest bar as requested by the prompt."
+        }
+      ],
+      "mqm_score": 72.5,
+      "total_penalty": 27.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 72.5
+}

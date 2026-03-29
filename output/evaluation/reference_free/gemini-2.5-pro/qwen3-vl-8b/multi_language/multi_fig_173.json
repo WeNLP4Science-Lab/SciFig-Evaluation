@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_173",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "by step 250",
+          "evidence": "In the description of the training loss, it states the line ends by step 250, but the data on the plot ends around step 241."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at approximately 0.042 at step 0",
+          "evidence": "The orange line for validation loss starts at approximately 0.045 at step 0, not 0.042."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "decreases more steeply",
+          "evidence": "This phrase compares the rate of change between the two lines, which was explicitly forbidden by the prompt's instruction to \"Avoid... making comparisons between lines.\""
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "to a stable value near 0.018 by step 250",
+          "evidence": "The validation loss ends at a value closer to 0.0165 around step 241, not 0.018 at step 250. Both the loss value and the step number are incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fluctuations around 0.018 to 0.020 between steps 150 and 250",
+          "evidence": "For the validation loss, the fluctuations in this range are wider than described, extending from a low of about 0.016 to a high of about 0.020. The stated range is too narrow."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the validation loss consistently lower than the training loss throughout the plotted range",
+          "evidence": "This is a direct comparison between the two lines, which violates the prompt's instruction to \"Avoid... making comparisons between lines.\""
+        }
+      ],
+      "mqm_score": 79.0,
+      "total_penalty": 21.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.0
+}

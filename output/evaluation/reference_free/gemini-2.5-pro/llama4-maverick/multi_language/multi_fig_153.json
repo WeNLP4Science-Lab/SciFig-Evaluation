@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_153",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart contains grouped bars, with each group corresponding to a specific block index and consisting of two bars representing 2-Fbit (green) and 4-Fbit (blue) quantization.",
+          "evidence": "The chart does not contain grouped bars where each group has two bars. Instead, each block index is represented by a single bar, and the color of that bar indicates whether it is 2-Fbit (green) or 4-Fbit (blue)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 2.5 x 10^-4 at block index 0",
+          "evidence": "The value of the bar at block index 0 is approximately 1.5 x 10^-4, not 2.5 x 10^-4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 8 x 10^-4 at block index 27",
+          "evidence": "The value of the bar at block index 27 is much closer to 10^-3 (approximately 9 x 10^-4), making 8 x 10^-4 a significant underestimate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "6 x 10^-5 at block index 13",
+          "evidence": "The description identifies a value for a 2-Fbit (green) bar at block index 13. However, the bar at block index 13 is blue, corresponding to 4-Fbit. This incorrectly attributes a value and index to the wrong data series."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 1 x 10^-5 at block index 6",
+          "evidence": "The bar at block index 6 has a value of approximately 2 x 10^-5, not 1 x 10^-5. The lowest 2-Fbit bars are at other indices (e.g., index 5)."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, there are two bars representing the 2-Fbit and 4-Fbit configurations",
+          "evidence": "This is incorrect. The chart does not show two bars for each block index. Many block indices have only a single bar, either for 2-Fbit (green) or 4-Fbit (blue), but not both."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "At block index 0, the 4-Fbit bar is approximately 1.5 x 10^-4, while the 2-Fbit bar is around 4 x 10^-5",
+          "evidence": "The chart shows a 4-Fbit (blue) bar at block index 0, but there is no 2-Fbit (green) bar at this index. The first 2-Fbit bar appears at block index 1."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at block index 13, both bars are around 3 x 10^-5 and 6 x 10^-5 for 2-Fbit and 4-Fbit, respectively",
+          "evidence": "The chart only shows one bar (a blue 4-Fbit bar) at block index 13. The description hallucinates the presence of a second, 2-Fbit bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at block index 20, the 2-Fbit bar is approximately 2.5 x 10^-5, and the 4-Fbit bar is around 7 x 10^-5",
+          "evidence": "The chart only shows one bar (a blue 4-Fbit bar) at block index 20. The description hallucinates the presence of a 2-Fbit bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at block index 27, the 2-Fbit bar is about 4 x 10^-5, and the 4-Fbit bar is roughly 8 x 10^-4",
+          "evidence": "The chart only shows one bar (a blue 4-Fbit bar) at block index 27. The description hallucinates the presence of a 2-Fbit bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by block index, with the 2-Fbit and 4-Fbit values paired together",
+          "evidence": "This statement reinforces the fundamental misunderstanding of the chart's structure. The bars are not grouped or paired; each bar represents a single data point at a specific block index."
+        }
+      ],
+      "mqm_score": 76.0,
+      "total_penalty": 24.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 75.5
+}

@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_154",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart displays grouped bars, with each group consisting of two bars representing 4-Fbit (blue) and 2-Fbit (green) quantization methods.",
+          "evidence": "The chart is not a grouped bar chart. Each block index has only a single bar. The color of that bar indicates whether the method is 4-Fbit or 2-Fbit. For indices 0-27, all bars are green (2-Fbit). For later indices, there is a mix of single blue bars and single green bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "7 x 10^-5 to 1.3 x 10^-4",
+          "evidence": "The stated value range for 4-Fbit bars is incorrect. The lowest 4-Fbit bar (e.g., at index 29) has a value closer to 4 x 10^-5, not 7 x 10^-5. The highest 4-Fbit bar (at index 46) has a value significantly higher than 1.3 x 10^-4, appearing to be around 1.6 x 10^-4."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from below 10^-5 to 10^-4",
+          "evidence": "The description states the vertical axis range is up to 10^-4, but the chart data extends significantly above this line, with the highest bar reaching a value of approximately 1.5x10^-4 to 2x10^-4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart displays grouped bars, with each group representing a block index and containing two bars: a green bar for 2-Fbit and a blue bar for 4-Fbit.",
+          "evidence": "This is a fundamental misinterpretation of the chart's structure. It is not a grouped bar chart where each index has two bars. Most block indices have only a single bar, either green or blue, but not both."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For block indices 28 to 47, both green and blue bars are visible",
+          "evidence": "This statement is incorrect. The range from index 28 to 47 contains a mix of single green bars (e.g., at index 28, 30, 33) and single blue bars (e.g., at index 29, 31, 32). It does not consistently show both types of bars for each index."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "representing values from around 6 x 10^-5 to 1.3 x 10^-4 for 4-Fbit",
+          "evidence": "The described range for the blue (4-Fbit) bars is incorrect. The lowest value is approximately 4 x 10^-5 (not 6 x 10^-5), and the highest value is approximately 1.5-2 x 10^-4 (not 1.3 x 10^-4)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the blue bars generally being taller",
+          "evidence": "The prompt explicitly instructs to avoid making comparisons, but this phrase compares the heights of the two different bar types."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "in increments of approximately 4-6 units",
+          "evidence": "This is an inaccurate description of the x-axis tick labels. The labeled points are 0, 11, 23, 35, and 47, which correspond to intervals of 11, 12, 12, and 12, not 4-6."
+        }
+      ],
+      "mqm_score": 74.5,
+      "total_penalty": 25.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 82.25
+}

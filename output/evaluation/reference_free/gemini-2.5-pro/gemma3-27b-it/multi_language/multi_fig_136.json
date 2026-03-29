@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A solid navy blue line represents data for L=16, starting at approximately 0 Tokens/s at a Batch Size of 0 and rising to 202.31 Tokens/s at a Batch Size of 120.  A dashed light blue line depicts L=32, beginning at approximately 0 Tokens/s at a Batch Size of 0 and increasing to 183.28 Tokens/s at a Batch Size of 120. A solid salmon-colored line represents L=64, starting at approximately 0 Tokens/s at a Batch Size of 0 and rising to 130.58 Tokens/s at a Batch Size of 120. A dashed gray line shows data for Origin, beginning at approximately 35 Tokens/s at Batch Size 0  and rising to 59.71 Tokens/s at a Batch Size of 120.",
+          "evidence": "The description incorrectly treats the plot as having four lines, one for each 'L' value. The plot actually contains eight lines, representing two methods ('dKV-Cache-Decode' - solid lines, and 'Origin' - dashed lines) each tested with four different 'L' values. This leads to numerous errors in attributing colors, line styles, and values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "MissingVisualFeatures",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that there are 8 distinct lines in the plot, organized into two main categories: 'dKV-Cache-Decode' (solid lines) and 'Origin' (dashed lines). It only attempts to describe four lines, omitting half of the data."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "MissingVisualFeatures",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the marker shapes for each line (circles for L=16, pluses for L=32, and triangles for L=64 and L=128), which were requested by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A solid navy blue line represents data for L=16",
+          "evidence": "The line for L=16 is light gray, not navy blue. The navy blue lines correspond to L=128."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A dashed light blue line depicts L=32...increasing to 183.28 Tokens/s",
+          "evidence": "The description incorrectly assigns the value from the solid L=32 line (183.28) to a dashed line. The actual dashed L=32 line ends at 69.62 Tokens/s."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A dashed gray line shows data for Origin",
+          "evidence": "'Origin' is a category for all four dashed lines, not a single data series. The dashed gray line specifically represents the 'Origin' method with L=16."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starting at approximately 0 Tokens/s at a Batch Size of 0",
+          "evidence": "This phrase is used for three different lines, but none of the lines start at the origin (0,0). They all start at small, non-zero batch sizes with non-zero 'Token/s' values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at a Batch Size of 120",
+          "evidence": "This phrase is used to locate the end point for three different lines. However, the final data points shown on the chart are at a Batch Size of 128, not 120."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "light blue line",
+          "evidence": "The line for L=32 is a darker steel blue, not light blue."
+        }
+      ],
+      "mqm_score": 61.0,
+      "total_penalty": 39.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description states there are four lines, but the chart contains eight lines in total: four solid lines for 'dKV-Cache-Decode' and four dashed lines for 'Origin'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid gray line with triangle markers, representing L = 16",
+          "evidence": "The line for L = 16 has circle markers, not triangle markers. Triangle markers are used for the L = 64 lines."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at approximately 58.51 at a batch size of 0 and rises to 130.58 at a batch size of 120",
+          "evidence": "This description for the L=16 line is completely incorrect. The L=16 (dKV-Cache-Decode) line starts at a value around 48 at batch size 2 (not 0) and ends at 202.31 at batch size 128 (not 120). The values 58.51 and 130.58 belong to other lines (L=128 and L=64 respectively)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid blue line with circle markers, representing L = 32",
+          "evidence": "The line for L = 32 has plus sign markers, not circle markers. Circle markers are used for the L = 16 lines."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starting at 46.69 at a batch size of 0 and reaching 81.18 at a batch size of 120",
+          "evidence": "This description for the L=32 line is incorrect. The L=32 (dKV-Cache-Decode) line starts at a value around 28 at batch size 2 (not 0) and ends at 183.28 at batch size 128 (not 120). The values 46.69 and 81.18 belong to other lines (L=64 and L=128 respectively)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid red line with square markers, representing L = 64",
+          "evidence": "The line for L = 64 has triangle markers, not square markers. There are no square markers in the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starting at 34.53 at a batch size of 0, rising to 183.28 at a batch size of 120",
+          "evidence": "This description for the L=64 line is incorrect. The L=64 (dKV-Cache-Decode) line starts at a value around 22 at batch size 2 (not 0) and ends at 130.58 at batch size 128 (not 120). The values 34.53 and 183.28 belong to other lines (L=128 Origin and L=32 dKV-Cache-Decode, respectively)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Finally, there is a dashed black line with diamond markers, representing dKV-Cache-Decode",
+          "evidence": "This is incorrect in multiple ways. 'dKV-Cache-Decode' is a category for the four SOLID lines, not a single dashed line. The 'Origin' lines are the dashed ones. There are also no diamond markers in the plot."
+        }
+      ],
+      "mqm_score": 61.5,
+      "total_penalty": 38.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 61.25
+}

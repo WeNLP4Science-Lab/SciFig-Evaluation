@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "объркаността",
+          "evidence": "The description uses the general term \"объркаността\" (confusion/perplexity) instead of the specific technical term \"Перплекситет\" (Perplexity) which is used on the Y-axis label of the charts."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "намалявайки до около 27 и 19 съответно при 16 бита",
+          "evidence": "In chart (a) WikiText, the value for \"Uniform\" at 16 bits is not approximately 27, but closer to 26.5, which is the same as the value at 8 bits. The value 27 corresponds to 4 bits, not 16 bits."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "вариращи от около 420 до 320 за \"Uniform\" и от 250 до 150 за \"Ours\"",
+          "evidence": "In chart (b) PTB, several values in the stated ranges are incorrect. The maximum for \"Uniform\" is approximately 410, not 420. The minimum for \"Uniform\" is approximately 300, not 320. The minimum for \"Ours\" is approximately 180, not 150."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "в диапазона от приблизително 29 до 26 за \"Uniform\" и от 21 до 17 за \"Ours\"",
+          "evidence": "In chart (c) C4, the minimum values for the ranges are incorrect. The minimum for \"Uniform\" is approximately 25, not 26. The minimum for \"Ours\" is approximately 18, not 17."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "объркаността намалява с увеличаване на броя на битовете на квантуване за двете групи във всички диаграми",
+          "evidence": "This is an over-generalization. In charts (a) and (b), the perplexity values for both methods are nearly flat between 8 and 16 bits, not decreasing. In chart (c), the value for \"Uniform\" is flat from 4 to 16 bits."
+        }
+      ],
+      "mqm_score": 82.0,
+      "total_penalty": 18.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "LLaMA1-7B",
+          "evidence": "The description includes the model name 'LLaMA1-7B', which is not present anywhere in the figure image itself. This information is derived from the external paper caption, not the visual content of the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "320 to 410",
+          "evidence": "The stated range for the blue 'Uniform' bars in chart (b) is '320 to 410'. However, the chart shows the values for 8 and 16 bits are approximately 300, making the lower bound of 320 incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "140 to 250",
+          "evidence": "The stated range for the orange 'Ours' bars in chart (b) is '140 to 250'. However, the lowest value in the chart for this series (at 4 bits) is approximately 175, not 140."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "25 to 29 in (c)",
+          "evidence": "The stated range for the blue 'Uniform' bars in chart (c) is '25 to 29'. However, the bar for 16 bits is visibly just below the 25 line, at approximately 24.5."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "the perplexity values for the uniform quantization method remain relatively consistent across different quantization bits",
+          "evidence": "This statement is a major over-generalization. In the PTB chart, the value for the Uniform method drops significantly from approximately 400 at 3 bits to 315 at 4 bits, a decrease of over 20%, which cannot be described as 'relatively consistent'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 320 for PTB",
+          "evidence": "The values for the uniform method in the PTB chart are approximately 400, 315, 300, and 300. Describing this range as 'around 320' is inaccurate and misleading as it hides the very high initial value and the subsequent drop."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "the perplexity values for the 'Ours' method decrease as the quantization bits increase",
+          "evidence": "This trend is not strictly true for all charts. In the PTB chart, the perplexity for the 'Ours' method decreases from 3 to 4 bits (from ~245 to ~178) but then slightly increases for 8 and 16 bits (to ~182)."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.17
+}

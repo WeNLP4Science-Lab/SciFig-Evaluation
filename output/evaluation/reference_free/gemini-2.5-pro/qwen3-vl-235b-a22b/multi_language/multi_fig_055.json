@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_055",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The Expository genre shows the largest absolute difference between the two prompt types, while the Narrative genre shows the smallest.",
+          "evidence": "The description calculates the difference between the 'Open' and 'Cons.' bars for each category and then compares these calculated differences to identify the 'largest' and 'smallest'. This constitutes an interpretation and comparison that goes beyond simply reporting the visual data, directly violating the prompt's instruction to avoid comparisons and conclusions."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Across all genres, the Constrained sets consistently contain more samples than the Open sets, with the largest disparity observed in the Expository genre (130 vs. 62) and the smallest in Narrative (87 vs. 80).",
+          "evidence": "The generation prompt explicitly instructs to 'Avoid making inferences, comparisons, or drawing conclusions about the data' and to 'not compare categories unless the comparison is explicitly labeled'. This sentence makes multiple comparisons between the 'Constrained' and 'Open' sets, identifies a trend ('consistently contain more samples'), and analyzes the data to find the 'largest disparity' and 'smallest' difference. This is a direct violation of the instructions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart visually emphasizes this pattern through the consistently taller pink bars for Constrained sets.",
+          "evidence": "The prompt asks to mention visual emphasis such as shading or bolding. Stating that the chart 'visually emphasizes' a pattern because some bars are taller is an interpretation of the designer's intent. The bars are taller simply because the data values are larger, which is a direct representation of data, not a specific stylistic feature used for emphasis."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "die vertikale Achse die Sample Count von 0 bis 120 in Schritten von 20 skaliert",
+          "evidence": "The description states the y-axis scale is from 0 to 120. However, the axis extends beyond 120 to accommodate the maximum data value of 130 shown in the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "In allen vier Genres übersteigt die Sample Count der Constrained Sets die der Open-Ended Sets, wobei der Unterschied bei „Expository“ am größten ist (130 vs. 62).",
+          "evidence": "This sentence makes a comparative analysis across categories (stating that 'Cons.' values exceed 'Open' values in all genres) and identifies the largest difference. The prompt explicitly forbids making comparisons or drawing conclusions not directly labeled on the chart."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 94.33
+}

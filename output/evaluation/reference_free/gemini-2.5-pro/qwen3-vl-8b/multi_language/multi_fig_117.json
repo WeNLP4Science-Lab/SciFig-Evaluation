@@ -1,0 +1,42 @@
+{
+  "figure_key": "multi_fig_117",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "The bars are arranged in descending order of computational cost",
+          "evidence": "The bars are not in strict descending order. The bar for \"Ours\" (approx. 1.8e18) is higher than the bar for \"QAdapter\" (approx. 1.5e18)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with “Full FT” being the most expensive at approximately 1.2 × 10^20 FLOPs, followed by “TAG” at about 1.1 × 10^20 FLOPs, “Adapter” at roughly 1.0 × 10^20 FLOPs, “MTL-FT” at approximately 7.0 × 10^18 FLOPs, “QAdapter” at around 6.0 × 10^18 FLOPs, and “Ours” at approximately 1.0 × 10^19 FLOPs",
+          "evidence": "All of the reported numerical values are significantly incorrect due to misreading the logarithmic scale. For example, the values for 'Full FT', 'TAG', and 'Adapter' are all reported as being at or above 1.0 x 10^20, but their bars are all clearly below the 10^20 grid line. 'Full FT' is at approximately 7 x 10^19. 'Ours' is reported as 1.0 x 10^19, but it is clearly below the 10^19 line, at approximately 1.8 x 10^18."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart does not include error rates or GPU memory, which are mentioned in the caption but not depicted.",
+          "evidence": "The prompt asks to describe what is shown in the chart. This statement describes what is *not* shown, based on external information from the caption, which is outside the scope of describing the figure's visual contents."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 93.5
+}

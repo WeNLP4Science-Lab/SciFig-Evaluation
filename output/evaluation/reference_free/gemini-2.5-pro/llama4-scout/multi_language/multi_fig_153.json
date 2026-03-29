@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_153",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick labels spaced at intervals of 10^-4, 10^-3, and 10^-5",
+          "evidence": "The y-axis is logarithmic, so the tick labels are not spaced at regular intervals. The labels are located at the values 10^-5, 10^-4, and 10^-3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart uses a grouped bar format, with each pair of bars representing 4-Fbit and 2-Fbit at the same block index.",
+          "evidence": "The chart is not a grouped bar chart. Each block index corresponds to a single bar, which is either for '4-Fbit' (blue) or '2-Fbit' (green), but not both."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bar at block index 0 has a sensitivity of approximately 0.0005",
+          "evidence": "The bar at block index 0 has a sensitivity value well below 0.0005 (which is 5x10^-4). The value is closer to 2x10^-4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bar at block index 27 has a sensitivity of approximately 0.001",
+          "evidence": "The bar at block index 27 is the tallest, but its value is visibly below the 10^-3 (0.001) grid line. The value is approximately 9x10^-4 (0.0009)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For 2-Fbit, the bar at block index 0 has a sensitivity of approximately 0.00015",
+          "evidence": "There is no '2-Fbit' (green) bar at block index 0. The bar at block index 0 is for '4-Fbit' (blue)."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.0
+}

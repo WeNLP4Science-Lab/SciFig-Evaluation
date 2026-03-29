@@ -1,0 +1,242 @@
+{
+  "figure_key": "multi_fig_017",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Тази графика илюстрира сравнение на стойностите на максималната активация в различни слоеве на модела според четири различни конфигурации на гейтирането: Baseline, SDPA Gating, Value Layer Gating и още две конфигурации с намалена рядкост (Reduced Sparsity via cross-head share и NS-sigmoid).",
+          "evidence": "The description hallucinates that the chart compares different gating configurations (Baseline, SDPA Gating, etc.). This information is from the external paper caption, not the visual content of the figure itself. The figure legend clearly shows the four lines are 'attn_output', 'attn_residual', 'ffn_output', and 'ffn_residual' for a single model configuration."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Скалата на оста X е линейна с етикети от 0 до 21 през интервал от 1.",
+          "evidence": "The tick mark labels on the x-axis are at intervals of 5 (0, 5, 10, 15, 20), not 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "има диапазон от 0 до 21",
+          "evidence": "The x-axis data extends to approximately layer 23, not 21. The last labeled tick mark is 20."
+        },
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "всяка от които представлява различна конфигурация на гейтирането",
+          "evidence": "This repeats the hallucination from the first paragraph. The lines represent different components within a model ('attn_output', 'ffn_output', etc.), not different gating configurations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_output (синя пунктирана линия): Стойностите започват близо до 0 до 6-ия слой, след което се покачват рязко до около 1200 и остават на това ниво до 21-ия слой.",
+          "evidence": "The description for the 'attn_output' line is completely incorrect. The blue dashed line remains near 0 for almost the entire x-axis, only rising slightly to about 300-400 after layer 20. It never reaches 1200. Additionally, the line is dashed ('--'), not dotted ('пунктирана')."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_residual (оранжева пунктирана линия): Стойностите започват от около 50, рязко се покачват до около 1200 на 6-ия слой и остават на това ниво до 21-ия слой.",
+          "evidence": "The description for 'attn_residual' is inaccurate. The value rises sharply around layer 4 (not 6), and it does not remain at 1200 until layer 21. It rises again to approximately 1500 around layer 13 and stays there until layer 20 before dropping."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_output (зелена пунктирана линия): Стойностите са близо до 0 до 6-ия слой, след което се покачват до около 1200 и отново падат близо до 0 след 21-ия слой.",
+          "evidence": "The description for 'ffn_output' is incorrect. The line is dash-dotted, not dotted ('пунктирана'). It has a large spike peaking around layer 4, which is completely missed in the description. It has a second spike peaking around layer 12. It does not stay near 0 until layer 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_residual (червена плътна линия): Стойностите започват близо до 0, рязко се покачват до около 1500 на 6-ия слой и остават на това ниво до 21-ия слой.",
+          "evidence": "The description for 'ffn_residual' is incorrect. The value rises sharply around layer 4 to about 1200 (not 1500). It then rises again to 1500 around layer 13 and stays at that level until layer 20, not from layer 6 to 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "На 6-ия слой всички линии показват значително увеличение на стойностите на активация. Тези стойности се поддържат високо до около 21-ия слой, след което започват да намаляват.",
+          "evidence": "This summary is a severe over-generalization and is factually incorrect. The increases for different lines happen at different layers (mostly around layer 4), not all at layer 6. The 'attn_output' line does not increase significantly at all. The lines do not all stay high; for example, 'ffn_output' has distinct spikes and is mostly at 0."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with uniform numerical intervals of 1",
+          "evidence": "The description states the x-axis has numerical intervals of 1, but the tick marks on the chart are at 0, 5, 10, 15, and 20, indicating an interval of 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ranging from 0 to 20",
+          "evidence": "The description states the x-axis ranges from 0 to 20, but the data extends beyond layer 20, up to approximately layer 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dotted",
+          "evidence": "The attn_output line is described as 'dotted', but in the figure, it is a dashed line. The 'attn_residual' line is the dotted one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a slight increase at layer 20, reaching approximately 100",
+          "evidence": "For the attn_output line, the increase begins after layer 20, and the value at the end of the plotted range (around layer 22-23) is over 300, not 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dashed",
+          "evidence": "The ffn_output line is described as 'dashed', but it is a dash-dot line in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description of the ffn_output line completely omits a major spike that occurs around layer 12, which reaches a peak value of approximately 1200."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "This description omits key features of the attn_residual line's trend, specifically that it holds a long plateau at approximately 1500 between layers 13 and 20, and then drops sharply after layer 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "remaining steady at 1500",
+          "evidence": "The description for the ffn_residual line incorrectly states it remains steady at 1500 after the initial rise. The plot shows it first holds steady at a lower value of ~1200 (from layer 4 to 11) before rising again to a new plateau at ~1500."
+        }
+      ],
+      "mqm_score": 66.0,
+      "total_penalty": 34.0,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dann steigt sie auf etwa 100 an",
+          "evidence": "The line for 'attn_output' rises to a value of over 300 at the end of the x-axis, not 'about 100'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_output ist grün und durchgezogen",
+          "evidence": "The line style for 'ffn_output' is described as 'durchgezogen' (solid), but the legend and plot show it as a green dash-dot line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnt bei ungefähr 50",
+          "evidence": "The line for 'ffn_output' clearly starts at a value of 0, not 'ungefähr 50' (approximately 50)."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "beginnt bei ungefähr 50, fällt auf 0 ab, dann auf 1200 ansteigend, auf etwa 100 abfallend und schließlich auf fast 700 ansteigend",
+          "evidence": "The description of the 'ffn_output' trend is highly inaccurate and over-simplified. The line actually starts at 0, has a sharp peak to ~1200 at layer 4, returns to 0, has a second sharp peak to ~1200 at layer 12, drops to ~150, and has a final smaller peak to ~750. The description misses the multi-peak structure and misstates the starting behavior."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_residual ist orange und gestrichelt",
+          "evidence": "The line style for 'attn_residual' is described as 'gestrichelt' (dashed), but the legend and plot show it as a dotted line."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "dann auf etwa 1100 ansteigend und auf annähernd 1400 bleibend",
+          "evidence": "This description incorrectly simplifies the trend for 'attn_residual'. The line has a two-step rise, first to a plateau around 1200, and then a second rise to a plateau around 1500. The description merges these distinct features."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnt bei ungefähr 20",
+          "evidence": "The line for 'ffn_residual' clearly starts at a value of 0, not 'ungefähr 20' (approximately 20)."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "steigt auf fast 1300 an und bleibt auf diesem Wert bis Schicht 21",
+          "evidence": "This description incorrectly simplifies the trend for 'ffn_residual'. The line has a two-step rise, first to a plateau around 1250 until layer 11, and then a second rise to a plateau around 1500 from layer 13 to 20. The description merges these distinct features into a single incorrect plateau."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wo sie auf etwa 500 abfällt",
+          "evidence": "At the end, the 'ffn_residual' line drops sharply to a minimum of about 350 at layer 22, then rises again to about 650. Stating that it falls to 'about 500' is an inaccurate summary and omits the final upward trend."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 68.0
+}

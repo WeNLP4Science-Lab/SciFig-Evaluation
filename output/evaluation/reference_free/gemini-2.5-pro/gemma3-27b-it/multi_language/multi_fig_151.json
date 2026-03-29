@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_151",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each specialty category contains a group of bars, one for each fine-tuning dataset;",
+          "evidence": "Each group contains seven bars, not six. The description omits the bar for the baseline model ('Mistralv0.2-Base') and incorrectly states there is only one bar per fine-tuning dataset."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bars for Cardio, Gastro, Infect, Obstetrics, and Pediatrics are all colored orange, while the bars for Neuro are light blue.",
+          "evidence": "This is a misinterpretation of the legend. The light blue bars represent the 'Mistralv0.2-Base' model, not the 'Neuro' fine-tuned model. The fine-tuned models are represented by six distinct shades ranging from light beige to dark brown, not 'all orange'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the tallest bars extending to approximately -25 (for Neuro fine-tuning)",
+          "evidence": "The 'tallest' bars (most negative values) are the light blue baseline model bars, which extend down to approximately -27 in the 'Cardio' category. The value of -25 corresponds to the baseline model in the 'Gastro' group, not a bar for 'Neuro fine-tuning'."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "with the shortest bars ranging around -22 (for Cardio and Gastro fine-tuning) and the tallest bars extending to approximately -25 (for Neuro fine-tuning)",
+          "evidence": "On a scale with negative numbers, 'shortest' and 'tallest' are ambiguous. A bar with a value of -22 is physically shorter than a bar with a value of -25, but -22 is a numerically larger value. Using terms like 'highest value' and 'lowest value' would be clearer."
+        }
+      ],
+      "mqm_score": 84.0,
+      "total_penalty": 16.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "displays a logarithmic scale",
+          "evidence": "The vertical axis has a linear scale, where the distance between -22 and -23 is the same as between -26 and -27. The label contains the word 'log', but the scale itself is linear, not logarithmic."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "these bars are colored light blue, orange, dark orange, brown, and dark brown, corresponding to fine-tuning on “Cardio,” “Gastro,” “Infect,” “Neuro,” “Obstetrics,” and “Pediatrics” respectively",
+          "evidence": "This description is incorrect in several ways. Firstly, the light blue bar represents the 'Mistralv0.2-Base' model, not a fine-tuned model. Secondly, it lists only five colors/series when there are seven bars in each group (one baseline and six fine-tuned). The mapping of colors to categories is completely wrong."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in the “Cardio” category, the light blue bar extends to approximately -22.5",
+          "evidence": "In the 'Cardio' group on the x-axis, the light blue bar is the longest bar, extending down to a value of approximately -27.2. The bar that extends to approximately -22.2 is the light beige/orange bar, which represents the model fine-tuned on 'Cardio'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the brown bar extends to approximately -25.5",
+          "evidence": "In the 'Cardio' category, the brown bar (representing the model fine-tuned on 'Obstetrics') has a value of approximately -26.0, not -25.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with each color within a group indicating a different fine-tuning setting",
+          "evidence": "This is incorrect. One of the colors, light blue, represents the baseline model ('Mistralv0.2-Base'), not a 'fine-tuning setting'."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.5
+}

@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_106",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "в продължение на 50 епохи",
+          "evidence": "The description states that the process takes place over 50 epochs, which is information taken from the external caption text ('Phase 3 (50 epochs)'), not from the visual elements of the chart itself. The prompt requires describing only what is visually represented in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "като целта е да се визуализира сходимостта на модела",
+          "evidence": "This phrase interprets the purpose of the chart as 'to visualize the model's convergence.' This is an inference about the scientific goal, which is explicitly forbidden by the prompt that instructs to avoid interpretations, conclusions, or assumptions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "рязко спада до около 0.06 при стъпка 10",
+          "evidence": "The blue line ('Training Loss') drops to a value of approximately 0.08 at step 10, not 0.06. The value of 0.06 is reached later, around step 25-30."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада до около 0.04 при стъпка 50",
+          "evidence": "The orange line ('Validation Loss') drops to a value of approximately 0.03 at step 50, not 0.04. The value is 0.04 at an earlier point, around step 25."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "during Phase 3 of model training, which corresponds to 50 epochs, as referenced in the paper “Fast, Not Fancy: Rethinking G2P with Rich Data and Rule-Based Models.”",
+          "evidence": "This information is derived from the paper's caption and title provided as context, not from the visual elements of the figure itself. The prompt requires describing only what is shown in the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranges from 0 to approximately 0.12",
+          "evidence": "The y-axis does not start at 0. The lowest labeled tick mark is 0.02, and the visible axis starts slightly below that, but not at 0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "drops sharply to around 0.06 by step 50",
+          "evidence": "For the Training Loss line, the value at step 50 is approximately 0.05, not 0.06."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "to about 0.028 by step 500",
+          "evidence": "The Training Loss line does not extend to step 500; it ends at approximately step 480. At this point, its value is around 0.025, not 0.028."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreasing rapidly to around 0.03 by step 100",
+          "evidence": "For the Validation Loss line, the value at step 100 is approximately 0.025, not 0.03."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "near 0.015 by step 500",
+          "evidence": "The Validation Loss line does not extend to step 500; it ends at approximately step 480. At this point, its value is around 0.012, not 0.015."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating improving model performance over time",
+          "evidence": "This is an interpretation of what the data means, which is explicitly forbidden by the prompt's instruction to avoid making inferences or drawing conclusions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with validation loss remaining consistently lower than training loss after the initial steps",
+          "evidence": "This is a direct comparison between the two lines, which is explicitly forbidden by the prompt's instruction to 'Avoid... making comparisons between lines'."
+        }
+      ],
+      "mqm_score": 64.5,
+      "total_penalty": 35.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 73.75
+}

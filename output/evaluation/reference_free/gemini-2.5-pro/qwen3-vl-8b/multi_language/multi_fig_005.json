@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_005",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in descending order based on the total length of their bars",
+          "evidence": "The chart is a 100% stacked bar chart, meaning all bars have the same total length (100% or 1.0). Therefore, they cannot be ordered by their total length."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "titled \"Results of Human Evaluations\" from the paper \"ChARM Character-based Act-adaptive Reward Modeling for Advanced Role-Playing Language Agents,\"",
+          "evidence": "The provided image of the chart does not contain a title or any information about the source paper. This information is not visually present in the figure."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "in descending order of their total performance",
+          "evidence": "The chart does not define a metric called \"total performance.\" This is an interpretation by the model. Furthermore, the bars are not sorted in descending order by any of the visible metrics (Win, Tie, or Lose percentages)."
+        },
+        {
+          "category": "Ambiguous Description",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "other than their position in the legend",
+          "evidence": "This phrase is unclear and nonsensical. The order of the bars on the y-axis (Claude3.5, GPT4o, Doubao) has no relationship to the order of the categories in the legend (Win, Tie, Lose)."
+        }
+      ],
+      "mqm_score": 100.0,
+      "total_penalty": 0.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state that the units for the data values shown in the chart are percentages (%), even though the prompt asks for units to be described if present. While the horizontal axis represents proportions from 0.0 to 1.0, all data labels are in percentages."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Der rosa Balken",
+          "evidence": "The description refers to the segments of the stacked bars as \"Balken\" (bars), for example, \"Der rosa Balken\". In a stacked bar chart, the entire horizontal bar represents the total for a category (e.g., for Claude3.5), while the colored parts are segments. Using \"Balken\" for a segment is technically imprecise, especially when the prompt requests a technical language (\"fachlichen Sprache\"). A more accurate term would be \"Segment\" or \"Teil des Balkens\"."
+        }
+      ],
+      "mqm_score": 97.5,
+      "total_penalty": 2.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 97.5
+}

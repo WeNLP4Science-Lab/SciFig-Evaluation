@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The diagram is a grouped bar chart",
+          "evidence": "The chart consists of two plots of stacked bars, not grouped bars. For each 'MoE layer idx', there is a single bar composed of stacked colored segments that sum to 100%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bars are grouped by layer index",
+          "evidence": "This is incorrect. There is a single stacked bar for each layer index, not a group of bars."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Expert 1 starts with a high percentage at layer 1 and gradually decreases, while Expert 2 starts low and increases",
+          "evidence": "This description of the trends in the 'Text' plot is inaccurate and misleading. Expert 1's percentage is high at layer 1, but then drops to zero for most of the subsequent layers before reappearing at layer 23; it does not 'gradually decrease'. Expert 2's percentage fluctuates significantly and does not follow a simple increasing trend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are not stacked, but rather grouped",
+          "evidence": "This is a direct and incorrect statement. The bars are clearly stacked to show the percentage composition of the four experts within each layer."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bars are grouped by MoE layer index",
+          "evidence": "The chart shows individual stacked bars for each MoE layer index, not grouped bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with Expert 1 being dominant in the initial layers",
+          "evidence": "This statement refers to the \"Text\" chart. While Expert 1 is dominant in layer 1, it is not dominant in other initial layers like 3 and 5, where Expert 3 is dominant. This is an incorrect generalization."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where Expert 1 dominates",
+          "evidence": "This statement refers to the \"Image\" chart's initial layers. In the initial layers of the \"Image\" chart (e.g., 1, 3, 7), Expert 4 is dominant, not Expert 1."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The prompt asks for a description of each bar including its approximate value or representative values. The generated description does not provide any specific percentage values for any of the experts in any of the layers."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "a more skewed distribution",
+          "evidence": "The term 'skewed' is an interpretation of the data pattern, which the prompt instructs to avoid."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "allowing for a straightforward comparison of the expert distributions between text and image data across different layers",
+          "evidence": "This is an interpretive comment about the utility of the chart's design, rather than a direct description of its visual features as requested by the prompt."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.25
+}

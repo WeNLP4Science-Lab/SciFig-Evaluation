@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_051",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the marker shapes for all three lines (star for Teacher, square for Self-Training, circle for PST), which was requested by the prompt ('标记形状'). This error is noted for the first instance."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在漏标率为0.6时从约0.1跃升至约0.5",
+      "evidence": "This description of the change for the 'Teacher' line is incorrect. The value at x=0.6 is approximately 0.26, not a jump 'from 0.1 to 0.5'. The value at x=0.4 is 0.1 and the value at x=0.7 is approximately 0.51. The description incorrectly attributes a range of change to a single data point."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在漏标率为0时从约0.05开始",
+      "evidence": "The 'Self-Training' line starts at approximately 0.02 on the y-axis, not 0.05. The value 0.05 is a significant overestimation."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "在0到0.9区间内始终保持在其他两条线的上方",
+      "evidence": "The prompt explicitly forbids comparing different lines ('不要...比较不同线条'). This statement violates that instruction."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在0到0.9区间内始终保持在其他两条线的上方",
+      "evidence": "This statement is factually incorrect. The red 'Teacher' line crosses and surpasses the blue 'Self-Training' line between x=0.6 and x=0.7. Therefore, the blue line does not 'always' stay above the others."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在漏标率为0时从约0.01开始",
+      "evidence": "The description states that both the 'Teacher' line and the 'PST' line start at approximately 0.01. However, the graph clearly shows the PST line starts at a lower value than the Teacher line (PST is closer to 0.005, while Teacher is closer to 0.01). Stating they start at the same value is an inaccuracy."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "在漏标率0到0.6区间基本持平于0值",
+      "evidence": "The PST line is close to zero in this interval, but it is not exactly at zero for most of it (e.g., at x=0.4, it's ~0.01). It also has a distinct dip to zero at x=0.6. Stating it is 'flat at the value 0' is a slight over-generalization."
+    }
+  ],
+  "mqm_score": 81.5,
+  "total_penalty": 18.5,
+  "error_count": 7
+}

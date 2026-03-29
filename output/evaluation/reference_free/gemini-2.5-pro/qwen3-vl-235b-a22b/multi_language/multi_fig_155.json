@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_155",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 10⁻⁶ to 10⁻⁴",
+          "evidence": "The described y-axis range is inaccurate. While the scale is logarithmic, the labeled ticks are 10⁻⁵ and 10⁻⁴, and the highest data point (for 4-Fbit) is visibly well above 10⁻⁴, closer to 2x10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting that these blocks are quantized to 2 bits in the mixed-precision scheme",
+          "evidence": "The description makes an inference about the quantization scheme based on the plotted data. The prompt explicitly forbids making inferences or drawing conclusions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Starting from block 31, both 4-Fbit and 2-Fbit sensitivities are shown",
+          "evidence": "This is incorrect. The first blue bar for 4-Fbit appears at block index 28, not 31."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "with the 4-Fbit bars generally taller than the 2-Fbit bars for the same block",
+          "evidence": "This generalization is incorrect. In several instances where both bars are present for a given block index (e.g., around indices 32, 35, 40, 42), the green 2-Fbit bar is visibly taller than the blue 4-Fbit bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating higher sensitivity when using fewer bits",
+          "evidence": "This statement contains a major conceptual error. It incorrectly implies that '4-Fbit' corresponds to 'fewer bits' when compared to '2-Fbit'. 4-Fbit uses more bits than 2-Fbit."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating higher sensitivity when using fewer bits",
+          "evidence": "The use of 'indicating' presents an interpretation of what the data means, which is explicitly forbidden by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where 4-Fbit sensitivity peaks near 10⁻⁴",
+          "evidence": "The peak sensitivity for 4-Fbit, which occurs at block index 62, is significantly above 10⁻⁴, appearing closer to 2x10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "reflecting the progressive allocation of higher precision to more sensitive blocks",
+          "evidence": "This is a clear interpretation of the underlying reason for the observed trend, which goes beyond describing what is visually represented in the chart and violates the prompt's instructions."
+        }
+      ],
+      "mqm_score": 69.5,
+      "total_penalty": 30.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 69.5
+}

@@ -1,0 +1,60 @@
+{
+  "figure_key": "bulgarian_fig_304",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "включва пет сектора",
+      "evidence": "The description states there are five sectors, but the pie chart visibly contains only four sectors. The fifth category listed, 'друго (посочете какво)', has a value of 0 and therefore does not form a sector in the chart."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Най-големият сектор е зелен",
+      "evidence": "The description identifies the green sector as the largest. However, both the green sector ('модул към АБИС') and the red sector ('специализиран софтуер') have the same value of 2, making them equally the largest sectors."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Следващият по големина е червен сектор",
+      "evidence": "The description states the red sector is the 'next largest' after the green one. The red sector is not the 'next largest' but is tied with the green sector as the largest, as both have a value of 2."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Най-малкият сектор е черен",
+      "evidence": "The description claims there is a 'black sector'. No black sector exists in the chart. The category with a value of 0 ('друго') has no visual representation as a slice."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Всички сектори са разположени във визуален ред по низходящ размер, започвайки от най-големия в долния ляв ъгъл и продължавайки по часовниковата стрелка.",
+      "evidence": "The description claims the sectors are arranged in descending order of size. This is incorrect. Following the stated path (clockwise from the green slice), the values of the slices are 2, 1, 1, 2, which is not a descending sequence."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The generation prompt asked to describe the approximate percentage or share for each sector if it can be easily determined. The description only provides the raw numerical values (2, 2, 1, 1) but omits their corresponding shares of the total (which are easily determined as 1/3 for the large slices and 1/6 for the small slices)."
+    }
+  ],
+  "mqm_score": 75.0,
+  "total_penalty": 25.0,
+  "error_count": 6
+}

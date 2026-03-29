@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_212",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "on a linear scale ranging from 60 to 90",
+      "evidence": "The y-axis range extends beyond 90 to accommodate the bar for 'phi-4' which has a value of 91.8. The maximum value of the y-axis is not 90."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Each model is represented by two adjacent bars: a light blue bar for the “Large model” and a dark blue bar for the “Small model”, as indicated by the legend.",
+      "evidence": "The chart is a simple bar chart, not a grouped bar chart. Each model on the x-axis corresponds to a single bar, not two adjacent bars. The color of the bar indicates whether it is a 'Large' or 'Small' model."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The approximate values for each bar are: Llama-3.3 70B Instruct (Large: 66.4, Small: 74.8), Claude 3.5 Sonnet (Large: 74.8, Small: 77.4), Qwen 2.5 14B-Instruct (Large: 77.9, Small: 78.2), GPT-4o (Large: 78.2, Small: 78.7), GPT-4o-mini (Large: 78.7, Small: 81.6), Qwen 2.5 72B-Instruct (Large: 81.6, Small: 89.8), Gemini Flash 1.5 (Large: 89.8, Small: 91.8), and phi-4 (Large: 91.8, Small: 91.8).",
+      "evidence": "This entire sentence is a hallucination based on the incorrect structural assumption that the chart is grouped. It incorrectly pairs models and values. For example, it claims Llama-3.3 has a 'Small' model variant with a score of 74.8, but 74.8 is the score for the 'Claude 3.5 Sonnet' model. This misattribution occurs for every model listed."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The bars are not sorted",
+      "evidence": "The bars are sorted in ascending order of their average score, from Llama-3.3 (66.4) on the left to phi-4 (91.8) on the right."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with its large and small variants both scoring 91.8",
+      "evidence": "The chart shows only one 'phi-4' model, which is a 'Small model' with a score of 91.8. There is no 'large' variant shown for this model."
+    }
+  ],
+  "mqm_score": 78.0,
+  "total_penalty": 22.0,
+  "error_count": 5
+}

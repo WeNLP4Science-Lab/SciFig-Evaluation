@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_236",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "CORGI",
+      "evidence": "The label on the x-axis for the second category is 'CORG', not 'CORGI'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart uses stacked bars for the “Base” and “CORGI” methods, where the lower portion represents the “Standard” model (gray) and the upper portion represents the “Ours” model (blue), while the “AdaCAD” bar is a single solid blue bar, indicating that “Ours” is the only model evaluated for this method.",
+      "evidence": "This statement incorrectly describes the structure of the bars. The 'Base' bar is a single solid blue bar, not stacked. The 'AdaCAD' bar is a stacked bar with a gray and a blue component, not a single solid blue bar. The description has the structures of 'Base' and 'AdaCAD' reversed."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "6.0 for “Ours” (blue), totaling 58.0",
+      "evidence": "For the 'CORG' bar, the 'Standard' component (gray) ends at approximately 51.5 and the total height is approximately 59.5. This means the 'Ours' component (blue) has a value of approximately 8.0 (59.5 - 51.5), not 6.0. Consequently, the total performance is approximately 59.5, not 58.0."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "while the “AdaCAD” bar is a single solid blue bar, indicating that “Ours” is the only model evaluated for this method. The “AdaCAD” method shows an average performance of approximately 53.0 for “Standard” (gray) and 7.0 for “Ours” (blue), totaling 60.0.",
+      "evidence": "The description contains a direct contradiction. It first states that the 'AdaCAD' bar is a single solid blue bar, but then immediately provides values for both a 'Standard' (gray) component and an 'Ours' (blue) component for that same bar."
+    }
+  ],
+  "mqm_score": 86.0,
+  "total_penalty": 14.0,
+  "error_count": 4
+}

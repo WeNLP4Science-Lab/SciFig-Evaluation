@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_135",
+  "model_name": "llama4-maverick",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the specific marker shapes (x, square, circle, plus, triangle) and their corresponding 'Refresh' interval values as shown in the legend. The prompt explicitly requires describing the marker shape for each line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with Refresh=2 having the highest accuracy at low speeds and Refresh=16 having the lowest",
+          "evidence": "This statement makes a direct comparison between two different data series (Refresh=2 vs. Refresh=16), which the prompt explicitly forbids ('Avoid... making comparisons between lines'). Additionally, the statement is factually incorrect; at the lowest speed points shown, the triangle marker (Refresh=16) has a higher accuracy (~83%) than the square marker (Refresh=2, ~82%)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "from around 83% to 76%",
+          "evidence": "The description states that for the blue lines (L=512), the performance declines to 76%. However, the lowest data point in this group (for the line L=512, S=128) has an accuracy of approximately 74% at a speed of around 60 Tokens/s."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Two dashed lines, representing the LLaDA Pareto Front and Cache Pareto Front",
+          "evidence": "The legend indicates that the 'LLaDA Pareto Front' is represented by a dotted line, not a dashed line. Only the 'Cache Pareto Front' is a dashed line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the Cache Pareto Front having a higher Performance (Accuracy %) at lower speeds and the LLaDA Pareto Front having a lower Performance (Accuracy %) at higher speeds",
+          "evidence": "This part of the description compares the two Pareto Front lines, which is a form of interpretation forbidden by the prompt."
+        }
+      ],
+      "mqm_score": 82.5,
+      "total_penalty": 17.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to describe each of the five solid lines (e.g., L=512, S=512; L=512, S=256; etc.) individually, instead grouping them broadly as \"blue shades\" and \"red shades\". The prompt explicitly asked for a description of each line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description completely omits the second legend in the bottom left, which explains what the different marker shapes represent (w/o Cache, Refresh=2, Refresh=4, Refresh=8, Refresh=16). This is a critical piece of information for understanding the data points."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The blue lines are generally positioned at higher accuracy percentages and lower speeds compared to the red lines.",
+          "evidence": "The prompt explicitly instructs to avoid making comparisons between lines. This sentence directly compares the blue and red line groups."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreasing to approximately 68% at 100 tokens/s",
+          "evidence": "The description states the LLaDA Pareto Front ends at approximately 68% accuracy at 100 tokens/s. The figure shows this line ending at a point with coordinates of approximately (95, 62), a significantly different value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at around 84% accuracy at 10 tokens/s",
+          "evidence": "The description states the Cache Pareto Front starts at 84% accuracy at 10 tokens/s. The figure shows this line starting at a point with coordinates of approximately (22, 83)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each line within the blue and red groups is distinguished by different marker shapes",
+          "evidence": "This is an incorrect interpretation of the legends. The lines are distinguished by color (representing L and S values), not marker shapes. In fact, individual lines contain points with multiple different marker shapes, where the shape represents the 'Refresh' interval."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "with the lines generally trending downward as speed increases",
+          "evidence": "This is an over-generalization. While the overall distribution of points trends from top-left to bottom-right, the individual colored lines do not show a consistent downward trend. For example, the light red line (L=128, S=32) is almost flat horizontally, and other lines have non-monotonic segments."
+        }
+      ],
+      "mqm_score": 76.0,
+      "total_penalty": 24.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.25
+}

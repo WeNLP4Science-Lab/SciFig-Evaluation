@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_024",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Всеки слой е представен с три групи стълби",
+          "evidence": "The chart is a stacked bar chart with one bar per layer, not a grouped bar chart with three bars per layer. Each bar is composed of three stacked segments."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "слой 1 показва около 10 експерти в G2",
+          "evidence": "The total number of experts for layer 1 is 10. This is the sum of all three groups (G0, G1, and G2). The number of experts in G2 (the yellow segment) is 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "слой 5 показва около 9 експерти в G2",
+          "evidence": "The total number of experts for layer 5 is 8, not 9. Furthermore, this total is for all three groups combined, not just G2. The G2 segment for layer 5 represents 5 experts."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "слой 2 показва около 8 експерти в G1 и G2 комбинирано",
+          "evidence": "The total number of experts for layer 2 is 8, but this includes all three groups (G0, G1, and G2). The combined total for G1 and G2 is 7 (G1=3, G2=4)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "в някои слоеве като 7 и 8 броят на експертите е по-нисък, около 3-4 експерти във всички групи",
+          "evidence": "The total number of experts for layer 7 is 3, but for layer 8 it is 5. The range '3-4' is inaccurate for this pair of layers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Няма допълнително групиране или наслагване на стълбите освен групирането по G0, G1 и G2.",
+          "evidence": "The description incorrectly states there is no stacking ('наслагване'). The bars are clearly stacked, with the segments for G0, G1, and G2 placed on top of one another for each layer."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with each layer having three bars representing G0, G1, and G2",
+          "evidence": "The chart is a stacked bar chart, meaning each layer is represented by a single bar composed of three stacked segments, not three separate bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "3 in G1, and 6 in G2",
+          "evidence": "For layer 1, the chart shows approximately 4 experts in G1 (the green segment goes from y=1 to y=5) and 5 experts in G2 (the yellow segment goes from y=5 to y=10)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "4 in G1, and 5 in G2, totaling about 10 experts as well",
+          "evidence": "For layer 5, the chart shows approximately 3 experts in G1 (y=1 to y=4), 4 experts in G2 (y=4 to y=8), and a total of 8 experts. The description incorrectly states these values as 4, 5, and 10, respectively."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G2 has the largest segment in most layers",
+          "evidence": "The description claims that the G2 segment (yellow) is the largest in most layers. However, in layers 18, 20, 21, 22, 23, and 24, the G1 segment (green) is larger than the G2 segment. In layers 4 and 19, the G1 and G2 segments are of equal size. Therefore, this claim is factually incorrect for a significant number of the layers shown."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "and significantly lower numbers in layers 7 and 24",
+          "evidence": "The description singles out layers 7 and 24 as having significantly lower numbers. While their values are low (3 and 4 respectively), the lowest value on the chart (3) occurs not only in layer 7 but also in all layers from 11 to 17. By pairing layer 7 with layer 24 (which has a different value) and omitting layers 11-17, the description gives an imprecise summary of the chart's low points."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "while G0 consistently has the smallest segment across all layers",
+          "evidence": "The description claims G0 is 'consistently' the smallest segment. In layers 7 and 11 through 17, all three segments (G0, G1, G2) are of equal height, each representing 1 expert. In these layers, G0 is not strictly the smallest but is equal in size to the other segments."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.33
+}

@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_211",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the tick label intervals for the axes, which are 5 for the x-axis and 1 for the y-axis. The prompt specifically requested this information."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dips to a minimum of about 23.8 at a prefix length of 2",
+      "evidence": "The minimum for the Consistency-CE line occurs at a prefix length of 1, with a BLEU score of approximately 23.7. At a prefix length of 2, the score is approximately 24.9, which is not the minimum."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "to reach approximately 27.8 at a prefix length of 20",
+      "evidence": "The final value for the Consistency-CE line at a prefix length of 20 is clearly above the 28 gridline, at approximately 28.1, not 27.8."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "remains relatively stable at that level until a prefix length of around 5",
+      "evidence": "The Consistency-Bi line does not remain stable; it clearly rises from a BLEU score of about 27.6 at a prefix length of 0 to a peak of about 28.1 at a prefix length of 5."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The two lines intersect at a prefix length of approximately 12, where both models achieve a BLEU score of about 26.",
+      "evidence": "The prompt explicitly states to \"Avoid interpreting the cause of changes or making comparisons between lines.\" Describing the intersection point is a direct comparison between the two lines and violates this instruction."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "intersect at a prefix length of approximately 12",
+      "evidence": "The lines do not intersect at x=12. At x=12, the Consistency-CE score is ~25.9 and the Consistency-Bi score is ~26.2. The intersection occurs between x=12 and x=13."
+    }
+  ],
+  "mqm_score": 85.0,
+  "total_penalty": 15.0,
+  "error_count": 6
+}

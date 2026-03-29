@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_030",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each task, the chart displays a stacked bar, where the total height represents the accuracy of the \"Base\" model, and the segments below it represent the contributions of \"RMU with Enhanced GCG\" and \"RMU.\"",
+          "evidence": "The chart does not display a single stacked bar for each task. It displays two bars per task: a simple bar for the \"Base\" model, and a separate stacked bar for the \"RMU\" and \"RMU with Enhanced GCG\" models. The description completely misinterprets this grouped structure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the light green \"RMU with Enhanced GCG\" segment has a value of 0.539",
+          "evidence": "The value 0.539 corresponds to the total height of the stacked bar for \"MCQ Eval\" (the sum of the \"RMU\" and \"RMU with Enhanced GCG\" segments). The value of the light green segment itself is the difference between the total height and the bottom segment's height (0.539 - 0.299 = 0.240)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the red \"Base\" segment",
+          "evidence": "The \"Base\" model is represented by a simple, standalone bar, not a \"segment\" of a stacked bar. This error appears twice."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the light green \"RMU with Enhanced GCG\" segment has a value of 0.263",
+          "evidence": "The value 0.263 corresponds to the total height of the stacked bar for \"Generation Eval\". The value of the light green segment itself is the difference between the total height and the bottom segment's height (0.263 - 0.106 = 0.157)."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped side-by-side for each task",
+          "evidence": "The chart does not show bars grouped side-by-side. For each task, there is one standard bar for \"Base\" and one stacked bar representing \"RMU\" and \"RMU with Enhanced GCG\"."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually supports the caption's claim that Enhanced GCG's effectiveness varies significantly across tasks, showing high performance relative to the base model in MCQ Eval (0.539 vs 0.644) but much lower performance in Generation Eval (0.263 vs 0.597).",
+          "evidence": "The generation prompt explicitly instructs to \"Avoid making inferences, comparisons, or drawing conclusions about the data.\" This sentence interprets the results and compares performance between models, which violates the prompt's instructions."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each task, three stacked bars represent the respective models",
+          "evidence": "The chart is a grouped bar chart, not a stacked bar chart. Each group (e.g., 'MCQ Eval') contains one single bar ('Base') and one two-segment stacked bar, not three stacked bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bottom segment is “RMU” (light yellow), the middle segment is “RMU with Enhanced GCG” (light green), and the top segment is “Base” (reddish-orange)",
+          "evidence": "This description is incorrect. The 'Base' model is represented by a separate, single reddish-orange bar. The other bar is a two-segment stacked bar, with 'RMU' as the bottom segment (light yellow) and the enhancement for 'RMU with Enhanced GCG' as the top segment (light green). There is no three-segment stacked bar as described."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.17
+}

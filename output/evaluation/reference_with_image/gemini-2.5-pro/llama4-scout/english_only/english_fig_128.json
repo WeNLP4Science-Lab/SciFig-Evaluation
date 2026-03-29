@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_128",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with a scale ranging from 85 to 88",
+      "evidence": "The y-axis scale does not range from 85 to 88. The visible tick marks are 86 and 88, and the data values extend below 85 (e.g., Prefix base model is ~84.5) and above 88 (e.g., LoRA large model is ~89.2)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the tick labels are spaced at intervals of 1",
+      "evidence": "The tick labels on the y-axis are 86 and 88, which means they are spaced at intervals of 2, not 1."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Prefix (85, 86), Adaptor (85, 87), LoRA (87, 88), BitFit (85, 87), $S_1$-model (86, 86), $S_4$-model (87, 87), and $S_5$-model (87, 88)",
+      "evidence": "Multiple data points are reported incorrectly. For example, for Prefix, the base value is below 85, not 85. For Adaptor, the large value is above 88, not 87. For LoRA, the large value is approximately 89.2, not 88. For S4-model, the base value is closer to 86 than 87. For S5-model, the large value is approximately 89.1, not 88."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "$S_1$-model, $S_4$-model, and $S_5$-model",
+      "evidence": "The description uses LaTeX-style formatting for subscripts (e.g., '$S_1$-model') which is not appropriate for a plain text description and reduces readability. The chart shows these labels with proper subscripts."
+    }
+  ],
+  "mqm_score": 84.0,
+  "total_penalty": 16.0,
+  "error_count": 4
+}

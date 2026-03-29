@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_108",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with values of 26.0, 26.8, 26.4, 26.6, and 26.6, respectively",
+          "evidence": "The described values for the purple bars (Fine-to-Coarse Sampling Strategy) are inaccurate. The actual approximate values for m = 6, 7, 8, 9, 10 are 25.9, 26.75, 26.25, 26.5, and 26.4. The reported values are frequently off by 0.1 to 0.2, for example, the value for m=10 is described as 26.6 but is approximately 26.4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with values of 24.5, 24.7, 25.6, 25.1, and 24.5, respectively",
+          "evidence": "Several of the described values for the yellow bars (Uniform Sampling Strategy) are inaccurate. For m=6, the value is ~24.4, not 24.5. For m=9, the value is ~25.2, not 25.1. For m=10, the value is ~24.35, not 24.5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the Fine-to-Coarse Sampling Strategy consistently showing higher MAP@10 values than the Uniform Sampling Strategy",
+          "evidence": "This sentence makes a direct comparison between the two strategies, which is explicitly forbidden by the generation prompt's instruction to \"Avoid making inferences, comparisons, or drawing conclusions about the data.\""
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the scale structure or tick intervals for the vertical axis, which the prompt specifically asks for (\"how is the scale structured and at what intervals are the numbers placed, if they are uniform\"). The y-axis has labels and grid lines at intervals of 0.5."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "26.4, 26.6, and 26.5 for 'm' values 8, 9, and 10",
+          "evidence": "The reported values are inaccurate. The actual approximate values for m=8, 9, and 10 for the Fine-to-Coarse Sampling Strategy are 26.3, 26.5, and 26.4, respectively."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "24.9",
+          "evidence": "The bar for the Uniform Sampling Strategy at m=9 has a value of approximately 25.2, not 24.9. The bar is clearly taller than the 25.0 grid line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by 'm' value, with the two sampling strategies presented side by side for each value.",
+          "evidence": "This incorrectly describes the chart's structure. The bars are grouped by sampling strategy, not by 'm' value. The five purple bars for the 'Fine-to-Coarse' strategy are in a group on the left, and the five yellow bars for the 'Uniform' strategy are in a separate group on the right."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "26.6, and 26.5 for 'm' values 6 through 10, respectively",
+          "evidence": "The values for the Fine-to-Coarse Sampling Strategy are slightly misread. For m=9, the value is exactly 26.5, not 26.6. For m=10, the value is approximately 26.4, not 26.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "25.1",
+          "evidence": "For the Uniform Sampling Strategy at m=9, the bar's value is approximately 25.25, not 25.1 as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by 'm' value, with the purple bar appearing first, followed by the yellow bar, although the yellow bars are only visible for 'm' values 6 to 10, while the purple bars are visible for the same range but are not directly adjacent to the yellow bars due to the separate grouping for each 'm'.",
+          "evidence": "This sentence incorrectly describes the chart as having bars grouped by 'm' value (e.g., a purple and yellow bar side-by-side for m=6). The chart actually shows two separate sets of bars: a purple set for m=6 to 10, followed by a yellow set for m=6 to 10. They are not adjacent or grouped by 'm'."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.33
+}

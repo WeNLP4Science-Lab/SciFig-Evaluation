@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_141",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "across 27 turns, labeled as Turn ID from 0 to 26",
+      "evidence": "The chart does not show data for 27 distinct turns. It shows data for 14 specific Turn IDs (0, 2, 4, ... 24, 25, 26), not every integer turn from 0 to 26."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart displays a pair of bars for each Turn ID",
+      "evidence": "This is incorrect. The grouped pair structure breaks at the end of the chart. After Turn ID 24, there is a single bar for LLaMA-7B (at an unlabeled x-position, likely 25) and a single bar for T5-small at Turn ID 26."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "with the orange bar for LLaMA-7B consistently appearing taller than the yellow bar for T5-small across all turns",
+      "evidence": "The generation prompt instructs to \"do not compare categories unless the comparison is explicitly labeled.\" This statement directly compares the two models, which violates the prompt's negative constraint."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "with LLaMA-7B maintaining higher scores throughout",
+      "evidence": "The generation prompt instructs to \"do not compare categories unless the comparison is explicitly labeled.\" This statement interprets the relative performance of the two models, which violates the prompt's negative constraint."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At Turn 26, the scores are approximately 0.45 for LLaMA-7B",
+      "evidence": "The chart shows no bar for LLaMA-7B at Turn ID 26. The last bar for LLaMA-7B, with a value of approximately 0.44, appears at an unlabeled x-position between 24 and 26 (presumably Turn 25)."
+    }
+  ],
+  "mqm_score": 82.0,
+  "total_penalty": 18.0,
+  "error_count": 5
+}

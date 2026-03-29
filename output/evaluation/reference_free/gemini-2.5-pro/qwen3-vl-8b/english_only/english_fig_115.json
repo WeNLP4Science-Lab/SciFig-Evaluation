@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_115",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "uses a linear scale",
+      "evidence": "The x-axis does not use a linear scale. The physical spacing between tick marks is uniform, but the numerical difference between them is not (e.g., the space between 0.1 and 0.2 represents a 0.1 change, while the same space between 1 and 2 represents a 1.0 change)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description of the y-axis omits the tick interval, which is 0.5. The prompt specifically requested the 'tick label interval if numeric and regularly spaced'."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "it starts at approximately 72.5% at \"w/o\", rises to a peak of 75.5% at λ=1, then declines to approximately 72.5% at λ=3",
+      "evidence": "This description of the 'MatDetector (ours)' line is an over-generalization. It omits several distinct local peaks and troughs between λ=\"w/o\" and λ=1 (e.g., a peak at 0.3, a dip at 0.4, a peak at 0.6, a dip at 0.7). The prompt requires noting 'any peaks, declines, or steady trends'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "generally follows a trend slightly below MatDetector",
+      "evidence": "The description makes a comparison between the two lines, which is explicitly forbidden by the prompt instruction: 'Avoid interpreting the cause of changes or making comparisons between lines.'"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaches a peak of approximately 73.5% at λ=0.5",
+      "evidence": "The description incorrectly identifies the peak for the 'ChemDataExtractor' line. The actual peak for this line occurs at λ=1 with a value of approximately 73.7%, not at λ=0.5, where the value is only about 73.4%."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 5
+}

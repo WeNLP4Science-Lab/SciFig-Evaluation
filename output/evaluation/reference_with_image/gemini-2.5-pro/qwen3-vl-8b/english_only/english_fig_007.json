@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_007",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "4K as [4K, 8K), 8K as [8K, 16K), and 16K as [16K, 32K)",
+      "evidence": "The figure caption states 'The aforementioned 2K range refers to the interval [2K, 4K), and similarly for the other ranges.' The description infers the specific ranges for 4K, 8K, and 16K, which are not explicitly stated in the caption or shown in the figure."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis presents eight distinct categories, each representing a combination of token range and request type (Input or Output), with the token ranges labeled as 2K, 4K, 8K, and 16K,",
+      "evidence": "The horizontal axis has no labels at all. The categories (2K, 4K, 8K, 16K) are not labeled on the axis but are defined in the legend and represented by visual groupings of bars."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The bars are arranged in descending order of their values",
+      "evidence": "The bars are not arranged in descending order of their values. They are grouped by token size (2K, 4K, 8K, 16K). For example, the bar for 4K-Output (108,494) is taller than the bar for 2K-Output (78,188) which precedes it."
+    }
+  ],
+  "mqm_score": 88.5,
+  "total_penalty": 11.5,
+  "error_count": 3
+}

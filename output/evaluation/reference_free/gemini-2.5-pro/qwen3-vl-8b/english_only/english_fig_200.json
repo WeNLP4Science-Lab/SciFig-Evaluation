@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_200",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dipping to about 23.8 at x=2",
+      "evidence": "The description incorrectly states that the dip in the \"Consistency: wait-1\" line occurs at x=2. The plot shows this dip occurs at x=1, where the value is approximately 23.7. At x=2, the value is actually around 24.9."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "beginning at a BLEU score of approximately 25.2 at x=0",
+      "evidence": "The description states the \"Inconsistency: wait-9\" line begins at a BLEU score of approximately 25.2. The data point at x=0 is clearly located on the grid line for a BLEU score of 25.0."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The plot indicates that the consistency strategy generally achieves higher BLEU scores than the inconsistency strategy across the tested prefix lengths.",
+      "evidence": "The prompt explicitly instructed to \"Avoid interpreting the cause of changes or making comparisons between lines.\" This sentence makes a direct comparison between the two lines, which violates the prompt's negative constraint. Additionally, the comparison is factually an over-generalization, as the 'Inconsistency' line has higher BLEU scores for prefix lengths from 0 to approximately 8."
+    }
+  ],
+  "mqm_score": 86.5,
+  "total_penalty": 13.5,
+  "error_count": 3
+}

@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at a batch size of 1",
+          "evidence": "The plot does not have data points at a batch size of 1. The first data points appear at a batch size greater than 1 (likely 2 or 4)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "the lines start at around 34.31, 34.31, 34.54, and 15.21 Token/s for L = 16, 32, 64, and 128, respectively",
+          "evidence": "The starting values for the lines are not labeled on the plot. These numerical values are hallucinated, and the prompt requires using exact data points from the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "increase to 81.16, 59.71, 183.28, and 130.58 Token/s at a batch size of 128",
+          "evidence": "The final values for the 'dKV-Cache-Decode' lines are incorrectly matched to their corresponding 'L' values. For example, for L=16 the final value is 202.31, not 81.16. The value 59.71 belongs to the 'Origin' series, not 'dKV-Cache-Decode'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "the lines start at around 30.84, 30.86, 34.45, and 15.24 Token/s for L = 16, 32, 64, and 128, respectively",
+          "evidence": "The starting values for the lines are not labeled on the plot. These numerical values are hallucinated, and the prompt requires using exact data points from the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "increase to 48.93, 46.93, 69.62, and 35.72 Token/s at a batch size of 128",
+          "evidence": "The final values for the 'Origin' lines are incorrectly matched to their corresponding 'L' values. For example, for L=16 the final value is 69.62, not 48.93. The value 46.93 does not correspond to any final value in the plot, and 35.72 is an incorrect transcription of 35.42."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The lines for \"dKV-Cache-Decode\" show a more pronounced increase across the batch size range compared to \"Origin,\"",
+          "evidence": "The prompt explicitly states to avoid making comparisons between lines. This sentence directly compares the trends of the two methods."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the marker shapes (e.g., circle, square, triangle, star, plus) used for each line, which the prompt specifically requested to be included."
+        }
+      ],
+      "mqm_score": 72.5,
+      "total_penalty": 27.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 72.5
+}

@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_146",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "log r ranging from 0 to 8",
+      "evidence": "The description states the x-axis range is 0 to 8, but the data points on the plot extend to a value of 9."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "and then stabilizes near 23.5 from log r = 6 onwards",
+      "evidence": "The purple line (MBart + LoRA) does not stabilize from log r = 6 onwards. It rises from approximately 22.5 at x=6 to a peak of 24 at x=8, before dropping to around 23.3 at x=9. Describing this as stabilization is a significant mischaracterization of the trend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "rises gradually to about 29.5 at log r = 4",
+      "evidence": "For the green line (T5 + AdaLoRA), the ROUGE-1 score at log r = 4 is approximately 27, not 29.5. The score reaches approximately 29.5 at log r = 6."
+    }
+  ],
+  "mqm_score": 93.0,
+  "total_penalty": 7.0,
+  "error_count": 3
+}

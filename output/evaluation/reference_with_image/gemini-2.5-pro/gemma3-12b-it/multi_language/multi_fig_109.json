@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_109",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Последваща втора кръгова диаграма е разположена вътре в първата, като показва подобно разпределение на категории; \"Заблудени\" са представени в червено и заемат приблизително 67,6%, \"Частично\" е жълто и заема приблизително 23,5%, а \"Не заблудени\" е зелено и заема приблизително 8,9%.",
+          "evidence": "The description incorrectly states that the chart with values 67.6%, 23.5% etc. is located *inside* the first one. In reality, this data belongs to the *outer* ring (Ambiguity 1), not the inner one. The entire description of the chart's structure is inverted and confused."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the labels for the two rings, 'Ambiguity 1 (Outer)' and 'Ambiguity 2 (Inner)', which is crucial for understanding which dataset is which."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "8,9%",
+          "evidence": "The description states the value for 'Not Deceived' in the outer ring is 8.9%, but the chart explicitly labels it as 8.8%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "предвидения дял от 10,5%",
+          "evidence": "The word 'предвидения' (which translates to 'intended' or 'predicted') is an interpretation of the data and is not stated anywhere in the figure."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "Категорията \"Заблудени\" е представена в червено и заема приблизително 57,9% от диаграмата. Категорията \"Частично\" е изобразена в жълто и съставлява приблизително 31,6%. И накрая, категорията \"Не заблудени\" е представена в зелено и представлява предвидения дял от 10,5%;",
+          "evidence": "This section provides data for the inner ring ('Ambiguity 2') without specifying which part of the chart it refers to. This creates ambiguity and contributes to the overall confusion of the description, as it precedes the incorrect introduction of the two-ring structure."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart is divided into four categories",
+          "evidence": "The chart is a nested donut chart with two rings, each representing a scenario. Each ring is divided into three categories ('Deceived,' 'Partially,' 'Not Deceived'), not four."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The outer ring contains slices colored red, yellow, and green, representing 67.6%, 31.6%, and 10.5% respectively.",
+          "evidence": "The description incorrectly assigns values to the yellow and green slices of the outer ring. The correct values are 23.5% for yellow (Partially) and 8.8% for green (Not Deceived). The values 31.6% and 10.5% belong to the inner ring."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The inner ring also uses red, yellow, and green, with proportions of 57.9%, 23.5%, and 8.8%.",
+          "evidence": "The description incorrectly assigns values to the yellow and green slices of the inner ring. The correct values are 31.6% for yellow (Partially) and 10.5% for green (Not Deceived). The values 23.5% and 8.8% belong to the outer ring."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The segments appear visually ordered by size",
+          "evidence": "The segments are not ordered by size. They are ordered by category (Deceived, Partially, Not Deceived) in a clockwise direction for both rings."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.0
+}

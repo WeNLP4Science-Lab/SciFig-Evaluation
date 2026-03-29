@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_102",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "(a trajectory prediction error metric, lower is better)",
+          "evidence": "This part of the description provides an interpretation of the y-axis metric and the meaning of the arrow symbol, which goes beyond an objective description of what is visually present. The prompt instructs to describe objective features only."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with integer tick marks at each unit",
+          "evidence": "The description of the x-axis states there are tick marks at each unit. While there are gridlines at each integer, the numbered tick labels appear only every 2 units (0, 2, 4, 6, 8). The description should specify the tick label interval as requested by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“minADE₂₀ (↓),”",
+          "evidence": "The description incorrectly states the y-axis label uses a down arrow (↓). The actual label in the figure uses a left arrow (←)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Both lines show that performance generally improves (error decreases) with more examples, though ST-ES achieves consistently lower error than Random across all example counts except at 0 examples where they are nearly identical.",
+          "evidence": "The generation prompt explicitly instructed: \"Avoid... making comparisons between lines.\" This entire sentence is a direct comparison between the two lines and an interpretation of the results, violating a core instruction."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the x-axis does not mention the interval of the tick labels, which is 2 (0, 2, 4, 6, 8)."
+        },
+        {
+          "category": "Incorrect Numerical Value",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "bleibt bis 5 Beispielen nahezu konstant bei etwa 2.58",
+          "evidence": "This is an inaccurate generalization. The line for 'ST-ES' reaches a minimum value of approximately 2.57 at 2 examples and then rises slightly. The value is always below 2.58 in the range of 2 to 5 examples."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt bei 7 Beispielen konstant",
+          "evidence": "The line for 'ST-ES' does not remain constant at 7 examples; it clearly rises from the value at 6 examples (approx. 2.60) to the value at 7 examples (approx. 2.605)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt leicht auf 2.80 bei 2 Beispielen",
+          "evidence": "The orange line for 'Random' falls from approximately 2.86 at 1 example to 2.80 at 2 examples; it does not rise."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fällt dann auf 2.78 bei 3 Beispielen",
+          "evidence": "The orange line for 'Random' rises from 2.80 at 2 examples to approximately 2.835 at 3 examples; it does not fall to 2.78."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt auf 2.79 bei 4 Beispielen",
+          "evidence": "The orange line for 'Random' falls from approximately 2.835 at 3 examples to approximately 2.785 at 4 examples; it does not rise to 2.79."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.25
+}

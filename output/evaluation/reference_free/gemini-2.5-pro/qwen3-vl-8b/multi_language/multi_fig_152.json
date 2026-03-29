@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_152",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "at intervals of 7",
+          "evidence": "The tick marks on the x-axis are at 0, 7, 15, 23, and 31. The intervals between these marks are 7, 8, 8, and 8, not a constant interval of 7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spanning from 10^4 to 10^6",
+          "evidence": "The y-axis is logarithmic and the labels shown are 10^-6, 10^-5, and 10^-4. The description incorrectly reports the range with positive exponents."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks labeled at intervals of 10^5",
+          "evidence": "The y-axis is on a logarithmic scale with major gridlines at powers of 10 (10^-6, 10^-5, 10^-4). These are not separated by a linear interval."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the 8-bit configuration, sensitivity starts at approximately 10^5 at block index 0, remains relatively stable around 10^5 until block index 23",
+          "evidence": "The 8-bit configuration (blue bars) does not exist at block index 0. It starts at block index 22 and goes to 31."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "then increases to approximately 10^6 at block index 31",
+          "evidence": "The sensitivity for the 8-bit configuration at block index 31 is approximately 8e-5, not 10^6. The described value is incorrect by many orders of magnitude, due to misreading the y-axis exponents."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and remains relatively stable around 10^6 until block index 31",
+          "evidence": "The 4-bit configuration (green bars) does not extend to block index 31; its data ends at block index 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the 4-bit configuration, sensitivity starts at approximately 10^5 at block index 0, decreases to approximately 10^5 at block index 7, then increases to approximately 10^6 at block index 15",
+          "evidence": "All reported sensitivity values for the 4-bit configuration are incorrect by many orders of magnitude. For example, at block index 0, the value is below 10^-6, not 10^5. This error is consistent throughout the description of both series."
+        }
+      ],
+      "mqm_score": 71.0,
+      "total_penalty": 29.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 71.0
+}

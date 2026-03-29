@@ -1,0 +1,178 @@
+{
+  "figure_key": "multi_fig_024",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "лилаво",
+          "evidence": "The legend and figure show that the color for G0 is blue, not purple ('лилаво')."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "оранжево",
+          "evidence": "The legend and figure show that the color for G2 is yellow, not orange ('оранжево')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that this is a stacked bar chart. This omission leads to a fundamental misinterpretation of how the data is represented."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Ambiguous Description",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Височината на стълбовете отразява броя на експертите за всеки слой и всяка група.",
+          "evidence": "This sentence is ambiguous and incorrect for a stacked bar chart. The height of each colored *segment* represents the count for a group, while the total height of the bar represents the total count for the layer. The description does not make this distinction, treating the total height as the value for a single group in the examples."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "за Layer 1 има 12 експерти от група G0",
+          "evidence": "This is incorrect. For Layer 1, the total number of experts is 10. The number of experts from group G0 (the blue segment) is 1. The value 12 is not present for Layer 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "за Layer 2 има 8 експерти от група G0",
+          "evidence": "This is incorrect. For Layer 2, the total number of experts is 8. The description incorrectly assigns this total value to group G0, which actually has only 1 expert."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "докато за Layer 24 има около 3 експерти от всяка от трите групи.",
+          "evidence": "This is highly inaccurate. For Layer 24, the number of experts is 1 for G0, 2 for G1, and 1 for G2. None of these values is 'about 3'."
+        }
+      ],
+      "mqm_score": 71.5,
+      "total_penalty": 28.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "图表中共有 24 组柱状图，每个组代表一个层数。每组有三条柱状图，分别代表 G0、G1 和 G2 专家组。",
+          "evidence": "The chart is a stacked bar chart, with a single bar for each of the 24 layers. Each bar is composed of three stacked segments (G0, G1, G2). The description incorrectly identifies it as a grouped bar chart with 24 groups of three bars each."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "最小值约为 2 个专家（例如，在第 24 层为 G1 和 G2）",
+          "evidence": "This statement is both ambiguous and incorrect. The minimum total number of experts shown in the chart is 3 (e.g., in layer 7). For layer 24, the values are G0=1, G1=2, and G2=1. No combination or individual value equals 2 in a clear way that would be described as the minimum."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "而最大值约为 15 个专家",
+          "evidence": "The description hallucinates a maximum value of 15. The y-axis of the chart clearly shows that the maximum possible value is 12, and the highest bar (at layer 1) only reaches 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "（在第 18 层为 G0）",
+          "evidence": "The description incorrectly associates the hallucinated maximum value of 15 with G0 in layer 18. The actual value for the G0 segment in layer 18 is 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G0 专业人员的柱状图在第一层以约 8 个专家数量的趋势为主导",
+          "evidence": "The value for G0 (the blue segment) in layer 1 is 1. The total number of experts for layer 1 is 10. The value 8 is incorrect for either the G0 component or the total."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "然后减少到第 18 层即将降至 15 个专家",
+          "evidence": "This describes a completely fabricated trend. G0's value is constant at 1 across all layers. The total value does not decrease to 15 at layer 18; the total at layer 18 is 5."
+        }
+      ],
+      "mqm_score": 73.0,
+      "total_penalty": 27.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "nimmt linear von 0 bis 24 an",
+          "evidence": "The y-axis range is from 0 to 12, not 0 to 24 as stated in the description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für jede Schicht werden drei Balken für jede Gruppe angezeigt, die sich auf derselben Schicht befinden.",
+          "evidence": "The chart is a stacked bar chart, showing one bar per layer composed of three colored segments. It is not a grouped bar chart with three separate bars for each layer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken für Gruppe 0 haben Werte von 8 für Schicht 1 bis 22 für Schicht 24.",
+          "evidence": "The values reported for Gruppe 0 (blue) are incorrect. For example, at Layer 1, the value is 1, not 8. The description seems to be hallucinating values, as the maximum value on the y-axis is 12."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken für Gruppe 1 haben Werte von 4 für Schicht 1 bis 20 für Schicht 24.",
+          "evidence": "The values reported for Gruppe 1 (green) are incorrect. For example, at Layer 1, the value is 3 (from y=1 to y=4), not 4. The description hallucinates values, as the maximum on the y-axis is 12."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken für Gruppe 2 haben Werte von 2 für Schicht 1 bis 18 für Schicht 24.",
+          "evidence": "The values reported for Gruppe 2 (yellow) are incorrect. For example, at Layer 1, the value is 6 (from y=4 to y=10), not 2. The description hallucinates values, as the maximum on the y-axis is 12."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 73.17
+}

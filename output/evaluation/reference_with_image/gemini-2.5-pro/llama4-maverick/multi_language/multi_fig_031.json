@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_031",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each task section contains four pairs of bars corresponding to these datasets, with the first bar in each pair being solid and representing either the Base, RMU, NPO-Bio, or NPO-Cyber model, and the second bar being striped and representing the Forget Set.",
+          "evidence": "The chart is not structured in pairs of bars. Each dataset (e.g., WMDP-Bio) is a group of four individual bars, each representing a different model (Base, RMU, NPO-Bio, NPO-Cyber). The 'striped' pattern for 'Forget Set' is an overlay on some of these bars, not a separate bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "NPO-Cyber also in green but with a distinct pattern",
+          "evidence": "The NPO-Cyber bar has its own distinct color, which is teal/turquoise, not green. The 'distinct pattern' (hatching) is a separate attribute from the legend ('Forget Set') and is not exclusively associated with the NPO-Cyber model."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The success rates for the CHOOSE task range from 0.80 to 0.98",
+          "evidence": "The actual minimum success rate for the CHOOSE task is 0.70 (for the RMU model under the WMDP-Cyber dataset), not 0.80."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Base (red)",
+          "evidence": "The description identifies the color for the 'Base' model as red, but it is shown as orange in the figure and legend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "NPO-Cyber (green with diagonal lines)",
+          "evidence": "The description incorrectly conflates the 'NPO-Cyber' model with the 'Forget Set' pattern. According to the legend, 'NPO-Cyber' is represented by a solid teal/dark green color, while 'Forget Set' is a separate pattern (diagonal lines) applied on top of some bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with \"Forget Set\" represented by diagonal lines within the yellow and green bars",
+          "evidence": "This description of where the 'Forget Set' pattern is applied is incomplete and inaccurate. For the 'WMDP-Cyber' category, the diagonal lines are on the yellow 'RMU' bar and the teal 'NPO-Cyber' bar, not a green bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the lowest being 0.42 for WMDP-Bio with RMU",
+          "evidence": "In the OPTION task, the lowest success rate shown is 0.30 for the RMU model in the WMDP-Cyber group, not 0.42 as stated."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "while NPO tends to increase success rates",
+          "evidence": "This statement is an over-generalization for the GENERATE task. In the WMDP-Cyber group, the NPO-Cyber model's success rate (0.48) is equal to the base model's rate (0.48), not an increase."
+        }
+      ],
+      "mqm_score": 82.0,
+      "total_penalty": 18.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.5
+}
