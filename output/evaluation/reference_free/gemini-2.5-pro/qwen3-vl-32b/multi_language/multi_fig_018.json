@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_018",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "до слой 15, където има лек спад до около 0.4",
+          "evidence": "The description incorrectly states that a trough of approximately 0.4 occurs at layer 15. The chart shows a trough at layer 12 with a value of about 0.45. At layer 15, the value is higher, around 0.52."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Тя служи като референтна линия за сравнение с динамиката на синята линия.",
+          "evidence": "The description interprets the purpose of the green mean line as a 'reference line for comparison'. The prompt explicitly forbids such interpretations, asking the user to describe only what is visually present without explaining its purpose."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Синята линия пресича зелената линия в няколко точки, като в началото и в края на графиката е под нея, а в средата е над нея.",
+          "evidence": "The description compares the two lines, which the prompt forbids ('Избягвайте ... да сравнявате линиите'). While visually true, it goes beyond describing each line independently and introduces a comparison not explicitly stated on the chart."
+        }
+      ],
+      "mqm_score": 92.0,
+      "total_penalty": 8.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在层0处起始于约0.01",
+          "evidence": "The description states the line starts at approximately 0.01 at layer 0, but the figure shows the value is visibly higher, at approximately 0.04."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在层5处上升至约0.6",
+          "evidence": "The description states the line rises to about 0.6 at layer 5, but the plot shows the value is significantly higher, at approximately 0.68."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "层15处降至约0.45",
+          "evidence": "The description states the value at layer 15 is about 0.45, but the plot shows the value at layer 15 is approximately 0.52. The value drops to around 0.45-0.46 at layer 12 and layer 16, not layer 15."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt bis Schicht 5 auf etwa 0.6",
+          "evidence": "The value at layer 5 is approximately 0.68, which is closer to 0.7 than 0.6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "erreicht einen ersten Gipfel bei Schicht 6 mit einem Wert von etwa 0.7",
+          "evidence": "The first significant peak occurs at layer 5 (value ~0.68), not layer 6. The value at layer 6 is approximately 0.6, which is a local minimum, not a peak. The stated value of ~0.7 is also incorrect for layer 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt zwischen 0.5 und 0.6 bis Schicht 15",
+          "evidence": "Within the specified range up to layer 15, the line frequently goes outside the 0.5-0.6 range. For example, it is above 0.6 at layers 5, 7, and 8, and drops below 0.5 at layer 12 (to ~0.45)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bevor sie in Schicht 22 auf etwa 0.2 abfällt",
+          "evidence": "The value at layer 22 is approximately 0.25, making the stated value of 0.2 a slight underestimate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Die blaue Linie liegt überwiegend oberhalb dieser Referenzlinie, mit Ausnahme der Schichten 0, 1, 16, 17 und 22, in denen sie darunter verläuft.",
+          "evidence": "The generation prompt explicitly forbids making comparisons between lines (\"Vermeiden Sie es, ... Vergleiche zwischen Linien anzustellen.\"). This sentence compares the blue data line to the green mean line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit Ausnahme der Schichten 0, 1, 16, 17 und 22, in denen sie darunter verläuft",
+          "evidence": "The list of layers where the blue line is below the green mean line (0.481) is incorrect. It omits layers 2, 3, and 12, and incorrectly includes layer 17 (where the value is ~0.51, which is above the mean)."
+        }
+      ],
+      "mqm_score": 74.5,
+      "total_penalty": 25.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.83
+}

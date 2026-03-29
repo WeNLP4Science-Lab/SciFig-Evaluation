@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_067",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The horizontal axis represents the categories, listed in descending order of the total number of predictions, while the vertical axis displays the count of predictions",
+          "evidence": "The chart is a horizontal bar chart. The vertical axis represents the categories (Basketball, Songs, Movies), and the horizontal axis represents the values/counts. The description incorrectly swaps the axes."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with values ranging from 0 to 100",
+          "evidence": "The description claims the vertical axis has values from 0 to 100, but the vertical axis only lists the three categories and has no numerical scale."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are arranged in descending order of total predictions",
+          "evidence": "The total for each bar is 100 (e.g., for Basketball: 74+16+10=100). Therefore, the bars are not arranged by total predictions. They are arranged by the value of the 'Same' (blue) segment in descending order from bottom to top."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that each bar represents a total of 100, which is a key feature of a 100% stacked bar chart, showing a complete proportional breakdown for each category."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in alphabetischer Reihenfolge",
+          "evidence": "The categories on the y-axis are listed in the order 'Basketball', 'Songs', 'Movies'. This is not alphabetical order, which would be 'Basketball', 'Movies', 'Songs'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken sind in absteigender Reihenfolge der Gesamtanzahl der Fälle sortiert, wobei Movies den höchsten Gesamtwert aufweist.",
+          "evidence": "The total for each bar is 100 (Basketball: 74+16+10=100; Songs: 80+14+6=100; Movies: 86+12+2=100). The bars are all of equal total length and are therefore not sorted by total value. The claim that 'Movies' has the highest total value is also incorrect."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.5
+}

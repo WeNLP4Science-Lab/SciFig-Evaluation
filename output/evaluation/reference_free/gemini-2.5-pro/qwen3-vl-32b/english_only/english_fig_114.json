@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_114",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "from around 54.5% at 0.5 tokens",
+      "evidence": "The description states that the 'MATTER (ours)' line has a value of around 54.5% at 0.5 tokens. However, the plot shows this line starting at approximately 55.2% at 0.5 tokens. The value is approximately 54.5% at 0.6 tokens, not 0.5."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "remains relatively flat around 52–53% until 1.4 tokens",
+      "evidence": "This description of the 'w/o material information' line is an over-generalization. The line is not 'relatively flat'; it shows a distinct peak at x=0.7, where the Macro-F1 score rises to approximately 54.1%, which is outside the stated 52-53% range."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with the red region consistently higher than the purple region across most of the token range, except near 1.5 tokens where both decline sharply",
+      "evidence": "This part of the description makes a direct comparison between the two data series ('red region consistently higher than the purple region'), which violates the generation prompt's explicit instruction to 'Avoid... making comparisons between lines'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The shaded regions indicate variability or confidence intervals for each method",
+      "evidence": "The description interprets the meaning of the shaded regions as 'variability or confidence intervals'. While this is a likely interpretation, it is not explicitly stated anywhere in the figure. The prompt requires describing only objective features and avoiding inferences."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 4
+}

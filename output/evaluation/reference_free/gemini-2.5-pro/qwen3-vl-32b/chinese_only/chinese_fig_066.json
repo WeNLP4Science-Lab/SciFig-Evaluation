@@ -1,0 +1,28 @@
+{
+  "figure_key": "chinese_fig_066",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "F1指标在captured_distance=1时为82.5%，随后上升至captured_distance=3时达到84.5%，在captured_distance=5时再次达到84.5%",
+      "evidence": "The description reports incorrect values for the F1 line. At captured_distance=1, the value is ~83.1%, not 82.5%. At captured_distance=3, the value is exactly 85.0%, not 84.5%. At captured_distance=5, the value is the peak at ~85.2%, not 84.5%."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "两条线均在captured_distance=5附近达到各自的最大值，之后呈现下降趋势。",
+      "evidence": "The generation prompt explicitly states \"不要比较不同线条\" (do not compare different lines). This sentence compares the trends of both lines, which violates the instruction."
+    }
+  ],
+  "mqm_score": 91.5,
+  "total_penalty": 8.5,
+  "error_count": 2
+}

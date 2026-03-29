@@ -1,0 +1,202 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "“Reasoning” (represented by orange bars) and “Demonstration” (represented by blue bars)",
+          "evidence": "The chart consists of stacked bars, where 'Reasoning' (orange) and 'Demonstration' (blue) are segments of a single bar for each x-axis category, not separate bars. The description later clarifies this structure, but this initial statement is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the orange “Reasoning” portion decreases progressively",
+          "evidence": "The height of the orange 'Reasoning' segment does not decrease progressively. Visually, it increases from shot 1 (approx. 4250) to shot 2 (approx. 4500) and shot 3 (approx. 5000), before decreasing at shot 4."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "HallucinatedContent",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "from 4441 at 1 shot to 4214 at 4 shots—while the blue “Demonstration” portion increases correspondingly, starting at 111 for 1 shot and rising to 765 at 4 shots",
+          "evidence": "The chart does not provide specific values for the individual 'Reasoning' and 'Demonstration' segments. These numbers are not present in the figure. Furthermore, the value 4441 for the 'Reasoning' portion at 1 shot is incorrect; 4441 is the total token count for that shot (calculated as 6393 - 1952), not the value of the orange segment alone."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicate the reduction in reasoning token count relative to the zero-shot baseline",
+          "evidence": "The red arrows and associated negative numbers indicate the reduction in the *total* token count for shots 1-4 relative to the zero-shot baseline, not the reduction in only the reasoning token count. The arrows measure from the top of the zero-shot bar to the top of the subsequent stacked bars."
+        },
+        {
+          "category": "ClarityandReadability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "The chart visually conveys that increasing the number of shots reduces the reliance on reasoning tokens",
+          "evidence": "This is an over-generalization. While the reasoning token count for shots 1-4 is lower than for the 0-shot case, the count does not monotonically decrease as the number of shots increases from 1 to 4. The trend is more complex, rising from shot 1 to 3 before falling at shot 4."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reasoning token count decreases significantly — by 1952 at 1 shot, 1613 at 2 shots, 1040 at 3 shots, and 1379 at 4 shots",
+          "evidence": "The red annotation values (-1952, -1613, etc.) represent the reduction in the total token count compared to the 0-shot bar, not the reduction in only the reasoning token count."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at 1 shot, reasoning tokens drop to approximately 4441",
+          "evidence": "The total token count for the 1-shot bar is 4441 (6393 - 1952). The description incorrectly assigns this total value to the 'reasoning' component, which is only the orange portion of the bar (approximately 4250)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "totaling ~4741",
+          "evidence": "The total token count for 1 shot is 6393 - 1952 = 4441, not ~4741."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 2 shots, reasoning is ~4880",
+          "evidence": "The total token count for the 2-shot bar is 4780 (6393 - 1613). The description incorrectly assigns an approximation of this total value to the 'reasoning' component, which is only the orange portion of the bar (approximately 4500)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "totaling ~5180",
+          "evidence": "The total token count for 2 shots is 6393 - 1613 = 4780, not ~5180."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "demonstration ~500",
+          "evidence": "For 3 shots, the reasoning component is ~5000 and the total is 5353 (6393 - 1040). Therefore, the demonstration component is ~353, not ~500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "totaling ~5500",
+          "evidence": "The total token count for 3 shots is 6393 - 1040 = 5353. The approximation ~5500 is off by over 140."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart visually confirms the caption’s claim that few-shot prompting reduces reasoning tokens compared to zero-shot, while introducing demonstration tokens that partially offset the total token reduction.",
+          "evidence": "This sentence provides an interpretation by confirming a claim from the caption rather than describing the visual elements of the chart itself."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The red downward arrows with negative values highlight the magnitude of token reduction in reasoning as shots increase.",
+          "evidence": "The red arrows and values indicate the reduction in the total token count, not just the reduction in the reasoning component."
+        }
+      ],
+      "mqm_score": 61.5,
+      "total_penalty": 38.5,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit 1952 Demonstration-Tokens darüber",
+          "evidence": "The description incorrectly claims that the value for the 'Demonstration' tokens at 1 shot is 1952. The number -1952, indicated by the red arrow, represents the reduction in 'Reasoning' tokens compared to the 0-shot case, not the value of the 'Demonstration' segment. The blue 'Demonstration' segment is visibly much smaller than the indicated reduction."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit 1613 Demonstration-Tokens",
+          "evidence": "The description incorrectly claims that the value for the 'Demonstration' tokens at 2 shots is 1613. The number -1613 represents the reduction in 'Reasoning' tokens compared to the 0-shot case, not the value of the 'Demonstration' segment."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit 1040 Demonstration-Tokens",
+          "evidence": "The description incorrectly claims that the value for the 'Demonstration' tokens at 3 shots is 1040. The number -1040 represents the reduction in 'Reasoning' tokens compared to the 0-shot case, not the value of the 'Demonstration' segment."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit 1379 Demonstration-Tokens",
+          "evidence": "The description incorrectly claims that the value for the 'Demonstration' tokens at 4 shots is 1379. The number -1379 represents the reduction in 'Reasoning' tokens compared to the 0-shot case, not the value of the 'Demonstration' segment."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 2 Shot etwa 4830",
+          "evidence": "The value for the 'Reasoning' component at 2 shots is stated as approximately 4830. The correct value, as indicated by the annotations, is 6393 - 1613 = 4780. The estimate of 4830 is reasonably close, but the subsequent errors are larger."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 3 Shot etwa 5000",
+          "evidence": "The value for the 'Reasoning' component at 3 shots is stated as approximately 5000. The correct value, as indicated by the annotations, is 6393 - 1040 = 5353. The estimate is off by over 350."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 4 Shot etwa 4700",
+          "evidence": "The value for the 'Reasoning' component at 4 shots is stated as approximately 4700. The correct value, as indicated by the annotations, is 6393 - 1379 = 5014. The estimate is off by over 300."
+        }
+      ],
+      "mqm_score": 65.0,
+      "total_penalty": 35.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 70.33
+}

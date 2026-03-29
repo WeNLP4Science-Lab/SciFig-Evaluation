@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Стълбовете са групирани по категорията „Number of Shots“",
+          "evidence": "The chart is a stacked bar chart, not a grouped bar chart. Each category on the x-axis has a single stacked bar, not a group of bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "в горния десен ъгъл",
+          "evidence": "The legend is located at the top center of the chart, not in the top right corner."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the dashed horizontal line at the level of the '0 shots' bar (6393), from which the red comparison arrows originate. This line is a key visual element for understanding the annotations."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "акцентира промяната в броя на токените",
+          "evidence": "The word 'акцентира' (emphasizes) is interpretative language, stating the purpose of the visual element rather than just describing its presence."
+        }
+      ],
+      "mqm_score": 91.0,
+      "total_penalty": 9.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "As the number of shots increases, the total token count decreases",
+          "evidence": "The total token count does not strictly decrease. It decreases from 0 to 1 shot (6393 to 4441), but then increases for 2 shots (4780) and 3 shots (5353) before decreasing again for 4 shots (5014)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 4241 tokens for 1 shot, 4379 for 2 shots, 4953 for 3 shots, and 4621 for 4 shots.",
+          "evidence": "The values provided for the reasoning component are incorrect. For example, for 3 shots, the total token count is 6393 - 1040 = 5353. The description claims the demonstration component is 500, which would make the reasoning component 5353 - 500 = 4853, not 4953. Similar inaccuracies exist for shots 1 and 4."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "contributing 400, 400, 500, and 500 tokens respectively for 1 to 4 shots.",
+          "evidence": "The specific token counts for the demonstration component (the blue segments) are not labeled on the chart. These values are fabricated and not derivable from the provided information."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating the reduction in reasoning tokens compared to the zero-shot baseline.",
+          "evidence": "The red arrows and negative values indicate the reduction in the *total* token count compared to the zero-shot baseline, not just the reasoning tokens. The arrows extend from the total height of the 0-shot bar to the total height of the other bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually emphasizes that few-shot prompting significantly reduces reasoning token usage relative to zero-shot prompting, while adding a small, consistent number of demonstration tokens.",
+          "evidence": "This sentence provides an interpretation and conclusion about the data, using subjective terms like 'significantly reduces' and 'small, consistent'. The prompt specifically instructs to avoid interpretation and drawing conclusions."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "deren Werte ungefähr bei 4441 (bei 1 Shot), 4580 (bei 2 Shots), 5080 (bei 3 Shots) und 4560 (bei 4 Shots) liegen",
+          "evidence": "The description incorrectly reports the values for the 'Reasoning' component. For '1 Shot', the value 4441 is the total token count for that bar (6393 - 1952 = 4441), not the value of the orange 'Reasoning' part, which is visually around 4250. The other values are also inaccurate estimates of the 'Reasoning' component (e.g., for '4 Shots', the 'Reasoning' part is visually around 4250, not 4560)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "deren Werte bei etwa 250 (bei 1 Shot), 270 (bei 2 Shots), 460 (bei 3 Shots) und 420 (bei 4 Shots) liegen",
+          "evidence": "The estimated values for the 'Demonstration' component are inaccurate. For example, for '4 Shots', the total value is 5014 (6393 - 1379) and the 'Reasoning' part is visually around 4250, which would make the 'Demonstration' component around 764 tokens, not 420 as stated."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the dashed horizontal line at the top of the '0 Shots' bar (at the 6393 level), which serves as a baseline for the difference annotations shown for the other bars."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "und es gibt keine visuelle Hervorhebung einzelner Balken",
+          "evidence": "This statement is somewhat contradictory, as the description itself has just detailed the extensive annotations (red arrows and numerical differences) above bars 1-4, which are a form of visual highlighting or emphasis."
+        }
+      ],
+      "mqm_score": 87.5,
+      "total_penalty": 12.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.5
+}

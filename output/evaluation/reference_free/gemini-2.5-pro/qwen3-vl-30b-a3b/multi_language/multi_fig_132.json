@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_132",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the tick intervals for both the x-axis (every 2 units) and the y-axis (every 0.1 units), which was requested by the prompt."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description mentions 'markers' but fails to specify their shape (circular) or the line style (solid for all lines), both of which were required by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starting at a high value near 1.0 at layer index 0",
+          "evidence": "The plot shows no data points at layer index 0. The high values of 1.0 are at layer index 1."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Each line exhibits a fluctuating pattern, starting at a high value near 1.0 at layer index 0, decreasing sharply to a minimum around layer index 6 (with values ranging from approximately 0.62 to 0.66 depending on $ c $), and then generally increasing again, with some lines showing a sharp rise toward the end of the range.",
+          "evidence": "The prompt asks for a description of *each* line, including representative start and end values. This sentence summarizes the trend for all lines collectively and does not provide the specific details for any individual line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The lines cross and diverge at various points, indicating differences in the norm difference profiles as a function of $ c $ and layer index.",
+          "evidence": "The prompt explicitly states to 'Avoid interpreting the cause of changes or making comparisons between lines'. This sentence directly compares the lines."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.5
+}

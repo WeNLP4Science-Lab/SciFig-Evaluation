@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_096",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the tick label interval for the x-axis (20) and the y-axis (0.5), which was requested by the prompt."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that both lines are solid and have no markers, which the prompt asks for (\"line style (e.g., solid, dashed)\", \"marker shape\")."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "drops sharply to around 1.0 by step 15",
+      "evidence": "At step 15, the blue line's value is approximately 1.4, not 1.0. The value reaches 1.0 closer to step 25."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "declines steadily to about 0.35 by step 80",
+      "evidence": "The decline of the orange line is not steady; it is a piecewise linear curve with a steep drop between steps 20 and 40, and a much shallower decline afterwards. The word \"steadily\" is an inaccurate simplification."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Both curves generally trend downward, indicating improved model performance over time, with the validation loss showing less noise due to its less frequent computation.",
+      "evidence": "This sentence violates the prompt's instruction to avoid inferences and conclusions. It compares the two lines, interprets the meaning of the trend (\"indicating improved model performance\"), and explains the cause for a visual feature (\"due to its less frequent computation\")."
+    }
+  ],
+  "mqm_score": 88.5,
+  "total_penalty": 11.5,
+  "error_count": 5
+}

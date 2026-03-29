@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_100",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Фигурата илюстрира зависимостта на стойностите на следите на Хесианата (Traces × 10⁻⁵), измерени в контекста на RTE (Robustness to Task Errors), от параметъра k, който представлява броя на адаптерите в енсембъла.",
+          "evidence": "The description provides an interpretation of what 'Traces' and 'k' represent ('Hessian traces', 'number of adapters'), which is information external to the figure itself and violates the prompt's instruction to describe only the visually presented information."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "използва линейна скала",
+          "evidence": "The description states the x-axis uses a linear scale, but the tick marks (1, 2, 4, 8) are spaced approximately evenly, which indicates a logarithmic scale, not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Първата точка при k = 1 има стойност на оста Y около 3.0.",
+          "evidence": "The data point for k=1 is located at a Y-value of approximately 3.5, which is significantly higher than the stated value of 'около 3.0' (around 3.0)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "жълт квадратен маркер",
+          "evidence": "The description identifies the marker color as yellow ('жълт'), but it appears to be orange in the figure."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "on a linear scale",
+          "evidence": "The description states the x-axis is on a linear scale. However, the tick marks are placed at 1, 2, 4, and 8 with visually equal spacing between them, which indicates a logarithmic scale (base 2), not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 3.2 × 10⁻⁵",
+          "evidence": "The description states the value at k=1 is approximately 3.2, but the data point is visibly higher on the y-axis, at approximately 3.4."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting that increasing the number of adapters reduces the Hessian trace, with diminishing returns beyond k=2",
+          "evidence": "This clause is an interpretation of the data's meaning ('diminishing returns'), which goes beyond a purely objective description of the visual trend. The prompt explicitly forbids making inferences or drawing conclusions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "yellow square",
+          "evidence": "The markers are orange, not yellow."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "it drops to about 1.1 × 10⁻⁵",
+          "evidence": "The data point at k=2 is located at a y-value of almost exactly 1.0, not 1.1."
+        }
+      ],
+      "mqm_score": 82.5,
+      "total_penalty": 17.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die x-Achse ist linear skaliert",
+          "evidence": "The x-axis tick marks are at 1, 2, 4, 8, but are spaced equally, indicating a logarithmic scale (base 2), not a linear scale."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beträgt der Trace-Wert etwa 3.2 × 10⁻⁵, bei k = 2 sinkt er auf etwa 1.1 × 10⁻⁵, bei k = 4 liegt er bei etwa 0.9 × 10⁻⁵ und bei k = 8 bei etwa 0.8 × 10⁻⁵",
+          "evidence": "The description incorrectly appends '× 10⁻⁵' to the y-axis values. The chart's title/y-axis label 'Traces × 10⁻⁵ (RTE)' indicates that the values read from the axis (e.g., ~3.4) are already scaled by this factor. The description applies the factor a second time, making the reported values incorrect by a factor of 10⁻⁵."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei k = 1 beträgt der Trace-Wert etwa 3.2",
+          "evidence": "The description states the value for k=1 is approximately 3.2. However, the center of the data marker is at approximately 3.4. The value 3.2 corresponds to the lower end of the error bar, not the data point itself."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 84.0
+}

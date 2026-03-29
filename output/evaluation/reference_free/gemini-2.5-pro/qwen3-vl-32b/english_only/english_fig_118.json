@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_118",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "consistently outperforming the two ablated versions",
+      "evidence": "The prompt instructs to avoid interpretive or evaluative language like \"outperforming\"."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The MADLLM w/o feature embedding (purple) generally performs better than MADLLM w/o skip embedding (light orange).",
+      "evidence": "This generalization is incorrect. The chart shows that for the SMD and SWaT datasets, the purple bar (MADLLM w/o feature embedding) is shorter than the orange bar (MADLLM w/o skip embedding), indicating worse performance, not better."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "compared to roughly 86% and 85% for the ablated models",
+      "evidence": "For the SWaT dataset, the purple bar (MADLLM w/o feature embedding) is at approximately 85.5% and the orange bar (MADLLM w/o skip embedding) is at approximately 86%. The description inverts these values, assigning 86% to the first ablated model (purple) and 85% to the second (orange), which is incorrect."
+    }
+  ],
+  "mqm_score": 88.5,
+  "total_penalty": 11.5,
+  "error_count": 3
+}

@@ -1,0 +1,73 @@
+{
+  "figure_key": "multi_fig_059",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Хоризонталната ос съдържа категориите, визуално разделени в две основни ненадписани групи, съответстващи на двата показателя, отбелязани в горната част на графиката",
+          "evidence": "This inaccurately describes the structure of the x-axis and the chart. The horizontal axis displays four categories of methods (CoT, CoD, CCoT, CoUT). These categories are not split into two groups; rather, the entire set of four categories is presented twice—once for the 'Accuracy' metric on the left and once for the 'Token Count' metric on the right, forming two distinct plots side-by-side."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "подравнени спрямо лявата ос",
+          "evidence": "The description states that the gridlines are aligned with the left axis, but they are aligned with both the left and the right y-axes. There are faint horizontal lines corresponding to the major tick marks on both scales (e.g., at 95 on the left and 700 on the right)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "в дясната група („Token Count“) стълбовете са подредени в ясен низходящ ред, започвайки от най-високата стойност от 676.85 и намалявайки последователно до най-късия стълб със стойност 354.46",
+          "evidence": "The bars for 'Token Count' are not arranged in descending order. The values for the categories in their presented order (CoT, CoD, CCoT, CoUT) are 676.85, 534.24, 445.91, and 354.46 respectively. While these values are indeed descending, this is a coincidence of the data for the given category order, not a deliberate sorting of the bars by value. The statement is misleading because the order of the bars is fixed by the category list (CoT, CoD, CCoT, CoUT), which is the same as in the 'Accuracy' plot where the bars are not in descending order."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [],
+      "mqm_score": 100.0,
+      "total_penalty": 0.0,
+      "error_count": 0,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In der rechten Gruppe („Token Count“) sind die numerischen Werte absteigend sortiert;",
+          "evidence": "This statement is incorrect. The bars are not sorted by value. They are presented in a fixed categorical order (CoT, CoD, CCoT, CoUT), which is consistent across both groups. It is a coincidence that for the 'Token Count' metric, the values happen to decrease along this fixed categorical order."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "den höchsten Wert des gesamten Diagramms",
+          "evidence": "Comparing a value from the 'Token Count' axis (676.85) to values on the 'Accuracy (%)' axis (e.g., 91.19) to declare an overall highest value is a form of interpretation and comparison that is not explicitly supported by the chart, as the two metrics have different units and scales. The prompt asks to avoid comparisons unless explicitly labeled."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 94.33
+}

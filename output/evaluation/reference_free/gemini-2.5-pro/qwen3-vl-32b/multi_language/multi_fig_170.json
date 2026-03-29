@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_170",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "(proposed method)",
+          "evidence": "The description includes the information that ST-ES is the 'proposed method', which is taken from the paper's caption, not the plot itself. The prompt asks to describe only objective features from the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "then stabilizes between 0.82 and 0.84 for 2 to 12 examples",
+          "evidence": "The description claims the ST-ES line stabilizes between 0.82 and 0.84. However, the data points in this range go as low as approximately 0.81 (e.g., at x=10 and x=11) and as high as approximately 0.845 (at x=2). The stated range is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreases gradually to about 0.97 at 5 examples",
+          "evidence": "The description states the Random line decreases to about 0.97 at 5 examples. The data point on the chart for x=5 is clearly at a y-value of approximately 0.98."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The plot demonstrates that ST-ES consistently achieves lower minFDE₂₀ values than Random across all numbers of examples, indicating superior performance.",
+          "evidence": "This sentence makes a direct comparison between the two lines and draws a conclusion about 'superior performance', which is explicitly forbidden by the generation prompt's instruction to 'Avoid interpreting the cause of changes or making comparisons between lines'."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "(a metric with no units, as indicated by “(–)”)",
+          "evidence": "The y-axis label in the figure is \"minFDE₂₀ (←)\". The description incorrectly transcribes the symbol as \"(–)\" and misinterprets it as \"no units\". The arrow symbol \"(←)\" typically means \"lower is better\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at integer intervals",
+          "evidence": "The labeled tick marks on the x-axis are at intervals of 5 (0, 5, 10, 15), not at every integer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The y-axis is labeled “minFDE₂₀ (–)”",
+          "evidence": "The y-axis label in the figure uses the symbol (←), not (–)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "remains relatively stable between 0.83 and 0.85 for the rest of the range",
+          "evidence": "For the ST-ES method, after 2 examples, the values are consistently below 0.83, fluctuating roughly between 0.815 and 0.825. The stated range of 0.83 to 0.85 is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with a slight increase to approximately 0.84 at 15 examples",
+          "evidence": "The value for the ST-ES method at 15 examples is approximately 0.825, not 0.84."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "decreases gradually to around 0.97 at 5 examples",
+          "evidence": "For the Random method, the value at 5 examples is 0.98, not 0.97."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fluctuates slightly between 0.96 and 0.98 for the remaining examples",
+          "evidence": "For the Random method, the values for the remaining examples (x > 5) are all at or above 0.97. The lower bound of the fluctuation range is not 0.96."
+        }
+      ],
+      "mqm_score": 77.0,
+      "total_penalty": 23.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.0
+}

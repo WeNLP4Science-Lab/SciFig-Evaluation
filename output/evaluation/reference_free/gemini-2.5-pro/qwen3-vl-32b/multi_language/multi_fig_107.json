@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_107",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "като стрелките показват желаното посочване на стойностите (напр. ↑ означава по-висока стойност е по-добре, ↓ – по-ниска)",
+          "evidence": "The description interprets the meaning of the arrows next to the metric names. The prompt explicitly forbids making interpretations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "RPG (34B) – около 0.9",
+          "evidence": "For the metric CCP ↑, the value for the RPG (CodeLlama-34B) bar is approximately 0.95, not 0.9."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Някои стълби са визуално подчертани чрез по-тъмно очертаване или по-светъл фон",
+          "evidence": "The chart does not contain any visual emphasis such as darker outlines or lighter backgrounds on specific bars. The bars all have the same standard styling."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "жълто за RPG (CodeLlama-7B)",
+          "evidence": "The color used for RPG (CodeLlama-7B) is orange, not yellow."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "кафяво за RPG (CodeLlama-34B)",
+          "evidence": "The color used for RPG (CodeLlama-34B) is a dark orange or burnt orange, not brown."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "RPG (7B) – около 0.7, Greedy (34B) – около 0.7",
+          "evidence": "For the metric CCP ↑, the value for RPG (7B) is visibly higher than for Greedy (34B). Approximating both as 0.7 loses this distinction. The values are closer to 0.72 and 0.70 respectively."
+        }
+      ],
+      "mqm_score": 84.0,
+      "total_penalty": 16.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For EGP ↑, RPG (CodeLlama-7B) achieves the highest performance (~0.9), followed by RPG (CodeLlama-34B) at ~0.95",
+          "evidence": "This incorrectly ranks the performance for the EGP metric. The chart clearly shows the dark orange bar for RPG (CodeLlama-34B) is the tallest in the group (at approx. 0.98), while the gold bar for RPG (CodeLlama-7B) is shorter (at approx. 0.89)."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "For TR-N ↓, Greedy (CodeLlama-7B) performs best (~0.7)",
+          "evidence": "The prompt instructs to avoid interpretation such as 'performs best'. Furthermore, for the TR-N ↓ metric, a lower value indicates better performance. The description incorrectly identifies the bar with the highest value (Greedy 7B at ~0.7) as the 'best', when the bar with the lowest value (RPG 34B at ~0.4) would represent the best performance."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart shows that RPG generally outperforms Greedy on EGP and CCP, while Greedy performs better on TR-N and TR-S, with larger models (34B) showing higher performance in RPG-based methods.",
+          "evidence": "This entire sentence is a summary and conclusion drawn from the data, which is explicitly forbidden by the prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions about the data.'"
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "with arrows indicating the direction of preference (↑ for higher is better, ↓ for lower is better)",
+          "evidence": "The prompt asks to describe visual and labeled characteristics only, and to avoid interpretation. Explaining what the arrows mean ('higher is better') is an interpretation of the symbols rather than a direct description of the label itself."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.5
+}

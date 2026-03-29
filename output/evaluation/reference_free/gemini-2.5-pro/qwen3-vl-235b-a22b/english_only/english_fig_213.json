@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_213",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description details the vertical axis but does not describe the horizontal axis, which displays the four categorical stages of post-training: Base, SFT, DPO Stage 1, and Final."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "rise sharply",
+      "evidence": "The description uses interpretive and comparative language such as \"drop slightly,\" \"fall,\" and \"rise sharply\" to describe the data, which goes against the prompt's instruction to remain objective and avoid interpreting trends."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually emphasizes a clear trend: as post-training progresses, the model increasingly avoids attempting SimpleQA problems—particularly those it would likely answer incorrectly—thereby reducing hallucinations, even though this results in a lower simple-evals F1 score compared to the base model, as noted in the accompanying caption.",
+      "evidence": "This entire sentence is an interpretation of the data and includes information from the paper's caption (e.g., 'reducing hallucinations', 'simple-evals F1 score') rather than describing only the visual elements of the chart, which violates the prompt's core instructions."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At the Base stage, the model correctly answers 6.8% of questions",
+      "evidence": "The label '6.8%' on the chart is not for the 'Correct' category. The 'Correct' bar (green) for the 'Base' stage is visually larger than for the 'SFT' stage (3.7%), but the sum of the other two labeled segments in the 'Base' bar (90.0% Incorrect and 3.2% Not Attempted) is 93.2%, leaving 6.8% unaccounted for. The label '6.8%' is positioned ambiguously near the origin and the 'Base' label, not clearly associated with any segment."
+    }
+  ],
+  "mqm_score": 86.5,
+  "total_penalty": 13.5,
+  "error_count": 4
+}

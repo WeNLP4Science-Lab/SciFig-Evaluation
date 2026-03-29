@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_147",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectStructuralDescription",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "on a logarithmic scale",
+      "evidence": "The x-axis, labeled 'log r', has evenly spaced tick marks (0, 2, 4, 6, 8), indicating it is a linear scale, not a logarithmic one."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectNumericalValue",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "y-axis shows the ROUGE-1 score, ranging from 0 to 35",
+      "evidence": "The y-axis range visually extends to 40, and the maximum data point for the green line is approximately 36, which is outside the stated range of 0 to 35."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectNumericalValue",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "declines to around 27.2 at log r = 9",
+      "evidence": "For the red line (T5 + LoRA), the value at log r = 8 is exactly 27. The value at log r = 9 is visibly lower than 27, approximately 26.8. The stated value of 27.2 is incorrect as it would be an increase."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectNumericalValue",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "rises to a peak of 27.2 at log r = 4",
+      "evidence": "For the purple line (MBart + LoRA), the value at log r = 4 is approximately 27.0. The value 27.2 is reached later at log r = 5 and 6."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "then rises more sharply to a peak of 33.8 at log r = 9",
+      "evidence": "For the orange line (MBart + AdaLoRA), the curve is still trending upwards at the last data point (log r = 9). Calling this point a 'peak' is an unsubstantiated interpretation of the trend, as the peak may occur at a higher log r value not shown in the chart."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectVisualAttributeMapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The yellow line",
+      "evidence": "The line corresponding to MBart + AdaLoRA is colored orange in the plot, not yellow."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Overall, T5 + AdaLoRA achieves the highest ROUGE-1 scores across the range of log r values",
+      "evidence": "At log r = 0, the T5 + AdaLoRA (green) and T5 + LoRA (red) lines start at the exact same ROUGE-1 score (approximately 23). Therefore, T5 + AdaLoRA is not the highest across the entire range."
+    }
+  ],
+  "mqm_score": 77.0,
+  "total_penalty": 23.0,
+  "error_count": 7
+}

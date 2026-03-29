@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_100",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Фигурата илюстрира как се променя следата на Хесиана (Traces), изразена в единици ×10⁻⁵ и измерена чрез RTE (Reading Comprehension Task Error), при увеличаване на броя на адаптерите k, като сумата от техните размерности е фиксирана на 256.",
+          "evidence": "This sentence provides an interpretation of the chart's purpose (Hessian trace, number of adapters, fixed dimensions) using external information from the paper's caption, which is not present in the figure itself. The figure only shows a plot of 'Traces × 10⁻⁵ (RTE)' versus 'k'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "които представляват броя на адаптерите в ансамбъла",
+          "evidence": "This clause interprets the variable 'k' as 'the number of adapters in the ensemble', which is information derived from the caption, not from the visual elements of the plot itself."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "скалата е линейна",
+          "evidence": "The description incorrectly states that the x-axis scale is linear. The tick values (1, 2, 4, 8) follow a logarithmic progression (base 2), not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "стойностите са от 0 до 3.0",
+          "evidence": "The description incorrectly states that the y-axis values range from 0 to 3.0. While the labeled ticks go up to 3.0, the first data point is clearly above this, at approximately 3.5."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "under the constraint that the total dimension of the *k* adapters sums to 256",
+          "evidence": "This information is not present in the plot itself but is taken from the external context (the paper's caption)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The x-axis is linear",
+          "evidence": "The x-axis scale is not linear. The tick marks are at 1, 2, 4, and 8, which represents a logarithmic (base 2) or exponential scale, not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "at *k* = 8, it slightly decreases to approximately 0.9 × 10⁻⁵",
+          "evidence": "The value at k=4 is approximately 0.9 x 10^-5. The value at k=8 is visibly lower, closer to 0.8 x 10^-5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The trend indicates that increasing the number of adapters (while keeping total dimension fixed) reduces the Hessian trace, suggesting convergence to flatter minima, consistent with the caption’s claim that ensembling leads to lower generalization errors and sharper minima.",
+          "evidence": "This sentence provides an interpretation of the trend and connects it to claims in the caption, which goes beyond describing the visual data. It also contains a factual error by misstating the caption's claim; the caption implies 'flatter minima' for lower trace values, but the description incorrectly says 'sharper minima'."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Das Diagramm illustriert die Hessian-Spur (Traces × 10⁻⁵, RTE) in Abhängigkeit von der Anzahl k der Adapter im Ensemble, wobei die Summe der Dimensionen aller k Adapter auf 256 fixiert ist.",
+          "evidence": "This sentence provides external context from the paper's caption (Hessian trace, adapter ensemble, sum of dimensions) that is not directly available in the figure's visual elements like labels or title."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "skaliert linear von 0 bis 3.5",
+          "evidence": "The description states the y-axis range is from 0 to 3.5. While 3.5 is the approximate maximum data value, the axis itself extends visibly beyond this point to approximately 3.8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "horizontalen Fehlerbalken",
+          "evidence": "The description incorrectly states that the data points have horizontal error bars. The image clearly shows vertical error bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei k=4 bleibt er nahezu konstant bei etwa 1.0 × 10⁻⁵; und bei k=8 sinkt er leicht auf etwa 0.9 × 10⁻⁵",
+          "evidence": "The reported values for k=4 and k=8 are incorrect. The plot shows the value at k=4 is approximately 0.9, not 1.0. The value at k=8 is approximately 0.8, not 0.9. This misrepresents the data and the trend."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.5
+}

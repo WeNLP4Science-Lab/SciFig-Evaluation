@@ -1,0 +1,84 @@
+{
+  "figure_key": "english_fig_147",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "on a logarithmic scale",
+      "evidence": "The x-axis scale is linear, as indicated by the evenly spaced tick marks (0, 2, 4, 6, 8). The label is 'log r', meaning the variable being plotted is a logarithm, but the scale itself is not logarithmic."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "increases to a peak of about 28.5 at log r = 4",
+      "evidence": "For the red line (T5 + LoRA), the value at log r = 4 is approximately 28.8, which is the peak. The value 28.5 corresponds to log r = 3."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "gradually declines to around 27.2 at log r = 9",
+      "evidence": "For the red line (T5 + LoRA), the value at log r = 9 is approximately 26.8, not 27.2."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "steadily increases to a peak of 35.8 at log r = 4",
+      "evidence": "For the green line (T5 + AdaLoRA), the value at log r = 4 is approximately 36.0, not 35.8. Furthermore, the line continues to rise slightly, reaching its peak of approximately 36.2 from log r = 7 to 9, so log r = 4 is not the peak."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "then rises to a peak of 27.2 at log r = 4",
+      "evidence": "For the purple line (MBart + LoRA), the value at log r = 4 is 27.2, but this is not the peak. The line continues to rise to a peak of approximately 27.5 at log r = 7."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The yellow line",
+      "evidence": "The line representing MBart + AdaLoRA is orange, not yellow."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "a peak of 33.8 at log r = 9",
+      "evidence": "For the orange line (MBart + AdaLoRA), the value at log r = 9 is approximately 33.5, not 33.8. The line also plateaus from log r=7 onwards, so it is not a singular peak at log r=9."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the marker shape (circles) and line style (solid) for all four lines, despite the prompt's requirement to include these details for each line."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Overall, T5 + AdaLoRA achieves the highest ROUGE-1 scores across the range of log r values, while MBart + LoRA shows the lowest performance, particularly at lower values of log r.",
+      "evidence": "This sentence makes direct comparisons between different lines, which was explicitly forbidden by the generation prompt ('Avoid ... making comparisons between lines')."
+    }
+  ],
+  "mqm_score": 67.0,
+  "total_penalty": 33.0,
+  "error_count": 9
+}

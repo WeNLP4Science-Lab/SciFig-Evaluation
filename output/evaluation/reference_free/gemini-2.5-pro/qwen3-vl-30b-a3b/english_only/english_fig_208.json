@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_208",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Scatter Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Consistency-Bi + beam consistently achieves the highest BLEU scores across all AL values, followed by Consistency-Bi + sampling, and then Consistency-CE",
+      "evidence": "This describes an incorrect and over-simplified ranking. The orange line (Consistency-Bi + sampling) is visibly higher than the green line (Consistency-Bi + beam) for most of the x-axis range (approximately AL < 5). The ranking of the methods is not consistent across all AL values."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The performance gap between the methods widens as AL increases",
+      "evidence": "This is an interpretive claim about the relationship between the data series over time, rather than an objective description of the data points. The prompt requires avoiding such interpretations."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "about 28.5 for Consistency-Bi + sampling",
+      "evidence": "At AL = 8, the BLEU score for 'Consistency-Bi + sampling' (orange triangle) is approximately 29.4, not 28.5."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "29.0 for Consistency-CE",
+      "evidence": "At AL = 8, the BLEU score for 'Consistency-CE' (blue circle) is approximately 28.6, not 29.0."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "This suggests that incorporating beam search into the consistency framework yields superior translation quality, especially at higher levels of lagging.",
+      "evidence": "This sentence draws a conclusion and speculates on the meaning of the data, which is explicitly forbidden by the generation prompt's instruction to 'Avoid interpreting results, drawing conclusions, or speculating on the meaning of the data.'"
+    }
+  ],
+  "mqm_score": 78.0,
+  "total_penalty": 22.0,
+  "error_count": 5
+}

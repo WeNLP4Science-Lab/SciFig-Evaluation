@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the tick interval for the y-axis, which is 25."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "blue for L=16, red for L=32, and black for L=64",
+          "evidence": "The description incorrectly maps the colors to the sequence lengths. According to the legend, L=16 is light gray, L=32 is blue, and L=64 is red."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the dKV-Cache-Decode method consistently outperforming the Origin method.",
+          "evidence": "The prompt explicitly forbids making comparisons between lines, but this phrase directly compares the performance of the two methods."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at a batch size of 120",
+          "evidence": "The final data points for which values are provided are at a batch size of 128, not 120."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "81.18, and 59.71 tokens/s for L=16, 32, 64, and 128 respectively",
+          "evidence": "The values listed for the dKV-Cache-Decode method are incorrect for L=64 and L=128. The chart shows the value for L=64 is 130.58 and for L=128 is 81.18. The description incorrectly lists 81.18 for L=64 and 59.71 (a value from a different line) for L=128."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while the Origin method achieves speeds of 35.42, 48.83, 69.62, and 59.71 tokens/s for the same sequence lengths.",
+          "evidence": "The list of values for the Origin method is completely scrambled. For sequence lengths L=16, 32, 64, and 128, the correct values are 69.62, 59.71, 48.93, and 35.42 respectively. The description lists them in an incorrect order and also contains a typo (48.83 instead of 48.93)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The performance gap between the two methods widens as the batch size increases, highlighting the efficiency gains of the dKV-Cache-Decode method.",
+          "evidence": "This sentence draws a conclusion about the performance gap and efficiency gains, which is an interpretation forbidden by the prompt."
+        }
+      ],
+      "mqm_score": 71.5,
+      "total_penalty": 28.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 71.5
+}

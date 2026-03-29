@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_148",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The \"tiny AdaLoRA_int4\" and \"tiny AdaLoRA_int8\" lines converge to a WER of approximately 40",
+      "evidence": "This statement is incorrect. While the \"tiny AdaLoRA_int4\" line ends at a WER of approximately 40, the \"tiny AdaLoRA_int8\" line (solid line with square markers) ends at a much lower WER of approximately 32."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with different amounts of trainable weights",
+      "evidence": "The prompt asks the model to describe what is shown without making inferences. Stating that the different configurations correspond to 'different amounts of trainable weights' is an interpretation of the legend labels ('int4', 'int8', 'full'), not information directly stated in the plot's labels or title."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The \"tiny full\" line shows the most significant improvement, decreasing by over 70% from its initial value.",
+      "evidence": "The \"tiny full\" line starts at a WER of approximately 29 and ends at approximately 23. This is a decrease of about 21% ((29-23)/29), not over 70%."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The \"tiny full\" line shows the most significant improvement",
+      "evidence": "The prompt explicitly states to avoid making comparisons between lines. Labeling one line's change as the \"most significant improvement\" is a comparative interpretation, which violates the prompt's instructions."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "while the \"tiny int4\" and \"tiny int8\" lines converge to a WER of approximately 37.",
+      "evidence": "The two lines do not converge to the same value. The \"tiny int4\" line ends at approximately 37, but the \"tiny int8\" line ends at a different value, approximately 35. Stating they both converge to 37 is an over-generalization."
+    }
+  ],
+  "mqm_score": 82.0,
+  "total_penalty": 18.0,
+  "error_count": 5
+}

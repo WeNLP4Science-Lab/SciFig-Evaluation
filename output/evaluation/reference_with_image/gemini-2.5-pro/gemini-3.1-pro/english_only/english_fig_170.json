@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_170",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "16, 32, 64, 128, and 256",
+      "evidence": "The x-axis tick labels are 1632, 64, 128, and 256. The description hallucinates ticks at 16 and 32, and omits the 1632 tick."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "from 16 to 256",
+      "evidence": "The x-axis range depicted starts at 1632, not 16. The starting point '16' is hallucinated."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "at x=16",
+      "evidence": "The first data point for the MoHD model is at x=1632, not x=16."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "rising to roughly 10.5 at x=32",
+      "evidence": "The plot does not show a data point for the MoHD model at x=32. This data point is an invention."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "10.55 at x=64",
+      "evidence": "At x=64, the value for the MoHD line is approximately 10.5, not 10.55."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "highlights the space between the higher Transformer line and the lower MoHD line",
+      "evidence": "The light blue shaded region is between the Transformer line (at y~11.6) and a horizontal line at y=10.5. The lower boundary is not the MoHD line, which moves both within and below this region."
+    }
+  ],
+  "mqm_score": 76.0,
+  "total_penalty": 24.0,
+  "error_count": 6
+}

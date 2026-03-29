@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_125",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "begins at approximately 0.28 when |S| = 2",
+          "evidence": "The starting value for the \"QLoRA\" line at |S| = 2 is approximately 0.29, not 0.28."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "then stabilizes around 0.17 for |S| ≥ 8",
+          "evidence": "The line for \"QLoRA\" does not stabilize for |S| ≥ 8; it continues to decrease from approximately 0.17 at |S|=8 to approximately 0.16 at |S|=10."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Both lines show a general downward trend as |S| increases",
+          "evidence": "The prompt explicitly states to \"Avoid ... making comparisons between lines.\" This phrase compares the two lines by describing a shared trend, violating the instruction."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "decreases more steeply",
+          "evidence": "The description compares the trends of the two lines ('more steeply'), which is explicitly forbidden by the prompt's instruction to 'Avoid... making comparisons between lines' ('Vermeiden Sie es, ... Vergleiche zwischen Linien anzustellen')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating that the similarity between the ensemble models and single-task models diminishes with larger subset sizes",
+          "evidence": "This clause interprets the meaning of the downward trend, which violates the prompt's instruction to 'avoid interpreting the cause for changes or drawing conclusions' ('Vermeiden Sie es, die Ursache für Veränderungen zu interpretieren oder Schlussfolgerungen zu ziehen'). The description should only state the visual trend, not what it indicates."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 94.75
+}

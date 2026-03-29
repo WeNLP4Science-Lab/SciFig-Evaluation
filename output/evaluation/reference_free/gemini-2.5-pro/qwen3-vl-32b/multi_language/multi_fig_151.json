@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_151",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Lower values indicate higher probability or better model performance in predicting the tokens.",
+          "evidence": "The prompt explicitly instructs to avoid making inferences or drawing conclusions. This sentence interprets the meaning of the y-axis values in terms of model performance, which goes beyond objective description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In each group, the baseline model (blue bar) consistently shows the highest negative log probability",
+          "evidence": "This statement is incorrect. While it holds for four of the six groups, in the \"Gastro\" and \"Infect\" groups, the baseline model (blue bar) shows the lowest (most negative) log probability, not the highest (least negative)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the fine-tuned models show significantly lower negative log probabilities (better performance), with the most improvement occurring when the model is fine-tuned on the corresponding specialty",
+          "evidence": "The prompt instructs to avoid interpretation. Using evaluative language like \"significantly\", \"better performance\", and \"most improvement\" constitutes interpretation and comparison, which is forbidden."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in the \"Neuro\" group, the Neuro-fine-tuned model (medium brown) achieves approximately -25.5",
+          "evidence": "The bar for the Neuro-fine-tuned model in the \"Neuro\" group reaches approximately -24.5 on the y-axis, not -25.5. The reported value is off by a full unit on the axis."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart demonstrates that fine-tuning on specialty-specific data significantly improves a model’s ability to generate or predict terms relevant to that specialty.",
+          "evidence": "This is a concluding summary that interprets the overall meaning of the data, directly violating the prompt's instruction to \"Avoid making inferences, comparisons, or drawing conclusions about the data.\""
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not provide any approximate numerical values for the bars, which was explicitly requested by the prompt (e.g., \"Geben Sie nach Möglichkeit repräsentative Werte aus den kürzesten und höchsten Balken an\" - \"Provide representative values from the shortest and highest bars if possible\"). For example, it could have mentioned that in the 'Cardio' group, the baseline model has a value of approximately -27, while the Cardio fine-tuned model has a value of approximately -22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating lower likelihood of generating relevant tokens for that specialty",
+          "evidence": "This clause interprets the meaning of the negative log probability, which the prompt explicitly forbids. The instruction was to describe the visual data objectively, not to draw conclusions about what it indicates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "suggesting improved performance in generating specialty-specific tokens",
+          "evidence": "This clause interprets the meaning of the data values (\"improved performance\"), which violates the prompt's instruction to avoid interpretation and stick to describing visual features."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating the best performance for that specialty",
+          "evidence": "This is an interpretation of the data (\"best performance\"), not an objective description of the visual element. The prompt instructed the model to avoid such conclusions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart visually demonstrates that fine-tuning on a specific specialty improves the model’s ability to generate relevant tokens for that specialty, with the most significant improvement observed when the model is fine-tuned on the same specialty as the evaluation set.",
+          "evidence": "This entire sentence is a summary conclusion about the trend shown in the data. The prompt explicitly forbids drawing conclusions or interpreting trends (\"Vermeiden Sie es, Schlussfolgerungen zu ziehen... Konzentrieren Sie sich ausschließlich auf visuelle und beschriftete Merkmale\")."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.0
+}

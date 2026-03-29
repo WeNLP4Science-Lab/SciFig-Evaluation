@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_129",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the inference times are stacked vertically",
+      "evidence": "The charts are two separate horizontal bar charts where each bar represents a method. The bars are not stacked on top of each other to form a total."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "SFT (~2.0 minutes)",
+      "evidence": "In the Marco-o1-7B chart, the bar for SFT has approximately the same length as the bar for Fast-Solving Prompt, which is correctly identified as ~2.1 minutes, not 2.0 minutes."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Fast-Solving Prompt (~5.0 minutes)",
+      "evidence": "In the QwQ-32B-Preview chart, the bar for Fast-Solving Prompt extends to approximately 5.2 minutes, not 5.0 minutes."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "visually emphasized by its position at the bottom of each stacked bar",
+      "evidence": "There is no visual emphasis on any bar. The description also incorrectly refers to a non-existent stacked bar structure."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart demonstrates that O1-Pruner significantly reduces inference latency compared to other methods, particularly for the larger QwQ-32B-Preview model, supporting the paper’s claim of effective acceleration for long-thought reasoning models of varying sizes.",
+      "evidence": "This entire sentence provides interpretation, draws conclusions about significance and effectiveness, and references the paper's claims, all of which are explicitly forbidden by the generation prompt."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention or describe the categorical y-axis, which implicitly lists the five methods being compared in each chart."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The O1-Pruner method consistently achieves the shortest inference time in both models",
+      "evidence": "This is a comparative conclusion, which the prompt instructs to avoid."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "The x-axis represents inference time in minutes, ranging from 0 to 7, with tick marks at 0.5 or 1-minute intervals.",
+      "evidence": "This description inaccurately combines the properties of the two separate x-axes. The left chart's axis ranges from 0 to 2.5 with 0.5-minute intervals, while the right chart's axis ranges from 0 to 7 with 1-minute intervals."
+    }
+  ],
+  "mqm_score": 79.0,
+  "total_penalty": 21.0,
+  "error_count": 8
+}

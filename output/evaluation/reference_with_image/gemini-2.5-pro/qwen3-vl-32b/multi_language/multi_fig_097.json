@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_097",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "жълт квадратен маркер",
+          "evidence": "The markers on the plot are orange, not yellow as stated in the description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "вертикални грешки (error bars)",
+          "evidence": "The description states that the error bars are vertical, but they are clearly horizontal in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "При Rank = 4, стойността на Traces × 10⁻⁵ (COPA) е около 1.0.",
+          "evidence": "The value at Rank = 4 is visibly above 1.0 (approximately 1.2), while the value at Rank = 16 is closer to 1.0. The description's approximation is inaccurate and obscures the slight decrease between the first two points."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Ос Y е обозначена като \"Traces × 10⁻⁵ (COPA)\"",
+          "evidence": "The Y-axis itself does not have a label. \"Traces × 10⁻⁵ (COPA)\" is the title of the chart, although it does describe the quantity on the Y-axis."
+        }
+      ],
+      "mqm_score": 89.0,
+      "total_penalty": 11.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "the Hessian trace values (scaled by 10⁻⁵) for COPA as a function of the rank of QLoRA adapters",
+          "evidence": "The description uses terms like 'Hessian trace values' and 'QLoRA adapters' which are interpretations from the caption, not labels explicitly present on the figure itself. The figure's title is 'Traces'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "vertical error bars",
+          "evidence": "The error bars on the data points are horizontal, not vertical."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At a rank of 4, the trace value is approximately 1.0",
+          "evidence": "The data point at rank 4 has a y-value closer to 1.4, not 1.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at rank 64, it increases to approximately 4.0",
+          "evidence": "The data point at rank 64 has a y-value of approximately 3.5. The value 4.0 corresponds to the grid line, and the marker is clearly below it."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "The trend shows that the Hessian trace increases with rank",
+          "evidence": "This statement is an over-generalization as the trace value decreases from rank 4 to rank 16 before it begins to increase."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting that higher-rank adapters converge to sharper minima, while lower-rank adapters (e.g., rank 16) achieve flatter minima, which correlates with lower generalization errors as noted in the caption",
+          "evidence": "This clause provides scientific interpretation and conclusions about the data ('sharper minima', 'flatter minima', 'generalization errors') that are not visually represented in the chart."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "die Hessian-Trace-Werte (multipliziert mit 10⁻⁵) für das COPA-Dataset in Abhängigkeit vom Rang (Rank) der Adapter in einem QLoRA-Modell",
+          "evidence": "The description provides an interpretation of what the traces represent (\"Hessian-Trace-Werte\") and their context (\"Adapter in einem QLoRA-Modell\"). This information is not present in the visible labels of the plot itself, which only states \"Traces × 10⁻⁵ (COPA)\"."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description only mentions vertical error bars (\"vertikalen Fehlern\"), but the plot also shows horizontal error bars at each data point."
+        }
+      ],
+      "mqm_score": 97.0,
+      "total_penalty": 3.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.0
+}

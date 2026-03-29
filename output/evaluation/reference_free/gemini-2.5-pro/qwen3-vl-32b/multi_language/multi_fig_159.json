@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_159",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "integer tick labels at each unit",
+          "evidence": "The major tick labels on the x-axis are at every two units (0, 2, 4, 6, 8), not at each integer unit."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "minFDE₂₀ (↑)",
+          "evidence": "The y-axis label in the figure is 'minFDE₂₀ (←)', with a left-pointing arrow, not a right-pointing or up-pointing arrow."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating a higher value is better",
+          "evidence": "The left-pointing arrow (←) next to the y-axis label 'minFDE₂₀' indicates that a lower value is better, which is typical for an error metric. The description incorrectly states the opposite."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "showing minimal improvement beyond 1 example",
+          "evidence": "This phrase provides an interpretation of the data trend ('minimal improvement'), which is explicitly forbidden by the generation prompt's instruction to 'Avoid interpreting the cause of changes or making comparisons between lines'."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "(in meters)",
+          "evidence": "The description states the y-axis unit is 'meters', which is not mentioned anywhere in the figure. The axis label is 'minFDE₂₀ (←)'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at integer intervals",
+          "evidence": "The description states the x-axis has tick marks at integer intervals, but the figure shows tick marks at intervals of 2 (0, 2, 4, 6, 8)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "(→)",
+          "evidence": "The description incorrectly uses a right-pointing arrow (→) in the y-axis label, whereas the figure shows a left-pointing arrow (←)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "approximately 21.2",
+          "evidence": "The starting value for ST-ES at 0 examples is stated as approximately 21.2, but the data point in the figure is visibly higher, at approximately 21.6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizes between 17.4 and 17.6 for 2 to 8 examples",
+          "evidence": "The description claims the ST-ES line stabilizes between 17.4 and 17.6 from 2 to 8 examples. However, the data points at x=2 and x=3 are at approximately 17.7, and the point at x=6 is at approximately 17.25, both of which are outside the specified range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "remains nearly constant between 21.8 and 22.0 for 4 to 8 examples",
+          "evidence": "The description claims the Random line remains between 21.8 and 22.0 for 4 to 8 examples. However, the data points at x=5 (approx. 21.7) and x=8 (approx. 21.6) fall below this range."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The blue line for ST-ES consistently lies below the orange line for Random across all example counts, indicating better performance.",
+          "evidence": "This sentence provides a comparison between the two lines and interprets what this means ('indicating better performance'), which violates the prompt's explicit instruction to avoid comparisons and interpretations."
+        }
+      ],
+      "mqm_score": 77.0,
+      "total_penalty": 23.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.75
+}

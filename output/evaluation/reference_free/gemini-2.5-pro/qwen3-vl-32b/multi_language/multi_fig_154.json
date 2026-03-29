@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_154",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spanning from 10⁻⁵ to 10⁻⁴",
+          "evidence": "The range of the y-axis is incorrectly stated. The highest bar (at index 46) has a value of approximately 4x10⁻⁴, which is significantly higher than the stated upper bound of 10⁻⁴."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, two bars are shown: blue represents 4-Fbit quantization and green represents 2-Fbit quantization",
+          "evidence": "This is incorrect. The chart does not show two bars for each block index. For indices 0 to approximately 26, only green bars (2-Fbit) are present. For later indices, blue (4-Fbit) and green bars appear, but they are not paired at each index. For example, index 32 has a green bar, while index 33 has a blue bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart shows that for lower block indices (0–~25), the green (2-Fbit) bars are generally taller than the blue (4-Fbit) bars",
+          "evidence": "This statement makes a comparison with blue (4-Fbit) bars in a range (indices 0-~25) where they do not exist in the chart. This is a hallucination based on the incorrect assumption that bars are paired at each index."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "At approximately block index 27, the blue bars begin to surpass the green bars in height, and from block index 30 onward, the blue bars are consistently taller",
+          "evidence": "This comparison is invalid and constitutes an unwarranted interpretation because the bars are not paired at each index, so a direct 'surpassing' or 'consistently taller' comparison cannot be made. For example, at index 27 there is a blue bar but no green bar to compare it against."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with values approaching 10⁻⁴",
+          "evidence": "This significantly understates the values of the tallest bars. The highest bars, particularly at index 46, have values well above 10⁻⁴ (approximately 4x10⁻⁴), not merely 'approaching' it."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spanning from approximately 10⁻⁶ to 10⁻⁴",
+          "evidence": "The description states the sensitivity spans up to 10⁻⁴, but the highest bars clearly extend beyond this mark, reaching approximately 2x10⁻⁴ or 3x10⁻⁴."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, two bars are shown side-by-side: the blue bar corresponds to the 4-Fbit quantization, and the green bar to the 2-Fbit quantization.",
+          "evidence": "The chart does not show two bars side-by-side for each block index. Instead, each block index has a single bar, which is either blue (4-Fbit) or green (2-Fbit)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Sensitivity values for the 2-Fbit scheme (green bars) are generally lower",
+          "evidence": "The description makes a comparison between the two quantization schemes ('lower'), which violates the prompt's instruction to avoid making comparisons or drawing conclusions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "In contrast, the 4-Fbit scheme (blue bars) shows significantly higher sensitivity",
+          "evidence": "The description uses comparative and evaluative language ('In contrast', 'significantly higher') to compare the two schemes, which is an interpretation forbidden by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "exceeds 10⁻⁴ for blocks 45 and 47",
+          "evidence": "The bars for blocks 45, 46, and 47 all exceed 10⁻⁴. The bar for block 46 is the highest on the chart, but it is omitted from this statement."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.25
+}

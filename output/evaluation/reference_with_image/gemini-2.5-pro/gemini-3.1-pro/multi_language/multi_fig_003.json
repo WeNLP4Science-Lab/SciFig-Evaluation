@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достигайки над 30 за диаграми (a) и (c) и над 400 за диаграма (b)",
+          "evidence": "In charts (a) and (c), the value for the 'Uniform' bar at 3 bits is approximately 29, which is below 30, not over 30 ('над 30'). In chart (b), the value is approximately 400, not over 400 ('над 400')."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "най-късите стълбове са оранжевите („Ours“) при 8 и 16 бита",
+          "evidence": "This statement incorrectly generalizes that the shortest 'Ours' bars are at 8 and 16 bits for all charts. In chart (b) PTB, the shortest orange bar is at 4 bits (value approx. 175), while the bars at 8 and 16 bits are slightly taller (value approx. 180)."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Наблюдава се ясно изразено последователно намаляване на височината на сините стълбове при прехода от 3 към 4 и 8 бита",
+          "evidence": "The description claims a consecutive decrease for the blue ('Uniform') bars from 3 to 4 and then to 8 bits. This trend does not apply to charts (a) and (c), where the value decreases from 3 to 4 bits but then plateaus between 4 and 8 bits. This is an incorrect generalization based only on the trend in chart (b)."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with an approximate value of 31",
+          "evidence": "In chart (a) WikiText, the bar for 'Uniform' at 3 bits is clearly below the y-axis tick for 30, with a value of approximately 29. The description incorrectly states the value is 31."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reicht die Höhe der blauen \"Uniform\"-Balken von einem Höchstwert von etwa 31 bei 3 Bits",
+          "evidence": "In plot (a) WikiText, the bar for 'Uniform' at 3 bits has a value of approximately 29, as it is clearly below the 30 mark on the y-axis. Stating the value is 'etwa 31' is a factual error."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Im Diagramm (b) PTB zeigt der blaue \"Uniform\"-Balken bei 3 Bits den höchsten absoluten Wert von etwa 420",
+          "evidence": "In plot (b) PTB, the y-axis ticks are in increments of 50. The bar for 'Uniform' at 3 bits extends slightly above the 400 mark, to a value of approximately 410. A value of 420 is a significant overestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "misst der höchste blaue \"Uniform\"-Balken bei 3 Bits etwa 30",
+          "evidence": "In plot (c) C4, the bar for 'Uniform' at 3 bits is visibly below the 30 mark on the y-axis, at a value of approximately 29. Stating the value is 'etwa 30' (approximately 30) is an overestimation."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 91.0
+}

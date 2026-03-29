@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_153",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "10³",
+          "evidence": "The y-axis range ends at 10⁻³, not 10³."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each block index has two corresponding bars: a blue bar for 4-bit quantization and a green bar for 2-bit quantization.",
+          "evidence": "The chart does not show two bars for each block index. Instead, each index has a single bar, which is either blue (4-Fbit) or green (2-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "increasing from approximately 10⁻⁴",
+          "evidence": "The description claims the 4-bit sensitivity trend across indices 13, 20, and 27 starts at 10⁻⁴. However, the 4-bit bar at index 13 has a value closer to 4x10⁻⁵."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the x-axis tick labels omits the labeled position at '6'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the 2-bit sensitivity is slightly lower at around 10⁻⁵",
+          "evidence": "This part of the sentence describes a 2-bit bar at block index 0, but no such bar exists in the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "For block indices 13, 20, and 27, the 4-bit sensitivity values are consistently higher than the 2-bit values",
+          "evidence": "This statement is based on the incorrect assumption that both bar types exist at these indices. In the figure, index 13 and 27 only have a 4-bit bar, and index 20 only has a 2-bit bar. The comparison is made against non-existent data points."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "4-bit quantization exhibits higher sensitivity than 2-bit quantization across all blocks",
+          "evidence": "This generalization is incorrect. For example, the 2-bit bar at index 12 has a higher sensitivity value than the 4-bit bar at index 13."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 76.5
+}

@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_118",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "for the Llama-3-8B model across ten NLP tasks",
+          "evidence": "This information is taken from the paper's caption provided in the context, not from the visual elements of the chart itself (title, axes, labels). The prompt instructs to describe only what is shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are sorted from left to right in descending order of GPU memory usage.",
+          "evidence": "The bars are not sorted in descending order. The values are approximately 72, 43, 19, 17, 8, and 19 GB. The bar for 'QAdapter' (8 GB) breaks the descending pattern, as does the final bar for 'Ours' (19 GB)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "matching TAG’s memory usage and significantly less than Full FT and MTL-FT",
+          "evidence": "The prompt explicitly forbids making comparisons between categories and using subjective or evaluative language like 'significantly'. The description should only report the approximate values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "likely emphasizing its performance relative to other methods",
+          "evidence": "This is an inference about the author's intent behind the color choice, which is disallowed by the prompt. The description should only state that the bar is visually distinct due to its color, not speculate on the reason."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 0 to 60",
+          "evidence": "The description states the vertical axis ranges from 0 to 60. While the tick marks stop at 60, the data for the 'Full FT' bar extends significantly higher, to approximately 75 GB, making the described range inaccurate for the data shown."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Full FT consumes approximately 68 GB",
+          "evidence": "The bar for 'Full FT' is significantly taller than the 60 GB gridline, reaching approximately 75 GB. The stated value of 68 GB is a substantial underestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "TAG about 22 GB",
+          "evidence": "The bar for 'TAG' aligns almost exactly with the 20 GB gridline, not 22 GB."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "'Ours,' uses about 15 GB",
+          "evidence": "The bar for 'Ours' is clearly higher than the bar for 'QAdapter' (approx. 9 GB) and aligns with the 20 GB gridline. The value of 15 GB is a significant underestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Adapter roughly 20 GB",
+          "evidence": "The bar for 'Adapter' is visibly shorter than the bar for 'TAG' and is below the 20 GB gridline, at approximately 18 GB. The value 20 GB is an overestimation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "which is slightly higher than QAdapter but significantly lower than the other methods.",
+          "evidence": "The prompt explicitly forbids making comparisons and using subjective language. This phrase contains both a direct comparison ('higher than', 'lower than') and evaluative language ('significantly')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating a small increase in memory cost compared to QAdapter but still substantially lower than the full fine-tuning approaches.",
+          "evidence": "This phrase violates the prompt's instructions by making comparisons ('compared to', 'lower than') and using interpretive, subjective language ('small increase', 'substantially lower') instead of just describing the visual elements."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "The GPU memory usage decreases from left to right",
+          "evidence": "This statement is an over-generalization because the last bar, 'Ours', is higher than the preceding bar, 'QAdapter'. The trend is not consistently decreasing."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.25
+}

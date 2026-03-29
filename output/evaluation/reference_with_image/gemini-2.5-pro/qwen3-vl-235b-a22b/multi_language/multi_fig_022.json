@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_022",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "за изхода на SDPA (Scaled Dot-Product Attention)",
+          "evidence": "The description introduces the term \"SDPA (Scaled Dot-Product Attention)\" which is not present anywhere in the chart image (title, axes, legend). This is external information inferred from the context of the paper."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада до около 0.6 при слой 5",
+          "evidence": "The description states that the blue 'mean' line drops to about 0.6 at layer 5. However, the plot shows the value at layer 5 is clearly higher, at approximately 0.66."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Зелената пунктирана линия представлява минималната стойност (min) и започва от около 0.7 при слой 0",
+          "evidence": "The description states the green 'min' line starts at about 0.7. The actual starting value is lower, around 0.68. More importantly, it incorrectly equates this starting point with the 'mean' line's start (also described as ~0.7), even though the plot shows the 'mean' line starts visibly higher than the 'min' line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада до около 0.5 при слой 3",
+          "evidence": "The description claims that the green 'min' line drops to about 0.5 at layer 3. According to the plot, the line is still visibly above 0.5 at layer 3 and only reaches and stabilizes at 0.5 around layer 4 or 5."
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "across 22 model layers",
+          "evidence": "The chart displays data for layers 0 through 22, inclusive, which constitutes a total of 23 layers, not 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The green dash-dotted line for “min” begins near 0.70 at layer 0, drops sharply to 0.50 by layer 3",
+          "evidence": "The description of the 'min' line's initial behavior is incorrect. The line starts at approximately 0.62 at layer 0, rises to a peak of about 0.72 at layer 2, and only then drops to around 0.5. It does not start near 0.70 and immediately drop."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "illustrates the distribution of gating scores across model layers for an SDPA output gating variant without sparsity constraints, as referenced in the paper on gated attention for large language models.",
+          "evidence": "This part of the description provides context from the source paper which is not available in the figure itself. The figure only shows gate values for 'atten_output_gate_wo_sparsity'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "tick marks at integer intervals",
+          "evidence": "The major tick marks on the x-axis are at intervals of 5 (0, 5, 10, 15, 20), not at every integer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "declines to ~0.62 by layer 5",
+          "evidence": "The description states the 'mean' (blue dashed) line declines to ~0.62 by layer 5, but the chart shows its value is approximately 0.66 at that point. It reaches ~0.62 around layer 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The green dash-dotted line for “min” starts at ~0.7",
+          "evidence": "The 'min' (green) line starts at a gate value of approximately 0.6 at layer 0. It spikes to over 0.7 at layer 1, but its starting value is not 0.7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "drops sharply to ~0.52 by layer 2",
+          "evidence": "The description claims the 'min' (green) line drops to ~0.52 by layer 2. According to the plot, at layer 2, the value is still above 0.55. It drops to ~0.52 around layer 3."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 84.33
+}

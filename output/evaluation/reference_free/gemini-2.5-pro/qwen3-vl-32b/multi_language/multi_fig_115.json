@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_115",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 1.5 at rank 4",
+          "evidence": "The description states the value for the blue LoRA bar at rank 4 is approximately 1.5, but the chart shows this value to be closer to 1.8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "3.0 at rank 64",
+          "evidence": "The description states the value for the blue LoRA bar at rank 64 is 3.0, but the bar is visibly below the 3.0 grid line, at approximately 2.8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 1.5 at rank 4, 1.0 at rank 16",
+          "evidence": "The description reports the values for the orange QLoRA bars at rank 4 and rank 16 as approximately 1.5 and 1.0. The chart shows these values are approximately 1.7 and 0.8, respectively. The approximation for rank 16 is particularly inaccurate."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The orange QLoRA bars show a similar trend",
+          "evidence": "The description claims the orange QLoRA bars show a similar trend to the blue LoRA bars (which progressively increase). However, the values for QLoRA first decrease (from rank 4 to 16) and then increase, which is not a similar trend."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart reveals that QLoRA consistently yields lower trace values than LoRA across all ranks",
+          "evidence": "The generation prompt explicitly states to avoid making comparisons between categories. This sentence is a direct comparison between the LoRA and QLoRA data series, which is a form of interpretation forbidden by the prompt."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "though the smallest adapters (rank 16) show the lowest values, consistent with the caption’s claim of lowest generalization errors and flatter minima.",
+          "evidence": "The prompt instructs to avoid drawing conclusions. This part of the sentence connects the data shown in the chart to claims made in the figure caption, which constitutes drawing a conclusion and is explicitly forbidden."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "(a measure of sharpness or generalization)",
+          "evidence": "The prompt instructs to describe only what is visually and explicitly present in the chart. This parenthetical note provides an external definition for 'Traces' that is not labeled on the chart itself."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with LoRA consistently having higher trace values than QLoRA across all ranks",
+          "evidence": "The prompt explicitly forbids making comparisons between categories. This clause directly compares the values for the LoRA and QLoRA series, which is an interpretive act."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "QLoRA’s is around 1.5",
+          "evidence": "For Rank 4, the orange bar representing QLoRA has a value of approximately 1.8. The stated value of 1.5 is a significant underestimation, as the bar's height is clearly more than halfway to the 3.0 tick mark."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually demonstrates that QLoRA consistently achieves lower trace values than LoRA, and that lower ranks (especially rank 16) yield lower trace values overall, suggesting flatter minima and better generalization.",
+          "evidence": "This sentence violates the prompt's core instructions by making comparisons ('lower trace values'), summarizing trends ('lower ranks...yield lower trace values'), and drawing scientific conclusions ('suggesting flatter minima and better generalization') instead of objectively describing the chart's visual elements."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The error bars are small and similar in magnitude across all bars, indicating low variability in the measurements.",
+          "evidence": "This statement is interpretive. It uses subjective language ('small'), makes a comparison ('similar in magnitude'), and explains the meaning of the visual feature ('indicating low variability'), all of which go beyond the objective description requested by the prompt."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.5
+}

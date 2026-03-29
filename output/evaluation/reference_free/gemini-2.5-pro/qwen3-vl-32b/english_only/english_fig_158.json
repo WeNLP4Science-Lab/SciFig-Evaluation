@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_158",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At the 90% quantile, the total time is ~8.0 sec",
+      "evidence": "The bar for the 90% quantile clearly extends above the 8.0 second tick mark to approximately 9.0 seconds."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Fetch ~3.0 sec",
+      "evidence": "In the 90% quantile bar, the 'Fetch' component starts at 2.0 seconds and ends at 7.0 seconds, making its duration approximately 5.0 seconds, not 3.0 seconds."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Extract ~1.0 sec",
+      "evidence": "In the 90% quantile bar, the 'Extract' component is a very thin sliver, representing approximately 0.4 seconds (from ~7.0 to ~7.4 sec), not 1.0 second."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "The chart clearly shows that Fetch and Search are the dominant time-consuming components, especially at higher quantiles, while Extract and Retrieval contribute relatively smaller portions.",
+      "evidence": "The generation prompt explicitly forbids interpretation and comparison, stating: \"Avoid interpreting causes or trends, and do not compare categories unless the comparison is explicitly labeled. Focus solely on visual and labeled characteristics.\" This sentence provides a summary conclusion about the data, which is a form of interpretation."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Extract ~0.5 sec",
+      "evidence": "For the 50% quantile, the 'Extract' component is visibly the smallest segment, approximately 0.2 seconds long. The description incorrectly states it is 0.5 seconds, the same duration as the 'Retrieval' component, which is visibly larger."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The horizontal axis lists the quantiles in ascending order: Avg., 50%, 75%, and 90%.",
+      "evidence": "The description incorrectly implies that 'Avg.' (Average) is a quantile that fits into an ascending order. While the categories are ordered, 'Avg.' is a different type of statistical measure and does not follow a numerical ascending order with the percentages."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Retrieval ~2.0 sec",
+      "evidence": "For the 90% quantile bar, the 'Retrieval' component has a duration of approximately 1.6 seconds (from ~7.4 to 9.0 seconds), not 2.0 seconds."
+    }
+  ],
+  "mqm_score": 79.0,
+  "total_penalty": 21.0,
+  "error_count": 7
+}

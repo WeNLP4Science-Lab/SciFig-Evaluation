@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_011",
+  "model_name": "gpt-5.2",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "показва най-голямо увеличение към края на оста X",
+          "evidence": "The prompt explicitly instructs to avoid comparing lines (\"Избягвайте да ... сравнявате линиите\"). This phrase compares the increase of the 'ffn_residual' line to the others."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Визуално най-изразените върхове и резки нараствания за всички линии са концентрирани в крайните слоеве (приблизително след слой 20), като червената и оранжевата линия достигат най-високите стойности по оста Y.",
+          "evidence": "This entire sentence consists of interpretation and comparison, which is explicitly forbidden by the prompt. It generalizes a trend across all lines and then compares which lines reach the highest values, violating the instruction to describe only what is visually present without making interpretations or comparisons."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "约第 22 层在 40–50",
+          "evidence": "The description states that the value for the 'attn_output' line at layer 22 is approximately 40-50, but the plot shows the value is closer to 30."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "橙色点虚线",
+          "evidence": "The line style for 'attn_residual' is dotted, which should be described as '点线' in Chinese. The term used, '点虚线' (dianxuxian), is ambiguous and typically translates to dotted-dashed, which is incorrect. The green line is correctly identified as '点划线' (dash-dotted), indicating a distinction was intended but misapplied to the orange line."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "exhibits the largest late-layer surge",
+          "evidence": "The prompt explicitly instructs to avoid making comparisons between lines. This phrase compares the final increase of the 'ffn_residual' line to the other lines."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "weist am Ende (um Layer 23) den höchsten sichtbaren Wert auf",
+          "evidence": "The prompt explicitly instructs to avoid comparisons between lines (\"Vermeiden Sie es, ... Vergleiche zwischen Linien anzustellen\"). This phrase compares the 'ffn_residual' line to the others by stating it has the highest value."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 95.25
+}

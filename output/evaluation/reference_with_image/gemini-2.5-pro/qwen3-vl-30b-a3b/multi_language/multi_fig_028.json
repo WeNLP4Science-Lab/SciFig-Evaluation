@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_028",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Фигурата илюстрира сравнение между две методики за изтриване на информация в голями езикови модели",
+          "evidence": "This is an interpretation of the chart's purpose based on the broader context of the paper (unlearning), not on the visual information in the figure itself. The figure's title is \"Accuracy on TOFU-MCQ Holdout Set\" and it simply plots accuracy against the number of finetuning samples."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Етикетите са разположени на интервали от 100",
+          "evidence": "The tick marks on the x-axis are at 0, 100, 200, and 500. The interval is not consistently 100, as the gap between 200 and 500 is 300."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "включващи стойностите 0.475, 0.478, 0.480, 0.485, 0.490, 0.495, 0.500, 0.505, 0.510, 0.515, 0.520, 0.525, 0.530, 0.535, 0.540, 0.545, 0.550, 0.555, 0.560, 0.565, 0.570, 0.575, 0.580, 0.585, 0.590, 0.595 и 0.600",
+          "evidence": "The description lists 27 values for the y-axis labels. The plot only shows labels for 0.475, 0.500, 0.525, 0.550, 0.575, and 0.600. The other 21 listed values are hallucinated and do not appear on the axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "0.501 при 100 примера",
+          "evidence": "The value for the 'TOFU-MCQ Finetuning' line at 100 samples is visibly higher than 0.501. It is approximately halfway between 0.500 and 0.525, making it closer to 0.51, not 0.501."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "завършвайки при 0.601 при 500 примера",
+          "evidence": "The final value for the 'TOFU-MCQ Finetuning' line at 500 samples is visibly well above the 0.600 line, at approximately 0.61. The stated value of 0.601 is a significant underestimation."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "остава почти хоризонтална",
+          "evidence": "The 'Assumption' line is perfectly horizontal, not 'almost horizontal'. All its data points share the same y-value."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "mit Beschriftungen in Abständen von 100",
+          "evidence": "The x-axis labels are at 0, 100, 200, and 500. The intervals are not consistently 100, as the last interval from 200 to 500 is 300."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "erreicht schließlich 0,600 bei 500 Proben",
+          "evidence": "The final data point for the green line at 500 samples is clearly above the 0.600 tick mark. Its value is approximately 0.61."
+        }
+      ],
+      "mqm_score": 94.0,
+      "total_penalty": 6.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.5
+}

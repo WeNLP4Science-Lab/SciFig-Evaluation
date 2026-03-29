@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_108",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "подредени в азбучен (нарастващ) ред",
+          "evidence": "The description states the x-axis values are in alphabetical order, which is incorrect for numerical values. They are in increasing numerical order."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "съдържа две групи стълбове за всяка стойност на m",
+          "evidence": "The chart is not grouped by the value of 'm' with two bars per value. Instead, it presents two distinct groups of bars based on the sampling strategy. The first group shows five purple bars for 'Fine-to-Coarse Sampling Strategy' across m values 6-10, and the second group shows five yellow bars for 'Uniform Sampling Strategy' across the same m values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "жълтият — около 25.2",
+          "evidence": "In the sentence describing the values for m=8, the value for the yellow bar ('Uniform Sampling Strategy') is stated as approximately 25.2. However, the bar clearly extends above the 25.5 gridline, to a value of approximately 25.6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "жълтият — около 25.4",
+          "evidence": "In the sentence describing the values for m=9, the value for the yellow bar ('Uniform Sampling Strategy') is stated as approximately 25.4. The bar in the chart is visibly lower, at approximately 25.2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Стойностите на MAP@10 за „Fine-to-Coarse Sampling Strategy“ са по-високи от тези за „Uniform Sampling Strategy“ при всички изследвани стойности на m.",
+          "evidence": "This sentence makes a direct comparison between the two strategies, which is an interpretation of the data. The prompt explicitly instructed the model to avoid making comparisons or drawing conclusions."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "24.3 for m=6",
+          "evidence": "The description reports the value for m=6 in the Uniform strategy as approximately 24.3, but the bar is closer to 24.4. This is also inconsistent with the value reported for m=10 (24.4), which is visually at the same height as the bar for m=6."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart demonstrates that the Fine-to-Coarse strategy consistently achieves higher MAP@10 scores across all values of m compared to the Uniform strategy.",
+          "evidence": "The generation prompt explicitly instructs to \"Avoid making inferences, comparisons, or drawing conclusions about the data.\" This sentence makes a direct comparison between the two strategies and draws a conclusion about their relative performance, violating the prompt's negative constraint."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für jede m-Wert-Kategorie sind zwei nebeneinander angeordnete Balken dargestellt, wobei der linke Balken die Fine-to-Coarse-Strategie und der rechte die Uniform-Strategie repräsentiert.",
+          "evidence": "The description incorrectly states that for each m-value, there are two side-by-side bars. The chart actually shows two separate groups of bars: first, a group of five purple bars for the 'Fine-to-Coarse' strategy (for m=6, 7, 8, 9, 10), followed by a second group of five yellow bars for the 'Uniform' strategy (for m=6, 7, 8, 9, 10)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Die lila Balken (Fine-to-Coarse) zeigen durchgehend höhere MAP@10-Werte als die gelben Balken (Uniform)",
+          "evidence": "The description makes a direct comparison between the performance of the two strategies ('höhere... als' / 'higher... than'). The prompt explicitly instructs to avoid making comparisons unless they are explicitly labeled in the chart."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "und dann leicht abnehmen auf etwa 26.2 bei m = 8, 26.5 bei m = 9 und 26.4 bei m = 10",
+          "evidence": "The description incorrectly states that the values for the purple bars 'leicht abnehmen' (slightly decrease) after reaching the peak at m=7. However, the data shows a fluctuation: the value decreases from m=7 to m=8, then increases from m=8 to m=9, and finally decreases again from m=9 to m=10. The phrase 'leicht abnehmen' misrepresents this trend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "etwa 26.2 bei m = 8",
+          "evidence": "The description reports the value for the purple bar at m=8 as approximately 26.2. The bar in the figure is clearly above the 26.25 gridline, at approximately 26.3."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.5
+}

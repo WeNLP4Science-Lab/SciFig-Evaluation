@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_153",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "4-Bit (blue bars) and 2-Bit (green bars)",
+          "evidence": "The legend in the figure labels the series as '4-Fbit' and '2-Fbit', not '4-Bit' and '2-Bit'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, there is a pair of bars — blue for 4-Bit and green for 2-Bit — indicating the sensitivity under each precision.",
+          "evidence": "The chart is not a grouped bar chart with pairs of bars. For each block index, there is only a single bar, which is either blue (4-Fbit) or green (2-Fbit)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Sensitivity values are higher (i.e., bars are taller) for 4-Bit quantization compared to 2-Bit across all blocks",
+          "evidence": "This statement makes a comparison between the two quantization settings, which the prompt instructs to avoid unless explicitly labeled. Furthermore, this comparison is based on the incorrect assumption that there are paired bars for each block."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the most notable differences appearing at Block 0 (4-Bit ≈ 10⁻⁴, 2-Bit ≈ 10⁻⁴.⁵), and Block 27 (4-Bit ≈ 10⁻³, 2-Bit ≈ 10⁻⁴.⁵).",
+          "evidence": "The description reports values for 2-Bit bars at Block 0 and Block 27. However, the figure does not contain any 2-Bit (green) bars at these indices; these data points are hallucinated."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "10⁻⁴.⁵",
+          "evidence": "Using a fractional exponent like '⁻⁴.⁵' is a non-standard and ambiguous way to report a value from a logarithmic scale, making it difficult to interpret without calculation."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "4-Bit (blue bars) and 2-Bit (green bars)",
+          "evidence": "The legend in the figure specifies '4-Fbit' and '2-Fbit', not '4-Bit' and '2-Bit'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectAxisOrLegendInterpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at regular intervals of 10⁻⁵ (i.e., 10⁻⁵, 10⁻⁴, 10⁻³)",
+          "evidence": "The y-axis is logarithmic, so the intervals between the major tick marks (10⁻⁵, 10⁻⁴, 10⁻³) are not regular in a linear sense; they represent powers of 10. Describing them as 'regular intervals of 10⁻⁵' is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, two bars are shown side-by-side: the blue bar represents the 4-Bit quantization and the green bar represents the 2-Bit quantization.",
+          "evidence": "This is a fundamental misinterpretation of the chart's structure. The chart shows only one bar for each block index, which is either blue (4-Fbit) or green (2-Fbit), not a grouped pair of bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "HallucinatedContent",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "particularly at block index 0 (blue bar ~10⁻⁴, green bar ~10⁻⁴.⁵) and block index 27 (blue bar ~10⁻³, green bar ~10⁻⁴.⁵)",
+          "evidence": "The description invents green bars at block indices 0 and 27. The chart shows only a blue bar at index 0 and a blue bar at index 27, with no corresponding green bars at these locations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "green bar ~10⁻⁴.⁵",
+          "evidence": "This notation is unconventional and confusing for describing a value on a logarithmic plot. Furthermore, it is an estimate for a bar that does not exist at this location (block index 0 and 27)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "HallucinatedContent",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "At block index 6, both schemes show low sensitivity (blue bar ~10⁻⁵, green bar ~10⁻⁵.⁵)",
+          "evidence": "The description hallucinates a blue bar at block index 6. The chart only has a green bar at this index."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "green bar ~10⁻⁵.⁵",
+          "evidence": "The notation is unconventional. The value it represents (~3.16e-5) is an incorrect estimate for the green bar at index 6, which is visibly lower at approximately 1.5e-5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "UnwantedInterpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually conveys that sensitivity increases with block index for the 4-Bit scheme, while the 2-Bit scheme remains relatively stable and lower in sensitivity across most blocks.",
+          "evidence": "This sentence describes trends and compares the two categories, which violates the prompt's instruction to avoid interpretation and comparison and to focus solely on visual and labeled features."
+        }
+      ],
+      "mqm_score": 67.5,
+      "total_penalty": 32.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 76.25
+}

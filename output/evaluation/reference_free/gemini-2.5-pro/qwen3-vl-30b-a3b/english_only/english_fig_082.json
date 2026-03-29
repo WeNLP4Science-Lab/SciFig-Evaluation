@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_082",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description of the y-axis omits its tick interval, which is 0.2, as requested by the prompt."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the marker shapes for each line (an 'x' for the black line and a dot for the magenta line), which was requested by the prompt."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starts at a BPC of approximately 2.1",
+      "evidence": "The magenta line (SimSMoE) starts at the same value as the black line, approximately 2.18. Stating it starts at 2.1 creates a false initial difference between the two models."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Both lines show a significant decrease in BPC in the initial training phase, with the SimSMoE model achieving a slightly lower BPC than the SMoE model at the beginning of training, but the two models converge to nearly identical performance levels by the end of the training period.",
+      "evidence": "This sentence violates the prompt's explicit instruction to avoid making comparisons between lines and to avoid interpretive language like 'significant decrease'."
+    }
+  ],
+  "mqm_score": 88.5,
+  "total_penalty": 11.5,
+  "error_count": 4
+}

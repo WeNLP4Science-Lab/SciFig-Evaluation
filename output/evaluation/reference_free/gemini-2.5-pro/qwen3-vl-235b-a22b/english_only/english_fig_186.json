@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_186",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to describe the individual trends for two of the four lines: 'Character MLP input' and 'Wiki MLP input'. It only describes them collectively and in comparison to the other lines, which violates the prompt's instructions."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "The Character MLP input (dashed blue) and Wiki MLP input (dashed red) consistently outperform their attention counterparts across most layers, with both MLP lines generally staying above 0.8 after layer 15.",
+      "evidence": "The prompt explicitly states to avoid making comparisons between lines. This sentence is entirely a comparison of the performance of the MLP inputs versus the attention inputs."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "The MLP inputs show more stable and higher performance, especially beyond layer 15, supporting the paper’s conclusion that MLP layer inputs yield better embeddings for gating.",
+      "evidence": "This sentence makes comparative interpretations ('more stable and higher performance') and draws a conclusion by referencing the paper, both of which are explicitly forbidden by the generation prompt."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "across 31 embedding layers (from layer 0 to layer 30)",
+      "evidence": "The data in the plot extends to embedding layer 31, not 30. Therefore, the range is from layer 0 to 31."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "gradually increases to 0.7 by layer 30",
+      "evidence": "For the Wiki Attention input (solid red line), the value at layer 30 is approximately 0.6, not 0.7. It reaches approximately 0.7 at the final data point, layer 31."
+    }
+  ],
+  "mqm_score": 92.5,
+  "total_penalty": 7.5,
+  "error_count": 5
+}

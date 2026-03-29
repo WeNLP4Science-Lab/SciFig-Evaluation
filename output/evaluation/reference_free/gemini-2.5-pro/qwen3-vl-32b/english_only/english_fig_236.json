@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_236",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Each method has a stacked bar composed of two segments",
+      "evidence": "The chart is not a stacked bar chart where the total height is the sum of its components. It is an overlaid bar chart, where the blue bar ('Ours') is drawn over the gray bar ('Standard'), and the height of each bar represents the total value for that category. For example, for CORG, the total height of the blue bar is approx. 59.5, which is the value for 'Ours', not the sum of the gray and blue parts."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the upper blue segment represents the Ours model",
+      "evidence": "This incorrectly describes the blue portion as a 'segment'. The legend and visual structure indicate that the entire blue bar, from the axis to its top, represents the 'Ours' model's performance, not just the portion visible above the gray bar."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "indicating that the Standard model's performance is negligible or zero",
+      "evidence": "This is an inference about why the gray 'Standard' bar is missing for the 'Base' method. The chart does not provide this information; it only shows the absence of the bar. The prompt requires avoiding such interpretations."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For CORG, the gray segment (Standard) reaches about 51, and the blue segment (Ours) extends to approximately 59.5, making the total bar height around 59.5.",
+      "evidence": "This description incorrectly applies a stacked bar model to an overlaid bar chart, leading to a confusing and factually incorrect description of how the bars are constructed. It should state that there are two bars at this position: a gray one with a height of ~51.5 and a blue one with a height of ~59.5."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually emphasizes that the Ours model consistently outperforms the Standard model across all three methods, with the largest performance gap observed in the AdaCAD method.",
+      "evidence": "This sentence makes direct comparisons ('consistently outperforms') and draws conclusions ('largest performance gap'), which are explicitly forbidden by the generation prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions'."
+    }
+  ],
+  "mqm_score": 78.0,
+  "total_penalty": 22.0,
+  "error_count": 5
+}

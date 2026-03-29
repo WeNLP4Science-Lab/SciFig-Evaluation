@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_125",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the x-axis does not mention the tick label interval of 2, which was requested by the prompt for regularly spaced numeric axes."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "0.24 for weight averaging",
+          "evidence": "The description states the value for 'weight averaging' at |S|=10 is approximately 0.24, but the data point on the plot is visibly lower, at approximately 0.225."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "0.17 for QLoRA",
+          "evidence": "The description states the value for 'QLoRA' at |S|=10 is approximately 0.17, but the data point is visibly lower, at approximately 0.16. The value at |S|=7 is approximately 0.17, and the value at |S|=10 is clearly below that."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "The trend shows that the similarity score becomes lower as the size of $ S $ increases",
+          "evidence": "This statement is redundant as it repeats the trend already described in the preceding sentence: 'For both methods, the cosine similarity decreases as $ |S| $ increases.'"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with QLoRA consistently exhibiting lower similarity values across all $ |S| $ compared to weight averaging",
+          "evidence": "This phrase makes a direct comparison between the two lines, which was explicitly forbidden by the prompt instruction to 'Avoid making comparisons between lines'."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.0
+}

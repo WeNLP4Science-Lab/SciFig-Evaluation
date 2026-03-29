@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_130",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description details the vertical axis but completely omits a description of the horizontal axis, which lists the four categories: GSM8K, MATH500, AIME, and AMC."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "produces significantly longer outputs than TLDR (Ours)",
+          "evidence": "The prompt requires objective description without comparison or evaluative language. The phrase \"significantly longer\" is an interpretation of the difference between the bars, not a direct observation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with generation lengths of 679 vs. 273 for GSM8K, 2951 vs. 2035 for MATH500, 6701 vs. 6435 for AIME, and 4584 vs. 3850 for AMC",
+          "evidence": "The numerical values for the 'TLDR (Ours)' bars (273, 2035, 6435, 3850) are not present anywhere on the chart. These values appear to have been calculated based on the percentage reductions and are presented as if they are labeled data, which is a form of hallucination."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "demonstrating consistent and substantial length reduction",
+          "evidence": "The phrase \"consistent and substantial\" is an interpretive conclusion about the data, violating the prompt's instruction to avoid drawing conclusions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually supports the claim that the TLDR method significantly reduces generation length while maintaining performance, as suggested by the caption.",
+          "evidence": "This sentence is a major violation of the prompt. It draws a conclusion, uses evaluative language (\"visually supports,\" \"significantly reduces\"), and refers to information outside the chart itself (\"as suggested by the caption\"). The prompt explicitly forbids making inferences, drawing conclusions, and using external information."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.0
+}

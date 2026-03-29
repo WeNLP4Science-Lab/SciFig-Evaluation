@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_132",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "orange squares for c=2, yellow stars for c=3, green diamonds for c=4, and blue triangles for c=5",
+          "evidence": "The plot uses small dot markers for all lines. The description incorrectly hallucinates distinct marker shapes (squares, stars, diamonds, triangles) for different lines."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "All lines start at a value of 1.0 at layer index 0",
+          "evidence": "The data points start at layer index 1, not 0. Furthermore, only the line for c=1 starts at 1.0; the other lines start at lower values (ranging from approx. 0.75 to 0.95)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "drop sharply to values between 0.66 and 0.71 by layer index 2",
+          "evidence": "The values at layer index 2 are not within this range. For example, c=1 is at approx. 0.89 and c=4 is at approx. 0.64."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "c=3 reaches a local peak of approximately 0.84 at layer 4",
+          "evidence": "The line for c=3 (yellow) has a value of approximately 0.72 at layer 4. It has a local peak of ~0.81 at layer 3. The description appears to confuse it with c=4 (green), which peaks at ~0.85 at layer 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "converge back to 1.0 at layer index 14",
+          "evidence": "The statement that all lines converge to 1.0 is incorrect. The line for c=1 (red) ends at a value of approximately 0.83."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The lines exhibit varying degrees of fluctuation across the middle layers",
+          "evidence": "The prompt explicitly states \"Do not include comparisons between lines.\" This statement compares the behavior of the different lines."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Near layer index 8, all lines converge closely before diverging again",
+          "evidence": "The prompt explicitly states \"Do not include comparisons between lines.\" This statement describes the relative positions of the lines to each other (convergence)."
+        }
+      ],
+      "mqm_score": 72.0,
+      "total_penalty": 28.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "orange with squares for `c=2`, yellow with diamonds for `c=3`, green with upward triangles for `c=4`, and blue with downward triangles for `c=5`",
+          "evidence": "The description incorrectly identifies the marker shapes for lines c=2 through c=5. The figure shows that all five lines use small, circular markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "All lines exhibit a sharp peak at layer index 0",
+          "evidence": "The description incorrectly states that the peak is at layer index 0. The graph shows that the first data points for all lines are at layer index 1, where they have a value of 1.0. There are no data points at layer index 0."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "a steep decline to a minimum around layer index 2, where values drop to approximately 0.65–0.7",
+          "evidence": "This is an inaccurate over-generalization. The minima for the different lines occur at various layer indices, not just around index 2. For example, the blue (c=5) and yellow (c=3) lines have their minimum at index 6, while the red line (c=1) has its minimum around index 11-12."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where all lines approach or exceed 1.0",
+          "evidence": "This statement is incorrect. At layer index 14, four of the lines have a value of 1.0, but the red line (c=1) has a much lower value of approximately 0.83."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating similar overall patterns of norm difference across different compression levels",
+          "evidence": "This part of the sentence provides an interpretation of the data, which is explicitly forbidden by the prompt's instruction to stick to objective features and avoid drawing conclusions."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 76.75
+}

@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_160",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the tick label intervals for both the x-axis (every 2 units) and the y-axis (every 0.01 units)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fluctuates slightly between 0.60 and 0.605 from 2 to 6 examples",
+          "evidence": "The description states that the ST-ES line fluctuates between 0.60 and 0.605 for x-values from 2 to 6. However, the plot shows values below 0.60 at x=3 (approx. 0.596) and x=6 (approx. 0.595)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ends at approximately 0.60 at 8 examples",
+          "evidence": "The description states the ST-ES line ends at approximately 0.60. The actual value shown in the plot at x=8 is visibly below 0.60, at approximately 0.594."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "increases to a peak of about 0.642 at 6 examples",
+          "evidence": "The description incorrectly identifies the peak of the Random method. The plot shows the peak value of approximately 0.642 occurs at x=1, not x=6. The value at x=6 is slightly lower (approx. 0.641)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Overall, the ST-ES method achieves a lower minADE₂₀ than the Random method for all numbers of examples except at 0, where it is significantly higher.",
+          "evidence": "The generation prompt explicitly instructs to avoid making comparisons between lines. This entire sentence is a direct comparison of the two methods, violating the instructions."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 80.0
+}

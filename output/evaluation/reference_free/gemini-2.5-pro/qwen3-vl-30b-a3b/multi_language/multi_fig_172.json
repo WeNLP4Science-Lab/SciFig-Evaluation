@@ -1,0 +1,50 @@
+{
+  "figure_key": "multi_fig_172",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the marker shape (circles) and line style (solid) for both plotted lines, which were required by the generation prompt."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "shows a more gradual decline",
+          "evidence": "This phrase compares the rate of decline of the validation loss to the training loss, which violates the prompt's instruction to \"Avoid... making comparisons between lines.\""
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizing at a value of about 0.025 by step 30",
+          "evidence": "The final value for the orange \"Validation Loss\" line at step 30 is approximately 0.030, not 0.025. The data point is clearly above the 0.025 grid line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Both lines demonstrate a decreasing trend in loss as the number of steps increases.",
+          "evidence": "This final sentence provides a summary comparing the general trend of both lines, which violates the prompt's instruction to describe each line individually and avoid comparisons."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.5
+}

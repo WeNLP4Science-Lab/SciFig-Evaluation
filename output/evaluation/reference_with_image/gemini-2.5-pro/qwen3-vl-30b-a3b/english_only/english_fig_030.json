@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_030",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The introductory sentence incorrectly states there are four models, omitting \"VideoLLAVA\", which is a key dataset shown in the legend and on the plot with the most dramatic trend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At 0 frames, all models start at a memory usage of approximately 20 GB.",
+      "evidence": "The plot shows that at 0 frames, all models start with a memory usage closer to 15 GB, not 20 GB."
+    },
+    {
+      "category": "Hallucinated Content",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "the memory usage for VideoLLaMB, VideoLLaMB-R, and PLLaVA remains relatively low and increases slowly",
+      "evidence": "The description details the trend for the 'VideoLLaMB' line, but this line is not visibly plotted in the graph, although it is listed in the legend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with VideoLLaMB-R and PLLaVA showing nearly flat lines at around 30 GB and 80 GB respectively at 1000 frames.",
+      "evidence": "The value for VideoLLaMB-R at 1000 frames is approximately 37 GB, not 30 GB. The value for PLLaVA is closer to 75 GB, making 80 GB a slight overestimation but less erroneous than the former."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "rising to over 400 GB at 300 frames",
+      "evidence": "The data line for VideoLLAVA goes off the top of the chart (400 GB) before the 300 frames mark. Stating a value 'at 300 frames' is an extrapolation, as this data point is not plotted. The description should state that the value exceeds the axis limit before 300 frames."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 5
+}

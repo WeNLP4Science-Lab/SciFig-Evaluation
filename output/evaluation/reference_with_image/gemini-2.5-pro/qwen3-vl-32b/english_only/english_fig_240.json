@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_240",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "where d denotes the dimension and n the number of heads or similar parameters",
+      "evidence": "The figure does not define the variables 'd' and 'n'. This information is an interpretation not explicitly present in the visual."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "followed by feed-forward (green) at ~0.12, grouped attention (red) at ~0.15, and patch attention (yellow) at ~0.10",
+      "evidence": "The sentence lists the values for Stage 1 in a non-descending order, which is confusing. It lists 0.12 before 0.15, making the comparison of module costs unclear."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "In Stage 3, attention further decreases to ~0.12, feed-forward stays at ~0.12",
+      "evidence": "In Stage 3, the feed-forward bar (green) is visibly the tallest, indicating the highest cost (approx. 0.125). The attention bar (blue) is shorter (approx. 0.11). Stating they are both ~0.12 is inaccurate and fails to identify the feed-forward module as the most computationally expensive in this stage."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "patch attention at ~0.10",
+      "evidence": "In Stage 3, the patch attention bar (yellow) is visibly below the 0.1 line, at approximately 0.09. The description's value of ~0.10 is an overestimation and inaccurately equates its cost with the grouped attention module."
+    }
+  ],
+  "mqm_score": 89.0,
+  "total_penalty": 11.0,
+  "error_count": 4
+}

@@ -1,0 +1,28 @@
+{
+  "figure_key": "english_fig_133",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The “News” category dominates the dataset with 10,584K tokens, followed by “Administrative” with 6,472K. “Non-fiction” accounts for 1,889K, “Science” for 1,626K, “Religion” for 652K, “Fiction” for 387K, “Law” for 354K, and “Blogs” has the smallest representation at just 32K tokens.",
+      "evidence": "The description incorrectly appends 'K' (for thousands) to the data label values, which misrepresents the magnitude of the data by a factor of 1,000. For example, it reports '10,584K tokens' for News, but the data label is 10,584 and the y-axis scale, labeled 'Tokens (K)', is consistent with the values being in thousands already (e.g., the value is 10,584,000 tokens, which is represented as 10,584 on the 'K' scale). A correct statement would be that the 'News' category has 10,584,000 tokens (or 10,584K tokens), but the data labels themselves are 10,584, 6,472, etc., which correspond to the values on the y-axis scale."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "measured in thousands, labeled as “Tokens (K)”",
+      "evidence": "This statement, combined with the later reporting of values like '10,584K', creates an incorrect interpretation. The y-axis label 'Tokens (K)' means the axis values (0, 2000, 4000...) represent thousands. The data labels above the bars (e.g., 10584) are the values on that scale. Stating the measure is in thousands and then also appending 'K' to the data labels is a misinterpretation that compounds the values."
+    }
+  ],
+  "mqm_score": 93.0,
+  "total_penalty": 7.0,
+  "error_count": 2
+}

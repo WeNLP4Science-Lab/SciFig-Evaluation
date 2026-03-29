@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The plot contains eight lines that employ varying marker shapes at different x-axis values, such as downward triangles at a batch size of 32, leftward triangles at 64, and pentagons at 128.",
+          "evidence": "The marker shapes correspond to the 'L' value of the line, not the x-axis (Batch Size) value. For example, all points for L=16 are circles, and all points for L=32 are squares. The specific shapes mentioned (downward triangles, leftward triangles, pentagons) are also incorrect and not present in the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "increases from below 25",
+          "evidence": "The solid salmon line for dKV-Cache-Decode at L = 64 starts at a batch size of 2 with a Token/s value of approximately 40, not below 25."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The prompt asks for a description of the marker shape for each line. While the description attempts this in a general, incorrect sentence, it fails to correctly associate each line (e.g., L=16, L=32) with its specific marker shape (e.g., circle, square)."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ranging from just below 25 to 225",
+          "evidence": "The description states the y-axis range is from 'just below 25 to 225'. However, the axis itself is shown to range from 0 to 225."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description is severely incomplete. It begins to describe one of the eight lines in the plot but then truncates abruptly. It fails to describe the trend of this line, provide any data points, or mention its associated 'L' value (L=16). Furthermore, it completely omits the description of the other seven lines, which was a primary requirement of the prompt."
+        }
+      ],
+      "mqm_score": 94.5,
+      "total_penalty": 5.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 91.5
+}

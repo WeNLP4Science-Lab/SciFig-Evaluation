@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "\"Ours\" from ~250 to ~185",
+          "evidence": "In subplot (b) PTB, the value for \"Ours\" at 3 bits is approximately 245, not 250. The value at 16 bits is approximately 180, not 185. The description also misses that the lowest value for \"Ours\" is at 4 bits (approx. 175)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the gap between “Uniform” and “Ours” remains consistent or slightly widens at higher bit levels",
+          "evidence": "This statement is incorrect for the PTB dataset. In subplot (b) PTB, the gap between the two methods clearly narrows as the quantization bits increase (from a gap of ~155 at 3 bits to ~120 at 16 bits)."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "~27, ~27, and ~27",
+          "evidence": "The description states that the perplexity for the Uniform method in the WikiText chart is ~27 for 4, 8, and 16 bits. However, the chart shows a slight decrease across these bit levels, from ~27 to ~26.5 to ~26."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Ours scores ~250, ~180",
+          "evidence": "In the PTB chart, the values for the 'Ours' method at 3 and 4 bits are stated as ~250 and ~180. The actual values are closer to ~245 and ~175, respectively. The value for 4 bits is noticeably at the midpoint between 150 and 200, which is 175, not 180."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the largest relative gains observed at lower bit counts (especially 3 and 4 bits)",
+          "evidence": "The description claims that the largest 'relative gains' are at lower bit counts. This requires calculating a relative difference between the 'Uniform' and 'Ours' bars, which is a metric not explicitly plotted on the chart. This is an interpretation that goes beyond describing the visible data."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "showing consistent improvement",
+          "evidence": "The phrase 'showing consistent improvement' is evaluative language that interprets the trend rather than objectively describing it."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "maintaining a clear advantage",
+          "evidence": "The phrase 'maintaining a clear advantage' is subjective and evaluative, which constitutes an interpretation rather than a factual description of the data."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "27, and 27",
+          "evidence": "In plot (a), the description assigns the same value of 27 to the 'Uniform' bars at 8 and 16 bits. However, the chart shows the bar for 16 bits (approx. 26.5) is visibly shorter than the bar for 8 bits (approx. 27)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "180, 185, and 180",
+          "evidence": "In plot (b), the description states the 'Ours' perplexity values for 4, 8, and 16 bits are 180, 185, and 180, respectively. The chart shows the value at 4 bits is the lowest (approx. 175), while the values at 8 and 16 bits are higher and roughly equal (approx. 180). The description incorrectly claims the 8-bit value is the highest."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "~18, ~18, and ~18",
+          "evidence": "In plot (c), the description assigns the same value of ~18 to the 'Ours' bars at 4, 8, and 16 bits. However, the chart shows the bar for 4 bits (approx. 18.5) is visibly taller than the bars for 8 and 16 bits (approx. 18)."
+        }
+      ],
+      "mqm_score": 91.0,
+      "total_penalty": 9.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.5
+}

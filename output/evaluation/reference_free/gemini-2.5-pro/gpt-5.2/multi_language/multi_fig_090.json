@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_090",
+  "model_name": "gpt-5.2",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "данните са нанесени в дискретни точки приблизително при 10, 20, 30, 40, 50, 60, 75, 95, 120 и 150",
+          "evidence": "The description hallucinates the x-coordinates for the data points. The chart shows 9 data points per series at approximate x-values of 10, 25, 35, 45, 55, 75, 95, 120, and 155. The generated description incorrectly lists 10 points and provides mostly wrong coordinates (e.g., 20, 30, 40, 50, 60, 150)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "три показатели (QA представяне, увереност и подравняване)",
+          "evidence": "The description uses \"QA представяне\" (QA performance) for the blue line, which is taken from the paper's caption. However, the legend in the figure explicitly labels this line as \"Accuracy\" (\"Точност\" in Bulgarian). The prompt requires describing only what is visually present in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада до около 0.48 при ~20, след което нараства до около 0.76 при ~40",
+          "evidence": "This part of the description is incorrect due to the initial hallucination of x-coordinates. The value 0.48 corresponds to an x-value of approximately 25, not 20. The value 0.76 corresponds to an x-value of approximately 45, not 40. This error is repeated for all three lines throughout the description."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the lines' trends omits one of the data points. For example, for the 'Accuracy' line, it describes the point at x≈25 (value ≈0.48) and then jumps to the point at x≈45 (value ≈0.76), completely skipping the data point in between at x≈35 (value ≈0.53)."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at 50–60",
+          "evidence": "The description states that a data point is located in the x-axis range of 50-60. The actual data point is located at x=50. This error is repeated for all three data series when describing the point at x=50."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ending around ~0.84 at 120",
+          "evidence": "The description states that the 'Accuracy' series ends at an x-value of 120, but the plot shows the series continues to a final data point at approximately x=155."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and ending around ~0.84 at 120 and remaining near ~0.84 at about 155",
+          "evidence": "The description reports the values for the 'Accuracy' series at x=120 and x=155 as ~0.84. The plot shows the value at these points is approximately 0.83."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "finishing near ~0.97 at about 155",
+          "evidence": "The description states that the 'Confidence' series finishes at a value of ~0.97. The actual value on the plot is ~0.96, which is the same as the previous data point, indicating a flat trend rather than an increase."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "increasing to ~0.95 at 40",
+          "evidence": "The description reports the value for the 'Confidence' series at x=40 as ~0.95. The plot shows this value is clearly higher, at approximately 0.96."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "reaching ~0.85 at 50–60",
+          "evidence": "The description states the 'Alignment' series reaches a value of ~0.85 at an x-coordinate of 50-60. The actual value at x=50 is approximately 0.86."
+        }
+      ],
+      "mqm_score": 76.0,
+      "total_penalty": 24.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "20, 30, 40, 50, 60, 75",
+          "evidence": "The description lists the x-coordinates for the data points as (ca. 10, 20, 30, 40, 50, 60, 75, 95, 120, 155). However, the actual x-coordinates on the plot for the points after the first one are approximately 25, 35, 45, 55, 70, and 80, not 20, 30, 40, 50, 60, and 75."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0,98 (95)",
+          "evidence": "The description states the Confidence value at x=95 is 0.98, but the marker is visibly higher, at approximately 0.99."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0,90 (95)",
+          "evidence": "The description states the Alignment value at x=95 is 0.90, but the marker is visibly lower, at approximately 0.89."
+        }
+      ],
+      "mqm_score": 91.0,
+      "total_penalty": 9.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.0
+}
