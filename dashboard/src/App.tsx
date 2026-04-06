@@ -4,6 +4,7 @@ import JudgeReview from './pages/JudgeReview'
 import DatasetBrowser from './pages/DatasetBrowser'
 import SectionSelector from './pages/SectionSelector'
 import Analytics from './pages/Analytics'
+import AdversarialBrowser from './pages/AdversarialBrowser'
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
       />
       <Route path="/analytics/full" element={<Analytics manifestFile="manifest_full.json" title="Full Analytics" />} />
       <Route path="/analytics/sample" element={<Analytics manifestFile="manifest_sample.json" title="Sample Analytics" />} />
+      <Route path="/adversarial" element={<AdversarialBrowser />} />
     </Routes>
   )
 }

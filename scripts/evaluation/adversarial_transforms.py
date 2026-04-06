@@ -28,10 +28,10 @@ TRANSFORMS_DIR = ROOT / "transforms"
 
 TRANSFORMS = {
     "jpeg_compression": "Heavy JPEG compression (quality=15)",
-    "low_resolution": "Downscale to 25% then upscale back",
-    "gaussian_blur": "Gaussian blur (radius=4)",
     "noise": "Gaussian noise (sigma=30)",
     "grayscale": "Convert to grayscale",
+    "aspect_ratio": "Stretch width by 1.2x (mild distortion)",
+    "low_contrast": "Reduce contrast by 50%",
 }
 
 
@@ -44,16 +44,16 @@ def apply_jpeg_compression(img: Image.Image) -> Image.Image:
     return Image.open(buf).copy()
 
 
-def apply_low_resolution(img: Image.Image) -> Image.Image:
-    """Downscale to 25% then upscale back to original size."""
+def apply_aspect_ratio(img: Image.Image) -> Image.Image:
+    """Stretch width by 1.2x (mild horizontal distortion)."""
     w, h = img.size
-    small = img.resize((w // 4, h // 4), Image.Resampling.BILINEAR)
-    return small.resize((w, h), Image.Resampling.NEAREST)
+    return img.resize((int(w * 1.2), h), Image.Resampling.LANCZOS)
 
 
-def apply_gaussian_blur(img: Image.Image) -> Image.Image:
-    """Apply strong Gaussian blur."""
-    return img.filter(ImageFilter.GaussianBlur(radius=4))
+def apply_low_contrast(img: Image.Image) -> Image.Image:
+    """Reduce contrast by 50% (faded/washed out appearance)."""
+    from PIL import ImageEnhance
+    return ImageEnhance.Contrast(img).enhance(0.5)
 
 
 def apply_noise(img: Image.Image) -> Image.Image:
@@ -71,10 +71,10 @@ def apply_grayscale(img: Image.Image) -> Image.Image:
 
 TRANSFORM_FNS = {
     "jpeg_compression": apply_jpeg_compression,
-    "low_resolution": apply_low_resolution,
-    "gaussian_blur": apply_gaussian_blur,
     "noise": apply_noise,
     "grayscale": apply_grayscale,
+    "aspect_ratio": apply_aspect_ratio,
+    "low_contrast": apply_low_contrast,
 }
 
 
@@ -83,54 +83,71 @@ def main():
     parser.add_argument(
         "--figures", nargs="+",
         default=["english_fig_017", "english_fig_012", "english_fig_020", "english_fig_013", "english_fig_021"],
-        help="Figure keys to transform",
+        help="Figure keys to transform (ignored if --adversarial-samples is set)",
     )
     parser.add_argument("--subfolder", default="english_only")
+    parser.add_argument("--adversarial-samples", default=None,
+                        help="Path to adversarial_samples.json for multi-subfolder transforms")
     args = parser.parse_args()
 
-    src_figures_dir = DATASET_DIR / "figures" / args.subfolder
-    src_gt_dir = DATASET_DIR / "groundtruth" / args.subfolder
+    # Build list of (subfolder, [fig_keys]) pairs
+    if args.adversarial_samples:
+        with open(args.adversarial_samples) as f:
+            adv = json.load(f)
+        subfolder_figures = list(adv["samples"].items())
+    else:
+        subfolder_figures = [(args.subfolder, args.figures)]
 
-    for transform_name, description in TRANSFORMS.items():
-        # Output structure: transforms/<transform_name>/figures/<subfolder>/
-        out_fig_dir = TRANSFORMS_DIR / transform_name / "figures" / args.subfolder
-        out_gt_dir = TRANSFORMS_DIR / transform_name / "groundtruth" / args.subfolder
-        out_fig_dir.mkdir(parents=True, exist_ok=True)
-        out_gt_dir.mkdir(parents=True, exist_ok=True)
+    total_count = 0
+    for subfolder, fig_keys in subfolder_figures:
+        src_figures_dir = DATASET_DIR / "figures" / subfolder
+        src_gt_dir = DATASET_DIR / "groundtruth" / subfolder
 
-        transform_fn = TRANSFORM_FNS[transform_name]
+        for transform_name, description in TRANSFORMS.items():
+            out_fig_dir = TRANSFORMS_DIR / transform_name / "figures" / subfolder
+            out_gt_dir = TRANSFORMS_DIR / transform_name / "groundtruth" / subfolder
+            out_fig_dir.mkdir(parents=True, exist_ok=True)
+            out_gt_dir.mkdir(parents=True, exist_ok=True)
 
-        for fig_key in args.figures:
-            src_img = src_figures_dir / f"{fig_key}.png"
-            src_gt = src_gt_dir / f"{fig_key}.json"
+            transform_fn = TRANSFORM_FNS[transform_name]
 
-            if not src_img.exists():
-                print(f"  SKIP {fig_key} – image not found: {src_img}")
-                continue
+            for fig_key in fig_keys:
+                src_img = src_figures_dir / f"{fig_key}.png"
+                src_gt = src_gt_dir / f"{fig_key}.json"
 
-            # Apply transform
-            img = Image.open(src_img)
-            transformed = transform_fn(img)
-            out_path = out_fig_dir / f"{fig_key}.png"
-            transformed.save(out_path, format="PNG")
+                if not src_img.exists():
+                    print(f"  SKIP {fig_key} – image not found: {src_img}")
+                    continue
 
-            # Copy groundtruth unchanged
-            if src_gt.exists():
-                shutil.copy2(src_gt, out_gt_dir / f"{fig_key}.json")
+                out_path = out_fig_dir / f"{fig_key}.png"
+                if out_path.exists():
+                    continue
 
-            print(f"  {transform_name}/{fig_key} – saved ({img.size[0]}x{img.size[1]})")
+                img = Image.open(src_img)
+                transformed = transform_fn(img)
+                transformed.save(out_path, format="PNG")
 
-    # Write a manifest
+                if src_gt.exists():
+                    shutil.copy2(src_gt, out_gt_dir / f"{fig_key}.json")
+
+                total_count += 1
+                print(f"  {transform_name}/{subfolder}/{fig_key} – saved ({img.size[0]}x{img.size[1]})")
+
+    # Update manifest
+    all_figures = {}
+    for subfolder, fig_keys in subfolder_figures:
+        all_figures[subfolder] = fig_keys
     manifest = {
-        "source_subfolder": args.subfolder,
-        "figures": args.figures,
+        "figures_by_subfolder": all_figures,
+        "total_figures": sum(len(v) for v in all_figures.values()),
         "transforms": {k: v for k, v in TRANSFORMS.items()},
     }
     manifest_path = TRANSFORMS_DIR / "manifest.json"
     with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=2)
 
-    print(f"\nDone. {len(args.figures)} figures x {len(TRANSFORMS)} transforms = {len(args.figures) * len(TRANSFORMS)} images")
+    total_figs = sum(len(v) for v in all_figures.values())
+    print(f"\nDone. {total_figs} figures x {len(TRANSFORMS)} transforms = {total_figs * len(TRANSFORMS)} images ({total_count} new)")
     print(f"Output: {TRANSFORMS_DIR}")
 
 
