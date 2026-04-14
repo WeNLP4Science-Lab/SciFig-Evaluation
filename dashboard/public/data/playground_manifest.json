@@ -1,0 +1,794 @@
+{
+  "description": "Adversarial strategy playground - comparing model behaviors across challenging scenarios",
+  "experiments": [
+    {
+      "id": "caption_ablation",
+      "title": "Caption Ablation Study",
+      "description": "Tests whether models rely on captions or actually read figures. Three conditions: image+caption (original), image-only, caption-only (no image).",
+      "key_finding": "Image-only scored HIGHER (82.3) than image+caption (78.6). Captions can bias and hurt performance. No-image baseline scored 78.0 but many were refusals or fabrications.",
+      "model": "GPT-5.2",
+      "judge": "GPT-4o (Azure)",
+      "samples": [
+        {
+          "fig_key": "english_fig_003",
+          "figure_type": "Line Plot",
+          "original_mqm": 43.0,
+          "image_only_mqm": 72.0,
+          "no_image_mqm": 84.5
+        },
+        {
+          "fig_key": "english_fig_017",
+          "figure_type": "Pie Chart",
+          "original_mqm": 90.0,
+          "image_only_mqm": 81.5,
+          "no_image_mqm": 48.0
+        },
+        {
+          "fig_key": "english_fig_085",
+          "figure_type": "Bar Chart",
+          "original_mqm": 68.5,
+          "image_only_mqm": 66.5,
+          "no_image_mqm": 83.0
+        },
+        {
+          "fig_key": "chinese_fig_013",
+          "figure_type": "Pie Chart",
+          "original_mqm": 85.5,
+          "image_only_mqm": 100.0,
+          "no_image_mqm": 86.0
+        },
+        {
+          "fig_key": "chinese_fig_035",
+          "figure_type": "Line Plot",
+          "original_mqm": 91.5,
+          "image_only_mqm": 88.0,
+          "no_image_mqm": 74.5
+        },
+        {
+          "fig_key": "chinese_fig_004",
+          "figure_type": "Bar Chart",
+          "original_mqm": 85.0,
+          "image_only_mqm": 85.0,
+          "no_image_mqm": 79.5
+        },
+        {
+          "fig_key": "german_fig_001",
+          "figure_type": "Line Plot",
+          "original_mqm": 73.5,
+          "image_only_mqm": 71.5,
+          "no_image_mqm": 84.5
+        },
+        {
+          "fig_key": "german_fig_022",
+          "figure_type": "Bar Chart",
+          "original_mqm": 90.0,
+          "image_only_mqm": 98.0,
+          "no_image_mqm": 82.5
+        },
+        {
+          "fig_key": "german_fig_057",
+          "figure_type": "Pie Chart",
+          "original_mqm": 80.5,
+          "image_only_mqm": 78.0,
+          "no_image_mqm": 79.5
+        }
+      ]
+    },
+    {
+      "id": "axis_blurred",
+      "title": "Axis Label Blur Test",
+      "description": "Blurs axis labels, titles, and legends to test if models fabricate axis info or honestly admit they cannot read it.",
+      "key_finding": "GPT-5.2 honestly admits blurred text (67%). All other models: 0-11% honesty rate. Gemma fabricates at all sizes. Qwen/LLaMA semi-honest.",
+      "samples": [
+        {
+          "fig_key": "english_fig_003",
+          "figure_type": "Line Plot",
+          "models": {
+            "gemma3-4b": {
+              "length": 947,
+              "honest": false,
+              "description_preview": "The plot illustrates the performance of two RULER4k variants under different token sizes and bit widths. The x-axis represents the number of tokens, displayed on a linear scale ranging from 1 to 1000,"
+            },
+            "gemma3-27b": {
+              "length": 1353,
+              "honest": false,
+              "description_preview": "Here are the descriptions of the provided plots, following your guidelines:\n\nThe plot illustrates the performance of different model configurations across a range of sequence lengths. The x-axis is la"
+            },
+            "qwen3-vl-8b": {
+              "length": 1040,
+              "honest": false,
+              "description_preview": "This line plot compares the performance of three different configurations, labeled in the legend as “RULER4k of 2×tokens,8-bit” (light blue line with circle markers), “RULER4k of 1×tokens,16-bit” (dar"
+            },
+            "qwen3-vl-235b": {
+              "length": 1259,
+              "honest": false,
+              "description_preview": "The line plot illustrates the performance trends of three distinct configurations across five sequential evaluation points, likely representing different model or quantization settings. The x-axis, th"
+            },
+            "llama4-scout": {
+              "length": 1270,
+              "honest": false,
+              "description_preview": "The plot illustrates the comparison of three different configurations. The x-axis is labeled but not explicitly titled, has a linear scale, spans a range that appears to be approximately 0 to 1, with "
+            },
+            "llama4-maverick": {
+              "length": 1453,
+              "honest": false,
+              "description_preview": "The plot illustrates the performance of different configurations of RULER4k, a model or system, across various conditions or inputs, with a baseline for comparison. The x-axis represents the different"
+            }
+          }
+        },
+        {
+          "fig_key": "english_fig_017",
+          "figure_type": "Pie Chart",
+          "models": {
+            "gemma3-4b": {
+              "length": 598,
+              "honest": false,
+              "description_preview": "This pie chart represents a breakdown of “Happiness” into five distinct categories. There are five slices in total, each colored differently: a light blue slice represents approximately 25.1%, a darke"
+            },
+            "gemma3-27b": {
+              "length": 816,
+              "honest": false,
+              "description_preview": "This pie chart illustrates the distribution of factors contributing to happiness. The chart contains six slices, each representing a different factor. The slices are labeled “Romantic”, “Family”, “Hea"
+            },
+            "qwen3-vl-8b": {
+              "length": 738,
+              "honest": false,
+              "description_preview": "This pie chart visually represents the distribution of several categories, with five distinct slices, each labeled with its corresponding percentage and color-coded for distinction. The largest segmen"
+            },
+            "qwen3-vl-235b": {
+              "length": 551,
+              "honest": false,
+              "description_preview": "The pie chart displays five distinct segments representing different categories, each labeled with its corresponding percentage: the largest segment is light blue at 25.1%, followed by dark blue at 23"
+            },
+            "llama4-scout": {
+              "length": 590,
+              "honest": false,
+              "description_preview": "The pie chart represents the distribution of happiness, comprising six distinct categories. The chart features six slices, each labeled with a corresponding percentage. The largest slice is light blue"
+            },
+            "llama4-maverick": {
+              "length": 952,
+              "honest": false,
+              "description_preview": "The pie chart represents the distribution of various categories related to \"Happiness\", dividing the data into six distinct slices. The chart comprises six categories, each labeled with a percentage v"
+            }
+          }
+        },
+        {
+          "fig_key": "english_fig_085",
+          "figure_type": "Bar Chart",
+          "models": {
+            "gemma3-4b": {
+              "length": 1027,
+              "honest": false,
+              "description_preview": "This bar chart illustrates the distribution of patient visits across five medical specialties: Cardio, Gastro, Infect, Neuro, and Obstetrics, with Pediatrics represented by a single, light blue bar. T"
+            },
+            "gemma3-27b": {
+              "length": 1059,
+              "honest": false,
+              "description_preview": "This bar chart illustrates the distribution of research articles across six medical specialties: Cardio, Gastro, Infect, Neuro, Obstetrics, and Pediatrics. The horizontal axis displays the medical spe"
+            },
+            "qwen3-vl-8b": {
+              "length": 1056,
+              "honest": true,
+              "description_preview": "This bar chart displays comparative data across six medical specialty categories—Cardio, Gastro, Infect, Neuro, Obstetrics, and Pediatrics—represented by distinct shades of orange and brown, with a li"
+            },
+            "qwen3-vl-235b": {
+              "length": 1324,
+              "honest": true,
+              "description_preview": "The image displays a horizontal bar chart illustrating the relative proportions or counts of six medical specialties—Cardio, Gastro, Infect, Neuro, Obstetrics, and Pediatrics—across six distinct group"
+            },
+            "llama4-scout": {
+              "length": 1156,
+              "honest": true,
+              "description_preview": "This bar chart appears to illustrate a comparison of values across multiple categories, with the horizontal axis representing different medical specialties and the vertical axis representing an unspec"
+            },
+            "llama4-maverick": {
+              "length": 1326,
+              "honest": false,
+              "description_preview": "The chart illustrates the distribution of various medical specialties across different categories, with the categories listed on the vertical axis and the corresponding values represented on the horiz"
+            }
+          }
+        },
+        {
+          "fig_key": "chinese_fig_035",
+          "figure_type": "Line Plot",
+          "models": {
+            "gemma3-4b": {
+              "length": 395,
+              "honest": false,
+              "description_preview": "该图表显示了两个连续曲线，一个以蓝色实线表示，另一个以红色三角形表示，它们在x轴上的值随x轴值的变化而变化。x轴标记为“语悟”，刻度是线性的，从1.89到4.613，以0.233为间隔，单位为无。y轴标记为“数值”，刻度是线性的，从1到4.613，以0.233为间隔，单位为无。蓝色曲线从左到右开始，从1.89开始，在x轴的起始位置处达到一个峰值，然后下降到3.278，在x轴的B1位置处达到一个低谷"
+            },
+            "gemma3-27b": {
+              "length": 406,
+              "honest": false,
+              "description_preview": "该图表展示了两种不同变量随不同条件（A1、A2、B1、B2、C1、C2 和母语）的变化情况。x轴标记为“条件”，刻度为分类变量，包括 A1、A2、B1、B2、C1、C2 和“母语”。y轴标记为数值，刻度为线性，范围从 3.00 到 4.65，单位未指定，刻度间隔为 0.20。图表包含两条线：一条蓝色线，标记为“+”符号，从 A1 的 3.278 开始，在“母语”处达到 4.613 的峰值，在 A2"
+            },
+            "qwen3-vl-8b": {
+              "length": 320,
+              "honest": false,
+              "description_preview": "该图表展示了两条折线在六个离散类别（A1至C2）及一个“母语”类别下的数值变化情况。横轴代表类别，从左至右依次为A1、A2、B1、B2、C1、C2和“母语”，刻度为线性排列，无单位。纵轴表示数值，刻度为线性，范围从约2.5至4.7，数值间隔为0.25。蓝色折线（标记为星号）在A1处值为4.233，随后在B1处降至4.030，之后持续上升，在C2处达到4.613，最终在“母语”处升至4.613（图表"
+            },
+            "qwen3-vl-235b": {
+              "length": 468,
+              "honest": false,
+              "description_preview": "该图表展示了两组数据在六个类别（A1、A2、B1、B2、C1、C2及“母语”）上的数值变化趋势，用于比较不同类别下两个指标的得分或测量值。横轴（x轴）为分类变量，从左至右依次标记为A1、A2、B1、B2、C1、C2和“母语”，无数值单位，类别间等距排列，无刻度数值或单位。纵轴（y轴）为数值轴，范围从约3.0至4.7，刻度为线性，但未标注具体单位，数值间隔不均匀，主要数据点标注在图中各数据点上方。第"
+            },
+            "llama4-scout": {
+              "length": 264,
+              "honest": false,
+              "description_preview": "该图展示了不同类别下两条线的趋势和数值比较。x轴标记为A1、A2、B1、B2、C1、C2和母语，代表不同的类别。x轴为分类轴，没有数值刻度。y轴的数值范围从大约3.0到4.7，单位未指定，刻度为线性且均匀，间距约为0.1-0.2，但未标注具体数值。\n\n图中共有两条线。蓝色线以星号为标记，为实线。它的起点在A1处，数值为4.233，之后在B1处下降至4.030，然后在C2处上升至4.613。红色线以"
+            },
+            "llama4-maverick": {
+              "length": 302,
+              "honest": false,
+              "description_preview": "该图表比较了两条线在七个不同类别（A1、C2和母语）中的数值。x轴标记了类别A1、C2和母语，但未指定单位或标签；类别以离散、非数字的顺序排列。y轴同样未标记，但具有数值刻度。图表中有两条线：一条是蓝色的，用星号标记，实线表示；另一条是红色的，用三角形标记，也是实线。蓝色线在x轴上从A1到B1略微下降（从4.189到4.030），然后从B1到C2上升（从4.030到4.613），最后在母语处达到最"
+            }
+          }
+        },
+        {
+          "fig_key": "chinese_fig_013",
+          "figure_type": "Pie Chart",
+          "models": {
+            "gemma3-4b": {
+              "length": 241,
+              "honest": false,
+              "description_preview": "此饼图展示了不同类别所占的比例。图表包含六个切片。第一个切片为深蓝色，标签为“21%”，占据图表约21%的空间。第二个切片为橙色，标签为“20%”，占据图表约20%的空间。第三个切片为黄色，标签为“19%”，占据图表约19%的空间。第四个切片为绿色，标签为“14%”，占据图表约14%的空间。第五个切片为青色，标签为“6%”，占据图表约6%的空间。第六个切片为红色，标签为“2%”，占据图表约2%的空"
+            },
+            "gemma3-27b": {
+              "length": 222,
+              "honest": false,
+              "description_preview": "该饼图显示了不同类别的比例分布。图表包含六个切片，每个切片代表一个类别。最大的切片标记为“21%”，颜色为深蓝色。接下来是标记为“20%”的橙色切片。第三个切片是标记为“19%”的黄色切片。第四个切片是标记为“14%”的棕色切片，紧随其后的是标记为“14%”的浅蓝色切片。第五个切片是标记为“6%”的绿色切片，最小的切片标记为“4%”，颜色为红色，以及标记为“2%”的青色切片。图表包含切片内的百分比"
+            },
+            "qwen3-vl-8b": {
+              "length": 230,
+              "honest": false,
+              "description_preview": "该饼图用于展示一个整体被划分为七个不同类别的比例分布，每个类别由一个彩色切片表示，并标注了其对应的百分比。图表中包含七个切片，按视觉大小从大到小排列依次为：深蓝色（21%）、橙色（20%）、黄色（19%）、青色（14%）、棕色（14%）、绿色（6%）和蓝色（4%），其中深蓝色切片为最大，蓝色切片为最小。每个切片内部均清晰标注了其百分比数值，图表未显示图例，但通过颜色和百分比可区分各部分。此外，位于"
+            },
+            "qwen3-vl-235b": {
+              "length": 221,
+              "honest": false,
+              "description_preview": "该饼图用于展示八个不同类别的数据分布比例，每个类别以不同颜色的扇形切片表示，并在切片内部直接标注了其对应的百分比数值。从视觉上看，切片按顺时针方向大致从最大到最小排列，最大的切片为深蓝色，占21%；其次是橙色切片，占20%；然后是黄色切片，占19%；两个棕色和青绿色切片均占14%；绿色切片占6%；浅蓝色切片占4%；最小的红色切片占2%。图中未提供图例，所有比例均直接标注在对应切片内，切片之间无偏移"
+            },
+            "llama4-scout": {
+              "length": 202,
+              "honest": false,
+              "description_preview": "该饼图展示了不同类别的分布情况。图表中共有7个切片，每个切片代表不同的百分比。切片按以下方式标记和着色：橙色（20%），黄色（19%），青绿（14%），绿色（6%），红色（2%），深蓝色（21%）和棕色（14%），以及浅蓝色（4%）。每个切片都标有其对应的百分比。切片按顺时针方向排列，但不按特定顺序（例如，从大到小）。没有图例，但百分比直接显示在每个切片上。没有切片被视觉强调，如突出显示、偏移或加"
+            },
+            "llama4-maverick": {
+              "length": 296,
+              "honest": false,
+              "description_preview": "该饼图展示了八个不同类别的分布情况。图表中共有八个切片，每个切片代表一个类别，并以不同的颜色和相应的百分比标签来区分。这些切片包括一个浅蓝色切片，占4%，一个橙色切片，占20%，一个黄色切片，占19%，一个深绿色切片，占6%，一个青绿色切片，占14%，一个红色切片，占2%，一个海军蓝切片，占21%，以及一个棕色切片，占14%。每个切片的百分比都直接标注在其上，无需图例。切片按顺时针方向排列，从顶部"
+            }
+          }
+        },
+        {
+          "fig_key": "chinese_fig_004",
+          "figure_type": "Bar Chart",
+          "models": {
+            "gemma3-4b": {
+              "length": 220,
+              "honest": false,
+              "description_preview": "该图表展示了 2022 年 7 月至 2022 年 12 月期间每日报纸销量。水平轴表示日期，从 2022 年 7 月 1 日开始，以每月为单位，并以月度为间隔。垂直轴表示销量，以百万份为单位，刻度从 0 开始，以 100 万为间隔，并以线性刻度显示。图表包含一系列青色的柱状图，每个柱状图代表一天中的销量。柱状图的长度与相应的每日销量成比例。最短的柱状图约为 200 万份，最长的柱状图约为 560"
+            },
+            "gemma3-27b": {
+              "length": 361,
+              "honest": false,
+              "description_preview": "该柱状图显示了 2022 年 7 月 1 日至 2022 年 12 月 31 日期间每日媒体报道数量的变化。水平轴表示日期，从 2022 年 7 月 1 日开始，按日递增至 2022 年 12 月 31 日。该轴的标签以“2022 年 X 月 X 日”格式显示，并且是线性的。垂直轴表示每日媒体报道数量，标签为“每日媒体报道数量”，刻度为线性，范围从 0 到 6000，单位为 1000。数值刻度间隔"
+            },
+            "qwen3-vl-8b": {
+              "length": 381,
+              "honest": false,
+              "description_preview": "该图表旨在展示2022年7月与8月期间每日新闻媒体报道数量的波动情况。水平轴（X轴）代表日期，从“2022年7月8日”开始，以约每日间隔递增至“2022年8月30日”，标签以中文日期格式呈现，刻度为线性排列。垂直轴（Y轴）表示“新闻媒体每日报道数目”，单位为条目数，刻度为线性，范围从0至6000，数值刻度间隔为1000。图表中包含两组数据：一组是青绿色的垂直柱状图，代表每日报道总数，其高度随日期波"
+            },
+            "qwen3-vl-235b": {
+              "length": 379,
+              "honest": false,
+              "description_preview": "该柱状图旨在展示2022年7月至8月期间每日新闻媒体报道数量的波动情况，横轴按时间顺序排列日期，从2022年7月8日延伸至2022年8月30日，以“月+日”格式标注，日期标签呈倾斜排列以适应空间；纵轴为数值轴，标签为“新闻媒体每日报道数目”，刻度从0到6000，以1000为间隔均匀分布，单位为“篇”或“条”。图中每个日期对应一个青绿色垂直柱体，代表当日报道总数，柱体高度随数值变化，其中最高值出现在"
+            },
+            "llama4-scout": {
+              "length": 309,
+              "honest": false,
+              "description_preview": "这张图表展示了2022年7月8日至2022年8月26日期间每日的某个指标变化情况。图表的横轴表示日期，范围从2022年7月8日到2022年8月26日，标签按时间顺序排列，刻度为每天。纵轴表示该指标的数值，范围从0到6000，单位未明确标注，刻度为均匀的数值刻度，间隔为1000。图表中有一系列蓝色柱状图，每个柱状图代表一个日期的指标值，柱状图的高度表示该日期的指标大小。此外，图表中还叠加了一条浅蓝色"
+            },
+            "llama4-maverick": {
+              "length": 265,
+              "honest": false,
+              "description_preview": "该图表展示了2022年7月8日至2022年8月26日期间的每日值。图表的x轴代表日期，标签按时间顺序排列，显示所选时间范围内选定日期的数据。y轴标记为“当日日活”，具有从0到6000的线性刻度，单位增量为1000。图表中有代表每日值的条形图，条形图为青色，高度不同。最短的条形图约为500个单位，而最高的条形图约为5500个单位。图表中没有分组或堆叠的条形图，也没有视觉上强调的特定条形图。条形图按时"
+            }
+          }
+        },
+        {
+          "fig_key": "german_fig_001",
+          "figure_type": "Line Plot",
+          "models": {
+            "gemma3-4b": {
+              "length": 1008,
+              "honest": false,
+              "description_preview": "Das Diagramm stellt die Entwicklung von Wirtschaftspolitik insgesamt, Finanzpolitik und Handelspolitik über einen Zeitraum dar. Die x-Achse stellt Zeit dar, die in Jahren gemessen wird, mit einem Skal"
+            },
+            "gemma3-27b": {
+              "length": 1453,
+              "honest": false,
+              "description_preview": "Das Diagramm stellt die Veränderungen von Wirtschafts-, Finanz- und Handelspolitik über einen nicht angegebenen Zeitraum dar. Die x-Achse ist nicht beschriftet, hat einen linearen Maßstab und reicht v"
+            },
+            "qwen3-vl-8b": {
+              "length": 1463,
+              "honest": false,
+              "description_preview": "Das Diagramm stellt den zeitlichen Verlauf von drei politischen Bereichen – Wirtschaftspolitik insgesamt, Finanzpolitik und Handelspolitik – dar, wobei die ersten beiden auf der linken Skala und die l"
+            },
+            "qwen3-vl-235b": {
+              "length": 1191,
+              "honest": false,
+              "description_preview": "Das Diagramm stellt drei zeitlich verlaufende politische Indikatoren dar: „Wirtschaftspolitik insgesamt“ und „Finanzpolitik“ auf der linken y-Achse sowie „Handelspolitik“ auf der rechten y-Achse, wobe"
+            },
+            "llama4-scout": {
+              "length": 930,
+              "honest": false,
+              "description_preview": "Das Diagramm zeigt die Entwicklung von drei verschiedenen Politikbereichen über einen nicht spezifizierten Zeitraum. Die x-Achse ist nicht beschriftet, hat aber ein Intervall von 1 und reicht von 0 bi"
+            },
+            "llama4-maverick": {
+              "length": 1201,
+              "honest": false,
+              "description_preview": "Das Diagramm stellt die Entwicklung von drei verschiedenen politischen Bereichen über einen bestimmten Zeitraum dar, wobei die x-Achse den zeitlichen Verlauf zeigt und die y-Achse die entsprechenden W"
+            }
+          }
+        },
+        {
+          "fig_key": "german_fig_022",
+          "figure_type": "Bar Chart",
+          "models": {
+            "gemma3-4b": {
+              "length": 712,
+              "honest": false,
+              "description_preview": "Das Balkendiagramm stellt Werte über einen Zeitraum von drei Zeiträumen dar, der 2000er Jahre, 2010er Jahre und 2020er Jahre. Die horizontale Achse zeigt die Zeiträume, beginnend mit 2000er Jahren, ge"
+            },
+            "gemma3-27b": {
+              "length": 949,
+              "honest": false,
+              "description_preview": "Das Balkendiagramm stellt Daten für zwei Datensätze über einen Zeitraum von drei Jahrzehnten dar. Die horizontale Achse stellt die Zeit in Jahrzehnten dar, mit den Beschriftungen „2000er Jahre“, „2010"
+            },
+            "qwen3-vl-8b": {
+              "length": 1461,
+              "honest": false,
+              "description_preview": "Das Balkendiagramm stellt die Werte für drei verschiedene Kategorien über drei Zeitperioden – den 2000er, 2010er und 2020er Jahren – dar, wobei jede Zeitperiode durch drei nebeneinander angeordnete Ba"
+            },
+            "qwen3-vl-235b": {
+              "length": 1497,
+              "honest": false,
+              "description_preview": "Das Balkendiagramm vergleicht drei verschiedene Kategorien – dargestellt durch grüne, hellgrüne und blaue Balken – über drei Zeitabschnitte: die 2000er, 2010er und 2020er Jahre, die auf der horizontal"
+            },
+            "llama4-scout": {
+              "length": 931,
+              "honest": false,
+              "description_preview": "Das Diagramm zeigt eine Übersicht über drei Jahrzehnte, wobei für jedes Jahrzehnt drei Balken dargestellt sind, die unterschiedliche Kategorien repräsentieren. Die horizontale Achse ist in die Jahrzeh"
+            },
+            "llama4-maverick": {
+              "length": 888,
+              "honest": false,
+              "description_preview": "Das Balkendiagramm vergleicht die Werte von vier verschiedenen Kategorien über drei Jahrzehnte: die 2000er, 2010er und 2020er Jahre. Die horizontale Achse enthält die Kategorien, die durch verschieden"
+            }
+          }
+        },
+        {
+          "fig_key": "german_fig_057",
+          "figure_type": "Pie Chart",
+          "models": {
+            "gemma3-4b": {
+              "length": 705,
+              "honest": false,
+              "description_preview": "Das Kreisdiagramm stellt die Verteilung verschiedener Dienstleistungen dar, die von Haushalten in einer bestimmten Region in Anspruch genommen werden. Es gibt insgesamt neun Segmente, die jeweils eine"
+            },
+            "gemma3-27b": {
+              "length": 1541,
+              "honest": false,
+              "description_preview": "Das Kreisdiagramm zeigt die Verteilung der Ausgaben eines Haushalts auf verschiedene Kategorien. Das Diagramm besteht aus zehn Segmenten, die jeweils eine Ausgabenkategorie darstellen. Das Segment „Üb"
+            },
+            "qwen3-vl-8b": {
+              "length": 835,
+              "honest": false,
+              "description_preview": "Das Diagramm zeigt eine runde Aufteilung von Gesamtkosten oder -anteilen in zehn Segmenten, die jeweils einer bestimmten Kategorie zugeordnet sind und mit Prozentwerten beschriftet sind; die Segmente "
+            },
+            "qwen3-vl-235b": {
+              "length": 1300,
+              "honest": false,
+              "description_preview": "Das Kreisdiagramm stellt die Verteilung von Anteilen in verschiedenen Sektoren dar, wobei insgesamt 12 Kategorien in einem Ringdiagramm mit farblich abgesetzten Segmenten visualisiert werden. Die größ"
+            },
+            "llama4-scout": {
+              "length": 664,
+              "honest": false,
+              "description_preview": "Das vorliegende Diagramm zeigt die Verteilung von 16 verschiedenen Kategorien. Die Segmente sind wie folgt: Sport/Erholung (7,3, dunkelblau), Wohnungswesen (7,2, hellblau), Abwasserentsorgung (7,8, vi"
+            },
+            "llama4-maverick": {
+              "length": 864,
+              "honest": false,
+              "description_preview": "Das Diagramm ist ein Kreisdiagramm, das verschiedene Kategorien vergleicht. Es werden insgesamt 12 Segmente dargestellt. Die Segmente sind Kultur (31,1%, grau), Kliniken (3,2%, hellblau), Übrige (38,1"
+            }
+          }
+        }
+      ],
+      "gpt52_mqm": [
+        {
+          "fig_key": "english_fig_003",
+          "subfolder": "english_only",
+          "figure_type": "Line Plot",
+          "axis_blurred_description": "The plot shows how a performance metric (y-values) changes across five discrete x-axis categories/positions for multiple configurations, including two RULER4k settings and a dashed baseline. The x-axis is categorical with five evenly spaced tick positions (the specific category labels are not legible in the image), displayed on a linear layout. The y-axis is a linear scale with horizontal gridlines, but the y-axis label and numeric tick values are not legible. Four solid lines with markers are drawn: a light-blue line with circular markers (labeled “RULER4k of 2×tokens,8-bit”) starts near the top of the plot at the leftmost x-position, declines to a lower value by the middle (lowest around the third point), then rises through the fourth point and ends near the upper range at the rightmost point; a dark-blue line with square markers (labeled “RULER4k of 1×tokens,16-bit”) starts slightly below the other lines at the leftmost point, drops sharply to its lowest point at the third x-position, then increases at the fourth point and rises steeply to end near the upper range at the fifth point; a red line with square markers trends gently downward from the first to second point, then stays roughly flat from the third to fourth point, and rises to end near its starting level at the fifth point; a yellow line with circular markers remains close to the dashed baseline throughout, dipping slightly at the second point, rising at the third, staying similar at the fourth, and reaching its highest value at the fifth point. A gray dashed horizontal line (labeled “Baseline of 4×tokens,4-bit”) runs across the plot at a constant y-value slightly above most series except near the rightmost point where the yellow line meets or slightly exceeds it.",
+          "axis_blurred_mqm": 83.0,
+          "axis_blurred_errors": 4,
+          "original_mqm": 43.0,
+          "image_only_mqm": 72.0,
+          "no_image_mqm": 84.5
+        },
+        {
+          "fig_key": "english_fig_017",
+          "subfolder": "english_only",
+          "figure_type": "Pie Chart",
+          "axis_blurred_description": "The pie chart presents the distribution of responses across five categories, shown as five slices with percentage labels inside each slice. The slices include a light cyan segment labeled 25.1%, a dark blue segment labeled 23.1%, a light blue segment labeled 8.1% (with the nearby text “Happiness” visible on the right), a red segment labeled 14.1%, an orange segment labeled 14.7%, and a yellow segment labeled 14.9%. No separate legend is visible in the cropped image, and none of the slices appear exploded or otherwise visually emphasized; the segments do not appear to be arranged strictly in descending or ascending order by size.",
+          "axis_blurred_mqm": 89.0,
+          "axis_blurred_errors": 4,
+          "original_mqm": 90.0,
+          "image_only_mqm": 81.5,
+          "no_image_mqm": 48.0
+        },
+        {
+          "fig_key": "english_fig_085",
+          "subfolder": "english_only",
+          "figure_type": "Bar Chart",
+          "axis_blurred_description": "The chart shows multiple small groups of vertical bars intended to compare values across several medical specialties, with a legend at the top listing categories including Cardio (light blue), Gastro (light peach), Infect (light orange), Neuro (orange), Obstetrics (brown), and Pediatrics (dark brown). The categories appear to be encoded by color and repeated within each group, while the groups themselves are arranged left to right across the horizontal direction; however, the x-axis category labels for the groups are not visible in the provided image, and there are no readable tick marks or numeric labels on either axis. The value axis is vertical, and all bars extend downward from a common top baseline, indicating negative-direction lengths, but the axis label, units, and numeric range are not shown. Within each group, there are six adjacent bars (one per specialty) in the same left-to-right order as the legend colors; the bars vary in downward length by specialty and by group, with the light blue Cardio bar often among the longest downward bars in several groups, and the dark brown Pediatrics bar also showing substantial downward length in multiple groups. Approximate magnitudes cannot be read because no scale is visible, but visually the first group on the left contains relatively long downward bars across all specialties, a middle group includes notably shorter downward bars overall, and other groups show intermediate lengths. The bars are not stacked; they are grouped side-by-side with consistent spacing, and there is no visible sorting indication, highlighting, outlines, or annotations on individual bars beyond the color encoding and legend.",
+          "axis_blurred_mqm": 78.0,
+          "axis_blurred_errors": 5,
+          "original_mqm": 68.5,
+          "image_only_mqm": 66.5,
+          "no_image_mqm": 83.0
+        },
+        {
+          "fig_key": "chinese_fig_013",
+          "subfolder": "chinese_only",
+          "figure_type": "Pie Chart",
+          "axis_blurred_description": "该饼图用于展示一组类别在整体中所占的比例分布，图中共包含 8 个切片，并在每个切片内以白色文字标注了百分比。各切片分别为：深蓝色切片约 21%，橙色切片约 20%，黄色切片约 19%，青绿色切片约 14%，棕色切片约 14%，绿色切片约 6%，蓝色切片约 4%，以及粉红色切片约 2%。图中未见单独的图例框，切片也没有明显的拉出、偏移或加粗等视觉强调；各切片围绕圆周排列，百分比标签直接置于对应扇区内部。",
+          "axis_blurred_mqm": 88.0,
+          "axis_blurred_errors": 3,
+          "original_mqm": 85.5,
+          "image_only_mqm": 100.0,
+          "no_image_mqm": 86.0
+        },
+        {
+          "fig_key": "chinese_fig_035",
+          "subfolder": "chinese_only",
+          "figure_type": "Line Plot",
+          "axis_blurred_description": "该图为两条折线对比图，用于展示两组数据在不同等级类别（A1、A2、B1、B2、C1、C2、母语）上的数值变化。x轴为类别轴，标签依次为“A1、A2、B1、B2、C1、C2、母语”，为离散分类刻度，无数值单位与固定数值间隔。y轴未显示轴标题与单位，为连续数值刻度（线性），图中通过数据标注给出各点具体值，但未显示明确的最小/最大刻度范围与刻度间隔。第一条线为蓝色实线，使用“×”形标记；其在A1约为4.189，A2为4.233，B1下降至4.030，B2回升至4.188，C1为4.265，C2上升至4.613，并在母语处进一步上升到图中最高点（标记位于最右端，数值标签未完整显示）。第二条线为红色实线，使用上三角形标记；其在A1约为3.254，A2为3.278，B1下降至3.179，B2回升至3.235，C1为3.304，C2为3.420，母语上升至3.685；两条线均在B1处出现局部低点，随后随类别向右整体呈上升趋势。",
+          "axis_blurred_mqm": 83.5,
+          "axis_blurred_errors": 5,
+          "original_mqm": 91.5,
+          "image_only_mqm": 88.0,
+          "no_image_mqm": 74.5
+        },
+        {
+          "fig_key": "chinese_fig_004",
+          "subfolder": "chinese_only",
+          "figure_type": "Bar Chart",
+          "axis_blurred_description": "该图为一张柱状图叠加折线图的时间序列可视化，用于展示一段时间内每日的数值变化情况：以连续的竖直柱表示每日对应的量，并用一条蓝色折线在同一时间轴上描绘另一组（或同一组）日度数值走势。横轴为日期类别轴，标签以“2022年7月…日/2022年8月…日”的形式倾斜显示，按时间先后从左到右排列，刻度为离散日期点且较为密集；右侧为数值轴（垂直轴），轴标签为中文竖排文本（表示某项“日…数/日累计…”之类的指标名称），刻度为线性数值刻度，从0到6000，主要刻度标注为0、1000、2000、3000、4000、5000、6000，等间隔为1000。图中柱体为青绿色填充、细长且相邻排列，每个日期对应一根柱，柱高大致分布在约1500至5200之间：较高的柱接近5000–5200附近，较低的柱在约1500–2000附近；蓝色折线贯穿所有日期点，线条在约1500至5000之间上下波动，并在个别日期出现接近5000的尖峰。图中未见分组或堆叠结构（每个日期仅一根柱），也未见图例、数据标签或对特定柱的加粗、阴影、轮廓等视觉强调；柱的顺序由日期自然顺序决定，而非按数值大小排序。",
+          "axis_blurred_mqm": 86.0,
+          "axis_blurred_errors": 4,
+          "original_mqm": 85.0,
+          "image_only_mqm": 85.0,
+          "no_image_mqm": 79.5
+        },
+        {
+          "fig_key": "german_fig_001",
+          "subfolder": "german_only",
+          "figure_type": "Line Plot",
+          "axis_blurred_description": "Das Diagramm zeigt den zeitlichen Verlauf dreier Linienreihen zu „Wirtschaftspolitik insgesamt“ und „Finanzpolitik“ (beide auf der linken y‑Skala) sowie „Handelspolitik“ (auf der rechten y‑Skala). Die x‑Achse stellt Zeit dar (Beschriftung im Bildausschnitt nicht sichtbar), mit linearer Skalierung; konkrete Tick-Beschriftungen und der Wertebereich der x‑Achse sind im gezeigten Ausschnitt nicht ablesbar. Die linke y‑Achse ist linear skaliert und dient den Reihen „Wirtschaftspolitik insgesamt“ (schwarz) und „Finanzpolitik“ (hellblau); Zahlenwerte der linken Skala sind im Ausschnitt nicht lesbar. Die rechte y‑Achse ist linear skaliert, reicht von 1.000 bis 9.000 und ist in 1.000er‑Schritten beschriftet; sie gehört zur Reihe „Handelspolitik“ (violett). Die schwarze Linie („Wirtschaftspolitik insgesamt“, durchgezogen, ohne Marker) verläuft über weite Strecken auf einem niedrigen Niveau, zeigt etwa in der mittleren Bildhälfte einen deutlichen Peak (oberhalb der umgebenden Werte) und fällt danach wieder in einen niedrigeren Bereich zurück; gegen Ende steigt sie stark an und endet nahe dem oberen Rand des sichtbaren Bereichs. Die hellblaue Linie („Finanzpolitik“, durchgezogen, ohne Marker) folgt einem ähnlichen Muster mit kleineren Schwankungen, einem ausgeprägten Peak in der mittleren Bildhälfte und einem starken Anstieg im letzten Abschnitt bis in einen sehr hohen Endwert (nahe dem rechten Rand). Die violette Linie („Handelspolitik“, durchgezogen, ohne Marker; rechte Skala) liegt zu Beginn überwiegend nahe dem unteren Skalenbereich, weist in einem früheren Abschnitt einen schmalen, kurzen Ausschlag nach oben auf, verläuft danach wieder niedrig und steigt ganz am Ende sehr steil an, wobei sie einen Endwert um etwa 8.000 erreicht.",
+          "axis_blurred_mqm": 83.0,
+          "axis_blurred_errors": 4,
+          "original_mqm": 73.5,
+          "image_only_mqm": 71.5,
+          "no_image_mqm": 84.5
+        },
+        {
+          "fig_key": "german_fig_022",
+          "subfolder": "german_only",
+          "figure_type": "Bar Chart",
+          "axis_blurred_description": "Das Balkendiagramm stellt vier Kennzahlen (jeweils durch unterschiedlich gefärbte Balken repräsentiert) für drei Zeitabschnitte dar. Auf der horizontalen Achse stehen die Kategorien „2000er Jahre“, „2010er Jahre“ und „2020er Jahre“ in dieser Reihenfolge; innerhalb jeder Zeitkategorie sind vier vertikale Balken nebeneinander gruppiert. Die vertikale Achse ist eine numerische Werteachse mit horizontalen Gitternlinien und einer hervorgehobenen Nulllinie (schwarze Achse); eine explizite Achsenbeschriftung und Einheiten sind im sichtbaren Ausschnitt nicht erkennbar, die Skala wirkt linear und umfasst sowohl positive als auch negative Werte (mindestens von etwa −1,5 bis über 5). Für die „2000er Jahre“ sind die Balken (von links nach rechts) grün mit 3,9, hellgrün mit 5,4, dunkelblau mit 5,3 und hellblau mit 1,0 beschriftet. Für die „2010er Jahre“ lauten die entsprechenden Werte 3,7 (grün), 4,8 (hellgrün), 5,0 (dunkelblau) und 2,2 (hellblau); zusätzlich ist ein kleiner dunkelblauer Punkt im Bereich des dunkelblauen Balkens sichtbar. Für die „2020er Jahre“ sind die Werte 2,7 (grün), 2,3 (hellgrün), 0,4 (dunkelblau) und −1,5 (hellblau), wobei der hellblaue Balken unter die Nulllinie nach unten reicht. Zahlenwerte sind jeweils direkt über (bzw. beim negativen Wert neben) den Balken angegeben; eine Sortierung der Balken nach Höhe ist nicht ersichtlich, und es sind keine weiteren Hervorhebungen wie Umrandungen oder Schattierungen erkennbar.",
+          "axis_blurred_mqm": 86.0,
+          "axis_blurred_errors": 4,
+          "original_mqm": 90.0,
+          "image_only_mqm": 98.0,
+          "no_image_mqm": 82.5
+        },
+        {
+          "fig_key": "german_fig_057",
+          "subfolder": "german_only",
+          "figure_type": "Pie Chart",
+          "axis_blurred_description": "Das Kreisdiagramm stellt die prozentuale Verteilung von Ausgaben/Anteilen auf verschiedene Aufgabenbereiche dar und ist als zweiringiges Donut-Diagramm ausgeführt, wobei insgesamt 10 Segmente (Kategorien) beschriftet sind. Im äußeren Ring sind die Segmente mit Bezeichnung, Farbe und Prozentwert versehen: Übrige (grau, 38,1), Kliniken (hellblau, 3,2), Kultur (dunkelblau, 2,4), Sport/Erholung (dunkelgrau, 4,1), Wohnungswesen (hellgrün, 7,2), Abwasserentsorgung (hellblau, 7,8), Abfallwirtschaft (violett, 3,4), Stromversorgung (grün, 8,9), Gasversorgung (schwarz, 1,5) sowie ein weiteres hellblaues Segment mit 11,8 (Beschriftung am Segment nicht vollständig erkennbar). Im inneren Ring sind ebenfalls Prozentangaben innerhalb der Segmente platziert (u. a. 31,1 im großen grauen Bereich sowie kleinere Werte wie 4,5, 6,2, 4,1, 4,4, 6,2, 10,2, 8,4, 4,0, 4,2 und 1,3), jedoch ohne durchgehend eindeutig lesbare Zuordnung aller Textelemente zu den Segmenten. Eine separate Legende ist nicht vorhanden; die Zuordnung erfolgt über direkte Beschriftungen mit Linien/Leadern, und es sind keine Segmente visuell hervorgehoben (z. B. herausgelöst oder besonders betont).",
+          "axis_blurred_mqm": 68.0,
+          "axis_blurred_errors": 8,
+          "original_mqm": 80.5,
+          "image_only_mqm": 78.0,
+          "no_image_mqm": 79.5
+        }
+      ]
+    },
+    {
+      "id": "in_paper_page",
+      "title": "In-Paper Page Context",
+      "description": "Figure shown on its actual paper page with surrounding text, tables, and other figures. Tests figure localization.",
+      "key_finding": "Small models (Gemma3-4b) mix table data into figure descriptions (counted 11 slices from Table 1). GPT-5.2 and Qwen-235b handle pages perfectly.",
+      "samples": [
+        {
+          "fig": "english_fig_017",
+          "model": "gemma3-27b",
+          "clean": "This pie chart illustrates the distribution of expressed emotions. The chart contains six slices, each representing a different emotional state: Neutral, Frustration, Anger, Sadness, Excitement, and H",
+          "clean_len": 780,
+          "in_paper": "Figure 2 presents the original distribution of emotion categories in the IEMOCAP dataset. The pie chart displays six slices representing different emotional states. These are, moving clockwise from th",
+          "in_paper_len": 720,
+          "fig_blurred": "Figure 2 presents a comparison of Word Error Rate (WER) and Unweighted Average Recall (UAR) results from VPC attack scenarios, contrasting performance with and without anonymization. The chart consist",
+          "fig_blurred_len": 1082
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "qwen3-vl-8b",
+          "clean": "This pie chart visually represents the distribution of six distinct emotional states—Frustration, Neutral, Anger, Sadness, Happiness, and Excitement—each occupying a separate slice of the circle. The ",
+          "clean_len": 1065,
+          "in_paper": "Figure 2 is a pie chart illustrating the original distribution of five emotion categories within the IEMOCAP dataset, with percentages displayed relative to the total number of utterances. The chart i",
+          "in_paper_len": 809,
+          "fig_blurred": "Figure 2 is a pie chart illustrating the distribution of emotional labels within the IEMOCAP dataset. The chart is divided into five colored segments, each representing one of the five considered emot",
+          "fig_blurred_len": 968
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "qwen3-vl-235b",
+          "clean": "The pie chart displays the distribution of six different emotional states, each represented by a distinct colored slice with its corresponding percentage label. The largest segment, colored light blue",
+          "clean_len": 829,
+          "in_paper": "Figure 2 is a pie chart illustrating the original distribution of emotion categories in the IEMOCAP dataset, with percentages calculated relative to the total number of utterances. The chart is divide",
+          "in_paper_len": 937,
+          "fig_blurred": "Figure 2 is a pie chart illustrating the distribution of emotional labels in the dataset, specifically showing the proportion of utterances categorized as “Frustration” and “Neutral.” The chart is div",
+          "fig_blurred_len": 861
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "gemma3-27b",
+          "clean": "这两个图表都展示了 BLEU 值与不同参数之间的关系。两个图表的 x 轴都使用线性刻度，范围从 0 到 0.9（左图）和 0 到 0.45（右图）。左图的 x 轴标签为“α”，右图的 x 轴标签为“p”。左图的 x 轴刻度间隔为 0.2，而右图的刻度间隔为 0.1。两个图表的 y 轴都使用线性刻度，范围从 28.0 到 28.5，标签为“BLEU”。y 轴刻度间隔为 0.1。\n\n在左图表中，有一条",
+          "clean_len": 410,
+          "in_paper": "图 2 展示了 TeMuST-C 英语-德语验证集上知识蒸馏校准 (E) 与概率率 (p) 之间的关系。x 轴表示概率率 p，采用线性刻度，范围为 0.0 到 0.9，单位为无，刻度间隔为 0.1。y 轴表示知识蒸馏校准 E，采用线性刻度，范围为 20.0 到 28.5，单位为无，刻度间隔为 1。图表包含一条蓝色实线，该线从 x = 0.0 处约等于 28.2 开始，随着 x 值的增加，该线下降至",
+          "in_paper_len": 245,
+          "fig_blurred": "图 2 展示了 TeMuST-C 英语-德语验证集上知识蒸馏模型（α）的峰值概率 (p) 与语言模型性能的影响。x 轴表示 α 值，标签为“α”，刻度为线性，数值范围为 0.0 到 1.0，单位未指定，数值刻度间隔为 0.1。y 轴表示峰值概率 (p)，标签为“峰值概率(p)”，刻度为线性，数值范围为 0.0 到 0.25，单位未指定，数值刻度间隔为 0.05。图表包含一条蓝色实线，该线从 x 轴",
+          "fig_blurred_len": 332
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "qwen3-vl-8b",
+          "clean": "该图表包含两个独立的折线图，均用于展示BLEU分数随不同参数变化的趋势。左侧图表的x轴为参数α，数值范围从0.1到0.9，刻度间隔为0.2，单位为无量纲；y轴为BLEU分数，数值范围从28.0到28.5，刻度间隔为0.01。图中仅有一条蓝色实线，其数据点在x=0.1时为28.0，在x=0.5时达到峰值28.5，在x=0.9时下降至28.1。右侧图表的x轴为参数p，数值范围从0.05到0.45，刻度",
+          "clean_len": 279,
+          "in_paper": "图2展示了在MuST-C英语-德语验证集上，知识蒸馏权重α（左图）和掩码概率p（右图）对语音翻译性能（以BLEU分数衡量）的影响。左图的横轴为知识蒸馏权重α，数值范围从0.1到0.9，刻度间隔为0.2，单位为无量纲；纵轴为BLEU分数，数值范围从28.0到28.5，刻度间隔为0.1。图中仅有一条蓝色实线，其在α=0.1时BLEU值为28.0，在α=0.5时达到峰值28.5，在α=0.9时下降至28",
+          "in_paper_len": 339,
+          "fig_blurred": "图2展示了在MuST-C英语-德语验证集上，知识蒸馏权重α（左图）和掩码概率p（右图）对语音翻译性能的影响。左图的横轴为知识蒸馏权重α，数值范围从0.1至0.9，刻度间隔为0.2，单位为无量纲；纵轴为语音翻译性能，数值范围从28.0开始，刻度间隔为0.0，单位为无量纲。右图的横轴为掩码概率p，数值范围从0.05至0.45，刻度间隔为0.1，单位为无量纲；纵轴为语音翻译性能，数值范围从28.0开始，",
+          "fig_blurred_len": 288
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "qwen3-vl-235b",
+          "clean": "该图像包含两个并列的线图，均用于展示BLEU分数随不同参数变化的趋势，左侧图的横轴为参数α，右侧图的横轴为参数p，两图的纵轴均为BLEU分数，范围从28.0到28.5，刻度间隔为0.1，采用线性刻度，无单位标注。左侧图中，x轴α的取值为0.1、0.3、0.5、0.7和0.9，图中一条蓝色实线连接五个圆形标记点，BLEU值从α=0.1时的28.00上升至α=0.5时的峰值28.50，随后下降至α=0",
+          "clean_len": 384,
+          "in_paper": "图2展示了在MuST-C英语-德语验证集上，知识蒸馏权重α（左图）与掩码概率p（右图）两个超参数对语音翻译性能（以BLEU分数衡量）的影响。左图的x轴为知识蒸馏权重α，范围从0.1到0.9，刻度间隔为0.2，y轴为BLEU分数，范围从28.0到28.5，刻度间隔为0.1；图中一条蓝色实线连接五个数据点，显示BLEU分数随α从0.1增至0.5时从约28.0上升至约28.5，随后随α增至0.9时下降至",
+          "in_paper_len": 389,
+          "fig_blurred": "图2展示了在MuST-C英语-德语验证集上，知识蒸馏权重α（左图）与掩码概率p（右图）对语音翻译性能的影响，两个子图的纵轴均为性能指标，数值范围从28.0开始向上延伸，但未标注完整刻度。左图的横轴为α，范围从0.1至0.9，刻度间隔为0.2，图中仅包含一个数据点，位于α=0.1处，对应纵轴值为28.0，该点通过一条向右上方延伸的蓝色实线连接，表明性能随α增大而上升。右图的横轴为p，范围从0.05至",
+          "fig_blurred_len": 305
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "llama4-scout",
+          "clean": "This pie chart represents the distribution of various emotions, with six slices in total. The slices are labeled as Frustration, Neutral, Anger, Sadness, Excitement, and Happiness, and are colored light blue, purple, yellow, orange, red, and pink, respectively. The approximate proportions of each emotion are: Frustration, 25.1%; Neutral, 23.1%; Anger, 14.9%; Sadness, 14.7%; Excitement, 14.1%; and Happiness, 8.1%. The chart includes percentage labels inside each slice, and there is no legend; the slices are arranged in a clockwise direction, but do not appear to be ordered in a specific way, such as descending size.",
+          "clean_len": 622,
+          "in_paper": "The figure is a pie chart that displays the original distribution of emotion categories in the IEMOCAP dataset. The chart consists of six slices, each representing a distinct emotion category: Frustration (light blue, 25.1%), Neutral (dark blue, 23.1%), Anger (orange, 14.9%), Sadness (yellow, 14.7%), Excitement (light green, 14.1%), and Happiness (dark green, 8.1%). The chart does not include a legend, but the colors and percentages are labeled within or next to each slice. The slices appear to be arranged in descending order of size, with Frustration being the largest and Happiness being the smallest.",
+          "in_paper_len": 609,
+          "fig_blurred": "The pie chart in Figure 2 shows the distribution of emotional labels across five categories to represent the emotional content annotated in the dataset. The pie chart presents 5 slices. The largest slice is Red, representing Happiness, and takes up approximately 30% of the chart. The adjacent slice, representing Anger, takes up approximately 15% of the chart, and is colored Orange. The next largest slice represents Sadness, is colored a darker blue, and takes up approximately 15% of the chart. Two smaller slices are shown on the top half. The slice representing Frustration takes up approximately 20% and is colored a lighter blue. The smallest slice represents Neutral, takes up approximately 20% and is colored Yellow. A legend is not present; however, the labels are written on each slice. The slices do not appear to be ordered in any particular way, and no slices are visually emphasized.",
+          "fig_blurred_len": 899
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "llama4-maverick",
+          "clean": "The pie chart represents the distribution of various emotions, comparing their relative proportions. The chart is divided into six slices, each labeled with a distinct emotion. The slices are labeled as follows: Frustration (light blue, 25.1%), Neutral (blue, 23.1%), Anger (yellow, 14.9%), Sadness (orange, 14.7%), Excitement (red, 14.1%), and Happiness (dark red, 8.1%). The chart includes percentage labels inside each slice, and the slices are arranged in a clockwise order from largest to smallest, with Frustration being the largest and Happiness being the smallest. No legend is present, and none of the slices are visually emphasized.",
+          "clean_len": 642,
+          "in_paper": "The chart represents the original distribution of emotion categories in the IEMOCAP dataset. The pie chart is divided into 6 slices, representing different emotions. The slices are labeled as follows: Neutral (blue, 23.1%), Frustration (light blue, 25.1%), Happiness (yellow, 8.1%), Excitement (orange, 14.1%), Sadness (brown, 14.7%), and Anger (purple, 14.9%). The percentages are displayed inside each slice. The chart does not include a legend, and the slices are not visually emphasized. The slices appear to be arranged in a clockwise order, with the largest slice (Frustration) starting at the top.",
+          "in_paper_len": 604,
+          "fig_blurred": "The chart represents the distribution of emotional labels in a dataset, showing five categories. The pie chart is divided into five slices, labeled as Neutral, Frustration, Sadness, Anger, and Happiness, with distinguishable colors, although the exact shades are not specified. The approximate proportions are: Neutral (34%), Happiness (26%), Frustration (17%), Sadness (13%), and Anger (10%). The chart does not include a legend, but the labels are placed adjacent to their corresponding slices. The slices are not visually emphasized or ordered in a particular way.",
+          "fig_blurred_len": 567
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "llama4-scout",
+          "clean": "The image presents two line graphs. \n\nThe x-axis of the left graph is labeled \"α\" with a range from 0.1 to 0.9, marked at intervals of 0.2. The y-axis is labeled \"BLEU\" with a range from 28.0 to 28.5, marked at intervals of 0.1. The graph features a blue line with circular markers. The line starts at approximately (0.1, 28.0), increases to around (0.3, 28.3), then peaks at about (0.5, 28.6), decreases to roughly (0.7, 28.4), and ends at approximately (0.9, 28.1).\n\nThe x-axis of the right graph is labeled \"p\" with a range from 0.05 to 0.45, marked at intervals of 0.1. The y-axis is also labeled \"BLEU\" with a range from 28.0 to 28.5, marked at intervals of 0.1. This graph also features a blue line with circular markers. The line starts at approximately (0.05, 28.3), increases to around (0.15, 28.5), decreases to roughly (0.25, 28.4), increases to about (0.35, 28.5), and ends at approximately (0.45, 28.4).",
+          "clean_len": 916,
+          "in_paper": "图 2 包含两个图表，展示了在 MuST-C 英语-德语验证集上，知识蒸馏权重 $\\alpha$（左图）和推码概率 $p$（右图）对语音翻译性能的影响。\n\n左图的 x 轴表示知识蒸馏权重 $\\alpha$，为数值刻度，范围从 0.1 到 0.9，单位无，均匀刻度，间隔为 0.1。y 轴表示 BLEU 评分，为数值刻度，范围从 28.0 到 28.5，单位无，均匀刻度，间隔为 0.05。该图包含一条蓝色实线，标记为圆形。在 $\\alpha = 0.1$ 处，BLEU 评分为 28.05；在 $\\alpha = 0.5$ 处，BLEU 评分为 28.45；在 $\\alpha = 0.9$ 处，BLEU 评分为 28.2。\n\n右图的 x 轴表示推码概率 $p$，为数值刻度，范围从 0.05 到 0.45，单位无，均匀刻度，间隔为 0.05。y 轴表示 BLEU 评分，为数值刻度，范围从 28.0 到 28.5，单位无，均匀刻度，间隔为 0.05。该图包含一条蓝色实线，标记为圆形。在 $p = 0.05$ 处，BLEU 评分为 28.1；在 $p = 0.15$ 处，BLEU 评分为 28.45；在 $p = 0.45$ 处，BLEU 评分为 28.4。",
+          "in_paper_len": 531,
+          "fig_blurred": "图2包含两个图表，展示了知识蒸馏权重$\\alpha$和推码概率$p$对语音翻译性能的影响。左边的图表显示了$\\alpha$对语音翻译性能的影响，其x轴标记为$\\alpha$，为线性刻度，范围从0.1到0.9，单位不明，均匀间隔为0.1。y轴标记为BLEU分数，为线性刻度，范围从28.0到32.0，单位不明，均匀间隔为1.0。图表中有一条蓝色实线，标记为圆形，从$\\alpha = 0.1$开始，BLEU分数约为30.8，结束于$\\alpha = 0.9$，BLEU分数约为31.3。\n\n右边的图表显示了$p$对语音翻译性能的影响，其x轴标记为$p$，为线性刻度，范围从0.05到0.45，单位不明，均匀间隔为0.05。y轴与左边的图表相同，标记为BLEU分数，为线性刻度，范围从28.0到32.0，单位不明，均匀间隔为1.0。图表中有一条蓝色实线，标记为圆形，从$p = 0.05$开始，BLEU分数约为28.3，结束于$p = 0.45$，BLEU分数约为30.8。",
+          "fig_blurred_len": 435
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "llama4-maverick",
+          "clean": "两个图表的y轴标签均为“BLEU”，数值范围从28.0到28.5，刻度为线性，数值间隔为0.1。第一个图表的x轴标签为“α”，数值范围从0.1到0.9，刻度为线性，数值间隔为0.2。第二个图表的x轴标签为“p”，数值范围从0.05到0.45，刻度为线性，数值间隔为0.1。第一个图表显示了一条蓝线，带有圆形标记和实线样式，随着α的增加，BLEU值先上升后下降，从0.1时的28.0上升到0.5时的28.54，然后下降到0.9时的28.1。第二个图表显示了一条蓝线，带有圆形标记和实线样式，随着p的增加，BLEU值波动，从0.05时的28.3上升到0.15时的28.54，然后下降到0.25时的28.42，最后在0.35时达到28.47，并在0.45时下降到28.44。",
+          "clean_len": 334,
+          "in_paper": "图2由两个图表组成，展示了不同参数对语音翻译性能的影响。两个图表的y轴相同，标签为“BLEU”，数值范围从28.0到28.5，刻度为线性，间隔为0.1。左图和右图的x轴分别标记为“α”和“p”，数值范围分别为0.1至0.9和0.05至0.45，均为线性刻度，间隔分别为0.2和0.1。左图中的蓝线从x轴上的0.1开始，BLEU值约为28.0，随着α的增加而上升，在α = 0.5时达到峰值28.5，然后下降到0.9时的约28.15。右图中的蓝线从0.05开始，BLEU值约为28.3，在p = 0.15时达到峰值28.5，然后下降到0.45时的约28.4。",
+          "in_paper_len": 278,
+          "fig_blurred": "图2包含两个并排的图表，展示了知识蒸馏权重$\\alpha$和掩码概率$p$对语音翻译性能的影响。两个图表共享相同的y轴，标签为“语音翻译性能”，具有线性刻度，范围从0.4到1.2，数值刻度间隔为0.2。左图显示了$\\alpha$对语音翻译性能的影响，其x轴标签为“$\\alpha$”，具有线性刻度，范围从0.1到0.9，数值刻度间隔为0.2。左图中的蓝线在$\\alpha = 0.1$时开始于约1.1，然后随着$\\alpha$的增加而下降，在$\\alpha = 0.3$时达到约0.55，之后趋于平稳，在$\\alpha = 0.9$时达到约0.45。右图显示了$p$对语音翻译性能的影响，其x轴标签为“$p$”，具有线性刻度，范围从0.05到0.45，数值刻度间隔为0.1。右图中的蓝线在$p = 0.05$时开始于约0.5，然后随着$p$的增加而略微下降，在$p = 0.15$时达到约0.45，之后趋于平稳，在$p = 0.45$时达到约0.46。",
+          "fig_blurred_len": 426
+        }
+      ]
+    },
+    {
+      "id": "figure_blurred_page",
+      "title": "Figure Blurred on Page",
+      "description": "Figure is blurred on the paper page but all surrounding text/captions remain readable. Tests if models fabricate or admit they cannot see.",
+      "key_finding": "GPT-5.2 says \"obscured/不清晰\". Gemma3-4b describes Table 1 data AS the pie chart. Gemma3-27b also hallucinates. Only frontier models admit uncertainty.",
+      "models_tested": [
+        "GPT-5.2",
+        "Gemma3-4b",
+        "Gemma3-27b",
+        "Qwen3-VL-8b",
+        "Qwen3-VL-235b",
+        "LLaMA4-Scout",
+        "LLaMA4-Maverick"
+      ]
+    },
+    {
+      "id": "misplaced_figure",
+      "title": "Misplaced Figure (Wrong Page Context)",
+      "description": "Figure placed on a different page of the same paper where surrounding text discusses unrelated content. Tests if models get influenced by page text.",
+      "key_finding": "Gemma injects page context (\"speaker anonymization performance\", \"CemuSTC\"). GPT-5.2, Qwen, LLaMA focus on the actual figure. Surrounding text influences small models.",
+      "samples": [
+        {
+          "fig": "english_fig_017",
+          "model": "GPT-5.2",
+          "description": "Figure 2 is a pie chart titled as a distribution of emotion categories in the IEMOCAP dataset, showing 5 slices. The slices are labeled Neutral (dark blue) at approximately 23.1%, Happiness (light blue) at about 8.1%, Excitement (red) at about 14.1%, Sadness (orange) at about 14.7%, and Anger (yellow) at about 14.9%, with an additional light-cyan slice shown at about 25.1% (label not clearly visible in the image). Percentage values are printed inside the slices, there is no separate legend, and no slice appears exploded or otherwise emphasized; the slices are arranged around the circle without an obvious descending-size order.",
+          "length": 634
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "Gemma3-4b",
+          "description": "Figure 2 presents a pie chart illustrating the distribution of emotion categories identified in speaker anonymization performance. The chart contains six slices representing different emotions: Anger, Frustration, Excitement, Sadness, Happiness, and Surprise. The slice labeled “Anger” is colored red and occupies approximately 25.1% of the total area. The “Frustration” slice is colored blue and represents approximately 14.7% of the total area. The “Excitement” slice is colored green and accounts for approximately 23.1% of the total area. The “Sadness” slice is colored yellow and represents approximately 14.1% of the total area. The “Happiness” slice is colored purple and occupies approximately 8.1% of the total area. The “Surprise” slice is colored orange and represents approximately 1.49% of the total area. A legend is included, providing color-coded labels for each emotion category.  The slices appear ordered from largest to smallest in terms of their area.",
+          "length": 972
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "Gemma3-27b",
+          "description": "Figure 2 presents the distribution of emotional responses elicited by the voice privacy speaker anonymization system. The pie chart displays seven categories of emotional response. A legend is included, associating colors with each emotion. The slices, ordered from largest to smallest based on visual proportion, are as follows: Sadness, represented in blue and accounting for approximately 23.1% of responses; Frustration, in orange at 25.1%; Neutral, in gray at 14.7%; Excitement, in yellow at 14.1%; Anger, in red at 14.9%; Happiness, in green at 8.1%; and finally, Fear, in purple at approximately 2.2%. Percentage labels are included within each slice. No slices are visually emphasized through techniques like exploding or bolding.",
+          "length": 738
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "Qwen3-VL-8b",
+          "description": "Figure 2 is a pie chart titled “Original distribution of emotion categories in the IEMOCAP dataset,” visually depicting the proportional breakdown of six distinct emotion categories within the dataset. The chart is divided into six labeled slices, each with a corresponding percentage value displayed inside. The largest slice, colored cyan, represents “Frustration” at 25.1%. The second largest, colored blue, is “Neutral” at 23.1%. The remaining four categories—“Anger” (yellow, 14.9%), “Sadness” (orange, 14.7%), “Happiness” (light blue, 8.1%), and “Excitement” (red, 14.1%)—are each represented by smaller segments. The chart includes a legend-like labeling directly on each slice, and the percentages are clearly printed within their respective segments. The slices are arranged in a clockwise order starting from the top, with “Frustration” positioned at the top left.",
+          "length": 874
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "Qwen3-VL-235b",
+          "description": "Figure 2 is a pie chart illustrating the original distribution of emotion categories in the IEMOCAP dataset. The chart is divided into six colored segments, each representing a distinct emotion label with its corresponding percentage: “Frustration” (25.1%, light blue), “Neutral” (23.1%, dark blue), “Anger” (14.9%, yellow), “Sadness” (14.7%, orange), “Excitement” (14.1%, red), and “Happiness” (8.1%, light purple). The segments are arranged clockwise starting from the top-right, with “Frustration” being the largest slice and “Happiness” the smallest. Each slice is labeled with both the emotion name and its percentage value, and the chart is titled “Original distribution of emotion categories in the IEMOCAP dataset.”",
+          "length": 723
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "LLaMA4-Scout",
+          "description": "The pie chart, Figure 2, displays the original distribution of emotion categories in the IEMOCAP dataset. The chart comprises six slices, each representing a distinct emotion: Frustration (25.1%, orange), Anger (14.7%, red), Sadness (14.1%, dark blue), Excitement (8.1%, light blue), Neutral (23.1%, green), and Happiness (14.9%, yellow). A legend is not present, but the colors and percentages are labeled within each slice. The slices are arranged in no apparent order, and none are visually emphasized. The chart provides a clear visual representation of the emotional category distribution in the IEMOCAP dataset.",
+          "length": 617
+        },
+        {
+          "fig": "english_fig_017",
+          "model": "LLaMA4-Maverick",
+          "description": "The chart represents the original distribution of emotion categories in the IEMOCAP dataset. The chart is divided into six slices, each representing a different emotion category. The slices are labeled as Frustration (dark blue, 25.1%), Anger (red, 14.9%), Sadness (blue, 14.7%), Neutral (yellow, 23.1%), Happiness (green, 8.1%), and Excitement (orange, 14.1%). The chart does not include a legend, but the labels and percentages are shown directly on the chart. The slices appear to be arranged in a somewhat circular pattern, with no particular order or emphasis on any one slice. The percentages are clearly visible and easily readable.",
+          "length": 639
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "GPT-5.2",
+          "description": "图1由并排的两个折线图组成，用于展示在 MuST-C 验证集上，不同超参数取值对模型性能（以 BLEU 表示）的影响。两个子图的 y 轴一致，标签为 “BLEU”，为线性刻度，数值范围约从 28.0 到 28.5，刻度间隔约为 0.1。左侧子图的 x 轴标签为 “α”，线性刻度，范围约从 0.1 到 0.9，刻度以 0.1 为间隔；图中为一条蓝色实线，使用圆形标记连接各数据点，BLEU 随 α 从 0.1 处约 28.0 上升到 0.3 处约 28.3，并在 0.5 处达到最高点约 28.5，随后在 0.7 处回落到约 28.4，并在 0.9 处进一步下降到约 28.1。右侧子图的 x 轴标签为 “p”，线性刻度，范围约从 0.05 到 0.45，刻度以 0.10 为间隔；同样为蓝色实线配圆形标记，BLEU 在 p=0.05 处约 28.3，上升到 p=0.15 处约 28.5（该子图最高点），随后在 p=0.25 处下降到约 28.4，在 p=0.35 处回升到约 28.45，并在 p=0.45 处略降至约 28.42。",
+          "length": 468
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "Gemma3-4b",
+          "description": "图 1 显示了三个不同参数下的模拟结果。x 轴从 0.0 到 0.45，以对数刻度显示，刻度间隔为 0.05。y 轴从 28.1 到 28.3，以线性刻度显示，刻度间隔为 0.1。第一条线，表示“对齐”，为绿色，使用圆形标记，以实线绘制，从 x 轴的起始值（x=0.0，y=28.1）开始，在 x=0.2 处达到峰值（y=28.3），然后稳定在 y=28.1 附近，直到 x=0.45。第二条线，表示“回弹”，为红色，使用三角形标记，以实线绘制，从 x 轴的起始值（x=0.0，y=28.1）开始，在 x=0.1 处达到峰值（y=28.3），然后下降到 y=28.2，并在 x=0.45 处稳定在 y=28.1 附近。第三条线，表示“通常”，为蓝色，使用矩形标记，以实线绘制，从 x 轴的起始值（x=0.0，y=28.1）开始，在 x=0.3 处达到峰值（y=28.3），然后下降到 y=28.2，并在 x=0.45 处稳定在 y=28.1 附近。",
+          "length": 424
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "Gemma3-27b",
+          "description": "图 1 展示了在不同 p 值下，CemuSTC、masked L1 和对应的曲线拟合的曲线。x 轴表示 p 值，标签为“p”，刻度为线性，范围为 0 到 1，间隔为 0.1。y 轴表示“yext”，刻度为线性，范围为 20.1 到 28.5，间隔为 0.3。图中有三条线：CemuSTC 线为蓝色，带有圆形标记，从 x=0 处的 y 约等于 27.9 开始，在 x=0.3 处达到峰值 y 约等于 28.4，然后下降至 x=1 处的 y 约等于 20.4；masked L1 线为红色，带有交叉标记，从 x=0 处的 y 约等于 27.9 开始，在 x=0.3 处达到峰值 y 约等于 28.4，然后下降至 x=1 处的 y 约等于 20.4；曲线拟合线为绿色，带有正方形标记，从 x=0 处的 y 约等于 27.9 开始，在 x=0.15 处达到峰值 y 约等于 28.3，然后下降至 x=0.45 处的 y 约等于 26.1。",
+          "length": 415
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "Qwen3-VL-8b",
+          "description": "图1包含两个并列的线图，均用于展示在MuST-C验证集上超参数α和p对模型性能的影响。两个图表共享相同的y轴，其标签为“BLEU”，刻度为线性，数值范围从28.0到28.5，单位为无，刻度间隔为0.1。左侧图表的x轴标签为“α”，刻度为线性，数值范围从0.1到0.9，单位为无，刻度间隔为0.2。该图中仅有一条蓝色实线，其数据点在x=0.1处约为28.0，在x=0.5处达到峰值约为28.5，在x=0.9处下降至约28.1。右侧图表的x轴标签为“p”，刻度为线性，数值范围从0.05到0.45，单位为无，刻度间隔为0.05。该图中同样仅有一条蓝色实线，其数据点在x=0.05处约为28.3，在x=0.15处达到峰值约为28.5，在x=0.45处下降至约28.4。",
+          "length": 331
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "Qwen3-VL-235b",
+          "description": "图1展示了在MuST-C验证集上超参数α和p对模型性能的影响，由两个并列的折线图构成，共享相同的纵轴标签“BLEU”和相似的数值范围。左侧图表的横轴为α，刻度为线性，范围从0.1到0.9，间隔为0.2；纵轴BLEU值范围从28.0到28.5，间隔为0.1。图中一条蓝色实线连接五个圆形数据点，显示BLEU值随α从0.1增至0.5时从约28.0上升至约28.5，随后在α从0.5增至0.9时下降至约28.1。右侧图表的横轴为p，刻度为线性，范围从0.05到0.45，间隔为0.1；纵轴BLEU值范围同样从28.0到28.5，间隔为0.1。图中一条蓝色实线连接五个圆形数据点，显示BLEU值随p从0.05增至0.15时从约28.3上升至约28.5，随后在p从0.15增至0.25时下降至约28.4，之后在p从0.25增至0.45时略有回升至约28.45。两个图表均无图例，但通过坐标轴标签和数据点趋势清晰呈现了各参数对BLEU指标的影响。",
+          "length": 417
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "LLaMA4-Scout",
+          "description": "图 1 显示了在 MuST-C 验证集上超参数 $\\alpha$ 对性能的影响。x 轴表示 $\\alpha$ 值，范围从 0 到 1，均匀分布，刻度间隔为 0.1。y 轴表示 BLEU 值，范围从 28.0 到 28.5，均匀分布，刻度间隔为 0.05。该图包含一条蓝色实线，标记为圆形，代表在第二个局上下文和文本全和语音增强的文本翻译任务的性能。线从大约（0，28.0）开始，上升到大约（0.4，28.45），然后下降到大约（0.7，28.3），最后再次上升到大约（1，28.4）。",
+          "length": 242
+        },
+        {
+          "fig": "chinese_fig_014",
+          "model": "LLaMA4-Maverick",
+          "description": "图1包含两个并排的图表，展示了在MuST-C验证集上超参数$\\alpha$对模型性能的影响。两个图表共享相同的x轴，标记为$\\alpha$，具有线性刻度，范围从0到0.2，数值刻度间隔为0.05。左图的y轴标记为$|y^{ext}|$，具有线性刻度，范围从28.1到28.5，数值刻度间隔为0.1。右图的y轴标记为BLEU，具有线性刻度，范围从28.1到28.5，数值刻度间隔为0.1。左图中的蓝线从$\\alpha = 0$时的约28.25开始，随着$\\alpha$的增加而上升，在$\\alpha = 0.05$时达到峰值28.45，然后下降到$\\alpha = 0.1$时的约28.2，最后在$\\alpha = 0.2$时略微上升到约28.3。右图中的蓝线从$\\alpha = 0$时的约28.2开始，随着$\\alpha$的增加而上升，在$\\alpha = 0.05$时达到峰值28.45，然后在$\\alpha = 0.1$时下降到约28.3，最后在$\\alpha = 0.2$时略微下降到约28.25。两条线都使用圆形标记和实线样式。",
+          "length": 469
+        }
+      ]
+    },
+    {
+      "id": "image_transforms",
+      "title": "Image Degradation Transforms",
+      "description": "JPEG compression, noise, grayscale, aspect ratio, low contrast applied to figures. Compares GPT-5.2 vs Gemma3-4b robustness.",
+      "key_finding": "Grayscale devastating for small models (-17pts). JPEG paradoxically helps Gemma. Large models barely affected by any transform.",
+      "gemma_results": [
+        {
+          "fig_key": "english_fig_085",
+          "subfolder": "english_only",
+          "figure_type": "Bar Chart",
+          "with_caption_mqm": 86.5,
+          "image_only_mqm": 79.5,
+          "jpeg_compression_mqm": 86.0,
+          "noise_mqm": 81.0,
+          "grayscale_mqm": 51.0,
+          "aspect_ratio_mqm": 77.0,
+          "low_contrast_mqm": 81.0
+        },
+        {
+          "fig_key": "chinese_fig_013",
+          "subfolder": "chinese_only",
+          "figure_type": "Pie Chart",
+          "with_caption_mqm": 54.5,
+          "image_only_mqm": 51.5,
+          "jpeg_compression_mqm": 80.0,
+          "noise_mqm": 78.0,
+          "grayscale_mqm": 50.5,
+          "aspect_ratio_mqm": 55.0,
+          "low_contrast_mqm": 65.0
+        },
+        {
+          "fig_key": "german_fig_022",
+          "subfolder": "german_only",
+          "figure_type": "Bar Chart",
+          "with_caption_mqm": 51.5,
+          "image_only_mqm": 73.0,
+          "jpeg_compression_mqm": 76.5,
+          "noise_mqm": 79.5,
+          "grayscale_mqm": 45.0,
+          "aspect_ratio_mqm": 67.0,
+          "low_contrast_mqm": 80.0
+        },
+        {
+          "fig_key": "english_fig_033",
+          "subfolder": "english_only",
+          "figure_type": "Line Plot",
+          "with_caption_mqm": 55.0,
+          "image_only_mqm": 67.0,
+          "jpeg_compression_mqm": 75.0,
+          "noise_mqm": 63.5,
+          "grayscale_mqm": 38.5,
+          "aspect_ratio_mqm": 51.5,
+          "low_contrast_mqm": 45.0
+        },
+        {
+          "fig_key": "bulgarian_fig_021",
+          "subfolder": "bulgarian_only",
+          "figure_type": "Bar Chart",
+          "with_caption_mqm": 77.0,
+          "image_only_mqm": 77.0,
+          "jpeg_compression_mqm": 86.5,
+          "noise_mqm": 63.5,
+          "grayscale_mqm": 77.0,
+          "aspect_ratio_mqm": 69.5,
+          "low_contrast_mqm": 73.0
+        }
+      ]
+    }
+  ]
+}

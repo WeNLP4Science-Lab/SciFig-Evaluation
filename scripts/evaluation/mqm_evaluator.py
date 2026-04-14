@@ -315,6 +315,7 @@ def _run_judge(client, judge_model: str, system_prompt: str,
                 {"role": "user", "content": user_content},
             ],
             **{token_param: max_tokens},
+            temperature=0,
             response_format={"type": "json_object"},
         )
         raw = response.choices[0].message.content.strip()
@@ -346,6 +347,7 @@ def _run_judge_gemini(judge_model: str, system_prompt: str,
             "system_instruction": system_prompt,
             "max_output_tokens": max_tokens,
             "response_mime_type": "application/json",
+            "temperature": 0,
         }
         # Thinking models (2.5 Pro, etc.) need a thinking config to avoid truncation
         if "2.5" in judge_model or "2-5" in judge_model:

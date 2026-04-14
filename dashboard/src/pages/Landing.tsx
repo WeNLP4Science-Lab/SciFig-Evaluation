@@ -72,16 +72,6 @@ export default function Landing() {
         </svg>
       ),
     },
-    {
-      to: '/adversarial',
-      title: 'Adversarial Transforms',
-      desc: 'Browse image degradation transforms for robustness testing',
-      icon: (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        </svg>
-      ),
-    },
   ]
 
   return (
@@ -163,7 +153,7 @@ export default function Landing() {
           </p>
 
           {/* Navigation Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left max-w-3xl mx-auto">
             {navCards.map((card) => (
               <Link
                 key={card.to}
