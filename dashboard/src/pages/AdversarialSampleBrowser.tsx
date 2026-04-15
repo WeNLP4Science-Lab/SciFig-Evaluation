@@ -51,6 +51,7 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
   const [selectedSubfolder, setSelectedSubfolder] = useState('')
   const [selectedFigure, setSelectedFigure] = useState('')
   const [selectedTransform, setSelectedTransform] = useState<string | null>(null)
+  const [expandedImage, setExpandedImage] = useState<{ src: string; label: string } | null>(null)
   const { isDark } = useTheme()
 
   // Detect if this is adversarial format (has transforms) or sample format (has figures array)
@@ -159,7 +160,14 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
                 {currentFigureData?.caption && (
                   <p className="text-xs leading-relaxed mb-3" style={{ color: 'var(--m3-outline)' }}>Caption: {currentFigureData.caption}</p>
                 )}
-                <div className="rounded-xl overflow-hidden inline-block" style={{ border: `1px solid var(--m3-outline-variant)`, backgroundColor: 'var(--m3-surface-container)' }}>
+                <div
+                  className="rounded-xl overflow-hidden inline-block cursor-pointer"
+                  style={{ border: `1px solid var(--m3-outline-variant)`, backgroundColor: 'var(--m3-surface-container)' }}
+                  onClick={() => {
+                    const src = isAdversarial ? `${imgBase}/original.png` : `${import.meta.env.BASE_URL}${currentFigureData?.figure_image || `figures/${selectedSubfolder}/${selectedFigure}.png`}`
+                    setExpandedImage({ src, label: `${selectedFigure} — Original` })
+                  }}
+                >
                   <img
                     src={isAdversarial ? `${imgBase}/original.png` : `${import.meta.env.BASE_URL}${currentFigureData?.figure_image || `figures/${selectedSubfolder}/${selectedFigure}.png`}`}
                     alt={`${selectedFigure} original`}
@@ -180,7 +188,11 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
                       Transformed
                     </span>
                   </div>
-                  <div className="rounded-xl overflow-hidden inline-block" style={{ border: `1px solid var(--m3-outline-variant)`, backgroundColor: 'var(--m3-surface-container)' }}>
+                  <div
+                    className="rounded-xl overflow-hidden inline-block cursor-pointer"
+                    style={{ border: `1px solid var(--m3-outline-variant)`, backgroundColor: 'var(--m3-surface-container)' }}
+                    onClick={() => setExpandedImage({ src: `${imgBase}/${selectedTransform}.png`, label: `${selectedFigure} — ${manifest.transform_labels?.[selectedTransform] || selectedTransform}` })}
+                  >
                     <img
                       src={`${imgBase}/${selectedTransform}.png`}
                       alt={`${selectedFigure} ${selectedTransform}`}
@@ -269,6 +281,35 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
           )}
         </div>
       </div>
+
+      {/* Fullscreen image modal */}
+      {expandedImage && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center"
+          style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
+          onClick={() => setExpandedImage(null)}
+          onKeyDown={e => { if (e.key === 'Escape') setExpandedImage(null) }}
+          tabIndex={0}
+          ref={el => el?.focus()}
+        >
+          <div className="absolute top-4 left-0 right-0 flex items-center justify-between px-6">
+            <span className="text-sm font-medium text-white/90">{expandedImage.label}</span>
+            <button
+              onClick={() => setExpandedImage(null)}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+            </button>
+          </div>
+          <img
+            src={expandedImage.src}
+            alt={expandedImage.label}
+            className="max-h-[90vh] max-w-[95vw] object-contain"
+            onClick={e => e.stopPropagation()}
+            style={{ display: 'block' }}
+          />
+        </div>
+      )}
     </div>
   )
 }
