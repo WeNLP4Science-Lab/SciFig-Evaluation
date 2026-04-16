@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { DatasetManifest } from '../types'
 import FigureSidebar from '../components/FigureSidebar'
 import { useTheme } from '../ThemeContext'
+import { FIGURES_BASE_URL } from '../config'
 
 function ThemeToggle() {
   const { isDark, toggleTheme } = useTheme()
@@ -418,7 +419,7 @@ export default function DatasetBrowser() {
               }}
             >
               <img
-                src={`${import.meta.env.BASE_URL}${currentFigure.figure_image}`}
+                src={`${FIGURES_BASE_URL}/${currentFigure.figure_image.replace('figures/', '')}`}
                 alt={currentFigure.figure_key}
                 className="w-full max-w-2xl mx-auto"
                 style={{ display: 'block' }}

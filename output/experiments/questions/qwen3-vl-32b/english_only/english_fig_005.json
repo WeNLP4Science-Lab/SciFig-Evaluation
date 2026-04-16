@@ -1,0 +1,81 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-32b",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-16T20:22:57.693117+00:00",
+      "raw_response": "1. At approximately what number of completions (k) does Llama-1B first reach a coverage of 0.6?  \n→ Looking at the light blue line (Llama-1B), it reaches approximately 0.6 coverage at k = 2⁴ = **16**.\n\n2. What is the approximate coverage gap between Llama-3B and Llama-1B at k=1 (2⁰)?  \n→ At k=1 (leftmost point), Llama-3B (dark blue) is at ~0.42, Llama-1B (light blue) is at ~0.25.  \n→ Gap = 0.42 - 0.25 = **~0.17**.\n\n3. At k=256 (2⁸), what is the approximate coverage difference between the 3B models and the 1B models?  \n→ At k=256 (rightmost point), Llama-3B (dark blue) is at ~0.88, Llama-1B (light blue) is at ~0.80.  \n→ Difference = 0.88 - 0.80 = **~0.08**.\n\n4. At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?  \n→ The shaded regions (confidence intervals) around the lines are visually narrower for Llama-3B starting at **k = 2⁵ = 32**. Before that (e.g., at k=16), the Llama-1B CI is narrower or comparable. At k=32, the Llama-3B CI becomes visibly tighter.\n\n5. Is the Llama-3B line above the Llama-1B line at the leftmost data point? Is this correct?  \n→ Yes, at k=1 (leftmost point), Llama-3B (~0.42) is above Llama-1B (~0.25).  \n→ This is **correct**, as the larger model (3B) generally performs better than the smaller one (1B), especially at low k where model capacity matters more.\n\n---\n\n**Final Answers:**\n\n1. 16  \n2. ~0.17  \n3. ~0.08  \n4. 32  \n5. Yes, and yes, this is correct.",
+      "items": [
+        {
+          "id": "en005_q1",
+          "type": "capability",
+          "question": "At approximately what number of completions (k) does Llama-1B first reach a coverage of 0.6?",
+          "model_answer": "16"
+        },
+        {
+          "id": "en005_q2",
+          "type": "capability",
+          "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1 (2^0)?",
+          "model_answer": "~0.17"
+        },
+        {
+          "id": "en005_q3",
+          "type": "capability",
+          "question": "At k=256 (2^8), what is the approximate coverage difference between the 3B models and the 1B models?",
+          "model_answer": "~0.08"
+        },
+        {
+          "id": "en005_h1",
+          "type": "hallucination_inexist",
+          "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+          "model_answer": "32"
+        },
+        {
+          "id": "en005_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the Llama-3B line above the Llama-1B line at the leftmost data point? Is this correct?",
+          "model_answer": "Yes, and yes, this is correct."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-16T20:23:27.297845+00:00",
+      "raw_response": "1. By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?\n\nAt k=1 (2⁰), Llama-1B (light blue) has a coverage of approximately 0.25. At k=256 (2⁸), its coverage reaches approximately 0.80. The factor increase is 0.80 / 0.25 = **3.2**. So, the coverage increases by approximately **3.2 times**.\n\n2. At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?\n\nThe Llama-3B (dark blue) and Llama-1B (light blue) lines are closest at **k=2⁰ (k=1)**, where Llama-3B is at ~0.42 and Llama-1B is at ~0.25. The gap is approximately **0.17**. At higher k, Llama-3B pulls ahead, so the closest convergence is at **k=1**, with a gap of **~0.17**.\n\n3. Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2⁴ onward, what might explain fine-tuning's substantial advantage at higher values of k?\n\nAt higher k, the model is sampling more completions, which increases the chance of capturing rare or diverse outputs. Fine-tuning (FT) likely improves the model’s ability to generate a broader and more accurate set of responses, especially for less frequent but correct outputs. This enhanced diversity and accuracy become more apparent as k increases, leading to a larger coverage gap. The fine-tuned model may have better calibration, reduced bias, or improved knowledge representation, allowing it to cover more of the target distribution when sampling more.\n\n4. What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?\n\nThe figure does **not** display error bars or explicitly state standard errors. Without visual indicators (like error bars) or textual information about standard errors, we **cannot determine** the standard error from the figure alone. However, if we assume the plot is clean and the lines are smooth, it’s likely that the standard errors are small relative to the differences between models. Since Llama-3B is at ~0.85 and Llama-1B is at ~0.80 at k=256 (a 5 percentage point gap), and assuming typical standard errors in such coverage plots are <1–2%, the difference is **likely statistically significant**. But **without explicit error bars or values, we cannot definitively confirm**.\n\n5. Is the Llama-1B line above the Llama-3B line at the leftmost data point? Is this correct?\n\nAt the leftmost data point (k=1), the Llama-1B line (light blue) is at ~0.25, while the Llama-3B line (dark blue) is at ~0.42. Therefore, **Llama-1B is NOT above Llama-3B** — it is **below**. So, the statement that Llama-1B is above Llama-3B at k=1 is **incorrect**. The figure shows Llama-3B outperforming Llama-1B even at k=1, which is expected since it is a larger model.",
+      "items": [
+        {
+          "id": "en005_q4",
+          "type": "capability",
+          "question": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?",
+          "model_answer": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?\n\nAt k=1 (2⁰), Llama-1B (light blue) has a coverage of approximately 0.25. At k=256 (2⁸), its coverage reaches approximately 0.80. The factor increase is 0.80 / 0.25 = **3.2**. So, the coverage increases by approximately **3.2 times**."
+        },
+        {
+          "id": "en005_q5",
+          "type": "capability",
+          "question": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?",
+          "model_answer": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?\n\nThe Llama-3B (dark blue) and Llama-1B (light blue) lines are closest at **k=2⁰ (k=1)**, where Llama-3B is at ~0.42 and Llama-1B is at ~0.25. The gap is approximately **0.17**. At higher k, Llama-3B pulls ahead, so the closest convergence is at **k=1**, with a gap of **~0.17**."
+        },
+        {
+          "id": "en005_h2",
+          "type": "hallucination_contra",
+          "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+          "model_answer": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2⁴ onward, what might explain fine-tuning's substantial advantage at higher values of k?\n\nAt higher k, the model is sampling more completions, which increases the chance of capturing rare or diverse outputs. Fine-tuning (FT) likely improves the model’s ability to generate a broader and more accurate set of responses, especially for less frequent but correct outputs. This enhanced diversity and accuracy become more apparent as k increases, leading to a larger coverage gap. The fine-tuned model may have better calibration, reduced bias, or improved knowledge representation, allowing it to cover more of the target distribution when sampling more."
+        },
+        {
+          "id": "en005_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+          "model_answer": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?\n\nThe figure does **not** display error bars or explicitly state standard errors. Without visual indicators (like error bars) or textual information about standard errors, we **cannot determine** the standard error from the figure alone. However, if we assume the plot is clean and the lines are smooth, it’s likely that the standard errors are small relative to the differences between models. Since Llama-3B is at ~0.85 and Llama-1B is at ~0.80 at k=256 (a 5 percentage point gap), and assuming typical standard errors in such coverage plots are <1–2%, the difference is **likely statistically significant**. But **without explicit error bars or values, we cannot definitively confirm**."
+        },
+        {
+          "id": "en005_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the Llama-1B line above the Llama-3B line at the leftmost data point? Is this correct?",
+          "model_answer": "Is the Llama-1B line above the Llama-3B line at the leftmost data point? Is this correct?\n\nAt the leftmost data point (k=1), the Llama-1B line (light blue) is at ~0.25, while the Llama-3B line (dark blue) is at ~0.42. Therefore, **Llama-1B is NOT above Llama-3B** — it is **below**. So, the statement that Llama-1B is above Llama-3B at k=1 is **incorrect**. The figure shows Llama-3B outperforming Llama-1B even at k=1, which is expected since it is a larger model."
+        }
+      ]
+    }
+  ]
+}

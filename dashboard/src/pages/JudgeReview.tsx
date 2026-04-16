@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { DataManifest, JudgeType } from '../types'
 import { JUDGE_LABELS } from '../types'
 import AnnotatedText from '../components/AnnotatedText'
+import { FIGURES_BASE_URL } from '../config'
 import ErrorPanel from '../components/ErrorPanel'
 import FigureSidebar from '../components/FigureSidebar'
 import { useTheme } from '../ThemeContext'
@@ -456,7 +457,7 @@ export default function JudgeReview({ manifestFile = 'manifest.json', title = 'J
                     }}
                   >
                     <img
-                      src={`${import.meta.env.BASE_URL}${currentFigure.figure_image}`}
+                      src={`${FIGURES_BASE_URL}/${currentFigure.figure_image.replace('figures/', '')}`}
                       alt={currentFigure.figure_key}
                       className="w-full"
                       style={{ display: 'block' }}

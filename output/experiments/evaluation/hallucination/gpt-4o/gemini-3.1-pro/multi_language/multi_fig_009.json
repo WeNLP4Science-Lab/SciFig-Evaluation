@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-16T14:28:17.090113+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml009_h1",
+      "probe_type": "inexist",
+      "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+      "model_answer": "The legend and the graph only contain four lines (blue, orange, green, and red).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the chart only contains four lines (blue, orange, green, and red), which implies that the purple line labeled 'mlp_output' does not exist."
+    },
+    {
+      "probe_id": "ml009_h2",
+      "probe_type": "contra",
+      "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+      "model_answer": "The premise of the question is incorrect based on the provided chart. Around layer 10, the attn_output line (blue dashed) does *not* reach peak values; it remains very close to **0**. In contrast, the ffn_residual line is near 1500. This suggests that attention outputs contribute almost nothing to the massive max activations in the middle layers compared to the FFN residuals.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by stating that the attn_output line does not reach peak values and remains near 0 around layer 10. It also provided the correct values for both attn_output and ffn_residual, rejecting the false premise before answering the question."
+    },
+    {
+      "probe_id": "ml009_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+      "model_answer": "While the chart explicitly shows \"Max Activation Value\" rather than \"attention weight distribution\", the visual manifestation of the massive activation anomaly first abruptly begins at **layer 5**, where the red and green lines spike drastically from near-zero.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provided a specific answer ('layer 5') as if the information could be determined from the chart, without acknowledging that the chart does not show attention weight distributions or attention sink patterns."
+    }
+  ]
+}

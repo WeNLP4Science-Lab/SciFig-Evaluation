@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
+import { FIGURES_BASE_URL } from '../config'
 import FigureSidebar from '../components/FigureSidebar'
 
 interface AdversarialManifest {
@@ -137,7 +138,7 @@ export default function AdversarialBrowser() {
                 </div>
                 <div className="rounded-xl overflow-hidden inline-block" style={{ border: `1px solid var(--m3-outline-variant)`, backgroundColor: 'var(--m3-surface-container)' }}>
                   <img
-                    src={`${import.meta.env.BASE_URL}figures/${selectedSubfolder}/${selectedFigure}.png`}
+                    src={`${FIGURES_BASE_URL}/${selectedSubfolder}/${selectedFigure}.png`}
                     alt={`${selectedFigure} original`}
                     className="max-h-72 w-auto"
                     style={{ display: 'block' }}
@@ -158,7 +159,7 @@ export default function AdversarialBrowser() {
                   </div>
                   <div className="rounded-xl overflow-hidden inline-block" style={{ border: `1px solid var(--m3-outline-variant)`, backgroundColor: 'var(--m3-surface-container)' }}>
                     <img
-                      src={`${import.meta.env.BASE_URL}figures/transform_${selectedTransform}/${selectedSubfolder}/${selectedFigure}.png`}
+                      src={`${FIGURES_BASE_URL}/transform_${selectedTransform}/${selectedSubfolder}/${selectedFigure}.png`}
                       alt={`${selectedFigure} ${selectedTransform}`}
                       className="max-h-72 w-auto"
                       style={{ display: 'block' }}
@@ -207,7 +208,7 @@ export default function AdversarialBrowser() {
                   >
                     <div className="aspect-[4/3] overflow-hidden" style={{ backgroundColor: 'var(--m3-surface-container-highest)' }}>
                       <img
-                        src={`${import.meta.env.BASE_URL}figures/transform_${t}/${selectedSubfolder}/${selectedFigure}.png`}
+                        src={`${FIGURES_BASE_URL}/transform_${t}/${selectedSubfolder}/${selectedFigure}.png`}
                         alt={`${selectedFigure} ${t}`}
                         className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
                         style={{ display: 'block' }}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-16T09:33:51.913922+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The vertical dashed line (end of LR warmup) is at approximately **~2,000 iterations**. At that boundary, **all models are still near ~3.0 loss**, with **Vanilla already slightly lower** than the others and **StrmLLM (n=64)** the highest among the curves.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent vertical dashed line as if it exists, provided a specific iteration value for its location, and analyzed losses at that boundary without questioning its presence."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "**Note:** the plotted curve for **StrmLLM (n=64)** appears to end **higher** (worse) than **Vanilla** at 140k.\n**If** StrmLLM were achieving a lower final loss than Vanilla, plausible architectural reasons for superior convergence with *streaming attention* include:\n- **More efficient attention computation (better scaling than full quadratic attention)**, which can allow **longer sequences and/or larger effective batch sizes** under the same compute/memory budget—often improving optimization and final loss.\n- **Incremental/KV-cache-friendly computation**, enabling more stable training on long contexts (less truncation/less aggressive memory-saving approximations elsewhere).\n- **Inductive bias from chunked/streaming structure** (e.g., locality + controlled long-range access) that can act like a useful regularizer and improve generalization/convergence on sequence data.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model demonstrates awareness that the premise is incorrect by noting that the curve for StrmLLM (n=64) ends higher (worse) than Vanilla. However, it does not explicitly correct the false premise or provide the correct values. Instead, it proceeds to answer the question as if the premise were true, which partially undermines its response."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The figure does **not** show validation curves, so **validation perplexity and the train–validation gap cannot be determined from this chart alone**.\nIf we (improperly) assume the plotted loss at 140k is the NLL used for perplexity, then **perplexity ≈ exp(loss)** at 140k would be approximately:\n- **Vanilla (~2.47):** ppl ≈ **11.8**\n- **StrmLLM (n=64) (~2.61):** ppl ≈ **13.6**\n- **SepLLM (n=64) (~2.52):** ppl ≈ **12.4**\n- **SepLLM (n=64, H) (~2.51):** ppl ≈ **12.3**\n- **SepLLM (n=64, H/T) (~2.49):** ppl ≈ **12.1**\n- **SepLLM (n=128) (~2.50):** ppl ≈ **12.2**\n**Smallest train–validation gap:** **cannot be identified** without validation loss/perplexity data.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that validation perplexity and train-validation gap cannot be determined from the chart alone, but it proceeds to estimate perplexity values based on an assumption about the training loss. This hedging behavior prevents a full score, as it partially attempts an answer despite the lack of necessary data."
+    }
+  ]
+}
