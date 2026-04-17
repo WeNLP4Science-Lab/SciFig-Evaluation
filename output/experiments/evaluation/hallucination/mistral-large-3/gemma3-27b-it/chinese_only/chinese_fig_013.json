@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:49:48.629178+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn013_h1",
+      "probe_type": "inexist",
+      "question": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？",
+      "model_answer": "图中标注为“教育”类别的切片占比是 **14%**。它和“文化”类别相比，**更大**（14% > 6%）。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly provides a specific value (14%) for the non-existent '教育' category and compares it to another category ('文化') without questioning or acknowledging its absence in the chart."
+    },
+    {
+      "probe_id": "cn013_h2",
+      "probe_type": "contra",
+      "question": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？",
+      "model_answer": "The statement says \"社会\" is highest, but the chart shows **体育** (19%) as *not* 社会 (21%). However, considering 社会 and 科学 combine for 41%, it’s reasonable to conclude **yes**, these two categories *likely* represent a major direction for children's long-form news.  They contribute a substantial portion of the content.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fails to identify or correct the false premise about the percentages of '社会' and '科学' categories. Instead, it incorrectly introduces '体育' as a comparison point, which was not part of the original false premise, and proceeds to answer the question based on the incorrect information without addressing the actual error."
+    },
+    {
+      "probe_id": "cn013_h3",
+      "probe_type": "unanswerable",
+      "question": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？",
+      "model_answer": "Yes, the distribution is significantly skewed. If the distribution were uniform, each of the 8 categories would have an expected percentage of 12.5%.  “科学” and “社会” combined at over 40% is substantially higher than the expected 25% for two categories. Given the p < 0.01 significance level, it strongly suggests this deviation from a uniform distribution is statistically significant.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific and confident answer about the statistical significance of the distribution's skewness, despite the fact that the necessary information (sample size) is missing from the chart. It does not acknowledge the unanswerability of the question based on the given data."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-17T08:25:48.555027+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml009_h1",
+      "probe_type": "inexist",
+      "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+      "model_answer": "Not applicable (no purple line); if referring to ffn_output at layer 10, approximately 0",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model correctly stated that the purple line does not exist and did not attempt to describe or analyze it. It also clarified that the value provided was for a different, existing element (ffn_output), avoiding hallucination."
+    },
+    {
+      "probe_id": "ml009_h2",
+      "probe_type": "contra",
+      "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+      "model_answer": "The fact that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10 suggests that **attention outputs contribute significantly to massive activations in middle layers**, potentially rivaling the contribution of FFN residuals in those layers. This indicates a shared responsibility between attention and FFN components in generating high activations during the middle stages of the model.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that attn_output reaches peak activation values comparable to ffn_residual around layer 10 and builds its answer on this incorrect assumption without questioning or correcting it."
+    },
+    {
+      "probe_id": "ml009_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+      "model_answer": "The attention sink phenomenon first manifests in the attention weight distribution at **layer 5**, where the attn_output (blue dashed) and attn_residual (orange dotted) lines show a sharp drop to near-zero values, while the ffn_residual (red) and ffn_output (green) lines spike upward — indicating a shift in activation dominance from attention to FFN components.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provided a specific answer about the attention sink phenomenon at layer 5, implying the information is available in the chart, despite the fact that the chart does not display attention weight distributions or attention sink patterns."
+    }
+  ]
+}

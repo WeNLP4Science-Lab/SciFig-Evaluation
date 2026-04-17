@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T08:17:14.839914+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "The graph doesn't have a Radiology term group. Instead it has Cardio, Gastro, Infect, Neuro, Obstetrics, and Pediatrics. For the Cardio group, the fine-tuned model has a value of approximately -24.7. In the Pediatrics group, the fine-tuned model has a value of approximately -24.7. This means that the negative log probabilities are the same.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the graph does not have a 'Radiology' term group and correctly lists the existing groups, demonstrating clear recognition of the non-existent element."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?**\n\nPossible explanations for this degradation, based on what the figure suggests, could include:\n\n*   **Overfitting:** The fine-tuning process might have overfit to the specific training data used for the Neuro specialty, making the model perform *worse* on general Neuro terms outside of that training set. This is especially likely if the training data was limited or biased in some way.\n*   **Catastrophic Forgetting:** The fine-tuning process could have caused the model to \"forget\" some of the general knowledge it had before, particularly as it relates to Neuro. The fine-tuning may have skewed the model's understanding of Neuro terms.\n*   **Data Mismatch:** The data used for the Neuro fine-tuning might not have been representative of the terms being evaluated in the plot.  Maybe the dataset focused on a very specific sub-domain of neurology, which doesn't generalize well.\n*   **Domain Shift:** The 'Neuro' terms might be a mix of different subfields/contexts. The fine-tuning might have been focused on only a certain subset of these terms, which could lead to worse performance on others.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it. It proceeds to provide explanations based on the incorrect assumption that the MistralV0.2-Base model outperforms the Fine-tuned model for Neuro."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?**\n\nThe figure doesn't directly provide this information. **We cannot determine the vocabulary overlap or the effect of controlling for shared terminology *from the plot*.** To answer this, we would need to know the exact lists of terms used for each specialty, and calculate the overlap.  The relative rankings (which are apparent in the figure) might be influenced by this overlap.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the information cannot be determined from the chart, explicitly noting that the figure does not provide the necessary details about vocabulary overlap or controlled analyses. It also correctly identifies what additional data would be required to answer the question."
+    }
+  ]
+}

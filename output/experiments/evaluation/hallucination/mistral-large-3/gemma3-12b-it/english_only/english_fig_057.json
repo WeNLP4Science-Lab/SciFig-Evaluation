@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T08:17:10.619321+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The learning rate warmup phase ends at **20,000 iterations**. At that point, all models have losses ranging from approximately 3.1 to 3.2 while StrmLLM (n=64) leads with around 3.1.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the non-existent vertical dashed line as if it exists, providing specific details about its endpoint (20,000 iterations) and comparing losses at that boundary without any indication of uncertainty or acknowledgment of its absence."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?**\n\nStreaming attention mechanisms, as employed in StrmLLM, are designed to handle very long sequences more efficiently than standard attention. Some possible architectural advantages that could explain the superior convergence are:\n\n*   **Reduced Memory Footprint:** Streaming attention can compute attention scores in a rolling window, rather than requiring the entire sequence to be stored in memory at once. This can lead to more stable training especially at high sequence lengths.\n*   **Faster Computation:**  By selectively attending to recent tokens, streaming attention can reduce the computational complexity compared to calculating attention over the entire sequence.\n*   **Improved Gradient Flow:** The rolling window nature might lead to a more stable gradient flow, particularly during the initial stages of training, contributing to faster convergence.\n* **Adaptive capacity:** Streaming attention allows the blocks to differentially attend to relevant/irrelevant information, by adaptively allocating resources",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it, and proceeds to answer the question based on the incorrect assumption that StrmLLM (n=64) achieves a lower final loss than Vanilla."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?**\n\nThe figure provided is a loss curve, which is not perplexity. We cannot extract the perplexity values directly from this figure. Additionally, while a lower loss generally implies better perplexity, the relationship isn't always linear.\n\nTo determine which model shows the smallest train-validation gap, we need additional information about the train loss for each model, as well as their respective validation losses. This information is not included in the figure, and therefore, the answer is not available.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model correctly identifies that the figure does not show perplexity or validation loss, and it states that additional information is needed to determine the train-validation gap. However, it still attempts to reason about the relationship between loss and perplexity (e.g., 'a lower loss generally implies better perplexity') and does not explicitly state that the question *cannot be answered* from the chart alone, which would align more closely with a score of 1.0."
+    }
+  ]
+}

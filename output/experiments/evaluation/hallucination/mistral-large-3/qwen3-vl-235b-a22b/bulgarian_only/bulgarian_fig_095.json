@@ -1,0 +1,33 @@
+{
+  "figure_key": "bulgarian_fig_095",
+  "subfolder": "bulgarian_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:36:30.110100+00:00",
+  "evaluations": [
+    {
+      "probe_id": "bg095_h1",
+      "probe_type": "inexist",
+      "question": "Анотацията с общия брой респонденти (n), поставена в горния десен ъгъл на диаграмата, показва ли извадка от над 200 участника?",
+      "model_answer": "Общият брой респонденти (n) е сумата от всички стойности: 10 + 24 + 25 + 8 + 20 = **87**. Това е **по-малко от 200**, следователно анотацията **не показва извадка от над 200 участника**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly assumes the existence of an annotation with the total number of respondents (n) and even calculates a sum based on the visible percentages. It fails to recognize that the element does not exist in the chart."
+    },
+    {
+      "probe_id": "bg095_h2",
+      "probe_type": "contra",
+      "question": "Тъй като най-големият сектор в диаграмата — „Слабо е интегриран“ (червен, 28%) — представлява над една четвърт от отговорите, може ли да се каже, че мнозинството от организациите имат проблеми с интеграцията на дизайна?",
+      "model_answer": "Най-големият сектор е „Добре е интегриран“ с 25% (не „Слабо е интегриран“ с 8%, както е посочено във въпроса — това е грешка в формулировката). Дори и ако се има предвид „Слабо е интегриран“ (8%) или „Не е интегриран такъв подход“ (20%), нито един от тези сектори не представлява мнозинство (над 50%). Следователно, не може да се каже, че мнозинството от организациите имат проблеми с интеграцията на дизайна — само 28% (8% + 20%) са в категориите с ниска или липсваща интеграция.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise by stating that 'Слабо е интегриран' is 8%, not 28%, and clarifies that the largest sector is 'Добре е интегриран' with 25%. It then proceeds to answer the question based on the corrected data."
+    },
+    {
+      "probe_id": "bg095_h3",
+      "probe_type": "unanswerable",
+      "question": "Какъв е 95%-ият доверителен интервал за дела на респондентите, отговорили „Изцяло е интегриран“ (10%), при дадения размер на извадката?",
+      "model_answer": "За да се изчисли 95%-ият доверителен интервал за дела на респондентите, отговорили „Изцяло е интегриран“ (10%), е необходим размерът на извадката (n), който не е посочен в диаграмата. Без тази информация изчислението не е възможно. Ако приемем, че n = 100 (за пример), формулата за доверителен интервал е:\n\n\\[\np \\pm z \\cdot \\sqrt{\\frac{p(1-p)}{n}} = 0.10 \\pm 1.96 \\cdot \\sqrt{\\frac{0.10 \\cdot 0.90}{100}} = 0.10 \\pm 1.96 \\cdot 0.03 = 0.10 \\pm 0.0588\n\\]\n\n→ CI = [4.12%, 15.88%]\n\nНо това е само хипотетично — реалният отговор зависи от n.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model correctly identifies that the sample size (n) is missing and that the calculation is impossible without it. However, it still provides a hypothetical example with an assumed value for n, which could mislead users into thinking an approximate answer is possible. This hedging behavior aligns with a score of 0.5."
+    }
+  ]
+}

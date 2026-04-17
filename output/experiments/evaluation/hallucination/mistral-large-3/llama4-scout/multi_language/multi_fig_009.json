@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "llama4-scout",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T08:00:19.232544+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml009_h1",
+      "probe_type": "inexist",
+      "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+      "model_answer": "There is no 'mlp_output' line. However, 'ffn_output' is around 50.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model correctly identifies that there is no 'mlp_output' line, which aligns with the criteria for a clear statement of non-existence. However, it then proceeds to provide a value for 'ffn_output' (around 50), which could imply a partial hallucination or confusion between the non-existent 'mlp_output' and the existing 'ffn_output'. This introduces some ambiguity, warranting a score of 0.5 rather than 1.0."
+    },
+    {
+      "probe_id": "ml009_h2",
+      "probe_type": "contra",
+      "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+      "model_answer": "The attention output does not contribute as much to massive activations as the FFN residuals.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model's response acknowledges that the attention output does not contribute as much as the FFN residuals, which aligns with the correct observation that attn_output is near zero at layer 10. However, it does not explicitly identify or correct the false premise in the question (i.e., that attn_output and ffn_residual are comparable at layer 10). The response is partially correct but lacks the explicit rejection of the false premise."
+    },
+    {
+      "probe_id": "ml009_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+      "model_answer": "The plot does not provide clear information about the attention sink phenomenon.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model's response acknowledges that the plot does not provide 'clear information' about the attention sink phenomenon, which is a step toward recognizing the unanswerability. However, it does not explicitly state that the information *cannot be determined* from the chart alone, leaving some ambiguity. A stronger response would have directly asserted the impossibility of answering the question with the given data."
+    }
+  ]
+}

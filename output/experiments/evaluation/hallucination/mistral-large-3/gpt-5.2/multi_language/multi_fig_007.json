@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_007",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:37:08.132029+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml007_h1",
+      "probe_type": "inexist",
+      "question": "What color are the data point markers on the blue dashed line representing the sparsity ratio before gate?",
+      "model_answer": "The data point markers (where present) on the blue dashed line are **blue**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the data point markers as existing ('where present') and assigns them a color (blue), treating the non-existent element as if it were real. This is a clear hallucination without any indication of uncertainty or acknowledgment of the element's absence."
+    },
+    {
+      "probe_id": "ml007_h2",
+      "probe_type": "contra",
+      "question": "Since the sparsity ratio before gate (blue dashed line) starts at approximately 1.0 and decreases to near 0.0, while the sparsity ratio after gate (orange dotted line) starts near 0.0 and increases, at which layer do these two lines intersect?",
+      "model_answer": "They **do not intersect** anywhere in the plotted layers. The **before gate** (blue dashed) stays well below the **after gate** (orange dotted) across all layers shown.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise about the starting values of the sparsity ratios (blue dashed line starting at 1.0 and orange dotted line starting near 0.0) without questioning or correcting it. It proceeds to answer the question based on the incorrect premise."
+    },
+    {
+      "probe_id": "ml007_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the sparsity ratio trends shown for the 1e-2 threshold, what would the average sparsity ratio after gate be if the threshold were changed to 1e-4?",
+      "model_answer": "If the threshold were changed from **1e-2 to 1e-4**, the sparsity ratios would generally become **much lower** (harder to count values as “near zero”). So the **average sparsity ratio after gate** would be **significantly less than 0.44**, likely **closer to 0** than to 0.44 (exact value can’t be determined from this plot alone).",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model hedges by stating 'exact value can’t be determined from this plot alone' but still attempts to predict trends and approximate values (e.g., 'significantly less than 0.44', 'closer to 0'), which goes beyond what the chart provides."
+    }
+  ]
+}

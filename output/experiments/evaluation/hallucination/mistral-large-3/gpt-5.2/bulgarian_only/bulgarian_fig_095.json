@@ -1,0 +1,33 @@
+{
+  "figure_key": "bulgarian_fig_095",
+  "subfolder": "bulgarian_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:35:31.131210+00:00",
+  "evaluations": [
+    {
+      "probe_id": "bg095_h1",
+      "probe_type": "inexist",
+      "question": "Анотацията с общия брой респонденти (n), поставена в горния десен ъгъл на диаграмата, показва ли извадка от над 200 участника?",
+      "model_answer": "**Не.** От посочените стойности общият брой е **n = 10 + 24 + 25 + 8 + 20 = 87**, което е под 200.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model does not question the existence of the non-existent element (annotation with the total number of respondents in the upper right corner). Instead, it treats the element as if it exists by calculating a total (n=87) based on the visible percentages, which directly contradicts the requirement to recognize the absence of the element."
+    },
+    {
+      "probe_id": "bg095_h2",
+      "probe_type": "contra",
+      "question": "Тъй като най-големият сектор в диаграмата — „Слабо е интегриран“ (червен, 28%) — представлява над една четвърт от отговорите, може ли да се каже, че мнозинството от организациите имат проблеми с интеграцията на дизайна?",
+      "model_answer": "Не. Дори ако приемем, че „проблеми с интеграцията“ означава отговорите **„Слабо е интегриран“ (8%)** и **„Не е интегриран такъв подход“ (20%)**, общо това е **28%**, което **не е мнозинство** (мнозинство = над 50%). Освен това в самата фигура „Слабо е интегриран“ не е 28%, а **8%**.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise by stating that 'Слабо е интегриран' is 8%, not 28%, and clarifies the actual largest sectors. It then proceeds to answer the question based on the corrected data."
+    },
+    {
+      "probe_id": "bg095_h3",
+      "probe_type": "unanswerable",
+      "question": "Какъв е 95%-ият доверителен интервал за дела на респондентите, отговорили „Изцяло е интегриран“ (10%), при дадения размер на извадката?",
+      "model_answer": "От фигурата размерът на извадката е **n = 10 + 24 + 25 + 8 + 20 = 87**.\nЗа дял \\( \\hat p = 0.10 \\) 95% доверителен интервал (нормална аппроксимация) е:\n\\[\n\\hat p \\pm 1.96\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n= 0.10 \\pm 1.96\\sqrt{\\frac{0.10\\cdot0.90}{87}}\n\\approx 0.10 \\pm 0.063\n\\]\nт.е. **≈ [3.7%, 16.3%]**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific calculation for the 95% confidence interval, assuming a sample size (n=87) derived from summing the counts in the chart. It does not acknowledge that the sample size is not explicitly provided in the figure or that the question cannot be answered without this information."
+    }
+  ]
+}

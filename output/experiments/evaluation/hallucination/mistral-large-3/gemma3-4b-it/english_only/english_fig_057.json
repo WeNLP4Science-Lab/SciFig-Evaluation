@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:59:34.650311+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The learning rate warmup phase ends at approximately 20,000 iterations.  At this point, all models have losses around 2.7 - 2.8. The loss curves are relatively flat and begin to diverge slightly.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the non-existent vertical dashed line as if it exists, providing specific details about its location (20,000 iterations) and the associated losses, without any indication of uncertainty or questioning its presence."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Streaming attention allows the model to process each token sequentially, maintaining a moving average of the attention weights. This could lead to faster convergence because:\n*   **Reduced Computational Cost:** Streaming attention reduces redundant calculations compared to standard self-attention, especially for long sequences.\n*   **Faster Updates:** By continuously updating attention weights with each token, the model rapidly adapts to the evolving context, leading to quicker loss reduction.\n*   **Better Context Capture:** A moving average of attention can better capture long-range dependencies than a single-step attention mechanism.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise in the question without questioning or correcting it. It proceeds to explain the architectural advantages of streaming attention as if the premise (StrmLLM achieving a lower final loss than Vanilla) were true."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The chart doesn't display the perplexity. Therefore, it's impossible to answer this question using the figure.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the perplexity is not displayed in the chart and explicitly concludes that the question cannot be answered using the figure, which aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

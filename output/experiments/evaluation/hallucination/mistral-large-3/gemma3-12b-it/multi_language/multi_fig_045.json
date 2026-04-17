@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_045",
+  "subfolder": "multi_language",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T08:18:00.903272+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml045_h1",
+      "probe_type": "inexist",
+      "question": "In chart (b), what percentage does the 'reaction' token itself occupy in the co-occurrence distribution for the mathematics domain?",
+      "model_answer": "The 'reaction' token occupies **27%** in chart (b).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly states that the 'reaction' token occupies 27% in chart (b), treating it as an existing element in the pie chart. This directly contradicts the ground truth that 'reaction' is not a slice in the chart."
+    },
+    {
+      "probe_id": "ml045_h2",
+      "probe_type": "contra",
+      "question": "Considering that chart (a) for the chemistry domain contains only four token categories while chart (b) for mathematics contains six, what does this difference in granularity suggest about vocabulary diversity?",
+      "model_answer": "Considering that chart (a) for the chemistry domain contains only four token categories while chart (b) for mathematics contains six, what does this difference in granularity suggest about vocabulary diversity?**\n\nThe difference in granularity suggests that the **mathematics domain (chart b) has greater vocabulary diversity** than the chemistry domain (chart a). Fewer token categories in chemistry imply a more focused and potentially narrower vocabulary, whereas the greater number of token categories in mathematics indicates a broader range of terms used.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it. It proceeds to answer the question based on the incorrect assumption that chart (a) has four categories and chart (b) has six, rather than identifying the factual error."
+    },
+    {
+      "probe_id": "ml045_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the co-occurrence distributions shown, what is the probability that 'reaction' will be followed by a domain-specific token rather than a function word in a randomly sampled chemistry paper?",
+      "model_answer": "Based on the co-occurrence distributions shown, what is the probability that 'reaction' will be followed by a domain-specific token rather than a function word in a randomly sampled chemistry paper?**\n\nThis is a trick question! The prompt states that the co-occurrence distributions are specifically based on the token 'reaction'. Note, however, that 'reaction' is **not listed** as one of the tokens considered in the pie chart in Question 2. Instead, the pie chart for chemistry has the categories: 'the', 'this', 'for', 'to', and 'in'. *Based solely on the figure presented, it is impossible to answer this question.*\n\nHowever, if we work with the calculated information that 31% of tokens are non-function words, and assuming that all non-function words are domain specific in this scenario, then the probability would be **31%**.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model correctly identifies that the question cannot be answered directly from the chart (noting that 'reaction' is not listed and the data is insufficient). However, it still attempts to provide an estimated probability (31%) based on assumptions, which partially undermines the acknowledgment of unanswerability."
+    }
+  ]
+}

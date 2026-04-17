@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:36:11.866028+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "The figure **does not include a “Radiology”** per-specialty term group, so its negative log probability **cannot be read from this chart**.\nFor reference, in the **Cardio** group, the best fine-tuned bar is roughly **−25.7** (compared to Base at ~−26.7).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the figure does not include a 'Radiology' per-specialty term group and clarifies that its negative log probability cannot be read from the chart, which aligns perfectly with the criteria for a correct response."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "**Possible explanation for “fine-tuning hurts Neuro” degradation (if that pattern were observed):**\n- **Catastrophic forgetting / specialization trade-off:** fine-tuning on a different distribution can degrade previously-good general-domain or Neuro-relevant representations.\n- **Domain/data mismatch or label noise:** Neuro fine-tuning data might be smaller, noisier, more heterogeneous, or stylistically different from the evaluation “Neuro terms” list.\n- **Overfitting / hyperparameter issues:** too high a learning rate, too many steps, or insufficient regularization can reduce generalization to the evaluation term list.\n- **Evaluation mismatch:** if the “Neuro terms” include abbreviations, rare spellings, or tokenization patterns not well covered in the fine-tuning corpus, performance can drop.\n*Note:* the plotted Neuro bars appear to show the **Base** bar being **more negative** than the fine-tuned variants (i.e., worse), so the premise doesn’t match the figure as shown.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model partially corrects the false premise in the final note, acknowledging that the plotted Neuro bars show the Base model as worse (more negative) than the fine-tuned variants. However, it still proceeds with the hypothetical explanation for the false premise before correcting it, rather than explicitly rejecting the premise upfront."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "**Vocabulary overlap between per-specialty term lists, and effect of controlling shared terminology:**\n- The figure does **not provide** the underlying term lists, so the **overlap can’t be determined from the plot**.\n- To answer, you’d need to compute something like **Jaccard overlap** (set-based) or a **token-level overlap** after normalization (lowercasing, stemming, acronym handling).\n- Controlling for shared terminology (e.g., removing common medical terms appearing in multiple specialties) **could** change absolute values and potentially some relative gaps, but **the figure alone doesn’t establish whether rankings would change**.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the figure does not provide the underlying term lists, making the vocabulary overlap undeterminable from the chart alone. It also correctly notes that the figure does not establish whether rankings would change, fully acknowledging the unanswerability of the question based on the given data."
+    }
+  ]
+}

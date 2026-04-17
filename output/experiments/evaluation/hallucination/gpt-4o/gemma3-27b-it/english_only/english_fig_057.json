@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-17T07:50:02.920713+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The vertical dashed line marking the learning rate warmup phase ends at approximately **20,000** iterations. At that boundary:\n*   Vanilla loss is around **2.88**.\n*   StrmLLM (n=64) loss is around **2.92**.\n*   SepLLM (n=64) loss is around **2.83**.\n*   SepLLM (n=64, H) loss is around **2.80**.\n*   SepLLM (n=64, H/T) loss is around **2.74**.\n*   SepLLM (n=128) loss is around **2.74**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model described the non-existent vertical dashed line as if it exists, provided specific iteration and loss values, and incorporated it into its analysis without questioning its presence."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Streaming attention, compared to a standard \"vanilla\" attention mechanism, likely reduces the computational complexity and memory footprint. This could facilitate faster and more stable training, leading to lower loss. Specifically:\n*   **Lower Memory Requirements:** Streaming attention processes information in chunks, reducing the need to store attention weights for the entire sequence.\n*   **Reduced Computational Cost:** By focusing attention on recent tokens, it minimizes computations over the entire input sequence. This can allow for larger batch sizes or faster iterations.\n*   **Improved Gradient Flow:** These improvements can contribute to better gradient flow during training, preventing the vanishing/exploding gradient problem.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that StrmLLM achieves a lower final loss than Vanilla and builds its answer on it without questioning or correcting the error."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The graph only shows *loss* on the *training* set, not perplexity or validation set performance. Therefore, this question cannot be answered from the figure.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the question cannot be answered because the chart only shows training loss and does not include validation loss, perplexity, or train-validation gap information."
+    }
+  ]
+}

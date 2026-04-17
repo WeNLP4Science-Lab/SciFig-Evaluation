@@ -34,6 +34,7 @@ OUTPUT_DIR = ROOT / "output" / "experiments" / "evaluation" / "hallucination"
 JUDGE_DEPLOYMENTS = {
     "gpt-4o": "gpt-4o",
     "gpt-5.4-mini": "gpt-5.4-mini",
+    "mistral-large-3": "mistral-large-3",
 }
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt="%H:%M:%S")

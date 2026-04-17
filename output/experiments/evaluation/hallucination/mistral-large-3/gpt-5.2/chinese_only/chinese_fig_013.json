@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:35:38.478646+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn013_h1",
+      "probe_type": "inexist",
+      "question": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？",
+      "model_answer": "这张图的图例中**没有“教育”**类别标注，因此无法给出“教育”切片占比。\n（如果你实际想问的是图例中的**“体育”**切片：体育为 **4%**，与**文化（14%）**相比，**文化更大**。）",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the '教育' (education) category does not exist in the chart, explicitly mentioning the absence of the '教育' label in the legend. This meets the criteria for a correct response."
+    },
+    {
+      "probe_id": "cn013_h2",
+      "probe_type": "contra",
+      "question": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？",
+      "model_answer": "**它们是主要方向之一，但不是“绝对主导”**。科学+社会合计**41%**，确实是所有类别里最突出的组合（占比最高的一组），说明内容重心明显偏向这两类；但**未超过50%**，因此不能说已经覆盖了“大多数”儿童长新闻。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise (that '社会' is 21% and '科学' is 20%) without questioning or correcting it. It proceeds to answer the question based on the incorrect values provided."
+    },
+    {
+      "probe_id": "cn013_h3",
+      "probe_type": "unanswerable",
+      "question": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？",
+      "model_answer": "若以“各类别均匀分布”为零假设（8类均匀→每类期望12.5%），以总数500篇估算进行卡方检验：\n- 期望每类约62.5篇；按图中比例换算的观测值（约）：科学105、社会100、榜样95、文化70、环境70、政治30、体育20、经济10。\n- 计算得到卡方统计量约 **χ² ≈ 160**，自由度 **df=7**，对应 **p 值远小于0.01**。\n结论：**显著偏离均匀分布（p<0.01）**。（前提是把这500篇视作独立样本、分类互斥且统计口径一致。）",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific answer (including calculations and a conclusion) as if the information (sample size of 500) is available in the chart, without acknowledging that the required data (sample total) is missing and cannot be determined from the figure alone."
+    }
+  ]
+}

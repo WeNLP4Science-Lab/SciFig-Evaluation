@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:36:52.705370+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The vertical dashed line marking the end of the learning rate warmup phase is located at approximately **iteration 5,000**. At that boundary, all models have similar losses, ranging between approximately **2.85 and 2.95**, with Vanilla and SepLLM variants slightly lower than StrmLLM (n=64).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the non-existent vertical dashed line as if it exists, providing specific details about its location (iteration 5,000) and comparing model losses at that boundary. There is no indication of uncertainty or acknowledgment that the element is absent."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Streaming attention (as used in StrmLLM) typically offers architectural advantages such as reduced memory footprint and more efficient computation over long sequences by processing tokens in chunks or with a sliding window. However, in this case, StrmLLM (n=64) does not outperform Vanilla in final loss, suggesting that while streaming attention may improve efficiency, it might introduce approximation errors or reduced context utilization compared to full attention or separable attention mechanisms, which may better preserve long-range dependencies crucial for convergence.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges the false premise by stating 'StrmLLM (n=64) does not outperform Vanilla in final loss,' which is a correction. However, it does not explicitly highlight the inversion of the ranking (e.g., 'the premise is incorrect because Vanilla has the lowest loss') or provide the exact loss values as in the ideal response. It proceeds to answer the question while only implicitly addressing the false premise."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The chart does not provide validation set perplexity values — it only shows training loss over iterations. Therefore, we cannot determine the perplexity on the validation set or compute the train-validation gap for any model from this chart alone.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the information cannot be determined from the chart, explicitly mentioning the absence of validation set perplexity and the inability to compute the train-validation gap. This aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

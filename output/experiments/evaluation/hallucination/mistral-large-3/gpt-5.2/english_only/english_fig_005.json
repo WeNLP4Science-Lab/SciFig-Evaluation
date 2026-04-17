@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:35:55.356353+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en005_h1",
+      "probe_type": "inexist",
+      "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+      "model_answer": "The Llama-3B confidence interval appears **already narrower at the first point**, so this happens at about **k = 1 (2⁰)**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model describes the non-existent shaded confidence intervals as if they exist, providing specific values (e.g., 'already narrower at the first point' and 'k = 1 (2⁰)') without questioning their presence or visibility in the chart."
+    },
+    {
+      "probe_id": "en005_h2",
+      "probe_type": "contra",
+      "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+      "model_answer": "A plausible explanation is that fine-tuning shifts the model’s sampling distribution to place more probability mass on *valid and diverse* outputs (less repetition/mode collapse, better adherence to the target task/format, better coverage of rarer correct answers). That advantage compounds when you take **many samples (high k)**: if the untuned model concentrates probability on a smaller set of “easy/common” completions, additional samples don’t add much new coverage, whereas the fine-tuned model continues to yield new, correct variants as k grows—hence the large gap at higher k.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise of a 15-point gap and builds its entire answer on it without questioning or correcting the factual inaccuracy in the question."
+    },
+    {
+      "probe_id": "en005_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+      "model_answer": "The error bars at **k=256** look **very small** for all curves (on the order of **a few thousandths to ~1 percentage point**). Approximate standard errors from the visual size of the bars:\n- **Llama‑3B:** ~**0.005–0.01**\n- **Llama‑3B + FT:** ~**0.005–0.01**\n- **Llama‑1B:** ~**0.005–0.01**\n- **Llama‑1B + FT:** ~**0.005–0.01**\nThe Llama‑3B vs Llama‑1B gap at k=256 is ~**0.04**, which is several times larger than these SEs, so **yes, it still appears statistically significant** at that point.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific answer about standard errors and statistical significance as if the information is visually present in the chart, without acknowledging that the chart does not include error bars, confidence intervals, or any variance data. This directly contradicts the requirement to recognize the unanswerability of the question."
+    }
+  ]
+}

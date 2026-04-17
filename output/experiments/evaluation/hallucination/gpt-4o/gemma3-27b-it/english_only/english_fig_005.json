@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-17T07:49:59.600044+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en005_h1",
+      "probe_type": "inexist",
+      "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+      "model_answer": "The shaded confidence interval around the Llama-3B line first becomes narrower than the confidence interval around Llama-1B at approximately **k = 2^2 = 4**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent shaded confidence intervals as if they exist and provided a specific value for when one becomes narrower than the other, without questioning their presence in the chart."
+    },
+    {
+      "probe_id": "en005_h2",
+      "probe_type": "contra",
+      "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+      "model_answer": "At higher values of *k* (number of completions), the models are encountering rarer or more complex scenarios. Fine-tuning (FT) helps the model specialize on the specific distribution of the data.  When *k* is low, the model is seeing common occurrences and the larger pre-trained knowledge in Llama-3B is sufficient. However, as *k* increases, the system is forced to deal with more data points, including those with less commonfeature occurences. Fine-tuning equips the model with the ability to handle the tails of these distributions more effectively, improving coverage for these less common cases. In short, fine-tuning helps the model better generalize to the long tail of possibilities found when sampling a larger number of completions.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that Llama-3B + FT opens a 15-point gap over plain Llama-3B and builds its explanation around it without questioning or correcting the error. It does not address the fact that the two lines are nearly overlapping in the chart."
+    },
+    {
+      "probe_id": "en005_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+      "model_answer": "The figure does not provide standard error bars. Without those, it's **impossible to determine the standard error** or statistically assess significance. However, visually, we can observe that each data point has an associated shaded area, which represents the standard error. While the shaded areas overlap, it *appears* that the difference between Llama-3B and Llama-1B is still fairly large at k=256, but there's no way to confirm statistical significance without the error bars.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that standard errors and statistical significance cannot be determined from the chart alone, but it incorrectly claims that shaded areas represent standard errors and speculates about the differences between models. This hedging and attempt to interpret the chart lowers the score."
+    }
+  ]
+}

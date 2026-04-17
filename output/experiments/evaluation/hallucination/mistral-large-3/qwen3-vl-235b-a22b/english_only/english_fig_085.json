@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:36:55.571856+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "For the **Radiology** per-specialty term group (not shown in the chart — note: chart shows Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics), there is no data. However, assuming the question meant **Radiology** was a typo and intended **Pediatrics** (the last group shown):\n- The negative log probability for Pediatrics with the fine-tuned model (Pediatrics-specific, dark brown) is approximately **-23.5**.\n- For the Cardio group with the fine-tuned model (Cardio-specific, light orange), it is approximately **-23.0**.\n→ So, the Pediatrics fine-tuned model has a *more negative* log probability (worse performance) than the Cardio fine-tuned model.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model explicitly notes that the 'Radiology' per-specialty term group is 'not shown in the chart' and lists the actual groups present. However, it then hedges by assuming the question might have intended 'Pediatrics' instead, which introduces uncertainty and partially undermines the correct initial observation. This falls into the 0.5 category due to the hedging."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "The degradation in performance for the Neuro specialty when fine-tuning is applied may be explained by several factors: overfitting to a small or noisy Neuro-specific dataset, domain mismatch between the fine-tuning data and the evaluation terms, or catastrophic forgetting of general linguistic or medical knowledge during fine-tuning. It’s also possible that the Neuro term list contains rare or ambiguous terms that the fine-tuned model over-specializes on, reducing its generalization ability for those specific terms.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise in the question without questioning or correcting it. It proceeds to explain the 'degradation' as if the premise were true, despite the clear factual error."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "The figure does not provide any information about vocabulary overlap between the per-specialty term lists, nor does it show any analysis controlling for shared terminology. Therefore, we cannot determine the extent of overlap or whether controlling for shared terms would change the relative rankings based solely on this chart.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the information cannot be determined from the chart, explicitly mentioning the lack of data on vocabulary overlap and controlled analyses. It adheres to the criteria for a correct response by not attempting to infer or estimate the answer."
+    }
+  ]
+}

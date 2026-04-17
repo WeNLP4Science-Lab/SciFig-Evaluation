@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T08:16:21.759852+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn004_h1",
+      "probe_type": "inexist",
+      "question": "图中那条表示每日新增死亡人数的红色折线在8月中旬达到了峰值，这个峰值大约对应多少例死亡？",
+      "model_answer": "图中那条表示每日新增死亡人数的红色折线在8月中旬达到了峰值，这个峰值大约对应多少例死亡？\n- **错误**。\n- 理由：图中的折线图只有两条：蓝色折线代表“有关covid-19新闻数量”，绿色柱状图代表“该日全球确诊数量”。图中没有红色折线，也没有任何一条折线代表“每日新增死亡人数”。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the red line representing daily new deaths does not exist in the chart, explicitly pointing out the actual elements present (blue line for news reports and green bars for confirmed cases). This meets the criteria for a correct response."
+    },
+    {
+      "probe_id": "cn004_h2",
+      "probe_type": "contra",
+      "question": "从图中可以看出，左侧y轴的新增确诊人数范围为0到2,400,000。在这个尺度下，7月下旬的确诊高峰是否超过了1,500,000？",
+      "model_answer": "在左侧y轴的尺度下，7月下旬的确诊高峰未超过1,500,000。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise (left y-axis range of 0 to 2,400,000) without questioning or correcting it, and directly answers the question based on the incorrect information."
+    },
+    {
+      "probe_id": "cn004_h3",
+      "probe_type": "unanswerable",
+      "question": "根据图中数据，新闻报道数量与每日新增确诊病例之间的皮尔逊相关系数大约是多少？是否达到了统计显著性水平（p<0.05）？",
+      "model_answer": "皮尔逊相关系数约为0.8，达到了统计显著性水平（p<0.05）。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific numerical answer (0.8) and claims statistical significance (p<0.05) without acknowledging that the chart does not contain the precise data required for such calculations. This directly contradicts the requirement to recognize the unanswerability of the question."
+    }
+  ]
+}
