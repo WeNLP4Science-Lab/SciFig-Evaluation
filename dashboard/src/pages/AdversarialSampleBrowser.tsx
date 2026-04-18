@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
-import { FIGURES_BASE_URL, QUESTIONS_BLOB_URL, QUESTIONS_BLOB_WRITE_URL, HALLUCINATION_BLOB_URL, HALLUCINATION_BLOB_WRITE_URL } from '../config'
+import { FIGURES_BASE_URL, ALL_BENCHMARKS_BLOB_URL, ALL_BENCHMARKS_BLOB_WRITE_URL } from '../config'
 import FigureSidebar from '../components/FigureSidebar'
 
 interface SampleManifest {
@@ -35,18 +35,6 @@ interface Question {
   category: string
 }
 
-interface FigureQuestions {
-  figure_key: string
-  subfolder: string
-  native_language: string
-  questions_native: Question[]
-  questions_english: Question[]
-  questions_bg?: Question[]
-  questions_cn?: Question[]
-  questions_de?: Question[]
-  questions_en?: Question[]
-}
-
 interface HallucinationProbe {
   id: string
   type: string
@@ -59,12 +47,33 @@ interface HallucinationProbe {
   answer_type: string
 }
 
-interface FigureHallucination {
+interface PromptReverse {
+  true_statement: string
+  false_statement: string
+  fact_description: string
+}
+
+interface CaptionBiasModification {
+  claim: string
+  reality: string
+  type: string
+  principle: string
+}
+
+interface CaptionBias {
+  original_caption: string
+  modified_caption: string
+  modifications: CaptionBiasModification[]
+}
+
+interface FigureBenchmark {
   figure_key: string
   subfolder: string
   native_language: string
-  probes_native: HallucinationProbe[]
-  probes_english: HallucinationProbe[]
+  capability_questions?: Question[]
+  hallucination_probes?: HallucinationProbe[]
+  prompt_reverse?: PromptReverse
+  caption_bias?: CaptionBias
 }
 
 interface AdversarialSampleBrowserProps {
@@ -217,7 +226,13 @@ function EditableQuestionCard({ q, onChange, langLabel }: { q: Question; onChang
         </div>
       ) : (
         <div>
-          <p className="text-xs leading-relaxed mb-2" style={{ color: 'var(--m3-on-surface)' }}>{q.question}</p>
+          <p className="text-xs leading-relaxed mb-1" style={{ color: 'var(--m3-on-surface)' }}>{q.question}</p>
+          {(q as Record<string, unknown>).question_english && (q as Record<string, unknown>).question_english !== q.question && (
+            <p className="text-xs leading-relaxed mb-2" style={{ color: 'var(--m3-on-surface)', opacity: 0.6 }}>
+              <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+              {(q as Record<string, unknown>).question_english as string}
+            </p>
+          )}
           <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-primary)' }}>
             <span style={{ color: 'var(--m3-outline)' }}>Answer: </span>{q.expected_answer}
           </p>
@@ -229,8 +244,7 @@ function EditableQuestionCard({ q, onChange, langLabel }: { q: Question; onChang
 
 export default function AdversarialSampleBrowser({ manifestFile, title }: AdversarialSampleBrowserProps) {
   const [manifest, setManifest] = useState<SampleManifest | null>(null)
-  const [questionsData, setQuestionsData] = useState<Record<string, FigureQuestions> | null>(null)
-  const [halluData, setHalluData] = useState<Record<string, FigureHallucination> | null>(null)
+  const [benchmarks, setBenchmarks] = useState<Record<string, FigureBenchmark> | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedSubfolder, setSelectedSubfolder] = useState('')
   const [selectedFigure, setSelectedFigure] = useState('')
@@ -244,25 +258,18 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
 
   useEffect(() => {
     setLoading(true)
-    const loadQuestions = () =>
-      fetch(`${QUESTIONS_BLOB_URL}?t=${Date.now()}`).then(r => r.ok ? r.json() : Promise.reject())
-        .catch(() => fetch(`${import.meta.env.BASE_URL}data/capability_questions.json`).then(r => r.json()))
-        .catch(() => null)
-
-    const loadHallucination = () =>
-      fetch(`${HALLUCINATION_BLOB_URL}?t=${Date.now()}`).then(r => r.ok ? r.json() : Promise.reject())
-        .catch(() => fetch(`${import.meta.env.BASE_URL}data/hallucination_probes.json`).then(r => r.json()))
+    const loadBenchmarks = () =>
+      fetch(`${ALL_BENCHMARKS_BLOB_URL}?t=${Date.now()}`).then(r => r.ok ? r.json() : Promise.reject())
+        .catch(() => fetch(`${import.meta.env.BASE_URL}data/all_benchmarks.json`).then(r => r.json()))
         .catch(() => null)
 
     Promise.all([
       fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`).then(r => r.json()),
-      loadQuestions(),
-      loadHallucination(),
+      loadBenchmarks(),
     ])
-      .then(([manifestData, questionsJson, halluJson]) => {
+      .then(([manifestData, benchmarksJson]) => {
         setManifest(manifestData as SampleManifest)
-        if (questionsJson) setQuestionsData(questionsJson as Record<string, FigureQuestions>)
-        if (halluJson) setHalluData(halluJson as Record<string, FigureHallucination>)
+        if (benchmarksJson) setBenchmarks(benchmarksJson as Record<string, FigureBenchmark>)
         const subs = (manifestData as SampleManifest).subfolders || []
         if (subs.length) setSelectedSubfolder(subs[0])
       })
@@ -291,52 +298,36 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
     return manifest.figures.find(f => f.figure_key === selectedFigure && f.subfolder === selectedSubfolder)
   }, [manifest, selectedFigure, selectedSubfolder])
 
-  const currentQuestions = useMemo(() => {
-    if (!questionsData || !selectedFigure) return null
-    return questionsData[selectedFigure] || null
-  }, [questionsData, selectedFigure])
+  const currentBenchmark = useMemo(() => {
+    if (!benchmarks || !selectedFigure) return null
+    return benchmarks[selectedFigure] || null
+  }, [benchmarks, selectedFigure])
 
-  const currentHallucination = useMemo(() => {
-    if (!halluData || !selectedFigure) return null
-    return halluData[selectedFigure] || null
-  }, [halluData, selectedFigure])
-
-  const handleQuestionUpdate = useCallback((langKey: string, qIndex: number, updated: Question) => {
-    if (!questionsData || !selectedFigure) return
-    const newData = { ...questionsData }
-    const figQ = { ...newData[selectedFigure] }
-    const arr = [...((figQ as Record<string, unknown>)[langKey] as Question[])]
+  const handleQuestionUpdate = useCallback((qIndex: number, updated: Question) => {
+    if (!benchmarks || !selectedFigure || !benchmarks[selectedFigure]?.capability_questions) return
+    const newData = { ...benchmarks }
+    const fig = { ...newData[selectedFigure] }
+    const arr = [...(fig.capability_questions || [])]
     arr[qIndex] = updated
-    ;(figQ as Record<string, unknown>)[langKey] = arr
-    newData[selectedFigure] = figQ as FigureQuestions
-    setQuestionsData(newData)
-  }, [questionsData, selectedFigure])
+    fig.capability_questions = arr
+    newData[selectedFigure] = fig
+    setBenchmarks(newData)
+  }, [benchmarks, selectedFigure])
 
   const handleSaveAll = useCallback(async () => {
-    if (!questionsData && !halluData) return
+    if (!benchmarks) return
     setSaving(true)
     setSaveStatus(null)
     try {
-      const uploads: Promise<Response>[] = []
-      if (questionsData) {
-        uploads.push(fetch(QUESTIONS_BLOB_WRITE_URL, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'x-ms-blob-type': 'BlockBlob' },
-          body: JSON.stringify(questionsData, null, 2),
-        }))
-      }
-      if (halluData) {
-        uploads.push(fetch(HALLUCINATION_BLOB_WRITE_URL, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'x-ms-blob-type': 'BlockBlob' },
-          body: JSON.stringify(halluData, null, 2),
-        }))
-      }
-      const results = await Promise.all(uploads)
-      if (results.every(r => r.ok)) {
+      const resp = await fetch(ALL_BENCHMARKS_BLOB_WRITE_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'x-ms-blob-type': 'BlockBlob' },
+        body: JSON.stringify(benchmarks, null, 2),
+      })
+      if (resp.ok) {
         setSaveStatus('Saved')
       } else {
-        setSaveStatus(`Error: some saves failed`)
+        setSaveStatus(`Error: save failed (${resp.status})`)
       }
     } catch (e) {
       setSaveStatus(`Error: ${e}`)
@@ -344,7 +335,7 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
       setSaving(false)
       setTimeout(() => setSaveStatus(null), 3000)
     }
-  }, [questionsData])
+  }, [benchmarks])
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--m3-surface)' }}>
@@ -360,8 +351,6 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
   const imgBase = isAdversarial
     ? `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}`
     : null
-
-  const isMultiLang = selectedSubfolder === 'multi_language'
 
   return (
     <div className="h-screen flex flex-col overflow-hidden animate-fade-in" style={{ backgroundColor: 'var(--m3-surface)' }}>
@@ -516,144 +505,153 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
             </CollapsibleSection>
           )}
 
-          {/* Capability Questions (collapsible) */}
-          {isAdversarial && currentQuestions && (
-            <>
-              <CollapsibleSection title={`Questions — Native (${currentQuestions.native_language})`} count={currentQuestions.questions_native?.length}>
-                <div className="space-y-3">
-                  {currentQuestions.questions_native?.map((q, i) => (
-                    <EditableQuestionCard
-                      key={q.id}
-                      q={q}
-                      langLabel={currentQuestions.native_language}
-                      onChange={updated => handleQuestionUpdate('questions_native', i, updated)}
-                    />
-                  ))}
-                </div>
-              </CollapsibleSection>
-
-              <CollapsibleSection title="Questions — English" count={currentQuestions.questions_english?.length}>
-                <div className="space-y-3">
-                  {currentQuestions.questions_english?.map((q, i) => (
-                    <EditableQuestionCard
-                      key={q.id}
-                      q={q}
-                      langLabel="english"
-                      onChange={updated => handleQuestionUpdate('questions_english', i, updated)}
-                    />
-                  ))}
-                </div>
-              </CollapsibleSection>
-
-              {/* Multi-language extra languages */}
-              {isMultiLang && currentQuestions.questions_bg && (
-                <CollapsibleSection title="Questions — Bulgarian" count={currentQuestions.questions_bg.length}>
-                  <div className="space-y-3">
-                    {currentQuestions.questions_bg.map((q, i) => (
-                      <EditableQuestionCard
-                        key={q.id}
-                        q={q}
-                        langLabel="bulgarian"
-                        onChange={updated => handleQuestionUpdate('questions_bg', i, updated)}
-                      />
-                    ))}
-                  </div>
-                </CollapsibleSection>
-              )}
-              {isMultiLang && currentQuestions.questions_cn && (
-                <CollapsibleSection title="Questions — Chinese" count={currentQuestions.questions_cn.length}>
-                  <div className="space-y-3">
-                    {currentQuestions.questions_cn.map((q, i) => (
-                      <EditableQuestionCard
-                        key={q.id}
-                        q={q}
-                        langLabel="chinese"
-                        onChange={updated => handleQuestionUpdate('questions_cn', i, updated)}
-                      />
-                    ))}
-                  </div>
-                </CollapsibleSection>
-              )}
-              {isMultiLang && currentQuestions.questions_de && (
-                <CollapsibleSection title="Questions — German" count={currentQuestions.questions_de.length}>
-                  <div className="space-y-3">
-                    {currentQuestions.questions_de.map((q, i) => (
-                      <EditableQuestionCard
-                        key={q.id}
-                        q={q}
-                        langLabel="german"
-                        onChange={updated => handleQuestionUpdate('questions_de', i, updated)}
-                      />
-                    ))}
-                  </div>
-                </CollapsibleSection>
-              )}
-            </>
+          {/* Capability Questions */}
+          {isAdversarial && currentBenchmark?.capability_questions && currentBenchmark.capability_questions.length > 0 && (
+            <CollapsibleSection title={`Capability Questions (${currentBenchmark.native_language})`} count={currentBenchmark.capability_questions.length}>
+              <div className="space-y-3">
+                {currentBenchmark.capability_questions.map((q, i) => (
+                  <EditableQuestionCard
+                    key={q.id}
+                    q={q}
+                    langLabel={currentBenchmark.native_language}
+                    onChange={updated => handleQuestionUpdate(i, updated)}
+                  />
+                ))}
+              </div>
+            </CollapsibleSection>
           )}
 
-          {/* Hallucination Probes (collapsible) */}
-          {isAdversarial && currentHallucination && (
-            <>
-              <CollapsibleSection title={`Hallucination Probes — Native (${currentHallucination.native_language})`} count={currentHallucination.probes_native?.length}>
-                <div className="space-y-3">
-                  {currentHallucination.probes_native?.map((p) => (
-                    <div key={p.id} className="rounded-lg p-4" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-surface-container-highest)', color: 'var(--m3-on-surface-variant)' }}>
-                          {p.id}
-                        </span>
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{
-                          backgroundColor: p.type === 'inexist' ? 'var(--m3-error-container)' : p.type === 'contra' ? 'var(--m3-tertiary-container)' : 'var(--m3-secondary-container)',
-                          color: p.type === 'inexist' ? 'var(--m3-on-error-container)' : p.type === 'contra' ? 'var(--m3-on-tertiary-container)' : 'var(--m3-on-secondary-container)',
-                        }}>
-                          {p.type}
-                        </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--m3-surface-container-high)', color: 'var(--m3-outline)' }}>
-                          {p.principle}
-                        </span>
-                      </div>
-                      <p className="text-xs leading-relaxed mb-2" style={{ color: 'var(--m3-on-surface)' }}>{p.question}</p>
-                      <p className="text-xs leading-relaxed mb-1" style={{ color: 'var(--m3-primary)' }}>
-                        <span style={{ color: 'var(--m3-outline)' }}>Expected: </span>{p.expected_behavior}
-                      </p>
-                      {p.false_element && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>False element: {p.false_element}</p>}
-                      {p.false_premise && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>False premise: {p.false_premise}</p>}
-                      {p.why_unanswerable && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>Why unanswerable: {p.why_unanswerable}</p>}
+          {/* Hallucination Probes */}
+          {isAdversarial && currentBenchmark?.hallucination_probes && currentBenchmark.hallucination_probes.length > 0 && (
+            <CollapsibleSection title={`Hallucination Probes (${currentBenchmark.native_language})`} count={currentBenchmark.hallucination_probes.length}>
+              <div className="space-y-3">
+                {currentBenchmark.hallucination_probes.map((p) => (
+                  <div key={p.id} className="rounded-lg p-4" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-surface-container-highest)', color: 'var(--m3-on-surface-variant)' }}>
+                        {p.id}
+                      </span>
+                      <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{
+                        backgroundColor: p.type === 'inexist' ? 'var(--m3-error-container)' : p.type === 'contra' ? 'var(--m3-tertiary-container)' : 'var(--m3-secondary-container)',
+                        color: p.type === 'inexist' ? 'var(--m3-on-error-container)' : p.type === 'contra' ? 'var(--m3-on-tertiary-container)' : 'var(--m3-on-secondary-container)',
+                      }}>
+                        {p.type}
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--m3-surface-container-high)', color: 'var(--m3-outline)' }}>
+                        {p.principle}
+                      </span>
                     </div>
-                  ))}
-                </div>
-              </CollapsibleSection>
+                    <p className="text-xs leading-relaxed mb-1" style={{ color: 'var(--m3-on-surface)' }}>{p.question}</p>
+                    {(p as Record<string, unknown>).question_english && (p as Record<string, unknown>).question_english !== p.question && (
+                      <p className="text-xs leading-relaxed mb-2" style={{ color: 'var(--m3-on-surface)', opacity: 0.6 }}>
+                        <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                        {(p as Record<string, unknown>).question_english as string}
+                      </p>
+                    )}
+                    <p className="text-xs leading-relaxed mb-1" style={{ color: 'var(--m3-primary)' }}>
+                      <span style={{ color: 'var(--m3-outline)' }}>Expected: </span>{p.expected_behavior}
+                    </p>
+                    {p.false_element && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>False element: {p.false_element}</p>}
+                    {p.false_premise && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>False premise: {p.false_premise}</p>}
+                    {p.why_unanswerable && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>Why unanswerable: {p.why_unanswerable}</p>}
+                  </div>
+                ))}
+              </div>
+            </CollapsibleSection>
+          )}
 
-              <CollapsibleSection title="Hallucination Probes — English" count={currentHallucination.probes_english?.length}>
-                <div className="space-y-3">
-                  {currentHallucination.probes_english?.map((p) => (
-                    <div key={p.id} className="rounded-lg p-4" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-surface-container-highest)', color: 'var(--m3-on-surface-variant)' }}>
-                          {p.id}
-                        </span>
-                        <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{
-                          backgroundColor: p.type === 'inexist' ? 'var(--m3-error-container)' : p.type === 'contra' ? 'var(--m3-tertiary-container)' : 'var(--m3-secondary-container)',
-                          color: p.type === 'inexist' ? 'var(--m3-on-error-container)' : p.type === 'contra' ? 'var(--m3-on-tertiary-container)' : 'var(--m3-on-secondary-container)',
-                        }}>
-                          {p.type}
-                        </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--m3-surface-container-high)', color: 'var(--m3-outline)' }}>
-                          {p.principle}
-                        </span>
-                      </div>
-                      <p className="text-xs leading-relaxed mb-2" style={{ color: 'var(--m3-on-surface)' }}>{p.question}</p>
-                      <p className="text-xs leading-relaxed mb-1" style={{ color: 'var(--m3-primary)' }}>
-                        <span style={{ color: 'var(--m3-outline)' }}>Expected: </span>{p.expected_behavior}
-                      </p>
-                      {p.false_element && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>False element: {p.false_element}</p>}
-                      {p.false_premise && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>False premise: {p.false_premise}</p>}
-                      {p.why_unanswerable && <p className="text-[11px]" style={{ color: 'var(--m3-error)' }}>Why unanswerable: {p.why_unanswerable}</p>}
-                    </div>
-                  ))}
+          {/* Prompt Reverse */}
+          {isAdversarial && currentBenchmark?.prompt_reverse && currentBenchmark.prompt_reverse.fact_description && (
+            <CollapsibleSection title="Prompt Reverse">
+              <div className="rounded-lg p-4 space-y-3" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                <div>
+                  <span className="text-[10px] font-medium uppercase" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Fact</span>
+                  <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-on-surface)' }}>{currentBenchmark.prompt_reverse.fact_description}</p>
                 </div>
-              </CollapsibleSection>
-            </>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-primary-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <span className="text-[10px] font-medium uppercase block mb-1" style={{ color: 'var(--m3-on-primary-container)', letterSpacing: '0.5px' }}>TRUE (Native)</span>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-primary-container)' }}>{currentBenchmark.prompt_reverse.true_statement}</p>
+                    {currentBenchmark.prompt_reverse.true_statement_english && currentBenchmark.prompt_reverse.true_statement_english !== currentBenchmark.prompt_reverse.true_statement && (
+                      <p className="text-xs leading-relaxed mt-2 pt-2" style={{ color: 'var(--m3-on-primary-container)', opacity: 0.7, borderTop: '1px solid var(--m3-outline-variant)' }}>
+                        <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>English: </span>
+                        {currentBenchmark.prompt_reverse.true_statement_english}
+                      </p>
+                    )}
+                  </div>
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-error-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <span className="text-[10px] font-medium uppercase block mb-1" style={{ color: 'var(--m3-on-error-container)', letterSpacing: '0.5px' }}>FALSE (Native)</span>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-error-container)' }}>{currentBenchmark.prompt_reverse.false_statement}</p>
+                    {currentBenchmark.prompt_reverse.false_statement_english && currentBenchmark.prompt_reverse.false_statement_english !== currentBenchmark.prompt_reverse.false_statement && (
+                      <p className="text-xs leading-relaxed mt-2 pt-2" style={{ color: 'var(--m3-on-error-container)', opacity: 0.7, borderTop: '1px solid var(--m3-outline-variant)' }}>
+                        <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>English: </span>
+                        {currentBenchmark.prompt_reverse.false_statement_english}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </CollapsibleSection>
+          )}
+
+          {/* Caption Bias */}
+          {isAdversarial && currentBenchmark?.caption_bias && currentBenchmark.caption_bias.original_caption && (
+            <CollapsibleSection title="Caption Bias" count={currentBenchmark.caption_bias.modifications?.length}>
+              <div className="rounded-lg p-4 space-y-4" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                <div>
+                  <span className="text-[10px] font-medium uppercase" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Original Caption</span>
+                  <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-on-surface)' }}>{currentBenchmark.caption_bias.original_caption}</p>
+                  {(currentBenchmark.caption_bias as Record<string, unknown>).original_caption_english && (currentBenchmark.caption_bias as Record<string, unknown>).original_caption_english !== currentBenchmark.caption_bias.original_caption && (
+                    <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-on-surface)', opacity: 0.6 }}>
+                      <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                      {(currentBenchmark.caption_bias as Record<string, unknown>).original_caption_english as string}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <span className="text-[10px] font-medium uppercase" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Modified Caption</span>
+                  <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-error)' }}>{currentBenchmark.caption_bias.modified_caption}</p>
+                  {(currentBenchmark.caption_bias as Record<string, unknown>).modified_caption_english && (currentBenchmark.caption_bias as Record<string, unknown>).modified_caption_english !== currentBenchmark.caption_bias.modified_caption && (
+                    <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-error)', opacity: 0.6 }}>
+                      <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                      {(currentBenchmark.caption_bias as Record<string, unknown>).modified_caption_english as string}
+                    </p>
+                  )}
+                </div>
+                {currentBenchmark.caption_bias.modifications && currentBenchmark.caption_bias.modifications.length > 0 && (
+                  <div>
+                    <span className="text-[10px] font-medium uppercase" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Modifications</span>
+                    <div className="space-y-2 mt-2">
+                      {currentBenchmark.caption_bias.modifications.map((mod, i) => (
+                        <div key={i} className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container-high)', border: `1px solid var(--m3-outline-variant)` }}>
+                          <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>
+                            <span style={{ color: 'var(--m3-error)' }}>{mod.claim}</span>
+                          </p>
+                          {(mod as Record<string, unknown>).claim_english && (mod as Record<string, unknown>).claim_english !== mod.claim && (
+                            <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-error)', opacity: 0.6 }}>
+                              <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                              {(mod as Record<string, unknown>).claim_english as string}
+                            </p>
+                          )}
+                          <p className="text-[11px] mt-1" style={{ color: 'var(--m3-on-surface-variant)' }}>
+                            Reality: {mod.reality}
+                          </p>
+                          {(mod as Record<string, unknown>).reality_english && (mod as Record<string, unknown>).reality_english !== mod.reality && (
+                            <p className="text-[11px]" style={{ color: 'var(--m3-on-surface-variant)', opacity: 0.6 }}>
+                              <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                              {(mod as Record<string, unknown>).reality_english as string}
+                            </p>
+                          )}
+                          <span className="text-[10px] px-2 py-0.5 rounded-full mt-1 inline-block" style={{ backgroundColor: 'var(--m3-surface-container-highest)', color: 'var(--m3-outline)' }}>
+                            {mod.principle}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </CollapsibleSection>
           )}
 
           {/* Annotations (non-adversarial) */}

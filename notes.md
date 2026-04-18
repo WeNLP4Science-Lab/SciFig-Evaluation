@@ -28,3 +28,13 @@
   5. Prompt reverse inconsistency — models contradict themselves when asked to confirm
   vs deny the same statement about a chart (CHARTNOISE). Their understanding isn't
   stable.
+
+
+
+  APRIL 15
+
+  Hallucination probing guide in paper writing
+
+
+
+  

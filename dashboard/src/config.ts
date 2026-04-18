@@ -18,3 +18,8 @@ export const QUESTIONS_BLOB_WRITE_URL = `${QUESTIONS_BLOB_URL}?${BLOB_SAS_TOKEN}
 
 export const HALLUCINATION_BLOB_URL = `https://scifigfigures.blob.core.windows.net/data/hallucination_probes.json`
 export const HALLUCINATION_BLOB_WRITE_URL = `${HALLUCINATION_BLOB_URL}?${BLOB_SAS_TOKEN}`
+
+export const ALL_BENCHMARKS_BLOB_URL = `https://scifigfigures.blob.core.windows.net/data/all_benchmarks.json`
+export const ALL_BENCHMARKS_BLOB_WRITE_URL = `${ALL_BENCHMARKS_BLOB_URL}?${BLOB_SAS_TOKEN}`
+
+export const EXPERIMENT_RESULTS_BLOB_URL = `https://scifigfigures.blob.core.windows.net/data/experiment_results.json`

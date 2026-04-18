@@ -53,24 +53,32 @@
       },
       {
         "id": "en005_q2",
-        "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1 (2^0)?",
+        "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1?",
         "expected_answer": "~0.18-0.20 (Llama-3B starts at ~0.42, Llama-1B at ~0.22-0.24)",
         "answer_type": "approximate",
         "category": "comparison"
       },
       {
         "id": "en005_q3",
-        "question": "At k=256 (2^8), what is the approximate coverage difference between the 3B models and the 1B models?",
-        "expected_answer": "~0.04-0.06 (3B models reach ~0.90-0.92, 1B models reach ~0.85-0.87)",
+        "question": "At k=256, what is the approximate coverage difference between the 3B models and the 1B models?",
+        "expected_answer": "~0.04 (3B models reach ~0.90-0.92, 1B models reach ~0.85-0.88)",
         "answer_type": "approximate",
-        "category": "comparison"
+        "category": "comparison",
+        "acceptable_range": [
+          0.025,
+          0.06
+        ]
       },
       {
         "id": "en005_q4",
         "question": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?",
-        "expected_answer": "~3.5-4x (from ~0.22-0.24 to ~0.85-0.87)",
+        "expected_answer": "~3.5-4x",
         "answer_type": "approximate",
-        "category": "computation"
+        "category": "computation",
+        "acceptable_range": [
+          3.5,
+          4.0
+        ]
       },
       {
         "id": "en005_q5",
@@ -172,7 +180,11 @@
         "question": "At iteration 140,000, which model achieves the lowest loss and what is its approximate value?",
         "expected_answer": "Vanilla, approximately 2.45",
         "answer_type": "approximate",
-        "category": "value_reading"
+        "category": "value_reading",
+        "acceptable_range": [
+          2.45,
+          2.47
+        ]
       },
       {
         "id": "en057_q2",
@@ -186,7 +198,11 @@
         "question": "What is the approximate loss gap between StrmLLM (n=64) and Vanilla at iteration 140,000?",
         "expected_answer": "~0.15 (StrmLLM ~2.60, Vanilla ~2.45)",
         "answer_type": "approximate",
-        "category": "comparison"
+        "category": "comparison",
+        "acceptable_range": [
+          0.12,
+          0.16
+        ]
       },
       {
         "id": "en057_q4",
@@ -211,7 +227,7 @@
       {
         "id": "en075_q1",
         "question": "Which language family shows the highest effect value for any single model configuration, and which model achieves it?",
-        "expected_answer": "IE-Indic, with XLM-B2 (red) or mBERT-B2 (pink) reaching approximately 21-24",
+        "expected_answer": "IE-Indic, with XLM-B2 or mBERT-B2 reaching approximately 21-24",
         "answer_type": "approximate",
         "category": "value_reading"
       },
@@ -231,15 +247,15 @@
       },
       {
         "id": "en075_q4",
-        "question": "In how many language families does XLM-B2 (red bar) exceed an effect value of 15?",
-        "expected_answer": "3 (IE-Germanic ~15, IE-Indic ~21, Semitic ~20)",
+        "question": "In how many language families does XLM-B2 exceed or approximately equal an effect value of 15?",
+        "expected_answer": "4 (IE-Germanic ~15, IE-Indic ~21, IE-Slavic ~15, Semitic ~20)",
         "answer_type": "approximate",
         "category": "counting"
       },
       {
         "id": "en075_q5",
         "question": "Which language family shows the largest error bars overall, and approximately how large is the largest error bar extent (from bar top to error bar tip)?",
-        "expected_answer": "Semitic, with error bars extending approximately 15-20 units above and below",
+        "expected_answer": "Semitic, with error bars extending approximately 30-35 units",
         "answer_type": "approximate",
         "category": "value_reading"
       }
@@ -252,14 +268,14 @@
       {
         "id": "en085_q1",
         "question": "For which per-specialty term group does the MistralV0.2-Base (lightest bar) show the largest negative log probability (most negative value)?",
-        "expected_answer": "Infect (approximately -27)",
+        "expected_answer": "Cardio (approximately -27 to -28)",
         "answer_type": "approximate",
         "category": "value_reading"
       },
       {
         "id": "en085_q2",
-        "question": "Across all per-specialty term groups, is the MistralV0.2-Base bar always the tallest (least negative) compared to the fine-tuned variants?",
-        "expected_answer": "No, the fine-tuned bars appear to be shorter (more negative) or roughly equal in some groups; the Base bar tends to be the tallest (closest to -22)",
+        "question": "Across all per-specialty term groups, is the MistralV0.2-Base bar always the most negative compared to the fine-tuned variants?",
+        "expected_answer": "Yes, the Base bar tends to be the most negative (extending furthest down) across all groups, while the fine-tuned variants are less negative (closer to 0)",
         "answer_type": "open_ended",
         "category": "trend_analysis"
       },
@@ -336,6 +352,7 @@
         "question": "At step 500, what is the approximate training reward difference between Llama-LUFFY-Easy and Llama-On-Policy-Easy?",
         "expected_answer": "~0.05 (LUFFY-Easy ~0.40, On-Policy-Easy ~0.35)",
         "answer_type": "approximate",
+        "acceptable_range": [0.04, 0.1],
         "category": "comparison"
       },
       {
@@ -343,6 +360,7 @@
         "question": "At approximately what step does Llama-On-Policy-Hard's training reward drop to essentially 0?",
         "expected_answer": "~100-150 steps",
         "answer_type": "approximate",
+        "acceptable_range": [100, 190],
         "category": "value_reading"
       },
       {
@@ -362,8 +380,9 @@
       {
         "id": "en171_q5",
         "question": "At approximately what step does Llama-LUFFY-Easy first reach a training reward of 0.3?",
-        "expected_answer": "~50-80 steps",
+        "expected_answer": "~150-200 steps",
         "answer_type": "approximate",
+        "acceptable_range": [150, 200],
         "category": "value_reading"
       }
     ]

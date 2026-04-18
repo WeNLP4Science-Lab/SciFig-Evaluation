@@ -4,8 +4,10 @@ import JudgeReview from './pages/JudgeReview'
 import DatasetBrowser from './pages/DatasetBrowser'
 import DatasetSelector from './pages/DatasetSelector'
 import SectionSelector from './pages/SectionSelector'
+import EvaluationSelector from './pages/EvaluationSelector'
 import Analytics from './pages/Analytics'
 import AdversarialSampleBrowser from './pages/AdversarialSampleBrowser'
+import AdversarialEvaluation from './pages/AdversarialEvaluation'
 
 export default function App() {
   return (
@@ -19,21 +21,10 @@ export default function App() {
       <Route path="/dataset/adversarial-subset" element={<AdversarialSampleBrowser manifestFile="adversarial_experiments.json" title="Adversarial Subset (45)" />} />
 
       {/* Evaluation */}
-      <Route
-        path="/evaluation"
-        element={
-          <SectionSelector
-            title="Evaluation Review"
-            subtitle="Review MQM judge evaluations with annotated error spans across models"
-            fullPath="/evaluation/full"
-            samplePath="/evaluation/sample"
-            fullDesc="Complete dataset evaluation across all figures and models"
-            sampleDesc="Curated 120-figure sample with human evaluation comparison"
-          />
-        }
-      />
+      <Route path="/evaluation" element={<EvaluationSelector />} />
       <Route path="/evaluation/full" element={<JudgeReview manifestFile="manifest_full.json" title="Full Evaluation" />} />
       <Route path="/evaluation/sample" element={<JudgeReview manifestFile="manifest_sample.json" title="Sample Evaluation" />} />
+      <Route path="/evaluation/adversarial" element={<AdversarialEvaluation />} />
 
       {/* Analytics */}
       <Route
