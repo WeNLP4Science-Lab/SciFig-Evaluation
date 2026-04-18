@@ -21,6 +21,7 @@ MODELS = [
     "gemma3-27b-it",
     "gemma3-12b-it",
     "gemma3-4b-it",
+    "phi-4-multimodal",
 ]
 
 # Load adversarial manifest to get figure keys
@@ -123,6 +124,37 @@ for subfolder, fig_keys in figures_by_subfolder.items():
             if hallu_judges:
                 model_data["hallucination"] = {"judges": hallu_judges}
 
+            # 5. Capability evaluations from multiple judges
+            cap_judges = {}
+            for judge in ["gpt-4o", "mistral-large-3"]:
+                cap_eval_path = (
+                    OUTPUT_DIR / "evaluation" / "capability" / judge / model / subfolder / f"{fig_key}.json"
+                )
+                if cap_eval_path.exists():
+                    with open(cap_eval_path) as f:
+                        cap_eval = json.load(f)
+                    cap_judges[judge] = {
+                        "average_score": cap_eval.get("average_score", 0),
+                        "total_scored": cap_eval.get("total_scored", 0),
+                        "total_excluded": cap_eval.get("total_excluded", 0),
+                        "evaluations": [
+                            {
+                                "question_id": e.get("question_id", ""),
+                                "question": e.get("question", ""),
+                                "expected_answer": e.get("expected_answer", ""),
+                                "model_answer": e.get("model_answer", ""),
+                                "answer_type": e.get("answer_type", ""),
+                                "score": e.get("score"),
+                                "reason": e.get("reason", ""),
+                                "excluded": e.get("excluded", False),
+                            }
+                            for e in cap_eval.get("evaluations", [])
+                        ],
+                    }
+
+            if cap_judges:
+                model_data["capability"] = {"judges": cap_judges}
+
             if model_data:
                 entry["models"][model] = model_data
 
@@ -149,7 +181,14 @@ cb_count = sum(
     for m in v["models"].values()
     if "caption_bias" in m
 )
+cap_count = sum(
+    1
+    for v in results.values()
+    for m in v["models"].values()
+    if "capability" in m
+)
 print(f"Exported {total_figures} figures, {total_models} model entries")
 print(f"  prompt_reverse: {pr_count}")
 print(f"  caption_bias:   {cb_count}")
+print(f"  capability:     {cap_count}")
 print(f"  -> {out_path}")
