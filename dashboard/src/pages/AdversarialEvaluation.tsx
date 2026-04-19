@@ -91,7 +91,9 @@ interface HallucinationEvalItem {
 interface CapabilityEvalItem {
   question_id: string
   question: string
+  question_english?: string
   expected_answer: string
+  expected_answer_english?: string
   model_answer: string
   answer_type: string
   acceptable_range?: number[]
@@ -742,6 +744,12 @@ export default function AdversarialEvaluation() {
                       <div className="mb-2">
                         <span className="text-[10px] font-medium uppercase" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Question</span>
                         <p className="text-xs leading-relaxed mt-0.5" style={{ color: 'var(--m3-on-surface)' }}>{ev.question}</p>
+                        {ev.question_english && ev.question_english !== ev.question && (
+                          <p className="text-xs leading-relaxed mt-0.5" style={{ color: 'var(--m3-on-surface)', opacity: 0.6 }}>
+                            <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                            {ev.question_english}
+                          </p>
+                        )}
                       </div>
 
                       <div className="mb-2">
@@ -750,6 +758,12 @@ export default function AdversarialEvaluation() {
                           {ev.expected_answer}
                           {ev.acceptable_range && <span style={{ color: 'var(--m3-outline)' }}> (range: [{ev.acceptable_range[0]}, {ev.acceptable_range[1]}])</span>}
                         </p>
+                        {ev.expected_answer_english && ev.expected_answer_english !== ev.expected_answer && (
+                          <p className="text-xs leading-relaxed mt-0.5" style={{ color: 'var(--m3-primary)', opacity: 0.6 }}>
+                            <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                            {ev.expected_answer_english}
+                          </p>
+                        )}
                       </div>
 
                       <div className="mb-2">

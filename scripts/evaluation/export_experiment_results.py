@@ -8,6 +8,7 @@ from pathlib import Path
 BASE = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = BASE / "output" / "experiments"
 DASHBOARD_DATA = BASE / "dashboard" / "public" / "data"
+BENCHMARKS_DIR = BASE / "adversarial_experiments" / "benchmarks"
 
 MODELS = [
     "gpt-5.2",
@@ -30,6 +31,20 @@ with open(manifest_path) as f:
     manifest = json.load(f)
 
 figures_by_subfolder = manifest["figures_by_subfolder"]
+
+# Load English translations for capability questions
+cap_english = {}
+for lang in ["bulgarian", "chinese", "german", "multi_language"]:
+    en_path = BENCHMARKS_DIR / "capability" / "english" / f"{lang}.json"
+    if en_path.exists():
+        with open(en_path) as f:
+            data = json.load(f)
+        for fig_key, fig_data in data.items():
+            for q in fig_data.get("questions", []):
+                cap_english[(fig_key, q["id"])] = {
+                    "question_english": q.get("question", ""),
+                    "expected_answer_english": q.get("expected_answer", ""),
+                }
 
 results: dict = {}
 
@@ -141,7 +156,9 @@ for subfolder, fig_keys in figures_by_subfolder.items():
                             {
                                 "question_id": e.get("question_id", ""),
                                 "question": e.get("question", ""),
+                                "question_english": cap_english.get((fig_key, e.get("question_id", "")), {}).get("question_english", ""),
                                 "expected_answer": e.get("expected_answer", ""),
+                                "expected_answer_english": cap_english.get((fig_key, e.get("question_id", "")), {}).get("expected_answer_english", ""),
                                 "model_answer": e.get("model_answer", ""),
                                 "answer_type": e.get("answer_type", ""),
                                 "score": e.get("score"),
