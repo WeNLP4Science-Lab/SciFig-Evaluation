@@ -53,6 +53,17 @@ interface PromptReverse {
   fact_description: string
 }
 
+interface AxisBlurElement {
+  element: string
+  description: string
+}
+
+interface AxisBlurProbe {
+  subfolder: string
+  blurred_elements: AxisBlurElement[]
+  notes: string
+}
+
 interface CaptionBiasModification {
   claim: string
   reality: string
@@ -252,6 +263,7 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
   const [expandedImage, setExpandedImage] = useState<{ src: string; label: string } | null>(null)
   const [saving, setSaving] = useState(false)
   const [saveStatus, setSaveStatus] = useState<string | null>(null)
+  const [axisBlurProbes, setAxisBlurProbes] = useState<Record<string, AxisBlurProbe> | null>(null)
   const { isDark } = useTheme()
 
   const isAdversarial = manifest?.transforms != null
@@ -266,10 +278,12 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
     Promise.all([
       fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`).then(r => r.json()),
       loadBenchmarks(),
+      fetch(`${import.meta.env.BASE_URL}data/axis_blur_probes.json`).then(r => r.json()).catch(() => null),
     ])
-      .then(([manifestData, benchmarksJson]) => {
+      .then(([manifestData, benchmarksJson, axisBlurData]) => {
         setManifest(manifestData as SampleManifest)
         if (benchmarksJson) setBenchmarks(benchmarksJson as Record<string, FigureBenchmark>)
+        if (axisBlurData) setAxisBlurProbes(axisBlurData.figures as Record<string, AxisBlurProbe>)
         const subs = (manifestData as SampleManifest).subfolders || []
         if (subs.length) setSelectedSubfolder(subs[0])
       })
@@ -460,6 +474,51 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
               )}
             </div>
           </div>
+
+          {/* Axis Blur Passive Admittance */}
+          {isAdversarial && axisBlurProbes && axisBlurProbes[selectedFigure] && (
+            <CollapsibleSection title="Axis Blur — Passive Admittance" count={axisBlurProbes[selectedFigure].blurred_elements.length} defaultOpen>
+              <div className="space-y-3">
+                <div className="flex gap-4 mb-4">
+                  <div className="flex-1">
+                    <img
+                      src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/axis_blurred.png`}
+                      alt="Axis blurred"
+                      className="rounded-lg max-h-48 w-auto cursor-pointer"
+                      onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/axis_blurred.png`, label: 'Axis Blurred' })}
+                    />
+                    <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Axis Blurred</p>
+                  </div>
+                  <div className="flex-1">
+                    <img
+                      src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/original.png`}
+                      alt="Original"
+                      className="rounded-lg max-h-48 w-auto cursor-pointer"
+                      onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/original.png`, label: 'Original' })}
+                    />
+                    <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Original</p>
+                  </div>
+                </div>
+                <p className="text-[10px] font-medium uppercase mb-2" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Blurred Elements</p>
+                {axisBlurProbes[selectedFigure].blurred_elements.map((el, i) => (
+                  <div key={i} className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-error-container)', color: 'var(--m3-on-error-container)' }}>
+                        {el.element}
+                      </span>
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{el.description}</p>
+                  </div>
+                ))}
+                {axisBlurProbes[selectedFigure].notes && (
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container-low)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Notes</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{axisBlurProbes[selectedFigure].notes}</p>
+                  </div>
+                )}
+              </div>
+            </CollapsibleSection>
+          )}
 
           {/* Transforms (collapsible) */}
           {isAdversarial && manifest.transforms && (
