@@ -293,12 +293,12 @@ def _openrouter_factory(name: str, router_id: str):
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
-    "gpt-5.2": GPT52Annotator,
     "llama4-maverick": Llama4MaverickAnnotator,
 }
 
 # Azure-deployed models
 AZURE_MODELS = {
+    "gpt-5.2": "gpt-5-2",
     "phi-4-multimodal": "phi-4-multimodal",
 }
 

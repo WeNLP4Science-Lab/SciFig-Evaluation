@@ -184,9 +184,14 @@ The image is the primary source of truth. The reference description provides add
 2. Read the reference description to understand what a human expert highlighted.
 3. Read the machine-generated description.
 4. Compare each claim in the machine-generated description against BOTH the image and the reference.
-5. Identify ALL errors. Be thorough but fair — minor approximations in numerical values are acceptable.
-6. Use the image to verify factual claims. Use the reference to identify important omissions.
-7. For each error, classify by category, sub_type, and severity, and provide specific evidence.
+5. Identify ALL errors. Be thorough but fair — minor approximations in numerical values should be flagged as Minor, not Major. Reserve Major for values that are clearly wrong or misleading.
+6. Use the image to verify factual claims.
+7. **Completeness check**: Go through the reference description sentence by sentence. For each piece of information in the reference, check whether the machine-generated description covers it. If not, flag it as a Completeness error with the appropriate sub-type:
+   - **Missing Chart Purpose**: if the reference states what the chart represents or illustrates and the model omits this.
+   - **Missing Axis Description**: if the reference describes axis labels, units, scale type, value ranges, or tick intervals and the model omits any of these.
+   - **Missing Visual Features**: if the reference mentions specific data series, colors, line styles, markers, legend items, annotations, values, groupings, or structural elements and the model omits any of these.
+   Flag each missing element as a separate error. Do not combine multiple omissions into one error.
+8. For each error, classify by category, sub_type, and severity, and provide specific evidence.
 
 {_MQM_OUTPUT_FORMAT}"""
 
