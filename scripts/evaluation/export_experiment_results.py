@@ -172,6 +172,40 @@ for subfolder, fig_keys in figures_by_subfolder.items():
             if cap_judges:
                 model_data["capability"] = {"judges": cap_judges}
 
+            # 6. Admittance evaluations
+            admittance_data = {}
+            transforms_dir = BASE / "output" / "experiments" / "transforms"
+            for judge in ["gpt-4o"]:
+                for blur_type in ["axis_blurred", "selective_blur"]:
+                    adm_path = (
+                        OUTPUT_DIR / "evaluation" / "admittance" / judge / model / blur_type / subfolder / f"{fig_key}.json"
+                    )
+                    if adm_path.exists():
+                        with open(adm_path) as f:
+                            adm_eval = json.load(f)
+                        if judge not in admittance_data:
+                            admittance_data[judge] = {}
+                        # Load model description from transform output
+                        desc_path = transforms_dir / model / blur_type / subfolder / f"{fig_key}.json"
+                        model_desc = ""
+                        model_descs_by_lang = {}
+                        if desc_path.exists():
+                            with open(desc_path) as f:
+                                desc_data = json.load(f)
+                            model_desc = desc_data.get("model_annotation", "")
+                            model_descs_by_lang = desc_data.get("model_annotations", {})
+                        admittance_data[judge][blur_type] = {
+                            "admittance_score": adm_eval.get("admittance_score", 0),
+                            "total_elements": adm_eval.get("total_elements", 0),
+                            "elements": adm_eval.get("elements", []),
+                            "elements_by_language": adm_eval.get("elements_by_language", {}),
+                            "model_description": model_desc,
+                            "model_descriptions_by_language": model_descs_by_lang,
+                        }
+
+            if admittance_data:
+                model_data["admittance"] = {"judges": admittance_data}
+
             if model_data:
                 entry["models"][model] = model_data
 
@@ -207,5 +241,12 @@ cap_count = sum(
 print(f"Exported {total_figures} figures, {total_models} model entries")
 print(f"  prompt_reverse: {pr_count}")
 print(f"  caption_bias:   {cb_count}")
+adm_count = sum(
+    1
+    for v in results.values()
+    for m in v["models"].values()
+    if "admittance" in m
+)
 print(f"  capability:     {cap_count}")
+print(f"  admittance:     {adm_count}")
 print(f"  -> {out_path}")

@@ -116,11 +116,35 @@ interface HallucinationResult {
   judges: Record<string, HallucinationEvalItem[]>
 }
 
+interface AdmittanceElement {
+  element: string
+  mentioned: boolean
+  admits: boolean
+  fabricates: boolean
+  fabricated_value?: string | null
+  reason: string
+  admittance: number
+}
+
+interface AdmittanceBlurResult {
+  admittance_score: number
+  total_elements: number
+  elements?: AdmittanceElement[]
+  elements_by_language?: Record<string, AdmittanceElement[]>
+  model_description?: string
+  model_descriptions_by_language?: Record<string, string>
+}
+
+interface AdmittanceResult {
+  judges: Record<string, Record<string, AdmittanceBlurResult>>
+}
+
 interface ModelExperiment {
   prompt_reverse?: PromptReverseResult
   caption_bias?: CaptionBiasResult
   hallucination?: HallucinationResult
   capability?: CapabilityResult
+  admittance?: AdmittanceResult
 }
 
 interface FigureExperiment {
@@ -786,6 +810,110 @@ export default function AdversarialEvaluation() {
             })() : (
               <div className="rounded-lg p-6 text-center" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
                 <p className="text-xs" style={{ color: 'var(--m3-on-surface-variant)' }}>No capability evaluation available for {selectedModel} with {selectedJudge}.</p>
+              </div>
+            )}
+          </CollapsibleSection>
+
+          {/* Passive Admittance Evaluation */}
+          <CollapsibleSection title={`Passive Admittance (${selectedJudge})`}>
+            {modelData?.admittance?.judges?.[selectedJudge] ? (() => {
+              const admJudge = modelData.admittance!.judges[selectedJudge]
+              return (
+                <div className="space-y-4">
+                  {Object.entries(admJudge).map(([blurType, blurResult]) => (
+                    <div key={blurType}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <h4 className="text-xs font-medium" style={{ color: 'var(--m3-on-surface)' }}>
+                          {blurType === 'axis_blurred' ? 'Axis Blur' : 'Selective Blur'}
+                        </h4>
+                        <Badge
+                          label={`A=${blurResult.admittance_score.toFixed(2)}`}
+                          variant={blurResult.admittance_score >= 0.7 ? 'success' : blurResult.admittance_score >= 0.3 ? 'tertiary' : 'error'}
+                        />
+                      </div>
+                      {blurResult.model_description && (
+                        <div className="rounded-lg p-3 mb-3" style={{ backgroundColor: 'var(--m3-surface-container-low)', border: `1px solid var(--m3-outline-variant)` }}>
+                          <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Model Description</p>
+                          <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{blurResult.model_description.substring(0, 500)}{blurResult.model_description.length > 500 ? '...' : ''}</p>
+                        </div>
+                      )}
+                      {blurResult.model_descriptions_by_language && Object.keys(blurResult.model_descriptions_by_language).length > 0 && (
+                        <div className="rounded-lg p-3 mb-3" style={{ backgroundColor: 'var(--m3-surface-container-low)', border: `1px solid var(--m3-outline-variant)` }}>
+                          <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Model Descriptions</p>
+                          {Object.entries(blurResult.model_descriptions_by_language).map(([lang, desc]) => (
+                            <div key={lang} className="mb-2">
+                              <p className="text-[10px] font-medium" style={{ color: 'var(--m3-primary)' }}>{lang}</p>
+                              <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{desc.substring(0, 400)}{desc.length > 400 ? '...' : ''}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <div className="space-y-2">
+                        {(blurResult.elements || []).map((el, i) => (
+                          <div key={i} className="rounded-lg p-3" style={{
+                            backgroundColor: 'var(--m3-surface-container)',
+                            border: `1px solid var(--m3-outline-variant)`,
+                          }}>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded" style={{
+                                backgroundColor: !el.mentioned ? 'var(--m3-surface-container-highest)' : el.admits ? 'var(--m3-primary-container)' : 'var(--m3-error-container)',
+                                color: !el.mentioned ? 'var(--m3-on-surface-variant)' : el.admits ? 'var(--m3-on-primary-container)' : 'var(--m3-on-error-container)',
+                              }}>
+                                {el.element}
+                              </span>
+                              {!el.mentioned && <Badge label="SILENT" variant="neutral" />}
+                              {el.mentioned && el.admits && <Badge label="ADMITS" variant="success" />}
+                              {el.mentioned && !el.admits && <Badge label="NO ADMIT" variant="error" />}
+                              {el.fabricates && <Badge label="FABRICATES" variant="error" />}
+                            </div>
+                            <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{el.reason}</p>
+                            {el.fabricated_value && (
+                              <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-error)' }}>
+                                <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>Fabricated: </span>
+                                {el.fabricated_value}
+                              </p>
+                            )}
+                          </div>
+                        ))}
+                        {blurResult.elements_by_language && Object.entries(blurResult.elements_by_language).map(([lang, els]) => (
+                          <div key={lang}>
+                            <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>{lang}</p>
+                            {els.map((el, i) => (
+                              <div key={i} className="rounded-lg p-3 mb-2" style={{
+                                backgroundColor: 'var(--m3-surface-container)',
+                                border: `1px solid var(--m3-outline-variant)`,
+                              }}>
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded" style={{
+                                    backgroundColor: el.status === 'admits' ? 'var(--m3-primary-container)' : el.status === 'fabricates' ? 'var(--m3-error-container)' : 'var(--m3-surface-container-highest)',
+                                    color: el.status === 'admits' ? 'var(--m3-on-primary-container)' : el.status === 'fabricates' ? 'var(--m3-on-error-container)' : 'var(--m3-on-surface-variant)',
+                                  }}>
+                                    {el.element}
+                                  </span>
+                                  <Badge
+                                    label={el.status === 'admits' ? 'ADMITS' : el.status === 'fabricates' ? 'FABRICATES' : 'SILENT'}
+                                    variant={el.status === 'admits' ? 'success' : el.status === 'fabricates' ? 'error' : 'neutral'}
+                                  />
+                                </div>
+                                <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{el.reason}</p>
+                                {el.fabricated_value && (
+                                  <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-error)' }}>
+                                    <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>Fabricated: </span>
+                                    {el.fabricated_value}
+                                  </p>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            })() : (
+              <div className="rounded-lg p-6 text-center" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                <p className="text-xs" style={{ color: 'var(--m3-on-surface-variant)' }}>No admittance evaluation available for {selectedModel} with {selectedJudge}.</p>
               </div>
             )}
           </CollapsibleSection>

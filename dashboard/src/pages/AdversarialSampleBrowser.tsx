@@ -264,6 +264,7 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
   const [saving, setSaving] = useState(false)
   const [saveStatus, setSaveStatus] = useState<string | null>(null)
   const [axisBlurProbes, setAxisBlurProbes] = useState<Record<string, AxisBlurProbe> | null>(null)
+  const [selectiveBlurProbes, setSelectiveBlurProbes] = useState<Record<string, AxisBlurProbe> | null>(null)
   const { isDark } = useTheme()
 
   const isAdversarial = manifest?.transforms != null
@@ -279,11 +280,13 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
       fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`).then(r => r.json()),
       loadBenchmarks(),
       fetch(`${import.meta.env.BASE_URL}data/axis_blur_probes.json`).then(r => r.json()).catch(() => null),
+      fetch(`${import.meta.env.BASE_URL}data/selective_blur_probes.json`).then(r => r.json()).catch(() => null),
     ])
-      .then(([manifestData, benchmarksJson, axisBlurData]) => {
+      .then(([manifestData, benchmarksJson, axisBlurData, selectiveBlurData]) => {
         setManifest(manifestData as SampleManifest)
         if (benchmarksJson) setBenchmarks(benchmarksJson as Record<string, FigureBenchmark>)
         if (axisBlurData) setAxisBlurProbes(axisBlurData.figures as Record<string, AxisBlurProbe>)
+        if (selectiveBlurData) setSelectiveBlurProbes(selectiveBlurData.figures as Record<string, AxisBlurProbe>)
         const subs = (manifestData as SampleManifest).subfolders || []
         if (subs.length) setSelectedSubfolder(subs[0])
       })
@@ -475,9 +478,53 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
             </div>
           </div>
 
-          {/* Axis Blur Passive Admittance */}
+          {/* Transforms (collapsible) */}
+          {isAdversarial && manifest.transforms && (
+            <CollapsibleSection title="Transforms" count={manifest.transforms.length}>
+              <div className="flex items-center gap-2 mb-4">
+                {selectedTransform && (
+                  <button onClick={() => setSelectedTransform(null)} className="text-[11px] font-medium px-2.5 py-1 rounded-full m3-state-hover" style={{ color: 'var(--m3-primary)', backgroundColor: 'var(--m3-surface-container-high)' }}>
+                    Clear selection
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-4 lg:grid-cols-7 gap-3">
+                {manifest.transforms.map(t => {
+                  const isActive = selectedTransform === t
+                  return (
+                    <button
+                      key={t}
+                      onClick={() => setSelectedTransform(isActive ? null : t)}
+                      className="rounded-xl overflow-hidden text-left group"
+                      style={{
+                        border: isActive ? '2px solid var(--m3-primary)' : `1px solid var(--m3-outline-variant)`,
+                        backgroundColor: isActive ? 'var(--m3-surface-container-high)' : 'var(--m3-surface-container)',
+                        transition: 'all 200ms var(--m3-easing-standard)',
+                      }}
+                    >
+                      <div className="aspect-[4/3] overflow-hidden" style={{ backgroundColor: 'var(--m3-surface-container-highest)' }}>
+                        <img
+                          src={`${imgBase}/${t}.png`}
+                          alt={`${selectedFigure} ${t}`}
+                          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                          style={{ display: 'block' }}
+                        />
+                      </div>
+                      <div className="p-2">
+                        <h4 className="text-[10px] font-medium" style={{ color: isActive ? 'var(--m3-primary)' : 'var(--m3-on-surface)', letterSpacing: '0.1px' }}>
+                          {manifest.transform_labels?.[t] || t}
+                        </h4>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </CollapsibleSection>
+          )}
+
+          {/* Axis Blur — Passive Admittance */}
           {isAdversarial && axisBlurProbes && axisBlurProbes[selectedFigure] && (
-            <CollapsibleSection title="Axis Blur — Passive Admittance" count={axisBlurProbes[selectedFigure].blurred_elements.length} defaultOpen>
+            <CollapsibleSection title="Axis Blur — Passive Admittance" count={axisBlurProbes[selectedFigure].blurred_elements.length}>
               <div className="space-y-3">
                 <div className="flex gap-4 mb-4">
                   <div className="flex-1">
@@ -520,46 +567,55 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
             </CollapsibleSection>
           )}
 
-          {/* Transforms (collapsible) */}
-          {isAdversarial && manifest.transforms && (
-            <CollapsibleSection title="Transforms" count={manifest.transforms.length}>
-              <div className="flex items-center gap-2 mb-4">
-                {selectedTransform && (
-                  <button onClick={() => setSelectedTransform(null)} className="text-[11px] font-medium px-2.5 py-1 rounded-full m3-state-hover" style={{ color: 'var(--m3-primary)', backgroundColor: 'var(--m3-surface-container-high)' }}>
-                    Clear selection
-                  </button>
+          {/* Selective Blur — Passive Admittance */}
+          {isAdversarial && selectiveBlurProbes && selectiveBlurProbes[selectedFigure] && (
+            <CollapsibleSection title="Selective Blur — Passive Admittance" count={selectiveBlurProbes[selectedFigure].blurred_elements.length}>
+              <div className="space-y-3">
+                <div className="flex gap-4 mb-4">
+                  <div className="flex-1">
+                    <img
+                      src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/selective_blur.png`}
+                      alt="Selective blur"
+                      className="rounded-lg max-h-48 w-auto cursor-pointer"
+                      onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/selective_blur.png`, label: 'Selective Blur' })}
+                    />
+                    <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Selective Blur</p>
+                  </div>
+                  <div className="flex-1">
+                    <img
+                      src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/original.png`}
+                      alt="Original"
+                      className="rounded-lg max-h-48 w-auto cursor-pointer"
+                      onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/original.png`, label: 'Original' })}
+                    />
+                    <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Original</p>
+                  </div>
+                </div>
+                {(selectiveBlurProbes[selectedFigure] as Record<string, unknown>).skip_passive_admittance && (
+                  <div className="rounded-lg p-3 mb-2" style={{ backgroundColor: 'var(--m3-tertiary-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-tertiary-container)' }}>
+                      <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>SKIPPED: </span>
+                      {(selectiveBlurProbes[selectedFigure] as Record<string, unknown>).skip_reason as string}
+                    </p>
+                  </div>
                 )}
-              </div>
-              <div className="grid grid-cols-4 lg:grid-cols-7 gap-3">
-                {manifest.transforms.map(t => {
-                  const isActive = selectedTransform === t
-                  return (
-                    <button
-                      key={t}
-                      onClick={() => setSelectedTransform(isActive ? null : t)}
-                      className="rounded-xl overflow-hidden text-left group"
-                      style={{
-                        border: isActive ? '2px solid var(--m3-primary)' : `1px solid var(--m3-outline-variant)`,
-                        backgroundColor: isActive ? 'var(--m3-surface-container-high)' : 'var(--m3-surface-container)',
-                        transition: 'all 200ms var(--m3-easing-standard)',
-                      }}
-                    >
-                      <div className="aspect-[4/3] overflow-hidden" style={{ backgroundColor: 'var(--m3-surface-container-highest)' }}>
-                        <img
-                          src={`${imgBase}/${t}.png`}
-                          alt={`${selectedFigure} ${t}`}
-                          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
-                          style={{ display: 'block' }}
-                        />
-                      </div>
-                      <div className="p-2">
-                        <h4 className="text-[10px] font-medium" style={{ color: isActive ? 'var(--m3-primary)' : 'var(--m3-on-surface)', letterSpacing: '0.1px' }}>
-                          {manifest.transform_labels?.[t] || t}
-                        </h4>
-                      </div>
-                    </button>
-                  )
-                })}
+                <p className="text-[10px] font-medium uppercase mb-2" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Blurred Elements</p>
+                {selectiveBlurProbes[selectedFigure].blurred_elements.map((el, i) => (
+                  <div key={i} className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-tertiary-container)', color: 'var(--m3-on-tertiary-container)' }}>
+                        {el.element}
+                      </span>
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{el.description}</p>
+                  </div>
+                ))}
+                {selectiveBlurProbes[selectedFigure].notes && (
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container-low)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Notes</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{selectiveBlurProbes[selectedFigure].notes}</p>
+                  </div>
+                )}
               </div>
             </CollapsibleSection>
           )}
