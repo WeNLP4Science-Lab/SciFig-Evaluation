@@ -4,35 +4,46 @@
     {
       "figure_key": "bulgarian_fig_095",
       "subfolder": "bulgarian_only",
-      "question": "Най-големият дял в кръговата диаграма е обозначен с 25. Означава ли това, че този сектор представлява 25% от отговорите?",
-      "question_english": "The largest slice in the pie chart is labeled 25. Does this mean that this sector represents 25% of the responses?",
-      "expected_answer": "No. The values (10, 24, 25, 8, 20) are raw counts, not percentages. They sum to 87, not 100. The 25 slice actually represents approximately 28.7% of responses (25/87).",
-      "trap": "Values look like percentages but are actually counts — they don't sum to 100",
-      "what_it_tests": "Can the model detect that displayed values are raw counts, not percentages, by checking if they sum to 100?",
-      "naive_answer": "Yes, it represents 25%",
-      "correct_reasoning": "Model must notice values sum to 87 not 100, therefore they are counts not percentages"
+      "question": "Каква е сумата от процентите на секторите 'Изцяло е интегриран' и 'Много добре е интегриран'?",
+      "question_english": "What is the sum of the percentages for the sectors 'Fully integrated' and 'Very well integrated'?",
+      "expected_answer": "~39% ((10+24)/87 × 100). The values are raw counts not percentages — they sum to 87, not 100.",
+      "trap": "Values look like percentages but are actually counts — naive sum gives 34% (10+24), correct answer is 39% ((10+24)/87×100)",
+      "what_it_tests": "Can the model detect that displayed values are raw counts, not percentages, and compute the actual percentage?",
+      "naive_answer": "34% (simply adding 10+24 as if they were percentages)",
+      "correct_reasoning": "Model must notice values sum to 87 not 100, compute actual percentages from counts"
     },
     {
       "figure_key": "english_fig_009",
       "subfolder": "english_only",
-      "question": "The outer ring has two small adjacent slices showing 7.0% and 5.0%. The legend lists Std values in order: 0.0, 0.47, 0.82, 0.94 from darkest to lightest blue. Which Std value does the 7.0% slice belong to?",
-      "question_english": "The outer ring has two small adjacent slices showing 7.0% and 5.0%. The legend lists Std values in order: 0.0, 0.47, 0.82, 0.94 from darkest to lightest blue. Which Std value does the 7.0% slice belong to?",
-      "expected_answer": "Std: 0.94. The 7.0% slice is the lightest blue (rightmost in the outer ring), which corresponds to Std: 0.94 (lightest in the legend).",
-      "trap": "The two small slices look similar — model must use color gradient to distinguish them",
-      "what_it_tests": "Can the model use color gradient ordering in the legend to correctly map visually similar slices to their correct categories?",
-      "naive_answer": "Std: 0.82 (just guessing one of the two)",
-      "correct_reasoning": "Model must match the color shade of the 7.0% slice to the legend gradient — lighter = higher Std value"
+      "question": "What percentage does the Ambiguity Std 0.82 slice represent in the outer ring?",
+      "question_english": "What percentage does the Ambiguity Std 0.82 slice represent in the outer ring?",
+      "expected_answer": "5.0%",
+      "trap": "Two small slices (5.0% and 7.0%) look visually similar — model must match the correct color shade to Std: 0.82",
+      "what_it_tests": "Can the model use the color gradient ordering in the legend to correctly identify which of two visually similar small slices belongs to Std: 0.82?",
+      "naive_answer": "7.0% (confusing the two similar small slices)",
+      "correct_reasoning": "Model must match the color shade — Std: 0.82 is the second lightest, corresponding to the 5.0% slice, not the 7.0% (which is Std: 0.94, the lightest)"
     },
     {
       "figure_key": "multi_fig_002",
       "subfolder": "multi_language",
-      "question": "At 80% sparsity, the two bars appear to be roughly the same height visually. Is the actual difference in perplexity between Per-Layer and Per-Output small or large?",
-      "question_english": "At 80% sparsity, the two bars appear to be roughly the same height visually. Is the actual difference in perplexity between Per-Layer and Per-Output small or large?",
-      "expected_answer": "The difference is very large. The y-axis uses a logarithmic scale (10^1, 10^2, 10^3). Although the bars look similar in height, they represent values differing by hundreds on the actual scale.",
-      "trap": "On a log scale, visually similar bar heights can represent enormous actual differences",
-      "what_it_tests": "Can the model recognize the logarithmic y-axis scale and understand that visual proximity on a log scale does not mean numerical proximity?",
-      "naive_answer": "The difference is small — the bars look almost the same height",
-      "correct_reasoning": "Model must identify the y-axis as logarithmic and understand that equal visual distances on a log scale represent multiplicative, not additive, differences"
+      "question": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest?",
+      "question_english": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest?",
+      "expected_answer": "80% sparsity. On the logarithmic y-axis, the visual gap at 80% represents the largest absolute difference.",
+      "trap": "On a log scale, visually similar gaps at lower sparsity rates represent much smaller absolute differences than at higher rates",
+      "what_it_tests": "Can the model recognize the logarithmic y-axis and understand that absolute gaps must be interpreted on the actual scale, not the visual scale?",
+      "naive_answer": "The gaps look similar across sparsity rates, so no clear largest (or picking a lower sparsity rate where bars look equally spaced)",
+      "correct_reasoning": "Model must identify log scale and understand that at 80% where values approach 10^3, even a small visual gap represents hundreds of units difference"
+    },
+    {
+      "figure_key": "english_fig_166",
+      "subfolder": "english_only",
+      "question": "This chart shows three pie charts (easy, medium, hard) with four categories each. The notation means: N+ = model answers correctly without knowledge, N- = model answers incorrectly without knowledge, K+ = model answers correctly with knowledge, K- = model answers incorrectly with knowledge. So N+K+ means correct both ways, N-K+ means wrong without knowledge but correct with it, N+K- means correct without knowledge but wrong with it, and N-K- means wrong both ways. A student claims the model always performs better with knowledge. A professor argues that on harder problems the model is actually better without knowledge. Based on the data across all three difficulty levels, who should we support and why? Show your working.",
+      "question_english": "This chart shows three pie charts (easy, medium, hard) with four categories each. The notation means: N+ = model answers correctly without knowledge, N- = model answers incorrectly without knowledge, K+ = model answers correctly with knowledge, K- = model answers incorrectly with knowledge. So N+K+ means correct both ways, N-K+ means wrong without knowledge but correct with it, N+K- means correct without knowledge but wrong with it, and N-K- means wrong both ways. A student claims the model always performs better with knowledge. A professor argues that on harder problems the model is actually better without knowledge. Based on the data across all three difficulty levels, who should we support and why? Show your working.",
+      "expected_answer": "The student is correct overall, but the professor raises a valid concern. Working: Success WITH knowledge (K+ cases) = N+K+ plus N-K+. Success WITHOUT knowledge (N+ cases) = N+K+ plus N+K-. Easy: with knowledge = 55.4+38.3 = 93.7%, without = 55.4+1.7 = 57.1%. Knowledge boost = 36.6pp. Medium: with knowledge = 58.8+35.4 = 94.2%, without = 58.8+1.8 = 60.6%. Knowledge boost = 33.6pp. Hard: with knowledge = 18.1+37.3 = 55.4%, without = 18.1+6.7 = 24.8%. Knowledge boost = 30.6pp. So knowledge ALWAYS helps (student is right). However, the professor's concern is valid: N+K- (knowledge hurts) grows from 1.7% (easy) to 1.8% (medium) to 6.7% (hard). As problems get harder, knowledge is more likely to make the model get wrong answers it previously got right. Despite this, the net benefit of knowledge remains positive at all difficulty levels.",
+      "trap": "The N+K- category (knowledge hurts) increases with difficulty, suggesting knowledge becomes harmful. But overall success with knowledge is still higher than without at every level.",
+      "what_it_tests": "Can the model compute success rates from a 2x2 categorical breakdown across multiple panels, then form a nuanced argument weighing competing claims against computed evidence?",
+      "naive_answer": "Either blindly agrees with student without computing, or agrees with professor based on the growing N+K- trend without checking overall rates",
+      "correct_reasoning": "Model must: 1) understand the 2x2 notation, 2) compute K+ success and N+ success for each difficulty, 3) compare rates, 4) note knowledge always helps overall but 5) acknowledge the professor's valid point about growing N+K-"
     }
   ]
 }
