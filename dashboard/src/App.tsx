@@ -8,6 +8,7 @@ import EvaluationSelector from './pages/EvaluationSelector'
 import Analytics from './pages/Analytics'
 import AdversarialSampleBrowser from './pages/AdversarialSampleBrowser'
 import AdversarialEvaluation from './pages/AdversarialEvaluation'
+import InferableBlurs from './pages/InferableBlurs'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <Route path="/dataset/full" element={<DatasetBrowser />} />
       <Route path="/dataset/sample-120" element={<AdversarialSampleBrowser manifestFile="adversarial_120.json" title="120 Sample" />} />
       <Route path="/dataset/adversarial-subset" element={<AdversarialSampleBrowser manifestFile="adversarial_experiments.json" title="Adversarial Subset (45)" />} />
+      <Route path="/dataset/inferable-blurs" element={<InferableBlurs />} />
 
       {/* Evaluation */}
       <Route path="/evaluation" element={<EvaluationSelector />} />
