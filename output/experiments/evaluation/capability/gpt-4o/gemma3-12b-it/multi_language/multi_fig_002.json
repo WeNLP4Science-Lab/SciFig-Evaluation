@@ -1,0 +1,73 @@
+{
+  "figure_key": "multi_fig_002",
+  "subfolder": "multi_language",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-20T13:14:57.018515+00:00",
+  "evaluations": [
+    {
+      "question_id": "ml002_q1",
+      "question": "What is the approximate ratio of Per-Layer perplexity to Per-Output perplexity at 70% sparsity rate?",
+      "expected_answer": "~2",
+      "model_answer": "At 70% sparsity, the Per-Layer perplexity appears to be roughly 10^2.5 and the Per-Output perplexity is roughly 10^1.7.\n*   The ratio is approximately 10^(2.5 - 1.7) = 10^0.8 ≈ 6.3. So, the ratio is approximately **6.3:1**.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        1.7,
+        2.2
+      ],
+      "score": 0.0,
+      "reason": "Ratio is 6.3, outside acceptable range [1.7, 2.2].",
+      "excluded": false
+    },
+    {
+      "question_id": "ml002_q2",
+      "question": "At which sparsity rate does the Per-Layer perplexity first exceed 10^1?",
+      "expected_answer": "60%",
+      "model_answer": "Looking at the orange bars (Per-Layer), we see that the perplexity value starts to exceed 10^1 at a sparsity rate of **30%**.",
+      "answer_type": "exact",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model gave 30%, expected answer is 60%, exact type required.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml002_q3",
+      "question": "What is the approximate multiplicative factor by which Per-Output perplexity increases from 60% to 80% sparsity?",
+      "expected_answer": "~50-60x",
+      "model_answer": "At 60% sparsity, the Per-Output perplexity is roughly 10^1.5.\n*   At 80% sparsity, the Per-Output perplexity is roughly 10^2.5.\n*   The multiplicative factor is approximately 10^(2.5 - 1.5) = 10^1 = **10**. So, perplexity increases by a factor of 10.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        50,
+        60
+      ],
+      "score": 0.0,
+      "reason": "Answer is outside acceptable range; expected ~50-60x, model gave 10x.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml002_q4",
+      "question": "For how many sparsity rates is the difference between Per-Output and Per-Layer perplexity visually indistinguishable (i.e., the two bars appear to have the same height)?",
+      "expected_answer": "3",
+      "model_answer": "For how many sparsity rates is the difference between Per-Output and Per-Layer perplexity visually indistinguishable (i.e., the two bars appear to have the same height)?**\n\nBased on the figure, the bars appear to be nearly identical in height at 10%, 20%, and 30% sparsity rates. So, the answer is **3**.",
+      "answer_type": "exact",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Model correctly identified 3 sparsity rates as expected.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml002_q5",
+      "question": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest in absolute terms?",
+      "expected_answer": "80%",
+      "model_answer": "The gap between Per-Layer and Per-Output perplexity is largest at a sparsity rate of 80%.  The difference in perplexity values is significantly greater at this rate compared to any other shown.  This indicates the greatest discrepancy in how sparsity affects these two perplexity measures at 80%.",
+      "answer_type": "exact",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Model correctly identified 80% as the largest gap rate.",
+      "excluded": false
+    }
+  ],
+  "average_score": 0.4,
+  "total_scored": 5,
+  "total_excluded": 0
+}

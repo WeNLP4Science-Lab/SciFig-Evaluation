@@ -1,0 +1,243 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "gemini-3.1-pro",
+  "transform": "noise",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "като там синият стълб е позициониран видимо над линията на $10^2$",
+          "evidence": "Синият стълб при 80% е малко под $10^3$, а не над $10^2$."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "оранжевият стълб достига максималната за графиката стойност, малко под линията на $10^3$",
+          "evidence": "Оранжевият стълб при 80% доближава $10^3$, но не достига максималната стойност за графиката."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че при 60% оранжевото стълбче леко надвишава $10^1$, докато синьото остава под тази граница."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че при 70% и двете стълбчета са по-високи и надвишават $10^1$."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не уточнява, че диаграмата показва стойности на перплекситет за конфигурациите „На изход“ (*Per-Output*) и „На слой“ (*Per-Layer*) в зависимост от степента на разреждане."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色的“Per-Output”柱子达到的值约为500（位于$10^2$上方），而橙色的“Per-Layer”柱子的高度接近$10^3$刻度线（近似值约为900）",
+          "evidence": "The figure shows the blue bar ('Per-Output') at 80% sparsity reaching approximately $10^3$, not 500, and the orange bar ('Per-Layer') also reaches approximately $10^3$, not 900."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the chart illustrates the impact of Dynamic Layerwise Pruning (DLP) on large language model performance."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not specify the range of the y-axis (from $10^1$ to $10^3$) or the logarithmic scale explicitly."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the paired bar structure for each sparsity rate, where the left bar represents 'Per-Output' and the right bar represents 'Per-Layer'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not highlight the rapid increase in perplexity for both methods starting at 70% sparsity rate and peaking at 80%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that perplexity remains relatively low for sparsity rates between 10% and 50% for both methods."
+        }
+      ],
+      "mqm_score": 77.5,
+      "total_penalty": 22.5,
+      "error_count": 6,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "both the blue and orange bars display an approximate baseline perplexity value of 5",
+          "evidence": "The figure shows perplexity values closer to 2 for both bars at 10% sparsity, not 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue 'Per-Output' bar reaches an approximate value of 500, and the orange 'Per-Layer' bar records the highest overall perplexity at approximately 900",
+          "evidence": "The figure shows the blue bar at 80% sparsity closer to 600 and the orange bar closer to 1000, not 500 and 900 respectively."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The lengths of the bars increase consistently from left to right for both categories",
+          "evidence": "The figure shows that the orange bars are taller than the blue bars at 50%, 60%, 70%, and 80% sparsity, indicating a non-uniform increase in bar lengths between the two categories."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the orange bar at 60% sparsity is slightly above $10^1$, while the blue bar is still below $10^1$."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the values remain below $10^2$ until 70% sparsity."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the chart compares perplexity values of 'Per-Output' and 'Per-Layer' at different sparsity rates."
+        }
+      ],
+      "mqm_score": 74.5,
+      "total_penalty": 25.5,
+      "error_count": 6,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wo die Spitzen der Balken auf der logarithmischen Skala geringfügig unterhalb der $10^1$-Linie (schätzungsweise bei 5 bis 6) liegen",
+          "evidence": "The figure shows that the values for 10% and 20% sparsity rates are below 10^1 but closer to 8, not 5-6 as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während der höchste Balken des gesamten Diagramms, der orangefarbene \"Per-Layer\"-Balken, bis knapp unter die $10^3$-Linie (schätzungsweise bei 900) reicht",
+          "evidence": "The orange bar at 80% sparsity rate is closer to 1000 (10^3), not 900 as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "der blaue \"Per-Output\"-Balken bei einem ungefähren Wert zwischen 500 und 600",
+          "evidence": "The blue bar at 80% sparsity rate is closer to 800, not 500-600 as stated."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the chart compares perplexity values for 'Per-Output' and 'Per-Layer' across different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the blue bars are always positioned to the left within each pair, and the orange bars to the right."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the values remain below 10^1 for sparsity rates up to 50%, and only exceed this threshold starting at 60%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the orange bar at 60% sparsity rate slightly exceeds 10^1, while the blue bar remains below it."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the orange bar at 80% sparsity rate is the highest in the chart, surpassing the blue bar at the same sparsity rate."
+        }
+      ],
+      "mqm_score": 67.5,
+      "total_penalty": 32.5,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 74.75
+}

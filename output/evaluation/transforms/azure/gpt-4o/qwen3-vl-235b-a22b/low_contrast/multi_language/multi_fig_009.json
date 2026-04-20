@@ -1,0 +1,315 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "qwen3-vl-235b-a22b",
+  "transform": "low_contrast",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "с линейна скала в диапазон от 0 до 22",
+          "evidence": "The x-axis in the figure ranges from 0 to 24, not 0 to 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията „attn_output“ (синя, пунктирана) започва със стойност близо до 0 до слой 5, след което рязко нараства до около 1400 при слой 6",
+          "evidence": "The blue dashed line ('attn_output') remains near 0 throughout the x-axis and does not rise to 1400 at any point."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията „attn_residual“ (оранжева, точково-пунктирана) започва също от 0, рязко се издига до около 1400 при слой 6",
+          "evidence": "The orange dotted line ('attn_residual') rises sharply to 1400 at layer 5, not layer 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията „ffn_output“ (зелена, пунктирана) започва от 0, достига връх от около 1400 при слой 6",
+          "evidence": "The green dash-dotted line ('ffn_output') peaks at layer 5, not layer 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията „ffn_residual“ (червена, плътна) започва от 0, рязко се издига до около 1400 при слой 6",
+          "evidence": "The red solid line ('ffn_residual') rises sharply to 1400 at layer 5, not layer 6."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the three distinct peaks of the green dash-dotted line ('ffn_output') at layers 5, 13, and 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state that the chart illustrates the maximum activation values across layers under baseline conditions."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 7,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色虚线“attn_output”在层0至4接近0，层5后缓慢上升，在层21至22快速升至约600",
+          "evidence": "The blue dashed line ('attn_output') does not rise to approximately 600 at layers 21-22; it remains relatively flat with minor increases near layers 5 and 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "橙色点线“attn_residual”在层0至4接近0，层5骤升至约1400，层6至20维持在1500至1600之间，层21骤降至约300，层22回升至约600",
+          "evidence": "The orange dotted line ('attn_residual') does not drop to approximately 300 at layer 21 or rise to approximately 600 at layer 22. It drops sharply after layer 20 but does not recover significantly."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "绿色点划线“ffn_output”在层0至4接近0，层5骤升至约1400，层6骤降至0，层13再次骤升至约1200，层14骤降至0，层21再次升至约1200，层22升至约1400",
+          "evidence": "The green dash-dotted line ('ffn_output') does not rise to approximately 1400 at layer 5 or 1200 at layers 13 and 21. It peaks at approximately 800 at layers 5 and 15, not at the described values or layers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "红色实线“ffn_residual”在层0至4接近0，层5骤升至约1400，层6至20维持在1500至1600之间，层21骤降至约400，层22回升至约600",
+          "evidence": "The red solid line ('ffn_residual') does not drop to approximately 400 at layer 21 or rise to approximately 600 at layer 22. It remains high (1400-1600) until layer 20 and then drops sharply without recovery."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the chart represents the maximum activation values across different layers under baseline conditions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the relatively flat behavior of 'attn_output' except for slight increases near layers 5 and 20."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the sharp peaks of 'ffn_output' at layers 5 and 15, which are significant features of the green dash-dotted line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not specify the tick intervals on the x-axis (5) and y-axis (200), which are explicitly visible in the chart."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where it rises sharply to approximately 600",
+          "evidence": "The attn_output line rises sharply to approximately 200 between layers 22 and 23, not 600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spikes to about 1500 at layer 5",
+          "evidence": "The attn_residual line spikes to approximately 1400 at layer 5, not 1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "rises again to ~1500 at layer 21",
+          "evidence": "The attn_residual line remains stable between 1400 and 1600 after layer 5 and does not rise again to 1500 at layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "peaks at ~1300 at layer 5",
+          "evidence": "The ffn_output line peaks at approximately 1000 at layer 5, not 1300."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spikes again to ~1200 at layer 13",
+          "evidence": "The ffn_output line spikes to approximately 1000 at layer 13, not 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "rises to ~1200 at layer 21",
+          "evidence": "The ffn_output line spikes to approximately 1000 at layer 22, not 1200 at layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "climbs steeply to ~1450 at layer 5",
+          "evidence": "The ffn_residual line climbs steeply to approximately 1400 at layer 5, not 1450."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "drops sharply to ~400 at layer 22",
+          "evidence": "The ffn_residual line drops sharply to approximately 200 at layer 22, not 400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "across 22 layers",
+          "evidence": "The x-axis spans 24 layers, not 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the attn_output line remains flat near zero across most layers before increasing sharply between layers 22 and 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the attn_residual line remains relatively stable between 1400 and 1600 after its peak at layer 5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the ffn_output line has large spikes at layers 5, 13, and 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the ffn_residual line follows a similar pattern to the attn_residual line."
+        }
+      ],
+      "mqm_score": 41.0,
+      "total_penalty": 59.0,
+      "error_count": 13,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt dann ab Schicht 20 stark an auf etwa 1200",
+          "evidence": "The green 'ffn_output' line does not rise to 1200 at layer 20; it peaks at layer 23 with a value of approximately 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt dann stark an auf etwa 250",
+          "evidence": "The blue 'attn_output' line rises to approximately 300 at layer 23, not 250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "erreicht jedoch einen leicht höheren Peak von etwa 1600",
+          "evidence": "The orange 'attn_residual' line does not reach a higher peak than the red 'ffn_residual' line; both peak at approximately 1600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "zeigt einen kleinen Peak bei Schicht 13 um 100",
+          "evidence": "The green 'ffn_output' line peaks at layer 13 with a value of approximately 1000, not 100."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the three distinct peaks of the green 'ffn_output' line at layers 5, 13, and 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the chart illustrates the maximum activation values across layers under baseline conditions."
+        }
+      ],
+      "mqm_score": 73.0,
+      "total_penalty": 27.0,
+      "error_count": 6,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 62.5
+}

@@ -1,0 +1,109 @@
+{
+  "figure_key": "english_fig_005",
+  "model_name": "qwen3-vl-235b-a22b",
+  "transform": "blurred_in_paper",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "mistral-large-3",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Figure 3(a) presents a bar chart",
+      "evidence": "The figure is a line plot, not a bar chart."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The x-axis, labeled 'Batch size,' is linear and spans discrete values: 1, 16, 32, 64, 128, 256, and 300",
+      "evidence": "The x-axis is labeled 'Number of completions (k)' with a logarithmic scale ranging from 2^0 to 2^8, not 'Batch size' with linear values."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The y-axis, labeled 'Inference time (seconds),' is linear and ranges from 0 to 10, with tick marks at intervals of 2",
+      "evidence": "The y-axis is labeled 'Coverage' with a linear scale ranging from 0.4 to 0.8, not 'Inference time (seconds)' with a range of 0 to 10."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "three distinct model configurations — Llama-1B, Llama-1B, and MambaInLlama-1B",
+      "evidence": "The models in the figure are Llama-3B, Llama-3B + FT, Llama-1B, and Llama-1B + FT, not Llama-1B, Llama-1B, and MambaInLlama-1B. Also, Llama-1B is repeated incorrectly."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Three colored bars are plotted at each batch size: blue for Llama-1B, orange for Llama-1B, and red for MambaInLlama-1B",
+      "evidence": "The figure contains lines, not bars, and the colors and models do not match: dark blue (Llama-3B), light blue (Llama-1B), green (Llama-3B + FT), and light green (Llama-1B + FT). No orange or red lines/bars are present."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At batch size 1, the blue bar (Llama-1B) reaches approximately 3.6 seconds, the orange bar (Llama-1B) is at 1.1 seconds, and the red bar (MambaInLlama-1B) is at 1.1 seconds",
+      "evidence": "The figure does not show inference time or batch size, and the values and models mentioned do not correspond to the actual data (e.g., coverage values at k=1 are around 0.42 and 0.1)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At batch size 300, the blue bar reaches approximately 9.5 seconds, the orange bar reaches 4.7 seconds, and the red bar reaches 4.7 seconds",
+      "evidence": "The figure does not include a batch size of 300 or inference time values. The x-axis ends at 2^8 (256), and y-values are coverage, not seconds."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not state that the chart illustrates the relationship between the number of completions and coverage for different models."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the logarithmic scale of the x-axis and the linear scale of the y-axis (0.4 to 0.8) with tick intervals of 0.2."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description misses the line styles (solid vs. dashed), marker shapes (circular vs. triangular), and the specific models (Llama-3B, Llama-3B + FT, Llama-1B, Llama-1B + FT)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "MambaInLlama-1B",
+      "evidence": "The model 'MambaInLlama-1B' does not exist in the figure."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually indicates that MambaInLlama-1B and Llama-1B exhibit nearly identical inference times across all batch sizes, both significantly lower than Llama-1B at larger batch sizes",
+      "evidence": "The description includes an interpretation of trends and comparisons not present in the figure, which is unrelated to the actual data (coverage vs. number of completions)."
+    }
+  ],
+  "mqm_score": 47.5,
+  "total_penalty": 52.5,
+  "error_count": 12
+}

@@ -1,0 +1,85 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-235b-a22b",
+  "transform": "noise",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gpt-4o",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "light blue for Cardio, light orange for Gastro, medium orange for Infect, dark orange for Neuro, brown for Obstetrics, and dark brown for Pediatrics",
+      "evidence": "The description incorrectly maps the colors to the specialties. The light blue bar represents MistralV0.2-Base, not Cardio, and the other colors correspond to the specialties as follows: light orange for Cardio, orange for Gastro, darker orange for Infect, light brown for Neuro, medium brown for Obstetrics, and dark brown for Pediatrics."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the light blue bar (fine-tuned on Cardio) is the shortest (best performance, ~-26.8), while the dark brown bar (fine-tuned on Pediatrics) is the tallest (worst performance, ~-22.5)",
+      "evidence": "The light blue bar represents MistralV0.2-Base, not fine-tuned on Cardio, and it is the tallest, not the shortest. Additionally, the dark brown bar is not the tallest in the 'Cardio' group; the heights vary across groups."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "each specialty’s own fine-tuned model performs best (lowest negative log probability) on its own terms",
+      "evidence": "The chart does not indicate that each specialty’s own fine-tuned model performs best on its own terms. The light blue bar (MistralV0.2-Base) is consistently the tallest across all groups, indicating it has the highest negative log probability, not the lowest."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the chart illustrates the negative log probability for various per-specialty terms, grouped by specialty categories, as shown in the title and axis labels."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the observation that the light blue bar (MistralV0.2-Base) is consistently the tallest across all groups, indicating higher negative log probability compared to the other bars."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the vertical axis is labeled 'Negative log probability' with a linear scale ranging from -27 to -22, marked at intervals of one unit."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars within each group are uniform in color for their respective specialty and vary in height across groups."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the legend is located at the top center of the chart, providing color mappings for the specialties and the MistralV0.2-Base model."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "performance degrades when evaluated on terms from other specialties, particularly those more distant in medical domain",
+      "evidence": "The description introduces an interpretation about performance degradation across distant medical domains, which is not explicitly shown or supported by the chart."
+    }
+  ],
+  "mqm_score": 65.5,
+  "total_penalty": 34.5,
+  "error_count": 9
+}

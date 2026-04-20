@@ -206,6 +206,32 @@ for subfolder, fig_keys in figures_by_subfolder.items():
             if admittance_data:
                 model_data["admittance"] = {"judges": admittance_data}
 
+            # 7. Active admittance evaluations
+            active_adm_data = {}
+            for judge in ["gpt-4o", "mistral-large-3"]:
+                active_path = (
+                    OUTPUT_DIR / "evaluation" / "active_admittance" / judge / model / subfolder / f"{fig_key}.json"
+                )
+                if active_path.exists():
+                    with open(active_path) as f:
+                        active_eval = json.load(f)
+                    if judge not in active_adm_data:
+                        active_adm_data[judge] = {}
+                    active_adm_data[judge] = {
+                        "question": active_eval.get("question", ""),
+                        "expected_answer": active_eval.get("expected_answer", ""),
+                        "blurred_element": active_eval.get("blurred_element", ""),
+                        "model_answer": active_eval.get("model_answer", ""),
+                        "admits": active_eval.get("admits", False),
+                        "fabricates": active_eval.get("fabricates", False),
+                        "correct": active_eval.get("correct", False),
+                        "reason": active_eval.get("reason", ""),
+                        "admittance_score": active_eval.get("admittance_score", 0),
+                    }
+
+            if active_adm_data:
+                model_data["active_admittance"] = {"judges": active_adm_data}
+
             if model_data:
                 entry["models"][model] = model_data
 

@@ -140,12 +140,29 @@ interface AdmittanceResult {
   judges: Record<string, Record<string, AdmittanceBlurResult>>
 }
 
+interface ActiveAdmittanceJudgeResult {
+  question: string
+  expected_answer: string
+  blurred_element: string
+  model_answer: string
+  admits: boolean
+  fabricates: boolean
+  correct: boolean
+  reason: string
+  admittance_score: number
+}
+
+interface ActiveAdmittanceResult {
+  judges: Record<string, ActiveAdmittanceJudgeResult>
+}
+
 interface ModelExperiment {
   prompt_reverse?: PromptReverseResult
   caption_bias?: CaptionBiasResult
   hallucination?: HallucinationResult
   capability?: CapabilityResult
   admittance?: AdmittanceResult
+  active_admittance?: ActiveAdmittanceResult
 }
 
 interface FigureExperiment {
@@ -915,6 +932,76 @@ export default function AdversarialEvaluation() {
             })() : (
               <div className="rounded-lg p-6 text-center" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
                 <p className="text-xs" style={{ color: 'var(--m3-on-surface-variant)' }}>No admittance evaluation available for {selectedModel} with {selectedJudge}.</p>
+              </div>
+            )}
+          </CollapsibleSection>
+
+          {/* Active Admittance Evaluation */}
+          <CollapsibleSection title={`Active Admittance (${selectedJudge})`}>
+            {modelData?.active_admittance?.judges?.[selectedJudge] ? (() => {
+              const aa = modelData.active_admittance!.judges[selectedJudge]
+              return (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Badge
+                      label={`A=${aa.admittance_score.toFixed(2)}`}
+                      variant={aa.admittance_score >= 0.7 ? 'success' : aa.admittance_score >= 0.3 ? 'tertiary' : 'error'}
+                    />
+                    {aa.admits && <Badge label="ADMITS" variant="success" />}
+                    {!aa.admits && aa.fabricates && <Badge label="NO ADMIT" variant="error" />}
+                    {aa.fabricates && <Badge label={aa.correct ? 'FABRICATES ✓' : 'FABRICATES ✗'} variant={aa.correct ? 'tertiary' : 'error'} />}
+                  </div>
+
+                  <div className="flex gap-4 mb-3">
+                    <div className="flex-1">
+                      <img
+                        src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/selective_blur.png`}
+                        alt="Selective blur"
+                        className="rounded-lg max-h-48 w-auto cursor-pointer"
+                        onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/selective_blur.png`, label: 'Selective Blur (sent to model)' })}
+                      />
+                      <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Selective Blur (sent to model)</p>
+                    </div>
+                    <div className="flex-1">
+                      <img
+                        src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/original.png`}
+                        alt="Original"
+                        className="rounded-lg max-h-48 w-auto cursor-pointer"
+                        onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/original.png`, label: 'Original' })}
+                      />
+                      <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Original</p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Question</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{aa.question}</p>
+                  </div>
+
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-primary-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-on-primary-container)', letterSpacing: '0.5px' }}>Expected Answer</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-primary-container)' }}>{aa.expected_answer}</p>
+                  </div>
+
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container-low)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Model Answer</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{aa.model_answer?.substring(0, 500)}{(aa.model_answer?.length || 0) > 500 ? '...' : ''}</p>
+                  </div>
+
+                  <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container-high)', border: `1px solid var(--m3-outline-variant)` }}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-error-container)', color: 'var(--m3-on-error-container)' }}>
+                        {aa.blurred_element}
+                      </span>
+                    </div>
+                    <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Judge Reasoning</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{aa.reason}</p>
+                  </div>
+                </div>
+              )
+            })() : (
+              <div className="rounded-lg p-6 text-center" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                <p className="text-xs" style={{ color: 'var(--m3-on-surface-variant)' }}>No active admittance evaluation available for {selectedModel} with {selectedJudge}.</p>
               </div>
             )}
           </CollapsibleSection>

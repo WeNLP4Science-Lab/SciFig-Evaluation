@@ -1,0 +1,251 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "gemini-3.1-pro",
+  "transform": "jpeg_compression",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/mistral-large-3",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference description explicitly states the chart shows perplexity values for 'Per-Output' and 'Per-Layer' configurations in relation to sparsity rates, which is more specific than just 'two different methods'. The machine-generated description omits this detail."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "сините стълбове представляват „Per-Output“, а оранжевите стълбове – „Per-Layer“",
+          "evidence": "The reference description specifies that the blue bars (left in each pair) represent 'Per-Output' and the orange bars (right in each pair) represent 'Per-Layer'. The machine-generated description correctly names the colors but does not specify their left/right positioning, which is a minor omission but not factually incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference description notes that up to 50% sparsity, all values remain below 10^1, and at 60%, the orange bar slightly exceeds 10^1 while the blue bar remains below. The machine-generated description omits these specific observations."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Стълбовете са хронологично подредени според възходящия ред на категориите по оста X",
+          "evidence": "The term 'хронологично' (chronologically) is an unwanted interpretation, as the x-axis represents sparsity rates, not time. The reference description does not use this term."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference description mentions horizontal dashed grid lines at 10^1, 10^2, and 10^3, but the machine-generated description refers to them as 'прекъснати мрежови линии' (dashed grid lines) without explicitly stating they correspond to the logarithmic scale values. This is a minor omission."
+        }
+      ],
+      "mqm_score": 92.0,
+      "total_penalty": 8.0,
+      "error_count": 5,
+      "judge_model": "mistral-large-3"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在70%稀疏率时，蓝色柱（Per-Output）的值约高出$10^1$一倍",
+          "evidence": "At 70% sparsity, the blue bar (Per-Output) is approximately 15 (between 10^1 and 10^2), not 'about twice 10^1'. The orange bar (Per-Layer) is higher, around 20-25, not described accurately here."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色柱（Per-Output）的近似值位于$10^2$和$10^3$之间（约达到刻度区间的中上方）",
+          "evidence": "At 80% sparsity, the blue bar (Per-Output) is approximately 300, closer to 10^2.5, not 'between 10^2 and 10^3 in the mid-upper range'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "橙色全场最高柱（Per-Layer）则极度接近$10^3$的上限",
+          "evidence": "At 80% sparsity, the orange bar (Per-Layer) reaches approximately 700-800, not 'extremely close to 10^3'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the purpose of the chart: to show the impact of Dynamic Layerwise Pruning (DLP) on large language model performance by comparing two pruning configurations (Per-Output and Per-Layer)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits mentioning that perplexity remains relatively low and stable for both methods between 10-50% sparsity, as highlighted in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "随着稀疏率的增加，所有柱状图的高度呈现一致的上升趋势",
+          "evidence": "The description implies a consistent upward trend, but the reference notes that perplexity remains stable from 10-50% sparsity. The trend is not 'consistent' across all sparsity rates."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "垂直的值轴标记为“Perplexity”，采用以10为底的对数刻度，数值范围从刻度$10^1$下方的一个未标记点延伸至$10^3$，并在$10^1$、$10^2$和$10^3$处明确标注了数值刻度间隔，且带有对应的水平网格线。",
+          "evidence": "The description is overly detailed and repetitive about the y-axis scale and gridlines, which does not add significant informational value."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "最短的柱子出现在左侧10%至30%的稀疏率区间，这两个类别的蓝柱和橙柱高度基本一致且均低于$10^1$刻度线。",
+          "evidence": "The phrase 'left side 10% to 30%' is ambiguous as it could imply a spatial arrangement rather than a range of sparsity rates."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 8,
+      "judge_model": "mistral-large-3"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 5 or 6",
+          "evidence": "The reference description states the perplexity values at 10% sparsity are around 2, not 5 or 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "blue bars represent the \"Per-Output\" method and are positioned on the left side of each pairing, while orange bars signify the \"Per-Layer\" method and are placed directly to their right",
+          "evidence": "The reference description and image show that blue bars (Per-Output) are on the left and orange bars (Per-Layer) are on the right in each pair, but the machine-generated description incorrectly implies this is a consistent rule. The legend and image confirm the colors, but the description should not overgeneralize the positioning as a defining feature."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue Per-Output bar rises to an approximate visual height between the 10^2 and 10^3 gridlines",
+          "evidence": "The reference description states the blue bar at 80% sparsity approaches 10^3, but the machine-generated description underestimates it as between 10^2 and 10^3. The image shows the blue bar is closer to 10^3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference description mentions that at 60% sparsity, the orange bar is slightly above 10^1 while the blue bar is still below 10^1. This detail is missing in the machine-generated description."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference description notes that at 50%, 60%, 70%, and 80% sparsity, the orange bars are taller than the blue bars. This comparison is missing in the machine-generated description."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference description states that the values remain below 10^2 until 70% sparsity. This trend is not mentioned in the machine-generated description."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Major horizontal dotted grid lines align with the vertical axis tick labels situated at logarithmic intervals of 10^1, 10^2, and 10^3.",
+          "evidence": "The description of grid lines is overly detailed and does not add informational value beyond what is already implied by the logarithmic scale."
+        }
+      ],
+      "mqm_score": 82.5,
+      "total_penalty": 17.5,
+      "error_count": 7,
+      "judge_model": "mistral-large-3"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "etwa 20",
+          "evidence": "At 70% sparsity, the blue 'Per-Output' bar is approximately 15, not 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "etwa 40",
+          "evidence": "At 70% sparsity, the orange 'Per-Layer' bar is approximately 25, not 40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einen ungefähren Wert von 600",
+          "evidence": "At 80% sparsity, the blue 'Per-Output' bar is approximately 400, not 600."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference mentions that at 60% sparsity, the orange bar is slightly above 10^1 while the blue bar remains below it, but the machine-generated description omits this detail."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The reference notes that up to 50% sparsity, all values remain below 10^1, but the machine-generated description does not explicitly state this threshold."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Zusammen mit feingestrichelten horizontalen Rasterlinien auf Höhe der Major- und Minor-Teilstriche deckt diese Achse einen sichtbaren Wertebereich von etwas unter $10^1$ bis $10^3$ ab.",
+          "evidence": "The description includes unnecessary details about grid lines and axis range, which do not add critical informational value."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 6,
+      "judge_model": "mistral-large-3"
+    }
+  },
+  "mqm_score_avg": 83.0
+}
