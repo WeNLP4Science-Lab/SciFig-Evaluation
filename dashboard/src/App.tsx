@@ -9,6 +9,7 @@ import Analytics from './pages/Analytics'
 import AdversarialSampleBrowser from './pages/AdversarialSampleBrowser'
 import AdversarialEvaluation from './pages/AdversarialEvaluation'
 import InferableBlurs from './pages/InferableBlurs'
+import AdversarialResults from './pages/AdversarialResults'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
       <Route path="/evaluation/full" element={<JudgeReview manifestFile="manifest_full.json" title="Full Evaluation" />} />
       <Route path="/evaluation/sample" element={<JudgeReview manifestFile="manifest_sample.json" title="Sample Evaluation" />} />
       <Route path="/evaluation/adversarial" element={<AdversarialEvaluation />} />
+      <Route path="/evaluation/adversarial-results" element={<AdversarialResults />} />
 
       {/* Analytics */}
       <Route

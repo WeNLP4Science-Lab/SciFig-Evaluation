@@ -66,6 +66,18 @@ const cards = [
       </svg>
     ),
   },
+  {
+    to: '/evaluation/adversarial-results',
+    title: 'Adversarial Results',
+    desc: 'Aggregated leaderboard tables for all adversarial experiments across 12 models × 2 judges',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 20V10" />
+        <path d="M12 20V4" />
+        <path d="M6 20v-6" />
+      </svg>
+    ),
+  },
 ]
 
 export default function EvaluationSelector() {
