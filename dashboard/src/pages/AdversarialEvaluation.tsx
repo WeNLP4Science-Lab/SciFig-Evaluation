@@ -122,6 +122,7 @@ interface AdmittanceElement {
   admits: boolean
   fabricates: boolean
   fabricated_value?: string | null
+  correct: boolean
   reason: string
   admittance: number
 }
@@ -864,7 +865,7 @@ export default function AdversarialEvaluation() {
                               {!el.mentioned && <Badge label="SILENT" variant="neutral" />}
                               {el.mentioned && el.admits && <Badge label="ADMITS" variant="success" />}
                               {el.mentioned && !el.admits && <Badge label="NO ADMIT" variant="error" />}
-                              {el.fabricates && <Badge label="FABRICATES" variant="error" />}
+                              {el.fabricates && <Badge label={el.correct ? 'FABRICATES ✓' : 'FABRICATES ✗'} variant={el.correct ? 'tertiary' : 'error'} />}
                             </div>
                             <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{el.reason}</p>
                             {el.fabricated_value && (
