@@ -64,6 +64,15 @@ interface AxisBlurProbe {
   notes: string
 }
 
+interface ActiveAdmittanceProbe {
+  subfolder: string
+  question: string
+  question_english?: string
+  expected_answer: string
+  blurred_element: string
+  why_requires_blurred: string
+}
+
 interface CaptionBiasModification {
   claim: string
   reality: string
@@ -265,6 +274,7 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
   const [saveStatus, setSaveStatus] = useState<string | null>(null)
   const [axisBlurProbes, setAxisBlurProbes] = useState<Record<string, AxisBlurProbe> | null>(null)
   const [selectiveBlurProbes, setSelectiveBlurProbes] = useState<Record<string, AxisBlurProbe> | null>(null)
+  const [activeProbes, setActiveProbes] = useState<Record<string, ActiveAdmittanceProbe> | null>(null)
   const { isDark } = useTheme()
 
   const isAdversarial = manifest?.transforms != null
@@ -281,12 +291,14 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
       loadBenchmarks(),
       fetch(`${import.meta.env.BASE_URL}data/axis_blur_probes.json`).then(r => r.json()).catch(() => null),
       fetch(`${import.meta.env.BASE_URL}data/selective_blur_probes.json`).then(r => r.json()).catch(() => null),
+      fetch(`${import.meta.env.BASE_URL}data/active_selective_blur_probes.json`).then(r => r.json()).catch(() => null),
     ])
-      .then(([manifestData, benchmarksJson, axisBlurData, selectiveBlurData]) => {
+      .then(([manifestData, benchmarksJson, axisBlurData, selectiveBlurData, activeProbesData]) => {
         setManifest(manifestData as SampleManifest)
         if (benchmarksJson) setBenchmarks(benchmarksJson as Record<string, FigureBenchmark>)
         if (axisBlurData) setAxisBlurProbes(axisBlurData.figures as Record<string, AxisBlurProbe>)
         if (selectiveBlurData) setSelectiveBlurProbes(selectiveBlurData.figures as Record<string, AxisBlurProbe>)
+        if (activeProbesData) setActiveProbes(activeProbesData.figures as Record<string, ActiveAdmittanceProbe>)
         const subs = (manifestData as SampleManifest).subfolders || []
         if (subs.length) setSelectedSubfolder(subs[0])
       })
@@ -616,6 +628,47 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
                     <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{selectiveBlurProbes[selectedFigure].notes}</p>
                   </div>
                 )}
+              </div>
+            </CollapsibleSection>
+          )}
+
+          {/* Active Admittance — Selective Blur */}
+          {isAdversarial && activeProbes && activeProbes[selectedFigure] && (
+            <CollapsibleSection title="Active Admittance — Selective Blur Probe">
+              <div className="space-y-3">
+                <div className="flex gap-4 mb-4">
+                  <div className="flex-1">
+                    <img
+                      src={`${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/selective_blur.png`}
+                      alt="Selective blur"
+                      className="rounded-lg max-h-48 w-auto cursor-pointer"
+                      onClick={() => setExpandedImage({ src: `${FIGURES_BASE_URL}/adversarial/${selectedSubfolder}/${selectedFigure}/selective_blur.png`, label: 'Selective Blur' })}
+                    />
+                    <p className="text-[10px] mt-1 text-center" style={{ color: 'var(--m3-outline)' }}>Selective Blur (sent to model)</p>
+                  </div>
+                </div>
+                <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                  <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}>Question</p>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)' }}>{activeProbes[selectedFigure].question}</p>
+                  {activeProbes[selectedFigure].question_english && activeProbes[selectedFigure].question_english !== activeProbes[selectedFigure].question && (
+                    <p className="text-xs leading-relaxed mt-1" style={{ color: 'var(--m3-on-surface)', opacity: 0.6 }}>
+                      <span className="text-[10px] font-medium uppercase" style={{ letterSpacing: '0.5px' }}>EN: </span>
+                      {activeProbes[selectedFigure].question_english}
+                    </p>
+                  )}
+                </div>
+                <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-primary-container)', border: `1px solid var(--m3-outline-variant)` }}>
+                  <p className="text-[10px] font-medium uppercase mb-1" style={{ color: 'var(--m3-on-primary-container)', letterSpacing: '0.5px' }}>Expected Answer</p>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-primary-container)' }}>{activeProbes[selectedFigure].expected_answer}</p>
+                </div>
+                <div className="rounded-lg p-3" style={{ backgroundColor: 'var(--m3-surface-container-low)', border: `1px solid var(--m3-outline-variant)` }}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded" style={{ backgroundColor: 'var(--m3-error-container)', color: 'var(--m3-on-error-container)' }}>
+                      {activeProbes[selectedFigure].blurred_element}
+                    </span>
+                  </div>
+                  <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface-variant)' }}>{activeProbes[selectedFigure].why_requires_blurred}</p>
+                </div>
               </div>
             </CollapsibleSection>
           )}
