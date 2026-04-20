@@ -142,6 +142,7 @@ def _annotate_inpaper(annotator, system_prompt, image_path, instruction):
                 model=model,
                 messages=messages,
                 **{token_param: 2048},
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
         except Exception as e:

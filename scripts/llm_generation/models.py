@@ -123,6 +123,7 @@ class GPT52Annotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
@@ -175,6 +176,7 @@ class AzureAnnotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 **{token_param: self.max_tokens},
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
@@ -224,6 +226,7 @@ class Llama4MaverickAnnotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
@@ -275,6 +278,7 @@ class OpenRouterAnnotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
