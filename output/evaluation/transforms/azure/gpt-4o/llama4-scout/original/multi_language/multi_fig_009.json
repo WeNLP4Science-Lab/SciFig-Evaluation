@@ -1,0 +1,363 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "llama4-scout",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Оста X е обозначена като \"Layer\" и има линейна скала със стойности от 0 до 22",
+          "evidence": "Оста X на фигурата има стойности от 0 до 24, а не до 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията attn_output започва близо до 0 около слой 0, остава близо до 0 до слой 18 и рязко се покачва до около 1200 до края на слоя 22.",
+          "evidence": "Линията attn_output остава близо до 0 до слой 23 и се покачва до около 300 при слой 24, а не до 1200 при слой 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията attn_residual също започва близо до 0 около слой 0, рязко се покачва до около 1500 при слой 5, остава стабилна до около слой 18 и след това намалява рязко до около 600 при слой 22.",
+          "evidence": "Линията attn_residual намалява до около 500 при слой 23, а не до 600 при слой 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията ffn_output започва близо до 0 около слой 0, рязко се покачва до около 1500 при слой 5, след това спада до под 100 и остава ниска до около слой 18, където се покачва до около 1200 и отново спада до близо 0 при слой 22.",
+          "evidence": "Линията ffn_output има пикове при слоеве 5, 13 и 23, а не само при слоеве 5 и 18. Освен това стойностите на пиковете са 1400, 1000 и 1200, а не 1500 и 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията ffn_residual започва близо до 0 около слой 0, рязко се покачва до около 1500 при слой 5, остава стабилна на около 1500 до слой 18 и след това рязко спада до около 400 при слой 22.",
+          "evidence": "Линията ffn_residual достига стойност 1400 при слой 5, а не 1500. Освен това спада до около 500 при слой 23, а не до 400 при слой 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че графиката илюстрира максималните стойности на активиране на различни нива на модела при базови условия."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че отметките на оста X са разположени на интервали от 5 единици, а тези на оста Y - на интервали от 200 единици."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че легендата е разположена в центъра на диаграмата."
+        }
+      ],
+      "mqm_score": 64.5,
+      "total_penalty": 35.5,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第5层左右，ffn_output和ffn_residual的值急剧上升至约1400",
+          "evidence": "ffn_output的峰值在第5层和第15层，最高约为800，而非1400。ffn_residual的值在第2层附近急剧上升至约1400，而非第5层。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_output在大部分层数的值接近于0，除了在第22层左右有一个明显的峰值",
+          "evidence": "attn_output在第20层附近略有增加，而非第22层。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_residual与ffn_output和ffn_residual类似，在第5层左右急剧上升，但峰值略低",
+          "evidence": "attn_residual的峰值在第5层约为1400，并在1400到1600之间稳定，而非略低于ffn_residual的峰值。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "x轴表示层数，范围从0到超过22，刻度间隔为1",
+          "evidence": "x轴范围为0到24，刻度间隔为5，而非超过22且间隔为1。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成的描述未明确说明图表的目的，即展示基线条件下模型不同层的最大激活值。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成的描述未提及 attn_residual 在第20层之后迅速下降的趋势。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成的描述未提及 ffn_residual 在第20层之后波动很小并在接近终点时急剧下降的趋势。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成的描述未提及 x轴的线性刻度范围为0到24，标签间隔为5。"
+        }
+      ],
+      "mqm_score": 66.0,
+      "total_penalty": 34.0,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The x-axis, labeled \"Layer,\" is a linear scale with a value range of 0 to 22",
+          "evidence": "The x-axis range in the figure is 0 to 24, not 0 to 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The \"attn_output\" line starts at approximately 10 and ends at around 100",
+          "evidence": "The \"attn_output\" line starts near 0 and ends at approximately 200, not 10 to 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The \"attn_residual\" line begins at about 10 and ends at roughly 100",
+          "evidence": "The \"attn_residual\" line starts at 0 and peaks at approximately 1400, not 10 to 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The \"ffn_output\" line starts at approximately 10 and ends at around 100",
+          "evidence": "The \"ffn_output\" line starts near 0 and spikes to approximately 1000 at layers 5, 13, and 22, not 10 to 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The \"ffn_residual\" line starts at about 10 and ends at roughly 100",
+          "evidence": "The \"ffn_residual\" line starts at 0, peaks at approximately 1500, and follows a similar pattern to \"attn_residual,\" not 10 to 100."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the plot illustrates maximum activation values across different layers in a model under a baseline condition."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific behavior of the \"attn_output\" line, which remains flat near zero before increasing sharply to a maximum activation value of 200 between layers 22 and 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific behavior of the \"attn_residual\" line, which peaks sharply at layer 5 to an activation value around 1400, remains relatively stable between 1400 and 1600, and then declines rapidly after layer 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific behavior of the \"ffn_output\" line, which remains near zero with large spikes up to approximately 1000 at layers 5, 13, and 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific behavior of the \"ffn_residual\" line, which shows a similar pattern to the \"attn_residual\" line."
+        }
+      ],
+      "mqm_score": 57.5,
+      "total_penalty": 42.5,
+      "error_count": 10,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit einem leichten Anstieg auf 120 an der letzten Ebene",
+          "evidence": "The figure shows 'attn_output' increasing to approximately 300 at the last layer, not 120."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt abrupt auf 1440 an der 5. Ebene",
+          "evidence": "The figure shows 'attn_residual' increasing to approximately 1400 at layer 5, not 1440."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt bis zur 22. Ebene konstant bei 1500",
+          "evidence": "The figure shows 'attn_residual' fluctuating between 1400 and 1600 from layer 5 to layer 22, not constant at 1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fällt dann auf 600 an der 23. Ebene ab",
+          "evidence": "The figure shows 'attn_residual' decreasing to approximately 500 at layer 23, not 600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt auf 400 an der 5. Ebene",
+          "evidence": "The figure shows 'ffn_output' peaking at approximately 1400 at layer 5, not 400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt dann auf 1200 an der 22. Ebene",
+          "evidence": "The figure shows 'ffn_output' peaking at approximately 1000 at layer 22, not 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "um auf 400 an der 23. Ebene abzufallen",
+          "evidence": "The figure shows 'ffn_output' decreasing to approximately 1200 at layer 23, not 400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnt bei 25",
+          "evidence": "The figure shows 'ffn_residual' starting at 0, not 25."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt auf 1480 an der 5. Ebene",
+          "evidence": "The figure shows 'ffn_residual' peaking at approximately 1400 at layer 5, not 1480."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt bis zur 22. Ebene nahezu konstant bei 1500",
+          "evidence": "The figure shows 'ffn_residual' fluctuating between 1400 and 1600 from layer 5 to layer 22, not constant at 1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "um dann auf 400 an der 23. Ebene abzufallen",
+          "evidence": "The figure shows 'ffn_residual' decreasing to approximately 500 at layer 23, not 400."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention that the chart illustrates maximum activation values across layers under baseline conditions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the tick intervals on the x-axis (5) and y-axis (200)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the three peaks of 'ffn_output' at layers 5, 13, and 23."
+        }
+      ],
+      "mqm_score": 34.5,
+      "total_penalty": 65.5,
+      "error_count": 14,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 55.62
+}

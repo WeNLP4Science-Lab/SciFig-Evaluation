@@ -1,0 +1,45 @@
+{
+  "figure_key": "bulgarian_fig_095",
+  "model_name": "qwen3-vl-8b",
+  "transform": "rotation",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "mistral-large-3",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "със стойност 10, оранжево за „Много добре е интегриран“ със стойност 24, зелено за „Добре е интегриран“ със стойност 25, червено за „Слабо е интегриран“ със стойност 8 и лилаво за „Не е интегриран такъв подход“ със стойност 20",
+      "evidence": "The values are correct, but the reference description explicitly states percentages (e.g., 10%), while the machine-generated description omits the percentage sign, which is visible in the figure."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Секторите са разположени в кръга в низходящ ред по големина, като най-големият е зеленият сектор, следван от оранжевия, лилавия, синия и най-малкия – червения",
+      "evidence": "The sectors are not ordered strictly by size. The purple sector (20%) is larger than the blue sector (10%), but the orange sector (24%) is larger than the purple sector (20%), and the green sector (25%) is the largest. The machine-generated description incorrectly states the order as green, orange, purple, blue, red, while the actual order by size is green (25%), orange (24%), purple (20%), blue (10%), red (8%)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The reference description mentions that percentages are written inside the sectors, while the machine-generated description explicitly denies the presence of percentage labels ('диаграмата не съдържа етикети с проценти'), which contradicts the figure."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The machine-generated description does not explicitly state the purpose of the chart (to show the degree of agreement with the statement about design integration), unlike the reference description."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 4
+}
