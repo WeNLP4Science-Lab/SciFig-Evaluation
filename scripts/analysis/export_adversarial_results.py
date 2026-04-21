@@ -202,19 +202,19 @@ def active_admittance_table():
 def transform_mqm_table():
     rows = []
     transforms = ["original", "jpeg_compression", "noise", "aspect_ratio", "low_contrast", "rotation", "original_in_paper", "blurred_in_paper"]
+    judge_slugs = {"gpt-4o": "gpt-4o", "mistral-large-3": "mistral-large-3"}
     for model in MODELS:
         row = {"model": model}
-        for judge_prefix in ["azure/gpt-4o"]:
-            judge_slug = "gpt-4o"
+        for judge_name, judge_slug in judge_slugs.items():
             eval_dir = ROOT / "output" / "evaluation" / "transforms" / "azure" / judge_slug / model
             if not eval_dir.exists():
                 for t in transforms:
-                    row[t] = None
+                    row[f"{judge_name}_{t}"] = None
                 continue
             for t in transforms:
                 t_dir = eval_dir / t
                 if not t_dir.exists():
-                    row[t] = None
+                    row[f"{judge_name}_{t}"] = None
                     continue
                 scores = []
                 for f in t_dir.rglob("*.json"):
@@ -222,7 +222,11 @@ def transform_mqm_table():
                     s = data.get("mqm_score_avg") or data.get("mqm_score")
                     if s is not None:
                         scores.append(s)
-                row[t] = _avg(scores)
+                row[f"{judge_name}_{t}"] = _avg(scores)
+        # Compute averages across judges per transform
+        for t in transforms:
+            vals = [row.get(f"{j}_{t}") for j in judge_slugs if row.get(f"{j}_{t}") is not None]
+            row[t] = _avg(vals) if vals else None
         rows.append(row)
     return rows
 
@@ -247,3 +251,38 @@ print(f"Exported to {out_path}")
 for k, v in results.items():
     if isinstance(v, list) and len(v) > 0 and isinstance(v[0], dict):
         print(f"  {k}: {len(v)} rows")
+
+
+def inductance_table():
+    rows = []
+    for model in MODELS:
+        row = {"model": model}
+        for judge in JUDGES:
+            eval_dir = ROOT / "output" / "experiments" / "evaluation" / "inductance" / judge / model
+            if not eval_dir.exists():
+                row[f"{judge}_score"] = None
+                row[f"{judge}_trapped"] = None
+                row[f"{judge}_correct"] = None
+                continue
+            scores = []
+            trapped = correct = total = 0
+            for f in eval_dir.glob("*.json"):
+                data = json.load(open(f))
+                total += 1
+                scores.append(data.get("score", 0))
+                if data.get("fell_for_trap"): trapped += 1
+                if data.get("correct_answer"): correct += 1
+            row[f"{judge}_score"] = _avg(scores)
+            row[f"{judge}_trapped"] = trapped
+            row[f"{judge}_correct"] = correct
+        valid = [row.get(f"{j}_score") for j in JUDGES if row.get(f"{j}_score") is not None]
+        row["avg"] = _avg(valid) if valid else None
+        rows.append(row)
+    return sorted(rows, key=lambda r: r.get("avg") or 0, reverse=True)
+
+results["inductance"] = inductance_table()
+
+# Re-write
+with open(out_path, "w") as f:
+    json.dump(results, f, indent=2, ensure_ascii=False)
+print(f"  inductance: {len(results['inductance'])} rows")

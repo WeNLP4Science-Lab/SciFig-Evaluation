@@ -1,0 +1,16 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "mistral-large-3",
+  "question": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest?",
+  "expected_answer": "80% sparsity. On the logarithmic y-axis, the visual gap at 80% represents the largest absolute difference.",
+  "naive_answer": "The gaps look similar across sparsity rates, so no clear largest (or picking a lower sparsity rate where bars look equally spaced)",
+  "trap": "On a log scale, visually similar gaps at lower sparsity rates represent much smaller absolute differences than at higher rates",
+  "model_answer": "Okay, let's analyze the figure to determine the sparsity rate where the gap between Per-Layer and Per-Output perplexity is the largest.\n\n**Understanding the Axes**\n\n*   **Y-axis (Vertical):** Perplexity – This represents the uncertainty of the model in predicting the data. Lower perplexity indicates a better model.\n*   **X-axis (Horizontal):** Sparsity Rate – This indicates the percentage of weights in the model that are set to zero. Higher sparsity means more weights are zeroed out.\n*   **Blue Bars:** Per-Output Perplexity\n*   **Orange Bars:** Per-Layer Perplexity\n\n**Analyzing the Bars**\n\nWe need to compare the difference between the blue and orange bars at each sparsity rate.  The difference represents the gap in perplexity.  We're looking for the point where this gap is the greatest.\n\nLet's examine the bars at each sparsity rate:\n\n*   **10%:** Per-Output: ~4.5, Per-Layer: ~4.2.  Gap: ~0.3\n*   **20%:** Per-Output: ~8.5, Per-Layer: ~6.8.  Gap: ~1.7\n*   **30%:** Per-Output: ~13.5, Per-Layer: ~8.5.  Gap: ~5\n*   **40%:** Per-Output: ~18.5, Per-Layer: ~11.5.  Gap: ~7\n*   **50%:** Per-Output: ~23.5, Per-Layer: ~15.5.  Gap: ~8\n*   **60%:** Per-Output: ~28.5, Per-Layer: ~19.5.  Gap: ~9\n*   **70%:** Per-Output: ~33.5, Per-Layer: ~23.5.  Gap: ~10\n*   **80%:** Per-Output: ~38.5, Per-Layer: ~27.5.  Gap: ~11\n\n**Conclusion**\n\nThe largest gap between Per-Layer and Per-Output perplexity occurs at a sparsity rate of **80%**, with a gap of approximately 11.\n\n**Therefore, the answer is 80%.**",
+  "score": 1.0,
+  "fell_for_trap": false,
+  "showed_reasoning": true,
+  "correct_answer": true,
+  "reason": "Model correctly computed gaps and identified 80% as largest, addressing log-scale trap.",
+  "timestamp": "2026-04-21T10:49:24.179656+00:00"
+}

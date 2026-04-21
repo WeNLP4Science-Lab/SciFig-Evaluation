@@ -14,6 +14,7 @@ interface Results {
   passive_admittance: ResultRow[]
   active_admittance: ResultRow[]
   transform_mqm: ResultRow[]
+  inductance?: ResultRow[]
 }
 
 function ScoreCell({ value, good = 0.7, bad = 0.3 }: { value: unknown; good?: number; bad?: number }) {
@@ -171,7 +172,41 @@ export default function AdversarialResults() {
         />
 
         <Table
-          title="8. Transform MQM (gpt-4o judge — description quality under visual degradation)"
+          title="8a. Transform MQM — gpt-4o judge (description quality under visual degradation)"
+          headers={['Model', 'Original', 'JPEG', 'Noise', 'Aspect', 'Low Con.', 'Rotation', 'In-Paper', 'Blur IP']}
+          rows={data.transform_mqm}
+          renderRow={row => (<>
+            <td className="px-3 py-2 text-xs font-mono" style={{ color: 'var(--m3-on-surface)' }}>{row.model}</td>
+            <ScoreCell value={row['gpt-4o_original']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_jpeg_compression']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_noise']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_aspect_ratio']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_low_contrast']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_rotation']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_original_in_paper']} good={70} bad={50} />
+            <ScoreCell value={row['gpt-4o_blurred_in_paper']} good={70} bad={50} />
+          </>)}
+        />
+
+        <Table
+          title="8b. Transform MQM — mistral judge (description quality under visual degradation)"
+          headers={['Model', 'Original', 'JPEG', 'Noise', 'Aspect', 'Low Con.', 'Rotation', 'In-Paper', 'Blur IP']}
+          rows={data.transform_mqm}
+          renderRow={row => (<>
+            <td className="px-3 py-2 text-xs font-mono" style={{ color: 'var(--m3-on-surface)' }}>{row.model}</td>
+            <ScoreCell value={row['mistral-large-3_original']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_jpeg_compression']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_noise']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_aspect_ratio']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_low_contrast']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_rotation']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_original_in_paper']} good={70} bad={50} />
+            <ScoreCell value={row['mistral-large-3_blurred_in_paper']} good={70} bad={50} />
+          </>)}
+        />
+
+        <Table
+          title="8c. Transform MQM — Average (both judges)"
           headers={['Model', 'Original', 'JPEG', 'Noise', 'Aspect', 'Low Con.', 'Rotation', 'In-Paper', 'Blur IP']}
           rows={data.transform_mqm}
           renderRow={row => (<>
@@ -186,6 +221,22 @@ export default function AdversarialResults() {
             <ScoreCell value={row['blurred_in_paper']} good={70} bad={50} />
           </>)}
         />
+
+        {data.inductance && (
+          <Table
+            title="9. Inductance (deep reasoning — did the model avoid the trap?)"
+            headers={['Model', 'gpt-4o', 'mistral', 'Average', 'Trapped (g)', 'Correct (g)']}
+            rows={data.inductance}
+            renderRow={row => (<>
+              <td className="px-3 py-2 text-xs font-mono" style={{ color: 'var(--m3-on-surface)' }}>{row.model}</td>
+              <ScoreCell value={row['gpt-4o_score']} />
+              <ScoreCell value={row['mistral-large-3_score']} />
+              <ScoreCell value={row['avg']} />
+              <IntCell value={row['gpt-4o_trapped']} />
+              <IntCell value={row['gpt-4o_correct']} />
+            </>)}
+          />
+        )}
 
       </main>
     </div>
