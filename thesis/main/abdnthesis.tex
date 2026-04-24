@@ -1,0 +1,153 @@
+\documentclass[MSc]{abdnthesis}
+
+%% natbib for author-year citations (colon style, rounded brackets).
+\usepackage[round,colon,authoryear]{natbib}
+\setlength{\bibsep}{0pt}
+\bibliographystyle{apalike}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds}
+\usepackage[most]{tcolorbox}
+%% Inline robot icon used to mark AI responses in the boxed
+%% behavioural examples of Chapter 2. Paul dropped
+%% figures/roboicon.jpg; if absent, fall back to a small sparkle.
+\newcommand{\roboicon}{%
+  \IfFileExists{figures/roboicon.jpg}%
+    {\raisebox{-2.2pt}{\includegraphics[height=10pt]{figures/roboicon.jpg}}}%
+    {\raisebox{-0.3pt}{\tikz[baseline=(c.base), scale=0.28]{%
+      \node[inner sep=0pt] (c) at (0,0) {};
+      \fill[black!70]
+        (0,1) -- (0.22,0.22) -- (1,0) -- (0.22,-0.22) --
+        (0,-1) -- (-0.22,-0.22) -- (-1,0) -- (-0.22,0.22) -- cycle;
+    }}}%
+}
+%% Yellow research-paper example box used in \S\ref{sec:bg-behave}.
+\newtcolorbox{aivignette}[1][]{%
+  enhanced, breakable, sharp corners, boxrule=0.4pt,
+  colback=yellow!12, colframe=yellow!40!black!25,
+  left=9pt, right=9pt, top=7pt, bottom=7pt,
+  fonttitle=\sffamily\bfseries\small,
+  coltitle=black!75, colbacktitle=yellow!25,
+  #1
+}
+\graphicspath{{./logos/}{./figures/}{./}}
+\definecolor{logo-openai}{HTML}{10A37F}
+\definecolor{logo-anthropic}{HTML}{C97757}
+\definecolor{logo-google}{HTML}{4285F4}
+\definecolor{logo-deepmind}{HTML}{1A73E8}
+\definecolor{logo-meta}{HTML}{0467DF}
+\definecolor{logo-microsoft}{HTML}{5E5E5E}
+\definecolor{logo-alibaba}{HTML}{FF6A00}
+%% \logo{slug} renders logos/<slug>.png at a fixed row height when the
+%% file is present, and otherwise falls back to a small brand-coloured
+%% chip carrying the family's initials. \logochip{colour}{text} is the
+%% fallback primitive; callers use \logo so that once real PNGs are
+%% dropped into logos/, the table upgrades automatically.
+%% Fallback chip: a small filled circle in the brand colour. Paul can
+%% drop logos/<slug>.png files (8pt-tall) into the logos/ folder and the
+%% \logo macro will prefer them automatically.
+\newcommand{\logochip}[1]{%
+  \raisebox{-0.5pt}{\tikz\fill[#1] (0,0) circle (2.2pt);}%
+}
+\newcommand{\logo}[1]{%
+  \IfFileExists{logos/#1.png}%
+    {\raisebox{-1.8pt}{\includegraphics[height=8pt]{logos/#1.png}}}%
+    {\logochip{logo-#1}}%
+}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+%% Faint-grey frame around every figure that does not already have one.
+%% Call \framedfig{\includegraphics{...}} or use \adjustbox.
+\definecolor{figframe}{HTML}{A0A0A0}
+\newcommand{\framedfig}[1]{%
+  \adjustbox{cfbox=figframe 0.6pt 3pt}{#1}%
+}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue
+}
+
+\title{SciFig-Evaluation: A Multilingual Benchmark and
+       Behavioural Framework for Evaluating Multimodal Language
+       Models on Scientific Figures}
+\author{Paul Osemudiame Oamen}
+
+\school{Department of Computing Science}
+
+
+\date{2026}
+
+
+%% While the other chapters are still in draft, only typeset
+%% the introduction. Remove or extend this list as each chapter
+%% is completed.
+\includeonly{introduction,background,literature-review,design}
+
+\def\sfthing#1#2{\def#1{\mbox{{\small\normalfont\sffamily #2}}}}
+
+\sfthing{\PP}{P}
+\sfthing{\FF}{F}
+
+
+\begin{document}
+
+%%%% Create the title page and standard declaration.
+
+\maketitle
+\makedeclaration
+
+%%%% Then the abstract and acknowledgements
+
+\begin{abstract}
+  Multimodal large language models are increasingly asked to read
+  scientific figures, yet existing benchmarks largely measure whether
+  a model can extract a value from a chart, not whether it is a
+  faithful visual reader. This thesis introduces \textsc{SciFig-Eval},
+  a multilingual benchmark of 1{,}005 figures drawn from 158 arXiv
+  papers and paired with 1{,}411 expert annotations in English,
+  Bulgarian, German and Chinese, together with a three-axis
+  behavioural framework --- Admittance, Resistance and Inductance ---
+  that separates honesty in the absence of evidence, faithfulness
+  under misleading context, and sound inductive reasoning. Using an
+  MQM-style multi-judge evaluation pipeline, the framework is
+  exercised on eleven contemporary models spanning five families via
+  five adversarial probe types. The resulting behavioural profile
+  reveals systematic, near-orthogonal failure modes that
+  conventional accuracy scores obscure.
+\end{abstract}
+
+\begin{acknowledgements}
+  I am grateful to my supervisor and to the annotation team for their
+  time, expertise and patience. The \texttt{abdnthesis.cls} class was
+  developed at the University of Aberdeen.
+\end{acknowledgements}
+
+
+
+\tableofcontents
+
+
+\include{introduction}
+\include{background}
+\include{literature-review}
+\include{design}
+%% Subsequent chapters will be added as they are drafted:
+% \include{implementation}
+% \include{evaluation}
+% \include{discussion}
+% \include{conclusion}
+
+\bibliography{mybib}
+
+\end{document}
