@@ -488,6 +488,117 @@ axes at different strengths because the four sub-variants
 different failure modes.
 
 
+\section{Prompt Engineering}
+\label{sec:design-prompts}
+
+The prompts that instruct each model under test are a controlled
+variable of the evaluation and are designed around three
+principles: figure-type specificity, native-language instruction,
+and a chain-of-thought ablation that tests whether explicit
+visual reasoning improves model behaviour.
+
+\subsection{Figure-Type-Specific Generation Prompts}
+\label{sec:design-prompts-generation}
+
+Each model receives a system-level prompt tailored to the figure
+type it is describing. Separate prompts are maintained for line
+plots, bar charts and pie charts, with a default fallback for
+figure types outside those three. The prompts share a common
+structure: an annotator role statement, a description of the
+target output format (a single flowing paragraph, no section
+headers or bullet points), and an ordered list of the elements the
+description must cover. The elements are figure-type-specific.
+For line plots the prompt requests the chart purpose, x-axis and
+y-axis descriptions (label, scale type, range, units, tick
+interval), and a per-line description (colour, marker shape, line
+style, representative start and end values, peaks and declines).
+For bar charts the prompt additionally requests bar arrangement
+(grouped or stacked), sort order and visual emphasis. For pie
+charts it requests slice count, per-slice label, colour and
+percentage, legend presence and ordering pattern.
+
+All prompts prohibit interpretation, inference and comparison
+beyond what is explicitly labelled in the figure. This constraint
+is deliberate: interpretation is tested separately by the
+Inductance axis of the A-R-I framework, and conflating it with
+description would prevent the framework from distinguishing a
+model that describes faithfully but reasons poorly from one that
+describes poorly but reasons well.
+
+\subsection{Native-Language Prompting}
+\label{sec:design-prompts-language}
+
+Each prompt exists in four language variants: English, Bulgarian,
+Chinese and German. When a model describes a Bulgarian figure, it
+receives the Bulgarian prompt; when it describes a Chinese figure,
+it receives the Chinese prompt. The translated prompts preserve
+the same structure and element list as the English original but
+are written in the target language so that the instruction
+register matches the figure content. The prompt selection follows
+a fallback chain: (language, figure type) is tried first, then
+(language, default), then (English, figure type), then (English,
+default).
+
+The design rationale is that a model prompted in the figure's
+native language is more likely to produce a description in that
+language and to attend to script-specific details (Cyrillic axis
+labels, Chinese logographic captions, German compound nouns) than
+one prompted in English. Whether this expectation holds is tested
+empirically by a prompt-language ablation described below.
+
+\subsection{Prompt-Language Ablation}
+\label{sec:design-prompts-ablation}
+
+To isolate the effect of prompt language from the effect of figure
+language, an ablation experiment generates descriptions for all
+45 adversarial figures using English prompts regardless of the
+figure's native language. The resulting descriptions are evaluated
+under the same atomic MQM rubric as the native-prompt
+descriptions, and the per-language score difference between the
+two conditions quantifies the contribution of native-language
+prompting to description quality.
+
+\subsection{Chain-of-Thought Prompting}
+\label{sec:design-prompts-cot}
+
+A second ablation tests whether explicit visual reasoning before
+answering improves model performance across the five probe
+families. The design adapts Compositional Chain-of-Thought
+(CCoT) prompting \citep{mitra2024ccot}, a zero-shot method
+originally proposed for visual question answering in which the
+model first generates a structured decomposition of the image
+before producing its answer. The original CCoT method uses two
+separate API calls: one to generate a scene graph and one to
+answer conditioned on that graph. The adaptation used here
+collapses the two calls into a single prompt by prepending:
+
+\begin{quote}
+\small\itshape
+First, describe the visual structure of this figure: identify
+the chart type, axes, data series, labels, colours, and any
+notable patterns. Then, [answer the question / write your
+description] based on your observations. Let's think step by
+step.
+\end{quote}
+
+The instruction is deliberately generic. It does not coach the
+model on what to look for, does not hint at blur or misleading
+captions, and does not prescribe a reasoning strategy. The ``Let's
+think step by step'' suffix follows the zero-shot CoT baseline of
+\citet{kojima2022zeroshotcot}. The combination tests whether
+grounding the model in a self-generated visual decomposition,
+without any task-specific guidance, changes its behaviour on each
+of the three A-R-I axes.
+
+For question-answering probes (capability, hallucination, prompt
+reverse, active admittance, inductance) the full model response,
+including the visual decomposition, is passed to the judge. For
+description tasks (caption bias) the prompt additionally asks the
+model to write its final description after a \texttt{DESCRIPTION:}
+marker, and only the text after that marker is evaluated, so that
+the reasoning preamble does not interfere with the MQM rubric.
+
+
 \section{Scoring Rubric and Judge Pipeline}
 \label{sec:design-scoring}
 
