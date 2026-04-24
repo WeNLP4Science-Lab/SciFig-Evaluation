@@ -1,191 +1,209 @@
 # Atomic MQM — Checklist-Based Figure Description Evaluation
 
 ## Problem
-The current MQM evaluation asks a judge to "find errors" in an open-ended way. This leads to:
+The standard MQM evaluation asks a judge to "find errors" in an open-ended way. This leads to:
 - Missed completeness errors (judge doesn't flag all missing elements)
 - A completely wrong description (wrong figure) can score 61/100
-- Inconsistent scoring across figures
-- Judge's job is too open-ended — it catches what it notices, not what's actually missing
+- Inconsistent scoring across figures with different complexity
+- Scores don't normalize by figure complexity — a 5-atom figure can never reach 0
 
 ## Solution
-Replace open-ended error finding with a **pre-defined checklist of atomic truths** per figure. The judge verifies each atom independently.
+Replace open-ended error finding with a **pre-defined checklist of atomic truths** per figure. The judge verifies each atom systematically, producing standard MQM errors with a normalized scoring formula that guarantees the full 0-100 range regardless of atom count.
 
 ## What is an Atom?
-The smallest verifiable claim about a figure. Examples:
+The smallest verifiable claim about a figure, extracted verbatim from the groundtruth annotation. Examples:
 - "The x-axis label is 'Number of completions (k)'"
 - "The x-axis uses a logarithmic scale"
 - "There are 4 lines in the plot"
 - "The blue solid line starts at approximately 0.42"
 
-Each atom is verified independently as: **Correct / Inaccurate / Missing / Hallucinated / N/A**
-
-## Atom Categories
-
-### 1. Identity Atoms (all figure types)
-- Chart type (line plot, bar chart, pie chart, etc.)
-- Chart purpose/title
-- Number of subplots/panels
-
-### 2. Axis Atoms (line plots, bar charts)
-- Per axis: label, scale type, range, units, tick interval
-
-### 3. Data Element Atoms (type-specific)
-- **Line plots**: per line — name, color, style, marker, start value, end value, peaks/valleys
-- **Bar charts**: per bar/group — label, color, value
-- **Pie charts**: per slice — label, color, percentage/value
-
-### 4. Structural Atoms (all types)
-- Grouped vs stacked arrangement
-- Sort order (descending, alphabetical, etc.)
-- Legend presence and content
-
-### 5. Annotation Atoms (all types)
-- Data labels on elements
-- Reference lines
-- Visual emphasis (bold, exploded, highlighted)
-- Text annotations
-
 ## Atom Severity Levels
-- **Critical**: Chart purpose, axis labels, data series names — defines what the chart IS
+
+Each atom has a severity that determines how much errors against it are penalized:
+
+- **Critical**: Chart type, purpose, axis labels, data series names — defines what the chart IS
 - **Important**: Values, ranges, scale types — defines what the chart SHOWS
-- **Minor**: Colors, styles, tick intervals — defines how the chart LOOKS
+- **Minor**: Colors, styles, tick intervals, markers — defines how the chart LOOKS
 
-## Templates
+**The atom severity caps the error severity.** A minor atom can never produce a Major error. A critical atom can produce a Minor error if only partially wrong.
 
-### Base Template (shared by all figure types)
+| Atom Severity | Complete miss/wrong | Partial miss/slightly off |
+|---------------|--------------------|--------------------------| 
+| Critical      | Major error        | Minor error              |
+| Important     | Major error        | Minor error              |
+| Minor         | Minor error        | Minor error              |
+
+## Evaluation Process
+
+The judge receives: **image + atom checklist + reference description + model description**.
+
+### Step 1: Accuracy Check (atoms + image)
+For each atom, check if the model description mentions it AND gets it right. If mentioned but wrong, flag an Accuracy error:
+
+| Sub-type | Description |
+|----------|-------------|
+| Incorrect Numerical Value | Wrong numbers, percentages, quantities |
+| Incorrect Axis or Legend Interpretation | Wrong axis labels, units, legend info |
+| Incorrect Visual Attribute Mapping | Wrong color, series name, attribute assignment |
+| Incorrect Structural Description | Wrong structure (grouped vs stacked, wrong count) |
+
+### Step 2: Completeness Check (atoms)
+For each atom, check if the model description covers this information at all. If missing, flag a Completeness error:
+
+| Sub-type | Description |
+|----------|-------------|
+| Missing Chart Purpose | Chart purpose/title not stated |
+| Missing Axis Description | Axis labels, units, scale, range, ticks omitted |
+| Missing Visual Features | Data series, colors, values, legend, structure omitted |
+
+Each missing atom is flagged as a **separate** error. Partially covered atoms get a Minor severity; completely missing atoms get severity based on atom severity (see table above).
+
+### Step 3: Hallucination Check (atoms + image)
+Check for claims NOT covered by any atom:
+
+| Sub-type | Description |
+|----------|-------------|
+| Hallucinated Content | Introduces visual elements or data that don't exist |
+| Unwanted Interpretation | Adds inference or subjective language beyond what is shown |
+
+Hallucinations are not linked to any atom. The judge assigns Major or Minor severity based on how misleading the fabrication is.
+
+### Step 4: Clarity Check (reference description)
+Compare model description against reference for readability:
+
+| Sub-type | Description |
+|----------|-------------|
+| Ambiguous Description | Vague or unclear references |
+| Over-Generalization | Oversimplifies or exaggerates visual information |
+| Overly Verbose Description | Unnecessary repetition or excessive detail |
+| Poor Sentence Structure | Grammar errors or awkward phrasing |
+
+Clarity only meaningfully affects the score when accuracy and completeness are good — if the description is already wrong, clarity penalties don't matter (score is capped at 0).
+
+## Error Output Format
+
+Same standard MQM format, with an additional `atom_id` field:
+
+```json
+{
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "text_span": "with a final value of 60%",
+      "evidence": "Atom says 45% but description says 60%",
+      "atom_id": "fig_001_sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "text_span": null,
+      "evidence": "The description does not mention the y-axis units",
+      "atom_id": "fig_001_yaxis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "text_span": "there are six distinct clusters",
+      "evidence": "Figure shows four clusters, not six",
+      "atom_id": null
+    }
+  ]
+}
 ```
-identity:
-  chart_type: <line_plot | bar_chart | pie_chart | other>
-  chart_purpose: <string>
-  num_subplots: <int>
-  title: <string or null>
 
-legend:
-  present: <bool>
-  entries: [<list of legend items>]
-
-annotations:
-  data_labels: <bool>
-  reference_lines: [<list>]
-  visual_emphasis: [<list>]
-```
-
-### Line Plot Extension
-```
-x_axis:
-  label: <string>
-  scale_type: <linear | logarithmic | log2 | categorical>
-  range: [<min>, <max>]
-  units: <string or null>
-  tick_interval: <string or null>
-
-y_axis:
-  <same structure as x_axis>
-
-lines:
-  - name: <string>
-    color: <string>
-    style: <solid | dashed | dotted | dash-dot>
-    marker: <circle | square | triangle | diamond | none>
-    start_value: <number>
-    end_value: <number>
-    key_points: [{ x: <val>, y: <val>, type: <peak | valley | inflection> }]
-```
-
-### Bar Chart Extension
-```
-category_axis:
-  orientation: <horizontal | vertical>
-  label: <string>
-  categories: [<list of category names>]
-
-value_axis:
-  label: <string>
-  scale_type: <linear | logarithmic>
-  range: [<min>, <max>]
-  units: <string or null>
-
-structure: <single | grouped | stacked | 100_percent_stacked>
-sort_order: <descending | ascending | custom | none>
-
-bars:
-  - label: <string>
-    color: <string>
-    value: <number>
-    # For grouped/stacked: sub_bars with same structure
-```
-
-### Pie Chart Extension
-```
-total_slices: <int>
-
-slices:
-  - label: <string>
-    color: <string>
-    value: <number or percentage>
-    exploded: <bool>
-
-labels_position: <inside | outside | legend_only>
-```
+- `atom_id`: links to the specific atom for accuracy/completeness errors; `null` for hallucinations and clarity errors
+- `text_span`: exact substring from model description for incorrect/hallucinated/clarity errors; `null` for missing content
 
 ## Scoring
 
-### Per-Atom Score
-- **Correct (C)**: Model stated it accurately
-- **Inaccurate (I)**: Model mentioned it but got it wrong
-- **Missing (M)**: Model didn't mention it at all
-- **Hallucinated (H)**: Model added something not in the checklist
-- **N/A**: Atom doesn't apply to this figure
+### MQM Weights (from guidelines Table 2)
 
-### Aggregated Scores
-- **Accuracy** = C / (C + I)
-- **Completeness** = C / (C + M)
-- **Hallucination Rate** = H / total atoms mentioned by model
-- **Overall** = weighted combination with severity
+| Error Category          | Major Weight | Minor Weight |
+|-------------------------|-------------|-------------|
+| Accuracy                | 5.0         | 2.0         |
+| Completeness            | 3.5         | 1.5         |
+| Clarity and Readability | 2.0         | 1.0         |
 
-### Severity Weights (for penalty calculation)
-| Severity | Inaccurate Penalty | Missing Penalty |
-|----------|-------------------|-----------------|
-| Critical | 5.0 | 5.0 |
-| Important | 3.0 | 2.0 |
-| Minor | 1.0 | 0.5 |
+### Normalized MQM Formula
 
-## Implementation Plan
+```
+max_possible_penalty = num_atoms × 5.0
 
-### Phase 1: Build Templates
-1. Define base template + 3 type-specific extensions
-2. Validate template covers everything the generation prompts ask for
+MQM = max(0, 100 - (Σ all_penalties / max_possible_penalty) × 100)
+```
 
-### Phase 2: Extract Atoms from Groundtruth (45 figures)
-1. For each figure, determine type → select template
-2. Parse groundtruth annotation into atom values
-3. Use LLM to assist extraction, human-verify results
-4. Expected: ~30-50 atoms per figure, ~1,500-2,000 total
+Where:
+- `Σ all_penalties` = sum of weights for all errors (accuracy + completeness + hallucination + clarity)
+- `max_possible_penalty` = worst case if every atom had an Accuracy/Major error (the highest per-atom penalty)
+- `num_atoms` = number of atoms in the figure's checklist
 
-### Phase 3: Build New Judge
-1. Judge receives: image + atom checklist + model description
-2. For each atom: classify as C/I/M/H/N/A
-3. Compute scores from classifications
-4. Compare with old MQM scores
+### Why normalize?
 
-### Phase 4: Re-evaluate
-1. Re-score all 12 models on 45 adversarial figures
-2. Compare old vs new MQM
-3. Check: does a wrong-figure description now score near 0?
+Without normalization, `MQM = max(0, 100 - Σ penalties)` depends on atom count:
+- A 5-atom figure with everything wrong: `100 - 25 = 75` (should be 0)
+- A 46-atom figure with everything wrong: `100 - 230 = 0`
+
+With normalization:
+- A 5-atom figure with everything wrong: `100 - (25/25) × 100 = 0`
+- A 46-atom figure with everything wrong: `100 - (230/230) × 100 = 0`
+- Both correctly score 0.
+
+### Hallucination and clarity in the formula
+
+Hallucinations and clarity errors add to `Σ all_penalties` but are NOT part of `max_possible_penalty`. This means:
+- A model can exceed the max penalty (e.g., all atoms wrong AND hallucinations), but the score is clamped at 0
+- A model with all atoms correct but heavy hallucination still gets penalized
+- Clarity errors only move the needle when accuracy and completeness are good — otherwise the score is already at or near 0
+
+### Atom Coverage Metrics
+
+In addition to the MQM score, atom-level metrics are computed from atom_id-linked errors:
+
+- **Atom Accuracy** = atoms with no accuracy error / total atoms
+- **Atom Completeness** = atoms mentioned (no completeness error) / total atoms
+
+These provide interpretable per-dimension scores alongside the composite MQM.
+
+## Dataset
+
+- **120 figures** across 4 languages (30 Bulgarian, 30 Chinese, 39 English+Multi, 21 German)
+- **2,252 atoms** total, extracted verbatim from groundtruth annotations
+- Atoms reviewed and validated per language with automated review agents
 
 ## File Structure
 ```
 atomic_mqm/
 ├── README.md              (this file)
-├── templates/
-│   ├── base.json          (shared template)
-│   ├── line_plot.json     (line plot extension)
-│   ├── bar_chart.json     (bar chart extension)
-│   └── pie_chart.json     (pie chart extension)
-├── atoms/
+├── judge_prompt.txt       (judge system prompt)
+├── evaluator.py           (evaluation script)
+├── atoms/                 (120 atom files, one per figure)
+│   ├── bulgarian_fig_001.json
+│   ├── chinese_fig_004.json
 │   ├── english_fig_002.json
-│   ├── english_fig_005.json
-│   └── ...                (one per figure, filled templates)
-├── judge_prompt.txt       (new judge prompt)
-└── evaluator.py           (new evaluation script)
+│   ├── german_fig_001.json
+│   └── ...
+└── reviews/               (validation reports per language)
+    ├── review_bulgarian.md
+    ├── review_chinese.md
+    ├── review_english.md
+    └── review_german.md
 ```
+
+## Usage
+
+```bash
+# Evaluate one model with one judge
+python3 atomic_mqm/evaluator.py gpt-5.2 --judge azure/gpt-4o --workers 4
+
+# Filter to one subfolder
+python3 atomic_mqm/evaluator.py gpt-5.2 --judge azure/gpt-4o --subfolder english_only
+
+# Evaluate all models
+python3 atomic_mqm/evaluator.py --all --judge azure/gpt-4o --workers 4
+```
+
+Output: `output/evaluation/atomic_mqm/{judge}/{model}/{subfolder}/{fig_key}.json`

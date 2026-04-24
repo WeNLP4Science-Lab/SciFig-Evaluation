@@ -1,0 +1,141 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色虚线，标记为方形，数据点从 epoch 0 对应的 F1 分数 0.50 开始，上升到 epoch 6 对应的 F1 分数 0.67，然后稳定在约 0.68 左右",
+      "evidence": "lattice方法在epoch=1时F1≈0.59，epoch=4时F1≈0.73，epoch=8时F1≈0.80，epoch=16时F1≈0.85，且为实线而非虚线。",
+      "atom_id": "lattice_color_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线，标记为圆形，数据点从 epoch 0 对应的 F1 分数 0.75 开始，下降到 epoch 18 对应的 F1 分数 0.68",
+      "evidence": "FLAT方法在epoch=2时F1≈0.78，epoch=4时F1≈0.83，epoch=8时F1≈0.85，epoch=14时F1≈0.88，未下降。",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色实线，标记为三角形，数据点从 epoch 0 对应的 F1 分数 0.72 开始，在 epoch 4 对应的 F1 分数 0.73 处略微上升，之后稳定在约 0.72 - 0.74 之间",
+      "evidence": "OURS方法为黄色实线带三角形标记，初始F1≈0.81，epoch=2时F1≈0.81，epoch=4时F1≈0.82，epoch=8时F1≈0.87，epoch=16时F1≈0.90，非橙色。",
+      "atom_id": "ours_color_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条黄色实线，标记为星形，数据点从 epoch 0 对应的 F1 分数 0.70 开始，在 epoch 2 对应的 F1 分数 0.72 处略微上升，之后下降到 epoch 18 对应的 F1 分数 0.69",
+      "evidence": "图中无黄色星形标记的线，OURS方法为黄色三角形标记。",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "四条线",
+      "evidence": "图中仅有三条线（lattice、FLAT、OURS），非四条。",
+      "atom_id": "methods_compared"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明图表展示的是不同方法在训练过程中F1分数的演变。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法收敛速度较快，在epoch=10即超过FLAT。",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明y轴范围下限为0.55（提及0.50有误）。",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及lattice方法在epoch=1、2、4、8、16的具体F1值。",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及FLAT方法在epoch=2、4、8、14的具体F1值。",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法在epoch=2、4、8、16的具体F1值。",
+      "atom_id": "ours_epoch2_f1"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "稳定在约 0.68 左右",
+      "evidence": "未明确说明是哪条线的稳定值。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "之后稳定在约 0.72 - 0.74 之间",
+      "evidence": "OURS方法实际在epoch=8和16有显著上升，非稳定。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 71.85,
+  "total_penalty": 38.0,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 4,
+    "missing": 6,
+    "total": 27,
+    "accuracy": 0.8182,
+    "completeness": 0.75
+  }
+}

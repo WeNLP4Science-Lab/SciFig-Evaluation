@@ -1,0 +1,78 @@
+{
+  "figure_key": "bulgarian_fig_014",
+  "subfolder": "bulgarian_only",
+  "model_name": "llama4-scout",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "low_contrast",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "стойностите, които варират от 0 до 140,000, със стъпка от 20,000",
+      "evidence": "The y-axis range is from 0 to 140,000, but the intervals are 20 (not 20,000) as per the atom checklist and figure.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Няма групиране или наслагване на стълбите, а са подредени в отделни групи по месеци",
+      "evidence": "The bars are grouped by month, not separate. The atom checklist explicitly states they are grouped.",
+      "atom_id": "bar_grouping"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the minimum value (80,000 for December and July 2023) as specified in the atom checklist.",
+      "atom_id": "min_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "2024 е най-успешната година, защото има най-високи стойности като цяло",
+      "evidence": "The machine-generated description does not include this claim, but the atom checklist includes it as an unwanted interpretation. However, the reference description also omits this, so it should not be included. This is a false positive for the machine-generated description.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "значително по-високо от повечето останали стойности, които обикновено са под 100,000",
+      "evidence": "The description introduces a subjective comparison ('значително по-високо') and an overgeneralization ('обикновено са под 100,000'), which are not explicitly shown in the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Тя използва линейна скала. Диаграмата показва по три стълба за всеки месец, съответстващи на всяка от трите години, като цветовете им са синьо, оранжево и сиво, съответно за 2022, 2023 и 2024 година. Няма допълнителни бележки или визуални акценти върху стълбите.",
+      "evidence": "The description includes redundant details (e.g., 'линейна скала', 'няма допълнителни бележки') that do not add informational value.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 72.5,
+  "total_penalty": 16.5,
+  "atom_coverage": {
+    "correct": 9,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 12,
+    "accuracy": 0.8182,
+    "completeness": 0.9
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "blurred_in_paper",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 31,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图像中未包含图3(a)，因此无法提供其描述。图像中展示的是图4，即“不同正负例阈值组合在CCKS-IMLTC数据上的实验结果”，该图是一个热力图，用于展示在PST框架中不同正负例阈值组合下TextCNN-CB模型在CCKS-IMLTC数据集上的F1值。",
+      "evidence": "The provided image is a line chart, not a heatmap, and corresponds to the description of F1 scores under different '漏标率' conditions, not threshold combinations. The machine-generated description incorrectly identifies the chart type and content.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图4的x轴表示正例阈值（Pva），范围从0.5到0.9，刻度间隔为0.1，采用线性刻度，无单位；y轴表示负例阈值（Nva），范围从0.5到0.7，刻度间隔为0.1，采用线性刻度，无单位。",
+      "evidence": "The x-axis label is '漏标率' (not '正例阈值'), and the y-axis label is 'F1得分' (not '负例阈值'). The ranges and intervals are also incorrect.",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "y轴表示负例阈值（Nva）",
+      "evidence": "The y-axis represents 'F1得分' (F1 score), not '负例阈值'.",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x轴范围从0.5到0.9",
+      "evidence": "The x-axis range is from 0 to approximately 0.585, not 0.5 to 0.9.",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "y轴范围从0.5到0.7",
+      "evidence": "The y-axis range is from 52.5 to 72.5, not 0.5 to 0.7.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not state the purpose of the chart, which is to show F1 scores of three methods under different '漏标率' conditions.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the correct x-axis label ('漏标率') and y-axis label ('F1得分').",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the correct y-axis range (52.5 to 72.5) and scale type (linear).",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the three lines (Teacher, Self-Training, PST) or their styles (colors and markers).",
+      "atom_id": "teacher_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the F1 scores for 'Teacher' at all '漏标率' values.",
+      "atom_id": "teacher_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the F1 scores for 'Self-Training' at all '漏标率' values.",
+      "atom_id": "selftraining_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the F1 scores for 'PST' at all '漏标率' values.",
+      "atom_id": "pst_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "热力图中的每个单元格对应一个正负例阈值组合，颜色深浅代表F1值的高低，颜色越暗表示F1值越高，颜色越浅表示F1值越低。图中数值显示了各组合对应的F1值，例如当正例阈值为0.6、负例阈值为0.6时，F1值为75.130；当正例阈值为0.7、负例阈值为0.6时，F1值为75.116；当正例阈值为0.8、负例阈值为0.5时，F1值为75.511。根据图中数据，F1值最高为75.511（正例阈值0.8，负例阈值0.5），最低为72.280（正例阈值0.9，负例阈值0.5）。右侧的色标条显示F1值范围从72到76，颜色从浅黄渐变至深蓝。",
+      "evidence": "The description hallucinates a heatmap with threshold combinations, color gradients, and F1 values that do not exist in the provided line chart.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该图像中未包含图3(a)，因此无法提供其描述。",
+      "evidence": "The statement is unnecessary and irrelevant to the provided image, which is clearly labeled and does not require disclaimers about missing figures.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 14,
+  "mqm_score": 65.16,
+  "total_penalty": 54.0,
+  "atom_coverage": {
+    "correct": 21,
+    "inaccurate": 5,
+    "missing": 7,
+    "total": 31,
+    "accuracy": 0.8077,
+    "completeness": 0.75
+  }
+}

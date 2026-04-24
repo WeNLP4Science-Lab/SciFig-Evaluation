@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_045",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:24:33.129061+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure contains two **pie charts** labeled **(a)** and **(b)**. There are **no axes** (pie charts). Each slice is labeled with a **percentage** and keyed by a **legend** above each pie.  \n- **Chart (a)** legend tokens: **the, this, for, chemical, to, in**. Slices show **31%, 21%, 17%, 15%, 9%, 7%** (largest is “the” at 31%). Colors/patterns are mostly blue/green/yellow with different hatch styles.  \n- **Chart (b)** legend tokens: **the, $, equilibrium, consatant**. Slices show **38%, 27%, 19%, 15%** (largest is “the” at 38%). Colors/patterns include blue (the), red ($), yellow (equilibrium), gray (consatant).\n\n1. **52%**  \n2. **“the”, difference = 7% (38% − 31%)**  \n3. **“consatant” → likely “constant”**  \n4. **0%** (there is no “reaction” slice shown in chart (b))  \n5. **Yes; yes, the largest slice in (a) is labeled 31%, and that matches the chart.**",
+      "items": [
+        {
+          "id": "ml045_q1",
+          "type": "capability",
+          "question": "What is the combined percentage of the top two tokens in chart (a)?",
+          "model_answer": "**52%**",
+          "full_response": "**52%**"
+        },
+        {
+          "id": "ml045_q2",
+          "type": "capability",
+          "question": "Which token appears in both chart (a) and chart (b), and what is the difference in its percentage between the two charts?",
+          "model_answer": "**“the”, difference = 7% (38% − 31%)**",
+          "full_response": "**“the”, difference = 7% (38% − 31%)**"
+        },
+        {
+          "id": "ml045_q3",
+          "type": "capability",
+          "question": "In chart (b), the legend shows a word that appears to be misspelled. What is the misspelled word and what should it likely be?",
+          "model_answer": "**“consatant” → likely “constant”**",
+          "full_response": "**“consatant” → likely “constant”**"
+        },
+        {
+          "id": "ml045_h1",
+          "type": "hallucination_inexist",
+          "question": "In chart (b), what percentage does the 'reaction' token itself occupy in the co-occurrence distribution for the mathematics domain?",
+          "model_answer": "(there is no “reaction” slice shown in chart (b))",
+          "full_response": "**0%** (there is no “reaction” slice shown in chart (b))"
+        },
+        {
+          "id": "ml045_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the largest slice in pie chart (a) labeled as 31%? Is this correct?",
+          "model_answer": "**Yes; yes, the largest slice in (a) is labeled 31%, and that matches the chart.**",
+          "full_response": "**Yes; yes, the largest slice in (a) is labeled 31%, and that matches the chart.**"
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T13:27:12.193849+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure contains two **pie charts** labeled **(a)** and **(b)**. There are **no axes** (pie charts show proportions). Each slice is labeled with a **percentage** and uses distinct **colors/pattern hatches** that match a legend above each pie.  \n- **Chart (a)** legend categories: **the, this, for, chemical, to, in** with slice labels **31%, 21%, 17%, 15%, 9%, 7%** (largest is “the” at 31%).  \n- **Chart (b)** legend categories: **the, $ (dollar sign), equilibrium, consatant** with slice labels **38%, 27%, 19%, 15%** (largest is “the” at 38%).  \nNotable pattern: in both charts, **“the” is the largest share**, and function words take a substantial portion.\n\n1. Chart (a) has **2 more** token categories than chart (b) (6 vs 4).  \n2. **15%** (only “chemical” is not a function word among the listed categories in (a)).  \n3. **It suggests the opposite of the premise**: since (a) actually has **more** categories than (b), (a) is **more granular**, which would typically indicate **greater observed vocabulary variety** in that breakdown than (b).  \n4. **15%** (probability “reaction” is followed by a domain-specific token rather than a function word, using the domain-specific slice “chemical” vs the function-word slices).  \n5. **No.** The largest slice in (a) is labeled **31%**, not 21%; **21%** is the “this” slice.",
+      "items": [
+        {
+          "id": "ml045_q4",
+          "type": "capability",
+          "question": "How many more token categories does chart (a) have compared to chart (b)?",
+          "model_answer": "Chart (a) has **2 more** token categories than chart (b) (6 vs 4).",
+          "full_response": "Chart (a) has **2 more** token categories than chart (b) (6 vs 4)."
+        },
+        {
+          "id": "ml045_q5",
+          "type": "capability",
+          "question": "In chart (a), what is the combined percentage of all tokens that are NOT function words (i.e., excluding 'the', 'this', 'for', 'to', and 'in')?",
+          "model_answer": "(only “chemical” is not a function word among the listed categories in (a)).",
+          "full_response": "**15%** (only “chemical” is not a function word among the listed categories in (a))."
+        },
+        {
+          "id": "ml045_h2",
+          "type": "hallucination_contra",
+          "question": "Considering that chart (a) for the chemistry domain contains only four token categories while chart (b) for mathematics contains six, what does this difference in granularity suggest about vocabulary diversity?",
+          "model_answer": ": since (a) actually has **more** categories than (b), (a) is **more granular**, which would typically indicate **greater observed vocabulary variety** in that breakdown than (b).",
+          "full_response": "**It suggests the opposite of the premise**: since (a) actually has **more** categories than (b), (a) is **more granular**, which would typically indicate **greater observed vocabulary variety** in that breakdown than (b)."
+        },
+        {
+          "id": "ml045_h3",
+          "type": "hallucination_unanswerable",
+          "question": "Based on the co-occurrence distributions shown, what is the probability that 'reaction' will be followed by a domain-specific token rather than a function word in a randomly sampled chemistry paper?",
+          "model_answer": "(probability “reaction” is followed by a domain-specific token rather than a function word, using the domain-specific slice “chemical” vs the function-word slices).",
+          "full_response": "**15%** (probability “reaction” is followed by a domain-specific token rather than a function word, using the domain-specific slice “chemical” vs the function-word slices)."
+        },
+        {
+          "id": "ml045_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the largest slice in pie chart (a) labeled as 21%? Is this correct?",
+          "model_answer": "The largest slice in (a) is labeled **31%**, not 21%; **21%** is the “this” slice.",
+          "full_response": "**No.** The largest slice in (a) is labeled **31%**, not 21%; **21%** is the “this” slice."
+        }
+      ]
+    }
+  ]
+}

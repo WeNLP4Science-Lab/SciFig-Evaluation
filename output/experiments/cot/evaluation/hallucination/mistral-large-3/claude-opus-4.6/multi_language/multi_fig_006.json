@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_006",
+  "subfolder": "multi_language",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T15:15:32.490885+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml006_h1",
+      "probe_type": "inexist",
+      "question": "At which layer does the shaded confidence interval around the blue dashed line first become noticeably wider, suggesting increased uncertainty in the hidden state mean before gating?",
+      "model_answer": "The shaded confidence interval around the blue dashed line first becomes noticeably wider at approximately **layer 20**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the non-existent shaded confidence interval as if it exists, providing a specific layer number (layer 20) where widening supposedly occurs. This constitutes a clear hallucination without any indication of uncertainty or acknowledgment of the element's absence."
+    },
+    {
+      "probe_id": "ml006_h2",
+      "probe_type": "contra",
+      "question": "Considering that the orange dotted line (hidden state mean after gate) converges with the blue dashed line (hidden state mean before gate) around layer 20, what does this convergence suggest about the effectiveness of gating in later layers?",
+      "model_answer": "The orange dotted line (after gate) does **not** converge with the blue dashed line around layer 20; they actually diverge significantly in later layers. The orange line stays near zero while the blue line spikes. This suggests that gating becomes **more effective** (more suppressive) in later layers, as it dramatically reduces the large hidden state values that emerge in deeper layers.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise by stating that the orange dotted line does not converge with the blue dashed line around layer 20 and instead highlights their divergence. It then proceeds to answer the question based on the corrected premise."
+    },
+    {
+      "probe_id": "ml006_h3",
+      "probe_type": "unanswerable",
+      "question": "Given the average values reported in the legend (0.71 before gate, 0.05 after gate, 0.04 baseline), what is the standard deviation of the hidden state mean before gating across all layers?",
+      "model_answer": "The standard deviation cannot be precisely determined from the chart alone. However, given the average of 0.71 and the visible range from near 0 (early layers) to ~4.5 (final layers) with exponential growth, the standard deviation across all layers is approximately **1.0–1.2**.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model hedges by stating that the standard deviation 'cannot be precisely determined from the chart alone' but still attempts an estimate ('approximately 1.0–1.2'). This falls short of a clear acknowledgment that the information is entirely unavailable, warranting a partial score."
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "figure_key": "german_fig_002",
+  "subfolder": "german_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "German",
+  "num_atoms": 19,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die blaue, gestrichelte Linie mit Balken stellt den Saldo (rechte Skala) dar",
+      "evidence": "The saldo is represented by bars, not a blue dashed line. The blue line represents Importe (linke Skala).",
+      "atom_id": "legend_bars"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "beginnt bei etwa 150 Milliarden US-Dollar im Jahr 2020, fällt kontinuierlich auf etwa -150 Milliarden US-Dollar im Jahr 2023",
+      "evidence": "The saldo (bars) start at 0 and become increasingly negative, but the description incorrectly assigns a starting value of 150 and an incorrect trend. The bars do not start at 150.",
+      "atom_id": "bars_description"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "fällt auf etwa 20 Milliarden US-Dollar im Jahr 2023",
+      "evidence": "The red line (Exporte) ends at approximately 175 in 2023, not 20.",
+      "atom_id": "red_line_2023"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "fällt auf etwa 300 Milliarden US-Dollar im Jahr 2023",
+      "evidence": "The blue line (Importe) ends at approximately 350 in 2023, not 300, and it does not fall but rises overall.",
+      "atom_id": "blue_line_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "lila, durchgezogene Linie",
+      "evidence": "The line representing Exporte is red, not purple.",
+      "atom_id": "red_line_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "während die rechte Skala von -200 bis 400 Milliarden US-Dollar reicht und ebenfalls linear mit einem Intervall von 50 Milliarden US-Dollar ist",
+      "evidence": "The right y-axis has tick intervals of 100, not 50.",
+      "atom_id": "y_axis_right_scale"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars (Saldo) start at 0 and become increasingly longer downward.",
+      "atom_id": "bars_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Die blaue, gestrichelte Linie mit Balken",
+      "evidence": "There is no blue dashed line in the figure. The description hallucinates this visual element.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "fällt kontinuierlich auf etwa -150 Milliarden US-Dollar im Jahr 2023",
+      "evidence": "The description interprets the trend of the saldo as continuous, which is not explicitly stated in the figure or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "wobei die Jahre 2022 und 2023 doppelt beschriftet sind",
+      "evidence": "The description is unclear about the exact labeling of the x-axis (2023 is triple-labeled, not just 2022 and 2023).",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Die x-Achse zeigt die Zeit in Jahren, mit Beschriftungen von 2020 bis 2023, wobei die Jahre 2022 und 2023 doppelt beschriftet sind, und verläuft linear mit einem Intervall von einem Jahr.",
+      "evidence": "The sentence is overly complex and awkwardly phrased.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 57.37,
+  "total_penalty": 40.5,
+  "atom_coverage": {
+    "correct": 12,
+    "inaccurate": 6,
+    "missing": 1,
+    "total": 19,
+    "accuracy": 0.6667,
+    "completeness": 0.9231
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在x轴上的变化趋势是从3开始上升到8达到峰值0.69，然后轻微上升到13达到最大值0.70，随后下降到16时的0.65",
+      "evidence": "lattice方法的F1值在epoch=4时约为0.73，epoch=8时约为0.80，epoch=16时约为0.85，且无下降趋势。",
+      "atom_id": "lattice_epoch4_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线代表“FLAT”类别，标记为圆形，在x轴上的变化趋势是从8开始0.79，然后下降到16时的0.67",
+      "evidence": "FLAT方法在epoch=8时F1值约为0.85，epoch=14时约为0.88，epoch=16时无数据点，且无下降趋势。",
+      "atom_id": "flat_epoch8_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色实线代表“OURS”类别，标记为三角形，在x轴上的变化趋势是从8开始0.81，然后下降到16时的0.70",
+      "evidence": "OURS方法在epoch=8时F1值约为0.87，epoch=16时约为0.90，且无下降趋势。",
+      "atom_id": "ours_epoch8_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在x轴上的变化趋势是从3开始上升",
+      "evidence": "lattice方法的数据点从epoch=1开始，而非epoch=3。",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线代表“FLAT”类别，标记为圆形，在x轴上的变化趋势是从8开始",
+      "evidence": "FLAT方法的数据点从epoch=2开始，而非epoch=8。",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色实线代表“OURS”类别，标记为三角形，在x轴上的变化趋势是从8开始",
+      "evidence": "OURS方法的数据点从epoch=1开始，而非epoch=8。",
+      "atom_id": "ours_initial_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明图表的目的是展示不同方法在训练过程中F1分数的演变。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法收敛速度较快，在epoch=10即超过FLAT。",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明y轴刻度间隔为0.05。",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "在x轴上的变化趋势是从3开始上升到8达到峰值0.69，然后轻微上升到13达到最大值0.70，随后下降到16时的0.65",
+      "evidence": "lattice方法在epoch=16时F1值约为0.85，无下降趋势，且无epoch=13的数据点。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "蓝色实线代表“FLAT”类别，标记为圆形，在x轴上的变化趋势是从8开始0.79，然后下降到16时的0.67",
+      "evidence": "FLAT方法无下降趋势，且无epoch=16的数据点。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "黄色实线代表“OURS”类别，标记为三角形，在x轴上的变化趋势是从8开始0.81，然后下降到16时的0.70",
+      "evidence": "OURS方法无下降趋势，且F1值在epoch=16时约为0.90。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "数值范围从0到18，刻度为线性分布，数值间隔为2",
+      "evidence": "x轴刻度描述不够明确，未说明是否包含所有刻度点。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该图展示了三个不同类别（lattice、FLAT 和 OURS）的F1分数随epoch（次）变化的情况",
+      "evidence": "未明确说明比较的是不同方法的表现。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 14,
+  "mqm_score": 62.22,
+  "total_penalty": 51.0,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 6,
+    "missing": 3,
+    "total": 27,
+    "accuracy": 0.75,
+    "completeness": 0.8571
+  }
+}

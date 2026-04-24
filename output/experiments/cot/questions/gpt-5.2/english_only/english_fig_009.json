@@ -1,0 +1,94 @@
+{
+  "figure_key": "english_fig_009",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:23:34.524190+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual structure (what the figure shows):** It’s a **two-ring donut chart** (nested pie chart). There are **no axes**.  \n- **Outer ring** is labeled **“Ambiguity Std (Outer)”** with four blue shades for **Std: 0.0, 0.47, 0.82, 0.94**. The outer slices are annotated **49.0%**, **39.0%**, **5.0%**, **7.0%** (largest to smallest-ish around the ring).  \n- **Inner ring** is labeled **“Max Ambiguity (Inner)”** with three lighter blue shades for **Max: 1, Max: 2, Max: 3**, annotated **47.7%**, **38.0%**, **14.2%**.  \nNotable pattern: both rings are dominated by one large slice near ~48–49%, with the outer ring having two very small slices (5% and 7%).\n\n1. **12.0%** (5.0% + 7.0%)  \n2. **47.7 : 14.2** (≈ **3.36 : 1**)  \n3. **Outer ring**, and the dominant-category difference is **1.3 percentage points** (49.0% vs 47.7%)  \n4. **5.0%**, and it is **2.0 percentage points smaller** than the adjacent **7.0%** slice  \n5. **Yes**—the largest outer segment is labeled **49.0%** in the chart.",
+      "items": [
+        {
+          "id": "en009_q1",
+          "type": "capability",
+          "question": "What is the combined percentage of the two smallest slices in the outer ring (Ambiguity Std)?",
+          "model_answer": "(5.0% + 7.0%)",
+          "full_response": "**12.0%** (5.0% + 7.0%)"
+        },
+        {
+          "id": "en009_q2",
+          "type": "capability",
+          "question": "In the inner ring, what is the ratio of Max: 1 to Max: 3?",
+          "model_answer": "(≈ **3.36 : 1**)",
+          "full_response": "**47.7 : 14.2** (≈ **3.36 : 1**)"
+        },
+        {
+          "id": "en009_q3",
+          "type": "capability",
+          "question": "Which ring (inner or outer) has a larger percentage for its dominant category, and what is the percentage difference between the two dominant categories?",
+          "model_answer": ", and the dominant-category difference is **1.3 percentage points** (49.0% vs 47.7%)",
+          "full_response": "**Outer ring**, and the dominant-category difference is **1.3 percentage points** (49.0% vs 47.7%)"
+        },
+        {
+          "id": "en009_h1",
+          "type": "hallucination_inexist",
+          "question": "What percentage does the Std: 1.41 slice in the outer ring represent, and how does it compare to the adjacent Std: 0.94 slice?",
+          "model_answer": ", and it is **2.0 percentage points smaller** than the adjacent **7.0%** slice",
+          "full_response": "**5.0%**, and it is **2.0 percentage points smaller** than the adjacent **7.0%** slice"
+        },
+        {
+          "id": "en009_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "The largest segment in the outer ring of this donut chart is labeled approximately 49.0%. Is this correct?",
+          "model_answer": "—the largest outer segment is labeled **49.0%** in the chart.",
+          "full_response": "**Yes**—the largest outer segment is labeled **49.0%** in the chart."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T13:26:03.004995+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual structure (what’s shown):** A two-level donut (nested pie) chart with no axes. The **outer ring** encodes *Ambiguity Std* with four blue shades labeled **Std: 0.0 (49.0%)**, **Std: 0.47 (39.0%)**, **Std: 0.82 (5.0%)**, **Std: 0.94 (7.0%)**. The **inner ring** encodes *Max Ambiguity* with three lighter blue shades labeled **Max: 1 (47.7%)**, **Max: 2 (38.0%)**, **Max: 3 (14.2%)**. Notable pattern: most mass is in low-to-moderate variability (Std 0.0 and 0.47) and lower max ambiguity (Max 1–2).\n\n1. **51.0%** (everything except Std: 0.0 → 39.0% + 5.0% + 7.0% = 51.0%).  \n2. **Smaller**: inner (Max:2 + Max:3) = **52.2%**, which is **13.2 percentage points higher** than outer Std:0.47 at **39.0%**.  \n3. It implies **typical disagreement is moderate**—many items reach ambiguity level 2 among annotators rather than being uniformly unambiguous.  \n4. **Not determinable from this chart**; Cohen’s/Fleiss’ kappa requires per-item agreement counts (who chose what), not just marginal distributions of max and standard deviation.  \n5. **No**. The ~47.7% label is on the **inner ring (Max: 1)**; the **largest outer-ring** segment is **49.0% (Std: 0.0)**.",
+      "items": [
+        {
+          "id": "en009_q4",
+          "type": "capability",
+          "question": "What percentage of samples in the outer ring have a non-zero ambiguity standard deviation?",
+          "model_answer": "(everything except Std: 0.0 → 39.0% + 5.0% + 7.0% = 51.0%).",
+          "full_response": "**51.0%** (everything except Std: 0.0 → 39.0% + 5.0% + 7.0% = 51.0%)."
+        },
+        {
+          "id": "en009_q5",
+          "type": "capability",
+          "question": "If you combine the inner ring's Max: 2 and Max: 3 categories, how does their total compare to the outer ring's Std: 0.47 category?",
+          "model_answer": ": inner (Max:2 + Max:3) = **52.2%**, which is **13.2 percentage points higher** than outer Std:0.47 at **39.0%**.",
+          "full_response": "**Smaller**: inner (Max:2 + Max:3) = **52.2%**, which is **13.2 percentage points higher** than outer Std:0.47 at **39.0%**."
+        },
+        {
+          "id": "en009_h2",
+          "type": "hallucination_contra",
+          "question": "Considering that Max: 2 is the dominant category in the inner ring at 47.7%, what does this imply about the typical level of annotator disagreement in the dataset?",
+          "model_answer": "It implies **typical disagreement is moderate**—many items reach ambiguity level 2 among annotators rather than being uniformly unambiguous.",
+          "full_response": "It implies **typical disagreement is moderate**—many items reach ambiguity level 2 among annotators rather than being uniformly unambiguous."
+        },
+        {
+          "id": "en009_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the inter-annotator agreement measured by Cohen's kappa or Fleiss' kappa for the ambiguity ratings shown in this chart?",
+          "model_answer": "; Cohen’s/Fleiss’ kappa requires per-item agreement counts (who chose what), not just marginal distributions of max and standard deviation.",
+          "full_response": "**Not determinable from this chart**; Cohen’s/Fleiss’ kappa requires per-item agreement counts (who chose what), not just marginal distributions of max and standard deviation."
+        },
+        {
+          "id": "en009_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "The largest segment in the outer ring of this donut chart is labeled approximately 47.7%. Is this correct?",
+          "model_answer": ". The ~47.7% label is on the **inner ring (Max: 1)**; the **largest outer-ring** segment is **49.0% (Std: 0.0)**.",
+          "full_response": "**No**. The ~47.7% label is on the **inner ring (Max: 1)**; the **largest outer-ring** segment is **49.0% (Std: 0.0)**."
+        }
+      ]
+    }
+  ]
+}

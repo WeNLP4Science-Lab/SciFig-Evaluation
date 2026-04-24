@@ -1,0 +1,114 @@
+{
+  "figure_key": "bulgarian_fig_038",
+  "subfolder": "bulgarian_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "aspect_ratio",
+  "figure_type": "pie_chart",
+  "language": "Bulgarian",
+  "num_atoms": 23,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "оцветени в червен, жълт, син и светло син цвят",
+      "evidence": "Цветовете на секторите са: индустрия (жълто), строителство (синьо), търговия (червено), други услуги (кафяво). Машината описва други услуги като светло син, което е грешно.",
+      "atom_id": "sector_services_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Секторите „Строителство“, „Търговия“ и „Други услуги“ съответно съставляват 19%, 12% и 8% от предприятията",
+      "evidence": "За първата диаграма (NUMBER OF ENTERPRISES) стойностите са: строителство 8%, търговия 19%, други услуги 12%. Машината разменя стойностите за строителство и търговия.",
+      "atom_id": "chart1_construction"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "9%, 21% и 19% от заетите",
+      "evidence": "За втората диаграма (NUMBER OF PERSONS EMPLOYED) стойностите са: строителство 9%, търговия 19%, други услуги 21%. Машината разменя стойностите за търговия и други услуги.",
+      "atom_id": "chart2_trade"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "6%, 31% и 33% от оборота",
+      "evidence": "За третата диаграма (TURNOVER) стойностите са: строителство 6%, търговия 31%, други услуги 33%. Машината описва правилно процентите, но подреждането на секторите в текста не съответства на описаните стойности за строителство и търговия.",
+      "atom_id": "chart3_construction"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Не се споменава абсолютната стойност за индустрията във втората диаграма (80.2 млн.).",
+      "atom_id": "chart2_industry"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Не се споменава абсолютната стойност за търговия и други услуги в третата диаграма (9.9 трилиона и 10.6 трилиона).",
+      "atom_id": "chart3_trade"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Не се споменава абсолютната стойност за строителство в третата диаграма (1.9 трилиона).",
+      "atom_id": "chart3_construction"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Не се споменава изрично, че диаграмите представят разпределението в проценти от общата икономика.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Секторите в диаграмите изглеждат визуализирани по начин, който отразява намаляващ размер от синьо към червено.",
+      "evidence": "Твърдението е неясно и не отразява реалното подреждане на секторите в диаграмите.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Влиянието на промишлеността е доминиращо във всичките три диаграми",
+      "evidence": "Твърдението е преувеличено за третата диаграма (TURNOVER), където промишлеността и търговията имат еднакви стойности (31%).",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 75.65,
+  "total_penalty": 28.0,
+  "atom_coverage": {
+    "correct": 16,
+    "inaccurate": 4,
+    "missing": 4,
+    "total": 23,
+    "accuracy": 0.8,
+    "completeness": 0.8
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "aspect_ratio",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "刻度范围从0到180,000，以20,000为间隔",
+      "evidence": "左侧y轴范围应为0–1,800,000，步长为200,000，而非0–180,000和20,000",
+      "atom_id": "y_axis_left_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其数值在20,000至160,000之间波动",
+      "evidence": "柱状图数值范围应在0–1,800,000之间，而非20,000–160,000",
+      "atom_id": "y_axis_left_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及柱状图的颜色（蓝绿色）",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及折线图的颜色（蓝色）",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明x轴的时间范围是近两个月，仅提到按七天间隔标注",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "柱状图和折线图均按时间顺序排列，两者在多个时间点呈现出相似的波动趋势，例如在2022年7月15日左右均达到高峰，而在2022年8月26日附近均处于较低水平",
+      "evidence": "未提及滞后效应，且过于简化同步波动特征，未完全覆盖原子描述的差异峰值时段",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及两者在差异峰值时段的表现（如确诊高峰伴随报道上升但存在滞后效应）",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "两者在多个时间点呈现出相似的波动趋势",
+      "evidence": "过于简化波动关系，未体现原子描述中的同步性和差异性",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 60.0,
+  "total_penalty": 24.0,
+  "atom_coverage": {
+    "correct": 6,
+    "inaccurate": 2,
+    "missing": 4,
+    "total": 12,
+    "accuracy": 0.75,
+    "completeness": 0.6
+  }
+}

@@ -87,7 +87,10 @@ export default function JudgeReview({ manifestFile = 'manifest.json', title = 'J
   useEffect(() => {
     setLoading(true)
     setManifest(null)
-    fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`)
+    const url = import.meta.env.PROD && (manifestFile === 'manifest_full.json' || manifestFile === 'manifest_sample.json')
+      ? `https://scifigfigures.blob.core.windows.net/data/${manifestFile}`
+      : `${import.meta.env.BASE_URL}data/${manifestFile}`
+    fetch(url)
       .then(r => {
         if (!r.ok) throw new Error(`Failed to load ${manifestFile}`)
         return r.json()

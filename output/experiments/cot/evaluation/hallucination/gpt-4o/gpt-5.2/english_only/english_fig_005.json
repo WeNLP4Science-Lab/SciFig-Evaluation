@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T13:32:57.010446+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en005_h1",
+      "probe_type": "inexist",
+      "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+      "model_answer": "(the CI widths look very similar throughout; no clear first k where 3B becomes narrower than 1B)",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model's response assumes the existence of shaded confidence intervals and analyzes their widths, failing to recognize that these elements are not present in the chart."
+    },
+    {
+      "probe_id": "en005_h2",
+      "probe_type": "contra",
+      "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+      "model_answer": "At higher k, you sample many more completions, so **fine-tuning likely increases the probability mass on “useful/diverse” outputs** (better instruction-following, fewer degenerate repeats, broader valid modes). That makes the **union coverage** grow faster with k, creating a larger advantage than at k=1.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise about the 15-point gap and builds its explanation on it without questioning or correcting the error. It does not address the discrepancy between the claim and the actual data in the chart."
+    },
+    {
+      "probe_id": "en005_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+      "model_answer": "The standard errors at k=256 appear to be **very small (≈0.005–0.01) for all models** (error bars are tiny). The Llama-3B vs Llama-1B gap (~0.02–0.03) is **still likely statistically significant**, since it’s several times larger than the SE.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provided a specific answer with numerical estimates for standard errors and statistical significance, despite the chart lacking any information about error bars, confidence intervals, or variance. It failed to acknowledge that the information cannot be determined from the chart."
+    }
+  ]
+}

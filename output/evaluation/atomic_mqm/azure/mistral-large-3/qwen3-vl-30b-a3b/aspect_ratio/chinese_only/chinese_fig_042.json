@@ -1,0 +1,60 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "aspect_ratio",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "灰色的折线穿过这些柱状图的顶部",
+      "evidence": "折线并未穿过柱状图的顶部，而是连接各准确率点，位于柱状图上方或附近。",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及准确率在角色识别任务中最高（0.8714）和空间推理任务中最低（0.2852）的具体数值对比描述，仅在结尾总结中提及。",
+      "atom_id": "role_acc"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "从视觉上看，训练集数量在“空间推理”任务中达到最高，而“同义识别”任务中的训练集数量最低。验证集数量在“空间推理”任务中最高，而在“异常识别”任务中最低。准确率在“角色识别”任务中最高，而在“空间推理”任务中最低。",
+      "evidence": "描述中包含了对比性总结，属于超出图表显示内容的主观分析，违反了原子检查单要求。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "垂直轴（Y轴）包含两个不同的刻度：左侧的主刻度用于表示训练集和验证集的数量，其范围从0到1200，以200为单位递增；右侧的次刻度用于表示准确率，其范围从0到1，以0.1为单位递增。",
+      "evidence": "描述冗余，重复提及刻度范围和单位，可简化表达。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 4,
+  "mqm_score": 95.0,
+  "total_penalty": 6.0,
+  "atom_coverage": {
+    "correct": 22,
+    "inaccurate": 1,
+    "missing": 1,
+    "total": 24,
+    "accuracy": 0.9565,
+    "completeness": 0.9565
+  }
+}

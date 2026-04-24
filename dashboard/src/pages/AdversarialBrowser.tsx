@@ -45,7 +45,7 @@ export default function AdversarialBrowser() {
   const [selectedSubfolder, setSelectedSubfolder] = useState('')
   const [selectedFigure, setSelectedFigure] = useState('')
   const [selectedTransform, setSelectedTransform] = useState<string | null>(null)
-  const { isDark } = useTheme()
+  const { } = useTheme()
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/adversarial_manifest.json`)

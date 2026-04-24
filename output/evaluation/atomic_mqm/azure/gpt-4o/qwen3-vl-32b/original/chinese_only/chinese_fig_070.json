@@ -1,0 +1,114 @@
+{
+  "figure_key": "chinese_fig_070",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/gpt-4o",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 29,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表由两个嵌套的饼图构成：外层主饼图包含六个主要语义类别，内层小饼图则进一步细分了“社交”类别下的子类别。",
+      "evidence": "图表实际由两个独立的饼图组成，左侧饼图有八个切片，右侧饼图有13个切片，没有嵌套关系。",
+      "atom_id": "layout"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "外层饼图共包含六个切片",
+      "evidence": "左侧饼图实际包含八个切片。",
+      "atom_id": "left_pie_num_slices"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "内层饼图位于“社交”类别内部，该类别在主饼图中占比为15.44%，其子类别包括：紫色的“心理活动”占15.44%（与主饼图中“社交”占比相同，可能为同一层级的再细分）",
+      "evidence": "右侧饼图是独立的饼图，包含13个切片，其中“心理活动”和“社交”分别占15.44%，没有嵌套关系。",
+      "atom_id": "right_pie_num_slices"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及图表的主要目的，即展示不同类别在特定主题中的比例分布。",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及右侧饼图的13个切片及其具体分布。",
+      "atom_id": "right_pie_num_slices"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及左侧饼图的八个切片及其具体分布。",
+      "atom_id": "left_pie_num_slices"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及图表右侧的图例说明颜色对应的类别名称。",
+      "atom_id": "legend_position"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及切片按大小比例展示。",
+      "atom_id": "ordering"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "部分切片在视觉上被放大或偏移以突出显示，例如“生活工作”和“社交”类别。",
+      "evidence": "图表中没有任何切片被放大或偏移。",
+      "atom_id": "no_emphasis"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "内层饼图位于“社交”类别内部，该类别在主饼图中占比为15.44%，其子类别包括：紫色的“心理活动”占15.44%（与主饼图中“社交”占比相同，可能为同一层级的再细分）",
+      "evidence": "描述中关于嵌套关系的表述模糊且与图表实际结构不符，容易引起误解。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 76.21,
+  "total_penalty": 34.5,
+  "atom_coverage": {
+    "correct": 22,
+    "inaccurate": 4,
+    "missing": 5,
+    "total": 29,
+    "accuracy": 0.8462,
+    "completeness": 0.8148
+  }
+}

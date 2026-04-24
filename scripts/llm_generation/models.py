@@ -316,6 +316,7 @@ OPENROUTER_MODELS = {
     "qwen3-vl-32b": "qwen/qwen3-vl-32b-instruct",
     "qwen3-vl-235b-a22b": "qwen/qwen3-vl-235b-a22b-instruct",
     "llama4-scout": "meta-llama/llama-4-scout",
+    "claude-opus-4.6": "anthropic/claude-opus-4-6",
 }
 
 

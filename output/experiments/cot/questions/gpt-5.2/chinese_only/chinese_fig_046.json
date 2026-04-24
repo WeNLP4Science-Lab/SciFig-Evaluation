@@ -1,0 +1,94 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "gpt-5.2",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:23:15.621034+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "图的结构：这是一个折线图（带点标记）。横轴是“漏标率”（刻度约为 0、0.1、0.2、0.3、0.4、0.5、0.585），纵轴是 F1（约从 52.5 到 72.5）。有三条数据序列：Teacher（红色折线，星形标记）、Self-Training（蓝色折线，方形标记）、PST（绿色折线，圆点标记）。整体上三条线随漏标率增大而下降，且PST基本始终最高；在高漏标率（0.5→0.585）处Teacher与Self-Training下降更陡。\n\n1. 约 1.0 分（PST≈69.9，Self-Training≈66.0）。  \n2. 在 0.5→0.585 区间；下降约 6.0 分（≈59.3→≈53.3）。  \n3. PST分别高出：比Teacher约 9.0 分（≈62.3−≈53.3），比Self-Training约 9.0 分（≈62.3−≈53.2）。  \n4. 图中并没有看到围绕PST的浅绿色阴影标准差带；因此在漏标率0.3处“宽度”无法从该图读出（可视为≈0）。  \n5. 正确（整体随漏标率增加而下降，虽有局部小波动）。",
+      "items": [
+        {
+          "id": "cn046_q1",
+          "type": "capability",
+          "question": "在漏标率为0.3时，PST与Self-Training的F1分数差值大约是多少？",
+          "model_answer": "约 1.0 分（PST≈69.9，Self-Training≈66.0）。",
+          "full_response": "约 1.0 分（PST≈69.9，Self-Training≈66.0）。"
+        },
+        {
+          "id": "cn046_q2",
+          "type": "capability",
+          "question": "Teacher方法在哪个漏标率区间出现了最大的单步下降？下降了大约多少？",
+          "model_answer": "在 0.5→0.585 区间；下降约 6.0 分（≈59.3→≈53.3）。",
+          "full_response": "在 0.5→0.585 区间；下降约 6.0 分（≈59.3→≈53.3）。"
+        },
+        {
+          "id": "cn046_q3",
+          "type": "capability",
+          "question": "在漏标率为0.585时，PST的F1分数比Teacher和Self-Training分别高出多少？",
+          "model_answer": "PST分别高出：比Teacher约 9.0 分（≈62.3−≈53.3），比Self-Training约 9.0 分（≈62.3−≈53.2）。",
+          "full_response": "PST分别高出：比Teacher约 9.0 分（≈62.3−≈53.3），比Self-Training约 9.0 分（≈62.3−≈53.2）。"
+        },
+        {
+          "id": "cn046_h1",
+          "type": "hallucination_inexist",
+          "question": "图中围绕PST方法（绿色线）的浅绿色阴影区域表示的标准差范围在漏标率0.3处大约有多宽？",
+          "model_answer": "图中并没有看到围绕PST的浅绿色阴影标准差带；因此在漏标率0.3处“宽度”无法从该图读出（可视为≈0）。",
+          "full_response": "图中并没有看到围绕PST的浅绿色阴影标准差带；因此在漏标率0.3处“宽度”无法从该图读出（可视为≈0）。"
+        },
+        {
+          "id": "cn046_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "随着漏标率的增加，三条线的F1值整体呈下降趋势，是否正确？",
+          "model_answer": "正确（整体随漏标率增加而下降，虽有局部小波动）。",
+          "full_response": "正确（整体随漏标率增加而下降，虽有局部小波动）。"
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T13:25:41.641175+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "图的结构：这是一个折线图。横轴是“漏标率”（取值约为0、0.1、0.2、0.3、0.4、0.5、0.585），纵轴是F1（约52.5到72.5）。有三条数据序列：Teacher（红色折线，星形标记）、Self-Training（蓝色折线，方形标记）、PST（绿色折线，圆点标记）。整体模式是：随着漏标率增大，三种方法的F1总体下降；PST在各漏标率下基本都最高，且在高漏标率处优势更明显；Teacher与Self-Training在中等漏标率附近有一次交叉（约0.2）。\n\n1. 漏标率为0、0.1、0.2、0.3、0.4、0.5时，Teacher的F1都高于Self-Training（在0.585时两者几乎相同，约53.2）。  \n2. PST从漏标率0到0.585大约从71.6降到62.3，总下降约9.3分；Teacher大约从71.7降到53.2，总下降约18.5分。PST下降明显更小（更鲁棒）。  \n3. 不完全说明。图上在0.2处Self-Training（约68.8）并没有超过Teacher（约69.2）；两者真正接近/交叉更像发生在更高漏标率端（到0.585几乎相同）。因此不能据此得出“中等漏标下Self-Training更具优势”的结论。  \n4. 仅凭这张图无法判断统计显著性（是否配对t检验p<0.05需要每个点的重复实验/方差等原始数据）。只能说在该点上数值差距看起来很大。  \n5. 不正确。随着漏标率增加，三条线的F1整体是下降趋势，而不是上升。",
+      "items": [
+        {
+          "id": "cn046_q4",
+          "type": "capability",
+          "question": "在哪些漏标率下，Teacher的F1分数高于Self-Training？",
+          "model_answer": "漏标率为0、0.1、0.2、0.3、0.4、0.5时，Teacher的F1都高于Self-Training（在0.585时两者几乎相同，约53.2）。",
+          "full_response": "漏标率为0、0.1、0.2、0.3、0.4、0.5时，Teacher的F1都高于Self-Training（在0.585时两者几乎相同，约53.2）。"
+        },
+        {
+          "id": "cn046_q5",
+          "type": "capability",
+          "question": "PST方法从漏标率0到0.585的F1总下降量大约是多少？与Teacher方法的总下降量相比如何？",
+          "model_answer": "PST从漏标率0到0.585大约从71.6降到62.3，总下降约9.3分；Teacher大约从71.7降到53.2，总下降约18.5分。PST下降明显更小（更鲁棒）。",
+          "full_response": "PST从漏标率0到0.585大约从71.6降到62.3，总下降约9.3分；Teacher大约从71.7降到53.2，总下降约18.5分。PST下降明显更小（更鲁棒）。"
+        },
+        {
+          "id": "cn046_h2",
+          "type": "hallucination_contra",
+          "question": "从图中可以看出，在漏标率为0.2时，Self-Training方法的F1得分（约70.5）首次超过了Teacher方法（约69.0）。这是否说明Self-Training在中等漏标条件下更具优势？",
+          "model_answer": "不完全说明。图上在0.2处Self-Training（约68.8）并没有超过Teacher（约69.2）；两者真正接近/交叉更像发生在更高漏标率端（到0.585几乎相同）。因此不能据此得出“中等漏标下Self-Training更具优势”的结论。",
+          "full_response": "不完全说明。图上在0.2处Self-Training（约68.8）并没有超过Teacher（约69.2）；两者真正接近/交叉更像发生在更高漏标率端（到0.585几乎相同）。因此不能据此得出“中等漏标下Self-Training更具优势”的结论。"
+        },
+        {
+          "id": "cn046_h3",
+          "type": "hallucination_unanswerable",
+          "question": "PST方法在漏标率0.585处的F1得分（约61.5）仍显著高于Teacher和Self-Training（均约53）。这种鲁棒性优势在统计上是否显著（配对t检验p<0.05）？",
+          "model_answer": "仅凭这张图无法判断统计显著性（是否配对t检验p<0.05需要每个点的重复实验/方差等原始数据）。只能说在该点上数值差距看起来很大。",
+          "full_response": "仅凭这张图无法判断统计显著性（是否配对t检验p<0.05需要每个点的重复实验/方差等原始数据）。只能说在该点上数值差距看起来很大。"
+        },
+        {
+          "id": "cn046_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "随着漏标率的增加，三条线的F1值整体呈上升趋势，是否正确？",
+          "model_answer": "不正确。随着漏标率增加，三条线的F1整体是下降趋势，而不是上升。",
+          "full_response": "不正确。随着漏标率增加，三条线的F1整体是下降趋势，而不是上升。"
+        }
+      ]
+    }
+  ]
+}

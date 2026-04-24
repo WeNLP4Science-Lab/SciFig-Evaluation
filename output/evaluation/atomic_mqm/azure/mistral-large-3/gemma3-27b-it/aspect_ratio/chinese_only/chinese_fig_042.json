@@ -1,0 +1,114 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "aspect_ratio",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Chart Purpose",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图表呈现了三种不同物种的调查数量以及与它们相关的准确率",
+      "evidence": "图表实际呈现的是不同识别和推理任务的训练集数量、验证集数量及准确率，而非物种调查数量。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "每组柱状图包含三个柱子，分别用蓝色、橙色和灰色表示，分别代表调查数量和准确率数据",
+      "evidence": "图表中每组柱状图只有两个柱子（蓝色和橙色），分别代表训练集和验证集数量，灰色折线代表准确率，而非灰色柱子。",
+      "atom_id": "bar_colors"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "灰色柱子为 0.03769",
+      "evidence": "同义识别的准确率应为0.3769，而非0.03769。",
+      "atom_id": "synonym_acc"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色柱子的高度约为 675，橙色柱子约为 55",
+      "evidence": "空间推理的训练集数量应为1210，验证集数量应为675；同义识别的训练集数量为5，验证集数量为55。",
+      "atom_id": "spatial_train"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色柱子约为 5",
+      "evidence": "同义识别的验证集数量为55，而非5。",
+      "atom_id": "synonym_val"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "描述中提到左侧刻度间隔为100，但图表实际间隔为200。",
+      "atom_id": "y_axis_left_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "三种不同物种的调查数量",
+      "evidence": "图表未涉及物种或调查数量，属于无中生有。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "看起来好像显示了准确率随每个物种类别而变化的趋势",
+      "evidence": "描述中加入了主观推测（'看起来好像'），且使用了不准确的术语（'物种类别'）。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "每组柱状图包含三个柱子，分别用蓝色、橙色和灰色表示，分别代表调查数量和准确率数据",
+      "evidence": "描述模糊，未明确说明灰色代表准确率（折线而非柱子），且未区分训练集和验证集。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "图表由成组的柱状图构成，每组对应一种物种类别",
+      "evidence": "过度泛化，未明确说明每组柱状图代表的具体内容（训练集和验证集）。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 72.08,
+  "total_penalty": 33.5,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 24,
+    "accuracy": 0.7826,
+    "completeness": 0.9474
+  }
+}

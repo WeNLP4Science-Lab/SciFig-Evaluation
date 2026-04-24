@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "noise",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "政治（14%）",
+      "evidence": "Description states 政治 as 14%, but the figure shows 政治 as 6%.",
+      "atom_id": "slice_zhengzhi"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "环境保护（14%）",
+      "evidence": "Description lists 环境保护 before 文化, implying 环境保护 is larger, but both are 14%. This is not an error in value but in ordering logic. However, the atom specifies 文化 as 14% and 环境保护 as 14%, so no numerical error here. Correction: This is an Incorrect Visual Attribute Mapping for ordering.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "各类别的比例从大到小依次为：科学（21%）、社会（20%）、榜样（19%）、政治（14%）、环境保护（14%）、文化（6%）、经济（2%）和体育（4%）",
+      "evidence": "The description incorrectly orders 政治 (14%) before 环境保护 (14%) and 文化 (6%). 文化 should be 14%, not 6%. The correct order should include 文化 (14%) before 政治 (6%).",
+      "atom_id": "slice_zhengzhi"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "文化（6%）",
+      "evidence": "Description states 文化 as 6%, but the figure shows 文化 as 14%.",
+      "atom_id": "slice_wenhua"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the chart represents the distribution of news topics generated with the assistance of large models for children's long news.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that there is no visual emphasis or offset for any slice, nor does it state that the slices are not strictly sorted by proportion.",
+      "atom_id": "no_emphasis"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "无需图例来解释各个部分所代表的类别，因为类别在图表下方的图例中以颜色对应显示",
+      "evidence": "The description incorrectly claims that the legend is unnecessary because the labels are directly on the slices. The figure includes a legend, and the description itself later references it.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "整体上，该图表直观地展示了儿童长篇新闻中不同类别的分布情况",
+      "evidence": "The description oversimplifies the chart's purpose by not specifying that the news is generated with the assistance of large models.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "虽然图表中的类别未按特定顺序排列，但通过百分比可以清晰地看出各类别的比例",
+      "evidence": "The phrasing is awkward and redundant, as the description already lists the percentages in order.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 61.88,
+  "total_penalty": 30.5,
+  "atom_coverage": {
+    "correct": 12,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 16,
+    "accuracy": 0.8571,
+    "completeness": 0.8571
+  }
+}

@@ -42,6 +42,8 @@ export default function DatasetBrowser() {
   const [selectedSubfolder, setSelectedSubfolder] = useState<string>('')
   const [selectedFigureType, setSelectedFigureType] = useState<string>('')
   const [selectedFigure, setSelectedFigure] = useState<string>('')
+  const [atomsData, setAtomsData] = useState<Record<string, any> | null>(null)
+  const [atomsExpanded, setAtomsExpanded] = useState(false)
   const { isDark } = useTheme()
 
   useEffect(() => {
@@ -56,6 +58,11 @@ export default function DatasetBrowser() {
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false))
+
+    fetch(`${import.meta.env.BASE_URL}data/atoms.json`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setAtomsData(data))
+      .catch(() => {})
   }, [])
 
   // Figures filtered by subfolder only (for computing available figure types)
@@ -484,6 +491,132 @@ export default function DatasetBrowser() {
                 ))}
               </div>
             </div>
+
+            {/* Atomic MQM Atoms (expandable) */}
+            {atomsData && atomsData[currentFigure.figure_key] && (() => {
+              const figAtoms = atomsData[currentFigure.figure_key]
+              const severityColor = (sev: string) => {
+                if (sev === 'critical') return { bg: 'var(--m3-error-container)', text: 'var(--m3-on-error-container)' }
+                if (sev === 'important') return { bg: 'var(--m3-tertiary-container)', text: 'var(--m3-on-tertiary-container)' }
+                return { bg: 'var(--m3-surface-container-highest)', text: 'var(--m3-on-surface-variant)' }
+              }
+              return (
+                <div className="mb-4">
+                  <button
+                    onClick={() => setAtomsExpanded(!atomsExpanded)}
+                    className="flex items-center gap-3 mb-4 w-full group"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <h3
+                      className="text-[11px] font-medium uppercase"
+                      style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}
+                    >
+                      Atomic MQM Checklist
+                    </h3>
+                    <span
+                      className="px-2 py-0.5 rounded-full text-[10px] font-medium tabular-nums"
+                      style={{
+                        backgroundColor: 'var(--m3-primary-container)',
+                        color: 'var(--m3-on-primary-container)',
+                      }}
+                    >
+                      {figAtoms.atom_count} atoms
+                    </span>
+                    <div className="flex-1 h-px" style={{ backgroundColor: 'var(--m3-outline-variant)' }} />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                      fill="none" stroke="var(--m3-outline)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                      style={{ transform: atomsExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 200ms' }}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </button>
+
+                  {atomsExpanded && (
+                    <>
+                    {figAtoms.reference_description && (
+                      <div className="rounded-lg p-4 mb-4 animate-fade-in" style={{ backgroundColor: 'var(--m3-surface-container)', border: '1px solid var(--m3-outline-variant)' }}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-medium uppercase px-2 py-0.5 rounded-full" style={{ backgroundColor: 'var(--m3-primary-container)', color: 'var(--m3-on-primary-container)', letterSpacing: '0.5px' }}>
+                            Groundtruth Reference
+                          </span>
+                        </div>
+                        <p className="text-xs leading-relaxed" style={{ color: 'var(--m3-on-surface)', letterSpacing: '0.25px', whiteSpace: 'pre-wrap' }}>
+                          {figAtoms.reference_description}
+                        </p>
+                      </div>
+                    )}
+                    <div
+                      className="rounded-xl overflow-hidden animate-fade-in"
+                      style={{
+                        border: '1px solid var(--m3-outline-variant)',
+                        backgroundColor: 'var(--m3-surface-container)',
+                      }}
+                    >
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr style={{ borderBottom: '1px solid var(--m3-outline-variant)' }}>
+                            <th
+                              className="text-left px-4 py-3 text-[11px] font-medium uppercase"
+                              style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px', width: '120px' }}
+                            >
+                              ID
+                            </th>
+                            <th
+                              className="text-left px-4 py-3 text-[11px] font-medium uppercase"
+                              style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px', width: '80px' }}
+                            >
+                              Severity
+                            </th>
+                            <th
+                              className="text-left px-4 py-3 text-[11px] font-medium uppercase"
+                              style={{ color: 'var(--m3-outline)', letterSpacing: '0.5px' }}
+                            >
+                              Value
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {figAtoms.atoms.map((atom: any, i: number) => {
+                            const sc = severityColor(atom.severity)
+                            return (
+                              <tr
+                                key={atom.id}
+                                style={{
+                                  borderBottom: i < figAtoms.atoms.length - 1 ? '1px solid var(--m3-outline-variant)' : 'none',
+                                }}
+                              >
+                                <td
+                                  className="px-4 py-3 text-xs font-mono"
+                                  style={{ color: 'var(--m3-on-surface-variant)', verticalAlign: 'top' }}
+                                >
+                                  {atom.id}
+                                </td>
+                                <td className="px-4 py-3" style={{ verticalAlign: 'top' }}>
+                                  <span
+                                    className="text-[10px] font-medium px-2 py-0.5 rounded-full"
+                                    style={{ backgroundColor: sc.bg, color: sc.text, letterSpacing: '0.3px' }}
+                                  >
+                                    {atom.severity}
+                                  </span>
+                                </td>
+                                <td
+                                  className="px-4 py-3 text-sm leading-relaxed"
+                                  style={{ color: 'var(--m3-on-surface)', letterSpacing: '0.25px' }}
+                                >
+                                  {atom.value}
+                                </td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                    </>
+                  )}
+                </div>
+              )
+            })()}
           </div>
         ) : (
           <div

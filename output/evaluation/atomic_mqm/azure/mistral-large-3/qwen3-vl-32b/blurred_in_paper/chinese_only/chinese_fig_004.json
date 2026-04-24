@@ -1,0 +1,141 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "blurred_in_paper",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图像中并未包含标记为“Figure 1”的图表，而是包含一个标记为“图3”的图表",
+      "evidence": "The image title clearly states the figure is about daily new cases and media reports, and the atom checklist confirms it is a bar chart (chart_type). The machine-generated description incorrectly claims the figure is labeled '图3' and is blurred, which contradicts the visible image.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其内容为关于新闻报道数量与新增病例数量关系的曲线图",
+      "evidence": "The machine-generated description incorrectly describes the chart as a '曲线图' (line chart), but the atom checklist and image confirm it is a '柱状图' (bar chart) combined with a line.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The machine-generated description fails to mention the purpose of the chart, which is to show the trend of daily new COVID-19 cases and related media reports over time.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits all axis details, including x-axis (日期), left y-axis (每日新增确诊人数), and right y-axis (相关新闻媒体每日报道数量), as well as their ranges and scales.",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the left y-axis label (每日新增确诊人数) or its range (0–1,800,000).",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the right y-axis label (相关新闻媒体每日报道数量) or its range (0–6,000).",
+      "atom_id": "y_axis_right_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the color of the bar chart (蓝绿色) representing daily new cases.",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the color of the line (蓝色) representing media reports.",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the trend synchronization and differences between the two datasets, which are critical for understanding the chart.",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the observation of lag effects and peak differences between cases and media reports.",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "该图表本身在图像中被模糊处理，无法辨识具体数据点、坐标轴刻度或曲线细节",
+      "evidence": "The image is not blurred, and all details (bars, line, axes, and labels) are clearly visible. No atom supports this claim.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "无法完成对“Figure 1”的描述任务",
+      "evidence": "The description incorrectly generalizes the task as impossible due to a misidentification of the figure, despite the image being clear and complete.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "由于指令要求仅关注“Figure 1”，而该页面中不存在此编号的图表，因此无法提供关于“Figure 1”的描述",
+      "evidence": "The phrasing is awkward and redundant, as it repeatedly emphasizes the absence of 'Figure 1' despite the image being clearly labeled and visible.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 34.17,
+  "total_penalty": 39.5,
+  "atom_coverage": {
+    "correct": 3,
+    "inaccurate": 1,
+    "missing": 8,
+    "total": 12,
+    "accuracy": 0.75,
+    "completeness": 0.2727
+  }
+}

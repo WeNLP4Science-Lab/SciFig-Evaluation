@@ -23,3 +23,8 @@ export const ALL_BENCHMARKS_BLOB_URL = `https://scifigfigures.blob.core.windows.
 export const ALL_BENCHMARKS_BLOB_WRITE_URL = `${ALL_BENCHMARKS_BLOB_URL}?${BLOB_SAS_TOKEN}`
 
 export const EXPERIMENT_RESULTS_BLOB_URL = `https://scifigfigures.blob.core.windows.net/data/experiment_results.json`
+
+export const BLOB_DATA_BASE = 'https://scifigfigures.blob.core.windows.net/data'
+export const TRANSFORM_EVALUATIONS_BLOB_URL = `${BLOB_DATA_BASE}/transform_evaluations.json`
+export const MANIFEST_FULL_BLOB_URL = `${BLOB_DATA_BASE}/manifest_full.json`
+export const MANIFEST_SAMPLE_BLOB_URL = `${BLOB_DATA_BASE}/manifest_sample.json`

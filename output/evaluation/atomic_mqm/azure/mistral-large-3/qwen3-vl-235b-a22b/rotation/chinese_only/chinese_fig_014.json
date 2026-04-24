@@ -1,0 +1,132 @@
+{
+  "figure_key": "chinese_fig_014",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 23,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "(0.1, 28.0)、(0.5, 28.2)、(0.9, 28.3)、(0.9, 28.1) 和 (0.9, 27.9)",
+      "evidence": "Left plot data points are incorrect. Correct values: α = 0.1 → 28.00; α = 0.3 → 28.32; α = 0.5 → 28.55; α = 0.7 → 28.40; α = 0.9 → 28.12. Also, duplicate x-values (0.9) are hallucinated.",
+      "atom_id": "alpha_01_bleu, alpha_03_bleu, alpha_05_bleu, alpha_07_bleu, alpha_09_bleu"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "(0.05, 28.25)、(0.25, 28.35)、(0.35, 28.4)、(0.45, 28.2) 和 (0.45, 28.1)",
+      "evidence": "Right plot data points are incorrect. Correct values: p = 0.05 → 28.30; p = 0.15 → 28.55; p = 0.25 → 28.38; p = 0.35 → 28.44; p = 0.45 → 28.40. Also, duplicate x-values (0.45) are hallucinated.",
+      "atom_id": "p_005_bleu, p_015_bleu, p_025_bleu, p_035_bleu, p_045_bleu"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "纵轴为 BLEU，取值范围从 28.0 到 28.5",
+      "evidence": "Y-axis range is incorrect. Correct range is from 28.0 to 28.6.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "先上升后急剧下降的趋势",
+      "evidence": "Left plot trend is misrepresented. The trend is a rise to a peak at α=0.5, then a gradual decline, not a sharp drop.",
+      "atom_id": "alpha_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "Missing data points for α=0.3 and α=0.7 in the left plot description.",
+      "atom_id": "alpha_03_bleu, alpha_07_bleu"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "Missing data point for p=0.15 in the right plot description, which is the peak value.",
+      "atom_id": "p_015_bleu"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the purpose of the chart (showing the impact of parameters α and p on BLEU scores).",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "(0.9, 28.3)、(0.9, 28.1) 和 (0.9, 27.9)",
+      "evidence": "Hallucinated duplicate x-values (0.9) in the left plot. The figure shows only one data point per x-value.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "(0.45, 28.2) 和 (0.45, 28.1)",
+      "evidence": "Hallucinated duplicate x-values (0.45) in the right plot. The figure shows only one data point per x-value.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "呈现先上升后急剧下降的趋势",
+      "evidence": "The description uses subjective language ('急剧下降') not supported by the figure or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "呈现先上升后平缓下降的趋势",
+      "evidence": "The description adds interpretation ('平缓下降') beyond what is explicitly shown in the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "均用于展示 BLEU 分数随某一变量变化的趋势",
+      "evidence": "Vague reference to '某一变量' instead of explicitly naming α and p.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 63.91,
+  "total_penalty": 41.5,
+  "atom_coverage": {
+    "correct": 19,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 23,
+    "accuracy": 0.9048,
+    "completeness": 0.9048
+  }
+}

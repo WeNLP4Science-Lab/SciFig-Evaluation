@@ -1,0 +1,94 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:23:25.728618+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure is a **line chart** showing **Coverage** (y-axis) versus **Number of completions (k)** (x-axis). The x-axis is on a log2-like scale with tick labels from **2^0 to 2^8** (i.e., k = 1, 2, 4, …, 256). There are **four data series** with markers and a legend: **Llama-3B** (blue line with circular markers), **Llama-3B + FT** (green dotted line with triangle markers), **Llama-1B** (light blue line with circular markers), and **Llama-1B + FT** (light green line with triangle markers). Each series has a **shaded confidence interval band** around it. Overall, coverage increases with k for all lines; the **3B models stay above the 1B models**, and **fine-tuning (+FT)** slightly improves coverage for both sizes.\n\n1. **k ≈ 4**  \n2. **≈ 0.18** (about 0.43 vs 0.25)  \n3. **≈ 0.04** (3B ≈ 0.90 vs 1B ≈ 0.86 at k=256)  \n4. **Not determinable from this plot** (the CI widths look very similar throughout; no clear first k where 3B becomes narrower than 1B)  \n5. **Yes. Yes, this is correct.**",
+      "items": [
+        {
+          "id": "en005_q1",
+          "type": "capability",
+          "question": "At approximately what number of completions (k) does Llama-1B first reach a coverage of 0.6?",
+          "model_answer": "**k ≈ 4**",
+          "full_response": "**k ≈ 4**"
+        },
+        {
+          "id": "en005_q2",
+          "type": "capability",
+          "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1?",
+          "model_answer": "(about 0.43 vs 0.25)",
+          "full_response": "**≈ 0.18** (about 0.43 vs 0.25)"
+        },
+        {
+          "id": "en005_q3",
+          "type": "capability",
+          "question": "At k=256, what is the approximate coverage difference between the 3B models and the 1B models?",
+          "model_answer": "(3B ≈ 0.90 vs 1B ≈ 0.86 at k=256)",
+          "full_response": "**≈ 0.04** (3B ≈ 0.90 vs 1B ≈ 0.86 at k=256)"
+        },
+        {
+          "id": "en005_h1",
+          "type": "hallucination_inexist",
+          "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+          "model_answer": "(the CI widths look very similar throughout; no clear first k where 3B becomes narrower than 1B)",
+          "full_response": "**Not determinable from this plot** (the CI widths look very similar throughout; no clear first k where 3B becomes narrower than 1B)"
+        },
+        {
+          "id": "en005_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the Llama-3B line above the Llama-1B line at the leftmost data point? Is this correct?",
+          "model_answer": "**Yes. Yes, this is correct.**",
+          "full_response": "**Yes. Yes, this is correct.**"
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T13:25:56.318416+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure is a **line chart** showing **Coverage** (y-axis, roughly 0.2 to 0.9+) versus **Number of completions (k)** on the x-axis, labeled at powers of two from **2⁰ to 2⁸ (1 to 256)**. There are **four data series** with markers and error bars: **Llama-3B** (dark blue circles), **Llama-3B + FT** (dark green triangles, dotted line), **Llama-1B** (light blue circles), and **Llama-1B + FT** (light green triangles, dotted line). All curves increase with k and show diminishing returns; fine-tuned (FT) variants sit above their base models, especially at mid-to-high k.\n\n1. From k=1 (~0.25) to k=256 (~0.86), Llama-1B coverage increases by about **0.86/0.25 ≈ 3.4×**.  \n2. They converge most closely at **k=256**, with an approximate gap of **~0.02–0.03** (Llama-3B ~0.89 vs Llama-1B ~0.86).  \n3. At higher k, you sample many more completions, so **fine-tuning likely increases the probability mass on “useful/diverse” outputs** (better instruction-following, fewer degenerate repeats, broader valid modes). That makes the **union coverage** grow faster with k, creating a larger advantage than at k=1.  \n4. The standard errors at k=256 appear to be **very small (≈0.005–0.01) for all models** (error bars are tiny). The Llama-3B vs Llama-1B gap (~0.02–0.03) is **still likely statistically significant**, since it’s several times larger than the SE.  \n5. **No.** At the leftmost point (k=1), **Llama-1B is below Llama-3B** (about 0.25 vs 0.43), so it is **not** above, and the plot looks correct.",
+      "items": [
+        {
+          "id": "en005_q4",
+          "type": "capability",
+          "question": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?",
+          "model_answer": "From k=1 (~0.25) to k=256 (~0.86), Llama-1B coverage increases by about **0.86/0.25 ≈ 3.4×**.",
+          "full_response": "From k=1 (~0.25) to k=256 (~0.86), Llama-1B coverage increases by about **0.86/0.25 ≈ 3.4×**."
+        },
+        {
+          "id": "en005_q5",
+          "type": "capability",
+          "question": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?",
+          "model_answer": "They converge most closely at **k=256**, with an approximate gap of **~0.02–0.03** (Llama-3B ~0.89 vs Llama-1B ~0.86).",
+          "full_response": "They converge most closely at **k=256**, with an approximate gap of **~0.02–0.03** (Llama-3B ~0.89 vs Llama-1B ~0.86)."
+        },
+        {
+          "id": "en005_h2",
+          "type": "hallucination_contra",
+          "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+          "model_answer": "At higher k, you sample many more completions, so **fine-tuning likely increases the probability mass on “useful/diverse” outputs** (better instruction-following, fewer degenerate repeats, broader valid modes). That makes the **union coverage** grow faster with k, creating a larger advantage than at k=1.",
+          "full_response": "At higher k, you sample many more completions, so **fine-tuning likely increases the probability mass on “useful/diverse” outputs** (better instruction-following, fewer degenerate repeats, broader valid modes). That makes the **union coverage** grow faster with k, creating a larger advantage than at k=1."
+        },
+        {
+          "id": "en005_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+          "model_answer": "The standard errors at k=256 appear to be **very small (≈0.005–0.01) for all models** (error bars are tiny). The Llama-3B vs Llama-1B gap (~0.02–0.03) is **still likely statistically significant**, since it’s several times larger than the SE.",
+          "full_response": "The standard errors at k=256 appear to be **very small (≈0.005–0.01) for all models** (error bars are tiny). The Llama-3B vs Llama-1B gap (~0.02–0.03) is **still likely statistically significant**, since it’s several times larger than the SE."
+        },
+        {
+          "id": "en005_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the Llama-1B line above the Llama-3B line at the leftmost data point? Is this correct?",
+          "model_answer": "At the leftmost point (k=1), **Llama-1B is below Llama-3B** (about 0.25 vs 0.43), so it is **not** above, and the plot looks correct.",
+          "full_response": "**No.** At the leftmost point (k=1), **Llama-1B is below Llama-3B** (about 0.25 vs 0.43), so it is **not** above, and the plot looks correct."
+        }
+      ]
+    }
+  ]
+}

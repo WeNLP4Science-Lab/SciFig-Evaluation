@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "lattice方法在epoch=3时F1分数为0.55，随后上升至epoch=11时达到0.67，之后下降至epoch=17时为0.61",
+      "evidence": "lattice方法在epoch=1时F1≈0.59，epoch=4时F1≈0.73，epoch=16时F1≈0.85，未出现下降趋势。",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "FLAT方法在epoch=9时F1分数为0.75，随后下降至epoch=17时为0.64",
+      "evidence": "FLAT方法在epoch=8时F1≈0.85，epoch=14时F1≈0.88，未出现下降趋势。",
+      "atom_id": "flat_epoch8_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "OURS方法在epoch=9时F1分数为0.77，随后缓慢下降至epoch=17时为0.66",
+      "evidence": "OURS方法在epoch=8时F1≈0.87，epoch=16时F1≈0.90，未出现下降趋势。",
+      "atom_id": "ours_epoch8_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "刻度为线性，间隔为2，单位为“次”",
+      "evidence": "x轴刻度间隔为2，但单位不是“次”，而是“epoch（次）”，且未明确标注单位“次”。",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法在epoch=10即超过FLAT的收敛速度优势。",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明y轴刻度间隔为0.05（已提及范围和线性，但未强调间隔）。",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "所有线条均在epoch=17处有数据点，且均呈现先上升后下降或持续下降的趋势",
+      "evidence": "图中无epoch=17的数据点，且所有方法均呈上升趋势，未出现下降。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "所有线条均在epoch=17处有数据点，且均呈现先上升后下降或持续下降的趋势",
+      "evidence": "描述与实际趋势不符，误导读者。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "横轴表示epoch（次），范围从0到18，刻度为线性，间隔为2，单位为“次”",
+      "evidence": "表述冗余，单位“次”与“epoch”重复，且“次”非标准单位标注。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 77.41,
+  "total_penalty": 30.5,
+  "atom_coverage": {
+    "correct": 21,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 27,
+    "accuracy": 0.84,
+    "completeness": 0.913
+  }
+}

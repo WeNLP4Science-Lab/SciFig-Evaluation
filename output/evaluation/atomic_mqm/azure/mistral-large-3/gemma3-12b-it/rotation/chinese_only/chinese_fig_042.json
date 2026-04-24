@@ -1,0 +1,195 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "对实验识别、卷积识别、异常识别和空间推理四种不同识别类型的结果",
+      "evidence": "X轴类别错误：应为实体识别、角色识别、异常识别、空间推理和同义识别，而非实验识别、卷积识别、异常识别和空间推理。缺少同义识别，且角色识别被误称为卷积识别。",
+      "atom_id": "x_axis_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "欧洲识别的观测值和验证值是蓝色，而中国识别的观测值和验证值是橙色",
+      "evidence": "图例解释错误：蓝色和橙色分别代表训练集数量和验证集数量，而非欧洲识别和中国识别。",
+      "atom_id": "bar_colors"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "实验识别柱的高度约为250",
+      "evidence": "实体识别的验证集数量应为250，但描述将其误用于实验识别（训练集数量应为1102）。",
+      "atom_id": "entity_train"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "卷积识别柱的高度约为40",
+      "evidence": "角色识别的验证集数量应为190，而非40（40是异常识别的验证集数量）。",
+      "atom_id": "role_val"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "异常识别柱的高度约为675",
+      "evidence": "异常识别的训练集数量应为1077，验证集数量为40，而675是空间推理的验证集数量。",
+      "atom_id": "anomaly_train"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "空间推理柱的高度约为1077",
+      "evidence": "空间推理的训练集数量应为1210，而1077是异常识别的训练集数量。",
+      "atom_id": "spatial_train"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "实验识别柱的高度约为190",
+      "evidence": "实体识别的训练集数量应为1102，验证集数量为250，190是角色识别的验证集数量。",
+      "atom_id": "entity_val"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "卷积识别柱的高度约为55",
+      "evidence": "角色识别的验证集数量应为190，而55是同义识别的验证集数量。",
+      "atom_id": "role_val"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "异常识别柱的高度约为0.2853",
+      "evidence": "异常识别的准确率应为0.692，而0.2853是空间推理的准确率。此外，柱状图不应表示准确率。",
+      "atom_id": "anomaly_acc"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "空间推理柱的高度约为0.3769",
+      "evidence": "空间推理的准确率应为0.2852，而0.3769是同义识别的准确率。此外，柱状图不应表示准确率。",
+      "atom_id": "spatial_acc"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "左侧的Y轴贴有“验证集数量”的标签",
+      "evidence": "左侧Y轴的标签应为“数量”，而非“验证集数量”。",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未说明图表的目的：呈现不同识别和推理任务在训练集数量、验证集数量以及准确率方面的分布情况。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及灰色折线表示准确率。",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "缺少同义识别类别的所有数据（训练集数量5，验证集数量55，准确率0.3769）。",
+      "atom_id": "synonym_train"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及角色识别的准确率最高（0.8714）。",
+      "atom_id": "role_acc"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及空间推理的准确率最低（0.2852）。",
+      "atom_id": "spatial_acc"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "欧洲识别的观测值和验证值是蓝色，而中国识别的观测值和验证值是橙色",
+      "evidence": "图表中无“欧洲识别”和“中国识别”的概念，属于无中生有。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "蓝色柱状图通常比橙色柱状图更高",
+      "evidence": "描述模糊，未明确说明蓝色和橙色分别代表训练集和验证集数量。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "此柱状图展示了对实验识别、卷积识别、异常识别和空间推理四种不同识别类型的结果。",
+      "evidence": "类别名称错误且表述不清晰，影响理解。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 19,
+  "mqm_score": 35.0,
+  "total_penalty": 78.0,
+  "atom_coverage": {
+    "correct": 10,
+    "inaccurate": 10,
+    "missing": 5,
+    "total": 24,
+    "accuracy": 0.5,
+    "completeness": 0.6667
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T08:58:05.109250+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "There is no Radiology per-specialty term group shown in this figure. The figure includes Cardio, Gastro, Infect, Neuro, Obstetrics, and Pediatrics, so this comparison cannot be made.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the 'Radiology' per-specialty term group does not exist in the figure, explicitly listing the groups that are present and confirming the absence of 'Radiology'. This meets the criteria for a correct response."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "The premise of the question is incorrect—the MistralV0.2-Base model actually achieves approximately -22 across all specialties (appearing as a consistent baseline), and the fine-tuned models generally show more negative (worse) values. This could be because fine-tuning on specialty-specific data narrows the model's distribution, causing it to assign lower probability to terms outside its fine-tuning domain, or because the base model's broad pretraining already captures general medical terminology well.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise and even reinforces it by stating that the fine-tuned models show 'more negative (worse) values' compared to the base model, which directly contradicts the provided ground truth. It does not identify or correct the factual error in the question."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "This information about vocabulary overlap between per-specialty term lists is not available from the figure alone. The figure only shows negative log probabilities for each model variant evaluated on each specialty's terms, without providing details about term list composition or overlap.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the information about vocabulary overlap is not available from the figure alone and specifies what the figure actually shows (negative log probabilities per specialty group). This aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

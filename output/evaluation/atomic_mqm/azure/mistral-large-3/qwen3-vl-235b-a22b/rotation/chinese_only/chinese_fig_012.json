@@ -1,0 +1,114 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“lattice”方法从第3轮次约0.55开始，在第8轮次上升至约0.66，第14轮次达到峰值约0.68，之后在第17轮次下降至约0.61",
+      "evidence": "lattice方法在epoch=1时F1≈0.59，epoch=2时F1≈0.59，epoch=4时F1≈0.73，epoch=8时F1≈0.80，epoch=16时F1≈0.85，无下降趋势",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“FLAT”方法从第3轮次约0.75开始，在第10轮次上升至约0.77，随后在第14轮次降至约0.73，第17轮次进一步降至约0.64",
+      "evidence": "FLAT方法在epoch=2时F1≈0.78，epoch=4时F1≈0.83，epoch=8时F1≈0.85，epoch=14时F1≈0.88，无下降趋势",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“OURS”方法从第8轮次约0.78开始，在第10轮次略微下降至约0.76，第14轮次回升至约0.75，第17轮次下降至约0.66",
+      "evidence": "OURS方法初始F1≈0.81，epoch=2时F1≈0.81，epoch=4时F1≈0.82，epoch=8时F1≈0.87，epoch=16时F1≈0.90，无下降趋势",
+      "atom_id": "ours_initial_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "横轴为“epoch (次)”，表示训练轮次，刻度为线性，范围从0到18，数值间隔为2，单位为“次”",
+      "evidence": "横轴标签为“epoch (次)”，但原子检查未提及单位“次”，且数值间隔未明确标注为2",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法在epoch=10时超过FLAT的收敛速度优势",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明y轴刻度间隔为0.05",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "三条曲线均在图表右侧显示下降趋势",
+      "evidence": "图表中三条曲线在右侧均呈上升或稳定趋势，无下降",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "“FLAT”与“OURS”在第10轮次附近发生交叉",
+      "evidence": "图表中FLAT和OURS曲线无交叉，OURS始终高于FLAT",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "“lattice”方法从第3轮次约0.55开始",
+      "evidence": "未明确说明lattice方法在epoch=1和epoch=2的F1值",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "三条曲线均在图表右侧显示下降趋势",
+      "evidence": "错误描述曲线趋势，与图表不符",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 76.3,
+  "total_penalty": 32.0,
+  "atom_coverage": {
+    "correct": 21,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 27,
+    "accuracy": 0.84,
+    "completeness": 0.913
+  }
+}

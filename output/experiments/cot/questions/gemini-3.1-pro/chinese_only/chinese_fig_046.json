@@ -1,0 +1,94 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "gemini-3.1-pro",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:53:55.276617+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual Structure Description:**\nThe image is a line chart displaying the performance of three different methods across varying rates of missing labels. \n*   **Axes:** The horizontal X-axis represents the \"漏标率\" (Missing label rate), with marked values at 0, 0.1, 0.2, 0.3, 0.4, 0.5, and 0.585. The vertical Y-axis represents the \"F1\" score, ranging from 52.5 to 72.5 in increments of 2.5.\n*   **Data Series & Legend:** There are three data series represented by different colors and markers, as indicated by the legend in the bottom left corner:\n    *   **Teacher:** Red line with star markers.\n    *   **Self-Training:** Blue line with square markers.\n    *   **PST:** Green line with circular markers.\n*   **Patterns:** All three lines exhibit an overall downward trend as the missing label rate increases. The PST method (green line) consistently maintains the highest F1 score across all missing label rates. The Teacher and Self-Training methods show a sharp decline in performance after a missing label rate of 0.4.\n\n**Answers to the questions:**\n\n1. 大约是4.0（PST在70.0左右，Self-Training在66.0左右）。\n2. 在0.5到0.585区间出现了最大的单步下降，下降了大约6.5（从约59.5降至约53.0）。\n3. PST比Teacher和Self-Training都高出大约9.3（PST约62.3，另外两者约53.0）。\n4. 图中并没有显示任何表示标准差的浅绿色阴影区域。\n5. 正确。",
+      "items": [
+        {
+          "id": "cn046_q1",
+          "type": "capability",
+          "question": "在漏标率为0.3时，PST与Self-Training的F1分数差值大约是多少？",
+          "model_answer": "大约是4.0（PST在70.0左右，Self-Training在66.0左右）。",
+          "full_response": "大约是4.0（PST在70.0左右，Self-Training在66.0左右）。"
+        },
+        {
+          "id": "cn046_q2",
+          "type": "capability",
+          "question": "Teacher方法在哪个漏标率区间出现了最大的单步下降？下降了大约多少？",
+          "model_answer": "在0.5到0.585区间出现了最大的单步下降，下降了大约6.5（从约59.5降至约53.0）。",
+          "full_response": "在0.5到0.585区间出现了最大的单步下降，下降了大约6.5（从约59.5降至约53.0）。"
+        },
+        {
+          "id": "cn046_q3",
+          "type": "capability",
+          "question": "在漏标率为0.585时，PST的F1分数比Teacher和Self-Training分别高出多少？",
+          "model_answer": "PST比Teacher和Self-Training都高出大约9.3（PST约62.3，另外两者约53.0）。",
+          "full_response": "PST比Teacher和Self-Training都高出大约9.3（PST约62.3，另外两者约53.0）。"
+        },
+        {
+          "id": "cn046_h1",
+          "type": "hallucination_inexist",
+          "question": "图中围绕PST方法（绿色线）的浅绿色阴影区域表示的标准差范围在漏标率0.3处大约有多宽？",
+          "model_answer": "图中并没有显示任何表示标准差的浅绿色阴影区域。",
+          "full_response": "图中并没有显示任何表示标准差的浅绿色阴影区域。"
+        },
+        {
+          "id": "cn046_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "随着漏标率的增加，三条线的F1值整体呈下降趋势，是否正确？",
+          "model_answer": "正确。",
+          "full_response": "正确。"
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T14:01:49.157456+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual Structure Description:**\nThis is a line chart that evaluates the performance of three different methods based on their F1 scores across varying missing label rates. \n*   **Axes:** The horizontal X-axis represents the \"漏标率\" (Missing label rate), with marked ticks at 0, 0.1, 0.2, 0.3, 0.4, 0.5, and 0.585. The vertical Y-axis represents the \"F1\" score, ranging from 52.5 to 72.5 with increments of 2.5.\n*   **Data Series & Colors:** There are three data series represented by different colors and markers, identified in the bottom-left legend:\n    *   **Teacher:** Red line with star markers.\n    *   **Self-Training:** Blue line with square markers.\n    *   **PST:** Green line with circular markers.\n*   **Patterns:** All three lines exhibit a downward trend as the missing label rate increases. The green line (PST) consistently remains above the other two lines across all missing label rates, indicating better performance. The red (Teacher) and blue (Self-Training) lines follow a similar trajectory, with a sharp decline in F1 scores after a missing label rate of 0.4.\n\n**Answers:**\n1. 在0, 0.1, 0.2, 0.3, 0.4, 0.5的漏标率下，Teacher的F1分数高于Self-Training（在0.585处两者基本重合）。\n2. PST方法的F1总下降量大约是9（从约71.5降至约62.5）。与Teacher方法大约18.5的下降量（从约71.5降至约53）相比，PST的下降量要小得多（约为其一半）。\n3. 不正确。题目中的前提是错误的，从图中可以看出，在漏标率为0.2时，Teacher的F1得分（红线，约69.0）仍然高于Self-Training（蓝线，约68.5），Self-Training并未超过Teacher。\n4. 无法从图中得出结论。折线图仅展示了F1得分的单点数值（通常是均值），并没有提供方差、标准差、置信区间或样本量等数据，因此无法直接判断这种差异在统计学上是否显著。\n5. 不正确。随着漏标率的增加，三条线的F1值整体呈下降趋势，而非上升趋势。",
+      "items": [
+        {
+          "id": "cn046_q4",
+          "type": "capability",
+          "question": "在哪些漏标率下，Teacher的F1分数高于Self-Training？",
+          "model_answer": "在0, 0.1, 0.2, 0.3, 0.4, 0.5的漏标率下，Teacher的F1分数高于Self-Training（在0.585处两者基本重合）。",
+          "full_response": "在0, 0.1, 0.2, 0.3, 0.4, 0.5的漏标率下，Teacher的F1分数高于Self-Training（在0.585处两者基本重合）。"
+        },
+        {
+          "id": "cn046_q5",
+          "type": "capability",
+          "question": "PST方法从漏标率0到0.585的F1总下降量大约是多少？与Teacher方法的总下降量相比如何？",
+          "model_answer": "PST方法的F1总下降量大约是9（从约71.5降至约62.5）。与Teacher方法大约18.5的下降量（从约71.5降至约53）相比，PST的下降量要小得多（约为其一半）。",
+          "full_response": "PST方法的F1总下降量大约是9（从约71.5降至约62.5）。与Teacher方法大约18.5的下降量（从约71.5降至约53）相比，PST的下降量要小得多（约为其一半）。"
+        },
+        {
+          "id": "cn046_h2",
+          "type": "hallucination_contra",
+          "question": "从图中可以看出，在漏标率为0.2时，Self-Training方法的F1得分（约70.5）首次超过了Teacher方法（约69.0）。这是否说明Self-Training在中等漏标条件下更具优势？",
+          "model_answer": "不正确。题目中的前提是错误的，从图中可以看出，在漏标率为0.2时，Teacher的F1得分（红线，约69.0）仍然高于Self-Training（蓝线，约68.5），Self-Training并未超过Teacher。",
+          "full_response": "不正确。题目中的前提是错误的，从图中可以看出，在漏标率为0.2时，Teacher的F1得分（红线，约69.0）仍然高于Self-Training（蓝线，约68.5），Self-Training并未超过Teacher。"
+        },
+        {
+          "id": "cn046_h3",
+          "type": "hallucination_unanswerable",
+          "question": "PST方法在漏标率0.585处的F1得分（约61.5）仍显著高于Teacher和Self-Training（均约53）。这种鲁棒性优势在统计上是否显著（配对t检验p<0.05）？",
+          "model_answer": "无法从图中得出结论。折线图仅展示了F1得分的单点数值（通常是均值），并没有提供方差、标准差、置信区间或样本量等数据，因此无法直接判断这种差异在统计学上是否显著。",
+          "full_response": "无法从图中得出结论。折线图仅展示了F1得分的单点数值（通常是均值），并没有提供方差、标准差、置信区间或样本量等数据，因此无法直接判断这种差异在统计学上是否显著。"
+        },
+        {
+          "id": "cn046_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "随着漏标率的增加，三条线的F1值整体呈上升趋势，是否正确？",
+          "model_answer": "不正确。随着漏标率的增加，三条线的F1值整体呈下降趋势，而非上升趋势。",
+          "full_response": "不正确。随着漏标率的增加，三条线的F1值整体呈下降趋势，而非上升趋势。"
+        }
+      ]
+    }
+  ]
+}

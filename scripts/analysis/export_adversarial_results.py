@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 DASHBOARD_DATA = ROOT / "dashboard" / "public" / "data"
 
 MODELS = [
-    "gemini-3.1-pro", "gpt-5.2",
+    "gemini-3.1-pro", "gpt-5.2", "claude-opus-4.6",
     "qwen3-vl-235b-a22b", "qwen3-vl-32b", "qwen3-vl-30b-a3b", "qwen3-vl-8b",
     "llama4-maverick", "llama4-scout",
     "gemma3-27b-it", "gemma3-12b-it", "gemma3-4b-it",

@@ -1,0 +1,150 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "jpeg_compression",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色线从 x = 0 处的 0.60 开始",
+      "evidence": "lattice 方法在 epoch = 1 时 F1 值约为 0.59，未提及 epoch = 0 的值，且 0.60 与实际不符。",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 x = 4 处达到 0.80",
+      "evidence": "lattice 方法在 epoch = 4 时 F1 值约为 0.73，而非 0.80。",
+      "atom_id": "lattice_epoch4_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "到 x = 18 处达到 0.86",
+      "evidence": "lattice 方法在 epoch = 16 时 F1 值约为 0.85，而非 0.86。",
+      "atom_id": "lattice_epoch16_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色线从 x = 0 处的 0.78 开始",
+      "evidence": "FLAT 方法在 epoch = 2 时 F1 值约为 0.78，未提及 epoch = 0 的值，且起始值错误。",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 x = 2 处略有上升至 0.80",
+      "evidence": "FLAT 方法在 epoch = 2 时 F1 值约为 0.78，而非 0.80。",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 x = 18 处达到 0.88",
+      "evidence": "FLAT 方法在 epoch = 14 时 F1 值约为 0.88，未提及 epoch = 18 的值。",
+      "atom_id": "flat_epoch14_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色线从 x = 0 处的 0.84 开始",
+      "evidence": "OURS 方法初始 F1 值约为 0.81，未提及 epoch = 0 的值，且 0.84 与实际不符。",
+      "atom_id": "ours_initial_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 x = 2 处达到 0.86",
+      "evidence": "OURS 方法在 epoch = 2 时 F1 值约为 0.81，而非 0.86。",
+      "atom_id": "ours_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 x = 18 处达到 0.89",
+      "evidence": "OURS 方法在 epoch = 16 时 F1 值约为 0.90，而非 0.89。",
+      "atom_id": "ours_final_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及 OURS 方法在 epoch=10 即超过 FLAT 的收敛速度优势。",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明 y 轴刻度间隔为 0.05（已提及范围，但未强调间隔）。",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "x 轴代表 epoch 数，标签为“epoch(次)”",
+      "evidence": "x 轴标签为“epoch (次)”，而非“epoch(次)”，括号内缺少空格。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "红色线从 x = 0 处的 0.60 开始，直线向上",
+      "evidence": "未明确说明 epoch = 0 的值是否存在或为估计值，且“直线向上”描述不精确。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "之后逐渐变为平稳",
+      "evidence": "OURS 方法在 epoch=4 至 epoch=16 期间仍有上升趋势，描述过于简化。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 14,
+  "mqm_score": 58.89,
+  "total_penalty": 55.5,
+  "atom_coverage": {
+    "correct": 17,
+    "inaccurate": 8,
+    "missing": 2,
+    "total": 27,
+    "accuracy": 0.68,
+    "completeness": 0.8947
+  }
+}

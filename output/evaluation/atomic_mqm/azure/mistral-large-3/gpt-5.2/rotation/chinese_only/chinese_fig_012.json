@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "lattice 为红色实线，使用红色方形标记，数据点随 epoch 变化表现为在约 epoch=2 处约 0.55，上升至约 epoch=6 处约 0.67，并在约 epoch=10 处达到该线的较高点约 0.68，随后下降至约 epoch=16 处约 0.61",
+      "evidence": "lattice方法在epoch=2的F1值应为约0.59（非0.55），epoch=4的F1值应为约0.73（非epoch=6的0.67），epoch=8的F1值应为约0.80（非epoch=10的0.68），epoch=16的F1值应为约0.85（非0.61）。",
+      "atom_id": "lattice_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "FLAT 为蓝色实线，使用蓝色圆形标记，在约 epoch=4 处约 0.75，上升至约 epoch=6 处约 0.77（该线峰值），之后在约 epoch=10 处降至约 0.73，并继续下降至约 epoch=16 处约 0.64",
+      "evidence": "FLAT方法在epoch=4的F1值应为约0.83（非0.75），epoch=8的F1值应为约0.85（非epoch=6的0.77），epoch=14的F1值应为约0.88（非epoch=10的0.73），epoch=16无数据点（非0.64）。",
+      "atom_id": "flat_epoch4_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "OURS 为黄色实线，使用黄色左指三角形标记，在约 epoch=4 处约 0.78（该线峰值），到约 epoch=6 处降至约 0.76，在约 epoch=10 处约 0.75，随后下降至约 epoch=16 处约 0.66",
+      "evidence": "OURS方法在epoch=4的F1值应为约0.82（非0.78），epoch=8的F1值应为约0.87（非epoch=6的0.76），epoch=16的F1值应为约0.90（非0.66），且OURS方法无下降趋势。",
+      "atom_id": "ours_epoch4_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "使用黄色左指三角形标记",
+      "evidence": "OURS方法的标记应为三角形，但无方向描述（左指）的依据。",
+      "atom_id": "ours_color_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法在epoch=10即超过FLAT的收敛速度优势。",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明y轴刻度间隔为0.05（仅提到标注范围）。",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "并在约 epoch=10 处达到该线的较高点约 0.68，随后下降至约 epoch=16 处约 0.61",
+      "evidence": "lattice方法在epoch=10和16的F1值描述与图示不符，且无下降趋势。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "之后在约 epoch=10 处降至约 0.73，并继续下降至约 epoch=16 处约 0.64",
+      "evidence": "FLAT方法在epoch=10和16的F1值描述与图示不符，且无下降趋势。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "到约 epoch=6 处降至约 0.76，在约 epoch=10 处约 0.75，随后下降至约 epoch=16 处约 0.66",
+      "evidence": "OURS方法在epoch=6、10、16的F1值描述与图示不符，且无下降趋势。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "并在约 epoch=10 处达到该线的较高点约 0.68",
+      "evidence": "描述模糊，未明确说明是lattice方法的局部峰值。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "数据点随 epoch 变化表现为在约 epoch=2 处约 0.55，上升至约 epoch=6 处约 0.67",
+      "evidence": "过度简化lattice方法的上升趋势，未提及关键epoch=4和8的F1值。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 74.44,
+  "total_penalty": 34.5,
+  "atom_coverage": {
+    "correct": 21,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 27,
+    "accuracy": 0.84,
+    "completeness": 0.913
+  }
+}

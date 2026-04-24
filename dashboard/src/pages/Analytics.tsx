@@ -77,7 +77,10 @@ export default function Analytics({ manifestFile = 'manifest.json', title = 'Ana
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`)
+    const url = import.meta.env.PROD && (manifestFile === 'manifest_full.json' || manifestFile === 'manifest_sample.json')
+      ? `https://scifigfigures.blob.core.windows.net/data/${manifestFile}`
+      : `${import.meta.env.BASE_URL}data/${manifestFile}`
+    fetch(url)
       .then(r => r.json())
       .then((data: DataManifest) => {
         setManifest(data)
@@ -615,7 +618,7 @@ export default function Analytics({ manifestFile = 'manifest.json', title = 'Ana
                   <YAxis type="number" dataKey="scoreB" name={scatterData.judgeB} domain={[0, 100]} tick={axisStyle} label={{ value: scatterData.judgeB, angle: -90, position: 'insideLeft', style: axisStyle }} />
                   <Tooltip
                     contentStyle={{ backgroundColor: isDark ? '#2b2930' : '#fff', border: 'none', borderRadius: 12, fontSize: 12 }}
-                    formatter={(value: number, name: string) => [value, name === 'scoreA' ? scatterData.judgeA : scatterData.judgeB]}
+                    formatter={(value: any, name: any) => [value, name === 'scoreA' ? scatterData.judgeA : scatterData.judgeB]}
                     labelFormatter={(_, payload) => payload?.[0]?.payload?.model || ''}
                   />
                   <Legend wrapperStyle={{ fontSize: 10, paddingTop: 8 }} />

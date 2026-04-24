@@ -64,7 +64,7 @@ export default function TransformEvaluation() {
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/transform_evaluations.json`)
+    fetch(import.meta.env.PROD ? 'https://scifigfigures.blob.core.windows.net/data/transform_evaluations.json' : `${import.meta.env.BASE_URL}data/transform_evaluations.json`)
       .then(r => r.json())
       .then(d => setData(d))
       .catch(() => {})

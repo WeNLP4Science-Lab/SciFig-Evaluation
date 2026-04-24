@@ -1,0 +1,78 @@
+{
+  "figure_key": "chinese_fig_094",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "jpeg_compression",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 11,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“‘的’字只隐不现”",
+      "evidence": "Description incorrectly labels the orange slice as '只隐不现' (hidden only), but the figure and atom checklist state it should be '“的”字隐不显' (hidden). The meaning is similar but not exact.",
+      "atom_id": "sub_pie_hidden"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“‘的’字只现不隐”",
+      "evidence": "Description incorrectly labels the green slice as '只现不隐' (visible only), but the figure and atom checklist state it should be '“的”字显不隐' (visible). The meaning is similar but not exact.",
+      "atom_id": "sub_pie_visible"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the gray connecting line between the two pie charts, which indicates the sub-pie is derived from the yellow slice of the main pie.",
+      "atom_id": "connection"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "两个饼图的切片均按大小递减顺序排列，且无任何切片被视觉强调",
+      "evidence": "The description claims the slices are sorted in descending order and no slice is visually emphasized, but the figure does not indicate any sorting, and the yellow slice in the main pie is visually connected to the sub-pie, implying emphasis. No atom supports this claim.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "但图例与饼图内容之间未建立明确的对应关系",
+      "evidence": "The description adds an interpretation that the legend lacks a clear relationship with the pie chart content, which is not supported by the figure or atoms. The legend is standard and correctly maps colors to numbers.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "旨在展示两种不同结构类型下的数据分布情况",
+      "evidence": "The description oversimplifies the purpose of the chart. The reference description specifies the focus on the composition of 'an' structures and the visibility of the '的' character, which is more precise.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 64.55,
+  "total_penalty": 19.5,
+  "atom_coverage": {
+    "correct": 8,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 11,
+    "accuracy": 0.8,
+    "completeness": 0.8889
+  }
+}

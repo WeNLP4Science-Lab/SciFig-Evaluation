@@ -1,0 +1,81 @@
+{
+  "figure_key": "multi_fig_045",
+  "subfolder": "multi_language",
+  "model_name": "claude-opus-4.6",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T05:35:34.801319+00:00",
+      "raw_response": "1. The combined percentage of the top two tokens in chart (a) is 52% (31% for \"the\" + 21% for \"this\").\n\n2. The token \"the\" appears in both charts. In chart (a) it is 31% and in chart (b) it is 38%, so the difference is 7 percentage points.\n\n3. The misspelled word is \"consatant,\" which should likely be \"constant.\"\n\n4. The 'reaction' token does not appear in chart (b). Chart (b) shows tokens for \"the,\" \"$,\" \"equilibrium,\" and \"consatant\" (constant), so the question's premise is incorrect based on the visible figure.\n\n5. Yes, the largest slice in pie chart (a) is labeled as 31%, and this appears to be correct as it visually represents the largest portion of the pie, corresponding to the token \"the.\"",
+      "items": [
+        {
+          "id": "ml045_q1",
+          "type": "capability",
+          "question": "What is the combined percentage of the top two tokens in chart (a)?",
+          "model_answer": "The combined percentage of the top two tokens in chart (a) is 52% (31% for \"the\" + 21% for \"this\")."
+        },
+        {
+          "id": "ml045_q2",
+          "type": "capability",
+          "question": "Which token appears in both chart (a) and chart (b), and what is the difference in its percentage between the two charts?",
+          "model_answer": "The token \"the\" appears in both charts. In chart (a) it is 31% and in chart (b) it is 38%, so the difference is 7 percentage points."
+        },
+        {
+          "id": "ml045_q3",
+          "type": "capability",
+          "question": "In chart (b), the legend shows a word that appears to be misspelled. What is the misspelled word and what should it likely be?",
+          "model_answer": "The misspelled word is \"consatant,\" which should likely be \"constant.\""
+        },
+        {
+          "id": "ml045_h1",
+          "type": "hallucination_inexist",
+          "question": "In chart (b), what percentage does the 'reaction' token itself occupy in the co-occurrence distribution for the mathematics domain?",
+          "model_answer": "The 'reaction' token does not appear in chart (b). Chart (b) shows tokens for \"the,\" \"$,\" \"equilibrium,\" and \"consatant\" (constant), so the question's premise is incorrect based on the visible figure."
+        },
+        {
+          "id": "ml045_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the largest slice in pie chart (a) labeled as 31%? Is this correct?",
+          "model_answer": "Yes, the largest slice in pie chart (a) is labeled as 31%, and this appears to be correct as it visually represents the largest portion of the pie, corresponding to the token \"the.\""
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T05:36:14.313686+00:00",
+      "raw_response": "1. Chart (a) has 6 token categories while chart (b) has 4 token categories, so chart (a) has 2 more token categories than chart (b).\n\n2. The non-function-word tokens in chart (a) are 'this' (21%), 'chemical' (15%), totaling 36%. However, re-examining: 'the' (31%), 'for' (17%), 'to' (9%), 'in' (7%) are function words summing to 64%, so the combined percentage of tokens that are NOT function words is 21% ('this') + 15% ('chemical') = 36%.\n\n3. The question contains a factual error—chart (a) actually has 6 categories and chart (b) has 4. This suggests the chemistry domain (chart a) has greater vocabulary diversity in its co-occurrence distribution, with tokens spread across more categories, while the mathematics domain (chart b) concentrates co-occurrences among fewer token types.\n\n4. This cannot be reliably determined from the pie charts alone, as they show co-occurrence distributions for specific tokens (likely \"reaction\" in (a) and \"equilibrium\" in (b)), not sequential transition probabilities. Based on chart (a), the domain-specific token \"chemical\" accounts for 15%, but the charts do not provide sufficient information to calculate true next-token probabilities in randomly sampled papers.\n\n5. No, the largest slice in pie chart (a) is labeled as 31% (corresponding to 'the'), not 21%. The 21% slice corresponds to 'this' and is the second-largest slice, so the claim is incorrect.",
+      "items": [
+        {
+          "id": "ml045_q4",
+          "type": "capability",
+          "question": "How many more token categories does chart (a) have compared to chart (b)?",
+          "model_answer": "Chart (a) has 6 token categories while chart (b) has 4 token categories, so chart (a) has 2 more token categories than chart (b)."
+        },
+        {
+          "id": "ml045_q5",
+          "type": "capability",
+          "question": "In chart (a), what is the combined percentage of all tokens that are NOT function words (i.e., excluding 'the', 'this', 'for', 'to', and 'in')?",
+          "model_answer": "The non-function-word tokens in chart (a) are 'this' (21%), 'chemical' (15%), totaling 36%. However, re-examining: 'the' (31%), 'for' (17%), 'to' (9%), 'in' (7%) are function words summing to 64%, so the combined percentage of tokens that are NOT function words is 21% ('this') + 15% ('chemical') = 36%."
+        },
+        {
+          "id": "ml045_h2",
+          "type": "hallucination_contra",
+          "question": "Considering that chart (a) for the chemistry domain contains only four token categories while chart (b) for mathematics contains six, what does this difference in granularity suggest about vocabulary diversity?",
+          "model_answer": "The question contains a factual error—chart (a) actually has 6 categories and chart (b) has 4. This suggests the chemistry domain (chart a) has greater vocabulary diversity in its co-occurrence distribution, with tokens spread across more categories, while the mathematics domain (chart b) concentrates co-occurrences among fewer token types."
+        },
+        {
+          "id": "ml045_h3",
+          "type": "hallucination_unanswerable",
+          "question": "Based on the co-occurrence distributions shown, what is the probability that 'reaction' will be followed by a domain-specific token rather than a function word in a randomly sampled chemistry paper?",
+          "model_answer": "This cannot be reliably determined from the pie charts alone, as they show co-occurrence distributions for specific tokens (likely \"reaction\" in (a) and \"equilibrium\" in (b)), not sequential transition probabilities. Based on chart (a), the domain-specific token \"chemical\" accounts for 15%, but the charts do not provide sufficient information to calculate true next-token probabilities in randomly sampled papers."
+        },
+        {
+          "id": "ml045_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the largest slice in pie chart (a) labeled as 21%? Is this correct?",
+          "model_answer": "No, the largest slice in pie chart (a) is labeled as 31% (corresponding to 'the'), not 21%. The 21% slice corresponds to 'this' and is the second-largest slice, so the claim is incorrect."
+        }
+      ]
+    }
+  ]
+}

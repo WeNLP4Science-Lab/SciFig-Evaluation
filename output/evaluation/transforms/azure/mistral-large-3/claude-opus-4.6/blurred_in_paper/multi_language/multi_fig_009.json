@@ -1,0 +1,467 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "claude-opus-4.6",
+  "transform": "blurred_in_paper",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/mistral-large-3",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Фигурата илюстрира сравнение на масивни активации и феномени на „attention sink\" при различни конфигурации на гейтинг, като съдържа две ясно видими линейни диаграми в долната част на изображението, придружени от множество визуализации (топлинни карти) в горната част, които обаче са силно избледнели и трудно различими.",
+          "evidence": "The figure contains only one line plot, not two. There are no heatmaps or visualizations in the upper part of the image."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Оста Y е обозначена като „Max\" и обхваща диапазон от 0 до 400, с етикети при 0, 200 и 400.",
+          "evidence": "The y-axis is labeled 'Max Activation Value' and ranges from 0 to 1600, with ticks at 0, 200, 400, 600, 800, 1000, 1200, 1400, and 1600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Синя линия (плътна) остава близо до нулата в началните слоеве и показва рязък връх около слой 15–17, достигайки стойности в диапазона около 300–400, след което спада.",
+          "evidence": "The blue line is dashed (not solid) and labeled 'attn_output'. It remains near zero until layer 23, where it rises to approximately 300, not 300–400 at layer 15–17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Зелена линия (пунктирана) също остава ниска в началото и показва по-умерен връх около слой 15–20, достигайки стойности приблизително около 100–200.",
+          "evidence": "The green dashed line ('ffn_output') has three peaks at layers 5 (~1400), 13 (~1000), and 23 (~1200), not a moderate peak of 100–200 around layer 15–20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Червена линия се наблюдава с по-малък връх около слой 10–12.",
+          "evidence": "The red solid line ('ffn_residual') rises sharply at layer 5 to ~1400, remains high until layer 20, and then drops to ~500 at layer 23. It does not have a small peak around layer 10–12."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Оранжевата пунктирана линия като „attn_residual\"",
+          "evidence": "The machine-generated description does not mention the orange dashed line ('attn_residual'), which follows a similar pattern to the red line but shifted right by one layer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Дясната линейна диаграма има ос X, обозначена като „layer\", с линейна скала от 0 до приблизително 20, с етикети при 0, 5, 10, 15 и 20. Оста Y е обозначена като „first ratio\" и обхваща диапазон от 0.0 до приблизително 0.2–0.4, с етикети при 0.0 и 0.2.",
+          "evidence": "There is no right linear diagram in the figure. The description hallucinates a second plot."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not state that the chart illustrates the maximum activation values of different model layers under baseline conditions, as mentioned in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the full y-axis label ('Max Activation Value') and its range (0 to 1600) with ticks at intervals of 200."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the legend, which specifies the labels for each line: 'attn_output' (blue dashed), 'attn_residual' (orange dashed), 'ffn_output' (green dashed), and 'ffn_residual' (red solid)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific peak values of the red ('ffn_residual') and orange ('attn_residual') lines, which rise sharply to ~1400–1600 and remain high until layer 20."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the three distinct peaks of the green dashed line ('ffn_output') at layers 5 (~1400), 13 (~1000), and 23 (~1200)."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Фигурата илюстрира сравнение на масивни активации и феномени на „attention sink\" при различни конфигурации на гейтинг",
+          "evidence": "The description introduces interpretations ('attention sink', 'gating configurations') not explicitly shown or labeled in the figure."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Останалите линии остават относително ниски и близо до нулата през по-голямата част от диапазона на слоевете.",
+          "evidence": "The phrase 'Останалите линии' is ambiguous, as it does not specify which lines are being referred to."
+        }
+      ],
+      "mqm_score": 45.5,
+      "total_penalty": 54.5,
+      "error_count": 14,
+      "judge_model": "mistral-large-3"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Chart Purpose",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The figure presents a comparison of massive activations and attention sink phenomena across different gating configurations, with two line charts visible at the bottom of the figure.",
+          "evidence": "The figure shows only one line chart titled 'Massive Activation of baseline,' not two charts. The description incorrectly references 'attention sink phenomena' and 'gating configurations,' which are not present in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The left chart's y-axis is labeled \"max\" on a linear scale ranging from 0 to approximately 400, with tick marks at 0, 200, and 400.",
+          "evidence": "The y-axis is labeled 'Max Activation Value,' not 'max,' and its range is 0 to 1600, not 0 to 400. Tick marks are at intervals of 200, not as described."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The right chart's y-axis is labeled \"first ratio\" on a linear scale ranging from 0.0 to approximately 0.4, with tick marks at 0.0, 0.2, and a value near 0.4.",
+          "evidence": "There is no right chart or y-axis labeled 'first ratio' in the figure. This is a hallucinated element."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A blue line remains near 0 for layers 0 through roughly 5, then rises sharply around layer 6 to a peak near 400, drops back down, and shows another spike around layer 15–17 before declining.",
+          "evidence": "The blue line ('attn_output') remains near zero and does not exhibit the described spikes. The description incorrectly maps the behavior of the blue line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A green line stays relatively low and flat across most layers, with modest fluctuations remaining below approximately 50.",
+          "evidence": "The green line ('ffn_output') shows two distinct peaks, one near layer 5 and another near layer 15, reaching approximately 800, not remaining low and flat."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A red line similarly remains low across most layers with a small spike visible around layer 15.",
+          "evidence": "The red line ('ffn_residual') rises sharply near layer 2 to approximately 1400 and remains high until layer 20, not remaining low with a small spike."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A dashed line (appearing brown or orange) stays near zero throughout.",
+          "evidence": "The orange dashed line ('attn_residual') rises sharply near layer 5 to approximately 1400 and remains high until layer 20, not staying near zero."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Both charts share the same x-axis, labeled \"Layer\" (left chart) or \"layer\" (right chart), displayed on a linear scale ranging from 0 to approximately 22, with tick marks at intervals of 5 (0, 5, 10, 15, 20).",
+          "evidence": "There is no right chart in the figure. The x-axis is labeled 'Layer' (singular) and ranges from 0 to 24, not approximately 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the purpose of the chart, which is to show the massive activation of baseline across different layers of a model."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the correct y-axis label ('Max Activation Value') and its full range (0 to 1600)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the legend and the correct mapping of line styles and colors to their respective labels (e.g., 'attn_output,' 'attn_residual,' 'ffn_output,' 'ffn_residual')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the key visual features of the lines, such as the sharp rise of 'ffn_residual' near layer 2 and its sustained high value, and the peaks of 'ffn_output' near layers 5 and 15."
+        }
+      ],
+      "mqm_score": 46.0,
+      "total_penalty": 54.0,
+      "error_count": 12,
+      "judge_model": "mistral-large-3"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "This figure presents a comparison of massive activations and attention sink phenomena across different gating configurations, as described in the caption. The visible portion of the figure includes two line plots at the bottom.",
+          "evidence": "The figure contains only one line plot, not two. The description incorrectly claims there are two plots."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The y-axis is labeled \"max\" with a linear scale ranging from 0 to approximately 400, with tick marks at 0, 200, and 400.",
+          "evidence": "The y-axis is labeled \"Max Activation Value\" with a scale ranging from 0 to 1600, not 400. The description misrepresents the axis label and scale."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A blue solid line remains near zero from layer 0 through approximately layer 5, then rises sharply to a peak of roughly 400 around layer 6–7, before declining and showing additional fluctuations around layers 13–17.",
+          "evidence": "The blue line is dashed, not solid, and represents \"attn_output,\" which remains near zero until a sharp increase to about 200 at layers 22–23, not 400 at layers 6–7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A green dashed line remains relatively flat and close to zero across all layers.",
+          "evidence": "The green dash-dot line (\"ffn_output\") shows large spikes at layers 5, 13, and 22, not a flat line near zero."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A red line (possibly dotted or dash-dotted) also remains near zero for most layers but shows a small spike around layer 13–15, reaching approximately 50–100.",
+          "evidence": "The red solid line (\"ffn_residual\") follows a pattern similar to the orange dotted line, peaking at around 1400 at layer 5, not remaining near zero or spiking at 50–100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "An orange dotted line is not mentioned, but the description of the red line suggests it may be conflated with the orange line.",
+          "evidence": "The orange dotted line (\"attn_residual\") peaks sharply at layer 5 to around 1400 and declines after layer 22, which is not described accurately."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state that the plot illustrates maximum activation values across layers under a baseline condition, as mentioned in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the y-axis label \"Max Activation Value\" and its full scale range (0 to 1600) with tick intervals at 200."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the orange dotted line (\"attn_residual\") and its behavior, which is a key feature of the plot."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend, which clarifies the meaning of each line style and color."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The right plot has an x-axis labeled \"layer\" with a linear scale ranging from 0 to approximately 22, with tick marks at 0, 5, 10, and 15, 20. The y-axis is labeled \"first ratio\" with a linear scale ranging from 0.0 to approximately 0.3 or slightly above, with tick marks at 0.0 and 0.2.",
+          "evidence": "The right plot does not exist in the figure. This is a hallucination."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "A blue solid line starts near zero at layer 0, remains near zero until approximately layer 5–6, then rises sharply to a value of roughly 0.3 around layer 7, and remains elevated at approximately that level through layer 22.",
+          "evidence": "This description refers to a non-existent right plot and is entirely hallucinated."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "This figure presents a comparison of massive activations and attention sink phenomena across different gating configurations, as described in the caption.",
+          "evidence": "The description introduces interpretations (e.g., \"attention sink phenomena,\" \"gating configurations\") not explicitly shown or labeled in the figure."
+        }
+      ],
+      "mqm_score": 48.0,
+      "total_penalty": 52.0,
+      "error_count": 13,
+      "judge_model": "mistral-large-3"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reicht linear von 0 bis etwa 400, mit Tick-Beschriftungen bei 0, 200 und 400",
+          "evidence": "The y-axis in the figure ranges from 0 to 1600, not 400, with tick marks at 0, 200, 400, 600, 800, 1000, 1200, 1400, and 1600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Eine blaue durchgezogene Linie verläuft nahe null für die ersten Layer und zeigt dann einen starken Anstieg ab etwa Layer 6, mit einem markanten Spitzenwert von ungefähr 400 bei Layer 20–22",
+          "evidence": "The blue line is dashed (not solid) and labeled 'attn_output', and it only rises sharply near layer 23 to about 300, not 400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Eine grüne Linie (gestrichelt oder durchgezogen) bleibt über den gesamten Layerbereich relativ niedrig nahe null, mit nur geringfügigen Schwankungen",
+          "evidence": "The green dashed line ('ffn_output') has three distinct peaks at layers 5, 13, and 23 with values of 1400, 1000, and 1200, respectively, not low values near zero."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Eine rote Linie zeigt ebenfalls niedrige Werte über die meisten Layer hinweg, weist jedoch einen kleinen Ausschlag bei etwa Layer 14–16 auf, der Werte von ungefähr 50–100 erreicht, bevor sie wieder abfällt",
+          "evidence": "The red solid line ('ffn_residual') rises sharply to about 1400 at layer 5, remains high until layer 20, and then drops to about 500 at layer 23, not low values with a small peak."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Eine weitere braune oder dunkelrote gestrichelte Linie verläuft ähnlich wie die blaue Linie mit einem Anstieg in den späteren Layern",
+          "evidence": "There is no brown or dark red line in the figure. The orange dotted line ('attn_residual') follows a similar pattern to the red line but shifted right, not the blue line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Diese Abbildung (Figure 6) vergleicht massive Aktivierungen und Attention-Sink-Phänomene über verschiedene Gating-Konfigurationen hinweg. Die beiden sichtbaren Liniendiagramme am unteren Rand der Abbildung teilen eine ähnliche Achsenstruktur. Das linke Diagramm hat eine x-Achse mit der Beschriftung „Layer\", die linear skaliert ist und von 0 bis etwa 23 reicht, mit Tick-Beschriftungen bei 0, 5, 10, 15 und 20. Die y-Achse ist mit „Max\" beschriftet und reicht linear von 0 bis etwa 400, mit Tick-Beschriftungen bei 0, 200 und 400. Das rechte Diagramm hat eine x-Achse mit der Beschriftung „layer\", ebenfalls linear skaliert von 0 bis etwa 23 mit Tick-Beschriftungen bei 0, 5, 10, 15 und 20. Die y-Achse ist mit „first ratio\" beschriftet und reicht von 0.0 bis etwa 0.4, mit Tick-Beschriftungen bei 0.0 und 0.2",
+          "evidence": "The figure shows only one line plot, not two. There is no right diagram, no 'first ratio' axis, and no mention of 'Attention-Sink-Phänomene' or 'Gating-Konfigurationen' in the image or reference."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die y-Achse ist mit „Max\" beschriftet",
+          "evidence": "The y-axis is labeled 'Max Activation Value', not 'Max'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state that the chart illustrates maximum activation values over layers under baseline conditions, as mentioned in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the full y-axis label ('Max Activation Value') and its range (0 to 1600) with tick intervals of 200, as specified in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the legend, which defines the four lines: 'attn_output' (blue dashed), 'attn_residual' (orange dotted), 'ffn_output' (green dashed), and 'ffn_residual' (red solid)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the orange dotted line ('attn_residual') or its pattern, which is similar to the red line but shifted right."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the specific peak values for the green dashed line ('ffn_output') at layers 5 (1400), 13 (1000), and 23 (1200)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the plateau of the red solid line ('ffn_residual') between layers 5 and 20 at values between 1400 and 1600."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "vergleicht massive Aktivierungen und Attention-Sink-Phänomene über verschiedene Gating-Konfigurationen hinweg",
+          "evidence": "The description introduces interpretations ('Attention-Sink-Phänomene', 'Gating-Konfigurationen') not present in the figure or reference."
+        }
+      ],
+      "mqm_score": 43.0,
+      "total_penalty": 57.0,
+      "error_count": 14,
+      "judge_model": "mistral-large-3"
+    }
+  },
+  "mqm_score_avg": 45.62
+}
