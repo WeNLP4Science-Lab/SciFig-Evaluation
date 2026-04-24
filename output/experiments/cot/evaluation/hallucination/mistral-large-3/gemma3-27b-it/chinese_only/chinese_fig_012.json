@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T19:13:09.633858+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn012_h1",
+      "probe_type": "inexist",
+      "question": "图中第四条线（绿色虚线）代表的BERT基线方法，其在epoch=8时的F1分数大约是多少？",
+      "model_answer": "图中第四条线（绿色虚线）代表的BERT基线方法没有显示在图中。",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that the BERT baseline method '没有显示在图中' (is not shown in the chart), which is a correct observation. However, it does not explicitly state that the fourth green dashed line does not exist or is not present in the chart, only that the BERT baseline is not displayed. This hedges slightly by not directly addressing the non-existence of the line itself."
+    },
+    {
+      "probe_id": "cn012_h2",
+      "probe_type": "contra",
+      "question": "根据图表，FLAT方法（蓝色圆形标记线）在整个训练过程中始终优于OURS方法（黄色三角形标记线），两者在epoch=16时的F1差距最为明显。请问这个最终差距大概有多大？",
+      "model_answer": "根据图表，FLAT方法（蓝色圆形标记线）在整个训练过程中始终优于OURS方法（黄色三角形标记线），两者在epoch=16时的F1差距最为明显。请问这个最终差距大概有多大？\nThe statement is incorrect. FLAT is not always superior to OURS. At epoch=16, OURS is superior to FLAT. The final gap between OURS and FLAT at epoch=16 is approximately 0.03 (0.88 - 0.85).",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model explicitly identifies the false premise ('The statement is incorrect. FLAT is not always superior to OURS.') and corrects the factual error about the relative performance of the methods. However, it still partially proceeds with the false premise by quoting an incorrect F1 value for OURS (0.85 instead of 0.90) and thus underestimates the gap (0.03 instead of ~0.02). The correction is incomplete."
+    },
+    {
+      "probe_id": "cn012_h3",
+      "probe_type": "unanswerable",
+      "question": "从图中三种方法的收敛曲线来看，OURS方法相比FLAT在每个epoch的平均训练时间大约减少了多少？",
+      "model_answer": "从图中三种方法的收敛曲线来看，OURS方法相比FLAT在每个epoch的平均训练时间大约减少了多少？\nThe chart does not provide information about training time. It only shows F1 scores. Therefore, it's impossible to determine the reduction in training time.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the chart does not provide information about training time and concludes that it is impossible to determine the reduction in training time. This aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

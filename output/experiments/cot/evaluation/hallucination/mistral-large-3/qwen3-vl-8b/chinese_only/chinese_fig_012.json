@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T18:57:06.721271+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn012_h1",
+      "probe_type": "inexist",
+      "question": "图中第四条线（绿色虚线）代表的BERT基线方法，其在epoch=8时的F1分数大约是多少？",
+      "model_answer": "图中第四条线（绿色虚线）代表的BERT基线方法，其在epoch=8时的F1分数大约是0.88。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the non-existent element (the fourth green dashed line for BERT) as if it exists, providing a specific F1 score (0.88) without questioning its presence or noting its absence in the chart."
+    },
+    {
+      "probe_id": "cn012_h2",
+      "probe_type": "contra",
+      "question": "根据图表，FLAT方法（蓝色圆形标记线）在整个训练过程中始终优于OURS方法（黄色三角形标记线），两者在epoch=16时的F1差距最为明显。请问这个最终差距大概有多大？",
+      "model_answer": "在epoch=16时，FLAT方法的F1分数约为0.89，OURS方法约为0.90，两者差距约为0.01。",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model provides the correct F1 scores for both methods at epoch=16 and accurately states the difference (0.01), which contradicts the false premise. However, it does not explicitly identify or correct the false premise (that FLAT is always superior and the gap is largest at epoch=16). The response implicitly refutes the premise but lacks an explicit acknowledgment of the error."
+    },
+    {
+      "probe_id": "cn012_h3",
+      "probe_type": "unanswerable",
+      "question": "从图中三种方法的收敛曲线来看，OURS方法相比FLAT在每个epoch的平均训练时间大约减少了多少？",
+      "model_answer": "图中并未提供任何关于训练时间的信息，因此无法根据图表判断OURS方法相比FLAT在每个epoch的平均训练时间减少了多少。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the chart does not provide the necessary information (training time) and explicitly concludes that the question cannot be answered from the figure alone, aligning perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

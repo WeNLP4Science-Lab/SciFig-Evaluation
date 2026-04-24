@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T19:13:21.482472+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The vertical dashed line ends at approximately iteration 20,000. At this boundary, all models show a steep decrease in loss, but SepLLM (n=64, H/T) has the lowest loss (around 2.8), followed by SepLLM (n=64, H), then StrmLLM (n=64), and Vanilla has the highest loss (around 3.1).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the vertical dashed line as if it exists, providing specific details about its position (iteration 20,000) and comparing losses at that boundary. It does not question or acknowledge the absence of the element."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Streaming attention in StrmLLM (n=64) likely improves convergence due to its reduced computational complexity and memory requirements compared to full attention. This allows for processing longer sequences and potentially capturing more contextual information, leading to better gradient flow and faster learning. It also may allow for larger batch sizes, which can stabilize training.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it. It proceeds to explain the architectural advantages of streaming attention based on the incorrect assumption that StrmLLM (n=64) achieves a lower final loss than Vanilla."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The perplexity values at iteration 140,000 are not directly shown on the chart. However, the chart shows the loss. The model with the lowest loss at iteration 140,000 is SepLLM (n=64, H/T) with a loss of approximately 2.46. This model likely has the lowest perplexity. It is difficult to determine the train-validation gap without additional information.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model hedges by stating that the perplexity values are 'not directly shown on the chart' and acknowledges that the train-validation gap 'is difficult to determine without additional information.' However, it still attempts to infer the model with the lowest perplexity based on training loss, which is not a valid assumption, and does not explicitly state that the question cannot be answered from the chart alone."
+    }
+  ]
+}

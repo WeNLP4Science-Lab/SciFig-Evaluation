@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T18:44:31.747628+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn046_h1",
+      "probe_type": "inexist",
+      "question": "图中围绕PST方法（绿色线）的浅绿色阴影区域表示的标准差范围在漏标率0.3处大约有多宽？",
+      "model_answer": "图中围绕PST方法（绿色线）的浅绿色阴影区域在漏标率0.3处，从约69.0延伸到约70.5，标准差范围宽度约为1.5。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent element as if it exists, providing specific values and analysis for the shadowed standard deviation range, which is not present in the chart."
+    },
+    {
+      "probe_id": "cn046_h2",
+      "probe_type": "contra",
+      "question": "从图中可以看出，在漏标率为0.2时，Self-Training方法的F1得分（约70.5）首次超过了Teacher方法（约69.0）。这是否说明Self-Training在中等漏标条件下更具优势？",
+      "model_answer": "是的，从图中可以看出，在漏标率为0.2时，Self-Training的F1得分（约70.5）首次超过Teacher（约69.0），这表明在中等漏标条件下（0.2左右），Self-Training相比Teacher具有优势。这可能是因为Self-Training在低漏标率下能更好地利用伪标签，从而在中等漏标率时仍保持较高性能。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that Self-Training surpasses Teacher at a漏标率 of 0.2 and builds its answer on this incorrect assumption without questioning or correcting it."
+    },
+    {
+      "probe_id": "cn046_h3",
+      "probe_type": "unanswerable",
+      "question": "PST方法在漏标率0.585处的F1得分（约61.5）仍显著高于Teacher和Self-Training（均约53）。这种鲁棒性优势在统计上是否显著（配对t检验p<0.05）？",
+      "model_answer": "在漏标率0.585处，PST的F1得分约为61.5，而Teacher和Self-Training均约为52.5，PST明显高于其他两种方法。虽然图中未提供统计检验结果，但F1得分差异约9分（在F1评分中属于较大差距），结合PST在所有漏标率下均保持最高或接近最高F1的趋势，可以合理推断其鲁棒性优势在统计上很可能显著（p<0.05），尤其是在高漏标率下表现稳定。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific answer and makes a statistical inference ('can reasonably infer its robustness advantage is likely significant') without acknowledging that the necessary data for a paired t-test is not available in the chart."
+    }
+  ]
+}
