@@ -1,0 +1,114 @@
+{
+  "figure_key": "german_fig_001",
+  "subfolder": "german_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "German",
+  "num_atoms": 29,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The left y-axis is labeled \"Wirtschaftspolitik insgesamt (linke Skala)\" and \"Finanzpolitik (linke Skala)\"",
+      "evidence": "The left y-axis is labeled as 'Index', not the specific policy names. The policy names are part of the legend, not the axis labels.",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The right y-axis is labeled \"Handelspolitik (rechte Skala)\" and has a linear scale ranging from 0 to 9, with tick labels at intervals of 1",
+      "evidence": "The right y-axis scale ranges from 0 to 9000 with tick intervals of 1000, not 0 to 9 with intervals of 1.",
+      "atom_id": "y_axis_right_scale"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The first line, representing \"Wirtschaftspolitik insgesamt (linke Skala)\", is black and solid. It begins at approximately 100 in 2016, generally declines to a low of approximately 50 in 2019, then increases to a peak of approximately 500 in 2021, before declining to approximately 150 in 2024 and rising to approximately 250 in 2025",
+      "evidence": "The black line remains constant until 2020, peaks at 500 in 2020 (not 2021), drops to 100 in 2022 (not 150 in 2024), and rises to 700 in 2025 (not 250).",
+      "atom_id": "black_line_start, black_line_trend_2016_2020, black_line_peak, black_line_drop_2022, black_line_rise_2025"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The second line, representing \"Finanzpolitik (linke Skala)\", is blue and solid. It begins at approximately 100 in 2016, fluctuates between approximately 100 and 200 until 2020, then increases to approximately 300 in 2021, and declines to approximately 100 in 2025",
+      "evidence": "The blue line remains constant until 2020, peaks at 500 in 2020 (not 300 in 2021), drops to 100 in 2022 (not 2025), and rises to 700 in 2025 (not 100).",
+      "atom_id": "blue_line_start, blue_line_trend_2016_2020, blue_line_peak, blue_line_drop_2022, blue_line_rise_2025"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The third line, representing \"Handelspolitik (rechte Skala)\", is purple and solid. It begins at approximately 1 in 2016, fluctuates between approximately 1 and 2 until 2019, then increases to a peak of approximately 7 in 2021, and declines to approximately 1 in 2025",
+      "evidence": "The purple line starts at 0 (not 1), rises to 2000 in 2020 (not 7 in 2021), drops to 0 in 2021 (not 1 in 2025), and rises to 8000 in 2025 (not 1). The scale is also misrepresented due to the incorrect axis scale.",
+      "atom_id": "purple_line_start, purple_line_rise_2020, purple_line_drop_2021, purple_line_rise_2025"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the correct label for the left y-axis ('Index') and misrepresents the right y-axis label.",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the legend's position in the upper half of the diagram.",
+      "atom_id": "legend_position"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "tick labels at yearly intervals",
+      "evidence": "The x-axis tick labels are at 2-year intervals (2016, 2018, 2020, 2022, 2024), not yearly.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "generally declines to a low of approximately 50 in 2019",
+      "evidence": "The description oversimplifies the trend; the black line does not show a clear decline to 50 in 2019.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The left y-axis is labeled \"Wirtschaftspolitik insgesamt (linke Skala)\" and \"Finanzpolitik (linke Skala)\"",
+      "evidence": "The sentence incorrectly implies that the left y-axis has two labels, which is grammatically and factually incorrect.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 75.52,
+  "total_penalty": 35.5,
+  "atom_coverage": {
+    "correct": 26,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 29,
+    "accuracy": 0.9286,
+    "completeness": 0.9286
+  }
+}

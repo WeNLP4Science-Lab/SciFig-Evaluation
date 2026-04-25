@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_039",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图展示的是在纠正语言错误后，不同条件下网络密度的变化情况",
+      "evidence": "图表目的描述错误，应为展示'去除偏误'和'未去除偏误'数据的变化情况，而非'纠正语言错误后的网络密度变化'",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线带星号标记的线",
+      "evidence": "蓝线的标记应为叉形（×），而非星号（*）",
+      "atom_id": "weiqupianwu_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "C1 处（0.0044）",
+      "evidence": "蓝线在 C1 处的值应为 0.0044，但红线在 C1 处的值应为 0.0045，描述未明确区分两条线的值，且未提及红线的正确值",
+      "atom_id": "qupianwu_C1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "两条线在 B1 处（0.0051）和 C1 处（0.0044）分别出现一个峰值和一个下降拐点",
+      "evidence": "蓝线在 B1 处达到峰值（0.0051），但红线在 B1 处下降至 0.0051（非峰值）。C1 处不是峰值，且两条线在 C1 和 C2 处趋于相同，而非仅在 C2 处交汇",
+      "atom_id": "B1_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及蓝线在 B2 处的值（0.0047）及其下降趋势",
+      "atom_id": "weiqupianwu_B2"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及红线在 B2 处的值（0.0050）及其下降趋势",
+      "atom_id": "qupianwu_B2"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明 y 轴没有标注单位",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "在纠正语言错误后",
+      "evidence": "引入了未在图表中体现的解释性内容（'纠正语言错误'）",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "分别出现一个峰值和一个下降拐点",
+      "evidence": "使用了主观描述（'峰值'、'下降拐点'），而非客观描述数值变化",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "两条线在 B1 处（0.0051）和 C1 处（0.0044）分别出现一个峰值和一个下降拐点",
+      "evidence": "未明确说明哪条线在 B1 处达到峰值，哪条线在 C1 处下降",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "随后依次下降至 C2 处的 0.0033",
+      "evidence": "忽略了红线在 B1 处略有下降后的微小波动（B1 到 B2 变化），以及蓝线在 B1 处的上升趋势",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 70.42,
+  "total_penalty": 35.5,
+  "atom_coverage": {
+    "correct": 17,
+    "inaccurate": 4,
+    "missing": 3,
+    "total": 24,
+    "accuracy": 0.8095,
+    "completeness": 0.85
+  }
+}

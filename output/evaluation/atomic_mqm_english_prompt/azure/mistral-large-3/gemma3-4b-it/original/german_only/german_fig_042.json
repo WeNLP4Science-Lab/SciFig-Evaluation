@@ -1,0 +1,123 @@
+{
+  "figure_key": "german_fig_042",
+  "subfolder": "german_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis displays the names of the countries, listed alphabetically from Polen to Spanien, and the vertical axis represents the percentage of expenditure over the reference value",
+      "evidence": "The horizontal axis is labeled '% des BIP' and represents the percentage of GDP, not the countries. The vertical axis lists the countries, not the percentage.",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "green representing the 'Anstieg zwischen 2021 und 2024' (increase between 2021 and 2024), yellow representing 'Ausgaben 2021' (expenditure 2021)",
+      "evidence": "Green represents 'Ausgaben 2021' (expenditure 2021), and blue represents 'Anstieg zwischen 2021 und 2024' (increase between 2021 and 2024). There is no yellow segment in the figure.",
+      "atom_id": "blue_segment"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a lighter shade of green representing '1,5 % über dem Referenzwert von 2021' (1.5% over the reference value from 2021)",
+      "evidence": "The 1.5% reference value is represented by a black vertical line, not a lighter shade of green.",
+      "atom_id": "black_line"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The tallest bar, representing Polen, has a value of approximately 3.5%, with the 'Anstieg zwischen 2021 und 2024' portion reaching a value of approximately 1.2%",
+      "evidence": "The total value for Polen is approximately 3.7-3.8%, not 3.5%. The blue segment (increase) is closer to 0.7-0.8%, not 1.2%.",
+      "atom_id": "poland_longest"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the chart illustrates government expenditure as a percentage of GDP.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the x-axis label ('% des BIP') and its scale intervals (0.5 increments).",
+      "atom_id": "x_axis_scale"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention that the black line represents '1,5 % über dem Referenzwert von 2021'.",
+      "atom_id": "black_line"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars are stacked (two segments per bar).",
+      "atom_id": "stacked_segments"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "yellow representing 'Ausgaben 2021' (expenditure 2021)",
+      "evidence": "There is no yellow segment in the figure. The 'Ausgaben 2021' segment is green.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The bars are not sorted in any particular order",
+      "evidence": "The countries are sorted by descending total expenditure, not alphabetically or randomly. The statement is misleading.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "This bar chart illustrates the percentage of expenditure over the reference value from 2021, and the increase between 2021 and 2024, for various European countries.",
+      "evidence": "The sentence is awkwardly phrased and unclear. It suggests the chart illustrates 'percentage of expenditure over the reference value' and 'increase,' which are not distinct concepts in the figure.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 59.38,
+  "total_penalty": 32.5,
+  "atom_coverage": {
+    "correct": 9,
+    "inaccurate": 4,
+    "missing": 4,
+    "total": 16,
+    "accuracy": 0.6923,
+    "completeness": 0.6923
+  }
+}

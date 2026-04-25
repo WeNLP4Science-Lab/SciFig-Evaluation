@@ -1,0 +1,87 @@
+{
+  "figure_key": "chinese_fig_053",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 15,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "出现21次为41，22次为27，23次为32，24次为28",
+      "evidence": "Description states 21次=41, 22次=27, 23次=32, 24次=28, but the figure shows 21次=41, 22次=27, 23次=32, 24次=28 is incorrect for 24次 (should be 28, but 21-24 range should be 27-41, and 24次 is actually 28, which is within range but misordered). The atom specifies 21次到24次 values should be 27–41, but the description misorders and misrepresents the exact values.",
+      "atom_id": "count_21_to_24"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "从1次到25次及以上",
+      "evidence": "The x-axis label for the last category is '25+' not '25次及以上', though the meaning is similar.",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the visual emphasis on the '25+' bar, which is highlighted in the figure.",
+      "atom_id": "visual_emphasis"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "柱体为统一的深蓝色",
+      "evidence": "The description specifies '深蓝色' (dark blue), but the atom and figure show '蓝色' (blue) without specifying depth. This is an unsupported detail.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "数据呈现单柱形式，直观反映各出现频次区间的义项数量分布",
+      "evidence": "The description includes interpretive language ('直观反映') not present in the atoms or reference.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "每个柱状图代表某一出现次数区间内的义项数量，柱体为统一的深蓝色，顶部标注具体数值。",
+      "evidence": "The description includes redundant details about bar color and value labels, which are not critical for understanding.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the 'visual distribution' aspect as a purpose of the chart.",
+      "atom_id": "visual_distribution"
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 78.67,
+  "total_penalty": 16.0,
+  "atom_coverage": {
+    "correct": 11,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 15,
+    "accuracy": 0.8462,
+    "completeness": 0.8462
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "figure_key": "bulgarian_fig_058",
+  "subfolder": "bulgarian_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Bulgarian",
+  "num_atoms": 9,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "бензин, регистриран с 1 456 846, дизел с 414 098, електрически с 13 466 и хибридни с 1 071 600",
+      "evidence": "The description swaps the numerical values for бензин (1,071,600) and дизел (1,456,846), and also swaps електрически (414,098) and хибридни (13,466).",
+      "atom_id": "diesel_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "електрически в червено",
+      "evidence": "The electric sector is gray, not red.",
+      "atom_id": "electric_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "хибридни в синьо",
+      "evidence": "The hybrid sector is yellow, not blue.",
+      "atom_id": "hybrid_sector"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the 'други' sector, which is present in the figure with 51,910 automobiles.",
+      "atom_id": "other_sector"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Диаграмата включва четири основни сегмента",
+      "evidence": "The description states there are four segments, but the figure shows five segments.",
+      "atom_id": "sector_count"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the visible ordering of sectors by size.",
+      "atom_id": "ordering"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Няма проценти или други обозначения, вградени във всеки сектор",
+      "evidence": "The figure explicitly shows numerical values for each sector, which the description incorrectly claims are absent.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Няма визуални предимства, които разделят сегментите или групират данните",
+      "evidence": "The description incorrectly states there are no visual distinctions, while the figure clearly uses color and separation for each sector.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 25.56,
+  "total_penalty": 33.5,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 3,
+    "missing": 2,
+    "total": 9,
+    "accuracy": 0.5714,
+    "completeness": 0.6667
+  }
+}

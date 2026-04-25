@@ -1,0 +1,132 @@
+{
+  "figure_key": "chinese_fig_119",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 15,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "占比51.1%",
+      "evidence": "Description states 51.1% for '具备两类语体的同义词簇', but the figure shows 41.4% for '具备两类语体的同义词簇，具备口语词和通用词的词簇' (orange slice).",
+      "atom_id": "slice_two_oral_common_alt"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“仅具备口语词和书面语词的词簇”（10.2%）",
+      "evidence": "Description assigns 10.2% to '仅具备口语词和书面语词的词簇', but the figure shows 5.0% for this category (gray slice). 10.2% corresponds to '仅具备通用词语的词簇' (light blue slice).",
+      "atom_id": "slice_two_oral_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“仅具备通用语词和书面语词的词簇”（4.7%）",
+      "evidence": "Description correctly states 4.7% but misassigns it to the wrong category. The 4.7% slice (yellow) is '仅具备通用词语和书面词语的词簇', not '通用语词和书面语词的词簇' (minor label discrepancy, but the main error is the misassignment of 10.2% above).",
+      "atom_id": "slice_two_common_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“仅具备口语词的词簇”（1.5%）和“仅具备书面语词的词簇”（41.4% — 此处数据与标签存在视觉标注冲突，图中该部分实际标注为41.4%，但归类于“具备一类语体”下，应为笔误或归类错误，按图中标签应属“仅具备书面语词的词簇”）",
+      "evidence": "Description incorrectly groups 41.4% under '具备一类语体的同义词簇'. The 41.4% slice (orange) is '具备两类语体的同义词簇，具备口语词和通用词的词簇', not '仅具备书面语词的词簇' (32.5%, dark blue).",
+      "atom_id": "slice_one_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“仅具备书面语词的词簇”（41.4%",
+      "evidence": "Description incorrectly assigns 41.4% to '仅具备书面语词的词簇'. The figure shows 32.5% for this category (dark blue slice).",
+      "atom_id": "slice_one_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表共分为六个切片",
+      "evidence": "Description states six slices, but the figure shows seven slices.",
+      "atom_id": "num_slices"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "Description omits the '具备一类语体的同义词簇，仅具备通用词语的词簇' slice (light blue, 10.2%).",
+      "atom_id": "slice_one_common"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Description does not explicitly mention that some slices are visually emphasized (e.g., pulled out or bolded labels).",
+      "atom_id": "emphasis"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "其内部进一步细分为“仅具备口语词和通用语词的词簇”（20.8%）、“仅具备口语词和书面语词的词簇”（10.2%）以及“仅具备通用语词和书面语词的词簇”（4.7%）",
+      "evidence": "Description incorrectly suggests that the largest slice (41.4%) is subdivided into smaller slices. The figure does not show such subdivision.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "（此处数据与标签存在视觉标注冲突，图中该部分实际标注为41.4%，但归类于“具备一类语体”下，应为笔误或归类错误，按图中标签应属“仅具备书面语词的词簇”）",
+      "evidence": "Description includes speculative interpretation about potential errors in the figure, which is not supported by the image or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "部分切片通过引线连接标签，视觉上未作偏移或放大处理",
+      "evidence": "Description is ambiguous about which slices have '引线连接标签' and which are '未作偏移或放大处理'. The reference clearly states which slices are emphasized.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "其下包含“仅具备口语词的词簇”（1.5%）和“仅具备书面语词的词簇”（41.4% — 此处数据与标签存在视觉标注冲突，图中该部分实际标注为41.4%，但归类于“具备一类语体”下，应为笔误或归类错误，按图中标签应属“仅具备书面语词的词簇”）",
+      "evidence": "Sentence structure is awkward and confusing due to the speculative parenthetical note.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 44.0,
+  "total_penalty": 42.0,
+  "atom_coverage": {
+    "correct": 8,
+    "inaccurate": 5,
+    "missing": 2,
+    "total": 15,
+    "accuracy": 0.6154,
+    "completeness": 0.8
+  }
+}
