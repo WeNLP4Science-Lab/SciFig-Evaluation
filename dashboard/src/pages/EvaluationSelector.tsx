@@ -79,9 +79,21 @@ const cards = [
     ),
   },
   {
+    to: '/evaluation/final-results',
+    title: 'Final Results',
+    desc: 'Comprehensive results across all experiments: Atomic MQM, transforms, capability, A-R-I, CoT, and prompt ablation',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+    ),
+  },
+  {
     to: '/evaluation/adversarial-results',
     title: 'Adversarial Results',
-    desc: 'Aggregated leaderboard tables for all adversarial experiments across 12 models × 2 judges',
+    desc: 'Aggregated leaderboard tables for all adversarial experiments across 13 models × 2 judges',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 20V10" />

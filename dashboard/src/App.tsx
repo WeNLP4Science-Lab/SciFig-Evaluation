@@ -11,6 +11,7 @@ import AdversarialEvaluation from './pages/AdversarialEvaluation'
 import InferableBlurs from './pages/InferableBlurs'
 import AdversarialResults from './pages/AdversarialResults'
 import TransformEvaluation from './pages/TransformEvaluation'
+import FinalResults from './pages/FinalResults'
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
       <Route path="/evaluation/adversarial" element={<AdversarialEvaluation />} />
       <Route path="/evaluation/adversarial-results" element={<AdversarialResults />} />
       <Route path="/evaluation/transform-mqm" element={<TransformEvaluation />} />
+      <Route path="/evaluation/final-results" element={<FinalResults />} />
 
       {/* Analytics */}
       <Route
