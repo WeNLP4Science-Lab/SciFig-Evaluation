@@ -1,0 +1,69 @@
+{
+  "figure_key": "english_fig_004",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 30,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dips slightly below -5%",
+      "evidence": "The red line ('LB-Avg of 1×tokens,16-bit') does not dip below -5%; it remains above -5% throughout.",
+      "atom_id": "english_fig_004_sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dips to approximately -15%",
+      "evidence": "The light blue line ('RULER4k of 2×tokens,8-bit') dips to around -12%, not -15%.",
+      "atom_id": "english_fig_004_sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the exact y-axis tick marks (-25%, -15%, -5%, 0%, 5%) and only mentions 'every 5 percentage point interval'.",
+      "atom_id": "english_fig_004_axis_range_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "This line plot illustrates the layer-wise relative change in performance metrics for different quantization configurations applied to the KV cache of Mistral-7B-v0.2-Instruct using SnapKV pruning, with a fixed KV cache budget of 1/64.",
+      "evidence": "The description introduces interpretive details ('performance metrics', 'quantization configurations', 'SnapKV pruning', 'KV cache budget') not explicitly shown in the figure or supported by atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The x-axis represents the model layers, grouped into five segments: “Layer1-4”, “Layer5-12”, “Layer13-20”, “Layer21-28”, and “Layer29-32”, and is plotted on a linear scale without numerical tick labels.",
+      "evidence": "The x-axis does have labels for the layer groupings, so stating it is 'without numerical tick labels' is misleading. The layer groupings are explicitly labeled.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 5,
+  "mqm_score": 89.33,
+  "total_penalty": 16.0,
+  "atom_coverage": {
+    "correct": 27,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 30,
+    "accuracy": 0.931,
+    "completeness": 0.9643
+  }
+}
