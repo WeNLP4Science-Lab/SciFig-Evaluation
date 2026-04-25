@@ -1,0 +1,153 @@
+digraph PromptEngineering {
+	graph [bgcolor=white compound=true fontname=Helvetica fontsize=10 margin=0.15 nodesep=0.30 pad=0.3 rankdir=TB ranksep=0.45 splines=ortho]
+	node [color=black fillcolor=white fontname=Helvetica fontsize=9 penwidth=0.8 style=filled]
+	edge [arrowsize=0.6 color=black fontname=Helvetica fontsize=7 penwidth=0.6]
+
+	/* ================================================================
+	   Phase 1 — Input artefacts
+	   ================================================================ */
+	subgraph cluster_1 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 1   Input artefacts" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		gt [label="<<datastore>>\nGround truth JSON\nfigure_type · language\ncaption · annotations" height=0.9 shape=cylinder width=2.0]
+		figimg [label="<<datastore>>\nFigure images\n1,005 + 45×9 transforms" height=0.8 shape=cylinder width=2.0]
+		probes [label="<<datastore>>\nProbe benchmarks\nA1–A5 · 225 Qs" height=0.8 shape=cylinder width=2.0]
+	}
+
+	/* ================================================================
+	   Phase 2 — Metadata extraction
+	   ================================================================ */
+	subgraph cluster_2 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 2   Metadata extraction" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		meta [label="<<component>>\nExtract metadata" height=0.7 shape=component width=2.2]
+		ftype [label="figure_type\nLine | Bar | Pie | Default" height=0.55 shape=note width=2.0]
+		flang [label="paper_language\nEN | BG | CN | DE" height=0.55 shape=note width=1.7]
+	}
+
+	/* ================================================================
+	   Phase 3 — Prompt template store (compact)
+	   ================================================================ */
+	subgraph cluster_3 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 3   Prompt template store (4 langs × 4 types)" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		tpl_en [label="English templates\nline_plot · bar_chart\npie_chart · default" fillcolor="#E8F5E9" height=0.7 shape=note width=2.2]
+		tpl_bg [label="Bulgarian\ntranslated" fillcolor="#E3F2FD" height=0.55 shape=note width=1.3]
+		tpl_cn [label="Chinese\ntranslated" fillcolor="#FFF3E0" height=0.55 shape=note width=1.3]
+		tpl_de [label="German\ntranslated" fillcolor="#FCE4EC" height=0.55 shape=note width=1.3]
+	}
+
+	/* ================================================================
+	   Phase 4 — Prompt selector
+	   ================================================================ */
+	subgraph cluster_4 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 4   Prompt selector" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		sel [label="<<component>>\nget_prompt(lang, type)\n4-level fallback chain" height=0.8 shape=component width=2.5]
+		fallback [label="Fallback:\n1. (lang, type) → 2. (lang, def)\n→ 3. (EN, type) → 4. (EN, def)" fillcolor="#FFFDE7" fontsize=8 height=0.7 shape=box width=2.8]
+		selected [label="selected prompt" height=0.45 shape=note width=1.5]
+	}
+
+	/* ================================================================
+	   Phase 5 — Three experimental conditions
+	   ================================================================ */
+	subgraph cluster_5 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 5   Experimental conditions" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		c1 [label="C1  Native-language\ndirect answer" fillcolor="#C8E6C9" fontname="Helvetica-Bold" fontsize=9 height=0.7 shape=box width=2.2]
+		c2 [label="C2  English-only\nablation" fillcolor="#BBDEFB" fontname="Helvetica-Bold" fontsize=9 height=0.7 shape=box width=2.2]
+		c3 [label="C3  CCoT\nvisual reasoning" fillcolor="#F8BBD0" fontname="Helvetica-Bold" fontsize=9 height=0.7 shape=box width=2.2]
+		cot_detail [label="<<artifact>>\n\"describe visual structure...\nlet's think step by step\"\n(Mitra et al. 2024;\nKojima et al. 2022)" fillcolor="#FCE4EC" fontsize=8 height=1.0 shape=note width=2.5]
+	}
+
+	/* ================================================================
+	   Phase 6 — Prompt composer
+	   ================================================================ */
+	subgraph cluster_6 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 6   Prompt composer" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		compose [label="<<component>>\nCompose final prompt\nrole + template + condition\n+ caption / question" height=0.9 shape=component width=2.8]
+		final [label="final prompt\n(system message)" fontname="Helvetica-Bold" height=0.55 shape=note width=1.8]
+	}
+
+	/* ================================================================
+	   Phase 7 — Model invocation
+	   ================================================================ */
+	subgraph cluster_7 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 7   Model under test   (T = 0)" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		azure [label="<<node>>\nAzure\nGPT-5.2 · Phi-4" height=0.65 shape=box3d width=1.6]
+		oproute [label="<<node>>\nOpenRouter\nClaude-4.6 · LLaMA-4\nGemma-3 · Qwen3-VL" height=0.8 shape=box3d width=2.2]
+		vertex [label="<<node>>\nVertex AI\nGemini-3.1-Pro" height=0.65 shape=box3d width=1.6]
+		mut [label="<<component>>\nFigureAnnotator\n13 models · 4 backends" height=0.8 shape=component width=2.5]
+	}
+
+	/* ================================================================
+	   Phase 8 — Outputs
+	   ================================================================ */
+	subgraph cluster_8 {
+		color=gray55 fontname="Helvetica-Bold" fontsize=10 label="Phase 8   Outputs → scoring" labeljust=l labelloc=t margin=8 penwidth=0.5 style="rounded,dashed"
+		o_desc [label="figure description\n(C1 / C2)" height=0.55 shape=note width=1.7]
+		o_qa [label="probe response\ncapability · hallu\nreverse · admittance" height=0.7 shape=note width=1.8]
+		o_cot [label="CoT output\ndecomposition + answer\nor DESCRIPTION:" height=0.7 shape=note width=2.0]
+		scoring [label="<<component>>\nScoring pipeline\natomic MQM + A-R-I" fontname="Helvetica-Bold" height=0.8 shape=component width=2.5]
+	}
+
+	/* ================================================================
+	   Edges
+	   ================================================================ */
+
+	/* Phase 1 → 2 */
+	gt -> meta
+
+	/* Phase 2 internal */
+	meta -> ftype
+	meta -> flang
+
+	/* Phase 2 → 4 */
+	ftype -> sel
+	flang -> sel
+
+	/* Phase 3 → 4 */
+	tpl_en -> sel [style=dashed]
+	tpl_bg -> sel [style=dashed constraint=false]
+	tpl_cn -> sel [style=dashed constraint=false]
+	tpl_de -> sel [style=dashed constraint=false]
+
+	/* Phase 4 internal */
+	sel -> fallback [arrowhead=none]
+	fallback -> selected
+
+	/* Phase 4 → 5 */
+	selected -> c1
+	selected -> c2
+	selected -> c3
+
+	/* Phase 5 internal */
+	cot_detail -> c3 [style=dashed]
+
+	/* Phase 5 → 6 */
+	c1 -> compose
+	c2 -> compose
+	c3 -> compose
+
+	/* Phase 1 → 6 */
+	probes -> compose [style=dashed constraint=false]
+
+	/* Phase 6 internal */
+	compose -> final
+
+	/* Phase 6 → 7 */
+	final -> mut
+
+	/* Phase 1 → 7 */
+	figimg -> mut [style=dashed constraint=false]
+
+	/* Phase 7 internal */
+	azure -> mut [arrowhead=none style=dotted]
+	oproute -> mut [arrowhead=none style=dotted]
+	vertex -> mut [arrowhead=none style=dotted]
+
+	/* Phase 7 → 8 */
+	mut -> o_desc
+	mut -> o_qa
+	mut -> o_cot
+
+	/* Phase 8 → scoring */
+	o_desc -> scoring
+	o_qa -> scoring
+	o_cot -> scoring
+}

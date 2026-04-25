@@ -13,6 +13,49 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds}
 \usepackage[most]{tcolorbox}
+\usepackage{listings}
+%% Premium code box — clean, minimal, syntax-coloured
+\definecolor{codebg}{HTML}{F8F8F8}
+\definecolor{codeborder}{HTML}{D0D0D0}
+\definecolor{codekw}{HTML}{0550AE}
+\definecolor{codestr}{HTML}{0A7D3E}
+\definecolor{codecomment}{HTML}{6A737D}
+\definecolor{codetag}{HTML}{953800}
+\definecolor{codetitlebg}{HTML}{EBEBEB}
+\lstdefinestyle{idestyle}{
+  basicstyle=\ttfamily\fontsize{6}{7.5}\selectfont\color{black!80},
+  keywordstyle=\color{codekw}\bfseries,
+  stringstyle=\color{codestr},
+  commentstyle=\color{codecomment}\itshape,
+  numberstyle=\fontsize{5}{6}\selectfont\color{codecomment},
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=2,
+  numbers=left,
+  numbersep=4pt,
+  xleftmargin=10pt,
+  xrightmargin=2pt,
+  morekeywords={severity,critical,important,minor,id,value,atoms,
+    figure_key,figure_type,language,purpose,axes,bars,paragraph,
+    annotator,describe,chart,include,description,Write,Schreiben,
+    Verfassen,Beschreibung,Vermeiden,Avoid},
+  emph={critical,important,minor},
+  emphstyle=\color{codetag}\bfseries,
+  emph={[2]severity,id,value,figure_key,figure_type},
+  emphstyle={[2]\color{codekw}},
+}
+\newtcblisting{codebox}[1][]{%
+  enhanced, breakable,
+  colback=codebg, colframe=codeborder,
+  coltitle=black!70, colbacktitle=codetitlebg,
+  fonttitle=\sffamily\fontsize{6.5}{8}\selectfont\bfseries,
+  left=0pt, right=2pt, top=2pt, bottom=2pt,
+  boxrule=0.3pt, arc=1.5pt,
+  listing only,
+  listing options={style=idestyle},
+  #1
+}
 %% Inline robot icon used to mark AI responses in the boxed
 %% behavioural examples of Chapter 2. Paul dropped
 %% figures/roboicon.jpg; if absent, fall back to a small sparkle.
@@ -63,6 +106,7 @@
 \usepackage{placeins}
 \usepackage{subcaption}
 \usepackage{booktabs}
+\usepackage{multirow}
 \usepackage{adjustbox}
 %% Faint-grey frame around every figure that does not already have one.
 %% Call \framedfig{\includegraphics{...}} or use \adjustbox.
@@ -92,7 +136,7 @@
 %% While the other chapters are still in draft, only typeset
 %% the introduction. Remove or extend this list as each chapter
 %% is completed.
-\includeonly{introduction,background,literature-review,design}
+\includeonly{introduction,background,literature-review,design,implementation,appendix}
 
 \def\sfthing#1#2{\def#1{\mbox{{\small\normalfont\sffamily #2}}}}
 
@@ -142,9 +186,12 @@
 \include{background}
 \include{literature-review}
 \include{design}
-%% Subsequent chapters will be added as they are drafted:
-% \include{implementation}
+\include{implementation}
 % \include{evaluation}
+% \include{discussion}
+% \include{conclusion}
+
+\include{appendix}
 % \include{discussion}
 % \include{conclusion}
 

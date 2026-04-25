@@ -496,6 +496,35 @@ variable of the evaluation and are designed around three
 principles: figure-type specificity, native-language instruction,
 and a chain-of-thought ablation that tests whether explicit
 visual reasoning improves model behaviour.
+Figure~\ref{fig:prompt-engineering} traces the full prompt
+engineering pipeline from input artefacts through prompt
+selection and composition to the three experimental conditions
+whose outputs feed the scoring pipeline downstream.
+
+\begin{figure}[!tbp]
+  \centering
+  \framedfig{\includegraphics[width=\textwidth]{figures/prompt_engineering_pipeline.pdf}}
+  \caption[Prompt engineering pipeline.]{%
+    The prompt engineering pipeline of \textsc{SciFig-Eval},
+    rendered as an eight-phase data-flow diagram. Phase~1
+    supplies input artefacts (ground truth, images, probes).
+    Phase~2 extracts figure type and language.
+    Phase~3 holds the template store (4~languages
+    $\times$ 4~figure types). Phase~4 selects the prompt via
+    a four-level fallback chain. Phase~5 branches into three
+    experimental conditions: C1~native-language direct answer,
+    C2~English-only ablation, and C3~CCoT visual reasoning
+    with the generic ``describe visual structure \ldots{} let's
+    think step by step'' prefix (after
+    \citealt{mitra2024ccot} and \citealt{kojima2022zeroshotcot}).
+    Phase~6 composes the final system message. Phase~7 invokes
+    the model under test (thirteen models across four inference
+    backends, all at $T{=}0$). Phase~8 feeds the outputs to the
+    scoring pipeline. Dashed arrows indicate fallback paths and
+    optional inputs; dotted lines indicate deployment
+    dependencies.}
+  \label{fig:prompt-engineering}
+\end{figure}
 
 \subsection{Figure-Type-Specific Generation Prompts}
 \label{sec:design-prompts-generation}
@@ -709,46 +738,42 @@ against itself.
 
 \begin{figure}[!tbp]
   \centering
-  \framedfig{\includegraphics[width=0.90\textwidth,height=0.90\textheight,keepaspectratio]{figures/system_end_to_end.pdf}}
+  \framedfig{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/system_end_to_end.pdf}}
   \caption[End-to-end SciFig-Eval system.]{%
-    \textsc{SciFig-Eval} end-to-end system, rendered as a UML
-    data-flow diagram with orthogonal routing. Six numbered
-    phase clusters stack top-to-bottom: corpus acquisition,
-    human annotation, probe generation, inference plus visual
-    transforms, multi-judge scoring, and aggregation with the
-    final behavioural profile. Data stores are drawn as
-    cylinders, software modules as UML component rectangles,
-    deployment environments as \textsc{uml} node boxes, and
-    data artefacts in flight as notes. Solid arrows carry data
-    flow; dashed open arrows indicate UML \ensuremath{\langle\!\langle\text{use}\rangle\!\rangle}
-    dependencies (deployment nodes to the MUT runner, judge
-    nodes to the scoring tracks). The final behavioural
-    profile $(A, R, I)$ plus the atomic MQM score is emitted
-    per model, per probe family.}
+    \textsc{SciFig-Eval} end-to-end system, rendered as a
+    seven-phase UML data-flow diagram. Phase~1 acquires figures
+    from four native-language venues. Phase~2 produces human
+    annotations and the atomic checklist (2{,}252 atoms across
+    120~figures). Phase~3 generates probes across five families
+    (A1--A5). Phase~4 selects and composes prompts under three
+    experimental conditions (C1~native, C2~English ablation,
+    C3~CCoT). Phase~5 runs thirteen models across three
+    inference backends at $T{=}0$ with nine visual transforms.
+    Phase~6 scores each response on two tracks: standard and
+    atomic MQM for description quality, and the A-R-I classifier
+    for behavioural profiling, using a dual-judge panel (GPT-4o
+    and Mistral Large~3). Phase~7 aggregates scores with
+    inter-rater statistics and exports to the dashboard. The
+    final output per model is the behavioural profile
+    $(A, R, I)$ plus the atomic MQM score, reported per language
+    and per prompt condition.}
   \label{fig:scoring-pipeline}
 \end{figure}
 
 The scoring itself is carried out by a multi-judge panel.
 Figure~\ref{fig:scoring-pipeline} traces the full pipeline.
-Two judge models are used, GPT-4o hosted on Azure and Mistral
-Large 3 hosted on OpenRouter, chosen so that scoring crosses
-model families and inference backends rather than relying on a
-single provider. Each judge independently produces an MQM
-score and an A-R-I classification for each response. The
-A-R-I classifier track combines rule-based keyword detection
-(for explicit refusal phrases and their multilingual
-equivalents) with judge reasoning against the ground-truth
-annotation.
+Two judge models are used, GPT-4o and Mistral Large~3, both
+hosted on Azure, chosen so that scoring crosses model families
+rather than relying on a single provider. Each judge
+independently produces an MQM score and an A-R-I classification
+for each response, combining rule-based keyword detection with
+judge reasoning against the ground-truth annotation.
 
 Three inter-rater statistics are computed at the aggregation
-stage. The pairwise Cohen's $\kappa$ is computed between each
-pair of judges to identify systematic disagreement. Fleiss'
-$\kappa$ is computed across the whole panel to report overall
-agreement. Cronbach's $\alpha$ is computed as a measure of the
-internal consistency of the A-R-I sub-scores across the probes
-in each family. The targets established in the evaluation
-literature are $\kappa \ge 0.60$ and $\alpha \ge 0.70$, and the
-pipeline reports both at each run. The consolidated output per
-model and per probe family is the behavioural profile
-$(A, R, I)$ together with the mean MQM score, which is the
-object the results chapter is built on.
+stage: pairwise Cohen's $\kappa$ between each pair of judges,
+Fleiss' $\kappa$ across the whole panel, and Cronbach's $\alpha$
+for the internal consistency of A-R-I sub-scores across probe
+families. The targets are $\kappa \ge 0.60$ and
+$\alpha \ge 0.70$. The consolidated output per model and per
+probe family is the behavioural profile $(A, R, I)$ together
+with the mean MQM score.

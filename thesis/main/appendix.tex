@@ -1,0 +1,284 @@
+\appendix
+
+\chapter{Prompts, Judge Instructions and Atom Checklists}
+\label{app:prompts}
+
+This appendix reproduces the generation prompts, the atomic MQM
+judge prompt, and a representative atom checklist used in the
+experiments of Chapter~\ref{chap:implementation}.
+
+\section{Generation Prompts (English)}
+\label{app:prompts-en}
+
+\subsection{Line Plot}
+
+\begin{codebox}[title={English line-plot generation prompt}]
+You are an annotator tasked with describing scientific line
+plots in a structured but natural paragraph format.
+
+Your goal is to clearly describe what is shown, without making
+inferences or drawing conclusions. Stick to objective features
+only. Use neutral, technical language.
+
+For each plot, write a single paragraph that includes:
+
+  A description of the overall purpose of the plot (what is
+  being illustrated, compared, or represented)
+
+  A description of the x-axis, including its label, scale type
+  (e.g., linear or logarithmic), value range, units (if
+  present), and tick label interval if numeric and regularly
+  spaced
+
+  A description of the y-axis, following the same structure as
+  the x-axis
+
+  A description of each line in the plot, including its color,
+  marker shape, line style (e.g., solid, dashed), and how it
+  changes across the x-axis. Where possible, include
+  representative values at the start and end of the x-axis,
+  and note any peaks, declines, or steady trends using exact
+  data points from the plot (not inferred ones)
+
+Avoid interpreting the cause of changes or making comparisons
+between lines. Do not include section titles; write everything
+in flowing sentences within a single paragraph per plot.
+\end{codebox}
+
+\subsection{Bar Chart}
+
+\begin{codebox}[title={English bar-chart generation prompt}]
+You are an annotator tasked with describing scientific bar
+charts in a structured but natural paragraph format.
+
+Your goal is to objectively describe what is shown, using
+neutral and technical language. Avoid making inferences,
+comparisons, or drawing conclusions about the data.
+
+For each bar chart, write a single paragraph that includes:
+
+  A description of the overall purpose of the chart (what is
+  being illustrated, compared, or represented)
+
+  A description of the axes: indicate which axis contains the
+  categories (horizontal or vertical), and describe the axis
+  label, order, and scale type if present (e.g., linear,
+  logarithmic). Then describe the value axis, including its
+  label, scale, value range, units (if present), and tick
+  label interval if numeric and regularly spaced
+
+  A description of each bar (or grouped/stacked set of bars),
+  including the label, color, and approximate value or length.
+  Where possible, include representative values from the
+  shortest and tallest bars or note consistent trends in
+  height or length, using exact data from the chart
+
+  If the chart contains grouped or stacked bars, explain how
+  the grouping or stacking is visually arranged and what each
+  component represents based on labels or legends
+
+  Mention whether the bars are sorted in a specific way (e.g.,
+  descending, alphabetical), and whether any bars are visually
+  emphasized (e.g., shaded, bolded, outlined, or annotated)
+
+Avoid interpreting causes or trends, and do not compare
+categories unless the comparison is explicitly labeled. Focus
+solely on visual and labeled characteristics.
+
+Write everything in a single, continuous paragraph without
+section headers or bullet points.
+\end{codebox}
+
+\subsection{Pie Chart}
+
+\begin{codebox}[title={English pie-chart generation prompt}]
+You are an annotator tasked with describing scientific pie
+charts in a structured but natural paragraph format.
+
+Your goal is to objectively describe what is shown in the
+chart, using neutral and technical language. Avoid interpreting
+or explaining the significance of the proportions.
+
+For each chart, write a single paragraph that includes:
+
+  A description of the overall purpose of the chart (what is
+  being represented or compared)
+
+  The total number of slices (or categories) shown
+
+  For each slice, include the label, color (if distinguishable),
+  and approximate percentage or proportion if shown or easily
+  estimated
+
+  Mention whether the chart includes a legend, percentage
+  labels inside the slices, or if any slices are visually
+  emphasized (e.g. exploded, offset, or bolded)
+
+  If the segments appear ordered in a particular way (e.g.
+  descending size), note this as a visual observation, not
+  interpretation
+
+Write everything in a single, natural paragraph. Do not include
+section titles or bullet points. Avoid drawing conclusions or
+comparing slices beyond what is visually and explicitly
+presented.
+\end{codebox}
+
+
+\section{Generation Prompt (German Translation)}
+\label{app:prompts-de}
+
+\begin{codebox}[title={German bar-chart generation prompt (translated)}]
+Sie sind ein Annotator, dessen Aufgabe es ist,
+wissenschaftliche Balkendiagramme in einem strukturierten,
+aber natuerlichen Absatzformat zu beschreiben.
+
+Ihr Ziel ist es, das Dargestellte objektiv und in einer
+neutralen, fachlichen Sprache zu beschreiben. Vermeiden Sie
+es, Schlussfolgerungen zu ziehen, Vergleiche anzustellen
+oder Rueckschluesse auf die Daten zu ziehen.
+
+Verfassen Sie fuer jedes Balkendiagramm einen einzelnen
+Absatz, der Folgendes enthaelt:
+
+  Eine Beschreibung des Gesamtzwecks des Diagramms (was
+  dargestellt, verglichen oder repraesentiert wird)
+
+  Eine Beschreibung der Achsen: Geben Sie an, welche Achse
+  die Kategorien enthaelt (horizontal oder vertikal), und
+  beschreiben Sie die Achsenbeschriftung, die Reihenfolge
+  und den Skalentyp, falls vorhanden (z. B. linear,
+  logarithmisch). Beschreiben Sie dann die Werteachse,
+  einschliesslich ihrer Beschriftung, Skala, Wertebereich,
+  Einheiten (falls vorhanden) und Tick-Beschriftungsintervall
+
+  Eine Beschreibung jedes Balkens (oder jeder gruppierten/
+  gestapelten Gruppe von Balken), einschliesslich
+  Beschriftung, Farbe und ungefaehrer Wert oder Laenge
+
+  Wenn das Diagramm gruppierte oder gestapelte Balken
+  enthaelt, erklaeren Sie, wie die Gruppierung oder
+  Stapelung visuell angeordnet ist
+
+  Geben Sie an, ob die Balken in einer bestimmten
+  Reihenfolge sortiert sind und ob bestimmte Balken visuell
+  hervorgehoben sind
+
+Schreiben Sie alles in einem einzigen, zusammenhaengenden
+Absatz ohne Abschnittsueberschriften oder Aufzaehlungspunkte.
+\end{codebox}
+
+
+\section{Atomic MQM Judge Prompt}
+\label{app:judge-prompt}
+
+\begin{codebox}[title={Atomic MQM judge system prompt (excerpt)}]
+You are an expert evaluator assessing the quality of a
+machine-generated scientific figure description using an
+atomic checklist approach.
+
+You are given the FIGURE IMAGE, an ATOM CHECKLIST of
+verifiable facts extracted from a human expert annotation,
+the full REFERENCE DESCRIPTION, and a MACHINE-GENERATED
+description.
+
+Step 1 - Accuracy Check (atoms + image):
+  For each atom, check if the model description mentions it
+  AND gets it right. If wrong, flag an Accuracy error.
+
+Step 2 - Completeness Check (atoms):
+  For each atom, check if the model description covers it
+  AT ALL. If missing, flag a Completeness error.
+
+Step 3 - Hallucination Check (atoms + image):
+  Flag claims NOT covered by any atom that are factually
+  incorrect.
+
+Step 4 - Clarity Check (reference description):
+  Compare against the reference for readability.
+
+Severity assignment: atom severity caps error severity.
+  Critical/Important atom, completely wrong -> Major
+  Critical/Important atom, partially off    -> Minor
+  Minor atom, any degree of error           -> Minor
+
+Output: {"errors": [{"category": "...", "sub_type": "...",
+  "severity": "...", "text_span": "...",
+  "evidence": "...", "atom_id": "..."}]}
+\end{codebox}
+
+
+\section{Atom Checklist: \texttt{german\_fig\_023}}
+\label{app:atoms}
+
+\begin{codebox}[title={Complete atom checklist for \texttt{german\_fig\_023} (26 atoms)}]
+{ "figure_key": "german_fig_023",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "atoms": [
+    { "id": "chart_type",     "severity": "critical",
+      "value": "Die Abbildung besteht aus zwei Diagrammen" },
+    { "id": "chart_purpose",  "severity": "critical",
+      "value": "zeigt die Investitionen der
+       Gebietskoerperschaften in Relation zum BIP" },
+    { "id": "left_diagram",   "severity": "critical",
+      "value": "Das linke Diagramm stellt die
+       Bruttoanlageinvestitionen" },
+    { "id": "right_diagram",  "severity": "critical",
+      "value": "das rechte Diagramm zeigt die
+       Nettoanlageinvestitionen" },
+    { "id": "x_axis_range",   "severity": "critical",
+      "value": "Die horizontale Achse umfasst die Jahre
+       1991 bis 2023" },
+    { "id": "y_axis_unit",    "severity": "critical",
+      "value": "die vertikale Achse ist in Prozent des
+       BIP skaliert" },
+    { "id": "y_axis_scale",   "severity": "important",
+      "value": "reicht von -0,5 bis 3,5" },
+    { "id": "bar_bund",       "severity": "critical",
+      "value": "\"Bund\" (blau)" },
+    { "id": "bar_laender",    "severity": "critical",
+      "value": "\"Laender\" (rot)" },
+    { "id": "bar_gemeinden",  "severity": "critical",
+      "value": "\"Gemeinden\" (gelb)" },
+    { "id": "bar_gesamt",     "severity": "critical",
+      "value": "\"Gesamt\" als schwarze Linie" },
+    { "id": "brutto_trend",   "severity": "important",
+      "value": "Die Bruttoanlageinvestitionen zeigen
+       einen leichten Rueckgang" },
+    { "id": "netto_trend",    "severity": "important",
+      "value": "Die Nettoanlageinvestitionen bewegen sich
+       teilweise im negativen Bereich" },
+    { "id": "bund_brutto",    "severity": "important",
+      "value": "Der Bund traegt einen relativ kleinen
+       Anteil bei" },
+    { "id": "gemeinden_brutto","severity": "important",
+      "value": "Die Gemeinden haben den groessten Anteil
+       an den Bruttoinvestitionen" },
+    { "id": "gesamt_start",   "severity": "important",
+      "value": "Die Gesamtlinie beginnt bei etwa 2,5" },
+    { "id": "gesamt_end",     "severity": "important",
+      "value": "endet bei etwa 2,8 Prozent des BIP" },
+    { "id": "netto_negative", "severity": "important",
+      "value": "Im Nettodiagramm fallen einige Jahre
+       unter die Nulllinie" },
+    { "id": "legend",         "severity": "important",
+      "value": "Eine Legende ordnet die Farben den
+       Kategorien zu" },
+    { "id": "stacked",        "severity": "critical",
+      "value": "gestapelte Balken" },
+    { "id": "bar_color_blue", "severity": "minor",
+      "value": "blau fuer Bund" },
+    { "id": "bar_color_red",  "severity": "minor",
+      "value": "rot fuer Laender" },
+    { "id": "bar_color_yellow","severity": "minor",
+      "value": "gelb fuer Gemeinden" },
+    { "id": "line_color_black","severity": "minor",
+      "value": "schwarze Linie fuer Gesamt" },
+    { "id": "x_axis_ticks",   "severity": "minor",
+      "value": "Jahresbeschriftungen auf der x-Achse" },
+    { "id": "sort_order",     "severity": "minor",
+      "value": "chronologisch sortiert" }
+  ]
+}
+\end{codebox}
