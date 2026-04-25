@@ -590,6 +590,9 @@ from RQ3 because they test behavioural responses to reasoning
 traps rather than straightforward comprehension) and the
 chain-of-thought ablation that tests whether explicit visual
 reasoning changes model behaviour under stress.
+Each subsection below includes the behavioural probe assigned
+to the running example
+(Figure~\ref{fig:german023-example}) for that probe family.
 
 \subsection{Experiment: Hallucination Probes}
 \label{sec:impl-rq4-hallucination}
@@ -605,7 +608,38 @@ shows 60\% when it shows 45\%). \emph{Unanswerable} probes
 ask about information the figure does not determine (e.g.,
 the causal mechanism behind a trend). Each probe is scored on
 a three-point scale ($1.0$ for correct refusal, $0.5$ for
-hedged response, $0.0$ for confident fabrication).
+hedged response, $0.0$ for confident fabrication). The three
+sub-types for the running example are shown below.
+
+\begin{probebox}
+\textbf{Inexist}\hfill{\color{red!60!black}\scriptsize\textbf{Element does not exist}}\\[4pt]
+\fontsize{10}{13}\selectfont\bfseries\itshape
+Der im rechten Diagramm dargestellte EU-Durchschnitt
+als horizontale Referenzlinie liegt bei etwa 0\,\ldots\\[5pt]
+\normalfont\normalsize
+The EU average shown as a horizontal reference line in the
+right panel is approximately\,\ldots
+\end{probebox}
+\vspace{2pt}
+\begin{probebox}
+\textbf{Contra}\hfill{\color{red!60!black}\scriptsize\textbf{Premise is false}}\\[4pt]
+\fontsize{10}{13}\selectfont\bfseries\itshape
+Nachdem die Bruttoanlageinvestitionen der
+Gebietsk\"{o}rperschaften insgesamt seit 2015 durchgehend
+gestiegen sind\,\ldots\\[5pt]
+\normalfont\normalsize
+Given that gross fixed-asset investments have risen
+continuously since 2015\,\ldots
+\end{probebox}
+\vspace{2pt}
+\begin{probebox}
+\textbf{Unanswerable}\hfill{\color{red!60!black}\scriptsize\textbf{Not determinable from chart}}\\[4pt]
+\fontsize{10}{13}\selectfont\bfseries\itshape
+Wie hoch ist der Anteil der Investitionen in digitale
+Infrastruktur an den gesamten Bruttoanlageinvestitionen?\\[5pt]
+\normalfont\normalsize
+What share of gross investment goes to digital infrastructure?
+\end{probebox}
 
 \subsection{Experiment: Caption Bias}
 \label{sec:impl-rq4-caption}
@@ -621,6 +655,17 @@ following the image, following the caption, or not addressed.
 The resistance score is the proportion of claims that follow
 the image.
 
+\begin{probebox}
+\textbf{Modified caption}\hfill{\color{orange!70!black}\scriptsize\textbf{Caption contradicts image}}\\[4pt]
+\fontsize{10}{13}\selectfont\bfseries\itshape
+Die Gemeinden tragen durchgehend den
+\underline{kleinsten} Anteil bei.\\[5pt]
+\normalfont\normalsize
+Municipalities consistently contribute the
+\underline{smallest} share.
+{\color{orange!70!black}\,\textbf{Actually the largest.}}
+\end{probebox}
+
 \subsection{Experiment: Prompt-Reverse Consistency}
 \label{sec:impl-rq4-reverse}
 
@@ -633,6 +678,28 @@ the false one, $0.5$ when it reverses (confirms false, denies
 true), and $0.0$ when it agrees with both or disagrees with
 both.
 
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}
+\textbf{True claim}\hfill{\color{green!50!black}\scriptsize\textbf{Correct (yes)}}\\[4pt]
+\fontsize{9.5}{12}\selectfont\bfseries\itshape
+Verwendet das linke Diagramm gestapelte Balken, um die
+Ausgaben aufzuschl\"{u}sseln?\\[4pt]
+\normalfont\small
+Does the left panel use stacked bars?
+\end{probebox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}
+\textbf{False claim}\hfill{\color{red!60!black}\scriptsize\textbf{Negated (no)}}\\[4pt]
+\fontsize{9.5}{12}\selectfont\bfseries\itshape
+Verwendet das linke Diagramm einzelne Linien, um die
+Ausgaben darzustellen?\\[4pt]
+\normalfont\small
+Does the left panel use individual lines?
+\end{probebox}
+\end{minipage}
+
 \subsection{Experiment: Active Admittance}
 \label{sec:impl-rq4-admittance}
 
@@ -644,6 +711,18 @@ is scored on whether it admits the element is unreadable
 value ($0.0$). This complements the passive-admittance scores
 from \S\ref{sec:impl-rq2-blur}, which are derived from
 unprompted descriptions rather than direct questions.
+
+\begin{probebox}
+\textbf{Selective blur}\hfill{\color{blue!60!black}\scriptsize\textbf{``Bund'' label is blurred}}\\[4pt]
+\fontsize{10}{13}\selectfont\bfseries\itshape
+Welche Regierungsebene bildet den unteren Teil des
+gestapelten Balkendiagramms im linken Panel?\\[5pt]
+\normalfont\normalsize
+Which level of government forms the bottom of the stacked
+bars in the left panel?
+{\color{blue!60!black}\,\textbf{Does the model admit it
+cannot read the label?}}
+\end{probebox}
 
 \subsection{Experiment: Passive Admittance}
 \label{sec:impl-rq4-passive}
