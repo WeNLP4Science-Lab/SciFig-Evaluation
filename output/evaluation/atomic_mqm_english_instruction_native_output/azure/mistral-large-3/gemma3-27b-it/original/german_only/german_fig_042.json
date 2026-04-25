@@ -1,0 +1,141 @@
+{
+  "figure_key": "german_fig_042",
+  "subfolder": "german_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ein gelber Balken, der die Ausgaben im Jahr 2021 darstellt",
+      "evidence": "The segment representing 2021 expenditures is green, not yellow.",
+      "atom_id": "green_segment"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Jedes Land wird durch zwei Balken repräsentiert: ein blauer Balken, der den Anstieg zwischen 2021 und 2024 angibt, und ein gelber Balken, der die Ausgaben im Jahr 2021 darstellt. Die Balken sind nebeneinander angeordnet, wobei der blaue Balken immer links und der gelbe Balken rechts davon positioniert ist",
+      "evidence": "The bars are stacked, not side-by-side. The blue segment represents the increase, and the green segment represents 2021 expenditures.",
+      "atom_id": "stacked_segments"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Der blaue Balken für Polen ist mit etwa 3,9 % der BIP der längste",
+      "evidence": "The total bar length for Poland is approximately 3.5%, not 3.9%. The blue segment alone is shorter.",
+      "atom_id": "poland_longest"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Der gelbe Balken für Spanien ist mit etwa 1,4 % der BIP der längste",
+      "evidence": "The green segment for Spain is shorter than those for Poland, Estonia, and Latvia, which exceed 2%. Spain's green segment is below 1.5%.",
+      "atom_id": "top_countries"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "der gelbe Balken für Belgien mit etwa 0,1 % der BIP der kürzeste ist",
+      "evidence": "Belgium's green segment is closer to 0.8%, not 0.1%.",
+      "atom_id": "bottom_countries"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die Kategorien, bestehend aus Ländernamen, sind auf der vertikalen Achse aufgelistet, in alphabetischer Reihenfolge von Estland bis Spanien",
+      "evidence": "The countries are not listed in alphabetical order. Estonia is second, not first, and the order does not follow the alphabet.",
+      "atom_id": "y_axis_countries"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Die vertikale Achse ist nicht skaliert",
+      "evidence": "The vertical axis is implicitly scaled by country labels, though no numerical scale is shown. This statement is misleading.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the chart illustrates government expenditures as a percentage of GDP.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the black line indicating 1.5% above the 2021 reference value.",
+      "atom_id": "black_line"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the legend position or its role in clarifying the segments and line.",
+      "atom_id": "legend_position"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Die Kategorien, bestehend aus Ländernamen, sind auf der vertikalen Achse aufgelistet, in alphabetischer Reihenfolge von Estland bis Spanien",
+      "evidence": "The countries are not listed in alphabetical order. This claim is not supported by the figure or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Die vertikale Achse ist nicht skaliert",
+      "evidence": "This statement is unclear and misleading, as the vertical axis is implicitly scaled by country labels.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Der blaue Balken für Luxemburg mit etwa 0,2 % der BIP der kürzeste ist",
+      "evidence": "This statement oversimplifies by focusing only on the blue segment, ignoring the total bar length.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 42.5,
+  "total_penalty": 46.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 6,
+    "missing": 3,
+    "total": 16,
+    "accuracy": 0.5385,
+    "completeness": 0.7
+  }
+}

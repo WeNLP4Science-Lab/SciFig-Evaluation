@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-scout",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色曲线代表每日新增患者人数，绿色柱状图代表新闻媒体报道数目",
+      "evidence": "Description reverses the visual attributes: bars represent daily new confirmed cases (blue-green), and the line represents media reports (blue).",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色曲线代表每日新增患者人数",
+      "evidence": "The line color is blue, but it represents media reports, not daily new cases.",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "纵轴表示每日新增患者人数，单位为万人",
+      "evidence": "The left y-axis label is '每日新增确诊人数' with no unit specified as '万人' in the figure.",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "右侧的纵轴表示新闻媒体报道数目，单位为篇",
+      "evidence": "The right y-axis label is '相关新闻媒体每日报道数量' with no unit specified as '篇' in the figure.",
+      "atom_id": "y_axis_right_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the chart's purpose: showing trends of daily new COVID-19 cases and related media reports over time.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the color of the bars as '蓝绿色' (blue-green).",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the observation that the two trends show synchronized fluctuations with some lag or difference in peak timing.",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the observation of differences in peak timing and lag effects between cases and media reports.",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "某些日期的柱状图和曲线被突出显示，但没有明确的标注解释原因",
+      "evidence": "The figure does not show any explicit highlighting or emphasis on specific dates or data points.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "某些日期的柱状图和曲线被突出显示",
+      "evidence": "The description refers to 'highlighted' elements without specifying which dates or why, as no such highlighting exists.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "新闻媒体报道数目的曲线波动较大",
+      "evidence": "The description does not specify the nature or timing of the fluctuations, which are key to the chart's purpose.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 47.5,
+  "total_penalty": 31.5,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 4,
+    "missing": 4,
+    "total": 12,
+    "accuracy": 0.5556,
+    "completeness": 0.5556
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "figure_key": "german_fig_022",
+  "subfolder": "german_only",
+  "model_name": "phi-4-multimodal",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis categorizes the data by year and economic indicator, with each year having three bars representing Welt-BIP (World GDP), Exporte Deutschland (Exports of Germany), and Industrieproduktion Deutschland (Industrial Production of Germany).",
+      "evidence": "The horizontal axis is labeled with decades ('2000er Jahre', '2010er Jahre', '2020er Jahre'), not individual years. Each decade has four bars, not three, as Welthandel (World Trade) is also included.",
+      "atom_id": "x_axis_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Welt-BIP in green, Exporte Deutschland in blue, and Industrieproduktion Deutschland in light blue",
+      "evidence": "The legend specifies four categories: Welt-BIP (dark green), Welthandel (light green), Exporte Deutschland (dark blue), and Industrieproduktion Deutschland (light blue). The description omits Welthandel and misassigns colors.",
+      "atom_id": "legend_darkgreen"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Exporte Deutschland a 5.4% increase",
+      "evidence": "The figure shows Exporte Deutschland at 5.3% in the 2000er Jahre, not 5.4%. The 5.4% value corresponds to Welthandel.",
+      "atom_id": "2000_exporte_de"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Exporte Deutschland by 4.8%",
+      "evidence": "The figure shows Exporte Deutschland at 5.0% in the 2010er Jahre, not 4.8%. The 4.8% value corresponds to Welthandel.",
+      "atom_id": "2010_exporte_de"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Exporte Deutschland by 2.3%",
+      "evidence": "The figure shows Exporte Deutschland at 0.4% in the 2020er Jahre, not 2.3%. The 2.3% value corresponds to Welthandel.",
+      "atom_id": "2020_exporte_de"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Industrieproduktion Deutschland by 0.4%",
+      "evidence": "The figure shows Industrieproduktion Deutschland at -1.5% in the 2020er Jahre, not 0.4%. The 0.4% value corresponds to Exporte Deutschland.",
+      "atom_id": "2020_industrie_de"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the chart includes Welthandel (World Trade) as an economic indicator.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the Welthandel (World Trade) data series entirely, which is represented by the light green bars in the figure.",
+      "atom_id": "2000_welthandel"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the light green color representing Welthandel in the legend.",
+      "atom_id": "legend_lightgreen"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not specify the exact shades of green and blue (dark/light) for the bars.",
+      "atom_id": "darkgreen_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart does not include any sorting or emphasis on specific bars.",
+      "evidence": "The description introduces an unsupported claim about sorting or emphasis, which is not mentioned in the atoms or visible in the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The vertical axis represents the percentage change, ranging from -2.0% to 6.0%, with a linear scale.",
+      "evidence": "The description uses 'percentage change' instead of 'average percentage,' which could mislead interpretation. The reference uses 'Durchschnitte in %' (average percentages).",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The bar chart illustrates the percentage change in various economic indicators for Germany over three different years: 2000, 2010, and 2020.",
+      "evidence": "The description incorrectly limits the scope to Germany, while the figure includes global indicators (Welt-BIP, Welthandel).",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 64.81,
+  "total_penalty": 47.5,
+  "atom_coverage": {
+    "correct": 17,
+    "inaccurate": 6,
+    "missing": 4,
+    "total": 27,
+    "accuracy": 0.7391,
+    "completeness": 0.8095
+  }
+}

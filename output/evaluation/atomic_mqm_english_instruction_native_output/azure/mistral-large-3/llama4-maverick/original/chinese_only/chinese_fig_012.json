@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "从大约0.59（epoch=2）上升到约0.87（epoch=16）",
+      "evidence": "lattice方法在epoch=16的F1值应为约0.85，而非0.87",
+      "atom_id": "lattice_epoch16_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线标记为“FLAT”，表示FLAT模型的F1分数变化，该线从大约0.78（epoch=2）上升到约0.89（epoch=16）",
+      "evidence": "FLAT方法在epoch=16无数据点，且epoch=14的F1值应为约0.88，而非0.89",
+      "atom_id": "flat_epoch14_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色实线标记为“OURS”，表示OURS模型的F1分数变化，该线从大约0.81（epoch=4）上升到约0.91（epoch=16）",
+      "evidence": "OURS方法在epoch=16的F1值应为约0.90，而非0.91",
+      "atom_id": "ours_final_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "lattice模型的F1分数变化，该线从大约0.59（epoch=2）",
+      "evidence": "lattice方法在epoch=1的F1值约为0.59，而非epoch=2",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色实线标记为“OURS”，表示OURS模型的F1分数变化，该线从大约0.81（epoch=4）",
+      "evidence": "OURS方法在epoch=2的F1值约为0.81，而非epoch=4",
+      "atom_id": "ours_epoch2_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及OURS方法在epoch=10即超过FLAT的收敛速度优势",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明x轴的单位（次）是否对应epoch的单位",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "但上升幅度相对较小",
+      "evidence": "引入了主观比较，未基于图中明确数据",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "整体上也呈现出上升趋势",
+      "evidence": "未具体描述OURS方法在epoch=2到epoch=4的平缓变化",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 77.78,
+  "total_penalty": 30.0,
+  "atom_coverage": {
+    "correct": 20,
+    "inaccurate": 5,
+    "missing": 2,
+    "total": 27,
+    "accuracy": 0.8,
+    "completeness": 0.9091
+  }
+}
