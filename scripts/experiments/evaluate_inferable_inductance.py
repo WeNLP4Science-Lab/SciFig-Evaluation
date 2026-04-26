@@ -6,8 +6,7 @@ element is evidence of inductive reasoning.
 
 Score per element:
   1.0 = fabricated and correct (inferred successfully)
-  0.5 = admitted blur (honest but missed the inference)
-  0.0 = fabricated and incorrect (hallucinated)
+  0.0 = fabricated and incorrect, or did not fabricate
 
 Output: output/experiments/evaluation/inferable_inductance/{judge}/{model}.json
 
@@ -75,22 +74,16 @@ def run():
                 # Find the matching element
                 matched = False
                 for el in elements:
-                    # Score based on fabrication correctness
+                    # Score: 1.0 if fabricated correctly, 0.0 otherwise
                     if el.get("fabricates") and el.get("correct"):
                         score = 1.0
                         status = "inferred_correctly"
-                    elif el.get("admits"):
-                        score = 0.5
-                        status = "admitted_blur"
                     elif el.get("fabricates") and not el.get("correct"):
                         score = 0.0
                         status = "fabricated_incorrectly"
-                    elif not el.get("mentioned"):
-                        score = 0.5
-                        status = "silent_omission"
                     else:
                         score = 0.0
-                        status = "other"
+                        status = "did_not_fabricate"
 
                     element_results.append({
                         "figure_key": fig_key,
@@ -119,9 +112,8 @@ def run():
             # Compute aggregate scores
             scored = [r for r in element_results if r["score"] is not None]
             inferred = sum(1 for r in scored if r["status"] == "inferred_correctly")
-            admitted = sum(1 for r in scored if r["status"] == "admitted_blur")
             fabricated_wrong = sum(1 for r in scored if r["status"] == "fabricated_incorrectly")
-            silent = sum(1 for r in scored if r["status"] == "silent_omission")
+            did_not = sum(1 for r in scored if r["status"] == "did_not_fabricate")
             avg_score = sum(r["score"] for r in scored) / len(scored) if scored else None
 
             result = {
@@ -130,9 +122,8 @@ def run():
                 "total_elements": len(inferable),
                 "evaluated": len(scored),
                 "inferred_correctly": inferred,
-                "admitted_blur": admitted,
                 "fabricated_incorrectly": fabricated_wrong,
-                "silent_omission": silent,
+                "did_not_fabricate": did_not,
                 "inductance_score": round(avg_score, 3) if avg_score is not None else None,
                 "elements": element_results,
             }
@@ -148,22 +139,21 @@ def run():
                 "judge": judge,
                 "inductance_score": result["inductance_score"],
                 "inferred": inferred,
-                "admitted": admitted,
                 "wrong": fabricated_wrong,
-                "silent": silent,
+                "did_not": did_not,
                 "n": len(scored),
             })
 
             logger.info(
                 f"  {judge}/{model}: score={result['inductance_score']} "
-                f"(inferred={inferred} admitted={admitted} wrong={fabricated_wrong} silent={silent})"
+                f"(inferred={inferred} wrong={fabricated_wrong} did_not={did_not})"
             )
 
     # Print summary
-    print(f"\n{'Model':<22} {'Judge':<16} {'Score':>6} {'Inferred':>8} {'Admitted':>8} {'Wrong':>6} {'Silent':>6}")
-    print("-" * 75)
+    print(f"\n{'Model':<22} {'Judge':<16} {'Score':>6} {'Inferred':>9} {'Wrong':>6} {'No Try':>7}")
+    print("-" * 65)
     for r in sorted(summary_rows, key=lambda x: -(x["inductance_score"] or 0)):
-        print(f"{r['model']:<22} {r['judge']:<16} {r['inductance_score'] or 0:>6.2f} {r['inferred']:>8} {r['admitted']:>8} {r['wrong']:>6} {r['silent']:>6}")
+        print(f"{r['model']:<22} {r['judge']:<16} {r['inductance_score'] or 0:>6.2f} {r['inferred']:>9} {r['wrong']:>6} {r['did_not']:>7}")
 
 
 if __name__ == "__main__":
