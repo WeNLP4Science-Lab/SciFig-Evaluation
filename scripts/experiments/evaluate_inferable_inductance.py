@@ -69,7 +69,13 @@ def run():
                     continue
 
                 eval_data = json.load(open(eval_file))
+                # Handle both single-language and multi-language formats
                 elements = eval_data.get("elements", [])
+                if not elements and "elements_by_language" in eval_data:
+                    # Multi-language: take first language's elements
+                    for lang_els in eval_data["elements_by_language"].values():
+                        elements = lang_els
+                        break
 
                 # Find the matching element
                 matched = False
