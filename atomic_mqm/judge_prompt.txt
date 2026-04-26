@@ -3,14 +3,34 @@ You are an expert evaluator assessing the quality of a machine-generated scienti
 ## Your Task
 You are given the FIGURE IMAGE, an ATOM CHECKLIST of verifiable facts extracted from a human expert annotation, the full REFERENCE DESCRIPTION, and a MACHINE-GENERATED description. Use the image, the atom checklist, and the reference to evaluate the machine-generated description. Identify ALL errors.
 
-The image is the primary source of truth. The atom checklist tells you exactly which facts to verify for accuracy and completeness. The reference description is used for clarity and readability assessment.
+IMPORTANT: The IMAGE is the primary source of truth, not the atom checklist. The atom checklist is derived from a human annotation that may itself contain approximations. When the machine-generated description and the atom checklist disagree, always verify against the image before flagging an error. If the machine-generated description is a reasonable reading of the image, do NOT flag it as an error even if it differs slightly from the atom text.
+
+## Tolerance Guidelines
+
+Before flagging any error, apply these tolerance rules:
+
+### Numerical tolerance
+- For percentages: accept values within ±3 percentage points (e.g., atom says "45%", description says "43%" or "47%" — both acceptable)
+- For axis ranges and tick values: accept values within ±10% of the stated value
+- For approximate values explicitly marked with "approximately", "roughly", "about" or "~": accept any reasonable reading from the image
+- Do NOT flag differences between two equally valid approximations of the same visual element
+
+### Colour tolerance
+- Accept reasonable colour synonyms: "blue"/"light blue"/"teal"/"cyan", "red"/"crimson"/"dark red", "green"/"lime"/"dark green", "orange"/"amber"/"gold", "grey"/"silver"/"light grey"
+- Only flag colour errors when the described colour is clearly and unambiguously a different colour from what the image shows (e.g., calling a red bar "green")
+- When in doubt about a colour name, do NOT flag it
+
+### Wording tolerance
+- The description does not need to use the exact same words as the atom checklist
+- Accept semantic equivalence: "increases" / "rises" / "grows", "horizontal axis" / "x-axis", "stacked bars" / "bars stacked on top of each other"
+- Accept different but correct specificity levels: "the blue line" vs "the line representing Method A" — both are correct if they refer to the same element
 
 ## MQM Error Categories
 
 ### Accuracy Errors
-- **Incorrect Numerical Value**: Reports incorrect numbers, percentages, or quantities. Example: Reporting "60%" when the plot shows approximately "45%".
+- **Incorrect Numerical Value**: Reports incorrect numbers, percentages, or quantities BEYOND the tolerance defined above. Only flag when the value is clearly wrong based on the image, not based on minor disagreement with the atom text.
 - **Incorrect Axis or Legend Interpretation**: Incorrectly describes axis labels, units, or legend information. Example: Stating that the x-axis represents temperature when it represents time.
-- **Incorrect Visual Attribute Mapping**: Assigns incorrect category names, series, values, marker shapes, or labels to visual elements such as bars, lines, pie segments, or datasets. Example: Assigning the blue bar to Method A when it corresponds to Method B.
+- **Incorrect Visual Attribute Mapping**: Assigns incorrect category names, series, values, marker shapes, or labels to visual elements such as bars, lines, pie segments, or datasets. Example: Assigning the blue bar to Method A when it corresponds to Method B. Do NOT flag colour synonym differences.
 - **Incorrect Structural Description**: Misrepresents the structural organization of the chart. Example: Describing grouped bars as stacked, reporting 5 slices when 4 exist, or misstating axis orientation.
 
 ### Completeness Errors
@@ -42,8 +62,11 @@ For non-atom errors (Hallucinated Content, Unwanted Interpretation, Clarity erro
 
 ## Instructions
 
-### Step 1: Accuracy Check (use atoms + image)
-Go through the atom checklist. For each atom, check whether the machine-generated description mentions the same information. If it does but gets it WRONG, flag an Accuracy error with the appropriate sub_type. Use the image to verify which side is correct when the description and atom disagree.
+### Step 1: Accuracy Check (use image first, then atoms)
+Go through the atom checklist. For each atom, check whether the machine-generated description mentions the same information. If it does but appears wrong:
+1. FIRST verify against the IMAGE — is the description actually wrong, or is it a reasonable alternative reading?
+2. Apply the tolerance guidelines above
+3. Only flag as an error if the description is clearly incorrect based on the image
 
 ### Step 2: Completeness Check (use atoms)
 Go through the atom checklist again. For each atom, check whether the machine-generated description covers this information AT ALL. If the information is completely absent, flag a Completeness error with the appropriate sub_type:

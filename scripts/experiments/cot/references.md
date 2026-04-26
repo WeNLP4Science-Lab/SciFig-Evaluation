@@ -24,3 +24,22 @@ Our CoT experiment uses a single-prompt CCoT-style approach: the model first des
 - **arXiv**: https://arxiv.org/abs/2311.17076
 - **GitHub**: https://github.com/chancharikmitra/CCoT
 - **Contribution**: Proposed CCoT — a two-step zero-shot method where the model first generates a scene graph (objects, attributes, relationships) from the image, then uses it to answer. Improves compositional visual reasoning without fine-tuning. Our approach adapts this to a single prompt by asking the model to describe the figure structure before answering.
+
+## Self-Reflection / Self-Refine
+
+### Self-Refine: Iterative Refinement with Self-Feedback
+- **Authors**: Aman Madaan, Niket Tandon, Prakhar Gupta, Skyler Hallinan, Luyu Gao, Sarah Wiegreffe, Uri Alon, Nouha Dziri, Shrimai Prabhumoye, Yiming Yang, Shashank Gupta, Bodhisattwa Prasad Majumder, Katherine Hermann, Sean Welleck, Amir Yazdanbakhsh, Peter Clark
+- **Venue**: NeurIPS 2023
+- **arXiv**: https://arxiv.org/abs/2303.17651
+- **Contribution**: Introduced iterative self-refinement where the same LLM generates, critiques, and refines its output. Our judge prompt uses a similar single-pass self-critique before finalising error verdicts.
+
+### Reflexion: Language Agents with Verbal Reinforcement Learning
+- **Authors**: Noah Shinn, Federico Cassano, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao
+- **Venue**: NeurIPS 2023
+- **arXiv**: https://arxiv.org/abs/2303.11366
+- **Contribution**: Multi-episode reflection where agents store verbal feedback in memory for subsequent trials. Heavier than our single-pass approach but foundational to the self-reflection paradigm.
+
+### When Can LLMs Actually Correct Their Own Mistakes? A Critical Survey of Self-Correction of LLMs
+- **Venue**: TACL 2025
+- **URL**: https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00713
+- **Contribution**: Survey showing self-correction is most effective when initial accuracy is moderate and external verification is available — conditions that match our judge evaluation setting.
