@@ -1,0 +1,112 @@
+{
+  "figure_key": "multi_fig_026",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 22,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x轴的标签为“k”，采用线性刻度，数值范围从0延伸至50",
+      "evidence": "The x-axis range in the image is from 0 to 40, not 50.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "标注为“sparse lexical repr. (w/o title)”的紫色点划线带有圆形标记，在x轴上呈持续上升趋势，起始点位于x=1、y约为0.03处，结束点位于x=50、y约为0.18处",
+      "evidence": "The starting recall for 'sparse lexical repr. (w/o title)' is approximately 0.1 at k=0, not 0.03 at k=1. The ending recall is approximately 0.2, not 0.18, and the x-axis ends at 40, not 50.",
+      "atom_id": "sent_8"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "标注为“dense metadata emb.”的蓝绿色实线带有圆形标记，呈现上升趋势，起点位于x=1处的约0.24，终点位于x=50处的约0.62",
+      "evidence": "The starting recall for 'dense metadata emb.' is approximately 0.2 at k=0, not 0.24 at k=1. The ending recall is slightly above 0.6, which is reasonably close to 0.62, but the x-axis ends at 40, not 50.",
+      "atom_id": "sent_11"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "标注为“dense row emb.”的深蓝色实线带有圆形标记",
+      "evidence": "The 'dense row emb.' line is dark blue in the image, but the description incorrectly assigns 'dense table emb.' as '中蓝色' (medium blue) and 'dense row emb.' as '深蓝色' (dark blue). Both lines are dark blue, but the description swaps their labels and colors.",
+      "atom_id": "sent_19"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "标注为“dense table emb.”的中蓝色实线带有圆形标记",
+      "evidence": "The 'dense table emb.' line is dark blue, not medium blue ('中蓝色'). The description incorrectly assigns this color and swaps labels with 'dense row emb.'.",
+      "atom_id": "sent_14"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the 'sparse lexical repr. (w/ title)' (gray solid line) entirely, despite it being visible in the image.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "图表中包含五条可见的数据线",
+      "evidence": "The image contains six lines, not five. The description misses one line ('sparse lexical repr. (w/ title)').",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "且均在x=1、5、10、25和50处设有数据点",
+      "evidence": "The description claims data points exist at x=1, 5, 10, 25, and 50, but the image only shows data points at k=0, 20, and 40. This is not supported by the image or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "在初始阶段上升幅度较大，从x=1处的约0.42升至x=10处的约0.71，随后上升趋势放缓",
+      "evidence": "The description adds interpretive language ('上升幅度较大', '上升趋势放缓') that is not explicitly shown or required by the figure or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "图例中列出的“sparse lexical repr. (w/ title)”在图表坐标系内无可见的对应数据线",
+      "evidence": "The description is ambiguous about whether the line is missing or simply not visible due to overlap or scale. The line is faint but visible in the image.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 70.0,
+  "total_penalty": 33.0,
+  "atom_coverage": {
+    "correct": 16,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 22,
+    "accuracy": 0.7619,
+    "completeness": 0.9412
+  }
+}
