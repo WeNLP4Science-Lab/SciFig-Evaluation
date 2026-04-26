@@ -1,0 +1,85 @@
+{
+  "figure_key": "multi_fig_015",
+  "subfolder": "multi_language",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 8,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "then rises sharply to around 260 at layer 18, drops back to approximately 130 near layer 20, and then fluctuates, ending around 70 at layer 24",
+      "evidence": "The 'attn_output' (blue dashed line) does not show a sharp rise to 260 at layer 18; it rises to approximately 300 near layer 17 and does not drop back to 130 or fluctuate afterward. The final value is closer to 300, not 70.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "rises steeply to approximately 400 around layer 6, then drops back to near 0 by around layer 8, and remains close to 0 for the rest of the layers",
+      "evidence": "The 'attn_residual' (orange dotted line) reaches a peak of ~400 around layer 4, then rises to ~500 around layer 7, and does not drop to near 0 by layer 8. It declines to ~150 by layer 17, not near 0.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "increases sharply to approximately 300 around layer 7, then drops back down to near 0 by about layer 9, stays low through layer 18, rises again to around 40 near layer 20, and fluctuates between roughly 30 and 100 through layer 24",
+      "evidence": "The 'ffn_output' (green dash-dot line) reaches a peak of ~300 around layer 8, not layer 7, and does not rise again near layer 20 or fluctuate afterward. It drops to near 0 and remains there.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "drops sharply around layer 18 to approximately 480, continues declining to around 120 near layer 22, and ends at approximately 120 at layer 24",
+      "evidence": "The 'ffn_residual' (red solid line) drops sharply around layer 19 to ~200, not 480 or 120. The final value is approximately 200, not 120.",
+      "atom_id": "sent_7"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the sustained plateau of 'attn_residual' (orange dotted line) at ~500 from layer 7 to layer 17.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "drops back to approximately 130 near layer 20, and then fluctuates, ending around 70 at layer 24",
+      "evidence": "The 'attn_output' line does not drop to 130 or fluctuate near layer 20; this behavior is not visible in the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "stays low through layer 18, rises again to around 40 near layer 20, and fluctuates between roughly 30 and 100 through layer 24",
+      "evidence": "The 'ffn_output' line does not rise again near layer 20 or fluctuate afterward; this behavior is not visible in the figure.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 36.25,
+  "total_penalty": 25.5,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 8,
+    "accuracy": 0.5,
+    "completeness": 0.8
+  }
+}
