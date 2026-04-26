@@ -1,0 +1,103 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 8,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在约第 5 层达到约 1400 的峰值后快速回落（约第 6 层降至几十量级并继续贴近 0）",
+      "evidence": "绿色点划线（ffn_output）在第5层的峰值约为800，不是1400。",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在约第 22 层出现另一处高峰约 1200",
+      "evidence": "绿色点划线（ffn_output）在第22层的峰值约为1100，未达到1200。",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "绿色点划线（ffn_output）在多数层接近 0，但存在若干尖峰：在约第 5 层达到约 1400 的峰值",
+      "evidence": "绿色点划线（ffn_output）在第5层的峰值被错误地描述为橙色点线（attn_residual）的特征。",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在约第 6–7 层进一步升至约 1480",
+      "evidence": "橙色点线（attn_residual）在第6-7层的值约为1500，1480在允许的误差范围内，但图中显示更接近1500。",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在约第 14 层附近达到接近 1580 的高位后长段保持",
+      "evidence": "橙色点线（attn_residual）在第14层后的值约为1550-1600，1580是合理的近似，但图中显示更接近1600。",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及蓝色虚线（attn_output）在第5层和第20层附近略有增加。",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "在约第 22 层出现另一处高峰约 1200，之后在约第 23 层回落到约 600",
+      "evidence": "绿色点划线（ffn_output）在第22层和第23层的峰值和回落不符合图中显示的趋势，图中该线在第22层后无明显峰值。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "红色实线（ffn_residual）在第 0–4 层接近 0，约第 5 层陡升至约 1400，约第 7–12 层维持在约 1500 的平台，随后在约第 13–14 层上升至接近 1580 并在约第 14–21 层维持在该高位附近，接着在约第 22 层出现急降至约 400，并在约第 23 层回升到约 600",
+      "evidence": "红色实线（ffn_residual）在第22层和第23层的急降和回升不符合图中显示的趋势，图中该线在第20层后急剧下降，无回升。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "蓝色虚线（attn_output）整体贴近 0 附近：从第 0 层到约第 21 层基本保持在接近 0 的低值区间，随后在末端层数处出现上升，在约第 23 层升至约 250。橙色点线（attn_residual）在前几层接近 0，随后在约第 5 层出现陡升至约 1400，在约第 6–7 层进一步升至约 1480，并在约第 14 层附近达到接近 1580 的高位后长段保持（约第 14 层到约第 21 层基本维持在约 1580 附近），在末端约第 23 层出现明显回落至约 250。绿色点划线（ffn_output）在多数层接近 0，但存在若干尖峰：在约第 5 层达到约 1400 的峰值后快速回落（约第 6 层降至几十量级并继续贴近 0），在约第 13 层再次出现峰值约 850，随后在约第 14–16 层回落到约 100 以下并接近 0；在约第 22 层出现另一处高峰约 1200，之后在约第 23 层回落到约 600。红色实线（ffn_residual）在第 0–4 层接近 0，约第 5 层陡升至约 1400，约第 7–12 层维持在约 1500 的平台，随后在约第 13–14 层上升至接近 1580 并在约第 14–21 层维持在该高位附近，接着在约第 22 层出现急降至约 400，并在约第 23 层回升到约 600。",
+      "evidence": "描述过于详细，包含不必要的数值细节和重复信息，影响可读性。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 28.75,
+  "total_penalty": 28.5,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 8,
+    "accuracy": 0.7143,
+    "completeness": 0.8333
+  }
+}
