@@ -20,8 +20,18 @@
 - [x] All 12 models × noise
 - [x] All 12 models × aspect_ratio
 - [x] All 12 models × low_contrast
-- [x] All 12 models × rotation
+- [x] All 1 
+2 models × rotation
 - [x] All 12 models × original_in_paper
 
 ### GPT-4o Judge — 120 figures, original transform
 - [x] 10/12 models complete (see remaining above)
+
+
+
+report individual score so far
+
+qwen export
+
+
+
