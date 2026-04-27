@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_152",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 20,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色实线带圆形标记代表300维，灰色实线带圆形标记代表200维，黄色实线带圆形标记代表100维",
+      "evidence": "300维应为方形标记，200维应为菱形标记，100维应为三角形标记，而非均为圆形标记。",
+      "atom_id": "300dim_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "100维的准确率分别约为0.96",
+      "evidence": "100维在“词”类别处的准确率约为0.9，而非0.96。",
+      "atom_id": "100dim_start_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "500维在“词2n”类别处达到0.95",
+      "evidence": "500维在“词2n”类别处的准确率约为0.93，而非0.95。",
+      "atom_id": "500dim_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "300维的准确率分别约为0.92",
+      "evidence": "300维在“词”类别处的准确率接近0.95，而非0.92。",
+      "atom_id": "300dim_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "200维的准确率分别约为0.91",
+      "evidence": "200维在“词”类别处的准确率约为0.92，而非0.91。",
+      "atom_id": "200dim_start"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及200维和100维的整体趋势描述（波动平缓，最终稳定在大约0.9）。",
+      "atom_id": "200dim_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "组合准确率",
+      "evidence": "图表y轴标签为“效果得分”，而非“组合准确率”。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "横轴（x轴）为类别标签，采用离散刻度，依次标注“词”、“词2n”、“词类2n”、“标点”、“标点2n”，无单位，刻度间隔为一个类别单位。纵轴（y轴）为组合准确率，采用线性刻度，数值范围从0.8到1.0，单位为无量纲比例，刻度间隔为0.05。",
+      "evidence": "描述过于冗长，重复提及刻度和单位，未简洁概括。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "各线条在不同类别间呈现波动变化",
+      "evidence": "未明确说明哪条线在何处波动，缺乏具体性。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 80.0,
+  "total_penalty": 20.0,
+  "atom_coverage": {
+    "correct": 14,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 20,
+    "accuracy": 0.7368,
+    "completeness": 0.9333
+  }
+}

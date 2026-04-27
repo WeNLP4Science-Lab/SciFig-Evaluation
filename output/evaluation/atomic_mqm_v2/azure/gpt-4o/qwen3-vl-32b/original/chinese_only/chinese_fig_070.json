@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_070",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/gpt-4o",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 29,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表由两个嵌套的饼图构成：外层主饼图包含六个主要语义类别，内层小饼图则进一步细分了“社交”类别下的子类别。",
+      "evidence": "图表实际由两个独立的饼图组成，左侧饼图有8个切片，右侧饼图有13个切片，没有嵌套结构。",
+      "atom_id": "layout"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "外层饼图共包含六个切片",
+      "evidence": "左侧饼图实际包含八个切片，而非六个。",
+      "atom_id": "left_pie_num_slices"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "内层饼图位于“社交”类别内部，该类别在主饼图中占比为15.44%，其子类别包括：紫色的“心理活动”占15.44%（与主饼图中“社交”占比相同，可能为同一层级的再细分）",
+      "evidence": "右侧饼图是独立的饼图，包含13个切片，且“心理活动”和“社交”分别占15.44%，并非嵌套或子类别关系。",
+      "atom_id": "right_pie_num_slices"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及图表的主要目的，即展示不同类别在特定主题中的比例分布。",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及左图由一个大型切片主导，而右图的切片近似等分。",
+      "atom_id": "left_dominant"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及切片按大小比例展示。",
+      "atom_id": "ordering"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及图表右侧附有图例说明颜色对应的类别名称。",
+      "atom_id": "legend_position"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及每个切片内标有相应的百分比。",
+      "atom_id": "labels_inside"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述错误地提到部分切片被放大或偏移以突出显示，但图表中没有视觉强调如放大或偏移。",
+      "atom_id": "no_emphasis"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "深灰色的“身体动作”占2.38%",
+      "evidence": "左侧饼图中“身体动作”实际为浅蓝绿色，而非深灰色。",
+      "atom_id": "left_shenti_dongzuo"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "浅蓝色的“社交”占15.44%（与主饼图中“社交”比例一致，可能为重复标注）",
+      "evidence": "右侧饼图中“社交”实际为青蓝色，而非浅蓝色。",
+      "atom_id": "right_shejiao"
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 73.79,
+  "total_penalty": 38.0,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 5,
+    "missing": 6,
+    "total": 29,
+    "accuracy": 0.7826,
+    "completeness": 0.75
+  }
+}

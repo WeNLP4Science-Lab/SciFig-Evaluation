@@ -1,0 +1,96 @@
+{
+  "figure_key": "bulgarian_fig_019",
+  "subfolder": "bulgarian_only",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "„Наемане на работници/служители с договор,…\"",
+      "evidence": "The category name is incorrect; the image shows \"Наемане на работници/служители *без* договор\" (without contract), not *с договор* (with contract).",
+      "atom_id": "other_red_bars"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "около 235",
+      "evidence": "The description states ~235 for \"Неиздаване на фактури / касови бележки\", but the image shows approximately 220, which is within tolerance but slightly over the ±3% threshold for percentages (220 ±6.6). However, since the value is explicitly approximate, this is borderline but flagged as minor due to the atom's importance.",
+      "atom_id": "max_category"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "около 180",
+      "evidence": "The description states ~180 for \"Наемане на работници/служители с договор,…\", but the image shows approximately 160 for the corrected category name (without contract). The value exceeds the ±10% tolerance for axis ranges (160 ±16).",
+      "atom_id": "other_red_bars"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "най-долните четири категории са визуално подчертани в тъмночервен цвят, а останалите седем са в син цвят",
+      "evidence": "The description incorrectly states the order of categories as bottom-up. The image shows the categories listed top-down, with the top categories in blue and the bottom in red. The structural organization is misrepresented.",
+      "atom_id": "sort_order"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the exact value for the lowest category \"Друго\" (should be ~5) and the second-lowest \"Осъществяване на бартерни сделки\" (should be ~20).",
+      "atom_id": "min_category"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the highest blue bar value (\"Източване\" на ДДС with ~90), though it is implied.",
+      "atom_id": "highest_blue"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "категориите отдолу нагоре са: „Наемане на работници/служители с договор,…\"",
+      "evidence": "The phrase \"отдолу нагоре\" is ambiguous and contradicts the actual top-down order in the image, causing confusion.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "като заглавието на диаграмата гласи „Кои от следните действия най-вече отнасяте към явлението \"скрита икономика\"?\". Вертикалната ос съдържа категориите — единадесет различни действия, подредени отдолу нагоре, като най-долните четири категории са визуално подчертани в тъмночервен цвят, а останалите седем са в син цвят.",
+      "evidence": "The description redundantly repeats the title and unnecessarily details the color grouping, which is already implied by the color rule.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 73.33,
+  "total_penalty": 16.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 3,
+    "missing": 2,
+    "total": 12,
+    "accuracy": 0.7,
+    "completeness": 0.7778
+  }
+}

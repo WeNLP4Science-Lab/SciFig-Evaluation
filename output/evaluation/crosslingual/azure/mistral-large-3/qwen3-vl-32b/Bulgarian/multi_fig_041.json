@@ -1,0 +1,85 @@
+{
+  "figure_key": "multi_fig_041",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Bulgarian",
+  "num_atoms": 7,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "по пет стълба",
+      "evidence": "The figure shows six bars per category, not five. The atom checklist (sent_3) confirms six bars.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "DAPO+Self-reflection (тъмносин със сини хоризонтални линии), GRPO (оранжев с диагонални линии), DAPO (светлосин със сини хоризонтални линии), PPO+Self-reflection (тъмнозелен), и PPO (светлозелен с диагонални линии)",
+      "evidence": "The patterns and colors are incorrectly mapped: DAPO+Self-reflection is solid blue (no lines), DAPO has diagonal stripes (not horizontal), GRPO has diagonal stripes (not solid), and SRPO (solid orange) is missing entirely. The atom checklist (sent_3) specifies the correct patterns and colors.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "В MMLU стойностите са около 56%, 57%, 56%, 55% и 54%",
+      "evidence": "The description lists five values but there are six bars. The values also do not match the image: PPO is approximately 53% (not 54%), and GRPO is the highest at ~56% (not 57%). The atom checklist (sent_5) confirms the range for MMLU.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "В Physics стойностите са около 57%, 61%, 58%, 60% и 59%",
+      "evidence": "The description lists five values but there are six bars. The values for PPO (~57%) and DAPO+Self-reflection (~61%) are correct, but the others are misassigned or missing. The atom checklist (sent_5) confirms the range for Physics.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the SRPO method (solid orange) entirely. The atom checklist (sent_3) includes SRPO as one of the six bars.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "разположени в азбучен ред",
+      "evidence": "The categories are not in alphabetical order (Mathverse, MMLU, Physics). The atom checklist (sent_1) does not mention alphabetical order, and the image confirms the order.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "В категорията Mathverse стойностите на стълбовете са около 53%, 56%, 53%, 53% и 54% съответно. В MMLU стойностите са около 56%, 57%, 56%, 55% и 54%. В Physics стойностите са около 57%, 61%, 58%, 60% и 59%",
+      "evidence": "The description lists values without specifying which bar/method each value corresponds to, making it unclear which value belongs to which method.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 37.14,
+  "total_penalty": 22.0,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 7,
+    "accuracy": 0.7143,
+    "completeness": 0.8333
+  }
+}

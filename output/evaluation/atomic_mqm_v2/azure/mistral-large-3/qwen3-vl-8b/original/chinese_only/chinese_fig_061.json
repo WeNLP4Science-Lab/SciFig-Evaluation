@@ -1,0 +1,87 @@
+{
+  "figure_key": "chinese_fig_061",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 15,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"本文方法\"柱状图位于左侧，\"基线模型\"柱状图位于右侧",
+      "evidence": "The image shows the opposite: '本文方法' (lighter pattern) is on the right, and '基线模型' (darker pattern) is on the left in each group.",
+      "atom_id": "series_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "\"本文方法\"柱状图高度约为59.5%，而\"基线模型\"柱状图高度约为58.8%",
+      "evidence": "The values for '近' distance are overestimated. The image shows both bars closer to 59%, with '本文方法' only slightly higher than '基线模型'. The description's values exceed the ±3% tolerance for this close range.",
+      "atom_id": "near_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "\"本文方法\"柱状图高度约为59.2%，而\"基线模型\"柱状图高度约为58.5%",
+      "evidence": "The values for '中' distance are overestimated. The image shows both bars closer to 59%, with a smaller gap. The description's values exceed the ±3% tolerance for this close range.",
+      "atom_id": "mid_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "\"基线模型\"柱状图高度约为56.5%",
+      "evidence": "The value for '远' distance is slightly overestimated. The image shows the '基线模型' bar closer to 56%, not 56.5%.",
+      "atom_id": "far_values"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the pattern styles (e.g., diagonal vs. cross-hatch) used for the bars, only the colors.",
+      "atom_id": "series_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "旨在展示在“基于句法特征的事件要素抽取方法”论文中",
+      "evidence": "The description includes contextual information about the paper's topic, which is not present in the figure or atom checklist.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该柱状图旨在展示在“基于句法特征的事件要素抽取方法”论文中，不同主客体距离（“近”、“中”、“远”）下，两种模型（“本文方法”与“基线模型”）所获得的F1分数（单位：%）的对比情况。",
+      "evidence": "The description is overly verbose and includes unnecessary details about the paper's topic, which do not add informational value.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 80.0,
+  "total_penalty": 15.0,
+  "atom_coverage": {
+    "correct": 11,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 15,
+    "accuracy": 0.7333,
+    "completeness": 0.9167
+  }
+}

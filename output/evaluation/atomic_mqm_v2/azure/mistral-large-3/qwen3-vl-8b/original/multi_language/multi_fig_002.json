@@ -1,0 +1,78 @@
+{
+  "figure_key": "multi_fig_002",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Bar Chart",
+  "language": "English",
+  "num_atoms": 14,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "at 10%, both bars are approximately at 10^1",
+      "evidence": "At 10% sparsity, the perplexity values for both bars are closer to 2 (10^0.3), not 10^1.",
+      "atom_id": "multi_fig_002_sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "at 20%, both are slightly above 10^1; at 30%, both are slightly above 10^1; at 40%, both are slightly above 10^1; at 50%, both are slightly above 10^1",
+      "evidence": "For sparsity rates 20%, 30%, 40%, and 50%, the perplexity values are closer to 2-3 (below 10^1), not slightly above 10^1.",
+      "atom_id": "multi_fig_002_sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "the blue 'Per-Output' bar consistently has a lower perplexity value than the orange 'Per-Layer' bar",
+      "evidence": "This is true for 50%, 60%, 70%, and 80%, but at lower sparsity rates (10%-40%), the bars are nearly equal in height, not consistently lower.",
+      "atom_id": "multi_fig_002_sent_7"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the values remain below 10^2 until 70% sparsity.",
+      "atom_id": "multi_fig_002_sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars exhibit a notable increase in height at 70% and 80% sparsity compared to lower sparsity rates.",
+      "atom_id": "multi_fig_002_sent_5"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The horizontal axis, labeled 'Sparsity Rate,' is categorical and ordered sequentially from left to right, with tick marks at 10%, 20%, 30%, 40%, 50%, 60%, 70%, and 80%. The vertical axis, labeled 'Perplexity,' employs a logarithmic scale ranging from 10^1 to 10^3, with tick marks at 10^1, 10^2, and 10^3, and the values are presented in logarithmic units.",
+      "evidence": "The description redundantly explains axis details that are already clear from the labels and scale type.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 81.43,
+  "total_penalty": 13.0,
+  "atom_coverage": {
+    "correct": 10,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 14,
+    "accuracy": 0.8333,
+    "completeness": 0.8333
+  }
+}

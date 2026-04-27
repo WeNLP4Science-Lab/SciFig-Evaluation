@@ -282,3 +282,150 @@ Output: {"errors": [{"category": "...", "sub_type": "...",
   ]
 }
 \end{codebox}
+
+
+%% ===================================================================
+\chapter{Detailed RQ1 Results}
+\label{app:rq1-details}
+%% ===================================================================
+
+\section{Pairwise Significance Tests}
+\label{tab:app-pairwise}
+
+Table~\ref{tab:pairwise-full} reports paired bootstrap significance tests ($n{=}10\text{k}$ resamples) for all adjacent-rank model pairs, with Cliff's delta effect sizes.
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{3pt}
+\footnotesize
+\caption{Pairwise significance tests (adjacent ranks). Scores pooled across both judges.}\label{tab:pairwise-full}
+\begin{tabular}{@{}rl@{\;\;vs.\;\;}l rrr@{}}
+\toprule
+\textbf{Ranks} & \textbf{Model A} & \textbf{Model B} & $\Delta$ & $p$ & \textbf{Cliff's $d$} \\
+\midrule
+1--2  & GPT-5.2        & Gemini 3.1 Pro    & +2.9 & .001 & .087 \\
+2--3  & Gemini 3.1 Pro & Qwen3-VL 235B     & +1.9 & .030 & .092 \\
+3--4  & Qwen3-VL 235B  & Qwen3-VL 32B      & +0.4 & .340 & .005 \\
+4--5  & Qwen3-VL 32B   & Claude Opus 4.6   & +1.8 & .088 & .029 \\
+5--6  & Claude Opus 4.6& LLaMA-4 Maverick  & +0.7 & .311 & .034 \\
+6--7  & LLaMA-4 Mav.   & LLaMA-4 Scout     & +0.7 & .307 & .032 \\
+7--8  & LLaMA-4 Scout  & Qwen3-VL 30B      & +0.4 & .392 & .006 \\
+8--9  & Qwen3-VL 30B   & Qwen3-VL 8B       & +0.1 & .461 & .000 \\
+9--10 & Qwen3-VL 8B    & Gemma-3 27B       & +7.9 & .000 & .239 \\
+10--11& Gemma-3 27B    & Phi-4 Multimodal  & $-$0.8 & .600 & $-$.032 \\
+11--12& Phi-4 Multim.  & Gemma-3 12B       & +5.0 & .049 & .164 \\
+12--13& Gemma-3 12B    & Gemma-3 4B        & +5.1 & .000 & .168 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Per-Language EN--X Gap Analysis}
+\label{tab:app-language-gap}
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{3pt}
+\footnotesize
+\caption{Per-language MQM (judge-averaged) with EN--X relative gap. Negative gap = language scores \emph{above} English.}\label{tab:lang-gap}
+\begin{tabular}{@{}l rrrr rrr@{}}
+\toprule
+\textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{EN--BG} & \textbf{EN--CN} & \textbf{EN--DE} \\
+\midrule
+GPT-5.2           & 75.5 & 72.2 & 76.1 & 81.1 &  4\% & $-$1\% & $-$7\% \\
+Gemini 3.1 Pro    & 69.0 & 72.0 & 75.0 & 77.2 & $-$4\% & $-$9\% & $-$12\% \\
+Qwen3-VL 235B     & 68.5 & 68.4 & 69.7 & 77.2 &  0\% & $-$2\% & $-$13\% \\
+Qwen3-VL 32B      & 68.9 & 65.6 & 71.9 & 78.2 &  5\% & $-$4\% & $-$13\% \\
+Claude Opus 4.6   & 64.4 & 64.1 & 70.5 & 79.6 &  0\% & $-$9\% & $-$24\% \\
+LLaMA-4 Maverick  & 65.3 & 65.7 & 68.2 & 73.1 & $-$1\% & $-$4\% & $-$12\% \\
+LLaMA-4 Scout     & 65.0 & 65.2 & 68.8 & 73.1 &  0\% & $-$6\% & $-$12\% \\
+Qwen3-VL 30B      & 64.3 & 63.0 & 68.0 & 74.8 &  2\% & $-$6\% & $-$16\% \\
+Qwen3-VL 8B       & 64.2 & 60.9 & 70.8 & 74.8 &  5\% & $-$10\% & $-$17\% \\
+Gemma-3 27B       & 53.3 & 60.5 & 60.0 & 64.5 & $-$14\% & $-$13\% & $-$21\% \\
+Phi-4 Multimodal  & 57.2 & 51.3 & 56.2 & 65.7 & 10\% &  2\% & $-$15\% \\
+Gemma-3 12B       & 52.4 & 49.0 & 52.4 & 61.3 &  6\% &  0\% & $-$17\% \\
+Gemma-3 4B        & 44.3 & 46.1 & 48.7 & 58.1 & $-$4\% & $-$10\% & $-$31\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Cross-Lingual Controlled Comparison}
+\label{tab:app-ablation-crosslingual}
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{3pt}
+\footnotesize
+\caption{Cross-lingual controlled comparison (13 parallel figures, all four languages, language-specific atoms). Judge-averaged MQM. EN--X gap is relative to English.}\label{tab:crosslingual}
+\begin{tabular}{@{}l rrrr rrr@{}}
+\toprule
+\textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{EN--BG} & \textbf{EN--CN} & \textbf{EN--DE} \\
+\midrule
+GPT-5.2         & 66.2 & 56.4 & 60.8 & 55.3 & 15\% &  8\% & 16\% \\
+Gemini 3.1 Pro  & 64.6 & 54.2 & 57.5 & 54.6 & 16\% & 11\% & 15\% \\
+Qwen3-VL 32B    & 62.1 & 47.1 & 51.8 & 48.4 & 24\% & 17\% & 22\% \\
+Claude Opus 4.6 & 53.7 & 47.5 & 49.5 & 52.5 & 12\% &  8\% &  2\% \\
+Gemma-3 4B      & 36.7 & 23.0 & 35.4 & 21.2 & 37\% &  4\% & 42\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Prompt Language Ablation}
+\label{tab:app-ablation-prompt}
+
+\emph{Results for the prompt language ablation (C1, C2, C2\textquotesingle) will be added upon completion of the remaining experiments.}
+
+\section{Chain-of-Thought Ablation}
+\label{tab:app-ablation-cot}
+
+\emph{Results for the CCoT ablation will be added upon completion of the remaining experiments.}
+
+\section{Error Profile and Chart-Type MQM per Model per Judge}
+\label{tab:app-error-profile}
+
+Table~\ref{tab:error-profile-full} reports the mean errors per figure by category and severity, hallucination rate, and MQM by chart type for each model under each judge.
+
+\begin{table}[h]
+\centering
+\setlength{\tabcolsep}{2.5pt}
+\scriptsize
+\caption{Per-model per-judge error profile. Columns show mean errors/fig by category$\times$severity (A = Accuracy, C = Completeness, Cl = Clarity), hallucination rate (H/fig), and MQM by chart type.
+  G = GPT-4o judge; M = Mistral judge.
+  Hallucination tier ranges. Tier~1 (GPT, Gemini): 0.03--0.47/fig. Tier~2 (Qwen, LLaMA, Claude): 0.02--0.66/fig. Tier~3 (Gemma, Phi): 0.05--1.18/fig. Pie charts score 15--25 points below line/bar; $\Delta_{\text{cap}}$ of +11 confirms atom-granularity artefact (see \S\ref{sec:rq1-errors}).
+}\label{tab:error-profile-full}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l c rrrr r r rrr@{}}
+\toprule
+ & & \multicolumn{4}{c}{\textbf{Errors/fig by category}} & & & \multicolumn{3}{c}{\textbf{MQM by chart type}} \\
+\cmidrule(lr){3-6}\cmidrule(lr){9-11}
+\textbf{Model} & \textbf{J} & \textbf{A/Maj} & \textbf{A/Min} & \textbf{C/Maj} & \textbf{C/Min} & \textbf{Cl} & \textbf{H/fig} & \textbf{Bar} & \textbf{Line} & \textbf{Pie} \\
+\midrule
+\multirow{2}{*}{GPT-5.2}      & G & 3.0 & 0.5 & 1.8 & 1.4 & 0.1 & 0.03 & 76 & 72 & 66 \\
+                               & M & 1.5 & 2.7 & 0.4 & 1.7 & 1.1 & 0.26 & 80 & 83 & 73 \\[1pt]
+\multirow{2}{*}{Gemini 3.1P}  & G & 3.1 & 0.4 & 1.9 & 1.6 & 0.2 & 0.03 & 74 & 71 & 64 \\
+                               & M & 1.8 & 2.7 & 0.8 & 1.7 & 1.3 & 0.47 & 80 & 79 & 64 \\[1pt]
+\multirow{2}{*}{Qwen 235B}    & G & 3.5 & 0.3 & 2.1 & 1.6 & 0.3 & 0.03 & 69 & 68 & 64 \\
+                               & M & 2.0 & 2.3 & 0.9 & 1.8 & 0.9 & 0.47 & 77 & 79 & 64 \\[1pt]
+\multirow{2}{*}{Qwen 32B}     & G & 3.6 & 0.3 & 1.8 & 1.4 & 0.2 & 0.03 & 74 & 69 & 62 \\
+                               & M & 2.5 & 2.6 & 0.8 & 1.7 & 1.1 & 0.58 & 78 & 77 & 59 \\[1pt]
+\multirow{2}{*}{Claude 4.6}   & G & 3.7 & 0.3 & 2.0 & 1.5 & 0.2 & 0.02 & 70 & 70 & 57 \\
+                               & M & 2.5 & 2.9 & 0.7 & 1.8 & 1.2 & 0.66 & 76 & 78 & 56 \\[1pt]
+\multirow{2}{*}{LLaMA Mav.}   & G & 4.0 & 0.3 & 2.2 & 1.4 & 0.2 & 0.02 & 71 & 67 & 55 \\
+                               & M & 2.7 & 2.1 & 1.2 & 2.0 & 1.1 & 0.38 & 75 & 77 & 57 \\[1pt]
+\multirow{2}{*}{LLaMA Scout}  & G & 3.8 & 0.2 & 2.4 & 1.7 & 0.2 & 0.01 & 68 & 67 & 58 \\
+                               & M & 3.1 & 1.6 & 1.1 & 2.1 & 1.1 & 0.44 & 74 & 74 & 59 \\[1pt]
+\multirow{2}{*}{Qwen 30B}     & G & 3.9 & 0.2 & 2.4 & 1.5 & 0.2 & 0.03 & 70 & 66 & 54 \\
+                               & M & 2.8 & 1.9 & 1.0 & 2.1 & 1.0 & 0.47 & 75 & 76 & 53 \\[1pt]
+\multirow{2}{*}{Qwen 8B}      & G & 4.4 & 0.3 & 1.9 & 1.3 & 0.2 & 0.03 & 70 & 66 & 52 \\
+                               & M & 2.7 & 2.4 & 0.8 & 1.9 & 1.1 & 0.64 & 74 & 75 & 56 \\
+\cmidrule(lr){1-11}
+\multirow{2}{*}{Gemma 27B}    & G & 5.3 & 0.2 & 2.6 & 1.1 & 0.1 & 0.05 & 64 & 60 & 45 \\
+                               & M & 4.8 & 1.6 & 1.5 & 1.8 & 1.0 & 0.64 & 66 & 67 & 45 \\[1pt]
+\multirow{2}{*}{Phi-4}        & G & 3.8 & 0.1 & 3.7 & 1.9 & 0.7 & 0.00 & 59 & 66 & 43 \\
+                               & M & 3.8 & 0.8 & 3.5 & 1.6 & 1.9 & 1.00 & 57 & 67 & 41 \\[1pt]
+\multirow{2}{*}{Gemma 12B}    & G & 5.5 & 0.1 & 2.8 & 1.2 & 0.2 & 0.06 & 58 & 60 & 43 \\
+                               & M & 5.7 & 1.0 & 2.1 & 1.7 & 1.2 & 0.89 & 61 & 56 & 39 \\[1pt]
+\multirow{2}{*}{Gemma 4B}     & G & 5.7 & 0.0 & 3.4 & 1.2 & 0.2 & 0.12 & 54 & 56 & 38 \\
+                               & M & 6.3 & 0.7 & 3.0 & 1.6 & 1.4 & 1.18 & 51 & 54 & 31 \\
+\bottomrule
+\end{tabular}}
+\end{table}

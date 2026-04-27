@@ -1,0 +1,105 @@
+{
+  "figure_key": "bulgarian_fig_019",
+  "subfolder": "bulgarian_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "първите осем действия са представени с тъмносиньо, а последните три – с червено",
+      "evidence": "The description incorrectly states that the first eight actions are blue and the last three are red. The image shows that the first seven actions are blue, and the last four are red, based on the 100-vote threshold, not their position.",
+      "atom_id": "color_rule_blue"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "най-ниският – „Друго“ – е под 20",
+      "evidence": "The description states the lowest value is 'under 20', but the image shows the 'Друго' bar is approximately 10, which is within tolerance, but the atom specifies it as the lowest value without quantifying it. The error is minor due to the vague phrasing.",
+      "atom_id": "min_category"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Най-високият стълб, съответстващ на „Неиздаване на фактури / касови бележки“, достига стойност над 220",
+      "evidence": "The description states 'over 220', but the atom specifies 'близо 220' (nearly 220). The image shows the bar is approximately 220, so 'over 220' is slightly beyond tolerance but still reasonable. Minor error.",
+      "atom_id": "max_category"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the second-lowest category ('Осъществяване на бартерни сделки' with around 20 votes).",
+      "atom_id": "second_lowest"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the highest blue bar ('Източване на ДДС' with 90 votes).",
+      "atom_id": "highest_blue"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly list all red bars with high frequency (e.g., 'Отчитане за по-ниски обороти от фактическите', 'Наемане на работници/служители без договор', 'Отчитане за по-малка печалба от фактическата'). It only mentions them indirectly.",
+      "atom_id": "other_red_bars"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "което показва, че те са по-често свързвани с „скритата икономика“ според респондентите",
+      "evidence": "The description includes an interpretation ('по-често свързвани') that is not explicitly shown in the figure or supported by the atoms. This is an unwanted inference.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "първите осем действия са представени с тъмносиньо, а последните три – с червено",
+      "evidence": "The description is ambiguous because it refers to 'first eight' and 'last three' without clarifying the color rule is based on vote count, not position.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "като всяко действие е представено с отделен хоризонтален стълб, чиято дължина отразява броя на посочванията. По вертикалната ос са посочени конкретните действия, подредени от горе надолу в произволен ред, без явна логика на сортиране, като например „Друго“, „Даване / получаване на подкупи (пари,...)...",
+      "evidence": "The description is overly verbose, listing all categories explicitly, which is unnecessary for understanding the chart structure.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 71.67,
+  "total_penalty": 17.0,
+  "atom_coverage": {
+    "correct": 6,
+    "inaccurate": 3,
+    "missing": 3,
+    "total": 12,
+    "accuracy": 0.6667,
+    "completeness": 0.6667
+  }
+}

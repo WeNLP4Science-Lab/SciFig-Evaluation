@@ -1,0 +1,87 @@
+{
+  "figure_key": "chinese_fig_069",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/gpt-4o",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 26,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表由两个嵌套饼图构成：外圈大饼图共分为九个语义域切片，内圈小饼图则对“其他”类别进行了细分，共包含十个子类别。",
+      "evidence": "图表实际由两组独立的饼图构成，而非嵌套饼图。左侧饼图有十个类别，右侧饼图也有十个类别。",
+      "atom_id": "layout"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "外圈大饼图共分为九个语义域切片",
+      "evidence": "左侧饼图实际有十个类别，而非九个。",
+      "atom_id": "left_pie_num_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "内圈小饼图则对“其他”类别进行了细分，共包含十个子类别。",
+      "evidence": "右侧饼图是独立的饼图，包含十个类别，而非对“其他”类别的细分。",
+      "atom_id": "right_pie_num_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“其他”（19.38%，浅灰蓝）",
+      "evidence": "“其他”类别在左侧饼图中为蓝绿色，而非浅灰蓝。",
+      "atom_id": "left_qita"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“斗争”（9.57%，深紫红）",
+      "evidence": "右侧饼图中“争斗”类别为桃红色，而非深紫红。",
+      "atom_id": "right_zhengdou"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提及图表的主要目的，即展示两组饼图中不同类别的分布。",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "机器生成描述未提到切片按类别随机排列。",
+      "atom_id": "ordering"
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 76.92,
+  "total_penalty": 30.0,
+  "atom_coverage": {
+    "correct": 19,
+    "inaccurate": 5,
+    "missing": 2,
+    "total": 26,
+    "accuracy": 0.7917,
+    "completeness": 0.9048
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "figure_key": "multi_fig_025",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Bulgarian",
+  "num_atoms": 7,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "стойностите на G0 са постоянни и съставляват 1 експерт, като се вижда от височината на синия сегмент, който е еднакъв за всички слоеве",
+      "evidence": "The blue segment (G0) height varies across layers; it is not constant at 1 expert for all layers as shown in the image.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Стойностите на G1 варират, но във всички случаи са 3 експерта, както се вижда от височината на зеления сегмент, който е еднакъв за всички стълби",
+      "evidence": "The green segment (G1) height is not constant at 3 experts for all layers; it varies as shown in the image.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Стойностите на G2 също варират и са 4, 4, 3, 4, 3, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1 за слоевете от 1 до 24 съответно",
+      "evidence": "The listed values for G2 do not precisely match the image; for example, Layer 19-22 G2 values are overstated (image shows ~2, not consistently 2).",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "легендата, разположена в горния десен ъгъл",
+      "evidence": "The legend is located in the upper central part of the graph, not the upper right corner.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "максималната височина на стълба е 9 (за слоеве 1, 2, 4, 5, 19, 20, 21, 22)",
+      "evidence": "The image shows the maximum total bar height is approximately 9 for Layer 1 only; other layers (e.g., 2, 4, 5) do not reach 9. This claim is not supported by the image or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "Стълбите не са визуално подчертани с допълнителни елементи като засенчване или удебеляване",
+      "evidence": "This statement introduces interpretation not required by the atoms or image.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 37.14,
+  "total_penalty": 22.0,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 3,
+    "missing": 0,
+    "total": 7,
+    "accuracy": 0.5714,
+    "completeness": 1.0
+  }
+}

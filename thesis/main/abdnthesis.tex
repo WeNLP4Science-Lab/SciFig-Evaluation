@@ -77,6 +77,10 @@
   colback=white, colframe=black!55,
   left=10pt, right=10pt, top=8pt, bottom=8pt,
   shadow={0.5pt}{-0.5pt}{0pt}{black!10},
+  underlay={%
+    \draw[gray!12, line width=0.2pt, step=0.35cm]
+      (interior.south west) grid (interior.north east);
+  },
   #1
 }
 \newtcolorbox{aivignette}[1][]{%
@@ -111,6 +115,10 @@
     {\raisebox{-1.8pt}{\includegraphics[height=8pt]{logos/#1.png}}}%
     {\logochip{logo-#1}}%
 }
+%% Model icon for leaderboard tables — renders from figures/ at 8pt height.
+\newcommand{\modelicon}[1]{%
+  \raisebox{-1.8pt}{\includegraphics[height=8pt]{figures/#1}}%
+}
 \usepackage{float}
 \usepackage{placeins}
 \usepackage{subcaption}
@@ -126,9 +134,9 @@
 \usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
-  linkcolor=black,
-  citecolor=black,
-  urlcolor=blue
+  linkcolor={rgb:red,0;green,0.2;blue,0.6},
+  citecolor={rgb:red,0;green,0.2;blue,0.6},
+  urlcolor={rgb:red,0;green,0.2;blue,0.6}
 }
 
 \title{SciFig-Evaluation: A Multilingual Benchmark and
@@ -145,7 +153,7 @@
 %% While the other chapters are still in draft, only typeset
 %% the introduction. Remove or extend this list as each chapter
 %% is completed.
-\includeonly{introduction,background,literature-review,design,implementation,appendix}
+\includeonly{introduction,background,literature-review,design,implementation,evaluation,discussion,appendix}
 
 \def\sfthing#1#2{\def#1{\mbox{{\small\normalfont\sffamily #2}}}}
 
@@ -196,8 +204,8 @@
 \include{literature-review}
 \include{design}
 \include{implementation}
-% \include{evaluation}
-% \include{discussion}
+\include{evaluation}
+\include{discussion}
 % \include{conclusion}
 
 \include{appendix}

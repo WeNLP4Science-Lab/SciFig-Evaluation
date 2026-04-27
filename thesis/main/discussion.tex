@@ -1,0 +1,84 @@
+\chapter{Discussion}\label{ch:discussion}
+
+This chapter interprets the evaluation results, situates them within the broader literature, and examines their implications for scientific figure accessibility.
+We discuss each research question in turn, beginning with RQ1.
+
+%% ===================================================================
+\section{RQ1: What Do the Results Tell Us About VLM Figure Understanding?}\label{sec:disc-rq1}
+%% ===================================================================
+
+\subsection{The Proprietary--Open Gap Is Narrowing But Not Closed}
+
+Our leaderboard reveals a 27-point spread from the best model (GPT-5.2, 75.5) to the worst (Gemma-3 4B, 48.5), but the gap between proprietary and open-source leaders is surprisingly small.
+Qwen3-VL 235B (70.8) trails GPT-5.2 by only 4.7 points, and the difference between Qwen3-VL 32B (70.4) and Gemini 3.1 Pro (72.7) is not statistically significant at the $p<.05$ level.
+This finding contrasts with earlier multimodal benchmarks such as MMMU~\citep{yue2024mmmu}, where proprietary models held a commanding lead over open-source alternatives.
+The convergence may reflect rapid improvements in open-source visual instruction tuning, particularly within the Qwen-VL family, which benefits from a dedicated visual encoder trained at scale.
+
+However, the convergence is uneven.
+While Qwen models approach proprietary performance, the Gemma-3 family lags 12--27 points behind, and Phi-4 Multimodal underperforms despite its recency.
+This suggests that architecture and training data composition matter more than parameter count alone. Qwen3-VL 32B outperforms both Gemma-3 27B (by 11.6 points) and LLaMA-4 Maverick (by 2.6 points), despite similar parameter counts.
+
+\subsection{Numerical Precision as the Fundamental Bottleneck}
+
+The dominance of \emph{Incorrect Numerical Value} errors (30.6\% of all errors) points to a fundamental limitation of current VLMs: they cannot reliably read exact numbers from figure images.
+This is not simply an OCR problem. The models often recognise that a value exists but report it imprecisely (e.g., ``approximately 45\%'' when the figure shows 42.3\%).
+Our tolerance guidelines already accept $\pm$3 percentage points, meaning the flagged errors exceed even this generous threshold.
+
+This finding aligns with concurrent work on chart question answering.
+\citet{masry2022chartqa} report that numerical extraction remains the hardest subtask in ChartQA, and CharXiv~\citep{wang2024charxiv} finds that descriptive questions involving specific values are significantly harder than structural questions.
+Our contribution is quantifying this gap in the context of \emph{open-ended description} rather than constrained QA: when models must freely narrate all visible values, numerical errors multiply because each figure contains many readable values.
+
+The implication for accessibility is sobering: a blind researcher relying on VLM-generated descriptions would encounter, on average, 2.7 incorrect numerical values per figure (across both judges).
+For scientific figures where exact values carry interpretive significance, this error rate is non-trivial.
+
+\subsection{The Completeness--Accuracy Trade-off}
+
+Models face an implicit trade-off between completeness and accuracy.
+A terse description avoids numerical errors but misses visual features; a detailed description covers more atoms but risks more inaccuracies.
+Our data suggests that top models resolve this trade-off better: GPT-5.2 achieves both higher atom accuracy (75.0\%) and higher completeness (74.5\%) than Gemma-3 4B (accuracy 55.5\%, completeness 50.3\%).
+Weaker models do not fail on one dimension alone; they fail on both.
+
+This contrasts with the assumption that smaller models might achieve reasonable accuracy by being conservative.
+In practice, smaller models hallucinate \emph{more} (Gemma-4B: 0.65/fig vs.\ GPT-5.2: 0.14/fig), suggesting that they lack the discriminative capacity to distinguish what is in the image from what their language prior expects to see.
+
+\subsection{The Language Paradox}
+
+German figures score highest (mean 72.5) across all 13 models, surpassing English (62.8).
+This counterintuitive result (one might expect English to dominate given its prevalence in VLM training data) has two explanations.
+
+First, \textbf{dataset composition}: German figures in our corpus tend to be simpler, with a mean of 15.8 atoms per figure compared to 19.4 for English.
+Under normalised MQM scoring, where penalty is divided by $\text{num\_atoms} \times 5.0$, fewer atoms mean each error costs proportionally more in theory, but in practice the simpler figures also elicit fewer errors.
+
+Second, \textbf{chart type distribution}: the German subset contains more bar charts and fewer pie charts than the English subset.
+Since pie charts are substantially harder (mean MQM 45--60 vs.\ 67--76 for bar charts), this compositional difference inflates German scores.
+
+Our cross-lingual controlled comparison (13 parallel figures $\times$ 4 languages) definitively resolves this puzzle.
+When the same figure is evaluated in all four languages, the German advantage \emph{reverses entirely}: GPT-5.2 scores 66.2 (EN) vs.\ 55.3 (DE), a 16\% gap.
+This confirms that the German advantage in the main leaderboard is a dataset composition artefact (simpler figures with fewer atoms and more bar charts) rather than a genuine language-capability effect.
+
+In the controlled setting, Chinese proves surprisingly resilient (EN--CN gap 4--17\%), likely reflecting strong CJK support in recent VLM training data.
+Bulgarian and German both suffer 15--42\% gaps depending on model, with smaller models degrading disproportionately: Gemma-3~4B shows a 42\% EN--DE gap compared to Claude's 2\%.
+This suggests that multilingual robustness is a property of scale and alignment rather than architecture alone.
+
+\subsection{On the Reliability of LLM-as-Judge}
+
+Our dual-judge framework produces a key methodological finding: \textbf{per-figure scores disagree substantially (Spearman $\rho \approx 0.6$), but model rankings converge ($\rho \geq 0.95$)}.
+This mirrors the ``segment vs.\ system'' distinction well-known in machine translation evaluation~\citep{freitag2021experts}, where segment-level metrics correlate weakly with human judgement but system-level rankings are robust.
+
+The practical implication is that LLM judges should not be trusted for individual figure assessments (a score of 65 on a specific figure carries substantial uncertainty), but they are reliable for comparing models across a corpus of 100+ figures.
+Our dual-judge design, averaging two judges with different severity profiles (GPT-4o at 78\% Major, Mistral at 47\% Major), further stabilises the rankings.
+
+The systematic harshness of LLM judges (mean bias $-$12.4 vs.\ humans) is worth noting for future work.
+Judges over-penalise high-quality descriptions. GPT-5.2 loses 25.6 points from GPT-4o relative to human scores, while Gemma-3 27B loses only 9.4, suggesting that judges are more sensitive to minor imprecisions in otherwise good descriptions.
+This asymmetric bias means that LLM-judge scores compress the true performance range.
+
+\subsection{Pie Charts and the Atom Granularity Problem}
+
+Pie charts score 20--30 points below other chart types.
+Our capped-score analysis reveals that ${\sim}11$ points of this gap (out of ${\sim}25$) is a scoring artefact: dense atoms in pie chart descriptions (e.g., ``Breitbart in blue at 14\%, Other in grey at 13\%, Drudge Report in orange at 8\%'') pack multiple verifiable facts into a single sentence, allowing one atom to generate 5--7 errors.
+Under our normalisation (penalty / (atoms $\times$ 5.0) $\times$ 100), figures with few atoms and many errors per atom are penalised disproportionately.
+
+The remaining ${\sim}14$ points represent genuine difficulty. Pie charts require VLMs to identify colours, read percentages, match labels to segments, and count slices, all of which are tasks where current models struggle.
+This has direct implications for accessibility: pie charts are ubiquitous in scientific publications, yet they receive the least reliable automated descriptions.
+
+Future work could address the granularity problem by splitting dense atoms into finer-grained units (one atom per verifiable fact), though this would increase annotation cost substantially.

@@ -1,0 +1,132 @@
+{
+  "figure_key": "bulgarian_fig_001",
+  "subfolder": "bulgarian_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Bulgarian",
+  "num_atoms": 25,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"Първата линия, означена със синьо и със сини кръгови маркери, представлява „Административни“ разрешения\"",
+      "evidence": "The blue line represents administrative buildings, but the image shows no markers on the blue line. Additionally, the values and trend described match the grey line (residential), not the blue line.",
+      "atom_id": "blue_line_series"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"Тя започва с 4 238 в 2012 г., пада до 4 120 в 2013 г., се възстановява до 4 245 в 2014 г., достига максимум от 5 562 в 2017 г., след което пада до 3 944 в 2020 г., се възстановява до 7 047 в 2021 г. и завършва с 8 169 в 2022 г.\"",
+      "evidence": "These values correspond to the grey line (residential buildings), not the blue line (administrative). The blue line starts at 170 in 2012 and ends at 70 in 2022, with no significant fluctuations.",
+      "atom_id": "blue_line_2012"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"Втората линия, означена с оранжево и с оранжеви кръгови маркери, представлява „Други“ разрешения\"",
+      "evidence": "The orange line represents 'other' buildings, but the image shows no markers on the orange line. The description incorrectly adds markers.",
+      "atom_id": "orange_line_series"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "\"достига максимум от 5 460 в 2017 г.\"",
+      "evidence": "The peak value for the orange line in 2017 is 5,460, but the description states 5,460 (correct) while the atom states 5460 (also correct). No error, but the description includes a minor discrepancy in formatting (comma vs no comma).",
+      "atom_id": "orange_line_peak"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"Третата линия, означена със сиво и със сиви кръгови маркери, представлява „Жилищни“ разрешения\"",
+      "evidence": "The grey line represents residential buildings, but the image shows no markers on the grey line. The description incorrectly adds markers.",
+      "atom_id": "grey_line_series"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"Тя започва с 4 238 в 2012 г., пада до 4 120 в 2013 г., се възстановява до 4 245 в 2014 г., достига максимум от 5 562 в 2017 г., след което пада до 3 944 в 2020 г., се възстановява до 7 047 в 2021 г. и завършва с 8 169 в 2022 г.\"",
+      "evidence": "The description assigns the grey line's values to the blue line earlier in the text. The grey line's values are correct, but they are misattributed in the first part of the description.",
+      "atom_id": "grey_line_2012"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"Вертикалната ос (Y) представлява броя на издадените разрешения, с етикети, които са числови стойности, разположени равномерно с интервали от 1000, като диапазонът на стойностите е от 0 до 9000. Единиците на оста Y са „разрешения“.\"",
+      "evidence": "The y-axis has no visible labels, units, or tick marks in the image. The description incorrectly claims the y-axis has numerical labels and units.",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the blue line (administrative) is predominantly flat with minor fluctuations, as noted in the atom 'blue_line_trend'.",
+      "atom_id": "blue_line_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "\"със сини кръгови маркери\", \"с оранжеви кръгови маркери\", \"със сиви кръгови маркери\"",
+      "evidence": "The description incorrectly states that all three lines have circular markers, but the image shows no markers on any of the lines.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "\"Единиците на оста Y са „разрешения“.\"",
+      "evidence": "The y-axis has no visible units in the image, so stating the units as 'разрешения' is unsupported.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "\"Дължината на хоризонталната ос (X) представлява годините от 2012 до 2022 г., обозначени със съответните години като етикети, разположени равномерно с интервал от една година. Скалата на оста X е линейна, без измерени единици, а диапазонът е от 2012 до 2022 г.\"",
+      "evidence": "The description redundantly explains the x-axis scale and range, which is already clear from the labels.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "\"Тя започва с 4 238 в 2012 г., пада до 4 120 в 2013 г., се възстановява до 4 245 в 2014 г., достига максимум от 5 562 в 2017 г., след което пада до 3 944 в 2020 г., се възстановява до 7 047 в 2021 г. и завършва с 8 169 в 2022 г.\"",
+      "evidence": "The sentence is overly long and repetitive, making it difficult to follow the trend for each line.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 66.0,
+  "total_penalty": 42.5,
+  "atom_coverage": {
+    "correct": 17,
+    "inaccurate": 7,
+    "missing": 1,
+    "total": 25,
+    "accuracy": 0.7083,
+    "completeness": 0.9444
+  }
+}

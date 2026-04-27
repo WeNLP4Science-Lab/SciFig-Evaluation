@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_001",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Bulgarian",
+  "num_atoms": 9,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "около 26.0 при M=3, спада леко до около 25.0 при M=4, след което остава почти постоянна, с леко нарастване до около 27.0 при M=8",
+      "evidence": "The green line (LLaMA1-7B) starts at approximately 28.0 at M=3, drops to a minimum of 25.0 at M=5, and rises to 39.0 at M=8, not 27.0. The description underestimates the final value and misrepresents the trend.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "спада до около 18.0 при M=4, след което остава почти постоянна, с леко нарастване до около 19.0 при M=8",
+      "evidence": "The orange line (LLaMA1-13B) drops to approximately 16.0 at M=5, not 18.0 at M=4. The description is slightly off but within tolerance for M=4; however, the final value is underestimated (19.0 vs ~21.0).",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "спада до около 34.0 при M=4, след което остава почти постоянна до M=7, а при M=8 има леко нарастване до около 38.0",
+      "evidence": "The blue line (Vicuna-7B) drops to approximately 35.0 at M=7, not 34.0 at M=4, and rises to ~40.0 at M=8, not 38.0. The description is slightly off but within tolerance for M=4 and M=7.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "при фиксирана степен на спряване (70%) и използване на метода OWL за динамично слоево спряване (Dynamic Layerwise Pruning)",
+      "evidence": "The figure does not mention any stopping criteria, pruning methods, or OWL. This information is hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the three lines do not intersect, though this is implied by the trends described.",
+      "atom_id": "sent_7"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "валидационната перплексия (perplexity) ... при фиксирана степен на спряване (70%) и използване на метода OWL за динамично слоево спряване (Dynamic Layerwise Pruning)",
+      "evidence": "The figure does not mention validation perplexity, stopping criteria, or pruning methods. This information is not present in the image or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "Всички три линии показват минимални промени в перплексията в диапазона M=4 до M=7, с леко нарастване при M=8",
+      "evidence": "The description adds an interpretive summary not explicitly required by the figure or atoms. While not incorrect, it goes beyond the factual description.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Единиците не са изрично посочени, но се предполага, че са безразмерни, както е стандартно за перплексията.",
+      "evidence": "The description includes unnecessary speculation about units, which adds no value and could confuse readers unfamiliar with perplexity.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 52.22,
+  "total_penalty": 21.5,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 3,
+    "missing": 1,
+    "total": 9,
+    "accuracy": 0.625,
+    "completeness": 0.8333
+  }
+}

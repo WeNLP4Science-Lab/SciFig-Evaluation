@@ -1,0 +1,114 @@
+{
+  "figure_key": "english_fig_003",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 34,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dips slightly to about -1% at Layer5-12, rises to ~0% at Layer13-20, dips again to ~-1% at Layer21-28, and ends near +1% at Layer29-32",
+      "evidence": "The yellow line (LB-Avg of 2×tokens,8-bit) remains close to 0% throughout, not dipping to -1% or rising to +1%. The description's values exceed the ±3% tolerance for this line.",
+      "atom_id": "english_fig_003_sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "drops to ~-2% at Layer5-12, stabilizes near -2% through Layer21-28",
+      "evidence": "The red line (LB-Avg of 1×tokens,16-bit) does not drop to -2% at Layer5-12 or stabilize near -2%; it remains closer to 0% with minor fluctuations. The described values exceed the ±3% tolerance.",
+      "atom_id": "english_fig_003_sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "declines to ~-3% at Layer5-12, falls further to ~-6% at Layer13-20, rises to ~-4% at Layer21-28",
+      "evidence": "The light blue line (RULER4k of 2×tokens,8-bit) moves to around +5% at Layer13-20, not -6%. The description incorrectly inverts the sign and magnitude of the change.",
+      "atom_id": "english_fig_003_sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "LB-Avg of 2×tokens,8-bit (orange line with circle markers)",
+      "evidence": "The line for LB-Avg of 2×tokens,8-bit is yellow, not orange. While 'orange' is a reasonable synonym, the image clearly shows a yellow line, and the atom specifies 'yellow'.",
+      "atom_id": "english_fig_003_line_color_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "when applying layer-wise quantized pruning using the SnapKV method on the Llama-3-8B-Instruct model",
+      "evidence": "The figure and atoms do not mention SnapKV, Llama-3-8B-Instruct, or layer-wise quantized pruning. This information is not present in the image or supported by any atom.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "indicating that configurations are modified every 4 layers at the ends and every 8 layers in the middle",
+      "evidence": "The figure does not indicate the frequency of configuration modifications. This detail is not present in the image or supported by any atom.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "with major gridlines and tick labels at 5% intervals",
+      "evidence": "While the tick intervals are correct, the presence of 'major gridlines' is not mentioned in the atoms or clearly visible in the image. This is a minor hallucination.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the presence of a legend, though it describes the lines. The atom 'english_fig_003_legend_position_alt' specifies the legend's position.",
+      "atom_id": "english_fig_003_legend_position_alt"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "All lines show non-monotonic behavior across layers, with the dark blue line exhibiting the largest negative deviation in the middle layers.",
+      "evidence": "The description adds interpretive language ('non-monotonic behavior', 'largest negative deviation') not explicitly required by the figure or atoms. This is unwanted interpretation.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Five configurations are plotted",
+      "evidence": "The figure shows four lines plus a baseline (dashed grey line). The baseline is not a 'configuration' but a reference line. The atom 'english_fig_003_element_count' specifies four lines.",
+      "atom_id": "english_fig_003_element_count"
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 78.53,
+  "total_penalty": 36.5,
+  "atom_coverage": {
+    "correct": 28,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 34,
+    "accuracy": 0.8485,
+    "completeness": 0.9655
+  }
+}

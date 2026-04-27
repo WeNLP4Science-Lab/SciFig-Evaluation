@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "phi-4-multimodal",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "水平轴（X轴）按时间进行，以日为单位，显示了具体日期",
+      "evidence": "X轴标注的是每周间隔，而非每日。",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "垂直轴（Y轴）分布在两个方向：左侧垂直轴显示每日新患者人数，水平轴显示有关新冠报道数量",
+      "evidence": "右侧Y轴（而非水平轴）显示新闻报道数量。",
+      "atom_id": "y_axis_right_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "另一侧的柱显示相关 covid-19 新闻报道数量范围从0到6000，并且图标每个柱的高度代表例如0、1000、3000等划分",
+      "evidence": "右侧Y轴步长为1,000，而非1,000和3,000混用。",
+      "atom_id": "y_axis_right_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明图表展示的是全球每日新增新冠确诊病例数量与相关新闻媒体报道数量的变化趋势。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及柱状图颜色为蓝绿色，折线图颜色为蓝色。",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确提及折线图表示新闻报道数量。",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及两者在多数时间段呈现同步波动特征。",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及确诊高峰与报道上升的滞后效应。",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "柱状图没有应用任何排序（如降序或升序），也没有做出任何视觉强调，如阴影或加粗",
+      "evidence": "图中未提及排序或视觉强调，属于无中生有。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "和此数据相关的文章数量",
+      "evidence": "表述模糊，未明确说明文章数量对应的是新闻报道数量。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "视觉提醒我们，柱形图的纵向高度分别表示每个类别在特定时间每天的数量。柱状图没有应用任何排序（如降序或升序），也没有做出任何视觉强调，如阴影或加粗。在图表中，视觉和标签提示我们一个时间序列的横向观察，显示数据变化。",
+      "evidence": "描述冗余，未提供额外有效信息。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 48.33,
+  "total_penalty": 31.0,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 3,
+    "missing": 5,
+    "total": 12,
+    "accuracy": 0.5714,
+    "completeness": 0.4444
+  }
+}

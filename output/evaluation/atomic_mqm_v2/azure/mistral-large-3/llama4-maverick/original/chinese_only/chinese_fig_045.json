@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_045",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 21,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "CLS 模型的三个柱状图高度分别约为 30（Teacher）、31（Self-Training）和 33（PST）",
+      "evidence": "CLS values in the image: Teacher ~34, Self-Training ~30, PST ~42. The description is incorrect beyond numerical tolerance.",
+      "atom_id": "CLS_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "DB 模型的 F1 值明显更高，分别约为 52（Teacher）、55（Self-Training）和 58（PST）",
+      "evidence": "DB values in the image: Teacher ~55, Self-Training ~56, PST ~57. The description is incorrect beyond numerical tolerance.",
+      "atom_id": "DB_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "DB 模型是所有模型中 F1 最高的",
+      "evidence": "TextCNN-CB (PST) has the highest F1 value (~63), not DB. The description incorrectly assigns the highest value to DB.",
+      "atom_id": "TextCNN_CB_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该柱状图展示了不同模型在 CCKS-IMLTC 数据集上基于少量标签（Few-shot）场景下的 F1 值比较",
+      "evidence": "The chart title or axis labels do not mention 'CCKS-IMLTC' or 'Few-shot'. This is an incorrect interpretation of the chart's purpose.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the legend or its style (different diagonal fill patterns for each series).",
+      "atom_id": "legend_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "PST 方法对应的柱状图普遍较其他两种方法更高，表明其在多个模型上取得了较好的性能",
+      "evidence": "The description introduces an interpretive claim ('取得了较好的性能') not explicitly shown in the figure. This is subjective and beyond the chart's data.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "整体来看，各模型的 F1 值在 PST 方法下普遍较高，且不同模型的性能差异明显",
+      "evidence": "The description includes a comparative interpretation ('普遍较高', '性能差异明显') not explicitly indicated in the chart.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "按模型名称的字母顺序排列",
+      "evidence": "The image does not show alphabetical sorting; the order is arbitrary. No atom supports this claim.",
+      "atom_id": "sort_order"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Self-Training（条纹填充）",
+      "evidence": "The description uses '条纹填充' (striped fill) for Self-Training, which is ambiguous. The reference uses '斜线填充' (diagonal fill), which is clearer.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 68.57,
+  "total_penalty": 33.0,
+  "atom_coverage": {
+    "correct": 16,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 21,
+    "accuracy": 0.8,
+    "completeness": 0.9412
+  }
+}

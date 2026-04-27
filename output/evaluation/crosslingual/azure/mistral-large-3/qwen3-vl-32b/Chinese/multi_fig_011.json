@@ -1,0 +1,103 @@
+{
+  "figure_key": "multi_fig_011",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 7,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "范围从0到22",
+      "evidence": "The x-axis range is from 0 to 23, not 22, as shown in the image.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在x轴起始处（Layer=0），所有四条线的激活值均接近0",
+      "evidence": "The image shows that at Layer=0, attn_output starts around 3, attn_residual around 3, and ffn_residual around 5, not close to 0.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "attn_output（蓝色虚线）在Layer=15附近出现小幅上升至约15，之后在Layer=20处达到约35，随后在Layer=22处下降至约25",
+      "evidence": "The image shows attn_output fluctuates but does not drop to 25 at Layer=22; it ends near 50 at Layer=23.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ffn_output（绿色虚线）在Layer=15前保持接近0，在Layer=20处上升至约10，Layer=22处升至约20",
+      "evidence": "The image shows ffn_output starts slightly above 0 and rises to about 180 at Layer=23, not 20 at Layer=22.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色虚线带方形标记代表attn_output，绿色虚线带方形标记代表ffn_output，橙色点划线带圆形标记代表attn_residual，红色实线带圆形标记代表ffn_residual",
+      "evidence": "The image does not show any markers (e.g., squares or circles) on the lines; the description incorrectly adds these visual attributes.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ffn_residual（红色实线）在Layer=15前缓慢上升至约30，Layer=20处升至约100，Layer=22处急剧上升至约380",
+      "evidence": "The image shows ffn_residual reaches about 350 at Layer=23, not 380 at Layer=22, and does not reach 100 at Layer=20.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "旨在比较在不同门控配置下各组件的激活行为",
+      "evidence": "The description introduces an interpretation not supported by the image or reference (no mention of '门控配置' or comparison intent).",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "整体趋势显示，attn_residual和ffn_residual在深层中激活值显著增长，而attn_output和ffn_output的激活值增长缓慢且幅度较小",
+      "evidence": "The description adds interpretive language ('显著增长', '缓慢且幅度较小') not present in the reference or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "在x轴起始处（Layer=0），所有四条线的激活值均接近0",
+      "evidence": "The statement is an over-generalization; the image shows some lines start near 3 or 5, not all close to 0.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 0.0,
+  "total_penalty": 36.0,
+  "atom_coverage": {
+    "correct": 3,
+    "inaccurate": 4,
+    "missing": 0,
+    "total": 7,
+    "accuracy": 0.4286,
+    "completeness": 1.0
+  }
+}

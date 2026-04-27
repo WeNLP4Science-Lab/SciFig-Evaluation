@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_019",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 13,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "水平轴代表模型尺寸（MR(%)）",
+      "evidence": "水平轴应代表MR(%)，而非模型尺寸。图中X轴明确标注为MR(%)。",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "标签为 80、81、82、83 和 84",
+      "evidence": "X轴标签范围应为80至85，且仅显示80、81、82、83、84、85，而非仅80至84。",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "范围从 16 到 26",
+      "evidence": "Y轴范围应为17至25，而非16至26。",
+      "atom_id": "y_axis_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表包含五个同色（浅蓝色）的柱状图",
+      "evidence": "图表应包含四个柱状图，对应参数量17、19、22、25，而非五个。",
+      "atom_id": "y_axis_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "80 对应的柱状图高约 17，81 对应的柱状图高约 19，82 对应的柱状图高约 22，83 对应的柱状图高约 24，84 对应的柱状图高约 25",
+      "evidence": "描述混淆了X轴和Y轴的对应关系。柱状图长度代表MR(%)值，而非参数量(M)。例如，17M对应的MR约为83.1%，而非80对应17。",
+      "atom_id": "value_17M"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "柱状图",
+      "evidence": "图表类型应为水平条形图，而非垂直柱状图。",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明图表展示的是在三个数据集上平均得到的MR(%)值。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及图表标题“3个数据集平均值”。",
+      "atom_id": "chart_title"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "84 对应的柱状图高约 25",
+      "evidence": "图中无84对应的柱状图，且25M对应的MR值约为83.5%，而非柱状图高度。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "旨在展示不同模型尺寸对数据集平均参与度的影响",
+      "evidence": "描述引入了“模型尺寸”和“参与度”的主观解释，而非图表直接展示的内容。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "从左到右，这些柱状图的高度大致呈增加趋势；从 17 到 24",
+      "evidence": "描述模糊，未明确说明“高度”指代的是MR(%)值还是参数量(M)，且24M不在图中。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 36.92,
+  "total_penalty": 41.0,
+  "atom_coverage": {
+    "correct": 6,
+    "inaccurate": 5,
+    "missing": 2,
+    "total": 13,
+    "accuracy": 0.5455,
+    "completeness": 0.75
+  }
+}

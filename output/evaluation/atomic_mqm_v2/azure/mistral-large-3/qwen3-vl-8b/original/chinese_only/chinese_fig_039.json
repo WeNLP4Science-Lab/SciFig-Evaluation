@@ -1,0 +1,96 @@
+{
+  "figure_key": "chinese_fig_039",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图展示的是在纠正语言错误后，不同条件下网络密度的变化情况",
+      "evidence": "The chart purpose is incorrectly described as '网络密度的变化情况' (network density changes) instead of showing bias removal vs. no bias removal data trends. The image and atom checklist specify the purpose as '展示了\"去除偏误\"和\"未去除偏误\"数据的变化情况'.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "蓝色实线带星号标记的线",
+      "evidence": "The blue line is described as having '星号标记' (star markers), but the image shows '叉形标记' (cross markers).",
+      "atom_id": "weiqupianwu_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 C1 处（0.0044）",
+      "evidence": "The description states the blue line ('未去除偏误') has a value of 0.0044 at C1, but the image and atom checklist show it as 0.0047. The red line ('去除偏误') is 0.0045 at C1, not the blue line.",
+      "atom_id": "qupianwu_C1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "两条线在 B1 处（0.0051）和 C1 处（0.0044）分别出现一个峰值和一个下降拐点",
+      "evidence": "The description incorrectly states that both lines have a peak at B1 (0.0051) and a turning point at C1 (0.0044). The blue line ('未去除偏误') peaks at B1 (0.0051) but does not have a turning point at C1 (0.0047). The red line ('去除偏误') does not peak at B1 (0.0051) but continues to decline. The convergence at B1 is correct, but the description misrepresents the trend for the red line.",
+      "atom_id": "B1_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the specific values for A2, B2, and C1 for the blue line ('未去除偏误'), which are provided in the atom checklist (A2: 0.0047, B2: 0.0047, C1: 0.0044 is incorrect but should be 0.0047).",
+      "atom_id": "weiqupianwu_A2"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the specific values for A2, B2, and C1 for the red line ('去除偏误'), which are provided in the atom checklist (A2: 0.0052, B2: 0.0050, C1: 0.0045).",
+      "atom_id": "qupianwu_A2"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "在纠正语言错误后",
+      "evidence": "The phrase '在纠正语言错误后' introduces an interpretation not present in the image or atom checklist, which only describe the data as '去除偏误' and '未去除偏误' without specifying the type of bias.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "两条线在 B1 处（0.0051）和 C1 处（0.0044）分别出现一个峰值和一个下降拐点",
+      "evidence": "The description is ambiguous about which line corresponds to which event (peak vs. turning point). It is unclear whether both lines peak at B1 or only one does.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 81.25,
+  "total_penalty": 22.5,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 24,
+    "accuracy": 0.8182,
+    "completeness": 0.9
+  }
+}

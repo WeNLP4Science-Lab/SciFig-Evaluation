@@ -1,0 +1,141 @@
+{
+  "figure_key": "german_fig_082",
+  "subfolder": "german_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 33,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Chart Purpose",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "zeigt den Prozentsatz der Betriebe, die von der Erhöhung des Mindestlohns auf 12 Euro betroffen sind, aufgeschlüsselt nach Branche und Betriebsgröße",
+      "evidence": "The chart does not mention the minimum wage or its impact; it shows the share of all businesses by sector and size. This is a clear misinterpretation of the chart's purpose.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die horizontale Achse stellt die verschiedenen Branchen dar, die in alphabetischer Reihenfolge von „Bergbau“ bis „Größere Betriebe (250+)“ angeordnet sind",
+      "evidence": "The horizontal axis represents percentages, not branches. The vertical axis lists the branches and business sizes, and they are NOT in alphabetical order but sorted by bar length.",
+      "atom_id": "x_axis_scale"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die vertikale Achse zeigt den Prozentsatz der Betriebe, wobei die Skala von 0 bis 50 in Schritten von 5 Einheiten verläuft",
+      "evidence": "The vertical axis lists the categories (branches and business sizes), not percentages. The horizontal axis shows percentages.",
+      "atom_id": "x_axis_scale"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Innerhalb jeder Branche werden für jede Betriebsgröße eigene Balken angezeigt",
+      "evidence": "The chart shows one bar per category (branch or business size), not multiple bars per branch for different sizes. Business sizes are separate categories at the bottom.",
+      "atom_id": "num_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "„Bergbau“ bei etwa 4 %",
+      "evidence": "The bar for 'Bergbau' is closer to 10%, not 4%. This exceeds the ±3 percentage point tolerance.",
+      "atom_id": "shortest_bar"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "„Größere Betriebe (250+)“ mit etwa 48 % den höchsten Prozentsatz aufweist",
+      "evidence": "The highest bar is for 'Gastgewerbe' at ~48%, not 'Größere Betriebe (250+)' which is ~39%.",
+      "atom_id": "longest_bar"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the descending order of the bars, which is a key structural feature.",
+      "atom_id": "bar_order"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the y-axis label ('Anteil an allen Betrieben in %') or the full list of 23 categories.",
+      "atom_id": "num_categories"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the small gap in the axis between branches and business sizes.",
+      "atom_id": "gap_in_axis"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "die von der Erhöhung des Mindestlohns auf 12 Euro betroffen sind",
+      "evidence": "The chart does not reference the minimum wage or its impact. This is a fabrication.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "wobei die Größe anhand der Länge des Balkens variiert, der den Prozentsatz der Betroffenen innerhalb dieser spezifischen Größe widerspiegelt",
+      "evidence": "The chart does not show 'Betroffene' or impacts within sizes; it shows the share of all businesses. This is a misinterpretation.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Für die meisten Branchen sind die Werte zwischen 10 und 40 %",
+      "evidence": "This is overly vague; the description does not specify which branches fall into this range or clarify the exceptions.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "der größte Wert typischerweise durch die „Größeren Betriebe“ dargestellt wird, gefolgt von „Mittleren Betrieben“ und dann „Kleinbetrieben“",
+      "evidence": "This generalization is incorrect. The largest bar is for 'Gastgewerbe,' not 'Größere Betriebe.' The pattern does not hold across all branches.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 74.85,
+  "total_penalty": 41.5,
+  "atom_coverage": {
+    "correct": 26,
+    "inaccurate": 5,
+    "missing": 3,
+    "total": 33,
+    "accuracy": 0.8387,
+    "completeness": 0.8966
+  }
+}
