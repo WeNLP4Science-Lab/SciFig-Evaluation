@@ -3,452 +3,492 @@
 \chapter{Supplementary Materials}
 \label{app:supplementary}
 
+This appendix provides the complete prompts, scoring configuration, detailed per-judge results, and supplementary analyses that support the main text. All tables use judge-averaged scores unless explicitly marked G (GPT-4o) or M (Mistral Large~3).
+
 %% ===================================================================
-%% PAGE 1: PROMPTS GRID
+%% PAGE 1: GENERATION PROMPTS
 %% ===================================================================
-\section{Generation and Evaluation Prompts}
+\section{Generation Prompts by Language}
 \label{app:prompts}
 
-{\tiny
-\setlength{\tabcolsep}{1pt}
-%% Row 1: EN prompts
-\noindent
-\begin{minipage}[t]{0.32\textwidth}
-\begin{codebox}[title={\tiny EN: Line plot}]
-You are an annotator for scientific line plots.
-Include: purpose, x-axis (label, scale, range,
-units), y-axis (same), each line (color, marker,
-style, values at start/end, peaks/declines).
-Avoid interpreting causes. Single paragraph.
-\end{codebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.32\textwidth}
-\begin{codebox}[title={\tiny EN: Bar chart}]
-You are an annotator for scientific bar charts.
-Include: purpose, axes (category, value with
-label/scale/range/units), each bar (label, color,
-value), grouped/stacked, sorting, emphasis.
-Avoid comparisons. Single paragraph.
-\end{codebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.32\textwidth}
-\begin{codebox}[title={\tiny EN: Pie chart}]
-You are an annotator for scientific pie charts.
-Include: purpose, total slices, each slice (label,
-color, \%), legend, percentage labels, emphasis
-(exploded/offset), ordering. Single paragraph.
-\end{codebox}
-\end{minipage}
+The generation prompts follow a consistent structure across all three chart types and four languages: role instruction, objective, content requirements (purpose, axes, visual elements), and constraints (no interpretation, single paragraph). Table~\ref{tab:prompt-summary} summarises the prompt design. Full prompts are reproduced below in condensed form; unabridged versions are in \texttt{scripts/llm\_generation/prompts/}.
 
-\vspace{3pt}
-%% Row 2: Translated prompts
-\noindent
-\begin{minipage}[t]{0.32\textwidth}
-\begin{codebox}[title={\tiny DE: Balkendiagramm}]
-Sie sind ein Annotator fuer wissenschaftliche
-Balkendiagramme. Enthalten Sie: Zweck, Achsen,
-jeden Balken (Beschriftung, Farbe, Wert),
-Gruppierung/Stapelung, Sortierung. Vermeiden
-Sie Vergleiche. Ein Absatz.
-\end{codebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.32\textwidth}
-\begin{codebox}[title={\tiny BG: Bar chart (Cyrillic)}]
-Vie ste anotator za nauchni stulbovidni
-diagrami. Vklyuchete: tsel, osi, vseki stulb
-(etiket, tsvetove, stoinost), grupirane,
-sortirane. Edin paragraf. (Full Cyrillic in
-\texttt{prompts/translated/bulgarian/})
-\end{codebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.32\textwidth}
-\begin{codebox}[title={\tiny CN: Bar chart (Chinese)}]
-Nin shi yi ming zhushi yuan, fu ze miao shu
-ke xue zhu zhuang tu. Bao kuo: mu di,
-zuo biao zhou, mei ge zhu (biao qian, yan se,
-zhi), fen zu/dui die, pai xu. Yi duan.
-(Full Chinese in \texttt{prompts/translated/chinese/})
-\end{codebox}
-\end{minipage}
-
-\vspace{3pt}
-%% Row 3: Ablation + Judge + Weights
-\noindent
-\begin{minipage}[t]{0.22\textwidth}
-\begin{codebox}[title={\tiny C2': EN instr + native out}]
-[English prompt, appended:]
-IMPORTANT: Write your
-response in [Language].
-\end{codebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.22\textwidth}
-\begin{codebox}[title={\tiny C3: CCoT prefix}]
-First, describe the visual
-structure: chart type, axes,
-series, labels, colors.
-Let's think step by step.
-Write "DESCRIPTION:" after.
-\end{codebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.50\textwidth}
-\begin{codebox}[title={\tiny Atomic MQM judge prompt (key sections)}]
-Expert evaluator, atomic checklist. Given: IMAGE, ATOMS, REFERENCE, MACHINE DESC.
-IMAGE = primary truth. Tolerance: +/-3pp numerical, colour synonyms.
-Steps: (1) Accuracy (image+atoms) (2) Completeness (atoms) (3) Hallucination
-(4) Clarity. Severity: atom sev caps error sev. Crit/Imp+miss->Major, partial->Minor.
-Output: {"errors":[{"category","sub_type","severity","text_span","evidence","atom_id"}]}
-\end{codebox}
-\end{minipage}
-
-\vspace{3pt}
-%% Row 4: MQM weights + formula + error taxonomy
-\noindent
-\begin{minipage}[t]{0.25\textwidth}
+\begin{table}[H]
 \centering
-\captionof{table}{MQM weights.}\label{tab:mqm-weights}
+\footnotesize
+\caption{Prompt design summary. Each cell gives the key instruction elements.}\label{tab:prompt-summary}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l p{3.5cm} p{3.5cm} p{3.5cm}@{}}
+\toprule
+ & \textbf{Line Plot} & \textbf{Bar Chart} & \textbf{Pie Chart} \\
+\midrule
+\textbf{Content} & Purpose, x/y axes (label, scale, range, units), each line (colour, marker, style, values, peaks) & Purpose, axes (category vs value), each bar (label, colour, value), grouped/stacked, sorting & Purpose, slice count, each slice (label, colour, \%), legend, emphasis, ordering \\
+\midrule
+\textbf{Constraint} & \multicolumn{3}{c}{No inference, no comparison, single paragraph, neutral technical language} \\
+\midrule
+\textbf{Languages} & \multicolumn{3}{c}{English (EN), German (DE), Bulgarian (BG), Chinese (CN) --- each independently translated} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\begin{codebox}[title={\scriptsize EN: Bar chart prompt (condensed)}]
+You are an annotator tasked with describing scientific bar charts
+in a structured but natural paragraph format. Your goal is to
+objectively describe what is shown. Include: purpose, axes
+(category axis, value axis with label/scale/range/units), each
+bar (label, color, value), grouped/stacked structure, sorting,
+visual emphasis. Avoid comparisons. Single paragraph.
+\end{codebox}
+\vspace{2pt}
+\begin{codebox}[title={\scriptsize BG: Bar chart (transliterated from Cyrillic)}]
+Vie ste anotator za nauchni stulbovidni diagrami v strukturiran
+format. Vklyuchete: tsel na diagramata, osi (kategorii,
+stoinosti), vseki stulb (etiket, tsvetove, stoinost), grupirane
+ili natrupvane, sortirane, vizualno podchertavane. Edin paragraf.
+\end{codebox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\begin{codebox}[title={\scriptsize DE: Balkendiagramm-Prompt (condensed)}]
+Sie sind ein Annotator fuer wissenschaftliche Balkendiagramme.
+Enthalten Sie: Gesamtzweck, Achsen (Kategorieachse,
+Werteachse mit Beschriftung/Skala/Bereich/Einheiten), jeden
+Balken (Beschriftung, Farbe, Wert), Gruppierung/Stapelung,
+Sortierung. Vermeiden Sie Vergleiche. Ein Absatz.
+\end{codebox}
+\vspace{2pt}
+\begin{codebox}[title={\scriptsize CN: Bar chart (pinyin transliteration)}]
+Nin shi yi ming zhushi yuan, fu ze yi jiegou hua de duanluo
+geshi miaoshu kexue zhuzhuangtu. Baokuo: mudi, zuobiaozhou
+(fenlei zhou, shuzhi zhou), meige zhu (biaoqian, yanse, zhi),
+fenzu/duidie, paixu. Yi duan. (Full Chinese in repository.)
+\end{codebox}
+\end{minipage}
+
+
+%% ===================================================================
+%% PAGE 2: ABLATION PROMPTS + JUDGE + SCORING
+%% ===================================================================
+\newpage
+\section{Ablation Prompts, Judge Configuration, and Scoring}
+\label{app:ablation-prompts}\label{app:judge}
+
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\begin{codebox}[title={\scriptsize C2\textquotesingle: English instruction + native output}]
+[Identical to the English prompt for the relevant chart type,
+with the following line appended:]
+
+IMPORTANT: Write your response in [Language]
+(e.g., German/Deutsch, Bulgarian/Bulgarski, Chinese/Zhongwen).
+\end{codebox}
+\vspace{2pt}
+\begin{codebox}[title={\scriptsize C3: Compositional Chain-of-Thought (CCoT) prefix}]
+First, describe the visual structure of this figure: identify the
+chart type, axes, data series, labels, colors, and any notable
+patterns. Let's think step by step.
+
+After your reasoning, write your final description on a new line
+starting with "DESCRIPTION:" --- only the text after DESCRIPTION:
+will be used for evaluation.
+\end{codebox}
+\vspace{2pt}
+\begin{codebox}[title={\scriptsize Atomic MQM judge prompt (key sections)}]
+You are an expert evaluator assessing the quality of a
+machine-generated scientific figure description using an atomic
+checklist approach. You are given the FIGURE IMAGE, an ATOM
+CHECKLIST, the full REFERENCE DESCRIPTION, and the MACHINE
+DESCRIPTION. The IMAGE is the primary source of truth.
+
+Tolerance: numerical +/-3 percentage points; colour synonyms
+accepted (blue/cyan/teal, red/crimson); semantic equivalence.
+
+Step 1: Accuracy check (image + atoms)
+Step 2: Completeness check (atoms)
+Step 3: Hallucination check (atoms + image)
+Step 4: Clarity check (reference)
+
+Severity: atom severity caps error severity.
+  Critical/Important atom + complete miss -> Major
+  Critical/Important atom + partial       -> Minor
+  Minor atom, any degree of error         -> Minor
+
+Output: {"errors": [{"category", "sub_type", "severity",
+  "text_span", "evidence", "atom_id"}]}
+\end{codebox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\footnotesize
+
+\captionof{table}{MQM penalty weights and normalised scoring formula.}\label{tab:mqm-weights}
+\centering
 \begin{tabular}{@{}llr@{}}
 \toprule
-\textbf{Cat.} & \textbf{Sev.} & \textbf{W} \\
+\textbf{Category} & \textbf{Severity} & \textbf{Weight} \\
 \midrule
-Acc. & Maj & 5.0 \\
-Acc. & Min & 2.0 \\
-Comp. & Maj & 3.5 \\
-Comp. & Min & 1.5 \\
-Clar. & Maj & 2.0 \\
-Clar. & Min & 1.0 \\
+Accuracy            & Major & 5.0 \\
+Accuracy            & Minor & 2.0 \\
+Completeness        & Major & 3.5 \\
+Completeness        & Minor & 1.5 \\
+Clarity \& Readability & Major & 2.0 \\
+Clarity \& Readability & Minor & 1.0 \\
 \bottomrule
-\end{tabular}\\[2pt]
-$\mathrm{MQM}{=}\max(0, 100{-}\frac{\sum w_i}{N_a{\times}5}{\times}100)$
-\end{minipage}\hfill
-\begin{minipage}[t]{0.72\textwidth}
-\captionof{table}{MQM error sub-type taxonomy (13 types across 3 categories).}\label{tab:error-taxonomy}
-\begin{tabular}{@{}lll@{}}
+\end{tabular}
+
+\vspace{6pt}
+\noindent\textbf{Normalised MQM score:}
+\[
+\mathrm{MQM} = \max\!\left(0,\; 100 - \frac{\sum_{i} w_i}{N_{\mathrm{atoms}} \times 5.0} \times 100\right)
+\]
+where $N_{\mathrm{atoms}}$ is the atom count for the figure and $5.0$ is the maximum per-atom penalty (Accuracy/Major). Hallucination and clarity errors add to the numerator without appearing in the denominator, so scores can reach zero but not go negative.
+
+\vspace{8pt}
+\captionof{table}{MQM error sub-type taxonomy (13 types).}\label{tab:error-taxonomy}
+\scriptsize
+\begin{tabular}{@{}ll@{}}
 \toprule
-\textbf{Category} & \textbf{Sub-type} & \textbf{Definition} \\
+\textbf{Sub-type} & \textbf{Definition} \\
 \midrule
-Accuracy & Incorrect Numerical Value & Wrong \%, value, quantity \\
-         & Visual Attribute Mapping & Wrong colour/label/series assignment \\
-         & Structural Description & Misrepresents chart structure \\
-         & Axis/Legend Interpretation & Wrong axis labels/units/legend \\
+\multicolumn{2}{@{}l}{\textit{Accuracy (4 sub-types)}} \\
+Incorrect Numerical Value & Wrong \%, value, quantity \\
+Visual Attribute Mapping & Wrong colour/label/series \\
+Structural Description & Misrepresents structure \\
+Axis/Legend Interpretation & Wrong axis/legend reading \\
 \midrule
-Completeness & Missing Visual Features & Omits data series/legend/structure \\
-             & Missing Chart Purpose & No chart title/purpose stated \\
-             & Missing Axis Description & Omits axis labels/scale/range \\
-             & Hallucinated Content & Fabricated elements not in figure \\
-             & Unwanted Interpretation & Inference beyond visible evidence \\
+\multicolumn{2}{@{}l}{\textit{Completeness (5 sub-types)}} \\
+Missing Visual Features & Omits series/legend/detail \\
+Missing Chart Purpose & No purpose stated \\
+Missing Axis Description & Omits axis info \\
+Hallucinated Content & Fabricated elements \\
+Unwanted Interpretation & Inference beyond visible \\
 \midrule
-Clarity & Ambiguous Description & Vague or unclear references \\
-        & Over-Generalisation & Oversimplified claims \\
-        & Overly Verbose & Unnecessary repetition \\
-        & Poor Sentence Structure & Grammar/phrasing errors \\
+\multicolumn{2}{@{}l}{\textit{Clarity (4 sub-types)}} \\
+Ambiguous Description & Vague references \\
+Over-Generalisation & Oversimplified claims \\
+Overly Verbose & Unnecessary repetition \\
+Poor Sentence Structure & Grammar/phrasing errors \\
 \bottomrule
 \end{tabular}
 \end{minipage}
-}
 
 
 %% ===================================================================
-%% PAGE 2: ATOM CHECKLIST + ADVERSARIAL SAMPLES
+%% PAGE 3: ATOM CHECKLIST + DATASET COMPOSITION
 %% ===================================================================
 \newpage
-\section{Atom Checklist and Adversarial Sample}
-\label{app:atoms}\label{app:adversarial-samples}
+\section{Atom Checklist and Dataset Composition}
+\label{app:atoms}\label{app:adversarial-samples}\label{app:inferable}
 
-{\tiny
 \noindent
-\begin{minipage}[t]{0.58\textwidth}
-\captionof{table}{Full atom checklist: \texttt{german\_fig\_023} (26 atoms).}\label{tab:atoms-full}
-\begin{tabular}{@{}llp{6cm}@{}}
+\begin{minipage}[t]{0.55\textwidth}
+\scriptsize
+\captionof{table}{Complete atom checklist for \texttt{german\_fig\_023} (26 atoms). Severity: crit = critical, imp = important, min = minor.}\label{tab:atoms-full}
+\begin{tabular}{@{}llp{5.8cm}@{}}
 \toprule
-\textbf{ID} & \textbf{Sev.} & \textbf{Value} \\
+\textbf{Atom ID} & \textbf{Sev} & \textbf{Value (German)} \\
 \midrule
 chart\_type & crit & Die Abbildung besteht aus zwei Diagrammen \\
 chart\_purpose & crit & Investitionen der Gebietskoerperschaften in Relation zum BIP \\
-left\_diagram & crit & Bruttoanlageinvestitionen \\
-right\_diagram & crit & Nettoanlageinvestitionen \\
-x\_axis\_range & crit & Jahre 1991 bis 2023 \\
-y\_axis\_unit & crit & Prozent des BIP \\
-y\_axis\_scale & imp & reicht von $-$0.5 bis 3.5 \\
-bar\_bund & crit & Bund (blau) \\
-bar\_laender & crit & Laender (rot) \\
-bar\_gemeinden & crit & Gemeinden (gelb) \\
-bar\_gesamt & crit & Gesamt als schwarze Linie \\
-stacked & crit & gestapelte Balken \\
-brutto\_trend & imp & leichter Rueckgang ueber die Jahre \\
-netto\_trend & imp & teilweise im negativen Bereich \\
+left\_diagram & crit & Das linke Diagramm stellt die Bruttoanlageinvestitionen dar \\
+right\_diagram & crit & Das rechte Diagramm zeigt die Nettoanlageinvestitionen \\
+x\_axis\_range & crit & Die horizontale Achse umfasst die Jahre 1991 bis 2023 \\
+y\_axis\_unit & crit & Die vertikale Achse ist in Prozent des BIP skaliert \\
+y\_axis\_scale & imp & Reicht von $-$0.5 bis 3.5 \\
+bar\_bund & crit & ``Bund'' (blau) \\
+bar\_laender & crit & ``Laender'' (rot) \\
+bar\_gemeinden & crit & ``Gemeinden'' (gelb) \\
+bar\_gesamt & crit & ``Gesamt'' als schwarze Linie \\
+stacked & crit & Gestapelte Balken \\
+brutto\_trend & imp & Leichter Rueckgang ueber die Jahre \\
+netto\_trend & imp & Teilweise im negativen Bereich \\
 bund\_brutto & imp & Bund traegt relativ kleinen Anteil bei \\
-gemeinden\_brutto & imp & Gemeinden haben groessten Anteil \\
+gemeinden\_brutto & imp & Gemeinden haben den groessten Anteil \\
 gesamt\_start & imp & Gesamtlinie beginnt bei etwa 2.5 \\
-gesamt\_end & imp & endet bei etwa 2.8 Prozent \\
-netto\_negative & imp & einige Jahre unter Nulllinie \\
+gesamt\_end & imp & Endet bei etwa 2.8 Prozent des BIP \\
+netto\_negative & imp & Einige Jahre fallen unter die Nulllinie \\
 legend & imp & Legende ordnet Farben den Kategorien zu \\
-bar\_color\_blue & min & blau fuer Bund \\
-bar\_color\_red & min & rot fuer Laender \\
-bar\_color\_yellow & min & gelb fuer Gemeinden \\
-line\_color\_black & min & schwarze Linie fuer Gesamt \\
-x\_axis\_ticks & min & Jahresbeschriftungen auf x-Achse \\
-sort\_order & min & chronologisch sortiert \\
+bar\_color\_blue & min & Blau fuer Bund \\
+bar\_color\_red & min & Rot fuer Laender \\
+bar\_color\_yellow & min & Gelb fuer Gemeinden \\
+line\_color\_black & min & Schwarze Linie fuer Gesamt \\
+x\_axis\_ticks & min & Jahresbeschriftungen auf der x-Achse \\
+sort\_order & min & Chronologisch sortiert \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
-\begin{minipage}[t]{0.40\textwidth}
-\captionof{table}{Adversarial 45-figure sample (seed=42).}\label{tab:adv-samples}
-\begin{tabular}{@{}lrrrrr@{}}
+\begin{minipage}[t]{0.42\textwidth}
+\scriptsize
+\captionof{table}{9 inferable blurred elements used for passive inductance scoring.}\label{tab:inferable}
+\begin{tabular}{@{}lp{4.2cm}@{}}
 \toprule
- & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{Mu} \\
+\textbf{Figure / Element} & \textbf{Inference reasoning} \\
 \midrule
-Line & 3 & 3 & 3 & 3 & 3 \\
-Bar  & 3 & 3 & 3 & 3 & 3 \\
-Pie  & 3 & 3 & 3 & 3 & 3 \\
-\midrule
-Total & 9 & 9 & 9 & 9 & 9 \\
+en\_005 / Llama-3B+FT & Naming pattern from Llama-1B+FT variant \\
+en\_075 / mBERT-L$_2$ & Grid: mBERT/XLM $\times$ L$_2$/R$_2$/B$_2$; 5 of 6 visible \\
+en\_171 / On-Policy-Hard & Top subplot shows Easy; bottom is Hard \\
+cn\_071 / Subplot label (a) & Right panel says (b); paired subplots \\
+de\_002 / Saldo (r.\ Skala) & Exporte + Importe visible; blue bars go negative \\
+mu\_009 / ffn\_output & Pattern: attn/ffn $\times$ output/residual \\
+mu\_041 / DAPO+Self-refl. & Each base method has +Self-reflection variant \\
+mu\_045 / 21\% slice & Other slices sum to 79\%; 100$-$79 = 21 \\
+mu\_054 / ``Incorrect'' & Binary complement of ``Correct'' \\
 \bottomrule
 \end{tabular}
 
 \vspace{6pt}
-\captionof{table}{9 inferable elements for passive inductance.}\label{tab:inferable}
-\begin{tabular}{@{}lp{4.8cm}@{}}
+\captionof{table}{Adversarial 45-figure sample composition (seed=42).}\label{tab:adv-samples}
+\begin{tabular}{@{}lrrrrrr@{}}
 \toprule
-\textbf{Figure / Element} & \textbf{Reasoning} \\
+ & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{Multi} & \textbf{Total} \\
 \midrule
-en\_005 / Llama-3B+FT & Naming pattern from 1B+FT \\
-en\_075 / mBERT-L$_2$ & Grid: mBERT/XLM $\times$ L/R/B \\
-en\_171 / On-Policy-Hard & Top=Easy; bottom=Hard \\
-cn\_071 / Subplot (a) & Right says (b); paired \\
-de\_002 / Saldo & Exporte+Importe; bars negative \\
-mu\_009 / ffn\_output & attn/ffn $\times$ out/resid \\
-mu\_041 / DAPO+Self-refl & Each has +Self-reflection \\
-mu\_045 / 21\% slice & Others sum to 79\% \\
-mu\_054 / ``Incorrect'' & Complement of ``Correct'' \\
+Line plot & 3 & 3 & 3 & 3 & 3 & 15 \\
+Bar chart & 3 & 3 & 3 & 3 & 3 & 15 \\
+Pie chart & 3 & 3 & 3 & 3 & 3 & 15 \\
+\midrule
+\textbf{Total} & 9 & 9 & 9 & 9 & 9 & \textbf{45} \\
 \bottomrule
 \end{tabular}
 
 \vspace{6pt}
-\captionof{table}{Human evaluation composition.}\label{tab:human-eval-comp}
-\begin{tabular}{@{}lr@{}}
+\captionof{table}{Corpus and evaluation summary statistics.}\label{tab:corpus-stats}
+\begin{tabular}{@{}lr@{\qquad}lr@{}}
 \toprule
-\textbf{Component} & \textbf{Count} \\
+Total figures & 1,005 & Expert annotations & 1,411 \\
+Atom figures & 120 & Total atoms & 2,252 \\
+Annotators & 8 & Languages & 4 \\
+Models tested & 13 & LLM judges & 2 \\
+Evaluations & 2,966 & Total errors & 26,364 \\
+Capability Qs & 630 & Probe families & 5 \\
 \midrule
-Figures evaluated & 30 (English) \\
-Models evaluated & 4 \\
-Annotators & 3 \\
-Total annotations & 159 \\
-Double-annotated & 39 pairs \\
-ICC(2,1) & 0.91 \\
-Spearman $\rho$ & 0.85 \\
-Mean diff & 7.6 pts \\
+Human eval figs & 30 & Human annotators & 3 \\
+Human annotations & 159 & Double-annotated & 39 pairs \\
+ICC(2,1) & 0.91 & Spearman $\rho$ & 0.85 \\
 \bottomrule
 \end{tabular}
 \end{minipage}
-}
 
 
 %% ===================================================================
-%% PAGE 3: MASTER LEADERBOARD (landscape)
+%% PAGE 4: MASTER LEADERBOARD
 %% ===================================================================
 \newpage
-\section{Master Leaderboard}
+\section{Master Leaderboard: All Metrics Across Research Questions}
 \label{app:master-leaderboard}
 
 \begin{table}[H]
 \centering
-\tiny
-\setlength{\tabcolsep}{1.8pt}
-\caption{Complete model evaluation across all four research questions (judge-averaged except where noted). RQ1: Atomic MQM ($\uparrow$). RQ3: capability accuracy. RQ4: A-R-I behavioural scores. E = errors/fig. H = halluc./fig. CB = caption bias. PR = prompt reversal. $|\bar{\Delta}|$ = robustness.}\label{tab:master}
-\begin{tabular}{@{}l rrr rrrr rr r rrrrr rr rrr r@{}}
+\caption{Complete model evaluation across all four research questions. Ranked by RQ1 average MQM. G = GPT-4o judge, M = Mistral judge. \textbf{Bold} = best per column. E = errors/fig ($\downarrow$). H = hallucinations/fig ($\downarrow$). $|\bar{\Delta}|$ = mean absolute degradation across 5 image transforms ($\downarrow$). CB = caption bias accuracy. PR = prompt reversal resistance. A = Admittance, R = Resistance, I = Inductance ($\uparrow$).}\label{tab:master}
+\resizebox{\textwidth}{!}{%
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l rrr rrrr rr r rrrrr rr rrr@{}}
 \toprule
- & \multicolumn{3}{c}{\textbf{RQ1: MQM}} & \multicolumn{4}{c}{\textbf{Per language}} & & & & \multicolumn{5}{c}{\textbf{RQ3: Capability}} & & & \multicolumn{3}{c}{\textbf{RQ4: A-R-I}} & \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-8}\cmidrule(lr){12-16}\cmidrule(lr){19-21}
-\textbf{Model} & \textbf{G} & \textbf{M} & \textbf{Avg} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{E} & \textbf{H} & $|\bar{\Delta}|$ & \textbf{All} & \textbf{Cmp} & \textbf{Val} & \textbf{Cpr} & \textbf{Cnt} & \textbf{CB} & \textbf{PR} & \textbf{A} & \textbf{R} & \textbf{I} & \\
+ & \multicolumn{3}{c}{\textbf{RQ1: MQM}} & \multicolumn{4}{c}{\textbf{Per language}} & & & \textbf{RQ2} & \multicolumn{5}{c}{\textbf{RQ3: Capability}} & & & \multicolumn{3}{c}{\textbf{RQ4}} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-8}\cmidrule(lr){11-11}\cmidrule(lr){12-16}\cmidrule(lr){19-21}
+\textbf{Model} & \textbf{G} & \textbf{M} & \textbf{Avg} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{E} & \textbf{H} & $|\bar{\Delta}|$ & \textbf{All} & \textbf{Cmp} & \textbf{Val} & \textbf{Cpr} & \textbf{Cnt} & \textbf{CB} & \textbf{PR} & \textbf{A} & \textbf{R} & \textbf{I} \\
 \midrule
-GPT-5.2      & 72.0 & 79.0 & \textbf{75.5} & 75.5 & 72.2 & 76.1 & 81.1 & \textbf{7.2} & .14 & 2.0 & .78 & \textbf{.83} & .76 & .78 & .76 & .78 & .96 & .40 & .56 & .80 \\
-Gemini       & 70.4 & 74.9 & 72.7 & 69.0 & 72.0 & 75.0 & 77.2 & 7.8 & .25 & \textbf{1.9} & \textbf{.81} & .79 & .76 & \textbf{.90} & \textbf{.89} & \textbf{.82} & \textbf{.98} & \textbf{.70} & \textbf{.89} & \textbf{1.0} \\
+GPT-5.2      & 72.0 & 79.0 & \textbf{75.5} & \textbf{75.5} & 72.2 & 76.1 & 81.1 & \textbf{7.2} & .14 & 2.0 & .78 & \textbf{.83} & \textbf{.76} & .78 & .76 & .78 & .96 & .40 & .56 & .80 \\
+Gemini       & 70.4 & 74.9 & 72.7 & 69.0 & \textbf{72.0} & 75.0 & 77.2 & 7.8 & .25 & \textbf{1.9} & \textbf{.81} & .79 & .76 & \textbf{.90} & \textbf{.89} & \textbf{.82} & \textbf{.98} & \textbf{.70} & \textbf{.89} & \textbf{1.0} \\
 Qw-235B      & 67.2 & 74.4 & 70.8 & 68.5 & 68.4 & 69.7 & 77.2 & 7.9 & .25 & 3.8 & .58 & .64 & .58 & .50 & .65 & .36 & .90 & .24 & .44 & .75 \\
 Qw-32B       & 68.7 & 72.1 & 70.4 & 68.9 & 65.6 & 71.9 & 78.2 & 8.0 & .31 & 6.2 & .61 & .69 & .58 & .50 & .56 & .56 & .87 & .26 & .38 & .95 \\
-Claude       & 66.2 & 71.0 & 68.6 & 64.4 & 64.1 & 70.5 & 79.6 & 7.7 & \textbf{.09} & 2.9 & .66 & .75 & .62 & .65 & .63 & .73 & -- & .45 & .69 & .80 \\
+Claude       & 66.2 & 71.0 & 68.6 & 64.4 & 64.1 & 70.5 & \textbf{79.6} & 7.7 & \textbf{.09} & 2.9 & .66 & .75 & .62 & .65 & .63 & .73 & -- & .45 & .69 & .80 \\
 LL-Mav       & 65.0 & 70.7 & 67.8 & 65.3 & 65.7 & 68.2 & 73.1 & 8.6 & .20 & 3.4 & .48 & .53 & .54 & .37 & .46 & .57 & .46 & .19 & .42 & .75 \\
 LL-Scout     & 64.6 & 69.6 & 67.1 & 65.0 & 65.2 & 68.8 & 73.1 & 8.6 & .23 & 6.2 & .41 & .50 & .34 & .41 & .30 & .50 & .14 & .17 & .30 & .60 \\
 Qw-30B       & 64.3 & 69.3 & 66.8 & 64.3 & 63.0 & 68.0 & 74.8 & 8.5 & .25 & 4.1 & .41 & .46 & .46 & .31 & .43 & .39 & .56 & .09 & .21 & .60 \\
 Qw-8B        & 63.8 & 69.6 & 66.7 & 64.2 & 60.9 & 70.8 & 74.8 & 8.5 & .34 & 3.8 & .51 & .53 & .57 & .45 & .48 & .53 & .62 & .15 & .27 & .90 \\
-\cmidrule(lr){1-22}
+\cmidrule(lr){1-21}
 Gma-27B      & 57.1 & 60.5 & 58.8 & 53.3 & 60.5 & 60.0 & 64.5 & 9.9 & .35 & 5.9 & .27 & .29 & .32 & .19 & .15 & .40 & .24 & .04 & .21 & .35 \\
 Phi-4        & 57.8 & 57.0 & 57.4 & 57.2 & 51.3 & 56.2 & 65.7 & 10.9 & .50 & 3.4 & .09 & .06 & .12 & .04 & .13 & .21 & -- & .14 & .10 & .10 \\
 Gma-12B      & 54.3 & 52.8 & 53.6 & 52.4 & 49.0 & 52.4 & 61.3 & 10.8 & .47 & 5.1 & .28 & .31 & .29 & .17 & .20 & .38 & .47 & .03 & .24 & .30 \\
 Gma-4B       & 50.5 & 46.5 & 48.5 & 44.3 & 46.1 & 48.7 & 58.1 & 11.8 & .65 & 2.9 & .19 & .21 & .17 & .16 & .11 & .35 & .26 & .01 & .15 & .40 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 
 %% ===================================================================
-%% PAGE 4: ERROR PROFILE + PAIRWISE + LANGUAGE
+%% PAGE 5: PAIRWISE + LANGUAGE + CROSS-LINGUAL
 %% ===================================================================
 \newpage
-\section{Error Profile and Statistical Tests}
-\label{tab:app-error-profile}\label{tab:pairwise-full}\label{tab:lang-gap}
+\section{Statistical Tests and Language Analysis}
+\label{tab:pairwise-full}\label{tab:lang-gap}\label{tab:app-ablation-crosslingual}
 
-{\tiny
-\setlength{\tabcolsep}{1.5pt}
-\captionof{table}{Per-model per-judge error profile (errors/fig). G = GPT-4o, M = Mistral.}\label{tab:error-profile-full}
-\begin{tabular}{@{}lcrrrrrrrrrr@{}}
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{Pairwise bootstrap significance tests (adjacent ranks, $n{=}10\text{k}$ resamples, scores pooled across both judges). Cliff's $d$ = non-parametric effect size.}\label{tab:pairwise-detail}
+\begin{tabular}{@{}rl@{\quad vs.\quad}l rrrr@{}}
 \toprule
- & & \textbf{A/Mj} & \textbf{A/Mi} & \textbf{C/Mj} & \textbf{C/Mi} & \textbf{Cl} & \textbf{H} & \textbf{Bar} & \textbf{Line} & \textbf{Pie} \\
+\textbf{Ranks} & \textbf{Model A} & \textbf{Model B} & \textbf{$\Delta$} & \textbf{$p$} & \textbf{Cliff's $d$} & \textbf{Sig.} \\
 \midrule
-GPT-5.2 & G & 3.0 & 0.5 & 1.8 & 1.4 & 0.1 & .03 & 76 & 72 & 66 \\
-        & M & 1.5 & 2.7 & 0.4 & 1.7 & 1.1 & .26 & 80 & 83 & 73 \\
-Gemini  & G & 3.1 & 0.4 & 1.9 & 1.6 & 0.2 & .03 & 74 & 71 & 64 \\
-        & M & 1.8 & 2.7 & 0.8 & 1.7 & 1.3 & .47 & 80 & 79 & 64 \\
-Qw-235B & G & 3.5 & 0.3 & 2.1 & 1.6 & 0.3 & .03 & 69 & 68 & 64 \\
-        & M & 2.0 & 2.3 & 0.9 & 1.8 & 0.9 & .47 & 77 & 79 & 64 \\
-Qw-32B  & G & 3.6 & 0.3 & 1.8 & 1.4 & 0.2 & .03 & 74 & 69 & 62 \\
-        & M & 2.5 & 2.6 & 0.8 & 1.7 & 1.1 & .58 & 78 & 77 & 59 \\
-Claude  & G & 3.7 & 0.3 & 2.0 & 1.5 & 0.2 & .02 & 70 & 70 & 57 \\
-        & M & 2.5 & 2.9 & 0.7 & 1.8 & 1.2 & .66 & 76 & 78 & 56 \\
-LL-Mav  & G & 4.0 & 0.3 & 2.2 & 1.4 & 0.2 & .02 & 71 & 67 & 55 \\
-        & M & 2.7 & 2.1 & 1.2 & 2.0 & 1.1 & .38 & 75 & 77 & 57 \\
-LL-Sct  & G & 3.8 & 0.2 & 2.4 & 1.7 & 0.2 & .01 & 68 & 67 & 58 \\
-        & M & 3.1 & 1.6 & 1.1 & 2.1 & 1.1 & .44 & 74 & 74 & 59 \\
-Qw-30B  & G & 3.9 & 0.2 & 2.4 & 1.5 & 0.2 & .03 & 70 & 66 & 54 \\
-        & M & 2.8 & 1.9 & 1.0 & 2.1 & 1.0 & .47 & 75 & 76 & 53 \\
-Qw-8B   & G & 4.4 & 0.3 & 1.9 & 1.3 & 0.2 & .03 & 70 & 66 & 52 \\
-        & M & 2.7 & 2.4 & 0.8 & 1.9 & 1.1 & .64 & 74 & 75 & 56 \\
-Gma-27B & G & 5.3 & 0.2 & 2.6 & 1.1 & 0.1 & .05 & 64 & 60 & 45 \\
-        & M & 4.8 & 1.6 & 1.5 & 1.8 & 1.0 & .64 & 66 & 67 & 45 \\
-Phi-4   & G & 3.8 & 0.1 & 3.7 & 1.9 & 0.7 & .00 & 59 & 66 & 43 \\
-        & M & 3.8 & 0.8 & 3.5 & 1.6 & 1.9 & 1.0 & 57 & 67 & 41 \\
-Gma-12B & G & 5.5 & 0.1 & 2.8 & 1.2 & 0.2 & .06 & 58 & 60 & 43 \\
-        & M & 5.7 & 1.0 & 2.1 & 1.7 & 1.2 & .89 & 61 & 56 & 39 \\
-Gma-4B  & G & 5.7 & 0.0 & 3.4 & 1.2 & 0.2 & .12 & 54 & 56 & 38 \\
-        & M & 6.3 & 0.7 & 3.0 & 1.6 & 1.4 & 1.2 & 51 & 54 & 31 \\
+1--2  & GPT-5.2        & Gemini 3.1 Pro    & +2.9 & .001 & .087 & *** \\
+2--3  & Gemini 3.1 Pro & Qwen3-VL 235B     & +1.9 & .030 & .092 & * \\
+3--4  & Qwen3-VL 235B  & Qwen3-VL 32B      & +0.4 & .340 & .005 & ns \\
+4--5  & Qwen3-VL 32B   & Claude Opus 4.6   & +1.8 & .088 & .029 & ns \\
+5--6  & Claude Opus 4.6& LLaMA-4 Maverick  & +0.7 & .311 & .034 & ns \\
+6--7  & LLaMA-4 Mav.   & LLaMA-4 Scout     & +0.7 & .307 & .032 & ns \\
+7--8  & LLaMA-4 Scout  & Qwen3-VL 30B      & +0.4 & .392 & .006 & ns \\
+8--9  & Qwen3-VL 30B   & Qwen3-VL 8B       & +0.1 & .461 & .000 & ns \\
+9--10 & Qwen3-VL 8B    & Gemma-3 27B       & +7.9 & .000 & .239 & *** \\
+10--11& Gemma-3 27B    & Phi-4 Multimodal  & $-$0.8 & .600 & $-$.032 & ns \\
+11--12& Phi-4 Multim.  & Gemma-3 12B       & +5.0 & .049 & .164 & * \\
+12--13& Gemma-3 12B    & Gemma-3 4B        & +5.1 & .000 & .168 & *** \\
 \bottomrule
 \end{tabular}
-}
+\end{table}
 
-\vspace{4pt}
 \noindent
-\begin{minipage}[t]{0.38\textwidth}
-{\tiny
-\captionof{table}{Pairwise bootstrap tests (adjacent ranks).}\label{tab:pairwise-detail}
-\begin{tabular}{@{}r l@{\;vs\;}l rr@{}}
+\begin{minipage}[t]{0.56\textwidth}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\captionof{table}{Per-language MQM (judge-averaged) with EN--X relative gap (\%). Negative = language above English (uncontrolled).}\label{tab:lang-gap-full}
+\begin{tabular}{@{}l rrrr rrr@{}}
 \toprule
- & \textbf{A} & \textbf{B} & $\Delta$ & $p$ \\
+\textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{BG\%} & \textbf{CN\%} & \textbf{DE\%} \\
 \midrule
-1--2  & GPT-5.2  & Gemini   & +2.9 & .001 \\
-2--3  & Gemini   & Qw-235B  & +1.9 & .030 \\
-3--4  & Qw-235B  & Qw-32B   & +0.4 & .340 \\
-4--5  & Qw-32B   & Claude   & +1.8 & .088 \\
-5--6  & Claude   & LL-Mav   & +0.7 & .311 \\
-6--7  & LL-Mav   & LL-Sct   & +0.7 & .307 \\
-7--8  & LL-Sct   & Qw-30B   & +0.4 & .392 \\
-8--9  & Qw-30B   & Qw-8B    & +0.1 & .461 \\
-9--10 & Qw-8B    & Gma-27B  & +7.9 & .000 \\
-10--11& Gma-27B  & Phi-4    & $-$.8 & .600 \\
-11--12& Phi-4    & Gma-12B  & +5.0 & .049 \\
-12--13& Gma-12B  & Gma-4B   & +5.1 & .000 \\
+GPT-5.2           & 75.5 & 72.2 & 76.1 & 81.1 &  4 & $-$1 & $-$7 \\
+Gemini 3.1 Pro    & 69.0 & 72.0 & 75.0 & 77.2 & $-$4 & $-$9 & $-$12 \\
+Qwen3-VL 235B     & 68.5 & 68.4 & 69.7 & 77.2 &  0 & $-$2 & $-$13 \\
+Qwen3-VL 32B      & 68.9 & 65.6 & 71.9 & 78.2 &  5 & $-$4 & $-$13 \\
+Claude Opus 4.6   & 64.4 & 64.1 & 70.5 & 79.6 &  0 & $-$9 & $-$24 \\
+LLaMA-4 Maverick  & 65.3 & 65.7 & 68.2 & 73.1 & $-$1 & $-$4 & $-$12 \\
+LLaMA-4 Scout     & 65.0 & 65.2 & 68.8 & 73.1 &  0 & $-$6 & $-$12 \\
+Qwen3-VL 30B      & 64.3 & 63.0 & 68.0 & 74.8 &  2 & $-$6 & $-$16 \\
+Qwen3-VL 8B       & 64.2 & 60.9 & 70.8 & 74.8 &  5 & $-$10 & $-$17 \\
+Gemma-3 27B       & 53.3 & 60.5 & 60.0 & 64.5 & $-$14 & $-$13 & $-$21 \\
+Phi-4 Multimodal  & 57.2 & 51.3 & 56.2 & 65.7 & 10 &  2 & $-$15 \\
+Gemma-3 12B       & 52.4 & 49.0 & 52.4 & 61.3 &  6 &  0 & $-$17 \\
+Gemma-3 4B        & 44.3 & 46.1 & 48.7 & 58.1 & $-$4 & $-$10 & $-$31 \\
 \bottomrule
 \end{tabular}
-}
 \end{minipage}\hfill
-\begin{minipage}[t]{0.30\textwidth}
-{\tiny
-\captionof{table}{EN--X gap (uncontrolled).}
-\begin{tabular}{@{}l rr rr@{}}
-\toprule
- & \textbf{EN} & \textbf{DE} & \textbf{BG\%} & \textbf{DE\%} \\
-\midrule
-GPT-5.2  & 75.5 & 81.1 &  4 & $-$7 \\
-Gemini   & 69.0 & 77.2 & $-$4 & $-$12 \\
-Claude   & 64.4 & 79.6 &  0 & $-$24 \\
-Qw-32B   & 68.9 & 78.2 &  5 & $-$13 \\
-Gma-4B   & 44.3 & 58.1 & $-$4 & $-$31 \\
-\bottomrule
-\end{tabular}
-}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.28\textwidth}
-{\tiny
-\captionof{table}{Controlled cross-lingual.}\label{tab:crosslingual}
-\label{tab:app-ablation-crosslingual}
+\begin{minipage}[t]{0.40\textwidth}
+\footnotesize
+\captionof{table}{Cross-lingual controlled comparison (13 parallel figures, language-specific atoms, judge-averaged). EN--X gap relative to English.}\label{tab:crosslingual}
 \begin{tabular}{@{}l rrrr@{}}
 \toprule
- & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} \\
+\textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} \\
 \midrule
-GPT-5.2 & 66.2 & 56.4 & 60.8 & 55.3 \\
-Gemini  & 64.6 & 54.2 & 57.5 & 54.6 \\
-Qw-32B  & 62.1 & 47.1 & 51.8 & 48.4 \\
-Claude  & 53.7 & 47.5 & 49.5 & 52.5 \\
-Gma-4B  & 36.7 & 23.0 & 35.4 & 21.2 \\
+GPT-5.2         & 66.2 & 56.4 & 60.8 & 55.3 \\
+Gemini 3.1 Pro  & 64.6 & 54.2 & 57.5 & 54.6 \\
+Qwen3-VL 32B    & 62.1 & 47.1 & 51.8 & 48.4 \\
+Claude Opus 4.6 & 53.7 & 47.5 & 49.5 & 52.5 \\
+Gemma-3 4B      & 36.7 & 23.0 & 35.4 & 21.2 \\
 \bottomrule
 \end{tabular}
-}
+
+\vspace{8pt}
+\label{tab:app-ablation-prompt}\label{tab:app-ablation-cot}
+\textbf{Ablation results.} Prompt language (C1/C2/C2\textquotesingle) and chain-of-thought (CCoT) ablation results will be added upon completion of the remaining experiments.
+
+\vspace{8pt}
+\captionof{table}{Human evaluation: per-annotator MQM.}
+\begin{tabular}{@{}l rr rr@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{Judge 1}} & \multicolumn{2}{c}{\textbf{Judge 13}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\textbf{Model} & \textbf{MQM} & $n$ & \textbf{MQM} & $n$ \\
+\midrule
+GPT-5.2     & 97.1 & 19 & 96.7 & 20 \\
+Qwen-VL 30B & 73.1 & 19 & 81.8 & 20 \\
+Qwen-VL 8B  & 76.8 & 19 & 75.7 & 20 \\
+Gemma-3 27B & 58.6 & 19 & 62.8 & 20 \\
+\bottomrule
+\end{tabular}
 \end{minipage}
 
 
 %% ===================================================================
-%% PAGE 5: SUPPLEMENTARY FIGURES
+%% PAGE 6: ERROR PROFILE PER MODEL PER JUDGE
+%% ===================================================================
+\newpage
+\section{Error Profile per Model per Judge}
+\label{tab:app-error-profile}
+
+\begin{table}[H]
+\centering
+\caption{Per-model per-judge error profile. Mean errors per figure by category$\times$severity. A = Accuracy, C = Completeness, Cl = Clarity. H = hallucinations per figure. Right columns show MQM by chart type.}\label{tab:error-profile-full}
+\resizebox{\textwidth}{!}{%
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l c rrrr r r rrr@{}}
+\toprule
+ & & \multicolumn{4}{c}{\textbf{Errors per figure}} & & & \multicolumn{3}{c}{\textbf{MQM by chart type}} \\
+\cmidrule(lr){3-6}\cmidrule(lr){9-11}
+\textbf{Model} & \textbf{J} & \textbf{A/Maj} & \textbf{A/Min} & \textbf{C/Maj} & \textbf{C/Min} & \textbf{Cl} & \textbf{H/fig} & \textbf{Bar} & \textbf{Line} & \textbf{Pie} \\
+\midrule
+\multirow{2}{*}{GPT-5.2}      & G & 3.0 & 0.5 & 1.8 & 1.4 & 0.1 & 0.03 & 76 & 72 & 66 \\
+                               & M & 1.5 & 2.7 & 0.4 & 1.7 & 1.1 & 0.26 & 80 & 83 & 73 \\[1pt]
+\multirow{2}{*}{Gemini 3.1P}  & G & 3.1 & 0.4 & 1.9 & 1.6 & 0.2 & 0.03 & 74 & 71 & 64 \\
+                               & M & 1.8 & 2.7 & 0.8 & 1.7 & 1.3 & 0.47 & 80 & 79 & 64 \\[1pt]
+\multirow{2}{*}{Qwen 235B}    & G & 3.5 & 0.3 & 2.1 & 1.6 & 0.3 & 0.03 & 69 & 68 & 64 \\
+                               & M & 2.0 & 2.3 & 0.9 & 1.8 & 0.9 & 0.47 & 77 & 79 & 64 \\[1pt]
+\multirow{2}{*}{Qwen 32B}     & G & 3.6 & 0.3 & 1.8 & 1.4 & 0.2 & 0.03 & 74 & 69 & 62 \\
+                               & M & 2.5 & 2.6 & 0.8 & 1.7 & 1.1 & 0.58 & 78 & 77 & 59 \\[1pt]
+\multirow{2}{*}{Claude 4.6}   & G & 3.7 & 0.3 & 2.0 & 1.5 & 0.2 & 0.02 & 70 & 70 & 57 \\
+                               & M & 2.5 & 2.9 & 0.7 & 1.8 & 1.2 & 0.66 & 76 & 78 & 56 \\[1pt]
+\multirow{2}{*}{LLaMA Mav.}   & G & 4.0 & 0.3 & 2.2 & 1.4 & 0.2 & 0.02 & 71 & 67 & 55 \\
+                               & M & 2.7 & 2.1 & 1.2 & 2.0 & 1.1 & 0.38 & 75 & 77 & 57 \\[1pt]
+\multirow{2}{*}{LLaMA Scout}  & G & 3.8 & 0.2 & 2.4 & 1.7 & 0.2 & 0.01 & 68 & 67 & 58 \\
+                               & M & 3.1 & 1.6 & 1.1 & 2.1 & 1.1 & 0.44 & 74 & 74 & 59 \\[1pt]
+\multirow{2}{*}{Qwen 30B}     & G & 3.9 & 0.2 & 2.4 & 1.5 & 0.2 & 0.03 & 70 & 66 & 54 \\
+                               & M & 2.8 & 1.9 & 1.0 & 2.1 & 1.0 & 0.47 & 75 & 76 & 53 \\[1pt]
+\multirow{2}{*}{Qwen 8B}      & G & 4.4 & 0.3 & 1.9 & 1.3 & 0.2 & 0.03 & 70 & 66 & 52 \\
+                               & M & 2.7 & 2.4 & 0.8 & 1.9 & 1.1 & 0.64 & 74 & 75 & 56 \\
+\cmidrule(lr){1-11}
+\multirow{2}{*}{Gemma 27B}    & G & 5.3 & 0.2 & 2.6 & 1.1 & 0.1 & 0.05 & 64 & 60 & 45 \\
+                               & M & 4.8 & 1.6 & 1.5 & 1.8 & 1.0 & 0.64 & 66 & 67 & 45 \\[1pt]
+\multirow{2}{*}{Phi-4}        & G & 3.8 & 0.1 & 3.7 & 1.9 & 0.7 & 0.00 & 59 & 66 & 43 \\
+                               & M & 3.8 & 0.8 & 3.5 & 1.6 & 1.9 & 1.00 & 57 & 67 & 41 \\[1pt]
+\multirow{2}{*}{Gemma 12B}    & G & 5.5 & 0.1 & 2.8 & 1.2 & 0.2 & 0.06 & 58 & 60 & 43 \\
+                               & M & 5.7 & 1.0 & 2.1 & 1.7 & 1.2 & 0.89 & 61 & 56 & 39 \\[1pt]
+\multirow{2}{*}{Gemma 4B}     & G & 5.7 & 0.0 & 3.4 & 1.2 & 0.2 & 0.12 & 54 & 56 & 38 \\
+                               & M & 6.3 & 0.7 & 3.0 & 1.6 & 1.4 & 1.18 & 51 & 54 & 31 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+%% ===================================================================
+%% PAGE 7: SUPPLEMENTARY FIGURES
 %% ===================================================================
 \newpage
 \section{Supplementary Figures}
-\label{app:rq4-figures}\label{app:ablation-prompts}\label{app:judge}
+\label{app:rq4-figures}
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}[t]{0.32\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{figures/rq1/heatmap_model_lang.pdf}
-  \caption{Model$\times$Language heatmap}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{figures/rq1/error_stacked.pdf}
-  \caption{Error composition per model}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{figures/rq1/scatter_human_judge.pdf}
-  \caption{Human vs judge correlation}
-\end{subfigure}
-
-\vspace{4pt}
-\begin{subfigure}[t]{0.32\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{figures/rq2/degradation_slope.pdf}
-  \caption{Degradation slope chart}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
+\begin{subfigure}[t]{0.48\textwidth}
   \centering
   \includegraphics[width=\textwidth]{figures/rq4/ari_radar.pdf}
-  \caption{A-R-I radar profiles}
+  \caption{A-R-I radar profiles for five focal models. Gemini's triangle dominates all three axes; Gemma-4B collapses near the origin.}
   \label{fig:app-ari-radar}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
+\begin{subfigure}[t]{0.48\textwidth}
   \centering
   \includegraphics[width=\textwidth]{figures/rq4/admittance_stacked.pdf}
-  \caption{Admittance breakdown}
+  \caption{Passive admittance response breakdown under axis blur (judge-averaged). Green = admits uncertainty; red = fabricates; grey = silent.}
   \label{fig:app-admittance-stacked}
 \end{subfigure}
 
-\vspace{4pt}
-\begin{subfigure}[t]{0.32\textwidth}
+\vspace{6pt}
+\begin{subfigure}[t]{0.48\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{figures/discussion/rank_flow.pdf}
-  \caption{Rank flow RQ1$\to$RQ3$\to$RQ4}
+  \includegraphics[width=\textwidth]{figures/rq1/leaderboard_dumbbell.pdf}
+  \caption{Dumbbell chart showing per-judge MQM scores. Red = GPT-4o, blue = Mistral, tick = average. CI whiskers at 95\%.}
+  \label{fig:app-dumbbell}
 \end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
+\begin{subfigure}[t]{0.48\textwidth}
   \centering
-  \includegraphics[width=\textwidth]{figures/discussion/ari_scatter.pdf}
-  \caption{Empirical A-R-I scatter}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.32\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{figures/rq3/capability_grouped_bar.pdf}
-  \caption{Capability per category}
+  \includegraphics[width=\textwidth]{figures/rq1/scaling_plot.pdf}
+  \caption{Scaling plot: parameter count (log) vs MQM score. Lines connect models within families. Stars = proprietary (estimated params).}
+  \label{fig:app-scaling}
 \end{subfigure}
-\caption{All evaluation figures at reduced scale. (a--c) RQ1. (d) RQ2. (e--f) RQ4. (g--h) Discussion. (i) RQ3.}
-\label{fig:app-all-figures}
+\caption{Supplementary evaluation figures not included in the main text. (a--b) RQ4 behavioural analysis. (c) Per-judge score comparison. (d) Model scaling analysis.}
+\label{fig:app-supplementary}
 \end{figure}
-
-\section{Ablation Results}
-\label{tab:app-ablation-prompt}\label{tab:app-ablation-cot}
-
-\emph{Prompt language (C1/C2/C2') and chain-of-thought (CCoT) ablation results will be added upon completion of the remaining experiments.}
