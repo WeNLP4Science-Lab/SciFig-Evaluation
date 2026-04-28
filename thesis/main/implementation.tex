@@ -31,126 +31,85 @@ Table~\ref{tab:environment} summarises the execution environment
 and the reproducibility controls applied throughout.
 
 \begin{table}[tbp]
-  \centering
-  \small
-  \caption[Execution environment and reproducibility controls.]{%
-    Execution environment and reproducibility controls.}
-  \label{tab:environment}
-  \setlength{\tabcolsep}{5pt}
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-    Component & Configuration \\
-    \midrule
-    \multicolumn{2}{@{}l}{\textit{Local execution environment}} \\
-    Operating system      & macOS Darwin 25.1.0 (Apple Silicon) \\
-    Python version        & 3.9+ \\
-    Orchestration         & custom Python scripts, ThreadPoolExecutor \\
-    Parallelism           & 4 workers per experiment \\
-    \midrule
-    \multicolumn{2}{@{}l}{\textit{Azure OpenAI}} \\
-    Region                & East US 2 \\
-    API version           & 2024-12-01-preview \\
-    Deployments           & gpt-5-2, phi-4-multimodal, gpt-4o, mistral-large-3 \\
-    \midrule
-    \multicolumn{2}{@{}l}{\textit{OpenRouter}} \\
-    Endpoint              & \texttt{openrouter.ai/api/v1} \\
-    Models hosted         & 11 models (see Table~\ref{tab:models}) \\
-    \midrule
-    \multicolumn{2}{@{}l}{\textit{Reproducibility controls}} \\
-    Temperature           & 0 (all generation and judge calls) \\
-    Random seed           & deterministic (no sampling) \\
-    Output format         & structured JSON per figure \\
-    Version control       & Git, all outputs committed \\
-    Judge panel           & dual-judge (GPT-4o + Mistral Large 3) \\
-    Inter-rater metrics   & Cohen's $\kappa$, Fleiss' $\kappa$, Cronbach's $\alpha$ \\
-    Dashboard             & React/TypeScript, Azure Static Web Apps \\
-    \midrule
-    \multicolumn{2}{@{}l}{\textit{Public resources}} \\
-    Results dashboard     & \url{https://victorious-glacier-00483810f.2.azurestaticapps.net} \\
-    Annotation platform   & \url{https://figureannotate.duckdns.org/projects/15/data?tab=23} \\
-    \bottomrule
-  \end{tabular}
+\centering
+\caption{%
+  \textbf{(a)} Execution environment and reproducibility controls.
+  \textbf{(b)} The thirteen models under test, grouped by family. All calls use $T{=}0$. MoE models report total/active parameters.
+}\label{tab:environment}\label{tab:models}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{minipage}[t]{0.42\textwidth}
+\centering
+\textbf{(a) Environment}\\[2pt]
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Component} & \textbf{Configuration} \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Execution}} \\
+OS / Python       & macOS Darwin 25.1 / 3.9+ \\
+Parallelism       & ThreadPoolExecutor, 4 workers \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Azure OpenAI (East US 2)}} \\
+Deployments       & gpt-5-2, phi-4-multimodal \\
+                  & gpt-4o, mistral-large-3 \\
+API version       & 2024-12-01-preview \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{OpenRouter}} \\
+Models            & 11 (see panel b) \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Reproducibility}} \\
+Temperature       & 0 (all calls) \\
+Output            & structured JSON \\
+Version control   & Git \\
+Judges            & GPT-4o + Mistral Large 3 \\
+Dashboard         & React/TS, Azure SWA \\
+\bottomrule
+\end{tabular}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.55\textwidth}
+\centering
+\textbf{(b) Models under test}\\[2pt]
+\begin{tabular}{@{}cllll@{}}
+\toprule
+ & \textbf{Model} & \textbf{Family} & \textbf{Params} & \textbf{Backend} \\
+\midrule
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/gptlogo.jpg}}
+  & GPT-5.2 & OpenAI & undiscl. & Azure \\
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/geminilogo.png}}
+  & Gemini 3.1 Pro & Google & undiscl. & OpenRouter \\
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/claudelogo.png}}
+  & Claude Opus 4.6 & Anthropic & undiscl. & OpenRouter \\
+\midrule
+\multirow{4}{*}{\raisebox{-8pt}{\includegraphics[height=8pt]{figures/qwenlogo.png}}}
+  & Qwen3-VL 235B & Alibaba & 235B/22B & OpenRouter \\
+  & Qwen3-VL 32B  & Alibaba & 32B      & OpenRouter \\
+  & Qwen3-VL 30B  & Alibaba & 30B/3B   & OpenRouter \\
+  & Qwen3-VL 8B   & Alibaba & 8B       & OpenRouter \\
+\midrule
+\multirow{2}{*}{\raisebox{-4pt}{\includegraphics[height=8pt]{figures/llama4logo.png}}}
+  & LLaMA-4 Mav.  & Meta & 400B/17B & OpenRouter \\
+  & LLaMA-4 Scout & Meta & 109B/17B & OpenRouter \\
+\midrule
+\multirow{3}{*}{\raisebox{-6pt}{\includegraphics[height=8pt]{figures/gemmalogo.png}}}
+  & Gemma-3 27B & Google & 27B  & OpenRouter \\
+  & Gemma-3 12B & Google & 12B  & OpenRouter \\
+  & Gemma-3 4B  & Google & 4B   & OpenRouter \\
+\midrule
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/philogo.png}}
+  & Phi-4 Multim. & Microsoft & 5.6B & Azure \\
+\bottomrule
+\end{tabular}
+\end{minipage}
 \end{table}
-
 
 \section{Models and Infrastructure}
 \label{sec:impl-models}
 
-The evaluation targets thirteen vision-language models drawn
-from six families and five AI laboratories, selected to span
-the frontier of multimodal capability at the time of writing.
-The selection is organised into three tiers.
-
-The \emph{frontier closed-weight} tier comprises three models
-whose architectures are not publicly disclosed but whose
-capabilities define the current state of the art:
-GPT-5.2 from OpenAI \citep{openai2025gpt5},
-Gemini~3.1~Pro from Google DeepMind \citep{google2026gemini3},
-and Claude~Opus~4.6 from Anthropic \citep{anthropic2026opus46}.
-These three models represent the highest-capability offerings
-from their respective labs at the time of evaluation.
-
-The \emph{large open-weight} tier comprises models whose
-weights and technical reports are publicly available:
-four members of the Qwen3-VL family from Alibaba
-\citep{qwen2025qwen3vl}, spanning 8B to 235B parameters with
-mixture-of-experts variants at 30B and 235B; two members of
-the LLaMA-4 family from Meta \citep{meta2025llama4}, Maverick
-(400B total, 17B active) and Scout (109B total, 17B active);
-and three sizes of the Gemma-3 family from Google
-\citep{team2025gemma3} at 4B, 12B and 27B parameters.
-
-The \emph{small open-weight} tier is represented by
-Phi-4~Multimodal from Microsoft \citep{microsoft2025phi4} at
-5.6B parameters, included to test whether the A-R-I behavioural
-patterns hold at the lower end of the parameter range.
-
-Table~\ref{tab:models} lists the full model set with logos,
-parameters and inference backends.
-
-\begin{table}[tbp]
-  \centering
-  \small
-  \caption[Models under test.]{%
-    The thirteen models under test, grouped by family. Logos
-    indicate the model family. All calls use $T{=}0$.
-    Parameter counts for closed-weight models are undisclosed.
-    MoE models report total and active parameters.}
-  \label{tab:models}
-  \setlength{\tabcolsep}{4pt}
-  \begin{tabular}{@{}cllll@{}}
-    \toprule
-     & Model & Family & Parameters & Backend \\
-    \midrule
-    \raisebox{-3pt}{\includegraphics[height=12pt]{figures/gptlogo.jpg}}
-      & GPT-5.2  & OpenAI & undisclosed & Azure \\
-    \midrule
-    \raisebox{-3pt}{\includegraphics[height=12pt]{figures/geminilogo.png}}
-      & Gemini 3.1 Pro & Google DeepMind & undisclosed & OpenRouter \\
-    \midrule
-    \raisebox{-3pt}{\includegraphics[height=12pt]{figures/claudelogo.png}}
-      & Claude Opus 4.6 & Anthropic & undisclosed & OpenRouter \\
-    \midrule
-    \multirow{4}{*}{\raisebox{-12pt}{\includegraphics[height=12pt]{figures/qwenlogo.png}}}
-      & Qwen3-VL 235B-A22B & Alibaba & 235B (22B active) & OpenRouter \\
-      & Qwen3-VL 32B       & Alibaba & 32B               & OpenRouter \\
-      & Qwen3-VL 30B-A3B   & Alibaba & 30B (3B active)   & OpenRouter \\
-      & Qwen3-VL 8B        & Alibaba & 8B                & OpenRouter \\
-    \midrule
-    \multirow{2}{*}{\raisebox{-5pt}{\includegraphics[height=12pt]{figures/llama4logo.png}}}
-      & LLaMA-4 Maverick & Meta & 400B (17B active) & OpenRouter \\
-      & LLaMA-4 Scout    & Meta & 109B (17B active) & OpenRouter \\
-    \midrule
-    \multirow{3}{*}{\raisebox{-8pt}{\includegraphics[height=12pt]{figures/gemmalogo.png}}}
-      & Gemma-3 27B & Google & 27B & OpenRouter \\
-      & Gemma-3 12B & Google & 12B & OpenRouter \\
-      & Gemma-3 4B  & Google & 4B  & OpenRouter \\
-    \midrule
-    \raisebox{-3pt}{\includegraphics[height=12pt]{figures/philogo.png}}
-      & Phi-4 Multimodal & Microsoft & 5.6B & Azure \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+The evaluation targets thirteen models from six families and five laboratories (Table~\ref{tab:models}b), spanning three tiers.
+The \emph{frontier closed-weight} tier comprises GPT-5.2~\citep{openai2025gpt5}, Gemini~3.1~Pro~\citep{google2026gemini3}, and Claude~Opus~4.6~\citep{anthropic2026opus46}.
+The \emph{large open-weight} tier includes four Qwen3-VL variants (8B--235B)~\citep{qwen2025qwen3vl}, two LLaMA-4 models~\citep{meta2025llama4}, and three Gemma-3 sizes~\citep{team2025gemma3}.
+Phi-4~Multimodal~\citep{microsoft2025phi4} (5.6B) represents the \emph{small open-weight} tier, testing whether A-R-I patterns hold at the lower parameter range.
 
 Two inference backends are used. Azure OpenAI hosts GPT-5.2
 and Phi-4 Multimodal as managed deployments. OpenRouter proxies
@@ -200,26 +159,22 @@ Appendix~\ref{app:prompts}.
 
 \begin{figure}[!tbp]
   \centering
-  \framedfig{\includegraphics[width=0.75\textwidth]{figures/german_fig_023_original.png}}
+  \includegraphics[width=0.55\textwidth]{figures/german_fig_023_original.png}
 
-  \vspace{0.6em}
+  \vspace{0.3em}
 
   \noindent
   \begin{minipage}[t]{0.32\textwidth}
     \begin{tcolorbox}[
       enhanced, sharp corners, boxrule=0.3pt,
       colback=green!4, colframe=green!30!black!20,
-      fonttitle=\sffamily\fontsize{6.5}{8}\selectfont\bfseries,
+      fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
       coltitle=green!40!black,
-      title={C1: Native prompt (German)},
-      left=4pt, right=4pt, top=3pt, bottom=3pt]
-      \fontsize{7}{9}\selectfont\itshape
-      \makebox[8pt][r]{\color{codecomment}\ttfamily\upshape\fontsize{5}{6}\selectfont 1\;}%
+      title={C1: Native (German)},
+      left=3pt, right=3pt, top=2pt, bottom=2pt]
+      \fontsize{6}{7.5}\selectfont\itshape
       Sie sind ein Annotator, dessen Aufgabe es ist,
-      wissenschaftliche Balkendiagramme in einem
-      strukturierten, aber nat\"{u}rlichen Absatzformat
-      zu beschreiben.
-      \makebox[8pt][r]{\color{codecomment}\ttfamily\upshape\fontsize{5}{6}\selectfont 5\;}%
+      wissenschaftliche Balkendiagramme zu beschreiben.
       Ihr Ziel ist es, das Dargestellte
       objektiv zu beschreiben\,\ldots
     \end{tcolorbox}
@@ -228,35 +183,29 @@ Appendix~\ref{app:prompts}.
     \begin{tcolorbox}[
       enhanced, sharp corners, boxrule=0.3pt,
       colback=blue!4, colframe=blue!30!black!20,
-      fonttitle=\sffamily\fontsize{6.5}{8}\selectfont\bfseries,
+      fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
       coltitle=blue!40!black,
-      title={C2: English prompt},
-      left=4pt, right=4pt, top=3pt, bottom=3pt]
-      \fontsize{7}{9}\selectfont\itshape
-      \makebox[8pt][r]{\color{codecomment}\ttfamily\upshape\fontsize{5}{6}\selectfont 1\;}%
+      title={C2: English},
+      left=3pt, right=3pt, top=2pt, bottom=2pt]
+      \fontsize{6}{7.5}\selectfont\itshape
       You are an annotator tasked with describing scientific
       bar charts in a structured but natural paragraph format.
-      \makebox[8pt][r]{\color{codecomment}\ttfamily\upshape\fontsize{5}{6}\selectfont 5\;}%
-      Your goal is to objectively describe what is
-      shown\,\ldots
+      Your goal is to objectively describe\,\ldots
     \end{tcolorbox}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.32\textwidth}
     \begin{tcolorbox}[
       enhanced, sharp corners, boxrule=0.3pt,
       colback=purple!4, colframe=purple!30!black!20,
-      fonttitle=\sffamily\fontsize{6.5}{8}\selectfont\bfseries,
+      fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
       coltitle=purple!40!black,
-      title={C2$'$: English instr.\ + native out},
-      left=4pt, right=4pt, top=3pt, bottom=3pt]
-      \fontsize{7}{9}\selectfont\itshape
-      \makebox[8pt][r]{\color{codecomment}\ttfamily\upshape\fontsize{5}{6}\selectfont 1\;}%
+      title={C2$'$: EN instr.\ + native out},
+      left=3pt, right=3pt, top=2pt, bottom=2pt]
+      \fontsize{6}{7.5}\selectfont\itshape
       You are an annotator tasked with describing scientific
-      bar charts in a structured but natural paragraph
-      format\,\ldots\par
-      \vspace{3pt}
+      bar charts\,\ldots\par
+      \vspace{2pt}
       \upshape\fontseries{b}\selectfont
-      \makebox[8pt][r]{\color{codecomment}\ttfamily\fontsize{5}{6}\selectfont n\;}%
       IMPORTANT: Write your response in German (Deutsch).
     \end{tcolorbox}
   \end{minipage}
@@ -341,32 +290,24 @@ rotation and blurred-in-paper embedding.
 
 \begin{figure}[!tbp]
   \centering
-  \begin{subfigure}[t]{0.32\textwidth}
+  \begin{subfigure}[t]{0.30\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/german_fig_023_noise.png}}
+    \includegraphics[width=\linewidth]{figures/german_fig_023_noise.png}
     \caption{Gaussian noise ($\sigma{=}30$)}
   \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.32\textwidth}
+  \begin{subfigure}[t]{0.30\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/german_fig_023_rotation.png}}
+    \includegraphics[width=\linewidth]{figures/german_fig_023_rotation.png}
     \caption{Rotation ($30^{\circ}$)}
   \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.32\textwidth}
+  \begin{subfigure}[t]{0.30\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/german_fig_023_original_in_paper.jpeg}}
+    \includegraphics[width=\linewidth]{figures/german_fig_023_original_in_paper.jpeg}
     \caption{Original in paper page}
   \end{subfigure}
+  \vspace{-4pt}
   \caption[Three visual transforms applied to \texttt{german\_fig\_023}.]{%
-    Three representative transforms from probe family~A3
-    applied to the running example. \textbf{(a)}~Gaussian noise
-    degrades fine detail while preserving gross structure.
-    \textbf{(b)}~Rotation displaces axis labels from their
-    expected positions. \textbf{(c)}~Original-in-paper embeds the
-    figure in its original page context, testing whether the
-    model can identify and describe the correct figure when
-    presented alongside surrounding text and other page
-    elements. Compare with the clean original in
-    Figure~\ref{fig:german023-example}.}
+    Three transforms from probe family~A3. \textbf{(a)}~Noise degrades fine detail. \textbf{(b)}~Rotation displaces axis labels. \textbf{(c)}~In-paper embeds the figure in its page context. Compare with Figure~\ref{fig:german023-example}.}
   \label{fig:transforms-example}
 \end{figure}
 
@@ -388,25 +329,19 @@ illustrates both on the running example.
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}[t]{0.48\textwidth}
+  \begin{subfigure}[t]{0.38\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/german_fig_023_axis_blurred.png}}
+    \includegraphics[width=\linewidth]{figures/german_fig_023_axis_blurred.png}
     \caption{Axis blur}
   \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
+  \begin{subfigure}[t]{0.38\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/german_fig_023_selective_blur.png}}
+    \includegraphics[width=\linewidth]{figures/german_fig_023_selective_blur.png}
     \caption{Selective blur}
   \end{subfigure}
+  \vspace{-4pt}
   \caption[Axis blur and selective blur on \texttt{german\_fig\_023}.]{%
-    Region-targeted blur transforms on the running example.
-    \textbf{(a)}~Axis blur applies a Gaussian blur to the top,
-    left and bottom margins, obscuring axis labels and tick
-    marks while leaving the data region legible.
-    \textbf{(b)}~Selective blur applies a localised blur to a
-    single in-chart element (here, a bar label), testing whether
-    the model admits the element is unreadable or fabricates a
-    value.}
+    Region-targeted blur transforms. \textbf{(a)}~Axis blur obscures labels and tick marks while preserving the data region. \textbf{(b)}~Selective blur targets a single in-chart element, testing admittance behaviour.}
   \label{fig:blur-example}
 \end{figure}
 
@@ -447,6 +382,7 @@ ground-truth answer key.
 
 \begin{figure}[H]
   \centering
+  \scalebox{0.78}{%
   \begin{tikzpicture}[
     font=\sffamily,
     pill/.style={rounded corners=4pt, inner xsep=5pt, inner ysep=2pt,
@@ -564,18 +500,9 @@ ground-truth answer key.
       \draw[black!20, line width=0.3pt, rounded corners=3pt]
             (bg_sw) rectangle (bg_ne);
     \end{scope}
-  \end{tikzpicture}
+  \end{tikzpicture}}%
   \caption[Capability questions for \texttt{german\_fig\_023}.]{%
-    The five capability questions assigned to the running
-    example (\texttt{german\_fig\_023},
-    Figure~\ref{fig:german023-example}), shown on a five-column
-    Cartesian layout. Each column shows a pill-shaped answer-type
-    tag (orange for approximate, blue for exact, green for
-    open-ended), the German question in italics, a faint English
-    translation, and the expected answer. Every figure in the
-    45-figure adversarial subset receives its own set of five
-    questions in its native language, following the same
-    three-type distribution.}
+    Five capability questions for the running example, on a Cartesian layout by answer type (orange = approximate, blue = exact, green = open-ended). German questions in italics with English translation. Each of the 45 adversarial figures receives five questions in its native language.}
   \label{fig:capability-questions}
 \end{figure}
 
@@ -608,121 +535,105 @@ shows 60\% when it shows 45\%). \emph{Unanswerable} probes
 ask about information the figure does not determine (e.g.,
 the causal mechanism behind a trend). Each probe is scored on
 a three-point scale ($1.0$ for correct refusal, $0.5$ for
-hedged response, $0.0$ for confident fabrication). The three
-sub-types for the running example are shown below.
+hedged response, $0.0$ for confident fabrication).
+Figure~\ref{fig:probe-examples} collects all six behavioural probe types applied to the running example.
 
-\begin{probebox}
-\textbf{Inexist}\hfill{\color{red!60!black}\scriptsize\textbf{Element does not exist}}\\[4pt]
-\fontsize{10}{13}\selectfont\bfseries\itshape
-Der im rechten Diagramm dargestellte EU-Durchschnitt
-als horizontale Referenzlinie liegt bei etwa 0\,\ldots\\[5pt]
-\normalfont\normalsize
-The EU average shown as a horizontal reference line in the
-right panel is approximately\,\ldots
+\begin{figure}[H]
+\centering
+%% Row 1
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}[breakable=false]
+\textbf{(a) Inexist}\hfill{\color{red!60!black}\scriptsize\textbf{Element absent}}\\[3pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Der EU-Durchschnitt als horizontale Referenzlinie liegt bei etwa 0\,\ldots\\[3pt]
+\normalfont\fontsize{7}{9}\selectfont
+The EU average reference line is approximately\,\ldots
 \end{probebox}
-\vspace{2pt}
-\begin{probebox}
-\textbf{Contra}\hfill{\color{red!60!black}\scriptsize\textbf{Premise is false}}\\[4pt]
-\fontsize{10}{13}\selectfont\bfseries\itshape
-Nachdem die Bruttoanlageinvestitionen der
-Gebietsk\"{o}rperschaften insgesamt seit 2015 durchgehend
-gestiegen sind\,\ldots\\[5pt]
-\normalfont\normalsize
-Given that gross fixed-asset investments have risen
-continuously since 2015\,\ldots
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}[breakable=false]
+\textbf{(b) Contra}\hfill{\color{red!60!black}\scriptsize\textbf{False premise}}\\[3pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Nachdem die Bruttoanlageinvestitionen seit 2015 durchgehend gestiegen sind\,\ldots\\[3pt]
+\normalfont\fontsize{7}{9}\selectfont
+Given that gross investments have risen continuously since 2015\,\ldots
 \end{probebox}
-\vspace{2pt}
-\begin{probebox}
-\textbf{Unanswerable}\hfill{\color{red!60!black}\scriptsize\textbf{Not determinable from chart}}\\[4pt]
-\fontsize{10}{13}\selectfont\bfseries\itshape
-Wie hoch ist der Anteil der Investitionen in digitale
-Infrastruktur an den gesamten Bruttoanlageinvestitionen?\\[5pt]
-\normalfont\normalsize
-What share of gross investment goes to digital infrastructure?
+\end{minipage}
+
+\vspace{4pt}
+%% Row 2
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}[breakable=false]
+\textbf{(c) Unanswerable}\hfill{\color{red!60!black}\scriptsize\textbf{Not in chart}}\\[3pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Wie hoch ist der Anteil der Investitionen in digitale Infrastruktur?\\[3pt]
+\normalfont\fontsize{7}{9}\selectfont
+What share goes to digital infrastructure?
 \end{probebox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}[breakable=false]
+\textbf{(d) Caption bias}\hfill{\color{orange!70!black}\scriptsize\textbf{Caption contradicts}}\\[3pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Die Gemeinden tragen durchgehend den \underline{kleinsten} Anteil bei.\\[3pt]
+\normalfont\fontsize{7}{9}\selectfont
+Municipalities contribute the \underline{smallest} share.
+{\color{orange!70!black}\,\textbf{Actually largest.}}
+\end{probebox}
+\end{minipage}
+
+\vspace{4pt}
+%% Row 3
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}[breakable=false]
+\textbf{(e) Prompt reverse}\hfill{\color{green!50!black}\scriptsize\textbf{True/false pair}}\\[3pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Verwendet das linke Diagramm gestapelte Balken?\\[2pt]
+\normalfont\fontsize{7}{9}\selectfont
+Does the left panel use stacked bars? {\color{green!50!black}\textbf{Yes}}\\[2pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Verwendet es einzelne Linien?\\[2pt]
+\normalfont\fontsize{7}{9}\selectfont
+Does it use individual lines? {\color{red!60!black}\textbf{No}}
+\end{probebox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\begin{probebox}[breakable=false]
+\textbf{(f) Active admittance}\hfill{\color{blue!60!black}\scriptsize\textbf{Blur query}}\\[3pt]
+\fontsize{8}{10}\selectfont\bfseries\itshape
+Welche Regierungsebene bildet den unteren Teil des gestapelten Balkendiagramms?\\[3pt]
+\normalfont\fontsize{7}{9}\selectfont
+Which government level forms the bottom of stacked bars?
+{\color{blue!60!black}\,\textbf{``Bund'' is blurred.}}
+\end{probebox}
+\end{minipage}
+
+\caption[Behavioural probe examples for \texttt{german\_fig\_023}.]{%
+  Six behavioural probe types applied to the running example. \textbf{(a--c)}~Hallucination resistance probes. \textbf{(d)}~Caption bias. \textbf{(e)}~Prompt-reverse consistency. \textbf{(f)}~Active admittance under selective blur. German originals in italics; English translations below.}
+\label{fig:probe-examples}
+\end{figure}
 
 \subsection{Experiment: Caption Bias}
 \label{sec:impl-rq4-caption}
 
-Each of the 45~figures is paired with a modified caption drawn
-from probe family~A2. The modified caption contains one or more
-factual claims that contradict the visual evidence. Each model
-describes the figure twice: once with the misleading caption
-(modified-caption condition) and once with no caption at all
-(image-only condition). The judge compares the two descriptions
-against the ground truth and classifies each factual claim as
-following the image, following the caption, or not addressed.
-The resistance score is the proportion of claims that follow
-the image.
-
-\begin{probebox}
-\textbf{Modified caption}\hfill{\color{orange!70!black}\scriptsize\textbf{Caption contradicts image}}\\[4pt]
-\fontsize{10}{13}\selectfont\bfseries\itshape
-Die Gemeinden tragen durchgehend den
-\underline{kleinsten} Anteil bei.\\[5pt]
-\normalfont\normalsize
-Municipalities consistently contribute the
-\underline{smallest} share.
-{\color{orange!70!black}\,\textbf{Actually the largest.}}
-\end{probebox}
+Each of the 45~figures is paired with a modified caption containing factual claims that contradict the visual evidence (Figure~\ref{fig:probe-examples}d).
+Each model describes the figure twice: with the misleading caption and with no caption (image-only).
+The resistance score is the proportion of claims that follow the image rather than the caption.
 
 \subsection{Experiment: Prompt-Reverse Consistency}
 \label{sec:impl-rq4-reverse}
 
-Each figure is associated with a true statement and its logical
-negation. The model is asked in separate turns to confirm the
-true statement and to confirm the false statement. A model that
-agrees with both is sycophantic by construction. The consistency
-score is $1.0$ when the model confirms the true claim and denies
-the false one, $0.5$ when it reverses (confirms false, denies
-true), and $0.0$ when it agrees with both or disagrees with
-both.
-
-\noindent
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}
-\textbf{True claim}\hfill{\color{green!50!black}\scriptsize\textbf{Correct (yes)}}\\[4pt]
-\fontsize{9.5}{12}\selectfont\bfseries\itshape
-Verwendet das linke Diagramm gestapelte Balken, um die
-Ausgaben aufzuschl\"{u}sseln?\\[4pt]
-\normalfont\small
-Does the left panel use stacked bars?
-\end{probebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}
-\textbf{False claim}\hfill{\color{red!60!black}\scriptsize\textbf{Negated (no)}}\\[4pt]
-\fontsize{9.5}{12}\selectfont\bfseries\itshape
-Verwendet das linke Diagramm einzelne Linien, um die
-Ausgaben darzustellen?\\[4pt]
-\normalfont\small
-Does the left panel use individual lines?
-\end{probebox}
-\end{minipage}
+Each figure is associated with a true statement and its logical negation (Figure~\ref{fig:probe-examples}e).
+The model is asked in separate turns to confirm each.
+A model that agrees with both is sycophantic by construction.
+The consistency score is $1.0$ when the model confirms the true claim and denies the false one, and $0.0$ when it agrees with both or disagrees with both.
 
 \subsection{Experiment: Active Admittance}
 \label{sec:impl-rq4-admittance}
 
-Forty-four selective-blur images are paired with a reasoning
-question whose answer depends on the blurred element. The model
-receives the degraded image and the question, and its response
-is scored on whether it admits the element is unreadable
-(admittance $= 1.0$), hedges ($0.5$), or fabricates a specific
-value ($0.0$). This complements the passive-admittance scores
-from \S\ref{sec:impl-rq2-blur}, which are derived from
-unprompted descriptions rather than direct questions.
-
-\begin{probebox}
-\textbf{Selective blur}\hfill{\color{blue!60!black}\scriptsize\textbf{``Bund'' label is blurred}}\\[4pt]
-\fontsize{10}{13}\selectfont\bfseries\itshape
-Welche Regierungsebene bildet den unteren Teil des
-gestapelten Balkendiagramms im linken Panel?\\[5pt]
-\normalfont\normalsize
-Which level of government forms the bottom of the stacked
-bars in the left panel?
-{\color{blue!60!black}\,\textbf{Does the model admit it
-cannot read the label?}}
-\end{probebox}
+Forty-four selective-blur images are paired with a question whose answer depends on the blurred element (Figure~\ref{fig:probe-examples}f).
+The response is scored on whether it admits the element is unreadable ($1.0$), hedges ($0.5$), or fabricates ($0.0$).
+This complements the passive-admittance scores from \S\ref{sec:impl-rq2-blur}.
 
 \subsection{Experiment: Passive Admittance}
 \label{sec:impl-rq4-passive}

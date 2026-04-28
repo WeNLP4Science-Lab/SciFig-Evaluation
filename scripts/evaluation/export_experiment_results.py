@@ -13,6 +13,7 @@ BENCHMARKS_DIR = BASE / "adversarial_experiments" / "benchmarks"
 MODELS = [
     "gpt-5.2",
     "gemini-3.1-pro",
+    "claude-opus-4.6",
     "qwen3-vl-235b-a22b",
     "qwen3-vl-32b",
     "qwen3-vl-30b-a3b",

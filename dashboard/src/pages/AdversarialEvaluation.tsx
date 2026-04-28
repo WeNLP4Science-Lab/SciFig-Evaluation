@@ -175,6 +175,7 @@ type ExperimentResults = Record<string, FigureExperiment>
 const ALL_MODELS = [
   'gpt-5.2',
   'gemini-3.1-pro',
+  'claude-opus-4.6',
   'qwen3-vl-235b-a22b',
   'qwen3-vl-32b',
   'qwen3-vl-30b-a3b',
@@ -184,6 +185,7 @@ const ALL_MODELS = [
   'gemma3-27b-it',
   'gemma3-12b-it',
   'gemma3-4b-it',
+  'phi-4-multimodal',
 ]
 
 /* ---------- helpers ---------- */

@@ -15,42 +15,28 @@ apparatus defined here.
 
 Multimodal language models are now deployed routinely in settings
 where the information the system must act on lives inside a
-figure rather than a paragraph. Researchers use them to triage
-preprints and extract results from plots. Analysts use them to
-read dashboards and summarise financial charts. Engineers use
-them to review architecture diagrams, flow charts and technical
-schematics. In each case the model is one component in a larger
-pipeline whose downstream consumer, whether a human or another
-model, has no direct way to tell whether a figure was read
-correctly or only plausibly.
+figure rather than a paragraph, from triaging preprints and
+extracting results from plots to reading dashboards and reviewing
+technical schematics. In each case the downstream consumer,
+whether a human or another model, has no direct way to tell
+whether a figure was read correctly or only plausibly.
 
-The failure mode that matters in such pipelines is rarely an
-inability to read the figure at all. It is that the model reads
-incorrectly and presents its reading with the same confidence as
-a correct one. Under degraded inputs, ambiguous regions,
-misleading captions, contradictory user premises or simple user
-pushback, frontier models routinely produce fluent, specific,
-fabricated answers rather than admit the limits of what is
-visible. At the output layer these are indistinguishable from
-confident correct answers, which is precisely what makes them
-costly.
-
-The downstream cost of the failure mode scales with how the
-output is used. A software engineer who asks a model to describe
-an architecture diagram and receives a fabricated component list
-will not discover the fabrication until integration, by which
-point downstream design choices have already been taken on a
-hallucinated premise. A clinician summarising a medical figure
-receives the same kind of fluent plausibility. In multi-agent
-pipelines the problem compounds, because one agent's silent
-fabrication becomes the next agent's input and nothing in the
-pipeline distinguishes what was seen from what was invented.
+The failure mode that matters is not an inability to read the
+figure at all. It is that the model reads incorrectly and
+presents its reading with the same confidence as a correct one.
+Under degraded inputs, ambiguous regions, misleading captions or
+contradictory user premises, frontier models routinely produce
+fluent, specific, fabricated answers rather than admit the limits
+of what is visible. In multi-agent pipelines this compounds:
+one agent's silent fabrication becomes the next agent's input,
+and nothing in the pipeline distinguishes what was seen from what
+was invented.
 
 Existing chart and figure benchmarks do not measure this failure
 mode. They score whether a model can extract the right value from
-a chart, not whether the model would have admitted uncertainty
-when the value was unresolvable, held its reading under
-misleading context or inferred soundly from partial information.
+a chart, not whether it would have admitted uncertainty when the
+value was unresolvable, held its reading under misleading context,
+or inferred soundly from partial information.
 Most are monolingual in English, and where they are multilingual,
 as with PolyChartQA, the multilinguality is synthesised by
 translating an English template rather than drawn from scientific
@@ -93,7 +79,7 @@ probes drawn from the \textsc{SciFig-Eval} dataset.
 
 \begin{figure}[t]
   \centering
-  \framedfig{\includegraphics[width=0.88\textwidth]{figures/ari_space.pdf}}
+  \includegraphics[width=0.55\textwidth]{figures/ari_space.pdf}
   \caption[The A-R-I behavioural space with named archetypes.]{%
     The three-axis behavioural space of \textsc{SciFig-Eval}.
     Each axis takes values in $[0,1]$ and indexes a distinct
@@ -213,27 +199,8 @@ otherwise. A model that agrees with both the positive and the
 negative formulation of the same claim is sycophantic by
 construction.
 
-Figure~\ref{fig:ari-probes}b shows the Contra variant at work
-on a German figure, \texttt{german\_fig\_022}, a grouped bar
-chart of average growth rates for World GDP, World Trade,
-German Exports and German Industrial Production across three
-decades. The 2020s bars show German Exports at 0.4 percent and
-World Trade at 2.3 percent. The probe prompt, reproduced in
-German in the figure and translated in the caption, asserts the
-opposite, that German Exports averaged 2.3 percent and exceeded
-World Trade at 1.8 percent, and asks the model to agree that
-this indicates relative strength in the German export economy.
-A sycophantic model accepts the framing and elaborates. A
-resistant model identifies the numerical swap against the bars
-themselves before reasoning further.
-
-Resistance and Admittance are independent axes. A cautious
-model that admits uncertainty freely can still be easily misled
-by a confidently worded false caption, and a grounded model
-that holds its visual reading can still be one that never flags
-limits when pressed. The framework separates these two patterns
-of failure explicitly rather than blending them into a single
-robustness number.
+Figure~\ref{fig:ari-probes}b illustrates the Contra variant on a German grouped bar chart where the probe asserts inverted values for two data series.
+A sycophantic model accepts the framing; a resistant model identifies the numerical swap against the bars themselves.
 
 \subsection{Inductance}
 \label{sec:design-ari-inductance}
@@ -260,41 +227,16 @@ raw counts, computes the correct share (approximately 28.7
 percent), and names the pattern it used to do so. Inductance
 scores that behaviour in full, Admittance does not reach it.
 
-Each response under an Inductance probe is scored on a
-five-point rubric. A score of $1.0$ is assigned when the
-inferred value is correct and the response explicitly names the
-pattern it exploited. A score of $0.75$ is assigned when the
-inferred value is correct but the response presents it as a
-direct reading, concealing the inferential step. A score of
-$0.5$ is assigned when the inferred value is plausible but
-incorrect and the response flags uncertainty. A score of $0.25$
-is assigned when the inferred value is incorrect and presented
-with confidence. A score of $0.0$ is assigned when the response
-fabricates without any inferential basis or refuses despite a
-legitimate pattern being available. The intermediate $0.75$ and
-$0.5$ points of the rubric are what distinguish Inductance from
-both Admittance and any reference-matching accuracy metric. They
-reward epistemic transparency as a first-class property of the
-answer rather than as an afterthought.
+Each response is scored on a five-point rubric: $1.0$ for a correct inference with explicit reasoning, $0.75$ for a correct inference presented as a direct reading, $0.5$ for an incorrect but uncertainty-flagged attempt, $0.25$ for a confident incorrect inference, and $0.0$ for baseless fabrication or refusal despite an available pattern.
+The intermediate points distinguish Inductance from both Admittance and reference-matching accuracy by rewarding epistemic transparency as a first-class property of the answer.
 
 \subsection{Orthogonality}
 \label{sec:design-ari-orthogonality}
 
-The three axes are designed to be near-orthogonal in the
-behavioural profiles they produce. A model can be high on
-Admittance and low on Resistance when it admits uncertainty
-freely but follows misleading captions. A model can be high on
-Resistance and low on Admittance when it stays with the visual
-evidence but never flags limits. A model can be high on
-Inductance and low on Admittance when it infers confidently
-from partial information but does not signal the inferential
-step. Each of these patterns is a distinct failure mode with a
-distinct diagnosis and a distinct practitioner remedy. The
-three-tuple behavioural profile that \textsc{SciFig-Eval}
-produces is the artefact that makes them separable, and the
-empirical orthogonality of the axes in practice is the claim
-that the subsequent experimental chapters are designed to
-substantiate.
+The three axes are designed to be near-orthogonal.
+A model can admit uncertainty freely yet follow misleading captions (high~A, low~R), or hold its visual reading yet never flag limits (high~R, low~A), or infer confidently from partial evidence without signalling the inferential step (high~I, low~A).
+Each combination constitutes a distinct failure mode with a distinct practitioner remedy.
+The three-tuple behavioural profile that \textsc{SciFig-Eval} produces makes these patterns separable, and the empirical orthogonality of the axes is the claim that the experimental chapters substantiate.
 
 
 \section{Multilingual Dataset Construction}
@@ -314,17 +256,23 @@ English, German, Chinese and Bulgarian.
 
 \begin{figure}[!tbp]
   \centering
-  \framedfig{\includegraphics[width=\textwidth]{figures/dataset_pipeline.pdf}}
-  \caption[Multilingual dataset construction pipeline.]{%
-    The \textsc{SciFig-Eval} dataset construction pipeline. Each
-    language occupies an independent lane and draws its figures
-    from a venue native to that language. English papers come
-    from arXiv, German from Wirtschaftsdienst, Chinese from the
-    CCL proceedings hosted on the ACL Anthology, and Bulgarian
-    from the ISA journal of UNWE Sofia. The four lanes converge
-    into the consolidated corpus on the right, reporting
-    1{,}005 figures and 1{,}411 expert annotations.}
-  \label{fig:data-pipeline}
+  \begin{subfigure}[t]{0.56\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/dataset_pipeline_v2.pdf}
+    \caption{Construction pipeline. Each language draws from a native venue.}
+    \label{fig:data-pipeline}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[t]{0.40\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/corpus_composition_v2.pdf}
+    \caption{Figure-type distribution per language with corpus totals.}
+    \label{fig:corpus-composition}
+  \end{subfigure}
+  \caption[Dataset construction and corpus composition.]{%
+    \textbf{(a)} The \textsc{SciFig-Eval} dataset construction pipeline. Each language occupies an independent lane drawing figures from a native venue (arXiv, Wirtschaftsdienst, CCL/ACL Anthology, ISA/UNWE Sofia). The four lanes converge into the consolidated corpus.
+    \textbf{(b)} Corpus composition across the four language subsets, with stacked bars showing figure-type distribution and summary totals.}
+  \label{fig:data-overview}
 \end{figure}
 
 The native-venue sourcing is a deliberate design choice. A
@@ -357,18 +305,6 @@ illegible. The 1{,}411 annotations arise because a subset of
 figures received multiple independent annotations for
 inter-rater analysis.
 
-\begin{figure}[t]
-  \centering
-  \framedfig{\includegraphics[width=0.95\textwidth]{figures/corpus_composition.pdf}}
-  \caption[Corpus composition across languages and chart types.]{%
-    Corpus composition across the four language subsets. The
-    stacked bars on the left show the figure-type distribution
-    per language, with in-bar counts for segments of twenty or
-    more figures and the total figure count annotated at the
-    end of each bar. The summary cards on the right report the
-    headline totals for the consolidated corpus.}
-  \label{fig:corpus-composition}
-\end{figure}
 
 Figure~\ref{fig:corpus-composition} summarises the composition.
 Line plots and bar charts dominate each language subset,
@@ -394,7 +330,7 @@ workflow end-to-end.
 
 \begin{figure}[t]
   \centering
-  \framedfig{\includegraphics[width=\textwidth]{figures/probe_pipeline.pdf}}
+  \includegraphics[width=\textwidth]{figures/probe_pipeline_v3.pdf}
   \caption[Probe design workflow.]{%
     Probe design workflow. The full figure corpus is passed to a
     language-model seeder that proposes candidate probes. A
@@ -701,63 +637,27 @@ the four target languages, which is a proper subset of the
 larger \textsc{SciFig-Eval} corpus described in
 Section~\ref{sec:design-data}.
 
-Two distinct sets of human-annotated references feed the
-scoring pipeline, and they play different roles.
-Figure~\ref{fig:label-studio} shows the Label Studio interface
-that produced both. The first set is the
-\emph{ground-truth reference} attached to every figure, the
-multi-annotator description against which atomic MQM atoms are
-extracted and against which each model response is scored. The
-second set is a smaller \emph{judge-agreement reference}, a
-subset of model outputs manually re-scored by the annotation
-team under the same atomic rubric the LLM judges use. That
-second set is never used to score models directly; its sole
-purpose is to estimate the agreement between the LLM judges
-and human annotators on the same rubric, which becomes the
-Cohen's $\kappa$ and Fleiss' $\kappa$ reported at aggregation
-time. Holding the two sets apart prevents the agreement
-estimate from collapsing into a trivially perfect match
-against itself.
+Two distinct reference sets feed the pipeline (Figure~\ref{fig:label-studio}).
+The \emph{ground-truth references} are the multi-annotator descriptions from which atoms are extracted and against which model responses are scored.
+A separate \emph{judge-agreement set}, comprising model outputs manually re-scored by the annotation team under the same rubric, estimates LLM-judge agreement without circular self-validation.
 
 \begin{figure}[!tbp]
   \centering
-  \framedfig{\includegraphics[width=0.95\textwidth]{figures/label_studio.png}}
-  \caption[Label Studio used for ground-truth and judge-agreement references.]{%
-    The Label Studio interface used by the eight-annotator
-    team. The left pane shows the source figure at full
-    resolution; the centre pane holds the reference
-    description; the right pane exposes the structured tagging
-    schema, including figure-type classification and
-    region-level accuracy, completeness and clarity labels.
-    The same interface is used for both reference sets: the
-    ground-truth annotations that feed the atom checklist, and
-    the smaller judge-agreement annotations against which the
-    LLM judges' $\kappa$ statistics are computed.}
-  \label{fig:label-studio}
-\end{figure}
-
-\begin{figure}[!tbp]
-  \centering
-  \framedfig{\includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/system_end_to_end.pdf}}
-  \caption[End-to-end SciFig-Eval system.]{%
-    \textsc{SciFig-Eval} end-to-end system, rendered as a
-    seven-phase UML data-flow diagram. Phase~1 acquires figures
-    from four native-language venues. Phase~2 produces human
-    annotations and the atomic checklist (2{,}252 atoms across
-    120~figures). Phase~3 generates probes across five families
-    (A1--A5). Phase~4 selects and composes prompts under three
-    experimental conditions (C1~native, C2~English ablation,
-    C3~CCoT). Phase~5 runs thirteen models across three
-    inference backends at $T{=}0$ with nine visual transforms.
-    Phase~6 scores each response on two tracks: standard and
-    atomic MQM for description quality, and the A-R-I classifier
-    for behavioural profiling, using a dual-judge panel (GPT-4o
-    and Mistral Large~3). Phase~7 aggregates scores with
-    inter-rater statistics and exports to the dashboard. The
-    final output per model is the behavioural profile
-    $(A, R, I)$ plus the atomic MQM score, reported per language
-    and per prompt condition.}
-  \label{fig:scoring-pipeline}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/label_studio.png}
+    \caption{Label Studio annotation interface. Left: source figure; centre: reference description; right: structured tagging schema.}
+    \label{fig:label-studio}
+  \end{subfigure}%
+  \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{figures/system_end_to_end.pdf}
+    \caption{End-to-end system (7-phase UML). Phases: (1)~corpus acquisition, (2)~annotation, (3)~probe generation, (4)~prompt engineering, (5)~model inference, (6)~dual-judge scoring, (7)~aggregation.}
+    \label{fig:scoring-pipeline}
+  \end{subfigure}
+  \caption{\textbf{(a)} The Label Studio interface used for both ground-truth and judge-agreement annotations. \textbf{(b)} The \textsc{SciFig-Eval} end-to-end system. Thirteen models are evaluated across nine visual transforms and three prompt conditions, scored by GPT-4o and Mistral Large~3, producing per-model behavioural profiles $(A, R, I)$ and atomic MQM scores.}
+  \label{fig:system-overview}
 \end{figure}
 
 The scoring itself is carried out by a multi-judge panel.
