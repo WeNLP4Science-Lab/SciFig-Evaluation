@@ -1,22 +1,7 @@
 \chapter{Literature Review\label{chap:litreview}}
 
-This chapter situates \textsc{SciFig-Eval} against six strands of
-prior art. Section~\ref{sec:lit-benchmarks} surveys benchmarks for
-chart and scientific-figure understanding.
-Section~\ref{sec:lit-halluc} reviews hallucination, visual
-shortcuts and the vision--language bottleneck.
-Section~\ref{sec:lit-robust} covers robustness, visual degradation
-and misleading visualisations. Section~\ref{sec:lit-multiling}
-addresses multilingual figure understanding.
-Section~\ref{sec:lit-behave} treats behavioural evaluation,
-encompassing honesty, sycophancy and inductive reasoning.
-Section~\ref{sec:lit-eval-of-eval} examines the evaluation of
-evaluators themselves, including MQM, LLM-as-judge and construct
-validity. Each section closes with the specific gap that
-\textsc{SciFig-Eval} addresses, and
-Section~\ref{sec:lit-synthesis} synthesises the diagnosis that
-emerges across the strands and positions the present work against
-them.
+This chapter situates \textsc{SciFig-Eval} against six strands of prior art: chart benchmarks (\S\ref{sec:lit-benchmarks}), hallucination and visual shortcuts (\S\ref{sec:lit-halluc}), robustness and misleading visualisations (\S\ref{sec:lit-robust}), multilingual figure understanding (\S\ref{sec:lit-multiling}), behavioural evaluation of honesty, sycophancy and induction (\S\ref{sec:lit-behave}), and the evaluation of evaluators (\S\ref{sec:lit-eval-of-eval}).
+Each section closes with the specific gap that \textsc{SciFig-Eval} addresses; \S\ref{sec:lit-synthesis} synthesises the diagnosis and positions the present work.
 
 \section{Chart and Scientific-Figure Benchmarks}
 \label{sec:lit-benchmarks}
@@ -361,24 +346,12 @@ visible data plausibly permit.
   \label{fig:sycophancy-example}
 \end{figure}
 
-\paragraph{Psychological priors.} The sycophancy literature above
-treats these effects in aggregate, but the single exchange in
-Figure~\ref{fig:sycophancy-example} makes the mechanism visible.
-A frontier model is given a correct answer, challenged with
-nothing but the phrase \emph{I don't think that's right. Are you
-sure?}, and immediately apologises, fabricates a citation and
-reverses to a wrong answer that it then holds on the next turn.
-No new information was provided, only the user's displeasure.
-This is the pattern that \textsc{SciFig-Eval} ports from text
-dialogue into scientific figures. The misleading-caption probe
-takes the role of the contentless challenge, the
-contradictory-premise probe replaces the free-form rebuttal, and
-both are scored against what the figure itself actually shows.
-The Resistance axis is the quantitative rate at which a model
-holds its visual reading under that pressure.
+Figure~\ref{fig:sycophancy-example} makes the mechanism visible in a single exchange: a contentless challenge overrides a correct answer with no new information provided.
+\textsc{SciFig-Eval} ports this pattern from text dialogue into scientific figures, with misleading-caption and contradictory-premise probes scored against the visual evidence.
+The Resistance axis quantifies the rate at which a model holds its reading under such pressure.
 
 Collectively, this literature supplies the vocabulary (admittance,
-resistance, induction) that \textsc{SciFig-Eval}'s three-axis
+resistance, inductance) that \textsc{SciFig-Eval}'s three-axis
 framework formalises on \emph{visual} evidence specifically. The
 originality of the present work is not in introducing any of these
 notions, each of which has substantial prior art, but in
@@ -520,22 +493,6 @@ rubric.
   \end{tabular}
 \end{table}
 
-No existing benchmark currently measures these failure modes
-\emph{simultaneously} on scientific figures, across languages, with
-an evaluator-of-evaluators discipline. \textsc{SciFig-Eval} is
-positioned precisely at that intersection. Its corpus closes the
-multilingual-scientific-figure gap of \S\ref{sec:lit-multiling}.
-Its MQM-adapted, open-ended scoring closes the
-open-description-at-scale gap of \S\ref{sec:lit-benchmarks}. Its
-adversarial probe families jointly stress the hallucination and
-shortcut modes of \S\ref{sec:lit-halluc} and the robustness and
-deception modes of \S\ref{sec:lit-robust}. Its
-admittance--resistance--inductance framework formalises the
-behavioural axes that the honesty, sycophancy and induction
-literatures converge on (\S\ref{sec:lit-behave}). Its
-judge-ensemble, kappa-audited pipeline is designed against the
-construct-validity and judge-bias concerns of
-\S\ref{sec:lit-eval-of-eval}.
-Chapter~4 develops the dataset and probe design in full,
-Chapter~5 describes the evaluation pipeline, and Chapter~6 reports
-the quantitative results across the evaluated models and languages.
+No existing benchmark measures these failure modes \emph{simultaneously} on scientific figures, across languages, with an evaluator-of-evaluators discipline.
+Table~\ref{tab:lit-gapmap} maps each failure mode to its prior-art roots and to the \textsc{SciFig-Eval} probe that operationalises it.
+Chapter~4 develops the dataset and probe design in full, Chapter~5 describes the evaluation pipeline, and Chapter~6 reports the quantitative results.
