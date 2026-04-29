@@ -524,19 +524,8 @@ to the running example
 \subsection{Experiment: Hallucination Probes}
 \label{sec:impl-rq4-hallucination}
 
-Three hallucination sub-types are tested across the
-45~adversarial figures. \emph{Inexist} probes ask about a
-visual element that does not appear in the figure (e.g.,
-``What percentage does the Anime Characters subcategory
-occupy?'' on a chart that contains no such category).
-\emph{Contra} probes build on a false numerical premise and
-invite the model to elaborate (e.g., asserting that a bar
-shows 60\% when it shows 45\%). \emph{Unanswerable} probes
-ask about information the figure does not determine (e.g.,
-the causal mechanism behind a trend). Each probe is scored on
-a three-point scale ($1.0$ for correct refusal, $0.5$ for
-hedged response, $0.0$ for confident fabrication).
-Figure~\ref{fig:probe-examples} collects all six behavioural probe types applied to the running example.
+The three hallucination sub-types defined in \S\ref{sec:design-ari-resistance} (inexist, contra, unanswerable) are tested across all 45~adversarial figures, scored on a three-point scale ($1.0$ refusal, $0.5$ hedged, $0.0$ fabrication).
+Figure~\ref{fig:probe-examples} illustrates all six behavioural probe types on the running example.
 
 \begin{figure}[H]
 \centering
@@ -638,135 +627,58 @@ This complements the passive-admittance scores from \S\ref{sec:impl-rq2-blur}.
 \subsection{Experiment: Passive Admittance}
 \label{sec:impl-rq4-passive}
 
-The axis-blur and selective-blur descriptions generated in
-\S\ref{sec:impl-rq2-blur} are evaluated for passive admittance.
-For each blurred element identified in the ground-truth
-annotation, the judge checks whether the model's description
-mentions the element, and if so, whether it admits the element
-is unreadable, fabricates a value, or silently omits it. The
-passive-admittance score for a model is the mean per-element
-admittance across all blurred elements.
+The blur descriptions from \S\ref{sec:impl-rq2-blur} are evaluated for passive admittance using the rubric defined in \S\ref{sec:design-ari-admittance}: for each blurred element, the judge classifies the response as admits, fabricates, or silent.
 
 \subsection{Experiment: Inductance}
 \label{sec:impl-rq4-inductance}
 
-Inductance is measured through two complementary instruments
-that test different aspects of inductive reasoning.
+Inductance is measured through two instruments defined in \S\ref{sec:design-ari-inductance}.
 
 \paragraph{Active inductance.}
-Five dedicated probes test whether a model can perform
-non-trivial reasoning that requires looking beyond
-surface-level patterns. Each probe pairs a clean figure image
-with a question whose naive answer is incorrect, and whose
-correct answer requires noticing a subtlety such as a
-logarithmic scale, a truncated axis, or raw counts mislabelled
-as percentages. The probes are scored on the five-point
-inductance rubric defined in
-\S\ref{sec:design-ari-inductance}. The Bulgarian pie chart
-in Figure~\ref{fig:ari-probes}c illustrates the design: the
-five visible labels sum to 87, not 100, so they are raw counts
-and the naive percentage reading is wrong.
-
-\begin{probebox}
-\textbf{Active inductance}\hfill{\color{green!50!black}\scriptsize\textbf{Reasoning trap}}\\[4pt]
-\fontsize{10}{13}\selectfont\bfseries\itshape
-Kakva e sumata ot protsentite na sektorite ``Iztsialo e
-integriran'' i ``Mnogo dobre e integriran''?\\[5pt]
-\normalfont\normalsize
-What is the sum of the percentages of the ``Fully integrated''
-and ``Very well integrated'' sectors?\\[4pt]
-{\color{green!50!black}\small\textbf{Expected:}
-$\approx$39\% $\bigl((10{+}24)/87 \times 100\bigr)$.
-The values are raw counts, not percentages.}
-\end{probebox}
+Five probes pair a clean figure with a question whose naive answer is incorrect (e.g., the Bulgarian pie chart in Figure~\ref{fig:ari-probes}c where visible labels sum to 87, not 100, revealing raw counts rather than percentages).
+Scored on the five-point rubric from \S\ref{sec:design-ari-inductance}.
 
 \paragraph{Passive inductance.}
-A second source of inductance evidence comes from the
-Admittance experiments. Among the elements blurred in the
-selective-blur condition, nine are \emph{inferable} from the
-surrounding visual context: a legend entry whose colour,
-position and naming pattern match a single unambiguous
-candidate; a pie-chart percentage computable from the visible
-slices; or a subplot label deducible from an adjacent panel.
-When a model fabricates a value for one of these elements and
-gets it correct, that fabrication is evidence of inductive
-reasoning rather than hallucination.
-Figure~\ref{fig:inferable-example} illustrates an inferable
-element on \texttt{english\_fig\_171}.
+Among the 45 selectively blurred elements, nine are \emph{inferable} from context (e.g., naming patterns, complementary labels, arithmetic from visible slices).
+When a model fabricates the correct value for an inferable element, this constitutes evidence of reasoning rather than hallucination.
+The full list of nine elements and their inference reasoning is in Appendix Table~\ref{tab:inferable}.
+Figure~\ref{fig:inferable-example} illustrates one case.
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}[t]{0.48\textwidth}
+  \begin{subfigure}[t]{0.38\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/english_fig_171_original.png}}
+    \includegraphics[width=\linewidth]{figures/english_fig_171_original.png}
     \caption{Original}
   \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
+  \begin{subfigure}[t]{0.38\textwidth}
     \centering
-    \framedfig{\includegraphics[width=\linewidth]{figures/english_fig_171_selective_blur.png}}
+    \includegraphics[width=\linewidth]{figures/english_fig_171_selective_blur.png}
     \caption{Selective blur}
   \end{subfigure}
-  \caption[Inferable blur element on
-  \texttt{english\_fig\_171}.]{%
-    An inferable blur element. In \textbf{(a)} the legend entry
-    ``Llama-On-Policy-Hard'' is legible. In \textbf{(b)} that
-    entry is blurred, but the colour, position and naming
-    pattern (other Llama variants are visible) allow a model to
-    infer the correct label by elimination. A model that
-    fabricates ``Llama-On-Policy-Hard'' on the blurred image
-    scores $1.0$ for passive inductance; one that fabricates
-    incorrectly or does not attempt scores $0.0$.}
+  \caption[Inferable blur element on \texttt{english\_fig\_171}.]{%
+    Inferable element. In (a) ``Llama-On-Policy-Hard'' is legible. In (b) it is blurred, but colour, position and naming pattern allow inference by elimination.}
   \label{fig:inferable-example}
 \end{figure}
-
-The passive-inductance score is the fraction of the nine
-inferable elements for which the model produced the correct
-value, regardless of whether it also admitted the blur.
-The two instruments are reported separately: active inductance
-tests deliberate multi-step reasoning under adversarial
-framing, while passive inductance tests opportunistic pattern
-completion during routine description.
 
 \subsection{Experiment: Chain-of-Thought Ablation}
 \label{sec:impl-rq4-cot}
 
-To test whether explicit visual reasoning changes model
-behaviour under stress, every probe from RQ3 and RQ4 is re-run
-under condition~C3 (CCoT visual reasoning). The model first
-describes the visual structure of the figure, then reasons step
-by step before answering. The same judge scoring is applied to
-the C3 responses, and the per-experiment score difference
-between C1 and C3 quantifies the effect of chain-of-thought
-prompting on each behavioural axis.
-
-The CCoT ablation is run on all thirteen models. For
-question-answering probes the full model response (including
-the visual decomposition) is passed to the judge. For
-description tasks (caption bias) only the text after the
-\texttt{DESCRIPTION:} separator is evaluated.
+Every RQ3 and RQ4 probe is re-run under condition C3 (CCoT, \S\ref{sec:design-prompts}) on all thirteen models.
+The per-experiment score difference between C1 and C3 quantifies the effect of explicit visual reasoning on each behavioural axis.
 
 
 \section{Summary of Experimental Conditions}
 \label{sec:impl-summary}
 
-Table~\ref{tab:experiment-summary} summarises the experimental
-matrix. Each row is one experiment, each column indicates how
-many model--figure pairs it produces and which scoring track
-applies. The total number of judge calls across all experiments,
-models, and judges exceeds 50{,}000.
+Table~\ref{tab:experiment-summary} summarises the experimental matrix. The total number of judge calls exceeds 50{,}000.
 
-\begin{table}[tbp]
+\begin{table}[!ht]
   \centering
-  \small
-  \caption[Summary of experimental conditions.]{%
-    Summary of experimental conditions. Each row is one
-    experiment. The ``Figures'' column reports the number of
-    distinct figure images evaluated. The ``Calls'' column
-    reports the number of model invocations (models $\times$
-    figures $\times$ conditions). The ``Scoring'' column
-    indicates the evaluation track.}
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption[Summary of experimental conditions.]{Summary of experimental conditions. Figures = distinct images. Calls = models $\times$ figures $\times$ conditions.}
   \label{tab:experiment-summary}
-  \setlength{\tabcolsep}{4pt}
   \begin{tabular}{@{}llrrll@{}}
     \toprule
     RQ & Experiment & Figures & Calls & Scoring & Ablation \\

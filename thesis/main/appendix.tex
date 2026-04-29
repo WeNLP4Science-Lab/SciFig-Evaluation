@@ -309,6 +309,52 @@ Gma-4B       & 50.5 & 46.5 & 48.5 & 44.3 & 46.1 & 48.7 & 58.1 & 11.8 & .65 & 2.9
 \end{tabular}}
 \end{table}
 
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\footnotesize
+\captionof{table}{Transform degradation: MQM delta from original (judge-averaged, 45 figures). Negative = degradation.}\label{tab:transform-detail}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}l r rrrrr@{}}
+\toprule
+\textbf{Model} & \textbf{Orig} & \textbf{JPEG} & \textbf{Noise} & \textbf{Asp} & \textbf{LoCo} & \textbf{Rot} \\
+\midrule
+Gemini    & 71.6 & $-$0.1 & $-$1.3 & $-$0.1 & $-$3.1 & $-$4.8 \\
+GPT-5.2   & 69.7 & +2.5 & +1.2 & +3.1 & +0.3 & $-$2.7 \\
+Claude    & 66.1 & +1.1 & +1.4 & +1.6 & +2.2 & $-$3.2 \\
+Qw-235B   & 71.1 & $-$1.0 & $-$0.2 & $-$0.5 & +1.3 & $-$5.0 \\
+Qw-32B    & 70.1 & +8.3 & +3.7 & $-$6.7 & $-$6.4 & $-$5.8 \\
+LL-Mav    & 68.9 & +1.7 & $-$0.3 & $-$0.0 & $-$0.7 & $-$9.0 \\
+LL-Scout  & 71.0 & $-$5.4 & $-$5.2 & $-$0.4 & $-$10.6 & $-$9.6 \\
+Qw-8B     & 66.7 & +4.9 & +1.4 & +7.1 & $-$4.1 & +1.6 \\
+Gma-27B   & 61.2 & $-$4.4 & +0.9 & $-$12.0 & $-$3.0 & $-$9.2 \\
+Gma-4B    & 53.0 & $-$3.8 & $-$5.9 & $-$1.6 & $-$2.0 & +1.2 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\footnotesize
+\captionof{table}{Page-context conditions: MQM delta from original (judge-averaged).}\label{tab:page-context}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l r rr@{}}
+\toprule
+\textbf{Model} & \textbf{Orig} & \textbf{In-Paper} & \textbf{Blur-in-P} \\
+\midrule
+Gemini    & 71.6 & +5.7 & $-$6.2 \\
+GPT-5.2   & 69.7 & $-$1.7 & $-$8.3 \\
+Claude    & 66.1 & $-$4.1 & $-$8.0 \\
+Qw-235B   & 71.1 & $-$8.7 & $-$14.7 \\
+Qw-32B    & 70.1 & $-$4.6 & $-$21.2 \\
+LL-Mav    & 68.9 & $-$5.0 & $-$9.0 \\
+LL-Scout  & 71.0 & $-$16.9 & $-$18.6 \\
+Qw-8B     & 66.7 & $-$2.7 & $-$10.4 \\
+Phi-4     & 60.1 & +18.9 & +9.4 \\
+Gma-27B   & 61.2 & $-$14.7 & $-$15.8 \\
+Gma-4B    & 53.0 & $-$10.7 & $-$3.2 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
 
 %% ===================================================================
 %% PAGE 5: PAIRWISE + LANGUAGE + CROSS-LINGUAL
@@ -452,6 +498,61 @@ Gemma-3 27B & 58.6 & 19 & 62.8 & 20 \\
 \bottomrule
 \end{tabular}}
 \end{table}
+
+\vspace{2pt}
+\noindent
+\begin{minipage}[t]{0.55\textwidth}
+\footnotesize
+\captionof{table}{Capability accuracy per judge per model (RQ3 detail).}\label{tab:cap-per-judge}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l rr rr rr@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{Overall}} & \multicolumn{2}{c}{\textbf{Computation}} & \multicolumn{2}{c}{\textbf{Comparison}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+\textbf{Model} & \textbf{G} & \textbf{M} & \textbf{G} & \textbf{M} & \textbf{G} & \textbf{M} \\
+\midrule
+Gemini    & .79 & .83 & .78 & .81 & .88 & .91 \\
+GPT-5.2   & .76 & .81 & .81 & .85 & .77 & .79 \\
+Claude    & .64 & .67 & .73 & .77 & .65 & .65 \\
+Qw-32B    & .64 & .66 & .69 & .69 & .50 & .50 \\
+Qw-235B   & .62 & .65 & .64 & .64 & .50 & .50 \\
+Qw-8B     & .54 & .58 & .53 & .53 & .45 & .45 \\
+LL-Mav    & .53 & .58 & .53 & .53 & .37 & .37 \\
+LL-Scout  & .48 & .48 & .50 & .50 & .41 & .41 \\
+Qw-30B    & .45 & .47 & .46 & .46 & .31 & .31 \\
+Gma-12B   & .31 & .37 & .31 & .31 & .17 & .17 \\
+Gma-27B   & .30 & .35 & .29 & .29 & .19 & .19 \\
+Gma-4B    & .22 & .26 & .21 & .21 & .16 & .16 \\
+Phi-4     & .10 & .14 & .06 & .06 & .04 & .04 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.42\textwidth}
+\footnotesize
+\captionof{table}{A-R-I per judge (RQ4 detail).}\label{tab:ari-per-judge}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}l rr rr rr@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{Admit.}} & \multicolumn{2}{c}{\textbf{Resist.}} & \multicolumn{2}{c}{\textbf{Induct.}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ & \textbf{G} & \textbf{M} & \textbf{G} & \textbf{M} & \textbf{G} & \textbf{M} \\
+\midrule
+Gemini  & .55 & .87 & .90 & .89 & 1.0 & 1.0 \\
+Claude  & .51 & .57 & .69 & .69 & .80 & .80 \\
+GPT-5.2 & .53 & .61 & .56 & .57 & .80 & .80 \\
+Qw-32B  & .30 & .33 & .39 & .37 & .90 & 1.0 \\
+Qw-235B & .29 & .31 & .46 & .43 & .70 & .80 \\
+LL-Mav  & .30 & .16 & .43 & .41 & .70 & .80 \\
+LL-Sct  & .29 & .09 & .31 & .29 & .50 & .70 \\
+Qw-8B   & .25 & .19 & .26 & .28 & .80 & 1.0 \\
+Qw-30B  & .19 & .09 & .21 & .21 & .60 & .60 \\
+Gma-27B & .09 & .02 & .21 & .21 & .30 & .40 \\
+Phi-4   & .28 & .10 & .09 & .11 & .10 & .10 \\
+Gma-12B & .05 & .03 & .24 & .24 & .20 & .40 \\
+Gma-4B  & .03 & .00 & .15 & .15 & .40 & .40 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
 
 
 %% ===================================================================
