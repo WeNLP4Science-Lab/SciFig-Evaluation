@@ -44,7 +44,7 @@ We therefore adopted a stratified sample (120 atom figures for RQ1, 45 adversari
 \paragraph{Data and bias.}
 All 1\,005 figures are drawn from publicly available scientific papers on arXiv and open-access repositories; no personally identifiable information appears in the dataset.
 Ground-truth annotations were produced by trained annotators following documented guidelines with informed consent.
-VLM performance varies substantially across languages, with Bulgarian and Chinese figures receiving lower-quality descriptions, which has direct implications for equitable access to scientific content.
+VLM performance varies substantially across languages, with Bulgarian figures receiving the lowest-quality descriptions, which has direct implications for equitable access to scientific content.
 We report these disparities transparently to inform deployment decisions.
 
 \paragraph{Evaluation and deployment.}
@@ -76,23 +76,21 @@ Complementary user studies with visually impaired researchers would reveal wheth
 \section{Summary of Contributions}\label{sec:contributions}
 %% ===================================================================
 
-This thesis makes five contributions to the evaluation of vision-language models on scientific figures.
+This thesis makes three contributions to the evaluation of vision-language models on scientific figures.
 
 \begin{enumerate}
-\item \textbf{The SciFig benchmark.}
-  A multilingual evaluation corpus of 1\,005 scientific figures across four typologically diverse languages (English, Bulgarian, Chinese, German), drawn from native-language venues, with 2\,252 atomic fact checklists, 630 capability questions, and a 45-figure adversarial subset with nine visual transforms.
+\item \textbf{The \textsc{SciFig-Eval} benchmark and Atomic MQM scoring framework.}
+  A multilingual evaluation corpus of 1\,005 scientific figures across four typologically diverse languages (English, Bulgarian, Chinese, German), drawn from native-language venues rather than translated templates, with 2\,252 atomic fact checklists, 630 capability questions spanning five reasoning categories, and a 45-figure adversarial subset with nine visual transforms.
+  The accompanying Atomic MQM framework adapts Multidimensional Quality Metrics to figure description through atom-level accuracy and completeness tracking, severity-capped error weighting, and a dual-judge pipeline (GPT-4o + Mistral Large~3) validated against human annotators (ICC\,=\,.91, system-level $\rho\geq.95$).
 
-\item \textbf{Atomic MQM.}
-  A normalised scoring framework adapting MQM to figure description, with atom-level tracking, severity-capped weighting, and dual-judge evaluation validated against human annotators (ICC\,=\,.91, $\rho_{\text{sys}}\geq.95$).
+\item \textbf{Psychology-informed adversarial probes and a 13-model empirical evaluation.}
+  Five probe families grounded in the misinformation effect, anchoring bias, and sycophancy literature stress-test VLMs across hallucination resistance, caption bias, prompt reversal, visual degradation, and blur-based admittance.
+  Applied across 13 models from 4B to 235B+ parameters (26\,364 errors across 2\,966 evaluations), these probes reveal that numerical precision is the dominant bottleneck (30.6\% of errors), description and comprehension are partially dissociated capabilities, robustness is independent of clean-condition accuracy, and per-language comparisons require controlled parallel designs.
 
-\item \textbf{The A-R-I behavioural framework.}
-  A three-axis model (Admittance, Resistance, Inductance) that distinguishes faithful readers from silent fabricators and reveals profiles invisible to accuracy metrics.
-
-\item \textbf{A 13-model empirical evaluation.}
-  The largest comparative evaluation of VLMs on scientific figure understanding to date, spanning 4B to 235B+ parameters with 26\,364 errors across 2\,966 evaluations.
-
-\item \textbf{Cross-cutting findings.}
-  Numerical precision is the dominant bottleneck (30.6\% of errors). Description, comprehension, and behaviour are partially dissociated capabilities. Robustness is independent of clean-condition accuracy. Per-language comparisons require controlled parallel designs.
+\item \textbf{The Admittance--Resistance--Inductance (A-R-I) behavioural framework.}
+  A three-axis model that decomposes figure-reading trustworthiness into epistemic honesty (Admittance), adversarial robustness (Resistance), and contextual reasoning (Inductance).
+  The framework distinguishes faithful readers from silent fabricators and reveals behavioural profiles invisible to standard accuracy metrics.
+  Applied empirically, it exposes GPT-5.2's surprising resistance gap (.56), the Gemma family's silent fabrication, and an active-vs-passive inductance inversion where Gemini leads on reasoning traps (1.0) but GPT-5.2 leads on contextual inference (.89), raising the open question of whether model inferences reflect genuine reasoning or parametric recall.
 \end{enumerate}
 
 \bigskip
