@@ -25,8 +25,7 @@ model--figure pairs so that the comparison is paired.
 The experiments were executed between February and April~2026. All
 API calls use temperature zero for reproducibility. Model
 outputs, judge scores, and aggregated results are versioned in
-the project repository and served to the interactive dashboard
-described in \S\ref{sec:impl-infra}.
+the project repository and served to an interactive dashboard.
 Table~\ref{tab:environment} summarises the execution environment
 and the reproducibility controls applied throughout.
 
@@ -126,7 +125,7 @@ and TypeScript dashboard, deployed on Azure Static Web Apps,
 consumes these outputs and provides interactive exploration of
 per-figure, per-model, per-language results. Figure images are
 served from Azure Blob Storage. The dashboard is publicly
-accessible and updated after each experimental run.
+accessible at \url{https://victorious-glacier-00483810f.2.azurestaticapps.net}.
 
 
 \section{RQ1: Faithful Figure Description across Languages}
@@ -152,8 +151,8 @@ Figure~\ref{fig:german023-example} reproduces
 \texttt{german\_fig\_023}, a stacked bar chart of public
 investment by level of government as a share of GDP, which
 serves as the running example throughout this chapter. The
-three prompt-condition extracts beneath it illustrate conditions
-C1, C2 and C2$'$ on the same figure. Full prompts for all
+two prompt-condition extracts beneath it illustrate conditions
+C1 and C2 on the same figure. Full prompts for all
 figure types and languages are reproduced in
 Appendix~\ref{app:prompts}.
 
@@ -185,21 +184,7 @@ Appendix~\ref{app:prompts}.
       colback=blue!4, colframe=blue!30!black!20,
       fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
       coltitle=blue!40!black,
-      title={C2: English},
-      left=3pt, right=3pt, top=2pt, bottom=2pt]
-      \fontsize{6}{7.5}\selectfont\itshape
-      You are an annotator tasked with describing scientific
-      bar charts in a structured but natural paragraph format.
-      Your goal is to objectively describe\,\ldots
-    \end{tcolorbox}
-  \end{minipage}\hfill
-  \begin{minipage}[t]{0.32\textwidth}
-    \begin{tcolorbox}[
-      enhanced, sharp corners, boxrule=0.3pt,
-      colback=purple!4, colframe=purple!30!black!20,
-      fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
-      coltitle=purple!40!black,
-      title={C2$'$: EN instr.\ + native out},
+      title={C2: EN instr.\ + native out},
       left=3pt, right=3pt, top=2pt, bottom=2pt]
       \fontsize{6}{7.5}\selectfont\itshape
       You are an annotator tasked with describing scientific
@@ -210,16 +195,15 @@ Appendix~\ref{app:prompts}.
     \end{tcolorbox}
   \end{minipage}
 
-  \caption[Running example: \texttt{german\_fig\_023} with three prompt conditions.]{%
+  \caption[Running example: \texttt{german\_fig\_023} with two prompt conditions.]{%
     Running example used throughout this chapter.
     \texttt{german\_fig\_023} is a stacked bar chart from
     Wirtschaftsdienst showing gross and net fixed-asset
     investment by Bund (blue), L\"{a}nder (red) and
     Gemeinden (yellow) as a share of GDP, 1991--2023.
-    Beneath: the opening lines of the three prompt
+    Beneath: the opening lines of the two prompt
     conditions. C1~(green) is the native German prompt.
-    C2~(blue) is the English-only ablation. C2$'$~(purple)
-    uses the English prompt but appends an explicit
+    C2~(blue) uses the English prompt with an explicit
     instruction to respond in German.}
   \label{fig:german023-example}
 \end{figure}
@@ -240,24 +224,14 @@ per figure.
 \subsection{Experiment: Prompt-Language Ablation}
 \label{sec:impl-rq1-ablation}
 
-To isolate the contribution of native-language prompting, two
-ablation conditions are tested on the 45~adversarial-subset
-figures across all thirteen models.
-
-The first ablation uses English prompts with English output
-(condition~C2). The English prompt for each figure type is used
-regardless of the figure's native language, and the model
-responds in English. This changes both the instruction language
-and the output language relative to condition~C1.
-
-The second ablation uses English prompts but explicitly requests
-native-language output. The English prompt is appended with an
-instruction such as ``Write your response in Bulgarian'' (or the
-corresponding directive for Chinese and German). This isolates
-the instruction-language effect from the output-language effect:
-if C2 scores lower than C1, the second ablation reveals whether
-the drop is caused by the English instruction, the English
-output, or both.
+To isolate the contribution of native-language prompting, an
+ablation condition (C2) is tested on the 45~adversarial-subset
+figures across all thirteen models. The English prompt for each
+figure type is used regardless of the figure's native language,
+appended with an explicit instruction to respond in the native
+language (e.g., ``Write your response in Bulgarian''). This
+isolates the instruction-language effect while keeping the
+output language constant.
 
 Both ablation conditions are evaluated under the same atomic
 MQM rubric and by the same judge panel as the baseline, so
@@ -507,151 +481,79 @@ ground-truth answer key.
 \end{figure}
 
 \section{RQ4: Behavioural Dynamics under Stress}
-\label{sec:impl-rq4}
+\label{sec:impl-rq4}\label{sec:impl-rq4-hallucination}\label{sec:impl-rq4-caption}\label{sec:impl-rq4-reverse}\label{sec:impl-rq4-admittance}\label{sec:impl-rq4-passive}\label{sec:impl-rq4-inductance}\label{sec:impl-rq4-cot}\label{sec:impl-summary}\label{fig:probe-examples}
 
-The fourth research question asks how VLMs behave when the
-visual evidence or its accompanying context is stressed. This
-section covers the adversarial probes that feed all three axes
-of the A-R-I framework, including inductance probes (moved here
-from RQ3 because they test behavioural responses to reasoning
-traps rather than straightforward comprehension) and the
-chain-of-thought ablation that tests whether explicit visual
-reasoning changes model behaviour under stress.
-Each subsection below includes the behavioural probe assigned
-to the running example
-(Figure~\ref{fig:german023-example}) for that probe family.
+RQ4 executes the adversarial probes defined in \S\ref{sec:design-ari} across all three A-R-I axes on the 45-figure adversarial subset.
+Table~\ref{tab:experiment-master} is the master experiment table for the entire thesis: it details every experiment across all four research questions, showing the probe family, figure and element counts, exact scoring rubric, which behavioural axis each experiment feeds, and a representative probe example from the running example (\texttt{german\_fig\_023}, Figure~\ref{fig:german023-example}) in the original German with English translation.
 
-\subsection{Experiment: Hallucination Probes}
-\label{sec:impl-rq4-hallucination}
+The hallucination probes (A1) test three forms of false premise: asking about non-existent elements, building on contra-factual values, and posing questions the figure cannot answer.
+Caption bias (A2) pairs each figure with a modified caption containing targeted false claims and checks whether the model reproduces them.
+Prompt reverse (A4) tests consistency by asking the model to confirm a true claim and then its negation.
+Active admittance asks directly about a blurred element; passive admittance classifies unprompted blur responses as admits, fabricates, or silent across 187 axis-blur and 68 selective-blur elements.
+Inductance is measured through five active reasoning traps on clean figures and nine inferable blurred elements where context supports deduction (Figure~\ref{fig:inferable-example}; full list in Appendix Table~\ref{tab:inferable}).
+All probes are re-run under CCoT (C3, \S\ref{sec:design-prompts}) to test chain-of-thought effects.
+The total judge calls across all experiments exceed 50{,}000.
 
-The three hallucination sub-types defined in \S\ref{sec:design-ari-resistance} (inexist, contra, unanswerable) are tested across all 45~adversarial figures, scored on a three-point scale ($1.0$ refusal, $0.5$ hedged, $0.0$ fabrication).
-Figure~\ref{fig:probe-examples} illustrates all six behavioural probe types on the running example.
-
-\begin{figure}[H]
+\begin{table}[!ht]
 \centering
-%% Row 1
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}[breakable=false]
-\textbf{(a) Inexist}\hfill{\color{red!60!black}\scriptsize\textbf{Element absent}}\\[3pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Der EU-Durchschnitt als horizontale Referenzlinie liegt bei etwa 0\,\ldots\\[3pt]
-\normalfont\fontsize{7}{9}\selectfont
-The EU average reference line is approximately\,\ldots
-\end{probebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}[breakable=false]
-\textbf{(b) Contra}\hfill{\color{red!60!black}\scriptsize\textbf{False premise}}\\[3pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Nachdem die Bruttoanlageinvestitionen seit 2015 durchgehend gestiegen sind\,\ldots\\[3pt]
-\normalfont\fontsize{7}{9}\selectfont
-Given that gross investments have risen continuously since 2015\,\ldots
-\end{probebox}
-\end{minipage}
-
-\vspace{4pt}
-%% Row 2
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}[breakable=false]
-\textbf{(c) Unanswerable}\hfill{\color{red!60!black}\scriptsize\textbf{Not in chart}}\\[3pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Wie hoch ist der Anteil der Investitionen in digitale Infrastruktur?\\[3pt]
-\normalfont\fontsize{7}{9}\selectfont
-What share goes to digital infrastructure?
-\end{probebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}[breakable=false]
-\textbf{(d) Caption bias}\hfill{\color{orange!70!black}\scriptsize\textbf{Caption contradicts}}\\[3pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Die Gemeinden tragen durchgehend den \underline{kleinsten} Anteil bei.\\[3pt]
-\normalfont\fontsize{7}{9}\selectfont
-Municipalities contribute the \underline{smallest} share.
-{\color{orange!70!black}\,\textbf{Actually largest.}}
-\end{probebox}
-\end{minipage}
-
-\vspace{4pt}
-%% Row 3
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}[breakable=false]
-\textbf{(e) Prompt reverse}\hfill{\color{green!50!black}\scriptsize\textbf{True/false pair}}\\[3pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Verwendet das linke Diagramm gestapelte Balken?\\[2pt]
-\normalfont\fontsize{7}{9}\selectfont
-Does the left panel use stacked bars? {\color{green!50!black}\textbf{Yes}}\\[2pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Verwendet es einzelne Linien?\\[2pt]
-\normalfont\fontsize{7}{9}\selectfont
-Does it use individual lines? {\color{red!60!black}\textbf{No}}
-\end{probebox}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{probebox}[breakable=false]
-\textbf{(f) Active admittance}\hfill{\color{blue!60!black}\scriptsize\textbf{Blur query}}\\[3pt]
-\fontsize{8}{10}\selectfont\bfseries\itshape
-Welche Regierungsebene bildet den unteren Teil des gestapelten Balkendiagramms?\\[3pt]
-\normalfont\fontsize{7}{9}\selectfont
-Which government level forms the bottom of stacked bars?
-{\color{blue!60!black}\,\textbf{``Bund'' is blurred.}}
-\end{probebox}
-\end{minipage}
-
-\caption[Behavioural probe examples for \texttt{german\_fig\_023}.]{%
-  Six behavioural probe types applied to the running example. \textbf{(a--c)}~Hallucination resistance probes. \textbf{(d)}~Caption bias. \textbf{(e)}~Prompt-reverse consistency. \textbf{(f)}~Active admittance under selective blur. German originals in italics; English translations below.}
-\label{fig:probe-examples}
-\end{figure}
-
-\subsection{Experiment: Caption Bias}
-\label{sec:impl-rq4-caption}
-
-Each of the 45~figures is paired with a modified caption containing factual claims that contradict the visual evidence (Figure~\ref{fig:probe-examples}d).
-Each model describes the figure twice: with the misleading caption and with no caption (image-only).
-The resistance score is the proportion of claims that follow the image rather than the caption.
-
-\subsection{Experiment: Prompt-Reverse Consistency}
-\label{sec:impl-rq4-reverse}
-
-Each figure is associated with a true statement and its logical negation (Figure~\ref{fig:probe-examples}e).
-The model is asked in separate turns to confirm each.
-A model that agrees with both is sycophantic by construction.
-The consistency score is $1.0$ when the model confirms the true claim and denies the false one, and $0.0$ when it agrees with both or disagrees with both.
-
-\subsection{Experiment: Active Admittance}
-\label{sec:impl-rq4-admittance}
-
-Forty-four selective-blur images are paired with a question whose answer depends on the blurred element (Figure~\ref{fig:probe-examples}f).
-The response is scored on whether it admits the element is unreadable ($1.0$), hedges ($0.5$), or fabricates ($0.0$).
-This complements the passive-admittance scores from \S\ref{sec:impl-rq2-blur}.
-
-\subsection{Experiment: Passive Admittance}
-\label{sec:impl-rq4-passive}
-
-The blur descriptions from \S\ref{sec:impl-rq2-blur} are evaluated for passive admittance using the rubric defined in \S\ref{sec:design-ari-admittance}: for each blurred element, the judge classifies the response as admits, fabricates, or silent.
-
-\subsection{Experiment: Inductance}
-\label{sec:impl-rq4-inductance}
-
-Inductance is measured through two instruments defined in \S\ref{sec:design-ari-inductance}.
-
-\paragraph{Active inductance.}
-Five probes pair a clean figure with a question whose naive answer is incorrect (e.g., the Bulgarian pie chart in Figure~\ref{fig:ari-probes}c where visible labels sum to 87, not 100, revealing raw counts rather than percentages).
-Scored on the five-point rubric from \S\ref{sec:design-ari-inductance}.
-
-\paragraph{Passive inductance.}
-Among the 45 selectively blurred elements, nine are \emph{inferable} from context (e.g., naming patterns, complementary labels, arithmetic from visible slices).
-When a model fabricates the correct value for an inferable element, this constitutes evidence of reasoning rather than hallucination.
-The full list of nine elements and their inference reasoning is in Appendix Table~\ref{tab:inferable}.
-Figure~\ref{fig:inferable-example} illustrates one case.
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\caption[Master experiment table with probe examples.]{%
+  Complete experimental matrix with probe examples from the running example (\texttt{german\_fig\_023}).
+  Figs = distinct figures. Elem = blurred/probed items.
+  Axis: \textbf{A} = Admittance, \textbf{R} = Resistance, \textbf{I} = Inductance, MQM = description quality.
+  Probe examples show original German (italic) with English translation.
+  All experiments use 13 models $\times$ 2 judges.
+}\label{tab:experiment-master}\label{tab:experiment-summary}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l l r r l l p{5.5cm}@{}}
+\toprule
+\textbf{Experiment} & \textbf{Fam.} & \textbf{Figs} & \textbf{Elem} & \textbf{Scoring} & \textbf{Axis} & \textbf{Probe example (german\_fig\_023)} \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ1: Description quality}} \\
+Original description     & ---  & 120 & 2{,}252 & Atomic MQM & MQM & --- \\
+Prompt-lang.\ ablation   & ---  & 45  & ---     & Atomic MQM & MQM & C2 vs C1 \\
+Cross-lingual controlled & ---  & 13  & ---     & Atomic MQM & MQM & 4 languages \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ2: Degradation}} \\
+Image transforms (9)    & A3   & 45  & ---     & Atomic MQM & MQM & per transform \\
+Axis blur               & A3   & 45  & 187     & admit/fab/silent & \textbf{A} & --- \\
+Selective blur           & A3   & 45  & 68      & admit/fab/silent & \textbf{A} & --- \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ3: Comprehension}} \\
+Capability questions    & ---  & 45  & 630     & correct/incorrect & MQM & 5 question categories \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ4: Behavioural dynamics}} \\
+\rowcolor{red!4}
+Halluc.: Inexist        & A1   & 45  & 45      & 1.0/0.5/0.0 & \textbf{R} & \textit{Der EU-Durchschnitt als horizontale Referenzlinie\ldots} {\scriptsize The EU average reference line\ldots} \\
+\rowcolor{red!4}
+Halluc.: Contra         & A1   & 45  & 45      & 1.0/0.5/0.0 & \textbf{R} & \textit{Nachdem die Bruttoanlageinvestitionen seit 2015 durchgehend gestiegen sind\ldots} {\scriptsize Given that gross investments have risen continuously\ldots} \\
+\rowcolor{red!4}
+Halluc.: Unanswerable   & A1   & 45  & 45      & 1.0/0.5/0.0 & \textbf{R} & \textit{Wie hoch ist der Anteil der Investitionen in digitale Infrastruktur?} {\scriptsize What share goes to digital infrastructure?} \\
+\rowcolor{orange!6}
+Caption bias            & A2   & 45  & ---     & targeted claims & \textbf{R} & \textit{Die Gemeinden tragen durchgehend den \underline{kleinsten} Anteil bei.} {\scriptsize Municipalities contribute the \underline{smallest} share. \textbf{Actually largest.}} \\
+\rowcolor{green!5}
+Prompt reverse          & A4   & 45  & 45 pr   & 1.0/0.5/0.0 & \textbf{R} & \textit{Verwendet das linke Diagramm gestapelte Balken?} {\scriptsize Stacked bars? \textbf{Yes}} / \textit{Einzelne Linien?} {\scriptsize Lines? \textbf{No}} \\
+\rowcolor{blue!4}
+Active admittance       & A3   & 44  & 44      & 1.0/0.5/0.0 & \textbf{A} & \textit{Welche Regierungsebene bildet den unteren Teil\ldots?} {\scriptsize Which gov.\ level forms the bottom? \textbf{``Bund'' blurred.}} \\
+Passive admittance      & A3   & 45  & 255     & admit/fab/silent & \textbf{A} & (scored from blur descriptions in RQ2) \\
+\rowcolor{green!5}
+Active inductance       & A1   & 5   & 5       & 1.0/0.5/0.0 & \textbf{I} & (reasoning traps on clean figures; see \S\ref{sec:design-ari-inductance}) \\
+Passive inductance      & A3   & 9   & 9       & correct inference & \textbf{I} & (inferable blur elements; see Appendix Table~\ref{tab:inferable}) \\
+\midrule
+CCoT ablation           & ---  & 45  & ---     & all tracks & All & C3 vs C1 \\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}[t]{0.38\textwidth}
+  \begin{subfigure}[t]{0.30\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/english_fig_171_original.png}
     \caption{Original}
   \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.38\textwidth}
+  \begin{subfigure}[t]{0.30\textwidth}
     \centering
     \includegraphics[width=\linewidth]{figures/english_fig_171_selective_blur.png}
     \caption{Selective blur}
@@ -660,45 +562,3 @@ Figure~\ref{fig:inferable-example} illustrates one case.
     Inferable element. In (a) ``Llama-On-Policy-Hard'' is legible. In (b) it is blurred, but colour, position and naming pattern allow inference by elimination.}
   \label{fig:inferable-example}
 \end{figure}
-
-\subsection{Experiment: Chain-of-Thought Ablation}
-\label{sec:impl-rq4-cot}
-
-Every RQ3 and RQ4 probe is re-run under condition C3 (CCoT, \S\ref{sec:design-prompts}) on all thirteen models.
-The per-experiment score difference between C1 and C3 quantifies the effect of explicit visual reasoning on each behavioural axis.
-
-
-\section{Summary of Experimental Conditions}
-\label{sec:impl-summary}
-
-Table~\ref{tab:experiment-summary} summarises the experimental matrix. The total number of judge calls exceeds 50{,}000.
-
-\begin{table}[!ht]
-  \centering
-  \footnotesize
-  \setlength{\tabcolsep}{3pt}
-  \caption[Summary of experimental conditions.]{Summary of experimental conditions. Figures = distinct images. Calls = models $\times$ figures $\times$ conditions.}
-  \label{tab:experiment-summary}
-  \begin{tabular}{@{}llrrll@{}}
-    \toprule
-    RQ & Experiment & Figures & Calls & Scoring & Ablation \\
-    \midrule
-    1 & Original description     & 120 & 1,560 & atomic MQM & --- \\
-    1 & Prompt-language ablation & 45  & 1,170 & atomic MQM & C2/C2$'$ vs C1 \\
-    \midrule
-    2 & Image transforms (7)    & 45  & 4,095 & atomic MQM & --- \\
-    2 & Axis blur                & 45  & 585   & passive admittance & --- \\
-    2 & Selective blur           & 45  & 585   & passive admittance & --- \\
-    \midrule
-    3 & Capability questions    & 45  & 1,170 & judge + rule-based & --- \\
-    \midrule
-    4 & Hallucination probes    & 45  & 1,755 & 3-point scale & --- \\
-    4 & Caption bias            & 45  & 1,170 & resistance score & --- \\
-    4 & Prompt reverse          & 45  & 585   & consistency score & --- \\
-    4 & Active admittance       & 44  & 572   & admittance rubric & --- \\
-    4 & Passive admittance      & 45  & 1,170 & admittance rubric & --- \\
-    4 & Inductance probes       & 5   & 65    & inductance rubric & --- \\
-    4 & CoT ablation (all probes) & 45 & 7,800+ & all tracks & C3 vs C1 \\
-    \bottomrule
-  \end{tabular}
-\end{table}

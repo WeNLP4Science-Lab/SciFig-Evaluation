@@ -386,13 +386,13 @@ Figure~\ref{fig:prompt-engineering} traces the pipeline; full prompt texts are r
   \centering
   \includegraphics[width=0.90\textwidth]{figures/prompt_engineering_pipeline.pdf}
   \caption[Prompt engineering pipeline.]{%
-    Prompt engineering pipeline. Phases: (1)~input artefacts, (2)~figure type and language extraction, (3)~template store (4~languages $\times$ 4~types), (4)~fallback selection, (5)~three conditions (C1~native, C2~English ablation, C3~CCoT), (6)~system message composition, (7)~model invocation ($T{=}0$), (8)~scoring pipeline.}
+    Prompt engineering pipeline. Phases: (1)~input artefacts, (2)~figure type and language extraction, (3)~template store (4~languages $\times$ 4~types), (4)~fallback selection, (5)~three conditions (C1~native, C2~English-instruction ablation, C3~CCoT), (6)~system message composition, (7)~model invocation ($T{=}0$), (8)~scoring pipeline.}
   \label{fig:prompt-engineering}
 \end{figure}
 
 All prompts prohibit interpretation and comparison beyond what is explicitly labelled, keeping description and reasoning separable across the A-R-I axes.
 Two ablation conditions test prompt design choices.
-\emph{Prompt-language ablation} (C2) generates descriptions using English prompts for all figures regardless of native language, quantifying the contribution of native-language prompting.
+\emph{Prompt-language ablation} (C2) generates descriptions using English prompts with an explicit instruction to respond in the figure's native language, quantifying the contribution of native-language prompting.
 \emph{Chain-of-thought ablation} (C3) adapts Compositional CoT~\citep{mitra2024ccot} by prepending ``First, describe the visual structure \ldots\ Let's think step by step'' as a zero-shot reasoning prefix~\citep{kojima2022zeroshotcot}, testing whether self-generated visual decomposition changes behaviour without task-specific coaching.
 For QA probes the full response including reasoning is judged; for descriptions a \texttt{DESCRIPTION:} marker separates reasoning from the evaluated output.
 

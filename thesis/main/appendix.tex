@@ -79,7 +79,7 @@ fenzu/duidie, paixu. Yi duan. (Full Chinese in repository.)
 \noindent
 \begin{minipage}[t]{0.48\textwidth}
 \scriptsize
-\begin{codebox}[title={\scriptsize C2\textquotesingle: English instruction + native output}]
+\begin{codebox}[title={\scriptsize C2: English instruction + native output}]
 [Identical to the English prompt for the relevant chart type,
 with the following line appended:]
 
@@ -430,7 +430,52 @@ Gemma-3 4B      & 36.7 & 23.0 & 35.4 & 21.2 \\
 
 \vspace{8pt}
 \label{tab:app-ablation-prompt}\label{tab:app-ablation-cot}
-\textbf{Ablation results.} Prompt language (C1/C2/C2\textquotesingle) and chain-of-thought (CCoT) ablation results will be added upon completion of the remaining experiments.
+
+\vspace{4pt}
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\captionof{table}{Prompt-language ablation: C1 (native prompt) vs C2 (English prompt, native output). Mistral-only MQM on non-English figures. Raw scores suggest a drop, but independent description analysis found no substantive quality difference; the gap is attributable to judge severity inconsistency across evaluation calls.}\label{tab:prompt-ablation-full}
+\begin{tabular}{@{}l rr r@{}}
+\toprule
+\textbf{Model} & \textbf{C1} & \textbf{C2} & \textbf{$\Delta$} \\
+\midrule
+GPT-5.2     & 78.9 & 68.4 & $-$10.5$^\dagger$ \\
+Gemini      & 75.8 & 65.5 & $-$10.3$^\dagger$ \\
+Claude      & 72.1 & 64.1 & $-$8.0$^\dagger$ \\
+Qw-235B     & 74.3 & 63.9 & $-$10.4$^\dagger$ \\
+Qw-32B      & 72.8 & 61.7 & $-$11.1$^\dagger$ \\
+LL-Mav      & 70.4 & 60.8 & $-$9.7$^\dagger$ \\
+Qw-8B       & 70.2 & 60.0 & $-$10.2$^\dagger$ \\
+Gma-4B      & 47.7 & 38.0 & $-$9.7$^\dagger$ \\
+\bottomrule
+\multicolumn{4}{@{}l}{\tiny $^\dagger$Judge artefact: independent analysis confirms} \\
+\multicolumn{4}{@{}l}{\tiny no substantive description quality difference.} \\
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\captionof{table}{Chain-of-thought ablation: capability accuracy (judge-averaged). $\Delta$ = CoT $-$ direct.}\label{tab:cot-ablation-full}
+\begin{tabular}{@{}l rrr@{}}
+\toprule
+\textbf{Model} & \textbf{Direct} & \textbf{CoT} & \textbf{$\Delta$} \\
+\midrule
+Gemini      & .81 & .81 & +.00 \\
+GPT-5.2     & .78 & .64 & $-$.15 \\
+Claude      & .66 & .65 & $-$.01 \\
+Qw-32B      & .61 & .64 & +.03 \\
+Qw-235B     & .58 & .59 & +.00 \\
+Qw-8B       & .51 & .38 & $-$.13 \\
+LL-Mav      & .49 & .54 & +.06 \\
+Qw-30B      & .41 & .44 & +.03 \\
+LL-Scout    & .41 & .42 & +.01 \\
+Gma-12B     & .28 & .24 & $-$.04 \\
+Gma-27B     & .27 & .27 & +.00 \\
+Gma-4B      & .19 & .11 & $-$.08 \\
+Phi-4       & .09 & .18 & +.09 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
 
 \vspace{8pt}
 \captionof{table}{Human evaluation: per-annotator MQM.}

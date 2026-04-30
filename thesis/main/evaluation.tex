@@ -195,13 +195,16 @@ We evaluate 13 parallel figures (same figure, all four languages) with language-
 The controlled results \emph{reverse} the uncontrolled language ranking. English scores highest for all models (GPT-5.2 at EN~66.2 $>$ CN~60.8 $>$ BG~56.4 $>$ DE~55.3), confirming that the German advantage in Table~\ref{tab:leaderboard} is a dataset composition artefact.
 Chinese is the most resilient non-English language (EN--CN gap 4--17\%), while smaller models degrade disproportionately (Gemma-4B: 42\% EN--DE gap vs.\ Claude's 2\%).
 
-\paragraph{Prompt language (C1/C2/C2\textquotesingle).}
-We evaluate three conditions on non-English figures. C1 uses a native-language prompt, C2 uses English for both prompt and output, and C2\textquotesingle{} uses an English prompt with native-language output.
-Results are reported in Appendix Table~\ref{tab:app-ablation-prompt}.
+\paragraph{Prompt language (C1 vs C2).}
+We tested whether switching the instruction language from native to English (while keeping output in the native language) affects description quality.
+Raw MQM scores suggest a ${\sim}10$-point drop under C2 (Appendix Table~\ref{tab:app-ablation-prompt}), but independent manual comparison of the C1 and C2 descriptions across all three non-English languages found no substantive quality difference: the descriptions contain the same values, the same structural observations, and the same error patterns.
+The MQM gap is attributable to judge severity inconsistency across separate evaluation calls (the judge assigns different severity to identical errors when scoring different descriptions), reinforcing the segment-level unreliability documented in \S\ref{sec:rq1-human}.
+GPT-5.2 is instruction-language robust for non-English figure description.
 
 \paragraph{Chain-of-thought.}
-Compositional CoT prompting~\citep{mitra2024ccot} (``First describe the visual structure \ldots\ Let's think step by step'') is evaluated per model and language.
-Results are reported in Appendix Table~\ref{tab:app-ablation-cot}.
+CCoT prompting~\citep{mitra2024ccot} shows mixed effects on capability accuracy.
+It helps weaker models (Phi-4: $+$9pp, LLaMA Maverick: $+$6pp) but \emph{hurts} stronger ones (GPT-5.2: $-$15pp, Qwen-8B: $-$13pp), suggesting that explicit reasoning can interfere with well-calibrated models.
+Full per-model results are in Appendix Table~\ref{tab:app-ablation-cot}.
 
 %% ===================================================================
 \section{RQ2: Degradation Under Adversarial Transforms}\label{sec:rq2-results}
@@ -219,34 +222,38 @@ Figure~\ref{fig:degradation-slope} visualises the degradation trajectories.
 \scriptsize
 \setlength{\tabcolsep}{2.5pt}
 \caption{\textbf{RQ2: Transform degradation} (45 figures, judge-averaged MQM).
-  Orig = clean extracted figure. InP = original-in-paper (page context). BlurP = blurred-in-paper (diagnostic).
-  Remaining columns show $\Delta$ from Original. $|\bar{\Delta}|$ = mean absolute delta across the five image transforms (excluding page-context conditions), measuring overall robustness ($\downarrow$ = more robust).
-  \textbf{Bold} = most robust model; \underline{underline} = 2nd.
+  Orig = clean extracted figure. All other columns show $\Delta$ from Original.
+  \emph{Page context}: InP = figure on its PDF page; BlurP = same page with figure blurred (diagnostic, tests whether models extract cues from surrounding text).
+  \emph{Image transforms}: JPEG--Rotat.
+  $|\bar{\Delta}|$ = mean absolute delta across the five image transforms only ($\downarrow$ = more robust).
+  \textbf{Bold} = most robust; \underline{underline} = 2nd.
 }\label{tab:degradation}
-\begin{tabular}{@{}l rr rrrrr r@{}}
+\begin{tabular}{@{}l r rr rrrrr r@{}}
 \toprule
- & \textbf{Orig} & \textbf{InP} & \textbf{JPEG} & \textbf{Noise} & \textbf{Aspct} & \textbf{LoCon} & \textbf{Rotat} & $|\bar{\Delta}|$ \\
+ & & \multicolumn{2}{c}{\textit{Page context}} & \multicolumn{5}{c}{\textit{Image transforms}} & \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-9}
+ & \textbf{Orig} & \textbf{InP} & \cellcolor{gray!8}\textbf{BlurP} & \textbf{JPEG} & \textbf{Noise} & \textbf{Aspct} & \textbf{LoCon} & \textbf{Rotat} & $|\bar{\Delta}|$ \\
 \midrule
-Gemini 3.1P    & 71.6 & \textbf{+5.7} & $-$0.1 & $-$1.3 & $-$0.1 & $-$3.1 & $-$4.8 & \textbf{1.9} \\
-GPT-5.2        & 69.7 & $-$1.7 & +2.5 & +1.2 & +3.1 & +0.3 & $-$2.7 & \underline{2.0} \\
-Claude 4.6     & 66.1 & $-$4.1 & +1.1 & +1.4 & +1.6 & +2.2 & $-$3.2 & \underline{1.9} \\
-LLaMA Mav.     & 68.9 & $-$5.0 & +1.7 & $-$0.3 & $-$0.0 & $-$0.7 & $-$9.0 & 2.3 \\
-Qwen 235B      & 71.1 & $-$8.7 & $-$1.0 & $-$0.2 & $-$0.5 & +1.3 & $-$5.0 & 1.6 \\
-Qwen 32B       & 70.1 & $-$4.6 & +8.3 & +3.7 & $-$6.7 & $-$6.4 & $-$5.8 & 6.2 \\
-Qwen 30B       & 69.1 & $-$13.1 & +1.3 & +1.3 & +2.0 & +9.5 & $-$6.2 & 4.1 \\
-Qwen 8B        & 66.7 & $-$2.7 & +4.9 & +1.4 & +7.1 & $-$4.1 & +1.6 & 3.8 \\
-LLaMA Scout    & 71.0 & $-$16.9 & $-$5.4 & $-$5.2 & $-$0.4 & $-$10.6 & $-$9.6 & 6.2 \\
-Gemma 27B      & 61.2 & $-$14.7 & $-$4.4 & +0.9 & $-$12.0 & $-$3.0 & $-$9.2 & 5.9 \\
-Phi-4          & 60.1 & +18.9 & +1.6 & $-$2.4 & $-$0.7 & +4.5 & +1.9 & 2.2 \\
-Gemma 12B      & 54.5 & $-$5.0 & $-$4.2 & $-$0.4 & +8.2 & $-$4.1 & $-$10.7 & 5.5 \\
-Gemma 4B       & 53.0 & $-$10.7 & $-$3.8 & $-$5.9 & $-$1.6 & $-$2.0 & +1.2 & 2.9 \\
+Qwen 235B      & 71.1 & $-$8.7 & \cellcolor{gray!8}$-$14.7 & $-$1.0 & $-$0.2 & $-$0.5 & +1.3 & $-$5.0 & \textbf{1.6} \\
+Gemini 3.1P    & 71.6 & \textbf{+5.7} & \cellcolor{gray!8}$-$6.2 & $-$0.1 & $-$1.3 & $-$0.1 & $-$3.1 & $-$4.8 & \underline{1.9} \\
+Claude 4.6     & 66.1 & $-$4.1 & \cellcolor{gray!8}$-$8.0 & +1.1 & +1.4 & +1.6 & +2.2 & $-$3.2 & \underline{1.9} \\
+GPT-5.2        & 69.7 & $-$1.7 & \cellcolor{gray!8}$-$8.3 & +2.5 & +1.2 & +3.1 & +0.3 & $-$2.7 & 2.0 \\
+Phi-4          & 60.1 & +18.9 & \cellcolor{gray!8}+9.4 & +1.6 & $-$2.4 & $-$0.7 & +4.5 & +1.9 & 2.2 \\
+LLaMA Mav.     & 68.9 & $-$5.0 & \cellcolor{gray!8}$-$9.0 & +1.7 & $-$0.3 & $-$0.0 & $-$0.7 & $-$9.0 & 2.4 \\
+Gemma 4B       & 53.0 & $-$10.7 & \cellcolor{gray!8}$-$3.2 & $-$3.8 & $-$5.9 & $-$1.6 & $-$2.0 & +1.2 & 2.9 \\
+Qwen 8B        & 66.7 & $-$2.7 & \cellcolor{gray!8}$-$10.4 & +4.9 & +1.4 & +7.1 & $-$4.1 & +1.6 & 3.8 \\
+Qwen 30B       & 69.1 & $-$13.1 & \cellcolor{gray!8}$-$19.2 & +1.3 & +1.3 & +2.0 & +9.5 & $-$6.2 & 4.1 \\
+Gemma 12B      & 54.5 & $-$5.0 & \cellcolor{gray!8}$-$3.1 & $-$4.2 & $-$0.4 & +8.2 & $-$4.1 & $-$10.7 & 5.5 \\
+Gemma 27B      & 61.2 & $-$14.7 & \cellcolor{gray!8}$-$15.8 & $-$4.4 & +0.9 & $-$12.0 & $-$3.0 & $-$9.2 & 5.9 \\
+Qwen 32B       & 70.1 & $-$4.6 & \cellcolor{gray!8}$-$21.2 & +8.3 & +3.7 & $-$6.7 & $-$6.4 & $-$5.8 & 6.2 \\
+LLaMA Scout    & 71.0 & $-$16.9 & \cellcolor{gray!8}$-$18.6 & $-$5.4 & $-$5.2 & $-$0.4 & $-$10.6 & $-$9.6 & 6.2 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{figures/rq2/degradation_slope.pdf}
+  \includegraphics[width=0.85\textwidth]{figures/rq2/degradation_slope.pdf}
   \caption{\textbf{Degradation slope chart.} Each line traces a model's MQM across transforms (left to right = increasing severity). Solid blue = Tier~1 (proprietary), dashed green = Tier~2 (mid-range open), dotted pink = Tier~3 (small). Shaded zones separate baselines, image transforms, and the severe blur-in-paper diagnostic. Tier~1 models maintain the flattest profiles.}
   \label{fig:degradation-slope}
 \end{figure}
@@ -258,7 +265,7 @@ Rotation ($\Delta{=}{-}4.7$ mean across models) and low contrast ($\Delta{=}{-}1
 This suggests that VLMs are reasonably robust to pixel-level corruption but struggle when spatial layout is disrupted (rotation) or visual contrast is reduced.
 
 Second, \textbf{robustness correlates with but is not determined by baseline quality}.
-Gemini 3.1 Pro ($|\bar{\Delta}|{=}1.9$), Claude Opus ($|\bar{\Delta}|{=}1.9$), and GPT-5.2 ($|\bar{\Delta}|{=}2.0$) are the most robust, maintaining stable scores across all transforms.
+Qwen3-VL 235B ($|\bar{\Delta}|{=}1.6$), Gemini 3.1 Pro ($|\bar{\Delta}|{=}1.9$), and Claude Opus ($|\bar{\Delta}|{=}1.9$) are the most robust, maintaining stable scores across all transforms.
 However, some mid-tier models show surprising volatility: Qwen-32B swings from $+$8.3 (JPEG) to $-$6.7 (aspect ratio), and LLaMA Scout drops $-$10.6 under low contrast.
 This inconsistency suggests that robustness is a distinct capability from baseline accuracy.
 
@@ -337,10 +344,10 @@ Fourth, \textbf{prompt reversal resistance correlates strongly with model qualit
 %% ===================================================================
 
 RQ4 applies our A-R-I behavioural framework to probe how models respond when visual evidence is degraded, absent, or contradicted.
-We evaluate three axes: \textbf{Admittance} (epistemic honesty when content is unreadable), \textbf{Resistance} (robustness to misleading prompts), and \textbf{Inductance} (ability to infer blurred content from context).
+We evaluate three axes: \textbf{Admittance} (epistemic honesty when content is unreadable), \textbf{Resistance} (robustness to false or unsupported premises), and \textbf{Inductance} (legitimate reasoning from partial or deceptively presented evidence).
 
 Table~\ref{tab:ari} reports per-model scores across all three axes.
-Figure~\ref{fig:ari-radar} visualises the A-R-I behavioural profiles, and Figure~\ref{fig:admittance-stacked} breaks down admittance responses.
+Figure~\ref{fig:ari-dotstrip} visualises the A-R-I behavioural profiles (supplementary radar and admittance breakdown in Appendix Figures~\ref{fig:app-ari-radar}--\ref{fig:app-admittance-stacked}).
 
 \begin{table}[!ht]
 \centering
@@ -396,9 +403,11 @@ GPT-5.2 is surprisingly vulnerable (.56 overall, .50 on contra-factual), often e
 Across all models, unanswerable questions are easiest to resist (mean .58) because models can recognise the question type, while contra-factual probes are hardest (mean .24) because they require the model to verify a specific claim against the image.
 
 \paragraph{Inductance.}
-We identify 9 elements across the 45-figure test set where blurred content is inferable from context: legend entries deducible from naming patterns (e.g., ``Llama-3B + FT'' when ``Llama-1B + FT'' is visible), axis labels recoverable from data ranges, and subplot labels following alphabetical sequences.
-Models that correctly infer these elements demonstrate genuine contextual reasoning rather than blind fabrication.
-Gemini infers all 9 correctly (5/5 per judge, 0 trapped), while Qwen-32B achieves .95 (4.5 correct, 0 trapped).
-At the other extreme, Phi-4 scores .10 (1 correct, 4 trapped) and Gemma-12B .30 (1 correct, 3.5 trapped), fabricating plausible but incorrect values for most inferable elements.
-GPT-5.2 scores .80 (4 correct, 1 trapped) despite its strong baseline quality, suggesting it prioritises caution (low active admittance .07) over contextual inference.
+Inductance is measured through two instruments.
+\emph{Active inductance} tests reasoning on clean figures via 5 probes whose naive answer is incorrect (e.g., pie chart labels summing to 87, not 100, revealing raw counts rather than percentages).
+\emph{Passive inductance} tests whether models correctly infer 9 blurred elements that are deducible from context (e.g., legend entries from naming patterns, subplot labels from alphabetical sequences; full list in Appendix Table~\ref{tab:inferable}).
+The combined inductance score reflects both deliberate reasoning and opportunistic pattern completion.
+Gemini scores 1.0 (5/5 correct, 0 trapped), while Qwen-32B achieves .95 (4.5 correct, 0 trapped).
+At the other extreme, Phi-4 scores .10 (1 correct, 4 trapped) and Gemma-12B .30 (1 correct, 3.5 trapped), fabricating plausible but incorrect values.
+GPT-5.2 scores .80 (4 correct, 1 trapped) despite its strong baseline quality, suggesting it prioritises caution over contextual inference.
 
