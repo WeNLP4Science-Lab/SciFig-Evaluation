@@ -112,10 +112,13 @@ Caption bias provides a practical test of visual grounding: models with strong g
 The A-R-I framework exposes behavioural patterns invisible to standard accuracy metrics.
 
 \paragraph{The admittance--inductance tension.}
-A model that always admits uncertainty (high A) will never attempt contextual inference (low I); a model that aggressively infers (high I) risks fabrication when inference is unwarranted (low A).
-Gemini resolves this tension optimally: it admits when content is genuinely unrecoverable (.70) and correctly infers when context supports deduction (1.0).
-GPT-5.2 errs toward caution, with low active admittance (.07) and moderate inductance (.80).
-This may reflect RLHF training objectives that penalise explicit uncertainty statements more than quiet fabrication.
+The two axes reward complementary behaviours.
+A model that admits every blurred element without attempting inference scores high on Admittance but misses Inductance opportunities.
+A model that fabricates for every blurred element, whether inferable or not, may score on Inductance but at the cost of Admittance on non-inferable elements.
+The strongest models do both: admitting what is genuinely unrecoverable while inferring what context supports.
+Gemini exemplifies this on active inductance, scoring 1.0 on reasoning traps while maintaining .70 admittance.
+However, on passive inductance (inferable blur elements), Gemini scores only .33 because it admits rather than infers, while GPT-5.2 leads at .89 by attempting inference aggressively.
+GPT-5.2's strategy comes at a cost: it also correctly fabricates 9 of 35 non-inferable elements, raising the question of whether its inferences are genuine reasoning or parametric recall from training data.
 
 \paragraph{The silent fabricator problem.}
 The Gemma family and Phi-4 occupy the ``silent fabricator'' quadrant of Figure~\ref{fig:ari-scatter-disc}: near-zero admittance ($<$.04), low resistance ($<$.24), and low inductance ($<$.40).

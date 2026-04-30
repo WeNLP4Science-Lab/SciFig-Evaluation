@@ -6,109 +6,71 @@
 
 The findings of this thesis have direct consequences for several practitioner communities.
 
-\paragraph{Agent pipeline design.}
-In multi-agent systems and agentic workflows where one model's output feeds another's input, a confident but incorrect intermediate result can cascade into downstream failures.
-The Admittance axis provides a direct signal for this risk: models with low admittance will silently fabricate rather than flag uncertainty, making them unsuitable for pipeline stages where precision is critical.
-Engineers designing such systems should evaluate candidate models on admittance before deployment, selecting models that surface uncertainty rather than suppress it.
-
-\paragraph{Model selection and routing.}
-The A-R-I profiles demonstrate that models have distinct behavioural strengths.
-No model dominates all three axes equally, though some approach this ideal.
-For systems that route queries to different models based on task type, the behavioural profiles provide actionable selection criteria: admittance for uncertainty-critical tasks, resistance for adversarial-facing contexts, and inductance for reasoning-intensive queries.
-The rank flow analysis (Figure~\ref{fig:rank-flow}) further shows that a model's description quality ranking does not predict its comprehension or behavioural ranking, reinforcing that model selection must be task-aware.
+\paragraph{Model selection and deployment.}
+In multi-agent systems where one model's output feeds another's input, a confident but incorrect intermediate result cascades into downstream failures.
+The A-R-I profiles provide actionable selection criteria: admittance for uncertainty-critical pipeline stages, resistance for adversarial-facing contexts, and inductance for reasoning-intensive queries.
+The rank flow analysis (Figure~\ref{fig:rank-flow}) shows that a model's description quality ranking does not predict its comprehension or behavioural ranking, reinforcing that model selection must be task-aware.
 
 \paragraph{Accessibility tool development.}
-The numerical precision bottleneck (mean 2.7 incorrect values per figure) means that VLM-generated descriptions of scientific figures cannot yet be trusted without verification for tasks requiring exact values.
-Accessibility tools should present descriptions with appropriate confidence caveats, particularly for chart types that receive lower-quality output (e.g., pie charts).
-The cross-lingual performance gaps indicate that tools serving multilingual communities must account for substantial quality variation across languages, especially for smaller models.
+The numerical precision bottleneck (mean 2.7 incorrect values per figure) means VLM-generated descriptions cannot yet be trusted without verification for tasks requiring exact values.
+Accessibility tools should present descriptions with appropriate confidence caveats, particularly for pie charts and when serving multilingual communities where quality variation is substantial.
 
 \paragraph{Benchmark design.}
 Single-score benchmarks systematically miss behavioural dimensions.
-Our rank flow analysis demonstrates that model rankings shuffle across evaluation axes, meaning a leaderboard based on description quality alone misrepresents model suitability for deployment.
-Future benchmarks should incorporate behavioural probes alongside accuracy metrics, and cross-lingual claims require controlled parallel figure designs to avoid dataset composition confounds.
+Model rankings shuffle across evaluation axes, meaning a leaderboard based on description quality alone misrepresents deployment suitability.
+Future benchmarks should incorporate behavioural probes alongside accuracy metrics, and cross-lingual claims require controlled parallel figure designs.
 
 %% ===================================================================
 \section{Limitations}\label{sec:limitations}
 %% ===================================================================
 
-\paragraph{Human evaluation scope.}
-Our human evaluation covers four models on 30 English figures with three annotators (159 annotations, 39 double-annotated).
-While inter-annotator agreement is strong (ICC\,=\,.91), broader coverage across all 13 models and all four languages would strengthen the judge validation.
+\paragraph{Sample coverage.}
+Human evaluation covers four models on 30 English figures (159 annotations, 39 double-annotated, ICC\,=\,.91); broader coverage across all 13 models and four languages would strengthen judge validation.
+The controlled cross-lingual comparison uses only 13 parallel figures, and only 9 inferable elements exist for passive inductance, limiting the granularity of both analyses.
 
-\paragraph{Cross-lingual controlled sample.}
-The controlled cross-lingual comparison uses only 13 parallel figures.
-Although this is sufficient to demonstrate the dataset composition confound, a larger parallel set would increase statistical power and enable per-chart-type cross-lingual analysis.
+\paragraph{Scoring artefacts.}
+Three systematic artefacts affect scoring: colour synonym false positives (${\sim}5\%$ English penalty), dense atoms inflating pie chart penalties by ${\sim}11$ points, and a verbosity penalty that may disadvantage models producing the thorough descriptions accessibility users need.
+GPT-4o assigns 78\% Major severity vs Mistral's 47\% on identical errors; while rankings are robust ($\rho_{\text{sys}}\geq.95$), absolute scores depend on judge selection and per-figure scores carry substantial uncertainty ($\rho{\approx}0.6$).
 
-\paragraph{Inductance sample size.}
-Only 9 inferable elements exist across the 45-figure adversarial set.
-This limits the granularity of inductance analysis and prevents per-category breakdown of inference types.
-
-\paragraph{Evaluation framework artefacts.}
-Three systematic artefacts affect scoring.
-First, colour synonym false positives penalise semantically equivalent descriptions (${\sim}5\%$ on English), and multiple mitigation attempts (compound rules, few-shot examples, self-reflection) failed.
-Second, dense atoms inflate pie chart penalties by ${\sim}11$ points through error multiplication.
-Third, the verbosity penalty in MQM-based evaluation may disadvantage models that produce the thorough descriptions accessibility users need.
-
-\paragraph{Judge-dependent absolute scores.}
-GPT-4o assigns 78\% Major severity vs Mistral's 47\% on the same errors.
-While model rankings are robust ($\rho_{\text{sys}}\geq.95$), absolute scores depend heavily on judge selection.
-Per-figure scores correlate only moderately with humans ($\rho{\approx}0.6$), meaning individual figure assessments carry substantial uncertainty.
-
-\paragraph{Model coverage.}
-Claude Opus 4.6 and Phi-4 Multimodal were evaluated on fewer figures (100 and 45 respectively) than the other 11 models (120 each).
-All models were evaluated at a single temperature (0) and with a fixed prompt, limiting generalisability to other decoding configurations.
+\paragraph{Computational cost.}
+Initial experiments evaluated all 1\,005 figures across 13 models, producing ${\sim}$13\,000 base evaluations, but API costs escalated to approximately \$2\,500 for baselines alone before completing a single research question.
+Iterative methodology changes (prompt revisions, judge prompt updates, scoring formula adjustments) compounded costs further, as each change required partial re-evaluation.
+We therefore adopted a stratified sample (120 atom figures for RQ1, 45 adversarial figures for RQ2--4) with targeted ablations to maintain generalisability within a feasible budget.
 
 %% ===================================================================
 \section{Ethical Considerations}\label{sec:ethics}
 %% ===================================================================
 
-\paragraph{Data provenance.}
-All 1\,005 figures in the SciFig corpus are drawn from publicly available scientific papers on arXiv and open-access repositories.
-No personally identifiable information appears in the dataset.
-Ground-truth annotations were produced by trained annotators following documented guidelines, with informed consent for the annotation task.
-
-\paragraph{Model bias and accessibility.}
-Our findings reveal that VLM performance varies substantially across languages, with Bulgarian and Chinese figures receiving lower-quality descriptions than English and German.
-This disparity has direct implications for equitable access to scientific content: researchers working in under-resourced languages receive less reliable automated descriptions.
+\paragraph{Data and bias.}
+All 1\,005 figures are drawn from publicly available scientific papers on arXiv and open-access repositories; no personally identifiable information appears in the dataset.
+Ground-truth annotations were produced by trained annotators following documented guidelines with informed consent.
+VLM performance varies substantially across languages, with Bulgarian and Chinese figures receiving lower-quality descriptions, which has direct implications for equitable access to scientific content.
 We report these disparities transparently to inform deployment decisions.
 
-\paragraph{LLM judge bias.}
+\paragraph{Evaluation and deployment.}
 The dual-judge evaluation inherits biases from GPT-4o and Mistral Large 3, including the severity split documented in Chapter~\ref{ch:discussion}.
 We mitigate this through judge averaging and human validation, but acknowledge that the evaluation framework reflects the perspectives of two specific commercial models.
-
-\paragraph{Responsible deployment.}
-Our results demonstrate that even the best-performing model (GPT-5.2) produces ${\sim}2.7$ incorrect numerical values per figure.
-We caution against deploying VLM-generated descriptions as authoritative without human verification, particularly in contexts where numerical precision is critical (e.g., clinical or regulatory figures).
+Even the best-performing model produces ${\sim}2.7$ incorrect numerical values per figure; we caution against deploying VLM-generated descriptions as authoritative without human verification, particularly in contexts where numerical precision is critical.
 
 %% ===================================================================
 \section{Future Work}\label{sec:future-work}
 %% ===================================================================
 
-\paragraph{Finer-grained atom checklists.}
-Splitting dense atoms into single-fact units (one verifiable claim per atom) would eliminate the granularity artefact that inflates pie chart penalties.
-This requires substantial re-annotation effort but would produce a fairer scoring baseline.
-
-\paragraph{Broader human evaluation.}
-Extending human annotation to all 13 models across all four languages would enable per-language judge validation and reveal whether the judge harshness bias varies across scripts and languages.
-
-\paragraph{Larger parallel figure set.}
-Expanding the controlled cross-lingual set beyond 13 figures would enable statistically robust per-chart-type cross-lingual analysis and provide a stronger basis for isolating language effects from content effects.
+\paragraph{Dataset and evaluation extensions.}
+Splitting dense atoms into single-fact units would eliminate the pie chart granularity artefact.
+Extending human annotation to all 13 models across four languages would enable per-language judge validation.
+Expanding the controlled cross-lingual set beyond 13 figures would enable per-chart-type cross-lingual analysis.
 
 \paragraph{Dynamic evaluation with retrieval.}
-The current evaluation is static: models receive a figure and prompt.
 Future work could evaluate retrieval-augmented generation, where models access the source paper alongside the figure, testing whether additional context improves accuracy or introduces further bias.
 
-\paragraph{Temporal model tracking.}
-As VLMs are updated frequently, longitudinal evaluation of the same figures across model versions would reveal whether numerical precision and behavioural reliability improve with successive releases.
-
 \paragraph{Reasoning vs parametric recall.}
-Our passive inductance results show that GPT-5.2 correctly fabricates 9 of 35 non-inferable blurred elements, elements whose values should not be deducible from visual context alone.
-This raises the question of whether models are genuinely reasoning from context or recalling figure content from training data.
-Controlled experiments with synthetic figures absent from training corpora would disentangle these two mechanisms.
+GPT-5.2 correctly fabricates 9 of 35 non-inferable blurred elements whose values should not be deducible from context alone.
+Controlled experiments with synthetic figures absent from training corpora would disentangle genuine contextual reasoning from parametric recall.
 
-\paragraph{User studies.}
-Our evaluation measures description quality from a technical perspective.
-Complementary user studies with visually impaired researchers would reveal whether MQM-optimised descriptions actually serve accessibility needs, or whether the verbosity penalty disadvantages the models users prefer.
+\paragraph{Temporal tracking and user studies.}
+Longitudinal evaluation across model versions would reveal whether precision and behavioural reliability improve with successive releases.
+Complementary user studies with visually impaired researchers would reveal whether MQM-optimised descriptions actually serve accessibility needs.
 
 %% ===================================================================
 \section{Summary of Contributions}\label{sec:contributions}
@@ -118,33 +80,27 @@ This thesis makes five contributions to the evaluation of vision-language models
 
 \begin{enumerate}
 \item \textbf{The SciFig benchmark.}
-  A multilingual evaluation corpus of 1\,005 scientific figures across four typologically diverse languages (English, Bulgarian, Chinese, German), with 2\,252 atomic fact checklists and 630 capability questions spanning five reasoning categories.
+  A multilingual evaluation corpus of 1\,005 scientific figures across four typologically diverse languages (English, Bulgarian, Chinese, German), drawn from native-language venues, with 2\,252 atomic fact checklists, 630 capability questions, and a 45-figure adversarial subset with nine visual transforms.
 
 \item \textbf{Atomic MQM.}
-  A normalised scoring framework that adapts Multidimensional Quality Metrics to figure description, with atom-level accuracy and completeness tracking, severity-capped error weighting, and dual-judge evaluation.
-  Human validation confirms strong agreement (ICC\,=\,.91, system-level $\rho\geq.95$).
+  A normalised scoring framework adapting MQM to figure description, with atom-level tracking, severity-capped weighting, and dual-judge evaluation validated against human annotators (ICC\,=\,.91, $\rho_{\text{sys}}\geq.95$).
 
 \item \textbf{The A-R-I behavioural framework.}
-  A three-axis model for characterising VLM behaviour under stress: Admittance (epistemic honesty), Resistance (adversarial robustness), and Inductance (contextual reasoning).
-  The framework distinguishes faithful readers from silent fabricators and reveals behavioural profiles invisible to standard accuracy metrics.
+  A three-axis model (Admittance, Resistance, Inductance) that distinguishes faithful readers from silent fabricators and reveals profiles invisible to accuracy metrics.
 
 \item \textbf{A 13-model empirical evaluation.}
-  The largest comparative evaluation of VLMs on scientific figure understanding to date, spanning proprietary and open-source models from 4B to 235B+ parameters, with 26\,364 errors analysed across 2\,966 evaluations.
+  The largest comparative evaluation of VLMs on scientific figure understanding to date, spanning 4B to 235B+ parameters with 26\,364 errors across 2\,966 evaluations.
 
 \item \textbf{Cross-cutting findings.}
-  Numerical precision is the dominant bottleneck (30.6\% of errors).
-  Description quality, comprehension, and behavioural reliability are partially dissociated capabilities.
-  Robustness to image degradation is independent of clean-condition accuracy.
-  Per-language comparisons require controlled parallel designs.
-  Gemini 3.1 Pro is the only model that maintains top-tier performance across all four evaluation dimensions.
+  Numerical precision is the dominant bottleneck (30.6\% of errors). Description, comprehension, and behaviour are partially dissociated capabilities. Robustness is independent of clean-condition accuracy. Per-language comparisons require controlled parallel designs.
 \end{enumerate}
 
 \bigskip
 \noindent
 Returning to the four research questions posed in Chapter~\ref{chap:introduction}:
-\textbf{RQ1} finds that GPT-5.2 leads description quality (75.5 MQM) but the top four models cluster within 5 points; German's apparent advantage is a dataset artefact.
-\textbf{RQ2} shows that rotation and low contrast cause the largest degradation, and robustness is a distinct capability from baseline accuracy.
-\textbf{RQ3} reveals that comprehension and description engage different model capacities, with Gemini overtaking GPT-5.2 on question answering.
-\textbf{RQ4} demonstrates that the A-R-I framework exposes behavioural patterns invisible to accuracy metrics: GPT-5.2's resistance gap, the Gemma family's silent fabrication, and Gemini's balanced reliability across all axes.
+\textbf{RQ1} finds that GPT-5.2 leads (75.5 MQM) but the top four models cluster within 5 points; German's advantage is a dataset artefact.
+\textbf{RQ2} shows rotation and low contrast cause the largest degradation; robustness is distinct from baseline accuracy.
+\textbf{RQ3} reveals comprehension and description engage different capacities, with Gemini overtaking GPT-5.2 on question answering.
+\textbf{RQ4} demonstrates that A-R-I exposes behavioural patterns invisible to accuracy metrics: GPT-5.2's resistance gap, Gemma's silent fabrication, and the active-vs-passive inductance inversion.
 
 Together, these findings argue that evaluating VLMs on scientific figures requires moving beyond single-score benchmarks toward multi-dimensional assessment of accuracy, robustness, comprehension, and behavioural trustworthiness.
