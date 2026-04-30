@@ -14,17 +14,17 @@ import numpy as np
 PDF_OUT = "thesis/main/figures/corpus_composition_v2.pdf"
 PNG_OUT = "output/evaluation-results/rq1/plots/corpus_composition_v2.png"
 
-LANGUAGES = ["English", "German", "Chinese", "Bulgarian"]
-LANG_COLORS_BG = ["#4477AA", "#228833", "#EE6677", "#AA3377"]
+LANGUAGES = ["English", "German", "Chinese", "Bulgarian", "Multi-language"]
+LANG_COLORS_BG = ["#4477AA", "#228833", "#EE6677", "#AA3377", "#666666"]
 
 # Figure type counts per language
 DATA = {
-    "Line plot": [145, 44, 61, 104],
-    "Bar chart": [85, 41, 76, 140],
-    "Pie chart": [47, 0, 0, 56],
-    "Other":     [2, 1, 22, 4],
+    "Line plot": [145, 44, 61, 104, 117],
+    "Bar chart": [85, 41, 76, 140, 55],
+    "Pie chart": [47, 1, 15, 56, 5],
+    "Other":     [2, 0, 7, 4, 0],
 }
-TOTALS = [279, 86, 159, 304]
+TOTALS = [279, 86, 159, 304, 177]
 
 TYPE_COLORS = ["#4477AA", "#EE6677", "#228833", "#CCBB44"]
 TYPE_LABELS = list(DATA.keys())
@@ -37,7 +37,7 @@ def main():
         "axes.linewidth": 0.4,
     })
 
-    fig, ax = plt.subplots(figsize=(3.2, 3.2))
+    fig, ax = plt.subplots(figsize=(3.2, 3.6))
 
     y = np.arange(len(LANGUAGES))
     left = np.zeros(len(LANGUAGES))
@@ -75,7 +75,7 @@ def main():
               columnspacing=0.6, handlelength=1.0)
 
     # Summary line below
-    ax.text(0.5, -0.22, "1,005 figures  ·  1,411 annotations  ·  8 annotators  ·  4 languages",
+    ax.text(0.5, -0.22, "1,005 figures  ·  1,411 annotations  ·  8 annotators  ·  5 subsets  ·  4 languages",
             transform=ax.transAxes, ha="center", fontsize=5.5, color="#777777")
 
     plt.tight_layout(rect=[0, 0.05, 1, 1])

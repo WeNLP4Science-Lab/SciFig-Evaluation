@@ -177,6 +177,168 @@ Poor Sentence Structure & Grammar/phrasing errors \\
 
 
 %% ===================================================================
+%% EVALUATION METRIC DEFINITIONS
+%% ===================================================================
+\newpage
+\section{Evaluation Metric Definitions}
+\label{app:metric-defs}
+
+Table~\ref{tab:capability-cats} defines the five capability question categories used in RQ3 (Table~\ref{tab:capability}).
+Table~\ref{tab:ari-defs} defines the A-R-I sub-component abbreviations used in RQ4 (Table~\ref{tab:ari}).
+Table~\ref{tab:error-examples} illustrates each MQM error sub-type with a concrete example from the evaluation outputs.
+
+\begin{sidewaystable}
+\centering
+\scriptsize
+\caption{Capability question categories (RQ3). Each of the 45 adversarial figures receives one question per category in its native language. Example questions shown in all four languages with the English source figure.}\label{tab:capability-cats}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|l|l|p{4.5cm}|c|p{9.5cm}|}
+\hline
+\textbf{Abbr.} & \textbf{Category} & \textbf{Definition} & \textbf{Figure} & \textbf{Example questions} \\
+\hline
+Comp & Computation & Requires arithmetic on values read from the figure (differences, ratios, sums). &
+  \raisebox{-0.5\height}{\includegraphics[width=3.0cm]{figures/ex_comp.png}} &
+  \textbf{EN:} ``What is the ratio of the largest slice to the smallest slice?'' \newline
+  \textbf{DE:} \textit{``Um welchen Faktor ist der Handelspolitik-Index h\"oher als der Wirtschaftspolitik-Index?''} \newline
+  {\tiny(By what factor is the trade policy index higher than the economic policy index?)} \newline
+  \textbf{BG:} \textit{``Колко е процентното увеличение на Жилищни от 2019 до 2021?''} \newline
+  {\tiny(What is the percentage increase in Residential from 2019 to 2021?)} \newline
+  \textbf{CN:} \textit{``每日新增确诊病例的最大值与最小值之间的差距大约是多少？''} \newline
+  {\tiny(What is the approximate gap between max and min daily new cases?)} \\
+\hline
+Val & Value reading & Requires extracting a specific numerical value or label directly from the figure. &
+  \raisebox{-0.5\height}{\includegraphics[width=3.0cm]{figures/ex_val.png}} &
+  \textbf{EN:} ``At what value of $k$ does Llama-1B first reach a coverage of 0.6?'' \newline
+  \textbf{DE:} \textit{``In welchem Jahr erreicht der Index f\"ur Wirtschaftspolitik seinen h\"ochsten Wert?''} \newline
+  {\tiny(In which year does the economic policy index reach its highest value?)} \newline
+  \textbf{BG:} \textit{``Каква е стойността на Административни през 2016 г.?''} \newline
+  {\tiny(What is the value of Administrative in 2016?)} \newline
+  \textbf{CN:} \textit{``新闻报道数量的峰值出现在哪个大致日期，且该峰值约为多少？''} \newline
+  {\tiny(On what date does the news volume peak, and what is the peak value?)} \\
+\hline
+Cmpr & Comparison & Requires comparing two or more elements within or across sub-figures. &
+  \raisebox{-0.5\height}{\includegraphics[width=3.0cm]{figures/ex_cmpr.png}} &
+  \textbf{EN:} ``Which two categories across all three pie charts share the same percentage?'' \newline
+  \textbf{DE:} \textit{``In welchem Jahr ist der st\"arkste R\"uckgang der Importe sichtbar?''} \newline
+  {\tiny(In which year is the sharpest decline in imports visible?)} \newline
+  \textbf{BG:} \textit{``Каква е разликата между Други и Жилищни през 2015 г.?''} \newline
+  {\tiny(What is the difference between Other and Residential in 2015?)} \newline
+  \textbf{CN:} \textit{``确诊病例数最高那天，对应新闻报道数量大约是多少？''} \newline
+  {\tiny(On the day with the most cases, how many news reports were there?)} \\
+\hline
+Trnd & Trend analysis & Requires identifying the direction or shape of a data series over time or another axis. &
+  \raisebox{-0.5\height}{\includegraphics[width=3.0cm]{figures/ex_trnd.png}} &
+  \textbf{EN:} ``At which value of $k$ do Llama-3B and Llama-1B converge most closely?'' \newline
+  \textbf{DE:} \textit{``In welchen Jahren verlaufen Wirtschaftspolitik und Finanzpolitik nahezu identisch?''} \newline
+  {\tiny(In which years do economic and fiscal policy lines run nearly identically?)} \newline
+  \textbf{BG:} \textit{``В кои години стойността на Други е по-ниска от предходната година?''} \newline
+  {\tiny(In which years is the value of Other lower than the previous year?)} \newline
+  \textbf{CN:} \textit{``在8月份，每日新增确诊人数呈现怎样的整体趋势？''} \newline
+  {\tiny(In August, what is the overall trend of daily new confirmed cases?)} \\
+\hline
+Cnt & Counting & Requires counting discrete visual elements (bars, slices, data points, intersections). &
+  \raisebox{-0.5\height}{\includegraphics[width=3.0cm]{figures/ex_cnt.png}} &
+  \textbf{EN:} ``How many of the six models achieve a final loss below 2.55?'' \newline
+  \textbf{DE:} \textit{``Wie viele L\"ander liegen mit ihren Ausgaben 2024 \"uber der Referenzlinie?''} \newline
+  {\tiny(How many countries have 2024 spending above the reference line?)} \newline
+  \textbf{BG:} \textit{``В колко месеца стойността за 2022 г. пада под 90\,000?''} \newline
+  {\tiny(In how many months does the 2022 value fall below 90,000?)} \newline
+  \textbf{CN:} \textit{``新闻报道数量低于2000的天数有多少天？''} \newline
+  {\tiny(How many days had fewer than 2,000 news reports?)} \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{sidewaystable}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{A-R-I sub-component definitions (RQ4). All scores in $[0,1]\!\uparrow$.}\label{tab:ari-defs}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}l l l p{7.5cm}@{}}
+\toprule
+\textbf{Axis} & \textbf{Abbr.} & \textbf{Sub-component} & \textbf{Definition} \\
+\midrule
+\multirow{3}{*}{Admittance}
+  & Pa & Passive axis-blur & Rate at which the model acknowledges unreadable content when axis labels are blurred, without being asked. \\
+  & Ps & Passive selective-blur & Rate at which the model acknowledges unreadable content when in-chart elements are selectively blurred, without being asked. \\
+  & Ac & Active admittance & Rate at which the model \emph{explicitly} states uncertainty (e.g., ``I cannot read\ldots'') when directly asked about a blurred element. \\
+\midrule
+\multirow{3}{*}{Resistance}
+  & Ct & Contra-factual & Rate of rejecting questions that assert false values (e.g., ``Given that X is 80\%\ldots'' when X is 42\%). \\
+  & In & Non-existent & Rate of rejecting questions about elements that do not appear in the figure. \\
+  & Un & Unanswerable & Rate of declining questions the figure cannot answer (e.g., asking about data outside the plotted range). \\
+\midrule
+\multirow{2}{*}{Inductance}
+  & I$_a$ & Active (reasoning traps) & Score on 5 reasoning-trap questions on clean figures. 3-point rubric: 1.0 correct reasoning, 0.5 partial, 0.0 falls for trap. \\
+  & I$_p$ & Passive (inferable blur) & Proportion of 9 inferable blurred elements the model correctly recovers through contextual reasoning. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{sidewaystable}
+\centering
+\scriptsize
+\caption{MQM error sub-type examples from evaluation outputs. The first three rows show how the same figure (\texttt{english\_fig\_001}, a nested pie chart) defeats all three top models in different ways. Remaining rows illustrate other error types. All errors flagged by GPT-4o judge.}\label{tab:error-examples}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|c|p{5.8cm}|p{5.8cm}|l|}
+\hline
+\textbf{Error sub-type} & \textbf{Model} & \textbf{Figure} & \textbf{Model output} & \textbf{Ground truth} & \textbf{Sev.} \\
+\hline
+\multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Same figure, three top models, three different failure modes}} \\
+\hline
+Incorrect Numerical Value (counting) &
+  Gemini 3.1 Pro &
+  \raisebox{-0.4\height}{\includegraphics[width=2.8cm]{figures/ex_piefail.png}} &
+  ``\textit{The left chart contains 22 total slices (6 inner and 16 outer).}'' &
+  The left chart has 6 inner and \textbf{15} outer slices = 21 total. Miscounts by one. &
+  Major \\
+\hline
+Incorrect Colour Mapping &
+  Claude 4.6 &
+  \raisebox{-0.4\height}{\includegraphics[width=2.8cm]{figures/ex_piefail.png}} &
+  ``\textit{History \& Society (23, shown in blue)}'' \newline
+  ``\textit{Historical review (12, blue)}'' &
+  These slices are \textbf{orange}, not blue. Three orange slices consistently misidentified as blue. &
+  Major \\
+\hline
+Omission (structure) &
+  GPT-5.2 &
+  \raisebox{-0.4\height}{\includegraphics[width=2.8cm]{figures/ex_piefail.png}} &
+  \textit{[describes pie charts but never mentions inner/outer ring structure or slice counts]} &
+  Each chart has a nested structure: 6 inner category slices and 15 outer sub-category slices. Entirely omitted. &
+  Major \\
+\hline
+\multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Additional error types from other figures and models}} \\
+\hline
+Fabrication / Hallucination &
+  Gemma-3 12B &
+  \raisebox{-0.4\height}{\includegraphics[width=2.8cm]{figures/ex_fab.png}} &
+  ``\textit{visual emphasis is applied to certain bars denoted by a small icon, such as a circle, triangle, or square}'' &
+  No such icons exist in the figure. Entirely fabricated visual elements. &
+  Major \\
+\hline
+Incorrect Trend &
+  Gemma-3 12B &
+  \raisebox{-0.4\height}{\includegraphics[width=2.8cm]{figures/ex_trend.png}} &
+  ``\textit{begins at ${\approx}-$1\%, decreases to ${\approx}-$15\% at Layer29-32}'' &
+  Line drops to $-$15\% at Layer13-20 then \emph{recovers} to $-$2\% at Layer29-32. Monotonic decrease described; actual trend is non-monotonic. &
+  Major \\
+\hline
+Clarity / Fluency &
+  Qwen3-VL 30B &
+  \raisebox{-0.4\height}{\includegraphics[width=2.8cm]{figures/ex_clarity.png}} &
+  ``\textit{dark light blue for Max:1, medium light blue for Max:2, and very light blue for Max:3}'' &
+  Ambiguous colour descriptors (``dark light blue'') would confuse readers. &
+  Minor \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{sidewaystable}
+
+%% ===================================================================
 %% PAGE 3: ATOM CHECKLIST + DATASET COMPOSITION
 %% ===================================================================
 \newpage

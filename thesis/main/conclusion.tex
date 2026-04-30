@@ -29,7 +29,7 @@ Human evaluation covers four models on 30 English figures (159 annotations, 39 d
 The controlled cross-lingual comparison uses only 13 parallel figures, and only 9 inferable elements exist for passive inductance, limiting the granularity of both analyses.
 
 \paragraph{Scoring artefacts.}
-Three systematic artefacts affect scoring: colour synonym false positives (${\sim}5\%$ English penalty), dense atoms inflating pie chart penalties by ${\sim}11$ points, and a verbosity penalty that may disadvantage models producing the thorough descriptions accessibility users need.
+Three systematic artefacts affect scoring: colour synonym false positives (${\sim}5\%$ English penalty), dense atoms inflating pie chart penalties by ${\sim}11$ points, and a length--error trade-off where longer descriptions increase the error surface, creating tension between detail and score.
 GPT-4o assigns 78\% Major severity vs Mistral's 47\% on identical errors; while rankings are robust ($\rho_{\text{sys}}\geq.95$), absolute scores depend on judge selection and per-figure scores carry substantial uncertainty ($\rho{\approx}0.6$).
 
 \paragraph{Computational cost.}
@@ -57,20 +57,17 @@ Even the best-performing model produces ${\sim}2.7$ incorrect numerical values p
 %% ===================================================================
 
 \paragraph{Dataset and evaluation extensions.}
-Splitting dense atoms into single-fact units would eliminate the pie chart granularity artefact.
-Extending human annotation to all 13 models across four languages would enable per-language judge validation.
-Expanding the controlled cross-lingual set beyond 13 figures would enable per-chart-type cross-lingual analysis.
-
-\paragraph{Dynamic evaluation with retrieval.}
-Future work could evaluate retrieval-augmented generation, where models access the source paper alongside the figure, testing whether additional context improves accuracy or introduces further bias.
+Splitting dense atoms into single-fact units would eliminate the pie chart granularity artefact; extending human annotation to all 13 models across four languages would enable per-language judge validation; and expanding the controlled cross-lingual set beyond 13 figures would enable per-chart-type analysis.
+Retrieval-augmented generation, where models access the source paper alongside the figure, could test whether additional context improves accuracy or introduces further bias.
 
 \paragraph{Reasoning vs parametric recall.}
 GPT-5.2 correctly fabricates 9 of 35 non-inferable blurred elements whose values should not be deducible from context alone.
 Controlled experiments with synthetic figures absent from training corpora would disentangle genuine contextual reasoning from parametric recall.
 
-\paragraph{Temporal tracking and user studies.}
-Longitudinal evaluation across model versions would reveal whether precision and behavioural reliability improve with successive releases.
-Complementary user studies with visually impaired researchers would reveal whether MQM-optimised descriptions actually serve accessibility needs.
+\paragraph{Mechanistic interpretability, temporal tracking, and user studies.}
+Our evaluation reveals \emph{what} models get wrong but not \emph{why}.
+Attention visualisation and saliency mapping on failure cases (e.g., colour misidentification, counting errors on pie charts) could reveal whether errors stem from the visual encoder, the language decoder, or their interaction.
+Longitudinal evaluation across model versions would track whether precision and behavioural reliability improve with successive releases, while complementary user studies with visually impaired researchers would reveal whether MQM-optimised descriptions actually serve accessibility needs.
 
 %% ===================================================================
 \section{Summary of Contributions}\label{sec:contributions}

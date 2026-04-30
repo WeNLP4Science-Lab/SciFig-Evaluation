@@ -63,7 +63,7 @@ conducted with it in this thesis.
 \section{The A-R-I Behavioural Framework}
 \label{sec:design-ari}
 
-\textsc{SciFig-Eval} scores a model's figure reading along three near-orthogonal behavioural axes: \emph{Admittance}~(A), \emph{Resistance}~(R) and \emph{Inductance}~(I), each in $[0,1]$.
+\textsc{SciFig-Eval} scores a model's figure reading along three conceptually distinct behavioural axes: \emph{Admittance}~(A), \emph{Resistance}~(R) and \emph{Inductance}~(I), each in $[0,1]$.
 The behavioural profile is reported as a three-tuple (Figure~\ref{fig:ari-space}) rather than a single scalar, because the failure modes the axes index are structurally distinct (Figure~\ref{fig:ari-probes}).
 The following subsections define each axis.
 
@@ -222,13 +222,13 @@ scores that behaviour in full, Admittance does not reach it.
 Each response is scored on a three-point rubric: $1.0$ when the model arrives at the correct answer and shows the reasoning steps that led to it, $0.5$ when the model demonstrates partial reasoning but reaches an incomplete or incorrect conclusion, and $0.0$ when the model falls for the trap and accepts the naive answer without questioning it.
 The intermediate point distinguishes Inductance from binary accuracy by crediting the reasoning attempt even when the final answer is wrong.
 
-\subsection{Orthogonality}
+\subsection{Axis Distinctness}
 \label{sec:design-ari-orthogonality}
 
-The three axes are designed to be near-orthogonal.
+The three axes are designed to capture distinct failure modes.
 A model can admit uncertainty freely yet follow misleading captions (high~A, low~R), or hold its visual reading yet never flag limits (high~R, low~A), or infer confidently from partial evidence without signalling the inferential step (high~I, low~A).
 Each combination constitutes a distinct failure mode with a distinct practitioner remedy.
-The three-tuple behavioural profile that \textsc{SciFig-Eval} produces makes these patterns separable, and the empirical orthogonality of the axes is the claim that the experimental chapters substantiate.
+The three-tuple behavioural profile that \textsc{SciFig-Eval} produces makes these patterns separable; the experimental chapters show that model rankings shift across axes, confirming that the three dimensions are not redundant.
 
 
 \section{Multilingual Dataset Construction}
@@ -292,10 +292,10 @@ workflow end-to-end.
   \caption[Probe design workflow.]{%
     Probe design workflow. The full figure corpus is passed to a
     language-model seeder that proposes candidate probes. A
-    three-reviewer panel (researcher, consultant, PhD student)
+    three-reviewer panel (researcher, consultant, ML student)
     accepts, revises or rejects each candidate against the
     ground-truth annotation. Accepted probes are organised into
-    five probe families, A1 through A5, that feed the
+    four probe families, A1 through A4, that feed the
     behavioural axes.}
   \label{fig:probe-pipeline}
 \end{figure}

@@ -37,7 +37,7 @@ This indicates that scientific figure understanding saturates earlier in archite
 
 Incorrect Numerical Value accounts for 30.6\% of all errors, making it the dominant failure mode across all 13 models.
 This is not simply an OCR problem.
-Models frequently recognise that a value exists but report it imprecisely (e.g., ``approximately 45\%'' when the figure shows 42.3\%), and our tolerance already accepts $\pm$3 percentage points.
+Models frequently recognise that a value exists but report it imprecisely (e.g., ``approximately 45\%'' when the figure shows 42.3\%), and our MQM judge instructions already accept $\pm$3 percentage points as correct.
 The mean of 2.7 incorrect numerical values per figure has direct implications for accessibility: a blind researcher relying on VLM descriptions would encounter nearly three wrong numbers per figure.
 
 This finding aligns with ChartQA~\citep{masry2022chartqa} and CharXiv~\citep{wang2024charxiv}, where value extraction remains the hardest subtask.
@@ -53,8 +53,8 @@ The additional words create more verifiable claims, each of which can generate e
 Claude's atom accuracy (.75) trails GPT-5.2 and Gemini (.80), and it receives the highest Incorrect Numerical Value rate from Mistral (3.3/fig vs 2.5--2.7 for peers).
 Yet Claude ranks 3rd on comprehension (RQ3, .66) and 2nd on behavioural dynamics (RQ4), with the second-highest active admittance (.27) and lowest hallucination rate from GPT-4o (.09/fig).
 
-This pattern reveals a limitation of MQM-based evaluation: the scoring framework penalises thoroughness because longer descriptions expose more surface area for error, even when the additional detail serves downstream tasks.
-A model optimised for MQM would produce terse, conservative descriptions, potentially sacrificing the completeness that accessibility users need.
+Longer descriptions contain more verifiable claims, each of which can generate errors under Atomic MQM.
+This creates a practical trade-off: the additional detail that accessibility users need also increases the error surface, meaning that a model optimised for MQM would produce conservative, terse descriptions.
 
 %% ===================================================================
 \section{The Language Paradox and Cross-Lingual Confounds}\label{sec:disc-language}
@@ -149,5 +149,9 @@ Under degraded conditions typical of scanned PDFs, performance drops further, wi
 Gemini emerges as the safest all-round choice: it leads or co-leads across all four RQs, achieves near-highest robustness, and occupies the ``faithful reader'' region of the A-R-I space.
 However, even Gemini's scores indicate room for improvement before VLM-generated descriptions can be considered reliable without human verification.
 
+Some MQM errors may share a root cause with comprehension failures.
+For instance, Claude consistently misidentifies orange slices as blue in its description of \texttt{english\_fig\_001} (Table~\ref{tab:error-examples}); the same colour perception weakness would likely cause it to answer a comprehension question about slice colours incorrectly.
+Where description and comprehension failures share an underlying perceptual bottleneck, MQM error profiles could predict comprehension weaknesses, but establishing this correlation formally requires per-figure paired analysis that we leave to future work.
+
 The framework limitations we identify (colour tolerance, atom granularity artefact, judge severity disagreement, dataset composition confounds) should inform future benchmark design.
-In particular, the verbosity penalty in MQM-based evaluation may systematically disadvantage models that produce the detailed, thorough descriptions that accessibility users actually need.
+In particular, longer descriptions increase the number of verifiable claims and thus the error surface, creating a practical tension between the detail accessibility users need and the score models receive.
