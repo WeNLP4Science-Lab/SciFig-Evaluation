@@ -1,10 +1,7 @@
-import { Routes, Route } from 'react-router-dom'
-import Landing from './pages/Landing'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import TabLayout from './components/TabLayout'
 import JudgeReview from './pages/JudgeReview'
 import DatasetBrowser from './pages/DatasetBrowser'
-import DatasetSelector from './pages/DatasetSelector'
-import SectionSelector from './pages/SectionSelector'
-import EvaluationSelector from './pages/EvaluationSelector'
 import Analytics from './pages/Analytics'
 import AdversarialSampleBrowser from './pages/AdversarialSampleBrowser'
 import AdversarialEvaluation from './pages/AdversarialEvaluation'
@@ -16,40 +13,33 @@ import FinalResults from './pages/FinalResults'
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
+      {/* Redirect root and legacy routes */}
+      <Route path="/" element={<Navigate to="/dataset/full" replace />} />
+      <Route path="/analytics" element={<Navigate to="/results/analytics" replace />} />
+      <Route path="/analytics/*" element={<Navigate to="/results/analytics" replace />} />
 
-      {/* Dataset */}
-      <Route path="/dataset" element={<DatasetSelector />} />
-      <Route path="/dataset/full" element={<DatasetBrowser />} />
-      <Route path="/dataset/sample-120" element={<AdversarialSampleBrowser manifestFile="adversarial_120.json" title="120 Sample" />} />
-      <Route path="/dataset/adversarial-subset" element={<AdversarialSampleBrowser manifestFile="adversarial_experiments.json" title="Adversarial Subset (45)" />} />
-      <Route path="/dataset/inferable-blurs" element={<InferableBlurs />} />
+      {/* All tabbed routes share the TabLayout shell */}
+      <Route element={<TabLayout />}>
+        {/* ── Dataset ── */}
+        <Route path="/dataset/full" element={<DatasetBrowser />} />
+        <Route path="/dataset/sample-120" element={<AdversarialSampleBrowser manifestFile="adversarial_120.json" title="120 Sample" />} />
+        <Route path="/dataset/adversarial-subset" element={<AdversarialSampleBrowser manifestFile="adversarial_experiments.json" title="Adversarial Subset (45)" />} />
+        <Route path="/dataset/inferable-blurs" element={<InferableBlurs />} />
+        <Route path="/dataset" element={<Navigate to="/dataset/full" replace />} />
 
-      {/* Evaluation */}
-      <Route path="/evaluation" element={<EvaluationSelector />} />
-      <Route path="/evaluation/full" element={<JudgeReview manifestFile="manifest_full.json" title="Full Evaluation" />} />
-      <Route path="/evaluation/sample" element={<JudgeReview manifestFile="manifest_sample.json" title="Sample Evaluation" />} />
-      <Route path="/evaluation/adversarial" element={<AdversarialEvaluation />} />
-      <Route path="/evaluation/adversarial-results" element={<AdversarialResults />} />
-      <Route path="/evaluation/transform-mqm" element={<TransformEvaluation />} />
-      <Route path="/evaluation/final-results" element={<FinalResults />} />
+        {/* ── Evaluation ── */}
+        <Route path="/evaluation/full" element={<JudgeReview manifestFile="manifest_full.json" title="Full Evaluation" />} />
+        <Route path="/evaluation/sample" element={<JudgeReview manifestFile="manifest_sample.json" title="Sample Evaluation" />} />
+        <Route path="/evaluation/transform-mqm" element={<TransformEvaluation />} />
+        <Route path="/evaluation/adversarial" element={<AdversarialEvaluation />} />
+        <Route path="/evaluation" element={<Navigate to="/evaluation/full" replace />} />
 
-      {/* Analytics */}
-      <Route
-        path="/analytics"
-        element={
-          <SectionSelector
-            title="Analytics"
-            subtitle="Cross-model and cross-judge comparison charts, error analysis, and language breakdown"
-            fullPath="/analytics/full"
-            samplePath="/analytics/sample"
-            fullDesc="Aggregate analytics across the complete evaluation dataset"
-            sampleDesc="Analytics for the curated 120-figure sample"
-          />
-        }
-      />
-      <Route path="/analytics/full" element={<Analytics manifestFile="manifest_full.json" title="Full Analytics" />} />
-      <Route path="/analytics/sample" element={<Analytics manifestFile="manifest_sample.json" title="Sample Analytics" />} />
+        {/* ── Results ── */}
+        <Route path="/results/overview" element={<FinalResults />} />
+        <Route path="/results/adversarial" element={<AdversarialResults />} />
+        <Route path="/results/analytics" element={<Analytics manifestFile="manifest_sample.json" title="Analytics" />} />
+        <Route path="/results" element={<Navigate to="/results/overview" replace />} />
+      </Route>
     </Routes>
   )
 }
