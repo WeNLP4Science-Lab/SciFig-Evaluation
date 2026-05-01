@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
 import type { DataManifest } from '../types'
+import { DATA_BASE_URL } from '../config'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, ScatterChart, Scatter, Cell,
@@ -77,9 +78,7 @@ export default function Analytics({ manifestFile = 'manifest.json', title = 'Ana
   const { isDark } = useTheme()
 
   useEffect(() => {
-    const url = import.meta.env.PROD && (manifestFile === 'manifest_full.json' || manifestFile === 'manifest_sample.json')
-      ? `https://scifigfigures.blob.core.windows.net/data/${manifestFile}`
-      : `${import.meta.env.BASE_URL}data/${manifestFile}`
+    const url = `${DATA_BASE_URL}/${manifestFile}`
     fetch(url)
       .then(r => r.json())
       .then((data: DataManifest) => {

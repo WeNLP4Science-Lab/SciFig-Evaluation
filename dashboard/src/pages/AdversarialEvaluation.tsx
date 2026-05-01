@@ -2,7 +2,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
-import { FIGURES_BASE_URL, ALL_BENCHMARKS_BLOB_URL, EXPERIMENT_RESULTS_BLOB_URL } from '../config'
+import { FIGURES_BASE_URL, ALL_BENCHMARKS_BLOB_URL, EXPERIMENT_RESULTS_BLOB_URL, DATA_BASE_URL } from '../config'
+
 import FigureSidebar from '../components/FigureSidebar'
 
 /* ---------- types ---------- */
@@ -285,16 +286,16 @@ export default function AdversarialEvaluation() {
     setLoading(true)
     const loadBenchmarks = () =>
       fetch(`${ALL_BENCHMARKS_BLOB_URL}?t=${Date.now()}`).then(r => r.ok ? r.json() : Promise.reject())
-        .catch(() => fetch(`${import.meta.env.BASE_URL}data/all_benchmarks.json`).then(r => r.json()))
+        .catch(() => fetch(`${DATA_BASE_URL}/all_benchmarks.json`).then(r => r.json()))
         .catch(() => null)
 
     const loadExperiments = () =>
       fetch(`${EXPERIMENT_RESULTS_BLOB_URL}?t=${Date.now()}`).then(r => r.ok ? r.json() : Promise.reject())
-        .catch(() => fetch(`${import.meta.env.BASE_URL}data/experiment_results.json`).then(r => r.json()))
+        .catch(() => fetch(`${DATA_BASE_URL}/experiment_results.json`).then(r => r.json()))
         .catch(() => null)
 
     Promise.all([
-      fetch(`${import.meta.env.BASE_URL}data/adversarial_experiments.json`).then(r => r.json()),
+      fetch(`${DATA_BASE_URL}/adversarial_experiments.json`).then(r => r.json()),
       loadBenchmarks(),
       loadExperiments(),
     ])

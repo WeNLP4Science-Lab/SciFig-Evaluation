@@ -2,7 +2,8 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
-import { FIGURES_BASE_URL, ALL_BENCHMARKS_BLOB_URL, ALL_BENCHMARKS_BLOB_WRITE_URL } from '../config'
+import { FIGURES_BASE_URL, ALL_BENCHMARKS_BLOB_URL, ALL_BENCHMARKS_BLOB_WRITE_URL, DATA_BASE_URL } from '../config'
+
 import FigureSidebar from '../components/FigureSidebar'
 
 interface SampleManifest {
@@ -285,16 +286,16 @@ export default function AdversarialSampleBrowser({ manifestFile, title }: Advers
     setLoading(true)
     const loadBenchmarks = () =>
       fetch(`${ALL_BENCHMARKS_BLOB_URL}?t=${Date.now()}`).then(r => r.ok ? r.json() : Promise.reject())
-        .catch(() => fetch(`${import.meta.env.BASE_URL}data/all_benchmarks.json`).then(r => r.json()))
+        .catch(() => fetch(`${DATA_BASE_URL}/all_benchmarks.json`).then(r => r.json()))
         .catch(() => null)
 
     Promise.all([
-      fetch(`${import.meta.env.BASE_URL}data/${manifestFile}`).then(r => r.json()),
+      fetch(`${DATA_BASE_URL}/${manifestFile}`).then(r => r.json()),
       loadBenchmarks(),
-      fetch(`${import.meta.env.BASE_URL}data/axis_blur_probes.json`).then(r => r.json()).catch(() => null),
-      fetch(`${import.meta.env.BASE_URL}data/selective_blur_probes.json`).then(r => r.json()).catch(() => null),
-      fetch(`${import.meta.env.BASE_URL}data/active_selective_blur_probes.json`).then(r => r.json()).catch(() => null),
-      fetch(`${import.meta.env.BASE_URL}data/atoms.json`).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch(`${DATA_BASE_URL}/axis_blur_probes.json`).then(r => r.json()).catch(() => null),
+      fetch(`${DATA_BASE_URL}/selective_blur_probes.json`).then(r => r.json()).catch(() => null),
+      fetch(`${DATA_BASE_URL}/active_selective_blur_probes.json`).then(r => r.json()).catch(() => null),
+      fetch(`${DATA_BASE_URL}/atoms.json`).then(r => r.ok ? r.json() : null).catch(() => null),
     ])
       .then(([manifestData, benchmarksJson, axisBlurData, selectiveBlurData, activeProbesData, atomsJson]) => {
         setManifest(manifestData as SampleManifest)

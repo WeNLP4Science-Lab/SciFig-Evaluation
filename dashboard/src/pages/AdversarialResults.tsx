@@ -1,3 +1,4 @@
+import { DATA_BASE_URL } from '../config'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -60,7 +61,7 @@ export default function AdversarialResults() {
   const [data, setData] = useState<Results | null>(null)
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/adversarial_results.json`)
+    fetch(`${DATA_BASE_URL}/adversarial_results.json`)
       .then(r => r.json())
       .then(d => setData(d as Results))
       .catch(() => {})

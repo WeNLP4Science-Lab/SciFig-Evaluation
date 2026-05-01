@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useMemo } from 'react'
+import { DATA_BASE_URL } from '../config'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
 
@@ -98,7 +99,7 @@ export default function FinalResults() {
   const [activeTab, setActiveTab] = useState<TabId>('overview')
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/final_results.json`)
+    fetch(`${DATA_BASE_URL}/final_results.json`)
       .then(r => r.json())
       .then(d => { setData(d); setLoading(false) })
       .catch(() => setLoading(false))

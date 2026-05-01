@@ -25,6 +25,15 @@ export const ALL_BENCHMARKS_BLOB_WRITE_URL = `${ALL_BENCHMARKS_BLOB_URL}?${BLOB_
 export const EXPERIMENT_RESULTS_BLOB_URL = `https://scifigfigures.blob.core.windows.net/data/experiment_results.json`
 
 export const BLOB_DATA_BASE = 'https://scifigfigures.blob.core.windows.net/data'
+
+/**
+ * Base URL for loading JSON data files.
+ * In development, data is served locally from public/data/.
+ * In production, data is served from Azure Blob Storage.
+ */
+export const DATA_BASE_URL = import.meta.env.PROD
+  ? BLOB_DATA_BASE
+  : `${import.meta.env.BASE_URL}data`
 export const TRANSFORM_EVALUATIONS_BLOB_URL = `${BLOB_DATA_BASE}/transform_evaluations.json`
 export const MANIFEST_FULL_BLOB_URL = `${BLOB_DATA_BASE}/manifest_full.json`
 export const MANIFEST_SAMPLE_BLOB_URL = `${BLOB_DATA_BASE}/manifest_sample.json`

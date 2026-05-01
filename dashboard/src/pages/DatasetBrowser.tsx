@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import type { DatasetManifest } from '../types'
 import FigureSidebar from '../components/FigureSidebar'
 import { useTheme } from '../ThemeContext'
-import { FIGURES_BASE_URL } from '../config'
+import { FIGURES_BASE_URL, DATA_BASE_URL } from '../config'
 
 function ThemeToggle() {
   const { isDark, toggleTheme } = useTheme()
@@ -47,7 +47,7 @@ export default function DatasetBrowser() {
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/dataset.json`)
+    fetch(`${DATA_BASE_URL}/dataset.json`)
       .then(r => {
         if (!r.ok) throw new Error('Failed to load dataset.json')
         return r.json()
@@ -59,7 +59,7 @@ export default function DatasetBrowser() {
       .catch(e => setError(e.message))
       .finally(() => setLoading(false))
 
-    fetch(`${import.meta.env.BASE_URL}data/atoms.json`)
+    fetch(`${DATA_BASE_URL}/atoms.json`)
       .then(r => r.ok ? r.json() : null)
       .then(data => setAtomsData(data))
       .catch(() => {})

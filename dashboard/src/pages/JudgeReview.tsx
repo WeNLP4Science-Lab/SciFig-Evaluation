@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import type { DataManifest, JudgeType } from '../types'
 import { JUDGE_LABELS } from '../types'
 import AnnotatedText from '../components/AnnotatedText'
-import { FIGURES_BASE_URL } from '../config'
+import { FIGURES_BASE_URL, DATA_BASE_URL } from '../config'
 import ErrorPanel from '../components/ErrorPanel'
 import FigureSidebar from '../components/FigureSidebar'
 import { useTheme } from '../ThemeContext'
@@ -87,9 +87,7 @@ export default function JudgeReview({ manifestFile = 'manifest.json', title = 'J
   useEffect(() => {
     setLoading(true)
     setManifest(null)
-    const url = import.meta.env.PROD && (manifestFile === 'manifest_full.json' || manifestFile === 'manifest_sample.json')
-      ? `https://scifigfigures.blob.core.windows.net/data/${manifestFile}`
-      : `${import.meta.env.BASE_URL}data/${manifestFile}`
+    const url = `${DATA_BASE_URL}/${manifestFile}`
     fetch(url)
       .then(r => {
         if (!r.ok) throw new Error(`Failed to load ${manifestFile}`)

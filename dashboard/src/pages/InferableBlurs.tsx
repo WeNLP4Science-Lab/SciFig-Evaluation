@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../ThemeContext'
-import { FIGURES_BASE_URL } from '../config'
+import { FIGURES_BASE_URL, DATA_BASE_URL } from '../config'
+
 
 interface InferableItem {
   figure_key: string
@@ -27,7 +28,7 @@ export default function InferableBlurs() {
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/inferable_elements.json`)
+    fetch(`${DATA_BASE_URL}/inferable_elements.json`)
       .then(r => r.json())
       .then(d => setData(d as InferableData))
       .catch(() => {})

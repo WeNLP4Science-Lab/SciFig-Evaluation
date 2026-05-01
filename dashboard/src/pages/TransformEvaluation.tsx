@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { FIGURES_BASE_URL } from '../config'
+import { FIGURES_BASE_URL, DATA_BASE_URL } from '../config'
 import { useTheme } from '../ThemeContext'
 
 const ALL_MODELS = [
@@ -64,7 +64,7 @@ export default function TransformEvaluation() {
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(import.meta.env.PROD ? 'https://scifigfigures.blob.core.windows.net/data/transform_evaluations.json' : `${import.meta.env.BASE_URL}data/transform_evaluations.json`)
+    fetch(`${DATA_BASE_URL}/transform_evaluations.json`)
       .then(r => r.json())
       .then(d => setData(d))
       .catch(() => {})
