@@ -304,6 +304,63 @@ The dual-judge evaluation inherits biases from GPT-4o and Mistral Large~3, inclu
 Even the best-performing model produces ${\sim}2.7$ incorrect numerical values per figure; we caution against deploying VLM-generated descriptions as authoritative without human verification, particularly in contexts where numerical precision is critical.
 
 % =============================================================================
+% Appendix F: Comparison to Existing Benchmarks
+% =============================================================================
+\chapter{Comparison to Existing Benchmarks}
+\label{app:benchmark-comparison}
+
+\small
+Table~\ref{tab:benchmark-comparison} positions \textsc{SciFig-Eval} against seven established chart and figure understanding benchmarks.
+Existing benchmarks predominantly evaluate extraction accuracy through closed-form question answering (short answer, multiple choice, or binary), using a single accuracy metric on English-only datasets.
+\textsc{SciFig-Eval} differs in three respects: it evaluates open-ended description generation using a multidimensional MQM quality framework, it covers four typologically diverse languages sourced from native-language venues, and it introduces adversarial probes and behavioural metrics (Admittance, Resistance, Inductance) that no existing benchmark measures.
+
+The RQ3 capability questions are the closest equivalent to existing QA benchmarks, and the findings align: counting and comparison are the hardest question types across both \textsc{SciFig-Eval} and ChartQA/CharXiv, while extraction of individual values is comparatively easier.
+However, the key contribution of \textsc{SciFig-Eval} is what lies beyond accuracy: the A-R-I behavioural profiles reveal failure modes (silent fabrication, resistance gaps, sycophantic agreement) that QA benchmarks structurally cannot detect because they test only correctness, not honesty or robustness.
+A model scoring 90\% on ChartQA may still fabricate under blur and accept false premises --- behaviours that only surface under adversarial evaluation.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Comparison of \textsc{SciFig-Eval} to existing chart/figure understanding benchmarks.}\label{tab:benchmark-comparison}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}l l r l l l l@{}}
+\toprule
+\textbf{Benchmark} & \textbf{Task} & \textbf{Scale} & \textbf{Langs} & \textbf{Metric} & \textbf{Adv.} & \textbf{Behav.} \\
+\midrule
+ChartQA        & Short-answer QA   & 32.7K QA   & EN    & Relaxed Acc. & No  & No \\
+CharXiv        & Short-answer QA   & 2.3K QA    & EN    & Accuracy     & No  & No \\
+MMMU           & Multiple-choice   & 11.5K QA   & EN    & Accuracy     & No  & No \\
+PlotQA         & Short-answer QA   & 28.9M QA   & EN    & Accuracy     & No  & No \\
+SciFIBench     & Fig--caption match & 2K QA     & EN    & Accuracy     & No  & No \\
+PolyChartQA    & Short-answer QA   & 26.2K QA   & 10    & Accuracy     & No  & No \\
+ChartMuseum    & Short-answer QA   & 1.2K QA    & EN    & Accuracy     & No  & No \\
+\midrule
+\textbf{SciFig-Eval} & \textbf{Open description} & \textbf{1K figs} & \textbf{4} & \textbf{MQM} & \textbf{Yes} & \textbf{A-R-I} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent PolyChartQA is the only other multilingual benchmark but covers a different language set (no Bulgarian or German), uses generated rather than real scientific figures, and evaluates QA accuracy only.
+ChartMuseum and CharXiv are the most challenging existing benchmarks (GPT-4o achieves 47\% on CharXiv reasoning, 63\% on ChartMuseum) but remain within the closed-form QA paradigm.
+\textsc{SciFig-Eval} is complementary to these benchmarks: it addresses the behavioural dimensions they do not cover, while they provide extraction accuracy baselines that \textsc{SciFig-Eval} does not replicate.
+
+\section{Dual-Judge Design}
+
+The evaluation uses two LLM judges (GPT-4o and Mistral Large~3) rather than a single judge or a larger panel. This design reflects three considerations.
+First, cross-provider diversity: GPT-4o (OpenAI via Azure) and Mistral Large~3 (Mistral AI via Azure) represent different model families with different training data and biases, reducing the risk that scoring patterns reflect a single provider's idiosyncrasies.
+Second, the severity split between judges (GPT-4o assigns 78\% Major vs Mistral's 47\% on identical errors) is itself a finding: it reveals that absolute MQM scores are judge-dependent while rankings are robust ($\rho_{\text{sys}}\geq.95$). A single judge would mask this disagreement.
+Third, practical constraints: each additional judge doubles evaluation cost. At approximately 9,360 judge calls for the 120-figure sample alone, adding a third judge would have required reducing the model or figure count.
+Open-weight judges were considered but not used because, at the time of evaluation, no open-weight model matched GPT-4o or Mistral Large~3 on structured JSON output reliability, which is essential for the atomic MQM scoring pipeline.
+
+\section{End-to-End Behavioural Probing}
+
+The adversarial probes in \textsc{SciFig-Eval} test end-to-end model behaviour rather than isolating individual pipeline stages (visual encoder, alignment layer, language decoder).
+This is a deliberate design choice: deployment contexts care about whether a model fabricates, not whether the fabrication originates in the encoder or the decoder.
+A model that correctly encodes a blurred region but whose decoder fabricates a confident answer is functionally equivalent, from a user's perspective, to a model whose encoder fails to detect the blur entirely.
+The A-R-I framework therefore measures behavioural outcomes (admittance, resistance, inductance) rather than internal mechanisms.
+Mechanistic attribution of these behaviours to specific pipeline stages is identified as future work (\S\ref{sec:future-work}), requiring techniques such as attention visualisation and activation probing that fall outside the scope of this evaluation-focused thesis.
+
+% =============================================================================
 % Appendix E: Computational Cost Breakdown
 % =============================================================================
 \chapter{Computational Cost Breakdown}
