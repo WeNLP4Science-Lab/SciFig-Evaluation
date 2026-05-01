@@ -1,0 +1,54 @@
+digraph class_hierarchy {
+    rankdir=TB;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.6;
+    ranksep=0.8;
+
+    node [fontname="Times New Roman", fontsize=8, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#555555",
+          arrowsize=0.6, penwidth=0.7];
+
+    base [
+        shape=record, style="filled", fillcolor="#F5F5F5",
+        color="#333333", penwidth=1.0,
+        label="{\<\<abstract\>\>\nFigureAnnotator|+ model_name: str\l+ max_tokens: int\l|+ annotate_figure()\l# _retry()\l# _encode_image()\l}"
+    ];
+
+    azure [
+        shape=record, style="filled", fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label="{AzureAnnotator|deployment_id\lendpoint\l|GPT-5.2, Phi-4\l}"
+    ];
+
+    openrouter [
+        shape=record, style="filled", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label="{OpenRouterAnnotator|model_id\lapi_key\l|Qwen, Gemma, Claude,\lLLaMA, Gemini\l}"
+    ];
+
+    llama [
+        shape=record, style="filled", fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label="{Llama4MaverickAnnotator|custom_headers\l|LLaMA-4 Maverick\l}"
+    ];
+
+    factory [
+        shape=box, style="filled,rounded", fillcolor="#FFFDE7",
+        color="#F9A825", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#F9A825">factory</FONT></TD></TR>
+            <TR><TD><B>get_annotator(name)</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">3 model registries</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    azure -> base [arrowhead=empty];
+    openrouter -> base [arrowhead=empty];
+    llama -> base [arrowhead=empty];
+
+    factory -> azure [style=dashed, arrowhead=open, label="creates"];
+    factory -> openrouter [style=dashed, arrowhead=open, label="creates"];
+    factory -> llama [style=dashed, arrowhead=open, label="creates"];
+}

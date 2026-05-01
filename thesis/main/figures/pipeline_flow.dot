@@ -1,0 +1,116 @@
+digraph pipeline_flow {
+    rankdir=LR;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.5;
+    ranksep=0.7;
+
+    node [fontname="Times New Roman", fontsize=9, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#888888",
+          arrowsize=0.5, penwidth=0.7];
+
+    // --- Inputs ---
+    dataset [
+        shape=cylinder, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«datastore»</FONT></TD></TR>
+            <TR><TD><B>Dataset</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">1,005 figures + groundtruth</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">5 language subfolders</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    prompts [
+        shape=note, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«config»</FONT></TD></TR>
+            <TR><TD><B>Prompts</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">4 langs x 4 types</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 1 ---
+    gen [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«stage 1»</FONT></TD></TR>
+            <TR><TD><B>LLM Generation</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">run.py · 13 models</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    genout [
+        shape=folder, style=filled, fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7">output/generation/</FONT></TD></TR>
+            <TR><TD><B>Descriptions</B></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 2 ---
+    eval [
+        shape=box, style="filled,rounded", fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«stage 2»</FONT></TD></TR>
+            <TR><TD><B>MQM Evaluation</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">Judges A/B/C · 2 LLM judges</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    evalout [
+        shape=folder, style=filled, fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7">output/evaluation/</FONT></TD></TR>
+            <TR><TD><B>Judge Scores</B></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 3 ---
+    compute [
+        shape=box, style="filled,rounded", fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#AA3377">«stage 3»</FONT></TD></TR>
+            <TR><TD><B>Compute Results</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">compute_*.py · plot_*.py</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    results [
+        shape=cylinder, style=filled, fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7">output/evaluation-results/</FONT></TD></TR>
+            <TR><TD><B>Tables + Plots</B></TD></TR>
+        </TABLE>>
+    ];
+
+    dash [
+        shape=box, style="filled,rounded", fillcolor="#E3F2FD",
+        color="#1565C0", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#1565C0">«frontend»</FONT></TD></TR>
+            <TR><TD><B>Dashboard</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">React · Vite · Recharts</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Edges ---
+    dataset -> gen [label="figures"];
+    prompts -> gen [label="templates", style=dashed];
+    gen -> genout;
+    genout -> eval;
+    dataset -> eval [label="groundtruth", style=dashed];
+    eval -> evalout;
+    evalout -> compute;
+    compute -> results;
+    evalout -> dash [label="export", color="#1565C0"];
+    dataset -> dash [label="browse", style=dashed, color="#1565C0"];
+}
