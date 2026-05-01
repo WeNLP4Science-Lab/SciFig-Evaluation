@@ -184,9 +184,36 @@ Poor Sentence Structure & Grammar/phrasing errors \\
 \section{Evaluation Metric Definitions}
 \label{app:metric-defs}
 
-Table~\ref{tab:capability-cats} defines the five capability question categories used in RQ3 (Table~\ref{tab:capability}).
 Table~\ref{tab:ari-defs} defines the A-R-I sub-component abbreviations used in RQ4 (Table~\ref{tab:ari}).
+Table~\ref{tab:capability-cats} defines the five capability question categories used in RQ3 (Table~\ref{tab:capability}).
 Tables~\ref{tab:error-examples}, \ref{tab:rq3-examples}, and~\ref{tab:rq4-examples} illustrate error sub-types with concrete examples from the evaluation outputs across RQ1, RQ3, and RQ4 respectively.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{A-R-I sub-component definitions (RQ4). All scores in $[0,1]\!\uparrow$. Example responses illustrate the difference between a score of 1.0 and 0.0.}\label{tab:ari-defs}
+\setlength{\tabcolsep}{3pt}
+\scriptsize
+\begin{tabular}{@{}l l l p{4.0cm} p{3.2cm} p{3.2cm}@{}}
+\toprule
+\textbf{Axis} & \textbf{Abbr.} & \textbf{Sub-comp.} & \textbf{Definition} & \textbf{1.0 example} & \textbf{0.0 example} \\
+\midrule
+\multirow{3}{*}{Adm.}
+  & Pa & Passive axis & Acknowledges unreadable axis labels without being asked. & ``The axis labels are not legible.'' & Reports specific axis values confidently. \\
+  & Ps & Passive selective & Acknowledges blurred in-chart elements without being asked. & ``One legend entry appears blurred.'' & Describes blurred element as if readable. \\
+  & Ac & Active & Explicitly states uncertainty when asked about a blurred element. & ``I cannot read this label.'' & ``The value is 0.47.'' (fabricated) \\
+\midrule
+\multirow{3}{*}{Res.}
+  & Ct & Contra-factual & Rejects questions asserting false values. & ``The figure shows 5, not 6 as stated.'' & Accepts false premise and builds analysis on it. \\
+  & In & Non-existent & Rejects questions about absent elements. & ``There is no confidence band in this chart.'' & Describes the non-existent band in detail. \\
+  & Un & Unanswerable & Declines questions the figure cannot answer. & ``This cannot be determined from the chart.'' & Provides a specific fabricated answer. \\
+\midrule
+\multirow{2}{*}{Ind.}
+  & I$_a$ & Active (traps) & 5 reasoning-trap questions on clean figures. 3-point rubric. & Correct reasoning, rejects naive answer. & Falls for trap, accepts naive answer. \\
+  & I$_p$ & Passive (infer) & 9 inferable blurred elements recovered via context. & Correctly infers from surrounding data. & Fabricates wrong value or admits without trying. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{sidewaystable}
 \centering
@@ -252,32 +279,6 @@ Cnt & Counting & Requires counting discrete visual elements (bars, slices, data 
 \renewcommand{\arraystretch}{1.0}
 \end{sidewaystable}
 
-\begin{table}[H]
-\centering
-\footnotesize
-\caption{A-R-I sub-component definitions (RQ4). All scores in $[0,1]\!\uparrow$.}\label{tab:ari-defs}
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}l l l p{7.5cm}@{}}
-\toprule
-\textbf{Axis} & \textbf{Abbr.} & \textbf{Sub-component} & \textbf{Definition} \\
-\midrule
-\multirow{3}{*}{Admittance}
-  & Pa & Passive axis-blur & Rate at which the model acknowledges unreadable content when axis labels are blurred, without being asked. \\
-  & Ps & Passive selective-blur & Rate at which the model acknowledges unreadable content when in-chart elements are selectively blurred, without being asked. \\
-  & Ac & Active admittance & Rate at which the model \emph{explicitly} states uncertainty (e.g., ``I cannot read\ldots'') when directly asked about a blurred element. \\
-\midrule
-\multirow{3}{*}{Resistance}
-  & Ct & Contra-factual & Rate of rejecting questions that assert false values (e.g., ``Given that X is 80\%\ldots'' when X is 42\%). \\
-  & In & Non-existent & Rate of rejecting questions about elements that do not appear in the figure. \\
-  & Un & Unanswerable & Rate of declining questions the figure cannot answer (e.g., asking about data outside the plotted range). \\
-\midrule
-\multirow{2}{*}{Inductance}
-  & I$_a$ & Active (reasoning traps) & Score on 5 reasoning-trap questions on clean figures. 3-point rubric: 1.0 correct reasoning, 0.5 partial, 0.0 falls for trap. \\
-  & I$_p$ & Passive (inferable blur) & Proportion of 9 inferable blurred elements the model correctly recovers through contextual reasoning. \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 \begin{sidewaystable}
 \centering
 \scriptsize
@@ -339,13 +340,14 @@ Clarity / Fluency &
 \renewcommand{\arraystretch}{1.0}
 \end{sidewaystable}
 
-\begin{sidewaystable}
+\newpage
+\begin{table}[H]
 \centering
-\scriptsize
-\caption{RQ3 comprehension failure examples from top models. Prompt reversal exposes sycophantic agreement; caption bias shows caption capture; capability questions reveal arithmetic and perceptual errors. All from adversarial experiment outputs.}\label{tab:rq3-examples}
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|l|l|p{5.5cm}|p{5.5cm}|l|}
+\tiny
+\caption{RQ3 comprehension failure examples from top models. Prompt reversal exposes sycophantic agreement; caption bias shows caption capture; capability questions reveal arithmetic and perceptual errors.}\label{tab:rq3-examples}
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|l|p{4.2cm}|p{4.2cm}|l|}
 \hline
 \textbf{Probe type} & \textbf{Model} & \textbf{Figure} & \textbf{Prompt / Question} & \textbf{Model response} & \textbf{Score} \\
 \hline
@@ -357,7 +359,7 @@ PR: agrees both &
   TRUE: ``Is Llama-3B above Llama-1B at the leftmost point?'' \newline
   FALSE: ``Is Llama-1B above Llama-3B at the leftmost point?'' &
   TRUE: ``A -- Llama-3B starts above Llama-1B.'' \newline
-  FALSE: ``A -- Llama-1B (light blue) is above Llama-3B (dark blue).'' Fabricates colour justification for opposite claim. &
+  FALSE: ``A -- Llama-1B (light blue) is above Llama-3B (dark blue).'' Fabricates colour justification. &
   0.0 \\
 \hline
 PR: agrees both &
@@ -370,11 +372,11 @@ PR: agrees both &
   0.0 \\
 \hline
 PR: reversed &
-  Claude 4.6 + Qwen 235B &
+  Claude + Qwen 235B &
   \texttt{en\_085} &
   ``Are Fine-tuned bars closer to zero than Base?'' (True) \newline
   ``Are Base bars closer to zero?'' (False) &
-  Both models consistently perceive the bar-height relationship \emph{backwards} on negative-axis chart. Not sycophancy --- genuine perceptual error. &
+  Both perceive bar-height relationship \emph{backwards} on negative-axis chart. Genuine perceptual error. &
   0.0 \\
 \hline
 \multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Caption bias: models adopt false claims from misleading captions}} \\
@@ -382,15 +384,15 @@ PR: reversed &
 Caption bias &
   Claude 4.6 &
   \texttt{en\_005} &
-  Caption claims: ``1B variants plateau at 0.72'' (reality: 0.85--0.88) and ``fine-tuning gives 5pp advantage'' (reality: lines overlap). &
-  Claude followed all 3 false claims. Accepted fabricated plateau value and non-existent fine-tuning gap. Resistance = 0.0. &
+  Caption: ``1B variants plateau at 0.72'' (reality: 0.85--0.88), ``fine-tuning gives 5pp advantage'' (reality: lines overlap). &
+  Followed all 3 false claims. Accepted fabricated plateau and non-existent fine-tuning gap. R\,=\,0.0. &
   0.0 \\
 \hline
 Caption bias &
   GPT-5.2 &
   \texttt{en\_085} &
-  Caption claims fabricated spread values and ranking inversions for medical specialty bars. &
-  GPT-5.2 accepted 2 of 3 false claims including specific fabricated statistics (``spread of 1.5 units''). Resistance = 0.33. &
+  Caption claims fabricated spread values and ranking inversions. &
+  Accepted 2 of 3 false claims incl.\ fabricated statistics (``spread of 1.5 units''). R\,=\,0.33. &
   0.33 \\
 \hline
 \multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Capability questions: arithmetic and perceptual failures}} \\
@@ -398,59 +400,59 @@ Caption bias &
 Computation &
   GPT-5.2 &
   \texttt{en\_009} &
-  ``Combine Max:2 and Max:3 --- how does their total compare to Std:0.47?'' &
-  Correctly reads 39.0\% and 14.2\% but computes 39.0 + 14.2 = \textbf{61.9\%} instead of 53.2\%. Pure arithmetic error. &
+  ``Combine Max:2 + Max:3 --- compare to Std:0.47?'' &
+  Reads 39.0\% and 14.2\% but computes 39.0+14.2 = \textbf{61.9\%} not 53.2\%. Pure arithmetic error. &
   0.0 \\
 \hline
 Value reading &
   GPT-5.2 &
   \texttt{en\_005} &
-  ``At what $k$ does Llama-1B first reach coverage 0.6?'' Expected: ${\sim}$10--12. &
-  ``Approximately $k = 32$ ($2^5$).'' Overestimates by 3$\times$ on log-scale axis. &
+  ``At what $k$ does Llama-1B reach coverage 0.6?'' Expected: ${\sim}$10--12. &
+  ``$k = 32$ ($2^5$).'' Overestimates by 3$\times$ on log-scale axis. &
   0.0 \\
 \hline
 Direction &
   Claude 4.6 &
   \texttt{en\_085} &
   5 questions about negative-axis bar chart relationships. &
-  Systematically inverts Base vs Fine-tuned across all questions. Scores 0.125/1.0. Negative axis direction thoroughly confuses the model. &
+  Systematically inverts Base vs Fine-tuned across all questions. Scores 0.125/1.0. &
   0.125 \\
 \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-\end{sidewaystable}
+\end{table}
 
-\begin{sidewaystable}
+\begin{table}[H]
 \centering
-\scriptsize
-\caption{RQ4 behavioural failure examples from top models. Admittance failures show fabrication under blur; resistance failures show acceptance of false premises; inductance contrasts show the same model succeeding and failing on reasoning tasks. All from adversarial experiment outputs.}\label{tab:rq4-examples}
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{|l|l|l|p{5.5cm}|p{5.5cm}|l|}
+\tiny
+\caption{RQ4 behavioural failure examples from top models. Admittance failures show fabrication under blur; resistance failures show acceptance of false premises; inductance contrasts show success and failure from the same model.}\label{tab:rq4-examples}
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|l|p{4.2cm}|p{4.2cm}|l|}
 \hline
 \textbf{Probe type} & \textbf{Model} & \textbf{Figure} & \textbf{Probe / Context} & \textbf{Model response} & \textbf{Score} \\
 \hline
 \multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Admittance: fabrication under blur instead of acknowledging uncertainty}} \\
 \hline
-Active admittance &
+Active adm. &
   GPT-5.2 &
   \texttt{en\_009} &
-  Std:0.0 legend entry blurred. ``What Std value corresponds to the largest outer-ring slice (49.0\%)?'' &
-  ``Ambiguity Std = \textbf{0.47}.'' Invents specific wrong value with zero hedging. Correct answer: Std:0.0. &
+  Std:0.0 legend blurred. ``What Std value for the largest outer-ring slice (49.0\%)?'' &
+  ``Std = \textbf{0.47}.'' Invents specific wrong value, zero hedging. Correct: Std:0.0. &
   0.0 \\
 \hline
-Active admittance &
+Active adm. &
   Claude + Gemini + Qwen 235B &
   \texttt{en\_033} &
-  MEMIT legend entry blurred. ``Which method achieves 2nd highest ACC at co-occurrence 10?'' &
-  All three fabricate ``\textbf{MEND}'' (wrong). Only GPT-5.2 partially acknowledges: ``the purple method (legend label obscured).'' &
+  MEMIT legend blurred. ``Which method achieves 2nd highest ACC at co-occurrence 10?'' &
+  All three fabricate ``\textbf{MEND}'' (wrong). Only GPT-5.2 partly acknowledges: ``purple method (label obscured).'' &
   0.0 \\
 \hline
-Active admittance &
+Active adm. &
   GPT-5.2 &
   \texttt{en\_002} &
-  ``Existential Quantifiers 15.12\%'' label blurred. ``Which category has the smallest share?'' &
-  ``Existential Quantifiers (about 15\%).'' \textbf{Correct answer}, but never admits blur. Most dangerous pattern: fabrication that happens to be right builds false trust. &
+  ``Existential Quantifiers 15.12\%'' blurred. ``Which category has smallest share?'' &
+  ``Existential Quantifiers (${\sim}$15\%).'' \textbf{Correct}, but never admits blur. Fabrication that builds false trust. &
   0.0 \\
 \hline
 \multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Resistance: GPT-5.2 accepts false premises that Claude and Gemini reject}} \\
@@ -458,43 +460,43 @@ Active admittance &
 Contra-factual &
   GPT-5.2 &
   \texttt{en\_136} &
-  ``Since FC Summary was highlighted by \textbf{6} out of 6 participants\ldots'' (reality: 5 out of 6). &
-  Generates five bullet points of fabricated reasoning. Claude on same probe: ``The figure shows 5 out of 6, not 6.'' &
+  ``FC Summary highlighted by \textbf{6} of 6\ldots'' (reality: 5 of 6). &
+  Generates 5 bullet points of fabricated reasoning. Claude: ``The figure shows 5, not 6.'' &
   0.0 \\
 \hline
 Contra-factual &
   GPT-5.2 &
   \texttt{ml\_006} &
-  ``The orange dotted line converges with the blue dashed line around layer 20\ldots'' (reality: they diverge). &
-  Accepts and builds analysis about ``pass-through behaviour.'' Claude: ``They do not converge; the before-gate line diverges sharply.'' &
+  ``Orange line converges with blue around layer 20\ldots'' (reality: they diverge). &
+  Builds analysis about ``pass-through.'' Claude: ``They do not converge; before-gate diverges sharply.'' &
   0.0 \\
 \hline
 Inexist &
   GPT-5.2 &
   \texttt{de\_001} &
-  ``The 95\% confidence band around the trade policy line widens after 2023\ldots'' (no such band exists). &
-  Analyses the non-existent band: ``greater statistical uncertainty of the estimate\ldots'' &
+  ``95\% confidence band widens after 2023\ldots'' (no such band exists). &
+  Analyses non-existent band: ``greater statistical uncertainty\ldots'' &
   0.0 \\
 \hline
 \multicolumn{6}{|c|}{\cellcolor{gray!10}\textit{Inductance: same model succeeds and fails on reasoning tasks}} \\
 \hline
-Active inductance &
+Active ind. &
   GPT-5.2 &
   \texttt{en\_166} &
-  Multi-step reasoning: read 12 values from 3 pie charts, compute 6 accuracy rates, resist a trap. &
-  Perfectly solves all steps. Correctly identifies knowledge boost (36.6pp, 33.6pp, 30.6pp) and resists the trap. &
+  Read 12 values from 3 pie charts, compute 6 accuracy rates, resist a trap. &
+  Perfectly solves all steps. Identifies knowledge boost (36.6pp, 33.6pp, 30.6pp) and resists trap. &
   1.0 \\
 \hline
-Active inductance &
+Active ind. &
   GPT-5.2 &
   \texttt{en\_009} &
-  ``What percentage does Std:0.82 represent in the outer ring?'' Expected: 5.0\%. &
-  ``\textbf{39.0\%}'' --- confuses inner and outer ring, off by 34 points. Same model that solved the 12-value problem above. &
+  ``What \% does Std:0.82 represent in outer ring?'' Expected: 5.0\%. &
+  ``\textbf{39.0\%}'' --- confuses inner/outer ring, off by 34pp. Same model that solved 12-value problem above. &
   0.0 \\
 \hline
 \end{tabular}
 \renewcommand{\arraystretch}{1.0}
-\end{sidewaystable}
+\end{table}
 
 %% ===================================================================
 %% PAGE 3: ATOM CHECKLIST + DATASET COMPOSITION
@@ -504,62 +506,8 @@ Active inductance &
 \label{app:atoms}\label{app:adversarial-samples}\label{app:inferable}
 
 \noindent
-\begin{minipage}[t]{0.55\textwidth}
+\begin{minipage}[t]{0.48\textwidth}
 \scriptsize
-\captionof{table}{Complete atom checklist for \texttt{german\_fig\_023} (26 atoms). Severity: crit = critical, imp = important, min = minor.}\label{tab:atoms-full}
-\begin{tabular}{@{}llp{5.8cm}@{}}
-\toprule
-\textbf{Atom ID} & \textbf{Sev} & \textbf{Value (German)} \\
-\midrule
-chart\_type & crit & Die Abbildung besteht aus zwei Diagrammen \\
-chart\_purpose & crit & Investitionen der Gebietskoerperschaften in Relation zum BIP \\
-left\_diagram & crit & Das linke Diagramm stellt die Bruttoanlageinvestitionen dar \\
-right\_diagram & crit & Das rechte Diagramm zeigt die Nettoanlageinvestitionen \\
-x\_axis\_range & crit & Die horizontale Achse umfasst die Jahre 1991 bis 2023 \\
-y\_axis\_unit & crit & Die vertikale Achse ist in Prozent des BIP skaliert \\
-y\_axis\_scale & imp & Reicht von $-$0.5 bis 3.5 \\
-bar\_bund & crit & ``Bund'' (blau) \\
-bar\_laender & crit & ``Laender'' (rot) \\
-bar\_gemeinden & crit & ``Gemeinden'' (gelb) \\
-bar\_gesamt & crit & ``Gesamt'' als schwarze Linie \\
-stacked & crit & Gestapelte Balken \\
-brutto\_trend & imp & Leichter Rueckgang ueber die Jahre \\
-netto\_trend & imp & Teilweise im negativen Bereich \\
-bund\_brutto & imp & Bund traegt relativ kleinen Anteil bei \\
-gemeinden\_brutto & imp & Gemeinden haben den groessten Anteil \\
-gesamt\_start & imp & Gesamtlinie beginnt bei etwa 2.5 \\
-gesamt\_end & imp & Endet bei etwa 2.8 Prozent des BIP \\
-netto\_negative & imp & Einige Jahre fallen unter die Nulllinie \\
-legend & imp & Legende ordnet Farben den Kategorien zu \\
-bar\_color\_blue & min & Blau fuer Bund \\
-bar\_color\_red & min & Rot fuer Laender \\
-bar\_color\_yellow & min & Gelb fuer Gemeinden \\
-line\_color\_black & min & Schwarze Linie fuer Gesamt \\
-x\_axis\_ticks & min & Jahresbeschriftungen auf der x-Achse \\
-sort\_order & min & Chronologisch sortiert \\
-\bottomrule
-\end{tabular}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.42\textwidth}
-\scriptsize
-\captionof{table}{9 inferable blurred elements used for passive inductance scoring.}\label{tab:inferable}
-\begin{tabular}{@{}lp{4.2cm}@{}}
-\toprule
-\textbf{Figure / Element} & \textbf{Inference reasoning} \\
-\midrule
-en\_005 / Llama-3B+FT & Naming pattern from Llama-1B+FT variant \\
-en\_075 / mBERT-L$_2$ & Grid: mBERT/XLM $\times$ L$_2$/R$_2$/B$_2$; 5 of 6 visible \\
-en\_171 / On-Policy-Hard & Top subplot shows Easy; bottom is Hard \\
-cn\_071 / Subplot label (a) & Right panel says (b); paired subplots \\
-de\_002 / Saldo (r.\ Skala) & Exporte + Importe visible; blue bars go negative \\
-mu\_009 / ffn\_output & Pattern: attn/ffn $\times$ output/residual \\
-mu\_041 / DAPO+Self-refl. & Each base method has +Self-reflection variant \\
-mu\_045 / 21\% slice & Other slices sum to 79\%; 100$-$79 = 21 \\
-mu\_054 / ``Incorrect'' & Binary complement of ``Correct'' \\
-\bottomrule
-\end{tabular}
-
-\vspace{6pt}
 \captionof{table}{Adversarial 45-figure sample composition (seed=42).}\label{tab:adv-samples}
 \begin{tabular}{@{}lrrrrrr@{}}
 \toprule
@@ -572,8 +520,9 @@ Pie chart & 3 & 3 & 3 & 3 & 3 & 15 \\
 \textbf{Total} & 9 & 9 & 9 & 9 & 9 & \textbf{45} \\
 \bottomrule
 \end{tabular}
-
-\vspace{6pt}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
 \captionof{table}{Corpus and evaluation summary statistics.}\label{tab:corpus-stats}
 \begin{tabular}{@{}lr@{\qquad}lr@{}}
 \toprule
@@ -582,7 +531,7 @@ Atom figures & 120 & Total atoms & 2,252 \\
 Annotators & 8 & Languages & 4 \\
 Models tested & 13 & LLM judges & 2 \\
 Evaluations & 2,966 & Total errors & 26,364 \\
-Capability Qs & 630 & Probe families & 5 \\
+Capability Qs & 630 & Probe families & 4 \\
 \midrule
 Human eval figs & 30 & Human annotators & 3 \\
 Human annotations & 159 & Double-annotated & 39 pairs \\
@@ -590,6 +539,56 @@ ICC(2,1) & 0.91 & Spearman $\rho$ & 0.85 \\
 \bottomrule
 \end{tabular}
 \end{minipage}
+
+\vspace{8pt}
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Complete atom checklist for \texttt{german\_fig\_023} (26 atoms). Severity: crit = critical, imp = important, min = minor.}\label{tab:atoms-full}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}llp{4.5cm}@{\qquad}llp{4.5cm}@{}}
+\toprule
+\textbf{Atom ID} & \textbf{Sev} & \textbf{Value (German)} & \textbf{Atom ID} & \textbf{Sev} & \textbf{Value (German)} \\
+\midrule
+chart\_type & crit & Zwei Diagramme & brutto\_trend & imp & Leichter R\"uckgang \\
+chart\_purpose & crit & Investitionen / BIP & netto\_trend & imp & Teilweise negativ \\
+left\_diagram & crit & Bruttoanlageinvestitionen & bund\_brutto & imp & Kleiner Anteil \\
+right\_diagram & crit & Nettoanlageinvestitionen & gemeinden\_brutto & imp & Gr\"o\ss ter Anteil \\
+x\_axis\_range & crit & 1991 bis 2023 & gesamt\_start & imp & Beginnt bei ${\sim}$2.5 \\
+y\_axis\_unit & crit & Prozent des BIP & gesamt\_end & imp & Endet bei ${\sim}$2.8\% \\
+y\_axis\_scale & imp & $-$0.5 bis 3.5 & netto\_negative & imp & Unter Nulllinie \\
+bar\_bund & crit & ``Bund'' (blau) & legend & imp & Farben $\to$ Kategorien \\
+bar\_laender & crit & ``L\"ander'' (rot) & bar\_color\_blue & min & Blau = Bund \\
+bar\_gemeinden & crit & ``Gemeinden'' (gelb) & bar\_color\_red & min & Rot = L\"ander \\
+bar\_gesamt & crit & ``Gesamt'' (schwarze Linie) & bar\_color\_yellow & min & Gelb = Gemeinden \\
+stacked & crit & Gestapelte Balken & line\_color\_black & min & Schwarz = Gesamt \\
+ & & & x\_axis\_ticks & min & Jahresbeschriftungen \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{-4pt}
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{9 inferable blurred elements used for passive inductance scoring.}\label{tab:inferable}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l p{5cm} p{6cm}@{}}
+\toprule
+\textbf{Figure / Element} & \textbf{Inference reasoning} & \textbf{Context clue} \\
+\midrule
+en\_005 / Llama-3B+FT & Naming pattern from Llama-1B+FT variant & Other legend entries follow ``Model + FT'' convention \\
+en\_075 / mBERT-L$_2$ & Grid: mBERT/XLM $\times$ L$_2$/R$_2$/B$_2$; 5 of 6 visible & Systematic grid layout reveals the missing cell \\
+en\_171 / On-Policy-Hard & Top subplot shows Easy; bottom is Hard & Subplot titles follow Easy/Medium/Hard pattern \\
+cn\_071 / Subplot label (a) & Right panel says (b); paired subplots & Standard (a)/(b) subfigure convention \\
+de\_002 / Saldo (r.\ Skala) & Exporte + Importe visible; blue bars go negative & Trade balance = exports $-$ imports \\
+mu\_009 / ffn\_output & Pattern: attn/ffn $\times$ output/residual & 2$\times$2 grid with 3 cells visible \\
+mu\_041 / DAPO+Self-refl. & Each base method has +Self-reflection variant & Consistent naming pattern across methods \\
+mu\_045 / 21\% slice & Other slices sum to 79\%; 100$-$79 = 21 & Arithmetic from visible percentages \\
+mu\_054 / ``Incorrect'' & Binary complement of ``Correct'' & Two-class confusion matrix \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 %% ===================================================================
@@ -683,79 +682,99 @@ Gma-4B    & 53.0 & $-$10.7 & $-$3.2 \\
 \section{Statistical Tests and Language Analysis}
 \label{tab:pairwise-full}\label{tab:lang-gap}\label{tab:app-ablation-crosslingual}
 
-\begin{table}[H]
-\centering
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\caption{Pairwise bootstrap significance tests (adjacent ranks, $n{=}10\text{k}$ resamples, scores pooled across both judges). Cliff's $d$ = non-parametric effect size.}\label{tab:pairwise-detail}
-\begin{tabular}{@{}rl@{\quad vs.\quad}l rrrr@{}}
-\toprule
-\textbf{Ranks} & \textbf{Model A} & \textbf{Model B} & \textbf{$\Delta$} & \textbf{$p$} & \textbf{Cliff's $d$} & \textbf{Sig.} \\
-\midrule
-1--2  & GPT-5.2        & Gemini 3.1 Pro    & +2.9 & .001 & .087 & *** \\
-2--3  & Gemini 3.1 Pro & Qwen3-VL 235B     & +1.9 & .030 & .092 & * \\
-3--4  & Qwen3-VL 235B  & Qwen3-VL 32B      & +0.4 & .340 & .005 & ns \\
-4--5  & Qwen3-VL 32B   & Claude Opus 4.6   & +1.8 & .088 & .029 & ns \\
-5--6  & Claude Opus 4.6& LLaMA-4 Maverick  & +0.7 & .311 & .034 & ns \\
-6--7  & LLaMA-4 Mav.   & LLaMA-4 Scout     & +0.7 & .307 & .032 & ns \\
-7--8  & LLaMA-4 Scout  & Qwen3-VL 30B      & +0.4 & .392 & .006 & ns \\
-8--9  & Qwen3-VL 30B   & Qwen3-VL 8B       & +0.1 & .461 & .000 & ns \\
-9--10 & Qwen3-VL 8B    & Gemma-3 27B       & +7.9 & .000 & .239 & *** \\
-10--11& Gemma-3 27B    & Phi-4 Multimodal  & $-$0.8 & .600 & $-$.032 & ns \\
-11--12& Phi-4 Multim.  & Gemma-3 12B       & +5.0 & .049 & .164 & * \\
-12--13& Gemma-3 12B    & Gemma-3 4B        & +5.1 & .000 & .168 & *** \\
-\bottomrule
-\end{tabular}
-\end{table}
+\label{tab:app-ablation-prompt}\label{tab:app-ablation-cot}
 
+%% --- Row 1: Pairwise (left) + Per-language MQM (right) ---
 \noindent
-\begin{minipage}[t]{0.56\textwidth}
+\begin{minipage}[t]{0.48\textwidth}
 \scriptsize
-\setlength{\tabcolsep}{2.5pt}
-\captionof{table}{Per-language MQM (judge-averaged) with EN--X relative gap (\%). Negative = language above English (uncontrolled).}\label{tab:lang-gap-full}
-\begin{tabular}{@{}l rrrr rrr@{}}
+\setlength{\tabcolsep}{2pt}
+\captionof{table}{Pairwise bootstrap significance ($n{=}10\text{k}$, both judges). $d$ = Cliff's.}\label{tab:pairwise-detail}
+\begin{tabular}{@{}rl@{\;vs.\;}l rrrl@{}}
 \toprule
-\textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{BG\%} & \textbf{CN\%} & \textbf{DE\%} \\
+\textbf{Rk} & \textbf{Model A} & \textbf{Model B} & $\Delta$ & $p$ & $d$ & \\
 \midrule
-GPT-5.2           & 75.5 & 72.2 & 76.1 & 81.1 &  4 & $-$1 & $-$7 \\
-Gemini 3.1 Pro    & 69.0 & 72.0 & 75.0 & 77.2 & $-$4 & $-$9 & $-$12 \\
-Qwen3-VL 235B     & 68.5 & 68.4 & 69.7 & 77.2 &  0 & $-$2 & $-$13 \\
-Qwen3-VL 32B      & 68.9 & 65.6 & 71.9 & 78.2 &  5 & $-$4 & $-$13 \\
-Claude Opus 4.6   & 64.4 & 64.1 & 70.5 & 79.6 &  0 & $-$9 & $-$24 \\
-LLaMA-4 Maverick  & 65.3 & 65.7 & 68.2 & 73.1 & $-$1 & $-$4 & $-$12 \\
-LLaMA-4 Scout     & 65.0 & 65.2 & 68.8 & 73.1 &  0 & $-$6 & $-$12 \\
-Qwen3-VL 30B      & 64.3 & 63.0 & 68.0 & 74.8 &  2 & $-$6 & $-$16 \\
-Qwen3-VL 8B       & 64.2 & 60.9 & 70.8 & 74.8 &  5 & $-$10 & $-$17 \\
-Gemma-3 27B       & 53.3 & 60.5 & 60.0 & 64.5 & $-$14 & $-$13 & $-$21 \\
-Phi-4 Multimodal  & 57.2 & 51.3 & 56.2 & 65.7 & 10 &  2 & $-$15 \\
-Gemma-3 12B       & 52.4 & 49.0 & 52.4 & 61.3 &  6 &  0 & $-$17 \\
-Gemma-3 4B        & 44.3 & 46.1 & 48.7 & 58.1 & $-$4 & $-$10 & $-$31 \\
+1--2  & GPT-5.2  & Gemini     & +2.9 & .001 & .09 & *** \\
+2--3  & Gemini   & Qwen 235B  & +1.9 & .030 & .09 & * \\
+3--4  & Qwen 235B& Qwen 32B   & +0.4 & .340 & .01 & ns \\
+4--5  & Qwen 32B & Claude     & +1.8 & .088 & .03 & ns \\
+5--6  & Claude   & LL-Mav     & +0.7 & .311 & .03 & ns \\
+6--7  & LL-Mav   & LL-Scout   & +0.7 & .307 & .03 & ns \\
+7--8  & LL-Scout & Qwen 30B   & +0.4 & .392 & .01 & ns \\
+8--9  & Qwen 30B & Qwen 8B    & +0.1 & .461 & .00 & ns \\
+9--10 & Qwen 8B  & Gemma 27B  & +7.9 & .000 & .24 & *** \\
+10--11& Gemma 27B& Phi-4      & $-$0.8 & .600 & $-$.03 & ns \\
+11--12& Phi-4    & Gemma 12B  & +5.0 & .049 & .16 & * \\
+12--13& Gemma 12B& Gemma 4B   & +5.1 & .000 & .17 & *** \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
-\begin{minipage}[t]{0.40\textwidth}
-\footnotesize
-\captionof{table}{Cross-lingual controlled comparison (13 parallel figures, language-specific atoms, judge-averaged). EN--X gap relative to English.}\label{tab:crosslingual}
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\captionof{table}{Per-language MQM (judge-averaged) with EN--X gap (\%).}\label{tab:lang-gap-full}
+\begin{tabular}{@{}l rrrr rrr@{}}
+\toprule
+\textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} & \textbf{BG} & \textbf{CN} & \textbf{DE} \\
+\midrule
+GPT-5.2   & 75.5 & 72.2 & 76.1 & 81.1 &  4 & $-$1 & $-$7 \\
+Gemini    & 69.0 & 72.0 & 75.0 & 77.2 & $-$4 & $-$9 & $-$12 \\
+Qwen 235B & 68.5 & 68.4 & 69.7 & 77.2 &  0 & $-$2 & $-$13 \\
+Qwen 32B  & 68.9 & 65.6 & 71.9 & 78.2 &  5 & $-$4 & $-$13 \\
+Claude    & 64.4 & 64.1 & 70.5 & 79.6 &  0 & $-$9 & $-$24 \\
+LL-Mav    & 65.3 & 65.7 & 68.2 & 73.1 & $-$1 & $-$4 & $-$12 \\
+LL-Scout  & 65.0 & 65.2 & 68.8 & 73.1 &  0 & $-$6 & $-$12 \\
+Qwen 30B  & 64.3 & 63.0 & 68.0 & 74.8 &  2 & $-$6 & $-$16 \\
+Qwen 8B   & 64.2 & 60.9 & 70.8 & 74.8 &  5 & $-$10 & $-$17 \\
+Gemma 27B & 53.3 & 60.5 & 60.0 & 64.5 & $-$14 & $-$13 & $-$21 \\
+Phi-4     & 57.2 & 51.3 & 56.2 & 65.7 & 10 &  2 & $-$15 \\
+Gemma 12B & 52.4 & 49.0 & 52.4 & 61.3 &  6 &  0 & $-$17 \\
+Gemma 4B  & 44.3 & 46.1 & 48.7 & 58.1 & $-$4 & $-$10 & $-$31 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+
+\vspace{6pt}
+%% --- Row 2: Cross-lingual (left) + Human eval (right) ---
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\captionof{table}{Cross-lingual controlled (13 parallel figs $\times$ 4 langs, judge-averaged).}\label{tab:crosslingual}
 \begin{tabular}{@{}l rrrr@{}}
 \toprule
 \textbf{Model} & \textbf{EN} & \textbf{BG} & \textbf{CN} & \textbf{DE} \\
 \midrule
-GPT-5.2         & 66.2 & 56.4 & 60.8 & 55.3 \\
-Gemini 3.1 Pro  & 64.6 & 54.2 & 57.5 & 54.6 \\
-Qwen3-VL 32B    & 62.1 & 47.1 & 51.8 & 48.4 \\
-Claude Opus 4.6 & 53.7 & 47.5 & 49.5 & 52.5 \\
-Gemma-3 4B      & 36.7 & 23.0 & 35.4 & 21.2 \\
+GPT-5.2     & 66.2 & 56.4 & 60.8 & 55.3 \\
+Gemini      & 64.6 & 54.2 & 57.5 & 54.6 \\
+Qwen 32B    & 62.1 & 47.1 & 51.8 & 48.4 \\
+Claude      & 53.7 & 47.5 & 49.5 & 52.5 \\
+Gemma 4B    & 36.7 & 23.0 & 35.4 & 21.2 \\
 \bottomrule
 \end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\captionof{table}{Human evaluation: per-annotator MQM (30 English figs).}\label{tab:human-per-annotator}
+\begin{tabular}{@{}l rr rr@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{Annotator 1}} & \multicolumn{2}{c}{\textbf{Annotator 13}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\textbf{Model} & \textbf{MQM} & $n$ & \textbf{MQM} & $n$ \\
+\midrule
+GPT-5.2     & 97.1 & 19 & 96.7 & 20 \\
+Qwen 30B    & 73.1 & 19 & 81.8 & 20 \\
+Qwen 8B     & 76.8 & 19 & 75.7 & 20 \\
+Gemma 27B   & 58.6 & 19 & 62.8 & 20 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
 
-\vspace{8pt}
-\label{tab:app-ablation-prompt}\label{tab:app-ablation-cot}
-
-\vspace{4pt}
+\vspace{6pt}
+%% --- Row 3: Prompt ablation (left) + CoT ablation (right) ---
 \noindent
 \begin{minipage}[t]{0.48\textwidth}
 \scriptsize
-\captionof{table}{Prompt-language ablation: C1 (native prompt) vs C2 (English prompt, native output). Mistral-only MQM on non-English figures. Raw scores suggest a drop, but independent description analysis found no substantive quality difference; the gap is attributable to judge severity inconsistency across evaluation calls.}\label{tab:prompt-ablation-full}
+\captionof{table}{Prompt ablation: C1 (native) vs C2 (English prompt, native output). Mistral-only MQM, non-English.}\label{tab:prompt-ablation-full}
 \begin{tabular}{@{}l rr r@{}}
 \toprule
 \textbf{Model} & \textbf{C1} & \textbf{C2} & \textbf{$\Delta$} \\
@@ -763,19 +782,18 @@ Gemma-3 4B      & 36.7 & 23.0 & 35.4 & 21.2 \\
 GPT-5.2     & 78.9 & 68.4 & $-$10.5$^\dagger$ \\
 Gemini      & 75.8 & 65.5 & $-$10.3$^\dagger$ \\
 Claude      & 72.1 & 64.1 & $-$8.0$^\dagger$ \\
-Qw-235B     & 74.3 & 63.9 & $-$10.4$^\dagger$ \\
-Qw-32B      & 72.8 & 61.7 & $-$11.1$^\dagger$ \\
+Qwen 235B   & 74.3 & 63.9 & $-$10.4$^\dagger$ \\
+Qwen 32B    & 72.8 & 61.7 & $-$11.1$^\dagger$ \\
 LL-Mav      & 70.4 & 60.8 & $-$9.7$^\dagger$ \\
-Qw-8B       & 70.2 & 60.0 & $-$10.2$^\dagger$ \\
-Gma-4B      & 47.7 & 38.0 & $-$9.7$^\dagger$ \\
+Qwen 8B     & 70.2 & 60.0 & $-$10.2$^\dagger$ \\
+Gemma 4B    & 47.7 & 38.0 & $-$9.7$^\dagger$ \\
 \bottomrule
-\multicolumn{4}{@{}l}{\tiny $^\dagger$Judge artefact: independent analysis confirms} \\
-\multicolumn{4}{@{}l}{\tiny no substantive description quality difference.} \\
+\multicolumn{4}{@{}l}{\tiny $^\dagger$Judge artefact: no substantive quality difference.} \\
 \end{tabular}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\textwidth}
 \scriptsize
-\captionof{table}{Chain-of-thought ablation: capability accuracy (judge-averaged). $\Delta$ = CoT $-$ direct.}\label{tab:cot-ablation-full}
+\captionof{table}{CoT ablation: capability accuracy (judge-averaged). $\Delta$ = CoT $-$ direct.}\label{tab:cot-ablation-full}
 \begin{tabular}{@{}l rrr@{}}
 \toprule
 \textbf{Model} & \textbf{Direct} & \textbf{CoT} & \textbf{$\Delta$} \\
@@ -783,32 +801,16 @@ Gma-4B      & 47.7 & 38.0 & $-$9.7$^\dagger$ \\
 Gemini      & .81 & .81 & +.00 \\
 GPT-5.2     & .78 & .64 & $-$.15 \\
 Claude      & .66 & .65 & $-$.01 \\
-Qw-32B      & .61 & .64 & +.03 \\
-Qw-235B     & .58 & .59 & +.00 \\
-Qw-8B       & .51 & .38 & $-$.13 \\
+Qwen 32B    & .61 & .64 & +.03 \\
+Qwen 235B   & .58 & .59 & +.00 \\
+Qwen 8B     & .51 & .38 & $-$.13 \\
 LL-Mav      & .49 & .54 & +.06 \\
-Qw-30B      & .41 & .44 & +.03 \\
+Qwen 30B    & .41 & .44 & +.03 \\
 LL-Scout    & .41 & .42 & +.01 \\
-Gma-12B     & .28 & .24 & $-$.04 \\
-Gma-27B     & .27 & .27 & +.00 \\
-Gma-4B      & .19 & .11 & $-$.08 \\
+Gemma 12B   & .28 & .24 & $-$.04 \\
+Gemma 27B   & .27 & .27 & +.00 \\
+Gemma 4B    & .19 & .11 & $-$.08 \\
 Phi-4       & .09 & .18 & +.09 \\
-\bottomrule
-\end{tabular}
-\end{minipage}
-
-\vspace{8pt}
-\captionof{table}{Human evaluation: per-annotator MQM.}
-\begin{tabular}{@{}l rr rr@{}}
-\toprule
- & \multicolumn{2}{c}{\textbf{Judge 1}} & \multicolumn{2}{c}{\textbf{Judge 13}} \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-\textbf{Model} & \textbf{MQM} & $n$ & \textbf{MQM} & $n$ \\
-\midrule
-GPT-5.2     & 97.1 & 19 & 96.7 & 20 \\
-Qwen-VL 30B & 73.1 & 19 & 81.8 & 20 \\
-Qwen-VL 8B  & 76.8 & 19 & 75.7 & 20 \\
-Gemma-3 27B & 58.6 & 19 & 62.8 & 20 \\
 \bottomrule
 \end{tabular}
 \end{minipage}
@@ -823,53 +825,52 @@ Gemma-3 27B & 58.6 & 19 & 62.8 & 20 \\
 
 \begin{table}[H]
 \centering
-\caption{Per-model per-judge error profile. Mean errors per figure by category$\times$severity. A = Accuracy, C = Completeness, Cl = Clarity. H = hallucinations per figure. Right columns show MQM by chart type.}\label{tab:error-profile-full}
-\resizebox{\textwidth}{!}{%
-\footnotesize
-\setlength{\tabcolsep}{3pt}
+\scriptsize
+\caption{Per-model per-judge error profile. Mean errors/fig by category$\times$severity. A = Accuracy, C = Completeness, Cl = Clarity. H = hallucinations/fig. Right: MQM by chart type.}\label{tab:error-profile-full}
+\setlength{\tabcolsep}{2.5pt}
 \begin{tabular}{@{}l c rrrr r r rrr@{}}
 \toprule
- & & \multicolumn{4}{c}{\textbf{Errors per figure}} & & & \multicolumn{3}{c}{\textbf{MQM by chart type}} \\
+ & & \multicolumn{4}{c}{\textbf{Errors/fig}} & & & \multicolumn{3}{c}{\textbf{MQM by type}} \\
 \cmidrule(lr){3-6}\cmidrule(lr){9-11}
-\textbf{Model} & \textbf{J} & \textbf{A/Maj} & \textbf{A/Min} & \textbf{C/Maj} & \textbf{C/Min} & \textbf{Cl} & \textbf{H/fig} & \textbf{Bar} & \textbf{Line} & \textbf{Pie} \\
+\textbf{Model} & \textbf{J} & \textbf{A/Ma} & \textbf{A/Mi} & \textbf{C/Ma} & \textbf{C/Mi} & \textbf{Cl} & \textbf{H} & \textbf{Bar} & \textbf{Line} & \textbf{Pie} \\
 \midrule
 \multirow{2}{*}{GPT-5.2}      & G & 3.0 & 0.5 & 1.8 & 1.4 & 0.1 & 0.03 & 76 & 72 & 66 \\
-                               & M & 1.5 & 2.7 & 0.4 & 1.7 & 1.1 & 0.26 & 80 & 83 & 73 \\[1pt]
+                               & M & 1.5 & 2.7 & 0.4 & 1.7 & 1.1 & 0.26 & 80 & 83 & 73 \\
 \multirow{2}{*}{Gemini 3.1P}  & G & 3.1 & 0.4 & 1.9 & 1.6 & 0.2 & 0.03 & 74 & 71 & 64 \\
-                               & M & 1.8 & 2.7 & 0.8 & 1.7 & 1.3 & 0.47 & 80 & 79 & 64 \\[1pt]
+                               & M & 1.8 & 2.7 & 0.8 & 1.7 & 1.3 & 0.47 & 80 & 79 & 64 \\
 \multirow{2}{*}{Qwen 235B}    & G & 3.5 & 0.3 & 2.1 & 1.6 & 0.3 & 0.03 & 69 & 68 & 64 \\
-                               & M & 2.0 & 2.3 & 0.9 & 1.8 & 0.9 & 0.47 & 77 & 79 & 64 \\[1pt]
+                               & M & 2.0 & 2.3 & 0.9 & 1.8 & 0.9 & 0.47 & 77 & 79 & 64 \\
 \multirow{2}{*}{Qwen 32B}     & G & 3.6 & 0.3 & 1.8 & 1.4 & 0.2 & 0.03 & 74 & 69 & 62 \\
-                               & M & 2.5 & 2.6 & 0.8 & 1.7 & 1.1 & 0.58 & 78 & 77 & 59 \\[1pt]
+                               & M & 2.5 & 2.6 & 0.8 & 1.7 & 1.1 & 0.58 & 78 & 77 & 59 \\
 \multirow{2}{*}{Claude 4.6}   & G & 3.7 & 0.3 & 2.0 & 1.5 & 0.2 & 0.02 & 70 & 70 & 57 \\
-                               & M & 2.5 & 2.9 & 0.7 & 1.8 & 1.2 & 0.66 & 76 & 78 & 56 \\[1pt]
+                               & M & 2.5 & 2.9 & 0.7 & 1.8 & 1.2 & 0.66 & 76 & 78 & 56 \\
 \multirow{2}{*}{LLaMA Mav.}   & G & 4.0 & 0.3 & 2.2 & 1.4 & 0.2 & 0.02 & 71 & 67 & 55 \\
-                               & M & 2.7 & 2.1 & 1.2 & 2.0 & 1.1 & 0.38 & 75 & 77 & 57 \\[1pt]
+                               & M & 2.7 & 2.1 & 1.2 & 2.0 & 1.1 & 0.38 & 75 & 77 & 57 \\
 \multirow{2}{*}{LLaMA Scout}  & G & 3.8 & 0.2 & 2.4 & 1.7 & 0.2 & 0.01 & 68 & 67 & 58 \\
-                               & M & 3.1 & 1.6 & 1.1 & 2.1 & 1.1 & 0.44 & 74 & 74 & 59 \\[1pt]
+                               & M & 3.1 & 1.6 & 1.1 & 2.1 & 1.1 & 0.44 & 74 & 74 & 59 \\
 \multirow{2}{*}{Qwen 30B}     & G & 3.9 & 0.2 & 2.4 & 1.5 & 0.2 & 0.03 & 70 & 66 & 54 \\
-                               & M & 2.8 & 1.9 & 1.0 & 2.1 & 1.0 & 0.47 & 75 & 76 & 53 \\[1pt]
+                               & M & 2.8 & 1.9 & 1.0 & 2.1 & 1.0 & 0.47 & 75 & 76 & 53 \\
 \multirow{2}{*}{Qwen 8B}      & G & 4.4 & 0.3 & 1.9 & 1.3 & 0.2 & 0.03 & 70 & 66 & 52 \\
                                & M & 2.7 & 2.4 & 0.8 & 1.9 & 1.1 & 0.64 & 74 & 75 & 56 \\
 \cmidrule(lr){1-11}
 \multirow{2}{*}{Gemma 27B}    & G & 5.3 & 0.2 & 2.6 & 1.1 & 0.1 & 0.05 & 64 & 60 & 45 \\
-                               & M & 4.8 & 1.6 & 1.5 & 1.8 & 1.0 & 0.64 & 66 & 67 & 45 \\[1pt]
+                               & M & 4.8 & 1.6 & 1.5 & 1.8 & 1.0 & 0.64 & 66 & 67 & 45 \\
 \multirow{2}{*}{Phi-4}        & G & 3.8 & 0.1 & 3.7 & 1.9 & 0.7 & 0.00 & 59 & 66 & 43 \\
-                               & M & 3.8 & 0.8 & 3.5 & 1.6 & 1.9 & 1.00 & 57 & 67 & 41 \\[1pt]
+                               & M & 3.8 & 0.8 & 3.5 & 1.6 & 1.9 & 1.00 & 57 & 67 & 41 \\
 \multirow{2}{*}{Gemma 12B}    & G & 5.5 & 0.1 & 2.8 & 1.2 & 0.2 & 0.06 & 58 & 60 & 43 \\
-                               & M & 5.7 & 1.0 & 2.1 & 1.7 & 1.2 & 0.89 & 61 & 56 & 39 \\[1pt]
+                               & M & 5.7 & 1.0 & 2.1 & 1.7 & 1.2 & 0.89 & 61 & 56 & 39 \\
 \multirow{2}{*}{Gemma 4B}     & G & 5.7 & 0.0 & 3.4 & 1.2 & 0.2 & 0.12 & 54 & 56 & 38 \\
                                & M & 6.3 & 0.7 & 3.0 & 1.6 & 1.4 & 1.18 & 51 & 54 & 31 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
 \end{table}
 
-\vspace{2pt}
+\vspace{-2pt}
 \noindent
-\begin{minipage}[t]{0.55\textwidth}
-\footnotesize
-\captionof{table}{Capability accuracy per judge per model (RQ3 detail).}\label{tab:cap-per-judge}
-\setlength{\tabcolsep}{2.5pt}
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\captionof{table}{Capability accuracy per judge (RQ3).}\label{tab:cap-per-judge}
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{@{}l rr rr rr@{}}
 \toprule
  & \multicolumn{2}{c}{\textbf{Overall}} & \multicolumn{2}{c}{\textbf{Computation}} & \multicolumn{2}{c}{\textbf{Comparison}} \\
@@ -892,10 +893,10 @@ Phi-4     & .10 & .14 & .06 & .06 & .04 & .04 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
-\begin{minipage}[t]{0.42\textwidth}
-\footnotesize
-\captionof{table}{A-R-I per judge (RQ4 detail).}\label{tab:ari-per-judge}
-\setlength{\tabcolsep}{2.5pt}
+\begin{minipage}[t]{0.48\textwidth}
+\scriptsize
+\captionof{table}{A-R-I per judge (RQ4).}\label{tab:ari-per-judge}
+\setlength{\tabcolsep}{2pt}
 \begin{tabular}{@{}l rr rr rr@{}}
 \toprule
  & \multicolumn{2}{c}{\textbf{Admit.}} & \multicolumn{2}{c}{\textbf{Resist.}} & \multicolumn{2}{c}{\textbf{Induct.}} \\
