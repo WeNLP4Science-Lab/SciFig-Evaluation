@@ -1,0 +1,139 @@
+You are an expert evaluator assessing the quality of a machine-generated scientific figure description using an atomic checklist approach.
+
+## Your Task
+You are given the FIGURE IMAGE, an ATOM CHECKLIST of verifiable facts extracted from a human expert annotation, the full REFERENCE DESCRIPTION, and a MACHINE-GENERATED description. Use the image, the atom checklist, and the reference to evaluate the machine-generated description. Identify ALL errors.
+
+IMPORTANT: The IMAGE is the primary source of truth, not the atom checklist. The atom checklist is derived from a human annotation that may itself contain approximations. When the machine-generated description and the atom checklist disagree, always verify against the image before flagging an error. If the machine-generated description is a reasonable reading of the image, do NOT flag it as an error even if it differs slightly from the atom text.
+
+## Tolerance Guidelines
+
+Before flagging any error, apply these tolerance rules:
+
+### Numerical tolerance
+- For percentages: accept values within ±3 percentage points (e.g., atom says "45%", description says "43%" or "47%" — both acceptable)
+- For axis ranges and tick values: accept values within ±10% of the stated value
+- For approximate values explicitly marked with "approximately", "roughly", "about" or "~": accept any reasonable reading from the image
+- Do NOT flag differences between two equally valid approximations of the same visual element
+
+### Colour tolerance
+- Accept reasonable colour synonyms: "blue"/"light blue"/"teal"/"cyan", "red"/"crimson"/"dark red", "green"/"lime"/"dark green", "orange"/"amber"/"gold", "grey"/"silver"/"light grey"
+- Only flag colour errors when the described colour is clearly and unambiguously a different colour from what the image shows (e.g., calling a red bar "green")
+- When in doubt about a colour name, do NOT flag it
+
+### Wording tolerance
+- The description does not need to use the exact same words as the atom checklist
+- Accept semantic equivalence: "increases" / "rises" / "grows", "horizontal axis" / "x-axis", "stacked bars" / "bars stacked on top of each other"
+- Accept different but correct specificity levels: "the blue line" vs "the line representing Method A" — both are correct if they refer to the same element
+
+## MQM Error Categories
+
+### Accuracy Errors
+- **Incorrect Numerical Value**: Reports incorrect numbers, percentages, or quantities BEYOND the tolerance defined above. Only flag when the value is clearly wrong based on the image, not based on minor disagreement with the atom text.
+- **Incorrect Axis or Legend Interpretation**: Incorrectly describes axis labels, units, or legend information. Example: Stating that the x-axis represents temperature when it represents time.
+- **Incorrect Visual Attribute Mapping**: Assigns incorrect category names, series, values, marker shapes, or labels to visual elements such as bars, lines, pie segments, or datasets. Example: Assigning the blue bar to Method A when it corresponds to Method B. Do NOT flag colour synonym differences.
+- **Incorrect Structural Description**: Misrepresents the structural organization of the chart. Example: Describing grouped bars as stacked, reporting 5 slices when 4 exist, or misstating axis orientation.
+
+### Completeness Errors
+- **Missing Chart Purpose**: The description does not state what the chart represents based on visible labels or title.
+- **Missing Axis Description**: Omits essential axis information such as axis labels, units, scale type, value range, or tick intervals.
+- **Missing Visual Features**: Misses visual and stylistic features such as grouped/stacked structure, legend presence, sorting or ordering, or visual emphasis (highlighted bar, exploded slice).
+- **Hallucinated Content**: Introduces information or visual elements that do not exist in the figure. Example: Stating that the chart contains five categories when only four are present.
+- **Unwanted Interpretation**: Includes interpretation or inference beyond what is explicitly shown in the figure, introduces comparisons not explicitly indicated in the chart, or uses subjective or evaluative language (e.g., "significant increase").
+
+### Clarity and Readability Errors
+- **Ambiguous Description**: Contains vague or unclear references. Example: Using phrases such as "this increases significantly" without specifying the subject.
+- **Over-Generalization**: Oversimplifies or exaggerates visual information. Example: Claiming that all methods perform similarly despite visible variation.
+- **Overly Verbose Description**: Contains unnecessary repetition or excessive detail that does not add informational value.
+- **Poor Sentence Structure**: Contains grammatical errors or awkward phrasing that reduces readability.
+
+## Severity Levels
+- **Major**: Errors that make the description factually unusable or misleading, or significantly degrade usability or scientific correctness.
+- **Minor**: Stylistic or readability issues that do not affect the core factual meaning of the annotation.
+
+## Severity Assignment Rules
+
+Each atom in the checklist has a severity level (critical, important, or minor). The atom severity CAPS the error severity:
+
+- **Critical or Important atom**, completely wrong or completely missing → **Major** error
+- **Critical or Important atom**, partially covered or slightly off → **Minor** error
+- **Minor atom**, any degree of error → **Minor** error
+
+For non-atom errors (Hallucinated Content, Unwanted Interpretation, Clarity errors): assign Major or Minor based on the definitions above.
+
+## Instructions
+
+### Step 1: Accuracy Check (use image first, then atoms)
+Go through the atom checklist. For each atom, check whether the machine-generated description mentions the same information. If it does but appears wrong:
+1. FIRST verify against the IMAGE — is the description actually wrong, or is it a reasonable alternative reading?
+2. Apply the tolerance guidelines above
+3. Only flag as an error if the description is clearly incorrect based on the image
+
+### Step 2: Completeness Check (use atoms)
+Go through the atom checklist again. For each atom, check whether the machine-generated description covers this information AT ALL. If the information is completely absent, flag a Completeness error with the appropriate sub_type:
+- Atom about chart purpose/title → Missing Chart Purpose
+- Atom about axis labels, scale, range, units, ticks → Missing Axis Description
+- Atom about data series, colors, values, legend, structure, markers, sorting → Missing Visual Features
+
+Flag each missing atom as a SEPARATE error. Do not combine multiple omissions into one error. If the atom is partially covered (some details present but key parts missing), flag as a Minor completeness error.
+
+### Step 3: Hallucination & Interpretation Check (use atoms + image)
+Read the machine-generated description for claims NOT covered by any atom:
+- If a claim introduces visual elements or data that do not exist in the figure → Hallucinated Content
+- If a claim adds interpretation, inference, or subjective language beyond what is shown → Unwanted Interpretation
+
+### Step 4: Clarity Check (use reference description)
+Compare the machine-generated description against the reference for readability:
+- Vague or unclear references → Ambiguous Description
+- Oversimplified or exaggerated claims → Over-Generalization
+- Unnecessary repetition or excessive detail → Overly Verbose Description
+- Grammar errors or awkward phrasing → Poor Sentence Structure
+
+## Output Format
+Return a JSON object with this exact structure:
+{
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "text_span": "with a final value of 60%",
+      "evidence": "Description says 60% but figure shows approximately 45%",
+      "atom_id": "fig_001_sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "text_span": null,
+      "evidence": "The description does not mention the y-axis units (percentage)",
+      "atom_id": "fig_001_yaxis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "text_span": "there are six distinct clusters visible",
+      "evidence": "The figure shows four clusters, not six. No atom supports this claim.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "text_span": "the chart is showing data which is increasing",
+      "evidence": "Vague reference; does not specify which data series is increasing",
+      "atom_id": null
+    }
+  ]
+}
+
+## text_span rules
+- For errors about INCORRECT or UNWANTED content (Accuracy errors, Hallucinated Content, Unwanted Interpretation, all Clarity errors): set "text_span" to the EXACT substring from the machine-generated description that contains the error. Copy it verbatim — do not paraphrase.
+- For errors about MISSING content (Missing Chart Purpose, Missing Axis Description, Missing Visual Features): set "text_span" to null, since there is no text to highlight.
+
+## atom_id rules
+- For Accuracy and Completeness errors that correspond to a specific atom: set "atom_id" to the atom's ID from the checklist.
+- For Hallucinated Content, Unwanted Interpretation, and Clarity errors: set "atom_id" to null.
+
+If there are no errors, return: {"errors": []}
+Return ONLY the JSON object. No extra text.

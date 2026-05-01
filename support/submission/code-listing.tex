@@ -1,0 +1,141 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=20mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{listingsutf8}
+\usepackage{hyperref}
+\usepackage{times}
+\usepackage{titlesec}
+
+% Python syntax highlighting
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{deepblue}\bfseries,
+  stringstyle=\color{deepgreen},
+  commentstyle=\color{gray},
+  emphstyle=\color{deepred},
+  backgroundcolor=\color{codegray},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{gray!50},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=b,
+  xleftmargin=15pt,
+  framexleftmargin=15pt,
+}
+
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+
+\title{SciFig-Eval: Source Code Listing}
+\author{Paul Osemudiame Oamen\\Department of Computing Science\\University of Aberdeen}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+This document contains the source code listing for the SciFig-Eval project.
+The complete source code, including all scripts, dataset, and evaluation outputs,
+is publicly available at:
+\url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation}
+
+\tableofcontents
+\lstlistoflistings
+\newpage
+
+%% ===================================================================
+\section{Model Abstraction Layer}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/llm\_generation/models.py --- Model registry and FigureAnnotator classes},label={lst:models}]{scripts/llm_generation/models.py}
+
+\lstinputlisting[caption={scripts/llm\_generation/prompts.py --- Prompt template loader},label={lst:prompts}]{scripts/llm_generation/prompts.py}
+
+%% ===================================================================
+\section{Generation Pipeline}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/llm\_generation/run.py --- Main generation entry point},label={lst:run}]{scripts/llm_generation/run.py}
+
+\lstinputlisting[caption={scripts/llm\_generation/run\_adversarial.py --- Adversarial generation runner},label={lst:runadv}]{scripts/llm_generation/run_adversarial.py}
+
+%% ===================================================================
+\section{MQM Evaluation Pipeline}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/evaluation/mqm\_evaluator.py --- Core MQM scoring and judge prompts},label={lst:mqm}]{scripts/evaluation/mqm_evaluator.py}
+
+\lstinputlisting[caption={scripts/evaluation/evaluate\_reference\_free.py --- Judge A: image-only evaluation},label={lst:evalfree}]{scripts/evaluation/evaluate_reference_free.py}
+
+\lstinputlisting[caption={scripts/evaluation/evaluate\_reference\_with\_image.py --- Judge C: image + groundtruth},label={lst:evalimg}]{scripts/evaluation/evaluate_reference_with_image.py}
+
+\lstinputlisting[caption={scripts/evaluation/judge\_backends.py --- Backend routing (Azure/OpenRouter/Vertex)},label={lst:backends}]{scripts/evaluation/judge_backends.py}
+
+%% ===================================================================
+\section{Adversarial Experiments}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/experiments/run\_transforms.py --- Image transform experiment runner},label={lst:transforms}]{scripts/experiments/run_transforms.py}
+
+\lstinputlisting[caption={scripts/experiments/run\_prompt\_reverse.py --- Prompt reversal experiment},label={lst:pr}]{scripts/experiments/run_prompt_reverse.py}
+
+\lstinputlisting[caption={scripts/experiments/run\_caption\_bias.py --- Caption bias experiment},label={lst:cb}]{scripts/experiments/run_caption_bias.py}
+
+\lstinputlisting[caption={scripts/experiments/run\_questions.py --- Capability questions runner},label={lst:questions}]{scripts/experiments/run_questions.py}
+
+\lstinputlisting[caption={scripts/experiments/run\_active\_admittance.py --- Active admittance probes},label={lst:admittance}]{scripts/experiments/run_active_admittance.py}
+
+\lstinputlisting[caption={scripts/experiments/run\_inductance.py --- Inductance reasoning probes},label={lst:inductance}]{scripts/experiments/run_inductance.py}
+
+%% ===================================================================
+\section{Results Computation}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/evaluation-results/rq1/compute\_leaderboard.py --- RQ1 leaderboard with bootstrap CIs},label={lst:leaderboard}]{scripts/evaluation-results/rq1/compute_leaderboard.py}
+
+\lstinputlisting[caption={scripts/evaluation-results/rq2/compute\_degradation.py --- RQ2 transform degradation},label={lst:degradation}]{scripts/evaluation-results/rq2/compute_degradation.py}
+
+\lstinputlisting[caption={scripts/evaluation-results/rq3/compute\_capability.py --- RQ3 capability accuracy},label={lst:capability}]{scripts/evaluation-results/rq3/compute_capability.py}
+
+\lstinputlisting[caption={scripts/evaluation-results/rq4/compute\_ari.py --- RQ4 A-R-I behavioural scores},label={lst:ari}]{scripts/evaluation-results/rq4/compute_ari.py}
+
+%% ===================================================================
+\section{Evaluation Experiment Scorers}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/experiments/evaluate\_admittance.py --- Admittance scoring},label={lst:evaladmit}]{scripts/experiments/evaluate_admittance.py}
+
+\lstinputlisting[caption={scripts/experiments/evaluate\_capability.py --- Capability question scoring},label={lst:evalcap}]{scripts/experiments/evaluate_capability.py}
+
+\lstinputlisting[caption={scripts/experiments/evaluate\_prompt\_reverse.py --- Prompt reversal scoring},label={lst:evalpr}]{scripts/experiments/evaluate_prompt_reverse.py}
+
+\lstinputlisting[caption={scripts/experiments/evaluate\_caption\_bias.py --- Caption bias scoring},label={lst:evalcb}]{scripts/experiments/evaluate_caption_bias.py}
+
+%% ===================================================================
+\section{Plotting Scripts}
+%% ===================================================================
+
+\lstinputlisting[caption={scripts/evaluation-results/rq1/plot\_heatmap.py --- Per-language heatmap},label={lst:heatmap}]{scripts/evaluation-results/rq1/plot_heatmap.py}
+
+\lstinputlisting[caption={scripts/evaluation-results/rq2/plot\_degradation\_slope.py --- Degradation slope chart},label={lst:slope}]{scripts/evaluation-results/rq2/plot_degradation_slope.py}
+
+\lstinputlisting[caption={scripts/evaluation-results/rq4/plot\_ari\_dotstrip.py --- A-R-I dot-strip profiles},label={lst:dotstrip}]{scripts/evaluation-results/rq4/plot_ari_dotstrip.py}
+
+\lstinputlisting[caption={scripts/evaluation-results/discussion/plot\_rank\_flow.py --- Rank flow chart},label={lst:rankflow}]{scripts/evaluation-results/discussion/plot_rank_flow.py}
+
+\end{document}

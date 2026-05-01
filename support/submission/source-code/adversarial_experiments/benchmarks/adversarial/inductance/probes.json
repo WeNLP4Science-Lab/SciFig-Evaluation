@@ -1,0 +1,62 @@
+{
+  "bulgarian_fig_095": {
+    "figure_key": "bulgarian_fig_095",
+    "subfolder": "bulgarian_only",
+    "probe": {
+      "id": "bg095_ind1",
+      "question": "Най-големият сектор в кръговата диаграма е обозначен с 25%. Вярно ли е?",
+      "question_english": "The largest slice in the pie chart is labeled 25%. Is this correct?",
+      "expected_behavior": "Model should notice the values are counts (sum to ~86), not percentages, and reject the '%' framing while confirming the value 25 is correct",
+      "what_it_tests": "Can the model induce that the chart values are raw counts, not percentages, by checking if they sum to 100?",
+      "correct_answer": "The value 25 is correct but it represents a count, not a percentage. The values sum to approximately 86, not 100."
+    }
+  },
+  "english_fig_009": {
+    "figure_key": "english_fig_009",
+    "subfolder": "english_only",
+    "probe": {
+      "id": "en009_ind1",
+      "question": "The outer ring shows two small slices labeled 7.0% and 5.0%. Which value belongs to Std: 0.82 and which to Std: 0.94?",
+      "question_english": "The outer ring shows two small slices labeled 7.0% and 5.0%. Which value belongs to Std: 0.82 and which to Std: 0.94?",
+      "expected_behavior": "Model should infer from the legend's color gradient (dark to light = Std: 0.0 → 0.94) that the lighter slice (7.0%) is Std: 0.94 and the slightly darker slice (5.0%) is Std: 0.82",
+      "what_it_tests": "Can the model use the color gradient ordering in the legend to correctly assign percentage values to the right categories for visually similar small slices?",
+      "correct_answer": "Std: 0.82 = 5.0%, Std: 0.94 = 7.0%. The lighter blue slice (7.0%) corresponds to Std: 0.94 (lightest in legend), and the slightly darker slice (5.0%) corresponds to Std: 0.82."
+    }
+  },
+  "multi_fig_002": {
+    "figure_key": "multi_fig_002",
+    "subfolder": "multi_language",
+    "probe": {
+      "id": "ml002_ind1",
+      "question": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest in absolute terms on the logarithmic scale?",
+      "question_english": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest in absolute terms on the logarithmic scale?",
+      "expected_behavior": "Model should recognize the y-axis uses a logarithmic scale (10^1, 10^2, 10^3) without being told, and identify that the largest gap occurs at 80% sparsity",
+      "what_it_tests": "Can the model identify the scale type (logarithmic) from the axis tick marks and use that to correctly assess the gap between bars?",
+      "correct_answer": "80% sparsity. The y-axis uses a logarithmic scale, and the gap between Per-Layer and Per-Output is largest at 80% where they approach 10^3 with different magnitudes."
+    }
+  },
+  "english_fig_005": {
+    "figure_key": "english_fig_005",
+    "subfolder": "english_only",
+    "probe": {
+      "id": "en005_ind1",
+      "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1 (2^0)?",
+      "question_english": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1 (2^0)?",
+      "expected_behavior": "Model should recognize that k=1 corresponds to 2^0 on the logarithmic x-axis without being told",
+      "what_it_tests": "Can the model infer that k=1 maps to 2^0 on a log2 scale axis from the tick mark pattern?",
+      "correct_answer": "~0.18-0.20. k=1 is the leftmost point (2^0). Llama-3B starts at ~0.42, Llama-1B at ~0.22-0.24."
+    }
+  },
+  "chinese_fig_071": {
+    "figure_key": "chinese_fig_071",
+    "subfolder": "chinese_only",
+    "probe": {
+      "id": "cn071_ind1",
+      "question": "In the selective blur image, the left panel subplot label is blurred. What is it likely to say?",
+      "question_english": "In the selective blur image, the left panel subplot label is blurred. What is it likely to say?",
+      "expected_behavior": "Model should infer from the right panel label '(b) 各语体中承受动词的一级语义域分布' (passive verbs) that the left panel is '(a) 各语体中支配动词的一级语义域分布' (active verbs)",
+      "what_it_tests": "Can the model infer a blurred subplot label from the visible paired subplot label pattern?",
+      "correct_answer": "(a) 各语体中支配动词的一级语义域分布 — inferred from the (b) label which uses 承受动词 (passive verbs), so (a) uses 支配动词 (active verbs)"
+    }
+  }
+}
