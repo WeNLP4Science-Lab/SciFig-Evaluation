@@ -32,25 +32,24 @@ The controlled cross-lingual comparison uses only 13 parallel figures, and only 
 Three systematic artefacts affect scoring: colour synonym false positives (${\sim}5\%$ English penalty), dense atoms inflating pie chart penalties by ${\sim}11$ points, and a length--error trade-off where longer descriptions increase the error surface, creating tension between detail and score.
 GPT-4o assigns 78\% Major severity vs Mistral's 47\% on identical errors; while rankings are robust ($\rho_{\text{sys}}\geq.95$), absolute scores depend on judge selection and per-figure scores carry substantial uncertainty ($\rho{\approx}0.6$).
 
-\paragraph{Computational cost.}
-Initial experiments evaluated all 1\,005 figures across 13 models, producing ${\sim}$13\,000 base evaluations, but API costs escalated to approximately \$2\,500 for baselines alone before completing a single research question.
-Iterative methodology changes (prompt revisions, judge prompt updates, scoring formula adjustments) compounded costs further, as each change required partial re-evaluation.
-We therefore adopted a stratified sample (120 atom figures for RQ1, 45 adversarial figures for RQ2--4) with targeted ablations to maintain generalisability within a feasible budget.
+\paragraph{Sampling design and statistical power.}
+Descriptions were generated for all 1\,005 figures across all 13 models, producing a complete generation corpus of 13\,065 model-figure pairs.
+From this corpus, a stratified sample of 120 figures was selected for dual-judge MQM evaluation, balanced across four languages and three chart types to preserve the population distribution (EN\,39, BG\,30, CN\,30, DE\,21).
+A further 45-figure subset, balanced at 9 per language and 3 per chart type, was selected for the adversarial experiments (RQ2--4).
+Bootstrap confidence intervals ($10\text{k}$ resamples, 95\%) and pairwise significance tests confirm that the 120-figure sample provides adequate statistical power to detect meaningful performance differences: three of twelve adjacent-rank comparisons reach significance ($p{<}.05$), with effect sizes (Cliff's $d$) ranging from .09 to .24.
+Non-significant comparisons (e.g., Qwen~235B vs 32B, $\Delta{=}0.4$, $p{=}.34$) may reflect insufficient power at $n{=}120$ rather than true equivalence, and should be interpreted as upper bounds on the true difference.
+API costs, which are detailed in Appendix~\ref{app:cost-breakdown}, were an additional factor influencing sample size; iterative methodology changes (prompt revisions, judge updates, scoring adjustments) compounded costs as each change required partial re-evaluation.
 
 %% ===================================================================
 \section{Ethical Considerations}\label{sec:ethics}
 %% ===================================================================
 
-\paragraph{Data and bias.}
-All 1\,005 figures are drawn from publicly available scientific papers on arXiv and open-access repositories; no personally identifiable information appears in the dataset.
-Ground-truth annotations were produced by trained annotators following documented guidelines with informed consent.
-VLM performance varies substantially across languages, with Bulgarian figures receiving the lowest-quality descriptions, which has direct implications for equitable access to scientific content.
-We report these disparities transparently to inform deployment decisions.
+\paragraph{Data and human annotation.}
+All 1\,005 figures are drawn from publicly available scientific papers; no personally identifiable information appears in the dataset.
+The eight annotators participated voluntarily under informed consent, and the study was conducted in accordance with the University of Aberdeen's ethical guidelines for research involving human participants.
+Full details on consent procedures, data anonymisation, and participant safeguards are provided in Appendix~\ref{app:ethics-detail}.
 
-\paragraph{Evaluation and deployment.}
-The dual-judge evaluation inherits biases from GPT-4o and Mistral Large 3, including the severity split documented in Chapter~\ref{ch:discussion}.
-We mitigate this through judge averaging and human validation, but acknowledge that the evaluation framework reflects the perspectives of two specific commercial models.
-Even the best-performing model produces ${\sim}2.7$ incorrect numerical values per figure; we caution against deploying VLM-generated descriptions as authoritative without human verification, particularly in contexts where numerical precision is critical.
+Considerations on bias, equity, judge limitations, and deployment cautions are detailed in Appendix~\ref{app:ethics-detail}.
 
 %% ===================================================================
 \section{Future Work}\label{sec:future-work}

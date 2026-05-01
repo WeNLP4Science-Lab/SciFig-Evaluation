@@ -273,3 +273,72 @@ Table~\ref{tab:config-ref} lists all environment variables and key configuration
 \bottomrule
 \end{tabular}
 \end{table}
+
+% =============================================================================
+% Appendix D: Ethics Statement
+% =============================================================================
+\chapter{Ethics Statement}
+\label{app:ethics-detail}
+
+\small
+This appendix provides full details on the ethical considerations governing human annotation and data collection in this project.
+
+\paragraph{Data sources.}
+All 1,005 scientific figures are drawn from publicly available papers on arXiv, Wirtschaftsdienst, CCL/ACL Anthology, and ISA/UNWE Sofia. No copyrighted material was reproduced beyond fair-use figure excerpts for research evaluation purposes. No personally identifiable information appears in the dataset.
+
+\paragraph{Annotator recruitment and consent.}
+Eight annotators were recruited to produce the 1,411 ground-truth annotations across four languages. All annotators participated voluntarily and were briefed on the project objectives, annotation guidelines, and expected time commitment prior to commencing work. Annotators were informed that their contributions would be used for academic research and were free to withdraw at any time without consequence.
+
+\paragraph{Data anonymisation.}
+No personally identifiable information about annotators is stored in the dataset. Annotations are identified only by anonymous annotator IDs (numeric identifiers with no mapping to real identities in the published dataset). The annotation task involved describing publicly available scientific figures and posed no foreseeable risk to participants.
+
+\paragraph{Ethical compliance.}
+The study was conducted in accordance with the University of Aberdeen's ethical guidelines for research involving human participants. The annotation task falls within the category of minimal-risk research: participants performed a professional task (describing scientific figures) using publicly available materials, with no deception, no sensitive personal data collected, and no foreseeable harm.
+
+\paragraph{Bias and equity.}
+VLM performance varies substantially across languages, with Bulgarian figures receiving the lowest-quality descriptions, which has direct implications for equitable access to scientific content. We report these disparities transparently to inform deployment decisions.
+
+\paragraph{Evaluation and deployment.}
+The thirteen VLMs were accessed through commercial APIs (Azure OpenAI, OpenRouter, Google Vertex AI) under standard terms of service. No model weights were modified, and all evaluations used deterministic settings (\texttt{temperature=0}) to ensure reproducibility.
+The dual-judge evaluation inherits biases from GPT-4o and Mistral Large~3, including the severity split documented in Chapter~\ref{ch:discussion}. We mitigate this through judge averaging and human validation, but acknowledge that the evaluation framework reflects the perspectives of two specific commercial models.
+Even the best-performing model produces ${\sim}2.7$ incorrect numerical values per figure; we caution against deploying VLM-generated descriptions as authoritative without human verification, particularly in contexts where numerical precision is critical.
+
+% =============================================================================
+% Appendix E: Computational Cost Breakdown
+% =============================================================================
+\chapter{Computational Cost Breakdown}
+\label{app:cost-breakdown}
+
+\small
+This appendix details the API costs incurred during the evaluation. Descriptions were generated for all 1,005 figures across 13 models; MQM evaluation was performed on a stratified 120-figure sample with two judges under three configurations.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Estimated API call counts and costs by pipeline stage.}\label{tab:cost-breakdown}
+\begin{tabular}{@{}l r r l r@{}}
+\toprule
+\textbf{Stage} & \textbf{Models} & \textbf{API calls} & \textbf{Cost tier} & \textbf{Est.\ cost} \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Generation (all 1,005 figures)}} \\
+\quad Proprietary (GPT-5.2, Gemini, Claude) & 3 & 3\,015 & \$0.05--0.15/call & \$300 \\
+\quad Open-weight via OpenRouter & 10 & 10\,050 & \$0.01--0.03/call & \$200 \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{MQM Evaluation (120 figures, 2 judges, 3 configs)}} \\
+\quad GPT-4o judge & 13 & 4\,680 & \$0.08--0.12/call & \$470 \\
+\quad Mistral Large 3 judge & 13 & 4\,680 & \$0.03--0.05/call & \$190 \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Adversarial experiments (45 figures)}} \\
+\quad Transform descriptions (9 transforms) & 13 & 5\,265 & mixed & \$250 \\
+\quad Probes (capability, hallucination, PR) & 13 & 3\,510 & mixed & \$180 \\
+\quad Adversarial MQM evaluation & 13 & 7\,020 & mixed & \$560 \\
+\midrule
+\multicolumn{5}{@{}l}{\textit{Methodology iterations (re-runs due to prompt/scoring changes)}} \\
+\quad Partial re-evaluations & --- & ${\sim}$5\,000 & mixed & \$350 \\
+\midrule
+\textbf{Total} & & ${\sim}$\textbf{43\,220} & & ${\sim}$\textbf{\$2\,500} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent The cost estimates above are approximate and based on published API pricing at the time of evaluation (March--April 2026). Proprietary model costs vary by token count; open-weight models routed through OpenRouter incur per-token charges that are typically 5--10$\times$ lower than proprietary equivalents. The methodology iteration cost reflects partial re-runs required when generation prompts, judge instructions, or the MQM scoring formula were revised during development. Extending the full dual-judge MQM evaluation to all 1,005 figures across 13 models would require approximately 78,390 additional judge calls, at an estimated cost of \$4,000--6,000.
