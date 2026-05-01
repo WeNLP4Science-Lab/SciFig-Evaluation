@@ -1,0 +1,105 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-18T13:03:43.440362+00:00",
+      "raw_response": "Based on the provided chart, here are the answers to your questions:\n\n1. The ffn_residual line hits exactly 1400 at layer 5 and first reaches a value strictly above it at layer 6.\n2. The line exhibits 3 distinct spikes. However, only the first two completely satisfy the condition of \"returning near zero\" within the visual frame, as the third spike is cut off at the rightmost edge.\n3. The attn_residual (orange) line first exceeds the ffn_residual (red) line at approximately layer 15, where it rises to sit just above the red line's plateau.\n4. There is no purple line or metric labeled 'mlp_output' shown in the provided chart.\n5. Yes, there are exactly 4 lines plotted in this chart, which correctly corresponds to exactly 4 entries in the legend.",
+      "items": [
+        {
+          "id": "ml009_q1",
+          "type": "capability",
+          "question": "At which layer does the ffn_residual (red) line first reach a value above 1400?",
+          "model_answer": "The ffn_residual line hits exactly 1400 at layer 5 and first reaches a value strictly above it at layer 6."
+        },
+        {
+          "id": "ml009_q2",
+          "type": "capability",
+          "question": "How many distinct spikes (peaks rising above 200 and returning near zero) does the ffn_output (green) line exhibit?",
+          "model_answer": "The line exhibits 3 distinct spikes. However, only the first two completely satisfy the condition of \"returning near zero\" within the visual frame, as the third spike is cut off at the rightmost edge."
+        },
+        {
+          "id": "ml009_q3",
+          "type": "capability",
+          "question": "At approximately which layer does the attn_residual line first exceed the ffn_residual line?",
+          "model_answer": "The `attn_residual` line first exceeds the `ffn_residual` line at approximately layer 21.",
+          "rerun_timestamp": "2026-04-20T12:59:18.032835+00:00"
+        },
+        {
+          "id": "ml009_h1",
+          "type": "hallucination_inexist",
+          "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+          "model_answer": "There is no purple line or metric labeled 'mlp_output' shown in the provided chart."
+        },
+        {
+          "id": "ml009_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Are there exactly 4 lines plotted in this chart? Is this correct?",
+          "model_answer": "Yes, there are exactly 4 lines plotted in this chart, which correctly corresponds to exactly 4 entries in the legend."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-18T13:08:26.559668+00:00",
+      "raw_response": "1. The second spike of the ffn_output line occurs around layer 13 and reaches an approximate Max Activation Value of 1000.\n2. Between layers 6 and 20, the ffn_residual line (red solid) maintains the highest sustained Max Activation Value, which is approximately 1500 to 1600.\n3. The premise of the question is incorrect because the attn_output line remains near zero around layer 10, nowhere near the ~1500 mark of the ffn_residual line. This contrast suggests that FFN residuals—not attention outputs—are overwhelmingly responsible for the massive activations in the middle layers.\n4. The chart plots maximum activation values rather than attention weight distributions, so this cannot be observed directly from the figure provided. However, if the sudden massive spikes in activation are a proxy for this phenomenon, it first begins to manifest at layer 5.\n5. No, that is incorrect. There are exactly 4 lines plotted in this chart, corresponding to the four distinct labels in the legend (attn_output, attn_residual, ffn_output, ffn_residual).",
+      "items": [
+        {
+          "id": "ml009_q4",
+          "type": "capability",
+          "question": "What is the approximate Max Activation Value of the ffn_output line at its second spike?",
+          "model_answer": "The approximate Max Activation Value of the `ffn_output` line at its second spike is 1000 (visually occurring at layer 13, just below the 1000 mark).",
+          "rerun_timestamp": "2026-04-20T12:59:18.032856+00:00"
+        },
+        {
+          "id": "ml009_q5",
+          "type": "capability",
+          "question": "Between layers 6 and 20, which line maintains the highest sustained Max Activation Value, and what is that approximate value?",
+          "model_answer": "Between layers 6 and 20, the ffn_residual line (red solid) maintains the highest sustained Max Activation Value, which is approximately 1500 to 1600."
+        },
+        {
+          "id": "ml009_h2",
+          "type": "hallucination_contra",
+          "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+          "model_answer": "The premise of the question is incorrect because the attn_output line remains near zero around layer 10, nowhere near the ~1500 mark of the ffn_residual line. This contrast suggests that FFN residuals—not attention outputs—are overwhelmingly responsible for the massive activations in the middle layers."
+        },
+        {
+          "id": "ml009_h3",
+          "type": "hallucination_unanswerable",
+          "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+          "model_answer": "The chart plots maximum activation values rather than attention weight distributions, so this cannot be observed directly from the figure provided. However, if the sudden massive spikes in activation are a proxy for this phenomenon, it first begins to manifest at layer 5."
+        },
+        {
+          "id": "ml009_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Are there exactly 3 lines plotted in this chart? Is this correct?",
+          "model_answer": "No, that is incorrect. There are exactly 4 lines plotted in this chart, corresponding to the four distinct labels in the legend (attn_output, attn_residual, ffn_output, ffn_residual)."
+        }
+      ]
+    }
+  ],
+  "reruns": [
+    {
+      "timestamp": "2026-04-20T12:59:18.032860+00:00",
+      "question_ids": [
+        "ml009_q3",
+        "ml009_q4"
+      ],
+      "raw_response": "1. The `attn_residual` line first exceeds the `ffn_residual` line at approximately layer 21.\n2. The approximate Max Activation Value of the `ffn_output` line at its second spike is 1000 (visually occurring at layer 13, just below the 1000 mark).",
+      "parsed": [
+        {
+          "id": "ml009_q3",
+          "question": "At approximately which layer does the attn_residual line first exceed the ffn_residual line?",
+          "model_answer": "The `attn_residual` line first exceeds the `ffn_residual` line at approximately layer 21."
+        },
+        {
+          "id": "ml009_q4",
+          "question": "What is the approximate Max Activation Value of the ffn_output line at its second spike?",
+          "model_answer": "The approximate Max Activation Value of the `ffn_output` line at its second spike is 1000 (visually occurring at layer 13, just below the 1000 mark)."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T19:16:49.904523+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The vertical dashed line marking the learning rate warmup phase ends at approximately 10,000 iterations. At this boundary, Vanilla has a loss of around 3.3, StrmLLM (n=64) has a loss of around 3.0, and the SepLLM models have losses ranging from approximately 3.1 to 3.3.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent vertical dashed line as if it exists, provided a specific iteration where it ends, and included detailed loss values at that boundary. This demonstrates a failure to recognize that the element does not exist in the chart."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Streaming attention allows the model to process sequences in a more efficient and parallelized manner. This can lead to faster convergence because the model can attend to relevant information more quickly and effectively, reducing the need for backpropagation through the entire sequence.  Vanilla attention, in contrast, requires processing the entire sequence before updating weights, which can be a bottleneck.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that StrmLLM achieves a lower final loss than Vanilla and builds its answer on this incorrect assumption without questioning or correcting it."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The chart does not provide perplexity values. It only shows the training loss. Therefore, we cannot determine the perplexity on the validation set or the train-validation gap.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the chart does not provide the required information (validation perplexity or train-validation gap) and correctly concludes that the question cannot be answered from the figure."
+    }
+  ]
+}

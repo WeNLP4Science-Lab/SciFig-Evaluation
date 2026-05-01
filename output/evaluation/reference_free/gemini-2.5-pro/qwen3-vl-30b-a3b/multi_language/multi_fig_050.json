@@ -1,0 +1,146 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The values above each bar indicate the total token count for that category, with the first bar at 6393 tokens for zero shots, followed by 4500 for one shot, 4800 for two shots, 5400 for three shots, and 4800 for four shots.",
+          "evidence": "The chart only displays the total value (6393) for the first bar (0 shots). The total values for the other four bars are not indicated on the chart; the description fabricates these values and presents them as if they are explicitly annotated. Furthermore, the stated value for four shots (4800) is a significant misreading of the bar's actual height, which is over 5000 tokens."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart includes error bars above each bar",
+          "evidence": "The red lines with arrows are not error bars, which typically represent statistical uncertainty or variability. These are annotations indicating the numerical difference in token count between the zero-shot bar and the other bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The legend in the upper left corner",
+          "evidence": "The legend is located in the upper center of the chart, not the upper left."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "dashed gridlines",
+          "evidence": "The horizontal gridlines are dotted, not dashed."
+        }
+      ],
+      "mqm_score": 87.5,
+      "total_penalty": 12.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each category on the x-axis contains two stacked bars",
+          "evidence": "This statement is incorrect. The category for '0' shots contains a single, unstacked bar representing 'Reasoning' tokens. The other categories (1, 2, 3, 4) contain stacked bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dropping to 4500 at one shot, 4900 at two shots, 5200 at three shots, and 4600 at four shots",
+          "evidence": "The reported values for the 'Reasoning' (orange) bars are inaccurate. The approximate values shown in the chart are: ~4250 for one shot (not 4500), ~4500 for two shots (not 4900), ~5000 for three shots (not 5200), and ~4250 for four shots (not 4600)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "demonstration tokens are introduced only in the one-shot, two-shot, three-shot, and four-shot scenarios, with values of 1952, 1613, 1040, and 1379, respectively",
+          "evidence": "The description incorrectly identifies the red annotations above the bars as the values for the 'Demonstration' (blue) tokens. These annotations actually indicate the reduction in total tokens compared to the 0-shot bar. The actual values of the blue bars are much smaller (e.g., ~200 for one shot, not 1952)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart highlights that few-shot prompting leads to a substantial reduction in reasoning tokens compared to zero-shot prompting, while also introducing demonstration tokens, which are absent in the zero-shot case.",
+          "evidence": "This sentence provides a conclusion and interpretation of the data, which is explicitly forbidden by the generation prompt. The prompt requires describing only what is visually and explicitly present in the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The error bars on top of each bar indicate variability in the token counts, with the largest error bars observed at zero shots and one shot.",
+          "evidence": "The chart does not contain any error bars. The description misidentifies the red T-shaped annotations (which show the difference in token count from the 0-shot bar) as error bars and invents a purpose for them ('variability')."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "As the number of shots increases, the reasoning token count decreases significantly",
+          "evidence": "This statement is an over-generalization. While the reasoning token count for shots 1-4 is lower than for shot 0, the trend from shot 1 to 4 is not a consistent decrease. The count actually increases from shot 1 to shot 3 before dropping again at shot 4."
+        }
+      ],
+      "mqm_score": 77.0,
+      "total_penalty": 23.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 1 Shot beträgt der „Reasoning“-Token-Count 4400, und der „Demonstration“-Balken erreicht 4400, was zu einer Gesamtsumme von 4400 entspricht. Bei 2 Shots beträgt der „Reasoning“-Token-Count 4600, und der „Demonstration“-Balken erreicht 4600, was zu einer Gesamtsumme von 4600 entspricht. Bei 3 Shots beträgt der „Reasoning“-Token-Count 5100, und der „Demonstration“-Balken erreicht 5100, was zu einer Gesamtsumme von 5100 entspricht. Bei 4 Shots beträgt der „Reasoning“-Token-Count 4300, und der „Demonstration“-Balken erreicht 4300, was zu einer Gesamtsumme von 4300 entspricht.",
+          "evidence": "The description fundamentally misunderstands how to read a stacked bar chart. For each of the stacked bars (shots 1-4), it approximates the total height of the bar and then incorrectly assigns this same value to the 'Reasoning' component, the 'Demonstration' component, and the total sum. For a stacked bar, the components should sum to the total, they should not all be equal to the total."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "der die Differenz zwischen dem Wert des vorherigen Balkens und dem aktuellen Balken angibt",
+          "evidence": "The red arrows and their associated negative values do not show the difference from the previous bar. They show the difference between the 0-shot bar (value 6393, marked by the dashed line) and the current bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Es gibt keine visuelle Hervorhebung einzelner Balken.",
+          "evidence": "This statement is incorrect. The chart features several forms of visual highlighting and annotation as defined in the prompt: the first bar is annotated with its exact value (6393), a dashed line extends from its peak, and the subsequent bars are annotated with red arrows and numerical values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "oben rechts",
+          "evidence": "The legend is located at the top center of the chart, not the top right."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 82.5
+}

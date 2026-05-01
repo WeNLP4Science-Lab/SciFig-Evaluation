@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_204",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with data points at 2.5, 5.0, and 10.0",
+      "evidence": "The description incorrectly states that data points exist at x-axis values of 2.5, 5.0, and 10.0. The plot shows data points at other, non-uniform values, such as approximately 2.0, 4.0, 4.5, 6.0, 7.0, 8.5, and 10.5, depending on the line."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dash-dotted line",
+      "evidence": "The line style for 'Inconsistency-CE-MP' is described as 'dash-dotted', but the legend and the plot both clearly show it as a dashed line."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At an AL of 2.5, the BLEU scores are approximately 26.5 for Consistency-CE, 26.8 for Inconsistency-CE, 27.2 for Inconsistency-CE-MP, and 26.9 for Consistency-Bi.",
+      "evidence": "This sentence reports data points at an AL of 2.5, which do not exist. The first data points for three of the lines are at approximately AL=2.0, and their BLEU scores are around 26.2, 26.3, and 26.8 respectively. Furthermore, it hallucinates a data point for 'Consistency-Bi', which does not have any data before AL=4.0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At an AL of 5.0, the scores are approximately 29.3 for Consistency-CE, 30.0 for Inconsistency-CE, 29.6 for Inconsistency-CE-MP, and 30.8 for Consistency-Bi.",
+      "evidence": "The description reports data points at an AL of 5.0, but no data points exist at this exact x-axis value for any of the lines. The reported BLEU values do not correspond to any actual data points on the plot."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At an AL of 10.0, the scores are approximately 31.4 for Consistency-CE, 31.6 for Inconsistency-CE, 32.2 for Inconsistency-CE-MP, and 33.1 for Consistency-Bi.",
+      "evidence": "The description reports data points at an AL of 10.0, but the final data points for all lines are located at approximately AL=10.5. For example, for 'Consistency-Bi', the final BLEU score is approximately 33.0, not 33.1 at AL=10.0."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Overall, the Consistency-Bi method achieves the highest BLEU score across all levels of average lagging.",
+      "evidence": "The generation prompt explicitly forbids making comparisons between lines. This sentence violates that constraint by comparing the performance of the 'Consistency-Bi' method to the others."
+    }
+  ],
+  "mqm_score": 71.5,
+  "total_penalty": 28.5,
+  "error_count": 6
+}

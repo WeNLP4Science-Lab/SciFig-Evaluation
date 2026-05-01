@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_126",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 0.35 at |S| = 2",
+          "evidence": "The description states the starting cosine similarity for the 'QAdapter' line is approximately 0.35, but the data point at |S| = 2 is clearly higher, at approximately 0.38."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 0.24 by |S| = 10",
+          "evidence": "The description states the ending cosine similarity for the 'QAdapter' line is around 0.24, but the data point at |S| = 10 is visibly lower, at approximately 0.20."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Both methods exhibit a reduction in cosine similarity as |S| increases, indicating that models trained on larger subsets become less similar to single-task models.",
+          "evidence": "The generation prompt explicitly states to avoid making comparisons between lines and to avoid drawing conclusions or making inferences. This sentence violates both rules by comparing the trends of 'Both methods' and interpreting what the trend indicates."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at roughly 0.35 at |S| = 2 and declines to approximately 0.25 at |S| = 10",
+          "evidence": "The starting value for \"QAdapter\" at |S| = 2 is approximately 0.38, not 0.35. The ending value at |S| = 10 is approximately 0.22, not 0.25."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Two methods are compared:",
+          "evidence": "The prompt instructs to avoid making comparisons between lines (\"Vermeiden Sie es, ... Vergleiche zwischen Linien anzustellen.\"). This phrase explicitly introduces a comparison."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The blue line remains consistently above the green line across all values of |S|, reflecting higher similarity for \"Weight averaging\" compared to \"QAdapter\" at each subset size.",
+          "evidence": "This sentence is a direct comparison between the two lines, which was explicitly forbidden by the prompt instructions (\"Vermeiden Sie es, ... Vergleiche zwischen Linien anzustellen.\")."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The prompt requested a description of the tick label interval. The description omits the x-axis tick interval (2) and the y-axis tick interval (0.2)."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.5
+}

@@ -1,0 +1,87 @@
+{
+  "figure_key": "multi_fig_111",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original_in_paper",
+  "figure_type": "Pie Chart",
+  "language": "English",
+  "num_atoms": 10,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with four distinct slices representing the years 2017, 2018, 2019, and an unlabeled fourth segment",
+      "evidence": "The figure contains only three slices, not four. The atom 'multi_fig_111_element_count' confirms three slices.",
+      "atom_id": "multi_fig_111_element_count"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The remaining slice, light blue, represents the unlabeled year at 22.0% (22).",
+      "evidence": "No fourth slice exists in the figure, and the value 22.0% is incorrect and hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "dark blue",
+      "evidence": "The 2019 slice is described as 'dark blue,' but the atom 'multi_fig_111_slice_color_v4_0' and the figure show it as blue, not dark blue.",
+      "atom_id": "multi_fig_111_slice_color_v4_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the fact that there is no legend present in the figure, as confirmed by atom 'multi_fig_111_sent_6'.",
+      "atom_id": "multi_fig_111_sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart includes a legend indicating the color coding for each year",
+      "evidence": "The figure does not include a legend, contradicting the atom 'multi_fig_111_sent_6'.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "the slices are arranged in a clockwise descending order by size",
+      "evidence": "The atom 'multi_fig_111_sent_6' states that the slices are not arranged in any particular order, and the figure confirms this.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Figure 6 presents a pie chart illustrating the distribution of articles across years",
+      "evidence": "The description generalizes the content as 'articles,' but the figure does not specify what is being distributed. The reference description avoids this assumption.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 53.0,
+  "total_penalty": 23.5,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 10,
+    "accuracy": 0.7778,
+    "completeness": 0.875
+  }
+}

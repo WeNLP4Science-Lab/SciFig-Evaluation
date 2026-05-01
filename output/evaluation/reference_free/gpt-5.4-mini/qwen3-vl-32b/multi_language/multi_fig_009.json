@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "до слой 20, след което рязко спадат до нулеви стойности при слой 22",
+          "evidence": "Оранжевата линия (attn_residual) не спада до нула при слой 22; на графиката тя е около 250–300 при последната точка, а червената линия (ffn_residual) е около 600 при слой 23 след спад около слой 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "„ffn_output“ (зелена линия) показва рязко спадане на стойностите след слой 13, достигайки нулеви стойности до слой 18, след което отново се увеличава.",
+          "evidence": "Зелената линия (ffn_output) не става нула до слой 18; след спад около слоеве 14–18 тя остава малко над нулата и после нараства рязко около слой 22, като вторият пик е около 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "„attn_output“ (синя линия) остава ниска, под 100, до слой 20, където започва да се увеличава рязко, достигайки около 200 при слой 22.",
+          "evidence": "Синята линия (attn_output) започва да се покачва по-рано, около слоеве 21–22, и крайната ѝ стойност е приблизително 250, а не около 200."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "Описанието не споменава, че в графиката няма маркери по линиите, въпреки че prompt изисква да се посочи формата на маркера, ако има такъв."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在层5后迅速上升至约1600",
+          "evidence": "橙色点线(attn_residual)在第6层后上升并在约1500–1580附近平台，不是约1600。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在层5后迅速上升至约1200",
+          "evidence": "绿色虚线(ffn_output)在第6层后峰值约为1400，不是约1200。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在层5后迅速上升至约1500",
+          "evidence": "红色实线(ffn_residual)在第6层后峰值约为1400，不是约1500。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "层21处下降至约400",
+          "evidence": "红色实线(ffn_residual)在第22层附近下降到约400，但第21层仍接近1550；同样橙色点线在第22层附近约250，不是约400。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "层21处再次上升至约1200",
+          "evidence": "绿色虚线(ffn_output)在第22层附近先升至约1180，但不是发生在第21层。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "描述未提到图例中每条线的标记形状（实际上图中没有标记点，只有线型和颜色）这一可见特征；但该项是否必须不确定，因此仅作轻微遗漏。"
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the plot includes a legend identifying the four lines."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "which are indicative of attention sink phenomena in the baseline configuration",
+          "evidence": "This sentence infers a phenomenon and interpretation beyond the visible plot, which the prompt explicitly asks to avoid."
+        }
+      ],
+      "mqm_score": 98.5,
+      "total_penalty": 1.5,
+      "error_count": 2,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die orange gepunktete Linie („attn_residual“) verläuft ähnlich, beginnt bei 0, steigt in Schicht 5 auf etwa 1300, bleibt bis Schicht 20 auf einem Wert von etwa 1500, und fällt dann auf etwa 500 ab.",
+          "evidence": "The orange dotted line reaches about 1400 at layer 5 and stays near 1475–1580 before ending around 250–600 depending on the exact final point; the description understates the early peak and misstates the end value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die grüne gestrichelte Linie („ffn_output“) bleibt bis Schicht 5 nahe 0, steigt dann in Schicht 5 auf etwa 1200, fällt in Schicht 10 auf etwa 0, steigt in Schicht 13 auf etwa 1200, fällt in Schicht 15 auf etwa 0 und steigt erneut in Schicht 20 auf etwa 1200, bevor sie in Schicht 22 auf etwa 0 fällt.",
+          "evidence": "The green dash-dot line peaks around 1400 at layer 5, drops to near 0 by layer 7, rises to about 900–1000 at layer 13, drops to around 50–100 near layer 14–15, and rises to about 1180 at layer 22; several reported values and layer positions are inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die blaue gestrichelte Linie („attn_output“) bleibt bis Schicht 5 nahe 0, steigt dann in Schicht 5 auf etwa 100, bleibt bis Schicht 20 auf einem Wert von etwa 100 und steigt in Schicht 22 auf etwa 200 an.",
+          "evidence": "The blue dashed line stays near 0 through most layers, but the increase happens at layer 23 to about 250 rather than at layer 22 to about 200."
+        }
+      ],
+      "mqm_score": 94.0,
+      "total_penalty": 6.0,
+      "error_count": 3,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 91.88
+}

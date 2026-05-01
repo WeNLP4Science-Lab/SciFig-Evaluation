@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_142",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "AGT（中蓝色）",
+      "evidence": "The description identifies the light blue bars as AGT. However, in the chart, the AGT bars (first in the legend) are medium blue, while the LOC bars (seventh in the legend) are light blue. For example, in the '避免' group, the tall medium blue bar at ~27.5% is AGT, but the description incorrectly associates the first bar in that group, which is LOC and light blue, with AGT."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "LOC（淡蓝色）",
+      "evidence": "The description identifies the medium blue bars as LOC. In the chart, the LOC bars (seventh in the legend) are light blue, while the AGT bars (first in the legend) are medium blue. The description has swapped the colors for AGT and LOC."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表组内的柱状图严格按照图例从上到下的顺序排列",
+      "evidence": "The description claims the bars within each group are ordered according to the legend. This is incorrect. For instance, in the '避免' group, the first bar is LOC (7th in legend), followed by AGT (1st in legend), MANN (8th in legend), EXP (2nd in legend), etc. The bars are not ordered by the legend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图中代表性的最高柱体出现在“回避”类别下的AGT柱（约为37.00%）以及“避免”类别下的CONT柱（约为36.50%）",
+      "evidence": "While the values are approximately correct, the category assignment for the first example is wrong due to the color mapping error. In the '回避' group, the tallest bar (~37%) is medium blue, which corresponds to AGT in the legend. The description correctly identifies it as AGT. However, in the '避免' group, the tallest bar (~36.5%) is dark blue (CONT), but the second tallest bar (~27.5%) is medium blue (AGT), not the light blue bar that the description implies is AGT."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "从整体视觉上看，AGT和CONT两类角色在多数动词分组中均呈现出较高的取值，而TIME、LOC、MEAS和eCOO等角色的取值则普遍较短，通常低于5.00%。",
+      "evidence": "The prompt asks to avoid comparisons across categories or summarizing trends unless explicitly labeled. This sentence summarizes a general trend by comparing the performance of different semantic roles (AGT, CONT vs. TIME, LOC, etc.) across all verb groups, which goes slightly beyond describing the visual elements themselves and into the realm of interpretation."
+    }
+  ],
+  "mqm_score": 78.5,
+  "total_penalty": 21.5,
+  "error_count": 5
+}

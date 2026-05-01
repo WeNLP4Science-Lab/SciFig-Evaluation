@@ -1,0 +1,73 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T15:12:55.796539+00:00",
+  "evaluations": [
+    {
+      "question_id": "ml009_q1",
+      "question": "At which layer does the ffn_residual (red) line first reach a value above 1400?",
+      "expected_answer": "~5",
+      "model_answer": "The ffn_residual (red) line first reaches a value above 1400 at approximately **layer 6**.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 0.5,
+      "reason": "Model's answer close but outside 30% range of expected layer 5.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q2",
+      "question": "How many distinct spikes (peaks rising above 200 and returning near zero) does the ffn_output (green) line exhibit?",
+      "expected_answer": "3",
+      "model_answer": "The ffn_output (green) line exhibits **3** distinct spikes (one around layer 5, one around layer 13-14, and one around layer 21-22).",
+      "answer_type": "exact",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Model correctly identified 3 spikes and their approximate locations.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q3",
+      "question": "At approximately which layer does the attn_residual line first exceed the ffn_residual line?",
+      "expected_answer": "~15-19",
+      "model_answer": "The attn_residual line first exceeds the ffn_residual line at approximately **layer 21** (where the ffn_residual drops sharply while attn_residual is still elevated, though briefly — actually looking more carefully, attn_residual never clearly exceeds ffn_residual; they track closely, but ffn_residual is generally equal or higher). At approximately **layer 5** the attn_residual briefly appears above ffn_residual during the initial rise.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        15,
+        19
+      ],
+      "score": 0.0,
+      "reason": "Model's answer is outside acceptable range [15, 19].",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q4",
+      "question": "What is the approximate Max Activation Value of the ffn_output line at its second spike?",
+      "expected_answer": "~1000",
+      "model_answer": "The approximate Max Activation Value of the ffn_output line at its second spike (around layer 13) is **approximately 500**.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        950,
+        1000
+      ],
+      "score": 0.0,
+      "reason": "Model's value (500) is outside the acceptable range [950, 1000].",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q5",
+      "question": "Between layers 6 and 20, which line maintains the highest sustained Max Activation Value, and what is that approximate value?",
+      "expected_answer": "ffn_residual (red) or attn_residual (orange), both sustaining ~1500-1600",
+      "model_answer": "Between layers 6 and 20, the **ffn_residual** (red solid) line maintains the highest sustained Max Activation Value, at approximately **1500–1550**.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Model's answer aligns with expected range and correct line identification.",
+      "excluded": false
+    }
+  ],
+  "average_score": 0.5,
+  "total_scored": 5,
+  "total_excluded": 0
+}

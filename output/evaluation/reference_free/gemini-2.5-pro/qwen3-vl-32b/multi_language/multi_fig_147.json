@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_147",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ten distinct LLMs",
+          "evidence": "The chart displays twelve bars, not ten. The description later contradicts itself by listing twelve distinct values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the units \"(%)\" from the y-axis label, which is \"Overall Performance (%)\"."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Accordingly, the bars with values 76.24, 73.94, 72.09, 77.12, and 76.71 fall into Tier-1; 67.58, 63.63, 66.50, 64.34, and 67.55 fall into Tier-2; and 34.24 and 46.02 fall into Tier-3.",
+          "evidence": "This sentence applies a classification rule from the caption, which is an interpretation not explicitly shown in the chart. Furthermore, the classification is performed incorrectly: the value 77.12 is outside the specified Tier-1 range [72, 77], 63.63 is outside the Tier-2 range [64, 68], and 46.02 is outside the Tier-3 range [34, 46]."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description of the y-axis omits its unit, which is percentage (%), as indicated by the label \"Overall Performance (%)\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ten distinct LLMs",
+          "evidence": "The chart contains 12 bars, not 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are sorted in descending order of performance",
+          "evidence": "The bars are not sorted in descending order. For example, the third bar (34.24) is much lower than the second (73.94) and fourth (72.09) bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "This enumeration of bars is incomplete, listing only 10 of the 12 bars shown in the chart. It omits the bars with values 34.24 and 46.02."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The lowest-performing model has a score of 34.24 (light blue bar)",
+          "evidence": "The bar with the score 34.24 is the third bar, which is colored a desaturated teal or blue-green, not the same 'light blue' as the fifth bar (77.12) or the 'sky blue' of the seventh bar (76.71)."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "According to the caption, the models are stratified into three tiers based on their overall performance: Tier-1 (OP_{GM} [72, 77]) includes models with scores between 72 and 77, such as 76.24, 73.94, 72.09, 77.12, and 76.71; Tier-2 (OP_{GM} [64, 68]) includes models with scores between 64 and 68, such as 67.58, 63.63, 66.50, 64.34, and 67.55; and Tier-3 (OP_{GM} [34, 46]) includes the single model with a score of 34.24.",
+          "evidence": "The prompt asks for a description of what is visually represented, but this section uses information from the external caption to classify the data into tiers. This is an act of interpretation, not direct description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Tier-2 (OP_{GM} [64, 68]) includes models with scores between 64 and 68, such as 67.58, 63.63, 66.50, 64.34, and 67.55",
+          "evidence": "The description incorrectly includes the model with a score of 63.63 in Tier-2, which is defined as having scores between 64 and 68. The value 63.63 is outside this range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Tier-3 (OP_{GM} [34, 46]) includes the single model with a score of 34.24.",
+          "evidence": "The chart shows two models within the Tier-3 range of [34, 46]: the one with a score of 34.24 and another with a score of 46.02. Therefore, it is incorrect to state it includes a 'single model'."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart visually emphasizes the performance distribution, with the majority of models falling into Tier-1 and Tier-2, while only one model falls into Tier-3, highlighting a notable performance gap.",
+          "evidence": "This sentence draws conclusions about the data distribution and makes an inferential statement about a 'notable performance gap,' which is explicitly forbidden by the prompt's instruction to avoid interpretation and conclusions."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 80.75
+}

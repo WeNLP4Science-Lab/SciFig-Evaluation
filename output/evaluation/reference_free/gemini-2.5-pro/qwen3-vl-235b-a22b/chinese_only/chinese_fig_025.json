@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_025",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "以0.1为间隔均匀划分，共10个区间（0–0.1, 0.1–0.2, …, 0.9–1.0）",
+      "evidence": "The description incorrectly states that the x-axis is divided into 10 intervals of width 0.1. The chart clearly shows about 20 bars, indicating the bin width is approximately 0.05, not 0.1."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "重叠率在0.1–0.2区间内的频次最高，约为1800",
+      "evidence": "This statement is based on the incorrect assumption of 0.1 bin width. The peak frequency of ~1800 corresponds to a single, smaller bin within that range (approximately 0.15-0.20), not the entire 0.1-0.2 interval."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "0.2–0.3区间次之，约为1600",
+      "evidence": "This is incorrect. The second highest bar is actually in the 0.10-0.15 range. The 0.2-0.3 interval contains two bars with different heights (approx. 1600 and 1150), and is not the second highest region overall."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "0.3–0.4区间约为700",
+      "evidence": "This interval contains two bars, with heights of approximately 700 and 400. Their combined frequency is about 1100, not 700. The description seems to only report the value for the first of the two bars in this interval."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "单位为样本数量",
+      "evidence": "The y-axis label is \"Frequency\". While it's logical to infer the unit is \"number of samples\", this is not explicitly stated on the chart, and the prompt advises against introducing information not explicitly shown."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "柱高呈现明显的右偏分布趋势",
+      "evidence": "The prompt instructs to avoid interpreting trends. Describing the distribution as \"right-skewed\" is an interpretation of the visual pattern rather than a direct description of the data points."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "直观反映了高重叠率样本稀少、低至中等重叠率样本密集的分布特征",
+      "evidence": "This sentence provides a summary conclusion about the data distribution, which constitutes an interpretation that the prompt explicitly asks to avoid."
+    }
+  ],
+  "mqm_score": 75.5,
+  "total_penalty": 24.5,
+  "error_count": 7
+}

@@ -1,0 +1,36 @@
+{
+  "figure_key": "chinese_fig_108",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "按字母顺序排列",
+      "evidence": "The x-axis categories are Test1, Test2, Test3, Test4, Test5. These are sorted numerically by the number in the name, not alphabetically."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "柱状图高度均接近或略高于40%；“i-vector”次之，高度约在33%至35%之间；“d-vector”再次之，高度约在28%至30%之间；“s-vector”最低，高度约在25%至27%之间",
+      "evidence": "The value ranges provided for all four categories are incorrect. For example, for the '无' category (light green), the bars are all below 40% and range from approximately 38.5% down to 31.5%. Similarly, for 'i-vector', the values range from approximately 33.5% down to 26.5%, which is not captured by the stated 33%-35% range. The other ranges are also inaccurate and fail to account for the clear downward trend across the tests."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "各组柱状图在测试集间高度基本保持一致",
+      "evidence": "This statement is factually incorrect. The figure shows a clear and consistent downward trend in bar height (WER) for all four methods as they progress from Test1 to Test5. Stating that the heights are 'basically consistent' completely misrepresents the data."
+    }
+  ],
+  "mqm_score": 93.0,
+  "total_penalty": 7.0,
+  "error_count": 3
+}

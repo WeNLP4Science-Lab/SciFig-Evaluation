@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "gpt-5.2",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_output ... достигайки приблизително ~250 при слой ~23",
+          "evidence": "The 'attn_output' line reaches approximately 100 at layer 23, not ~250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "attn_residual ... е около ~250",
+          "evidence": "The 'attn_residual' line is approximately 300 at layer 23, not ~250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_output ... стойност около ~600 при слой ~23",
+          "evidence": "The 'ffn_output' line is at approximately 100 at layer 23, not ~600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ffn_residual ... втория максимум е около ~600 в края",
+          "evidence": "The 'ffn_residual' line reaches approximately 800 at layer 23, not ~600."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description lacks a clear statement of the chart's purpose: illustrating massive activation values across different layers, as noted in the title."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Row 1 (Baseline): Significant massive activations and attention sinks emerge after the 6th layer. Row 2 (SDPA Gating): Reduced activations and no attention sinks observed. Row 3 (Value Layer Gating): Similar activations to Row 2 but with residual attention sinks. Rows 4–5 (Reduced Sparsity via cross-head share and NS-sigmoid): Massive activations and attention sinks resemble the baseline.",
+          "evidence": "The description includes details about additional rows and configurations not present in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "绿色点划线（ffn_output）在层0到约4接近0，约在第5层出现一次尖峰（接近1400刻度附近），随后在约6–8层迅速回落到接近0并在约8–12层维持低值；在约13层附近出现第二次尖峰（处于千级、接近1200刻度附近），紧接着在约14–16层回落到低值（靠近0到100区间），在约22层附近出现第三次尖峰（再次达到千级、接近1200刻度附近），并在末端回落。",
+          "evidence": "The green line shows peaks at layers around 6 and 15, not at 5, 13, or 22."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue dashed line with small circular markers (“attn_output”)",
+          "evidence": "The blue dashed line does not have small circular markers; it is simply dashed without markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "shows another pronounced peak around layer 13 near roughly 650",
+          "evidence": "The green dash-dot line ('ffn_output') does not have a peak at around layer 13 near 650."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the plot illustrates massive activations across different layers of a baseline model."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the chart compares massive activations and attention sink phenomena."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend presence explicitly."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 87.38
+}

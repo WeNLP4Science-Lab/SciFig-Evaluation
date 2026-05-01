@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_116",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a blue bar representing the Hessian trace and an orange bar representing generalization error",
+          "evidence": "The chart does not contain a legend or labels that assign meanings to the blue and orange bars. This mapping is an assumption based on external context and not on the visual information present in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The data reveal a trend where smaller ranks, particularly 16, exhibit the lowest generalization errors (orange bar ~0.8) and relatively low Hessian traces (blue bar ~2.5). As rank increases, both metrics rise, with the highest values observed at rank 256 (Hessian trace ~7.8, generalization error ~7.2).",
+          "evidence": "Describing a \"trend\" and summarizing how metrics change \"as rank increases\" constitutes interpretation of the data, which is explicitly forbidden by the prompt. The description should state the values for each category, not generalize a trend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "(orange bar ~0.8)",
+          "evidence": "The orange bar for the rank 16 category has a value of approximately 1.0, not 0.8."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually supports the claim that smaller adapters achieve lower generalization errors and are associated with flatter minima, as indicated by lower Hessian traces.",
+          "evidence": "This sentence draws a conclusion about a \"claim\" that the chart \"visually supports\". This is a direct interpretation and violates the prompt's instruction to describe only what is shown without drawing conclusions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Furthermore, the comparison between ranks highlights that even when the total dimension (sum of adapter dimensions) is fixed at 256, using a single high-rank adapter leads to higher errors and sharper minima than smaller, lower-rank configurations, suggesting that ensemble-like configurations (implied by multiple smaller adapters) are beneficial. The results also align with the caption’s assertion that QLoRA, which uses quantized models, achieves lower generalization errors and Hessian trace values than LoRA, as the performance at rank 256 under QLoRA would be expected to outperform standard LoRA at the same rank due to improved optimization.",
+          "evidence": "These sentences introduce numerous concepts (total dimension, ensemble configurations, QLoRA, LoRA) and comparisons that are not depicted in the chart. This is an extensive interpretation based on external information from the caption, not a description of the visual elements."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that the chart does not have a legend, which is a key visual feature explaining why the meaning of the two bar colors is undefined within the figure itself."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.0
+}

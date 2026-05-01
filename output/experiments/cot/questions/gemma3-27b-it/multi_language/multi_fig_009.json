@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gemma3-27b-it",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T17:22:32.383190+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "Here's a breakdown of the figure and answers to your questions, following your instructions:\n\n**Visual Structure:**\n\nThe figure is a line chart. \n* **Axes:** The x-axis is labeled \"Layer\" and represents the layer number, ranging from 0 to approximately 22. The y-axis is labeled \"Max Activation Value\" and ranges from 0 to 1600.\n* **Data Series:** There are four data series plotted as lines:\n    * `attn_output` (blue dashed line)\n    * `attn_residual` (orange dotted line)\n    * `ffn_output` (green dashed line)\n    * `ffn_residual` (red solid line)\n* **Labels:** Each line is labeled in the legend.\n* **Colors:** The lines are colored as described above (blue, orange, green, red).\n* **Patterns:** The `ffn_residual` line shows a rapid increase and then a plateau, followed by a rapid decrease. The `ffn_output` line exhibits several spikes. The `attn_residual` line generally follows the `ffn_residual` line but with a lower magnitude. The `attn_output` line is relatively flat for most of the range.\n\n**Answers to Questions:**\n\n1. The `ffn_residual` (red) line first reaches a value above 1400 at approximately layer 3.\n2. The `ffn_output` (green) line exhibits approximately 5 distinct spikes (peaks rising above 200 and returning near zero).\n3. The `attn_residual` line first exceeds the `ffn_residual` line at approximately layer 17.\n4. The approximate max activation value of the purple line representing the 'mlp_output' at layer 10 is not visible in the chart. There is no purple line.\n5. No, there are not exactly 4 lines plotted in this chart. There are 4 lines, but the legend does not match the colors of the lines. The `attn_output` line is blue, not purple. The `mlp_output` line is not present.",
+      "items": [
+        {
+          "id": "ml009_q1",
+          "type": "capability",
+          "question": "At which layer does the ffn_residual (red) line first reach a value above 1400?",
+          "model_answer": "The `ffn_residual` (red) line first reaches a value above 1400 at approximately layer 3.",
+          "full_response": "The `ffn_residual` (red) line first reaches a value above 1400 at approximately layer 3."
+        },
+        {
+          "id": "ml009_q2",
+          "type": "capability",
+          "question": "How many distinct spikes (peaks rising above 200 and returning near zero) does the ffn_output (green) line exhibit?",
+          "model_answer": "The `ffn_output` (green) line exhibits approximately 5 distinct spikes (peaks rising above 200 and returning near zero).",
+          "full_response": "The `ffn_output` (green) line exhibits approximately 5 distinct spikes (peaks rising above 200 and returning near zero)."
+        },
+        {
+          "id": "ml009_q3",
+          "type": "capability",
+          "question": "At approximately which layer does the attn_residual line first exceed the ffn_residual line?",
+          "model_answer": "The `attn_residual` line first exceeds the `ffn_residual` line at approximately layer 17.",
+          "full_response": "The `attn_residual` line first exceeds the `ffn_residual` line at approximately layer 17."
+        },
+        {
+          "id": "ml009_h1",
+          "type": "hallucination_inexist",
+          "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+          "model_answer": "The approximate max activation value of the purple line representing the 'mlp_output' at layer 10 is not visible in the chart. There is no purple line.",
+          "full_response": "The approximate max activation value of the purple line representing the 'mlp_output' at layer 10 is not visible in the chart. There is no purple line."
+        },
+        {
+          "id": "ml009_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Are there exactly 4 lines plotted in this chart? Is this correct?",
+          "model_answer": "No, there are not exactly 4 lines plotted in this chart. There are 4 lines, but the legend does not match the colors of the lines. The `attn_output` line is blue, not purple. The `mlp_output` line is not present.",
+          "full_response": "No, there are not exactly 4 lines plotted in this chart. There are 4 lines, but the legend does not match the colors of the lines. The `attn_output` line is blue, not purple. The `mlp_output` line is not present."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T17:26:00.529253+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "Here's a breakdown of the figure and answers to your questions, following your instructions:\n\n**Visual Structure:**\n\nThe figure is a line chart. \n* **Axes:** The x-axis is labeled \"Layer\" and represents the layer number in a neural network (ranging from 0 to 21). The y-axis is labeled \"Max Activation Value\" and represents the maximum activation value observed at each layer.\n* **Data Series:** There are four data series plotted:\n    * `attn_output`: Represented by a blue dashed line.\n    * `attn_residual`: Represented by a green dotted line.\n    * `ffn_output`: Represented by an orange dotted line.\n    * `ffn_residual`: Represented by a red solid line.\n* **Labels:** Each line is labeled in the legend.\n* **Colors:** Blue, green, orange, and red are used to distinguish the lines.\n* **Patterns:** The chart shows a pattern of increasing and decreasing activation values across layers. The `ffn_residual` line exhibits the most dramatic spikes in activation, particularly around layers 4-6 and 18-20. The other lines show more moderate fluctuations. There's a clear \"massive activation\" pattern, especially for `ffn_residual`.\n\n**Answers to Questions:**\n\n1. The approximate Max Activation Value of the `ffn_output` line (orange dotted) at its second spike is around 1300.\n\n2. Between layers 6 and 20, the `ffn_residual` line (red solid) maintains the highest sustained Max Activation Value, with an approximate value of around 1400-1500.\n\n3. Given that the `attn_output` line (blue dashed) reaches peak activation values comparable to `ffn_residual` (red solid) around layer 10, this suggests that attention outputs contribute significantly to massive activations in the middle layers, potentially as much as or nearly as much as FFN residuals.\n\n4. Based on the massive activation pattern shown in the baseline, the attention sink phenomenon first manifests in the attention weight distribution around layer 18, where the `attn_residual` line begins to increase rapidly.\n\n5. No, there are not exactly 3 lines plotted in this chart. There are 4 lines plotted: `attn_output`, `attn_residual`, `ffn_output`, and `ffn_residual`. Therefore, this statement is incorrect.",
+      "items": [
+        {
+          "id": "ml009_q4",
+          "type": "capability",
+          "question": "What is the approximate Max Activation Value of the ffn_output line at its second spike?",
+          "model_answer": "The approximate Max Activation Value of the `ffn_output` line (orange dotted) at its second spike is around 1300.",
+          "full_response": "The approximate Max Activation Value of the `ffn_output` line (orange dotted) at its second spike is around 1300."
+        },
+        {
+          "id": "ml009_q5",
+          "type": "capability",
+          "question": "Between layers 6 and 20, which line maintains the highest sustained Max Activation Value, and what is that approximate value?",
+          "model_answer": "Between layers 6 and 20, the `ffn_residual` line (red solid) maintains the highest sustained Max Activation Value, with an approximate value of around 1400-1500.",
+          "full_response": "Between layers 6 and 20, the `ffn_residual` line (red solid) maintains the highest sustained Max Activation Value, with an approximate value of around 1400-1500."
+        },
+        {
+          "id": "ml009_h2",
+          "type": "hallucination_contra",
+          "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+          "model_answer": "Given that the `attn_output` line (blue dashed) reaches peak activation values comparable to `ffn_residual` (red solid) around layer 10, this suggests that attention outputs contribute significantly to massive activations in the middle layers, potentially as much as or nearly as much as FFN residuals.",
+          "full_response": "Given that the `attn_output` line (blue dashed) reaches peak activation values comparable to `ffn_residual` (red solid) around layer 10, this suggests that attention outputs contribute significantly to massive activations in the middle layers, potentially as much as or nearly as much as FFN residuals."
+        },
+        {
+          "id": "ml009_h3",
+          "type": "hallucination_unanswerable",
+          "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+          "model_answer": "Based on the massive activation pattern shown in the baseline, the attention sink phenomenon first manifests in the attention weight distribution around layer 18, where the `attn_residual` line begins to increase rapidly.",
+          "full_response": "Based on the massive activation pattern shown in the baseline, the attention sink phenomenon first manifests in the attention weight distribution around layer 18, where the `attn_residual` line begins to increase rapidly."
+        },
+        {
+          "id": "ml009_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Are there exactly 3 lines plotted in this chart? Is this correct?",
+          "model_answer": "No, there are not exactly 3 lines plotted in this chart. There are 4 lines plotted: `attn_output`, `attn_residual`, `ffn_output`, and `ffn_residual`. Therefore, this statement is incorrect.",
+          "full_response": "No, there are not exactly 3 lines plotted in this chart. There are 4 lines plotted: `attn_output`, `attn_residual`, `ffn_output`, and `ffn_residual`. Therefore, this statement is incorrect."
+        }
+      ]
+    }
+  ]
+}

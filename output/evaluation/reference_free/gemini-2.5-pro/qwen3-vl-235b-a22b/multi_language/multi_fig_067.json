@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_067",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in descending order of total bar length",
+          "evidence": "The description incorrectly states that the categories on the vertical axis are ordered by descending total bar length. In fact, the total for each bar is 100 (74+16+10=100; 80+14+6=100; 86+12+2=100), so they all have the same length."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are ordered from top to bottom by decreasing total length, with Movies having the longest bar (100 total cases) and Basketball the shortest (100 total cases as well, but with different segment distribution).",
+          "evidence": "This sentence is factually incorrect and internally contradictory. It claims the bars are ordered by decreasing length, but then states the 'longest' (Movies) and 'shortest' (Basketball) both total 100 cases. All bars have the same total length."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually emphasizes that PC+ALL consistently outperforms PC in the “Win” category across all domains, while the “Fail” cases are minimal and decrease progressively from Basketball to Movies.",
+          "evidence": "This sentence provides interpretation and comparison (e.g., 'consistently outperforms', 'minimal') which is explicitly forbidden by the generation prompt's instruction to avoid making conclusions or comparisons."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in descending order of total bar length",
+          "evidence": "The description states that the bars are sorted in descending order of total bar length. However, all three bars are 100% stacked bars and therefore have the exact same total length (74+16+10=100; 80+14+6=100; 86+12+2=100)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually conveys that PC+ALL consistently outperforms PC in correctness prediction across all domains, with the largest margin observed in Movies and the smallest in Basketball.",
+          "evidence": "The generation prompt explicitly states to avoid drawing conclusions, making comparisons, or making inferences about the data. This sentence interprets the data by stating that one method 'outperforms' another and compares the performance across domains, which violates the instructions."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.0
+}

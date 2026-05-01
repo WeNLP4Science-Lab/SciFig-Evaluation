@@ -1,0 +1,159 @@
+{
+  "figure_key": "chinese_fig_152",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 20,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x 轴标有“帧数”，数值刻度间隔为 100 帧，从 100 帧开始，到 2n 帧结束",
+      "evidence": "x轴实际标签为分类刻度，包括'词'、'词2n'、'词类2n'、'标点'和'标点2n'，而非'帧数'或数值刻度。",
+      "atom_id": "x_axis_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "y 轴标有“准确率”",
+      "evidence": "y轴实际标签为'效果得分'，而非'准确率'。",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "数值范围为 0.8 到 0.995，刻度间隔为 0.01",
+      "evidence": "y轴范围实际为0.8到1.0，刻度间隔为0.05，而非0.8到0.995和0.01。",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条蓝色实线表示位于 500 组结构的准确率，从 0.95 开始下降到约 0.89 帧，然后在 2n 帧处达到约 0.91 值",
+      "evidence": "蓝色线代表500维，起点约0.9（非0.95），最低点约0.8（非0.89），终点约0.95（非0.91）。此外，'帧'和'组结构'的描述与图表无关。",
+      "atom_id": "500dim_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条橙色虚线代表位于 300 组结构的准确率，从 0.95 开始下降到约 0.86 帧，然后在 2n 帧处达到约 0.89 值",
+      "evidence": "橙色线代表300维，使用实线（非虚线），起点接近0.95，最低点约0.9（非0.86），终点约0.9（非0.89）。此外，'帧'和'组结构'的描述与图表无关。",
+      "atom_id": "300dim_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条黄色虚线代表位于 200 组结构的准确率，从 0.95 开始下降到约 0.84 帧，然后在 2n 帧处达到约 0.90 值",
+      "evidence": "黄色线代表100维（非200维），使用实线（非虚线），起点约0.9（非0.95），最低点约0.8（非0.84），终点约0.9（非0.90）。此外，'帧'和'组结构'的描述与图表无关。",
+      "atom_id": "100dim_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条红色虚线代表位于 100 组结构的准确率，从 0.95 开始下降到约 0.82 帧，然后在 2n 帧处达到约 0.87 值",
+      "evidence": "图表中无红色线。灰色线代表200维，使用菱形标记和实线样式，起点约0.92，最低点约0.88，终点约0.9。此外，'帧'和'组结构'的描述与图表无关。",
+      "atom_id": "200dim_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明图表的目的：显示不同维度（100维、200维、300维、500维）的数据在不同类别上的表现。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及200维（灰色线）的具体标记形状（菱形）和样式（实线）。",
+      "atom_id": "200dim_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及100维（黄色线）的标记形状（三角形）。",
+      "atom_id": "100dim_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "随着帧数从 100 帧到 2n 帧的改变而变化",
+      "evidence": "图表中无'帧数'或'2n帧'的概念，x轴为分类刻度而非数值刻度。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "一条红色虚线代表位于 100 组结构的准确率",
+      "evidence": "图表中无红色线或'100组结构'的描述。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "显示了 N 元结构的组合准确率",
+      "evidence": "图表未明确说明'N元结构'或'组合准确率'，属于过度解读。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "下降到约 0.89 帧，然后在 2n 帧处达到约 0.91 值",
+      "evidence": "使用'帧'和'2n帧'描述x轴类别，与图表不符，导致歧义。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "一条蓝色实线表示位于 500 组结构的准确率，从 0.95 开始下降到约 0.89 帧，然后在 2n 帧处达到约 0.91 值",
+      "evidence": "句子冗长且表述不清晰，'位于500组结构'的表述不准确。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 15,
+  "mqm_score": 48.0,
+  "total_penalty": 52.0,
+  "atom_coverage": {
+    "correct": 12,
+    "inaccurate": 7,
+    "missing": 3,
+    "total": 20,
+    "accuracy": 0.6316,
+    "completeness": 0.8
+  }
+}

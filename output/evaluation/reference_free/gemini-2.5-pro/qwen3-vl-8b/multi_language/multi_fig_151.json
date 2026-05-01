@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_151",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating that lower values represent higher probability",
+          "evidence": "The y-axis is labeled \"Negative log probability\". A lower (more negative) value, such as -27, represents a lower probability, while a higher value (less negative), such as -22, represents a higher probability. The description states the opposite."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each specialty is represented by a group of six vertically stacked bars",
+          "evidence": "The chart shows groups of seven bars (one baseline model plus six fine-tuned models), not six. Additionally, the bars are grouped side-by-side, not stacked."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the baseline Mistral-v0.2-Base model shown as a light blue bar and the five fine-tuned models shown as progressively darker shades of orange and brown",
+          "evidence": "The description incorrectly states there are five fine-tuned models when the legend clearly shows and lists six (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the baseline bar is consistently the tallest (least negative, approximately -26.5)",
+          "evidence": "The baseline (blue) bar is consistently the shortest (most negative value) within each group, not the tallest."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately -26.5",
+          "evidence": "The value of the baseline bar is not consistently -26.5; it varies by group (e.g., it is approximately -27 in the 'Cardio' group and -25 in the 'Gastro' group)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while the fine-tuned bars for that specialty are shorter (more negative)",
+          "evidence": "The bar for the model fine-tuned on its matching specialty (e.g., the 'Cardio' model in the 'Cardio' terms group) is the tallest (least negative), not shorter."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For example, in the Cardio group, the Cardio-fine-tuned bar is the shortest (around -27), while the baseline is the tallest (around -26.5).",
+          "evidence": "This example incorrectly reverses the facts shown in the chart. In the 'Cardio' group, the Cardio-fine-tuned bar is the tallest (value approx. -22), and the baseline bar is the shortest (value -27)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually demonstrates that fine-tuning on a specific specialty improves the model’s probability for terms within that specialty, as indicated by the shorter bars for the fine-tuned models compared to the baseline.",
+          "evidence": "This sentence draws a conclusion about what the chart demonstrates, which violates the prompt's instruction to \"Avoid interpreting causes or trends, and do not compare categories unless the comparison is explicitly labeled.\""
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "MissingVisualFeatures",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that each bar in a group corresponds to a different model (one baseline and six fine-tuned versions), as indicated by the legend. It only mentions the total number of bars per group (incorrectly) and their colors."
+        }
+      ],
+      "mqm_score": 60.0,
+      "total_penalty": 40.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 60.0
+}

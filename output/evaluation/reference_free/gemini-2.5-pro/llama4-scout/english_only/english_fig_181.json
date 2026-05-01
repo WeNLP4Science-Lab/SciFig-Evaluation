@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_181",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "'C3A b=128/2'",
+      "evidence": "The label in the legend is 'C³A_b=128/2'. The generated description omits the superscript '3' and the subscript 'b', and uses a space instead of an underscore."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "'LoRA r=1'",
+      "evidence": "The label in the legend is 'LoRA_r=1'. The generated description uses a space instead of an underscore and omits the subscript 'r'."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "rising to around 1.0 by epoch 100",
+      "evidence": "The 'C³A_b=128/2' line reaches an accuracy of 1.0 earlier, around epoch 80-90, and then remains flat. Stating it reaches this 'by epoch 100' is vague and understates the speed of convergence."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "beginning at around (0, 0.2)",
+      "evidence": "The 'LoRA r=1' line starts at an accuracy value visibly below the 0.2 tick mark, closer to 0.1."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "steadily increasing to about 0.8 by epoch 300, and continuing to rise to nearly 0.9 by epoch 400, with noticeable fluctuations after epoch 250",
+      "evidence": "This description of the 'LoRA' line is highly inaccurate. The line is not 'steadily' increasing due to high noise. More importantly, after epoch 300, the line does not simply 'continue to rise'; it experiences a massive drop in accuracy to around 0.5 before becoming extremely volatile. The phrase 'noticeable fluctuations' is a severe understatement of this behavior."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starting at roughly (0, 0.3)",
+      "evidence": "The 'Linear' model line starts at a value visibly lower than 0.3, at approximately the same point as the 'LoRA' line (around 0.1)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "rapidly increasing to around 0.95 by epoch 50, and then gradually reaching 1.0 by epoch 100",
+      "evidence": "This misrepresents the trend of the 'Linear' line. The line reaches an accuracy much closer to 1.0 (approx. 0.98-0.99) by epoch 50, not 0.95. Furthermore, it reaches 1.0 much earlier than epoch 100 (around epoch 75) and then stays flat, it does not 'gradually' reach it over the next 25 epochs."
+    }
+  ],
+  "mqm_score": 79.0,
+  "total_penalty": 21.0,
+  "error_count": 7
+}

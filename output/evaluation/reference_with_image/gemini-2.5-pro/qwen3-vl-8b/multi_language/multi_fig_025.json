@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_025",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "with gridlines marking integer intervals",
+          "evidence": "The description states that the gridlines mark 'integer intervals', which is vague. The y-axis gridlines are specifically at intervals of 2 (0, 2, 4, 6, 8, 10), and a more precise description would state this."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "without indicating any trend or pattern beyond the discrete values shown",
+          "evidence": "This statement is an over-generalization. There are visible patterns in the chart, for instance, the count for the G0 category (blue) is constant at 1 for all layers. Also, the total number of experts is higher at the beginning (layers 1-6) and towards the end (layers 16-22) compared to the middle and the very end."
+        }
+      ],
+      "mqm_score": 98.0,
+      "total_penalty": 2.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "数值间隔为1单位",
+          "evidence": "The description states that the numerical interval on the Y-axis is 1 unit, but the labeled tick marks and major gridlines are clearly at intervals of 2 (0, 2, 4, 6, 8, 10)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在Layer 10，G0部分高度约为1，G1部分高度约为2，G2部分高度约为1，总高度约为4",
+          "evidence": "The description incorrectly states the values for Layer 10. The chart shows that for Layer 10, G0 has a height of 1, G1 has a height of 1 (from y=1 to y=2), and G2 has a height of 2 (from y=2 to y=4). The description swaps the values for G1 and G2."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G1 contributing about 3",
+          "evidence": "For Layer 1, the green segment (G1) has a value of 4 (from y=1 to y=5), not \"about 3\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G0 contributing around 2",
+          "evidence": "For Layer 1, the blue segment (G0) has a value of 1, not \"around 2\"."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während der niedrigste Balken bei Schicht 7 und 23 jeweils etwa 3 erreicht",
+          "evidence": "This statement incorrectly implies that the lowest bars are only at layers 7 and 23. In fact, the bars at layers 11, 12, 13, 14, 15, and 24 also have the same minimum height of 3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention a prominent and important pattern in the data: the value for the G0 group (the blue segment at the bottom of each bar) is constant at 1 for all 24 layers."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 92.38
+}

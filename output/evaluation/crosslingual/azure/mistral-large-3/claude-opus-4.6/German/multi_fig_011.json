@@ -1,0 +1,112 @@
+{
+  "figure_key": "multi_fig_011",
+  "subfolder": "multi_language",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "German",
+  "num_atoms": 10,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "erreicht bei Layer 20 etwa 30, bevor sie am letzten Layer auf ungefähr 115 ansteigt",
+      "evidence": "Die blaue Linie (attn_output) steigt ab Layer 15 und erreicht bei Layer 24 etwa 100, nicht 115. Der Wert bei Layer 20 ist ebenfalls deutlich niedriger als 30.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "steigt bis zum letzten Layer auf ungefähr 185",
+      "evidence": "Die rote Linie (ffn_residual) steigt bis Layer 24 auf etwa 375, nicht 185.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "steigt dann am letzten Layer steil auf ungefähr 260 an",
+      "evidence": "Die orange Linie (attn_residual) steigt bis Layer 24 auf etwa 250, nicht 260 (innerhalb Toleranz), aber die Beschreibung der grünen Linie (ffn_output) ist fehlerhaft.",
+      "atom_id": "sent_7"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die Linie „ffn_output\" ist grün, strichpunktiert, und verläuft ebenfalls nahe 0 bis etwa Layer 10, steigt dann leicht auf etwa 10–15 bei Layer 15–20 an und springt am letzten Layer auf etwa 155",
+      "evidence": "Die grüne Linie (ffn_output) bleibt bis Layer 22 nahe 0 und steigt dann auf etwa 150, nicht 155. Die Beschreibung der Steigung und des Verlaufs ist falsch.",
+      "atom_id": "sent_8"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "erstreckt sich von 0 bis etwa 23",
+      "evidence": "Die x-Achse erstreckt sich bis 25, nicht 23. Innerhalb der Toleranz von ±10% (2.5), aber die Abweichung ist klar sichtbar.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Die Beschreibung erwähnt nicht, dass die grüne Linie (ffn_output) bis Layer 22 konstant bleibt.",
+      "atom_id": "sent_8"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "aufgeschlüsselt nach vier verschiedenen Signalpfaden",
+      "evidence": "Die Beschreibung führt „Signalpfade“ ein, ein Begriff, der nicht im Diagramm oder in der Legende vorkommt.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "wobei sie über den größten Teil des Diagramms die höchsten Werte aller vier Linien aufweist, bevor „attn_residual\" sie am letzten Layer übertrifft",
+      "evidence": "Die Beschreibung fügt eine Interpretation hinzu, die über die reinen Daten hinausgeht (Vergleich der Linien).",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "mit keiner deutlichen Markierung versehen",
+      "evidence": "Die Formulierung ist unklar; es ist nicht ersichtlich, was mit „Markierung“ gemeint ist.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Dieses Diagramm zeigt die maximale Aktivierungswerte der Komponente „atten_output_gate\" über verschiedene Schichten eines Netzwerks",
+      "evidence": "Grammatikfehler: „Aktivierungswerte“ sollte „Aktivierungswerte der Komponente *des* ‚atten_output_gate‘“ oder „den maximalen Aktivierungswert der Komponente“ lauten.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 39.0,
+  "total_penalty": 30.5,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 10,
+    "accuracy": 0.5,
+    "completeness": 0.8333
+  }
+}

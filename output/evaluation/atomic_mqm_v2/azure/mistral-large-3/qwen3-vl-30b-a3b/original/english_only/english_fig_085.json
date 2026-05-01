@@ -1,0 +1,78 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Bar Chart",
+  "language": "English",
+  "num_atoms": 17,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Cardio (light blue), Gastro (light orange), Infect (medium orange), Neuro (dark orange), Obstetrics (brown), and Pediatrics (dark brown)",
+      "evidence": "The legend in the figure shows MistralV0.2-Base as light blue, Cardio as light orange, Gastro as orange, Infect as darker orange, Neuro as light brown, Obstetrics as medium brown, and Pediatrics as dark brown. The machine-generated description incorrectly assigns 'Cardio' to light blue, which is actually MistralV0.2-Base.",
+      "atom_id": "english_fig_085_sent_1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "each specialty has multiple bars, indicating different fine-tuning conditions or data subsets",
+      "evidence": "The figure shows grouped bars for each specialty, where each group contains bars representing different fine-tuning conditions (MistralV0.2-Base and the six specialties), not multiple bars per specialty for different subsets. The description misrepresents the grouping structure.",
+      "atom_id": "english_fig_085_bar_arrangement"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the light blue bar (MistralV0.2-Base) is always the tallest in each group, which is a key visual trend.",
+      "atom_id": "english_fig_085_sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars start from -22 and extend downward to -27, which clarifies the direction of the negative log probability scale.",
+      "atom_id": "english_fig_085_sent_9"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The chart highlights the performance variation of the Mistralv0.2-Base model across these medical domains when fine-tuned.",
+      "evidence": "The description introduces an interpretive claim about 'performance variation' that is not explicitly shown or labeled in the figure. The figure only shows negative log probability values without direct performance implications.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "with some bars extending lower (indicating higher probability) and others higher (indicating lower probability)",
+      "evidence": "The phrasing is confusing because 'extending lower' and 'higher' could be misinterpreted due to the negative log probability scale. The description should clarify that lower bars (closer to -27) indicate lower probability, and taller bars (closer to -22) indicate higher probability.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 79.41,
+  "total_penalty": 17.5,
+  "atom_coverage": {
+    "correct": 13,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 17,
+    "accuracy": 0.8667,
+    "completeness": 0.8667
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "figure_key": "multi_fig_064",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "с интервали от 20",
+          "evidence": "The description states the Y-axis has intervals of 20, but the labeled ticks are at 20, 60, 100, 140, 180, 220, indicating intervals of 40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "подредени в азбучен ред: Movies, Songs, Basketball",
+          "evidence": "The categories on the x-axis are ordered as 'Movies', 'Songs', 'Basketball'. This is not alphabetical order."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "За всяка категория са представени шест стълба, групирани по модел и тип отговор, както е показано в легендата: сини стълбове с точка-точка (Llama3), червени с точка-точка (Qwen2), жълти с точка-точка (ChatGPT), сини с кръстчета (Acc=0 & GT Ans), червени с кръстчета (Acc=0 & Gene Ans) и бели с кръстчета (Acc=1 & GT Ans).",
+          "evidence": "The description incorrectly states there are six bars per category when there are nine (3 models x 3 answer types). More importantly, it fundamentally misunderstands the legend, describing colors and patterns as separate types of bars instead of combined attributes. For example, it should state that blue bars represent Llama3, and the pattern on the blue bar (dotted, hatched, or solid) indicates the answer type."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "най-високия стълб (Qwen2, Acc=0 & GT Ans) достигащ около 90",
+          "evidence": "The description incorrectly identifies the tallest bar in the 'Songs' category. The tallest bar is for Qwen2, but it is the solid bar (Acc=1 & GT Ans), not the dotted bar (Acc=0 & GT Ans). The value of the correct bar is approximately 88, while the value of the incorrectly identified bar is approximately 58."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "най-високия стълб (Qwen2, Acc=0 & GT Ans) достигащ около 200",
+          "evidence": "The description incorrectly identifies the tallest bar in the 'Basketball' category. The tallest bar is for Qwen2, but it is the solid bar (Acc=1 & GT Ans) with a value of approximately 215, not the dotted bar (Acc=0 & GT Ans) which has a value of approximately 102. The reported value of 200 is also inaccurate for the correct bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "най-ниският стълб (ChatGPT, Acc=0 & Gene Ans) е около 90",
+          "evidence": "The description incorrectly identifies the lowest bar in the 'Basketball' category. The lowest bar is for ChatGPT with the dotted pattern (Acc=0 & GT Ans), with a value of approximately 98. The description identifies the bar with the hatched pattern (Acc=0 & Gene Ans), which has a much higher value (approx. 172)."
+        }
+      ],
+      "mqm_score": 73.0,
+      "total_penalty": 27.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "from 0 to 220, with tick marks every 20 units",
+          "evidence": "The vertical axis scale shown is from 20 to 220, not 0 to 220. The major tick marks are at intervals of 40 (20, 60, 100, 140, 180, 220), not 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each category, there are six bars grouped together",
+          "evidence": "There are nine bars for each category, not six. The bars are arranged in three groups of three (one group for each model: Llama3, Qwen2, ChatGPT)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "representing different combinations of accuracy and answer type: \"Acc=0 & GT Ans\" (blue with diagonal stripes), \"Acc=0 & Gene Ans\" (blue with dots), \"Acc=1 & GT Ans\" (white with black outline)",
+          "evidence": "The description completely misinterprets the legend. The chart combines color (for model) and pattern (for condition). For example, \"Acc=0 & GT Ans\" is represented by a dotted pattern, not \"blue with diagonal stripes\". \"Acc=0 & Gene Ans\" is a hatched pattern, not \"dots\". \"Acc=1 & GT Ans\" is a solid bar, not \"white with black outline\". The description fails to understand this combined encoding."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "\"Acc=1 & Gene Ans\" (white with black outline)",
+          "evidence": "The description hallucinates a data category, \"Acc=1 & Gene Ans\", which does not appear in the legend or the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are arranged in groups by category, and within each group, the order of bars corresponds to the legend: first the solid-colored bars for the models (Llama3, Qwen2, ChatGPT), followed by the patterned bars for the accuracy-answer type combinations.",
+          "evidence": "This incorrectly describes the grouping structure. The bars are grouped first by category, then sub-grouped by model (color). Within each model's sub-group, there are three bars corresponding to the three patterns. The description falsely claims that solid bars and patterned bars are separated into different groups."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "suggesting a mismatch or ambiguity in the legend",
+          "evidence": "This is an interpretation of the model's own confusion. The prompt asks for objective description, but the model infers that the legend is ambiguous rather than stating what it shows."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit Tick-Markierungen in Abständen von 20",
+          "evidence": "The y-axis tick marks are at 20, 60, 100, 140, 180, 220, which is an interval of 40, not 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für jede Kategorie sind sechs Balken gruppiert, die durch Farbe und Muster unterschieden werden",
+          "evidence": "The chart does not show six bar types. It shows three groups of three bars for each category. The groups correspond to models (Llama3, Qwen2, ChatGPT) indicated by color, and within each group, the three bars correspond to answer conditions (Acc=0 & GT Ans, Acc=0 & Gene Ans, Acc=1 & GT Ans) indicated by pattern."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "blau gestreift für Llama3, rot gestreift für Qwen2, gelb gestreift für ChatGPT, blau punktiert für Acc=0 & GT Ans, rot punktiert für Acc=0 & Gene Ans, und weiß mit grauer Umrandung für Acc=1 & GT Ans",
+          "evidence": "The description completely misinterprets the legend. Color (blue, red, yellow) indicates the model (Llama3, Qwen2, ChatGPT), and the pattern (dotted, striped, solid) indicates the answer condition. For example, 'blau gestreift' is not 'Llama3', but 'Llama3' for the 'Acc=0 & Gene Ans' condition. The description separates color and pattern into six independent bar types, which is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei die höchsten Werte bei etwa 35 (Llama3, Qwen2) und etwa 30 (ChatGPT) liegen.",
+          "evidence": "The values are inaccurate. In the 'Movies' category, the highest bar for Qwen2 is approximately 45, not 35."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In der Kategorie Songs steigen die Werte auf etwa 60 (Llama3), 80 (Qwen2), 65 (ChatGPT), sowie etwa 55 (Acc=0 & GT Ans), 65 (Acc=0 & Gene Ans) und etwa 50 (Acc=1 & GT Ans).",
+          "evidence": "This section reports incorrect values based on the flawed structural understanding. For example, the highest bar for Llama3 is at approximately 75, not 60. The highest bar for Qwen2 is at approximately 88, not 80. The highest bar for ChatGPT is at approximately 75, not 65."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In der Kategorie Basketball erreichen die Werte ihre höchsten Werte: etwa 145 (Llama3), 200 (Qwen2), 130 (ChatGPT), etwa 100 (Acc=0 & GT Ans), etwa 105 (Acc=0 & Gene Ans) und etwa 110 (Acc=1 & GT Ans).",
+          "evidence": "The reported values are highly inaccurate. The highest bar for Llama3 is at approx. 178 (not 145), for Qwen2 it is approx. 215 (not 200), and for ChatGPT it is approx. 172 (not 130)."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 72.67
+}

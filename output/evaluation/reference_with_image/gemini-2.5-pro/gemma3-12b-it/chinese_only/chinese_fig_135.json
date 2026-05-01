@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_135",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "图表外侧的横轴范围是 0-40",
+      "evidence": "This is an inaccurate generalization. The image contains two separate charts with two different x-axes. The range 0-40 (in seconds) only applies to the categories of the left chart. The right chart's categories go up to 160 (in characters)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "音频时长茎叶图和文本长度茎叶图",
+      "evidence": "The charts are bar charts (柱状图), not stem-and-leaf plots (茎叶图). This is a fundamental misidentification of the chart type, which is repeated throughout the description (e.g., '茎叶柱状图')."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "刻度从 0.5 到 40，间隔为 5 秒",
+      "evidence": "The x-axis for the audio duration chart is not a continuous scale. It consists of categorical bins representing time ranges (e.g., '0-5', '6-10'). Describing it as a scale from 0.5 with 5-second intervals is incorrect."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "以最佳线为特征的",
+      "evidence": "The description claims the charts are characterized by a 'best-fit line' (最佳线). There are no such lines present in either chart."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description lists only 6 of the 8 data points for the text length distribution chart. It omits the second bar for the '21-40' category, which has a value of 29093, and the seventh bar for the '121-140' category, which has a value of 154."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 5
+}

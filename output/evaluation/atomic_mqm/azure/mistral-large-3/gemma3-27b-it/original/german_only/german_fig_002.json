@@ -1,0 +1,113 @@
+{
+  "figure_key": "german_fig_002",
+  "subfolder": "german_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "figure_type": "line_plot",
+  "language": "German",
+  "num_atoms": 19,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Es gibt eine blaue Fläche, die den Saldo darstellt",
+      "evidence": "The saldo is represented by bars, not a blue area. The blue line represents imports, not saldo.",
+      "atom_id": "bars_description"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "beginnt im Jahr 2020 bei etwa 100 Mrd. US-Dollar und im Jahr 2023 bei etwa -100 Mrd. US-Dollar",
+      "evidence": "The saldo bars start at 0 and extend downward, not beginning at 100. The final value is not explicitly labeled as -100 but is more negative than -100.",
+      "atom_id": "bars_trend"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die Exportlinie ist violett",
+      "evidence": "The export line is red, not violet.",
+      "atom_id": "red_line_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "beginnt im Jahr 2020 bei etwa 150 Mrd. US-Dollar und endet im Jahr 2023 bei etwa 250 Mrd. US-Dollar",
+      "evidence": "The export line starts at 100 in 2020 and ends at 175 in 2023, not 150 and 250 respectively.",
+      "atom_id": "red_line_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "im Jahr 2022 einen minimalen Wert von etwa 260 Mrd. US-Dollar und im Jahr 2023 einen maximalen Wert von etwa 370 Mrd. US-Dollar",
+      "evidence": "The import line peaks at 350 in 2023, not 370. The 2022 value is closer to 300, not 260.",
+      "atom_id": "blue_line_2022"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the right y-axis range ending at 400, only mentioning it ends at 0.",
+      "atom_id": "y_axis_right_scale"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the bars becoming longer over time, only their start and end values.",
+      "atom_id": "bars_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "mit Tick-Beschriftungen in 50er-Schritten",
+      "evidence": "The right y-axis ticks are in 100er-Schritten, not 50er-Schritten. No atom supports 50er-Schritte for the right axis.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "zeigt einen allgemeinen leicht aufsteigenden Trend mit mehreren Fluktuationen",
+      "evidence": "The description adds interpretive language ('allgemeinen leicht aufsteigenden Trend') not explicitly required by the atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Die Skala ist linear",
+      "evidence": "It is unclear whether this refers to the x-axis or y-axis scale. Both y-axes are linear, but the statement is ambiguous.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 63.16,
+  "total_penalty": 35.0,
+  "atom_coverage": {
+    "correct": 13,
+    "inaccurate": 5,
+    "missing": 2,
+    "total": 19,
+    "accuracy": 0.7222,
+    "completeness": 0.8667
+  }
+}

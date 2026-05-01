@@ -1,0 +1,339 @@
+{
+  "_description": "Active admittance probes for selective_blur transform. Each probe is a reasoning question whose answer resolves to the blurred element. The model receives the selectively blurred image + the question.",
+  "figures": {
+    "english_fig_002": {
+      "subfolder": "english_only",
+      "question": "In the Categorical pie chart, which category has the smallest percentage share?",
+      "expected_answer": "Existential Quantifiers (15.12%)",
+      "blurred_element": "Existential Quantifiers 15.12% slice label",
+      "why_requires_blurred": "The smallest slice label is blurred — model must identify this category to answer"
+    },
+    "english_fig_005": {
+      "subfolder": "english_only",
+      "question": "For the 3B parameter models, does fine-tuning improve coverage at k=256 compared to the base model?",
+      "expected_answer": "Yes, Llama-3B + FT achieves slightly higher coverage than Llama-3B at k=256",
+      "blurred_element": "Llama-3B + FT legend entry",
+      "why_requires_blurred": "Answering requires identifying the fine-tuned 3B variant whose legend entry is blurred"
+    },
+    "english_fig_009": {
+      "subfolder": "english_only",
+      "question": "What Ambiguity Std value corresponds to the largest slice (49.0%) in the outer ring?",
+      "expected_answer": "Std: 0.0",
+      "blurred_element": "Std: 0.0 legend entry",
+      "why_requires_blurred": "The legend entry mapping the darkest blue to Std: 0.0 is blurred — model must identify this value"
+    },
+    "english_fig_033": {
+      "subfolder": "english_only",
+      "question": "Which knowledge editing method achieves the second highest ACC at co-occurrence number 10?",
+      "expected_answer": "MEMIT",
+      "blurred_element": "MEMIT legend entry",
+      "why_requires_blurred": "MEMIT's legend entry is blurred — model must name this method to answer"
+    },
+    "english_fig_057": {
+      "subfolder": "english_only",
+      "question": "Among the SepLLM variants, which configuration without the H or H/T suffix achieves the highest loss at 140,000 iterations?",
+      "expected_answer": "SepLLM (n=64)",
+      "blurred_element": "SepLLM (n=64) legend entry",
+      "why_requires_blurred": "The SepLLM (n=64) legend entry is blurred — model must identify this specific configuration"
+    },
+    "english_fig_075": {
+      "subfolder": "english_only",
+      "question": "For the IE-Baltic language family, which model configuration shows the second smallest effect value?",
+      "expected_answer": "mBERT-L₂",
+      "blurred_element": "mBERT-L₂ legend entry",
+      "why_requires_blurred": "The mBERT-L₂ legend entry is blurred — model must identify this configuration"
+    },
+    "english_fig_085": {
+      "subfolder": "english_only",
+      "question": "Other than Gastro or Pediatrics, which medical specialty group has the second smallest negative log probability for MistralV0.2-Base?",
+      "expected_answer": "Obstetrics",
+      "blurred_element": "Obstetrics x-axis label",
+      "why_requires_blurred": "The Obstetrics label is blurred — model must identify this specialty to answer"
+    },
+    "english_fig_136": {
+      "subfolder": "english_only",
+      "question": "Which evaluation criterion other than Clarity and Simplicity was highlighted by exactly 3 participants?",
+      "expected_answer": "Relevance Explanation",
+      "blurred_element": "Relevance Explanation bar label",
+      "why_requires_blurred": "The bar label is blurred — model must identify this criterion"
+    },
+    "english_fig_171": {
+      "subfolder": "english_only",
+      "question": "In the Hard Training Set subplot, which method's training reward drops to near zero after step 100?",
+      "expected_answer": "Llama-On-Policy-Hard",
+      "blurred_element": "Llama-On-Policy-Hard legend entry",
+      "why_requires_blurred": "The legend entry for the blue line (drops to zero) is blurred"
+    },
+    "bulgarian_fig_001": {
+      "subfolder": "bulgarian_only",
+      "question": "Коя категория строителство показва най-висок ръст в броя на разрешенията от 2012 до 2022 г.?",
+      "question_english": "Which construction category shows the highest growth in number of permits from 2012 to 2022?",
+      "expected_answer": "Жилищни",
+      "blurred_element": "Жилищни legend entry",
+      "why_requires_blurred": "The Жилищни legend entry is blurred — model must name this category"
+    },
+    "bulgarian_fig_014": {
+      "subfolder": "bulgarian_only",
+      "question": "Кои две години освен 2022 са представени в графиката?",
+      "question_english": "Which two years besides 2022 are represented in the chart?",
+      "expected_answer": "2023 и 2024",
+      "blurred_element": "2023 and 2024 legend entries",
+      "why_requires_blurred": "The 2023 and 2024 legend entries are blurred — model must name these years"
+    },
+    "bulgarian_fig_021": {
+      "subfolder": "bulgarian_only",
+      "question": "Коя мярка с 3% стойност е свързана с финансови условия за бизнеса?",
+      "question_english": "Which measure at 3% is related to financial conditions for businesses?",
+      "expected_answer": "Да се облекчат условията за получаване на кредит",
+      "blurred_element": "3rd bar label",
+      "why_requires_blurred": "The bar label is blurred — model must identify this measure"
+    },
+    "bulgarian_fig_036": {
+      "subfolder": "bulgarian_only",
+      "question": "В панел Б, каква е приблизителната стойност на структурния ефект през 2008 г.?",
+      "question_english": "In panel B, what is the approximate value of the structural effect in 2008?",
+      "expected_answer": "Approximately 2.0-2.3%",
+      "blurred_element": "y-axis ticks 1.5, 2.0, 2.5",
+      "why_requires_blurred": "The y-axis tick values are blurred — model must determine the scale to read the 2008 value"
+    },
+    "bulgarian_fig_048": {
+      "subfolder": "bulgarian_only",
+      "question": "Кои са третата и четвъртата държави по големина на площта на лозовите насаждения през 2013 г.?",
+      "question_english": "Which are the third and fourth largest countries by vineyard area in 2013?",
+      "expected_answer": "Китай/континентален/ и Италия",
+      "blurred_element": "Китай/континентален/ and Италия legend entries",
+      "why_requires_blurred": "Both the China and Italy legend entries are blurred — model must identify both"
+    },
+    "bulgarian_fig_095": {
+      "subfolder": "bulgarian_only",
+      "question": "Кой сектор в кръговата диаграма има стойност 24?",
+      "question_english": "Which sector in the pie chart has a value of 24?",
+      "expected_answer": "Много добре е интегриран",
+      "blurred_element": "Много добре е интегриран legend entry",
+      "why_requires_blurred": "The legend entry for the 24-value sector is blurred"
+    },
+    "bulgarian_fig_103": {
+      "subfolder": "bulgarian_only",
+      "question": "Кой сектор е представен от оранжевата линия, която остава близо до нулата през целия период?",
+      "question_english": "Which sector is represented by the orange line that stays near zero throughout the entire period?",
+      "expected_answer": "Селско, горско и рибно стопанство",
+      "blurred_element": "Селско, горско и рибно стопанство legend entry",
+      "why_requires_blurred": "The legend entry for the orange flat line is blurred"
+    },
+    "bulgarian_fig_272": {
+      "subfolder": "bulgarian_only",
+      "question": "Какво описва червеният сектор с 23% в кръговата диаграма относно подготовката на специалистите?",
+      "question_english": "What does the red 23% sector in the pie chart describe about specialist preparedness?",
+      "expected_answer": "Описва нивото на частична подготвеност на специалистите",
+      "blurred_element": "Red slice legend entry (23%)",
+      "why_requires_blurred": "The red slice legend description is blurred"
+    },
+    "chinese_fig_004": {
+      "subfolder": "chinese_only",
+      "question": "图表中蓝色柱状图和折线图分别代表什么数据指标？",
+      "question_english": "What data metrics do the blue bars and the line represent respectively in the chart?",
+      "expected_answer": "柱状图代表每日新增确诊人数，折线图代表新闻媒体报道数",
+      "blurred_element": "Legend entries for both series",
+      "why_requires_blurred": "Both legend entries are blurred — model must identify what each series represents"
+    },
+    "chinese_fig_012": {
+      "subfolder": "chinese_only",
+      "question": "在epoch=2时，哪种方法的F1分数最低，大约是多少？",
+      "question_english": "At epoch=2, which method has the lowest F1 score and approximately what is it?",
+      "expected_answer": "lattice, approximately 0.59",
+      "blurred_element": "lattice legend entry",
+      "why_requires_blurred": "The lattice legend entry is blurred — model must name this method"
+    },
+    "chinese_fig_013": {
+      "subfolder": "chinese_only",
+      "question": "在饼图中，占比2%的扇区代表哪个新闻类别？",
+      "question_english": "In the pie chart, which news category does the 2% slice represent?",
+      "expected_answer": "经济",
+      "blurred_element": "经济 legend entry",
+      "why_requires_blurred": "The 经济 legend entry is blurred — model must identify this category"
+    },
+    "chinese_fig_014": {
+      "subfolder": "chinese_only",
+      "question": "左图中BLEU分数达到最高值时，α的取值是多少？",
+      "question_english": "In the left plot, what is the value of α when the BLEU score reaches its maximum?",
+      "expected_answer": "0.5",
+      "blurred_element": "x-axis tick value 0.5",
+      "why_requires_blurred": "The 0.5 tick value is blurred — model must determine this x-axis value"
+    },
+    "chinese_fig_035": {
+      "subfolder": "chinese_only",
+      "question": "在母语水平上，哪种网络类型的平均路径长度更高？",
+      "question_english": "At the native speaker level, which network type has the higher average path length?",
+      "expected_answer": "随机网络",
+      "blurred_element": "随机网络 legend entry",
+      "why_requires_blurred": "The 随机网络 legend entry is blurred — model must identify this line"
+    },
+    "chinese_fig_042": {
+      "subfolder": "chinese_only",
+      "question": "哪个任务类别的训练集和验证集数量差距最大？",
+      "question_english": "Which task category has the largest gap between training and validation set sizes?",
+      "expected_answer": "异常识别",
+      "blurred_element": "异常识别 x-axis label",
+      "why_requires_blurred": "The 异常识别 x-axis label is blurred — model must name this category"
+    },
+    "chinese_fig_046": {
+      "subfolder": "chinese_only",
+      "question": "在漏标率为0.3时，哪种方法的F1分数最高？",
+      "question_english": "At a missing label rate of 0.3, which method has the highest F1 score?",
+      "expected_answer": "PST",
+      "blurred_element": "PST legend entry",
+      "why_requires_blurred": "The PST legend entry is blurred — model must identify the top-performing green line"
+    },
+    "chinese_fig_071": {
+      "subfolder": "chinese_only",
+      "question": "左侧面板图表展示的是什么类型动词的语义域分布？",
+      "question_english": "What type of verb's semantic domain distribution does the left panel show?",
+      "expected_answer": "支配动词",
+      "blurred_element": "Left panel subplot label",
+      "why_requires_blurred": "The left panel subplot label is blurred — model must identify the verb type"
+    },
+    "chinese_fig_094": {
+      "subfolder": "chinese_only",
+      "question": "在右侧小饼图中，较大的扇区代表什么现象，其百分比是多少？",
+      "question_english": "In the small right pie chart, what phenomenon does the larger slice represent, and what is its percentage?",
+      "expected_answer": "'的'字隐不显, 81.66%",
+      "blurred_element": "的字隐不显 81.66% pie label",
+      "why_requires_blurred": "The label on the larger slice is blurred — model must identify this phenomenon"
+    },
+    "german_fig_001": {
+      "subfolder": "german_only",
+      "question": "Welcher Index zeigt den stärksten Anstieg im Jahr 2020 und erreicht einen Wert von etwa 500 auf der linken Skala?",
+      "question_english": "Which index shows the strongest increase in 2020 and reaches approximately 500 on the left scale?",
+      "expected_answer": "Wirtschaftspolitik insgesamt",
+      "blurred_element": "Wirtschaftspolitik insgesamt legend entry",
+      "why_requires_blurred": "The legend entry for the black line is blurred"
+    },
+    "german_fig_002": {
+      "subfolder": "german_only",
+      "question": "Was stellen die blauen Balken im unteren Bereich der Grafik dar?",
+      "question_english": "What do the blue bars in the lower area of the chart represent?",
+      "expected_answer": "Saldo (Handelsbilanzsaldo)",
+      "blurred_element": "Saldo (rechte Skala) legend entry",
+      "why_requires_blurred": "The Saldo legend entry is blurred — model must identify the blue bars"
+    },
+    "german_fig_022": {
+      "subfolder": "german_only",
+      "question": "Welche Kategorie zeigt in den 2020er Jahren einen negativen Durchschnittswert von -1,5%?",
+      "question_english": "Which category shows a negative average value of -1.5% in the 2020s?",
+      "expected_answer": "Industrieproduktion Deutschland",
+      "blurred_element": "Industrieproduktion Deutschland legend entry",
+      "why_requires_blurred": "The legend entry is blurred — model must identify the negative dark blue bars"
+    },
+    "german_fig_023": {
+      "subfolder": "german_only",
+      "question": "Welche Regierungsebene bildet den unteren Teil des gestapelten Balkendiagramms im linken Panel?",
+      "question_english": "Which level of government forms the bottom part of the stacked bar chart in the left panel?",
+      "expected_answer": "Bund",
+      "blurred_element": "Bund legend entry",
+      "why_requires_blurred": "The Bund legend entry is blurred — model must identify the bottom bars"
+    },
+    "german_fig_033": {
+      "subfolder": "german_only",
+      "question": "Welche Migrantengruppe hat, abgesehen von den in Deutschland Geborenen, bei Frauen im Alter von 30-40 eine Erwerbstätigenquote von etwa 60-70%?",
+      "question_english": "Which migrant group, aside from those born in Germany, has an employment rate of approximately 60-70% for women aged 30-40?",
+      "expected_answer": "zugewandert bis 2009",
+      "blurred_element": "zugewandert bis 2009 legend entry",
+      "why_requires_blurred": "The legend entry for the gray line is blurred"
+    },
+    "german_fig_042": {
+      "subfolder": "german_only",
+      "question": "Welches Land liegt bei den Verteidigungsausgaben zwischen Deutschland und Tschechien?",
+      "question_english": "Which country is positioned between Germany and Czech Republic in defense spending?",
+      "expected_answer": "Ungarn",
+      "blurred_element": "Ungarn y-axis label",
+      "why_requires_blurred": "The country name between Deutschland and Tschechien is blurred"
+    },
+    "german_fig_051": {
+      "subfolder": "german_only",
+      "question": "Was misst die linke vertikale Achse im linken Panel der Grafik?",
+      "question_english": "What does the left vertical axis in the left panel of the chart measure?",
+      "expected_answer": "IWF Fiskalindex",
+      "blurred_element": "IWF Fiskalindex y-axis label",
+      "why_requires_blurred": "The left panel y-axis label is blurred"
+    },
+    "german_fig_057": {
+      "subfolder": "german_only",
+      "question": "Welcher Aufgabenbereich hat seinen Anteil von 10,2% im inneren Kreis auf 7,8% im äußeren Kreis reduziert?",
+      "question_english": "Which task area reduced its share from 10.2% in the inner ring to 7.8% in the outer ring?",
+      "expected_answer": "Abwasserentsorgung",
+      "blurred_element": "Abwasserentsorgung segment label",
+      "why_requires_blurred": "The segment label is blurred — model must identify this task area"
+    },
+    "german_fig_070": {
+      "subfolder": "german_only",
+      "question": "Wie hoch war der Kupfer-Importanteil Deutschlands im Jahr 2021 in Prozent?",
+      "question_english": "What was Germany's copper import share in 2021 as a percentage?",
+      "expected_answer": "8,3%",
+      "blurred_element": "8,3 data annotation on Kupfer 2021 bar",
+      "why_requires_blurred": "The data annotation value is blurred — model must read this value"
+    },
+    "multi_fig_002": {
+      "subfolder": "multi_language",
+      "question": "Which bar series shows lower or equal perplexity values across all sparsity rates?",
+      "expected_answer": "Per-Output",
+      "blurred_element": "Per-Output legend entry",
+      "why_requires_blurred": "The Per-Output legend entry is blurred — model must identify the blue bars"
+    },
+    "multi_fig_004": {
+      "subfolder": "multi_language",
+      "question": "Which character category in the outer ring is positioned between Movie Characters and Novel Characters?",
+      "expected_answer": "Teleplay Characters",
+      "blurred_element": "Teleplay Characters outer ring label",
+      "why_requires_blurred": "The Teleplay Characters label is blurred"
+    },
+    "multi_fig_006": {
+      "subfolder": "multi_language",
+      "question": "Which of the three lines represents the baseline measurement, and what is its average value?",
+      "expected_answer": "hidden state mean of baseline, avg 0.04",
+      "blurred_element": "hidden state mean of baseline legend entry",
+      "why_requires_blurred": "The baseline legend entry is blurred — model must identify this line"
+    },
+    "multi_fig_007": {
+      "subfolder": "multi_language",
+      "question": "Which line shows the highest sparsity ratio at layer 0 and what gating method does it represent?",
+      "expected_answer": "sparsity ratio after average gate (avg 0.33), starting near 0.95",
+      "blurred_element": "sparsity ratio after average gate legend entry",
+      "why_requires_blurred": "The legend entry for the green dash-dot line is blurred"
+    },
+    "multi_fig_009": {
+      "subfolder": "multi_language",
+      "question": "Which component shows the large spike at layer 13-14 reaching approximately 1000 Max Activation Value?",
+      "expected_answer": "ffn_output",
+      "blurred_element": "ffn_output legend entry",
+      "why_requires_blurred": "The ffn_output legend entry is blurred — model must identify the green dash-dot line"
+    },
+    "multi_fig_041": {
+      "subfolder": "multi_language",
+      "question": "Which method consistently achieves the highest accuracy across Mathverse and Physics?",
+      "expected_answer": "DAPO+Self-reflection",
+      "blurred_element": "DAPO+Self-reflection legend entry",
+      "why_requires_blurred": "The DAPO+Self-reflection legend entry is partially blurred"
+    },
+    "multi_fig_045": {
+      "subfolder": "multi_language",
+      "question": "In pie chart (a), what percentage does the 'this' category represent?",
+      "expected_answer": "21%",
+      "blurred_element": "21% percentage on 'this' slice",
+      "why_requires_blurred": "The 21% value is blurred — model must determine this percentage"
+    },
+    "multi_fig_054": {
+      "subfolder": "multi_language",
+      "question": "What does the blue dotted bar series represent in this chart?",
+      "expected_answer": "Incorrect",
+      "blurred_element": "Incorrect legend entry",
+      "why_requires_blurred": "The Incorrect legend entry is blurred"
+    },
+    "multi_fig_111": {
+      "subfolder": "multi_language",
+      "question": "Which year makes up 33% of the articles?",
+      "expected_answer": "2018",
+      "blurred_element": "2018 year label",
+      "why_requires_blurred": "The 2018 year label is blurred — model must identify this year"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_157",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, two bars are shown: green for 2-bit quantization and blue for 4-bit quantization",
+          "evidence": "The chart shows only one bar per block index, not two. The color of the single bar at each index indicates whether it is a '2-Fbit' (green) or '4-Fbit' (blue) block."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "~10⁻⁶.5",
+          "evidence": "This is not a standard representation for a value on a logarithmic scale. Furthermore, the lowest green bars have values below the 10⁻⁶ gridline, not a value between 10⁻⁶ and 10⁻⁷."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Starting around block index 59, blue 4-bit bars begin to appear",
+          "evidence": "In the figure, blue bars representing 4-Fbit first appear around block index 45, not 59."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 10⁻⁵.5",
+          "evidence": "This is not a standard representation for a value on a logarithmic scale. The first blue bars have sensitivity values around 5x10⁻⁶, which is between 10⁻⁶ and 10⁻⁵."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the tallest bar near index 79 reaching close to 10⁻⁴",
+          "evidence": "The tallest bar, near the end of the x-axis, has a value significantly higher than the 10⁻⁴ gridline, approximately 2x10⁻⁴ or 3x10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "likely reflecting the progressive quantization strategy where more sensitive blocks are assigned higher precision",
+          "evidence": "The prompt explicitly instructs to 'Avoid interpreting causes or trends'. This statement provides an interpretation of the data's meaning, which violates the prompt's negative constraint."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "From block index 0 to approximately 58, the green 2-bit bars are consistently present",
+          "evidence": "This statement is inaccurate. While green bars are predominant in this range, blue bars begin to appear and are interspersed with green bars starting from around block index 45."
+        }
+      ],
+      "mqm_score": 69.5,
+      "total_penalty": 30.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For blocks 0 through approximately 55, the green 2-Fbit bars are consistently present and generally higher than the blue 4-Fbit bars, which are mostly absent or very low in this range.",
+          "evidence": "This sentence implies that both blue and green bars exist for comparison in the 0-55 range. In reality, for most block indices, only one bar type (predominantly green) is present. There are only a few scattered blue bars in this range, not a consistent series to compare against."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while the green 2-Fbit bars remain relatively low and stable in the 10⁻⁶ to 10⁻⁵ range",
+          "evidence": "This phrase describes the behavior of the green bars in the latter part of the chart (from index 55 onwards). However, the green bars are almost completely absent after block index 60, so they do not 'remain' at all."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by block index, with each block containing one blue and one green bar",
+          "evidence": "The chart is not a grouped bar chart. For almost every block index, there is only a single bar, which is either blue or green. The chart shows a transition between bar types, not a side-by-side grouping at each index."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting a progressive mixed-precision strategy",
+          "evidence": "The prompt explicitly forbids drawing conclusions or making inferences about the data's meaning ('Avoid it, to draw conclusions... or Rückschlüsse auf die Daten zu ziehen'). This phrase interprets the observed visual trend, which violates the instructions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "reaching values close to 10⁻⁴ by block 79",
+          "evidence": "The highest blue bars, particularly the one at index 78, clearly exceed the 10⁻⁴ horizontal line, reaching a value that appears to be closer to 2*10⁻⁴. Describing this as 'close to 10⁻⁴' is an understatement and inaccurate."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 74.5
+}

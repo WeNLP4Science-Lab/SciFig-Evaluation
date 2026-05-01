@@ -1,0 +1,50 @@
+{
+  "figure_key": "multi_fig_154",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, two bars are shown side-by-side: the blue bar corresponds to the 4-Fbit quantization, and the green bar to the 2-Fbit quantization.",
+          "evidence": "The chart is not a grouped bar chart with two bars per index. Instead, for each block index, there is a single bar that is either blue (4-Fbit) or green (2-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mostly clustered between 10⁻⁵ and 10⁻⁶",
+          "evidence": "Many of the green bars, representing the 2-Fbit scheme, have sensitivity values above 10⁻⁵. For example, the bars at index 0, 25, and 28 are all clearly above the 10⁻⁵ line. The values are not clustered between 10⁻⁵ and 10⁻⁶."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "spanning from approximately 10⁻⁶ to 10⁻⁴",
+          "evidence": "The y-axis range extends above 10⁻⁴, as several bars at the end of the x-axis (e.g., blocks 45, 46, 47) have sensitivity values greater than 10⁻⁴."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with a slight dip around block index 11",
+          "evidence": "The most notable dip or local minimum for the green bars occurs around block index 7, not 11. At index 11, the values are part of a rising trend."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.0
+}

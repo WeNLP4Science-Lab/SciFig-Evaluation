@@ -1,0 +1,84 @@
+{
+  "figure_key": "english_fig_058",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "(tera floating-point operations per second)",
+      "evidence": "The x-axis label is \"TFLOPs\", which stands for tera floating-point operations. Adding \"per second\" is an interpretation of the unit as a rate, which is not explicitly stated on the axis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "remains nearly constant at approximately 99.9% across all TFLOPs",
+      "evidence": "The purple \"Vanilla\" line is constant at exactly 100% from 1e7 to 4e8 TFLOPs, after which it declines to approximately 99.6%. Stating it is constant at 99.9% is incorrect for both the value and the overall trend, as it misses the decline."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The orange line with circles",
+      "evidence": "The marker for the orange line, representing \"SepLLM (n=64)\", is a plus sign (+), not a circle. The red line uses circle markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "increases to around 99.9% by 4e8 TFLOPs",
+      "evidence": "The orange line (\"SepLLM (n=64)\") peaks at 4e8 TFLOPs with a value visibly above the 100% line, approximately 100.2%. Stating the value is \"around 99.9%\" is inaccurate."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "and then plateaus",
+      "evidence": "After reaching its peak at 3e8 TFLOPs, the blue line (\"SepLLM (n=128)\") does not plateau; it shows a clear declining trend to a final value of approximately 99.6%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "increases to about 99.8% at 3e8 TFLOPs",
+      "evidence": "The green line (\"SepLLM (n=64, H)\") reaches its peak at 6e8 TFLOPs with a value of approximately 100.1%, not at 3e8 TFLOPs. At 3e8 TFLOPs, the line's value is approximately 100% but this is not its peak."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "rises to about 98.8% at 5e8 TFLOPs",
+      "evidence": "The red line (\"SepLLM (n=64, H/T)\") reaches its peak at 4e8 TFLOPs with a value of approximately 99.1%. At 5e8 TFLOPs, the value has already declined to about 98.4%. The description incorrectly identifies both the peak value and its location."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "approximately 98.5% at 9e8 TFLOPs",
+      "evidence": "The final value of the red line at 9e8 TFLOPs is approximately 98.7%, not 98.5%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "All lines show an upward trend with increasing TFLOPs, except the red line which plateaus and slightly decreases at higher computational costs.",
+      "evidence": "This summary is incorrect. The purple \"Vanilla\" line is flat and then declines, it does not show an upward trend. The blue, orange, and green lines also show declines or fluctuations after their peaks, not just a simple upward trend."
+    }
+  ],
+  "mqm_score": 61.5,
+  "total_penalty": 38.5,
+  "error_count": 9
+}

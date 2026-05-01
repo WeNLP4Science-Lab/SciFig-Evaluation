@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each chart contains a series of grouped bars, with four bars per group",
+          "evidence": "The charts are 100% stacked bar charts, not grouped bar charts. Each x-axis value has a single bar composed of stacked colored segments, not a group of four separate bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the height of each bar corresponds to its respective percentage value",
+          "evidence": "This is incorrect. The charts are 100% stacked bar charts, so the total height of every bar is 100%. The height of the colored segments within each bar corresponds to the percentage value for that expert, not the height of the entire bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In the \"Text\" chart, the bars for \"Expert 1\" start at around 80% and decrease in height as \"MoE layer idx\" increases, while \"Expert 2\", \"Expert 3\", and \"Expert 4\" start at lower percentages and generally increase.",
+          "evidence": "This entire sentence is based on the incorrect premise of grouped bars with varying heights. The trends are also misrepresented. For example, the contribution of 'Expert 3' does not 'generally increase'; it is dominant at layers 3 and 5 (around 80%), but near zero at layers 1, 7, and 9."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while \"Expert 4\" remains consistently high across all \"MoE layer idx\" values.",
+          "evidence": "This statement is factually incorrect. In the 'Image' chart, the contribution of 'Expert 4' (the red segment) is not 'consistently high'. Its contribution is about 50% at index 5 and drops to nearly 0% at index 19."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by data type (text and image) and are further divided into four categories representing the four experts",
+          "evidence": "The description fails to identify the chart type as a 100% stacked bar chart, using the less precise phrase \"divided into four categories\". Stacked is the correct and necessary term to describe the structure where segments within a single bar add up to 100%."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Expert 1 starts at around 85% for layer index 1 and decreases to approximately 20% for subsequent layers",
+          "evidence": "This is a gross over-generalization and is incorrect. For the text data, Expert 1's contribution is 0% for many subsequent layers (e.g., 3, 5, 11, 13, 15, 17) and does not simply decrease to 20%."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Expert 2 starts at around 15% and remains relatively consistent",
+          "evidence": "This is incorrect. For the text data, Expert 2's contribution varies significantly, from 0% in some layers (e.g., 9, 11, 13) to around 60% in layer 7 and over 80% in layers 19 and 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Experts 3 and 4 are mostly around 0% for initial layers",
+          "evidence": "This is incorrect for Expert 3 in the text data chart. In layer 3, Expert 3's contribution is approximately 80%, and in layer 5, it is approximately 75%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the image data, Expert 1 starts at around 15%",
+          "evidence": "For the image data, Expert 1's contribution is 0% for all layers up to layer 13. Its first contribution is at layer 15, where it is about 10%."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "increases to 100% for later layers",
+          "evidence": "This is incorrect. For the image data, Expert 1's contribution never reaches 100%. Its highest value is approximately 85% at layer 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Expert 2 is consistently at 0%",
+          "evidence": "This is false. For the image data, Expert 2 has significant contributions in several layers, such as approximately 75% in layer 7 and 50% in layers 17 and 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Expert 4 is mostly around 0%",
+          "evidence": "This is completely incorrect for the image data. Expert 4 is the dominant or a major contributor in most layers, often having values well above 50% and reaching 100% in layers 3, 11, and 13."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 77.5
+}

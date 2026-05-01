@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_049",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "„Minimal“ (тъмно лилав), „Concise“ (оранжев) и „Explanatory“ (светло син)",
+          "evidence": "The color description for two of the categories is inaccurate. The bar for \"Minimal\" is magenta/crimson, not dark purple (\"тъмно лилав\"). The bar for \"Explanatory\" is a standard blue, not light blue (\"светло син\")."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "при 1 пример, точността е ... около 0.42 за „Concise“ ...; при 2 примера, точността е ... около 0.40 за „Concise“",
+          "evidence": "The reported values for the \"Concise\" category are inaccurate. At 1 shot, the accuracy is approximately 0.43, not 0.42. At 2 shots, the bar is visibly below the 0.40 line, at approximately 0.39, not 0.40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбовете са подредени по азбучен ред на стиловете във всяка група",
+          "evidence": "The description incorrectly states that the bars within each group are ordered alphabetically. The order is \"Minimal\", \"Concise\", \"Explanatory\", which is not alphabetical (which would be Concise, Explanatory, Minimal). The bars follow the order presented in the legend."
+        }
+      ],
+      "mqm_score": 91.0,
+      "total_penalty": 9.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Mit zunehmender Anzahl an Shots sinkt die Genauigkeit in allen drei Kategorien",
+          "evidence": "This statement is incorrect. The accuracy for the \"Minimal\" and \"Explanatory\" categories increases between 1 shot and 2 shots, it does not consistently decrease. For \"Minimal\", it goes from ~0.28 to 0.30. For \"Explanatory\", it goes from ~0.29 to ~0.36."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "Der Balken für „Concise“ bleibt in allen Gruppen der höchste, gefolgt von „Explanatory“ und dann „Minimal“.",
+          "evidence": "The prompt explicitly instructs to avoid making comparisons between categories (\"Vermeiden Sie es, ... Vergleiche anzustellen\"). This sentence makes a direct comparison of the relative heights of the bars, which violates this negative constraint."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0.40 (Concise)",
+          "evidence": "The value for 'Concise' at 2 shots is approximately 0.39, not 0.40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0.32 (Concise)",
+          "evidence": "The value for 'Concise' at 4 shots is approximately 0.31, not 0.32."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0.27 (Minimal)",
+          "evidence": "The value for 'Minimal' at 1 shot is approximately 0.28, not 0.27."
+        }
+      ],
+      "mqm_score": 87.5,
+      "total_penalty": 12.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.25
+}

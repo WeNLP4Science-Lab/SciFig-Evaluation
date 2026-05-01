@@ -1,0 +1,76 @@
+{
+  "figure_key": "chinese_fig_152",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "横轴表示不同的N元结构类型，包括“词”、“词2n”、“词类2n”、“标点”和“标点2n”",
+      "evidence": "图中横轴标签依次为“词”、“词2n”、“词类2n”、“标点”、“标点2n”，但描述将其泛称为“不同的N元结构类型”虽不算错误；真正的问题在于未说明这是离散类别轴，且更重要的是图中并没有数值刻度或单位。此项本身不构成主要错误，故不作为最终错误条目。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "500维的准确率最高，约为0.95，100维的准确率约为0.85",
+      "evidence": "在“词2n”类别下，黄色100维线约为0.84而不是0.85；蓝色500维线约为0.95是接近的，但该句把“最高”归给500维不对，图中该点最高的是蓝线约0.95，黄色明显更低。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "500维的准确率最低，约为0.83，100维的准确率约为0.89",
+      "evidence": "在“词类2n”类别下，蓝色500维线确实约为0.85并非0.83；黄色100维线约为0.89左右，这一部分基本正确，但“最低”不成立，因为蓝线是最低，且数值也有偏差。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "500维的准确率急剧下降至约0.82",
+      "evidence": "在“标点2n”类别下，蓝色500维线从上一点到该点确实接近0.82，但图中该线在此处更像是垂直下落到接近0.80的底部边界后再结束，描述为约0.82不够准确。"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "描述未提及各线均为实线且没有标记点；这属于图中的可见样式特征。"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "描述没有说明x轴为离散类别轴，也未提到y轴刻度间隔（0.8、0.85、0.9、0.95、1.0）和无单位这一点。"
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "不同维度（100维、200维、300维、500维）下N元结构组合的准确率",
+      "evidence": "该表述总体符合图题，但“准确率”是标题/轴标签层面的客观信息，问题不大；更主要的是后文用“最高”“最低”“急剧下降”带有一定解释性和趋势强化，超出纯客观描述要求。"
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "500维的准确率急剧下降至约0.82",
+      "evidence": "“急剧下降”属于主观程度判断，生成提示要求避免解释或评价变化，只应客观描述变化。"
+    }
+  ],
+  "mqm_score": 77.0,
+  "total_penalty": 23.0,
+  "error_count": 8
+}

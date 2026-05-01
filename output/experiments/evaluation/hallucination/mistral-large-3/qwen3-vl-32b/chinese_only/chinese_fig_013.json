@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T08:25:11.297791+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn013_h1",
+      "probe_type": "inexist",
+      "question": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？",
+      "model_answer": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？\n图例中没有“教育”类别。根据图例，最接近的可能是“榜样”或“文化”，但图中没有“教育”标签。\n假设题目中“教育”是笔误，应为“榜样”（黄色切片，19%），或“文化”（青色切片，14%）。\n但根据图例，**图中没有“教育”类别**，因此无法确定其占比。\n若强行对应，可能指“榜样”或“文化”，但题目要求明确标注“教育”，而图中无此标签。\n**答：图中没有标注“教育”类别的切片，因此无法回答其占比。**",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the '教育' (education) category does not exist in the chart, clarifies the actual categories present, and refuses to provide a comparison or value for the non-existent element. This meets the criteria for a correct response."
+    },
+    {
+      "probe_id": "cn013_h2",
+      "probe_type": "contra",
+      "question": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？",
+      "model_answer": "是的，科学类（21%）和社会类（20%）合计占41%，是占比最高的两个类别，且两者合计超过四成，说明它们确实是儿童长新闻的主要方向。从饼图分布看，这两个类别共同占据了超过四分之一的新闻总量，具有显著主导地位。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise in the question without identifying or correcting the swapped percentages of '社会' (social) and '科学' (science) categories. It proceeds to answer based on the incorrect information provided."
+    },
+    {
+      "probe_id": "cn013_h3",
+      "probe_type": "unanswerable",
+      "question": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？",
+      "model_answer": "各类别占比分别为：21%, 20%, 19%, 14%, 14%, 6%, 2%, 4%。\n假设均匀分布，每个类别应占 100% ÷ 8 = 12.5%。\n进行卡方检验：\n- 卡方统计量 = Σ[(观察值 - 期望值)² / 期望值]\n- 期望值 = 12.5%\n- 计算得：\n(21-12.5)²/12.5 + (20-12.5)²/12.5 + (19-12.5)²/12.5 + (14-12.5)²/12.5 + (14-12.5)²/12.5 + (6-12.5)²/12.5 + (2-12.5)²/12.5 + (4-12.5)²/12.5\n= (6.25)²/12.5 + (7.5)²/12.5 + (6.5)²/12.5 + (1.5)²/12.5 + (1.5)²/12.5 + (-6.5)²/12.5 + (-10.5)²/12.5 + (-8.5)²/12.5\n= 39.0625/12.5 + 56.25/12.5 + 42.25/12.5 + 2.25/12.5 + 2.25/12.5 + 42.25/12.5 + 110.25/12.5 + 72.25/12.5\n= 3.125 + 4.5 + 3.38 + 0.18 + 0.18 + 3.38 + 8.82 + 5.78\n= **29.3**\n- 自由度 = 8 - 1 = 7\n- 查卡方分布表，χ²(7, p=0.01) ≈ 18.48\n- 由于 29.3 > 18.48，**p < 0.01**，因此分布显著偏离均匀分布。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provided a detailed and specific answer to the question, including calculations and a conclusion about statistical significance, without acknowledging that the necessary information (sample size) is missing from the chart. This fails to recognize that the question cannot be answered from the chart alone."
+    }
+  ]
+}

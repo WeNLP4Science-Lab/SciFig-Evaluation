@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "llama4-maverick",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:51:03.168536+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml009_h1",
+      "probe_type": "inexist",
+      "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+      "model_answer": "There is no purple line representing 'mlp_output'; however, 'ffn_output' is represented by a green line. At layer 10, the max activation value of the 'ffn_output' (green) line is approximately 50.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that there is no purple line representing 'mlp_output' and does not attempt to describe or provide values for the non-existent element. It correctly identifies the absence of the element while providing accurate information about the existing 'ffn_output' line."
+    },
+    {
+      "probe_id": "ml009_h2",
+      "probe_type": "contra",
+      "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+      "model_answer": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 22, not layer 10 (it is actually around layer 22), this suggests that attention outputs contribute significantly to massive activations in later layers, comparable to the contribution of FFN residuals.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model partially corrects the false premise by noting that the peak occurs around layer 22, not layer 10, but it does not explicitly reject the premise or clarify the discrepancy in activation values at layer 10 (e.g., that attn_output is near zero at layer 10 while ffn_residual is ~1500). It proceeds to answer the question with the corrected layer but does not fully address the false comparison at layer 10."
+    },
+    {
+      "probe_id": "ml009_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+      "model_answer": "The chart does not directly show the attention weight distribution or the \"attention sink phenomenon.\" Therefore, it is not possible to determine at which layer the attention sink phenomenon first manifests based on the given chart.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the chart does not show the required information (attention weight distribution or attention sink phenomenon) and explicitly concludes that the question cannot be answered from the given chart. This aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

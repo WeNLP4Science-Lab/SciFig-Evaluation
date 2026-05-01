@@ -1,0 +1,86 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "figure_type": "Bar Chart",
+  "language": "English",
+  "num_atoms": 17,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the first bar (light blue) represents the base model’s performance, while the subsequent bars (in shades of orange to dark brown) represent the performance of models fine-tuned on each of the six specialties, as indicated by the legend",
+      "evidence": "The machine-generated description incorrectly states that the first bar in each group is the base model and the subsequent bars are fine-tuned models. The image shows that each group contains bars for all specialties, including the base model, and the base model bar is always light blue, not necessarily the first bar in each group.",
+      "atom_id": "english_fig_085_bar_items_listed"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the base model (light blue) generally performs worse than all fine-tuned models, with its negative log probability values typically around -22 to -23",
+      "evidence": "The base model (light blue) bars are the tallest in each group, indicating *lower* negative log probability values (closer to -22), which means *better* performance, not worse. The description incorrectly interprets the values.",
+      "atom_id": "english_fig_085_sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "For each specialty, the fine-tuned model on that specialty (e.g., the dark brown bar under \"Cardio\") consistently achieves the lowest negative log probability (highest probability), indicating superior performance",
+      "evidence": "The description incorrectly assigns the dark brown bar to the 'Cardio' specialty under the 'Cardio' group. The dark brown bar corresponds to 'Pediatrics' in the legend, not the specialty of the group. The fine-tuned model for a specialty does not necessarily have the lowest negative log probability in its own group.",
+      "atom_id": "english_fig_085_bar_items_listed"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention that all bars start from -22 and extend downward toward -27.",
+      "atom_id": "english_fig_085_sent_9"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually demonstrates that fine-tuning on a specific specialty improves performance on that specialty’s terminology, with the largest improvements observed in the fine-tuned model’s own domain",
+      "evidence": "The description introduces an interpretation of performance improvement and domain-specific superiority, which is not explicitly shown or supported by the figure. The figure only shows negative log probabilities, not performance improvements or comparative superiority.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "lower values indicating higher probability (better performance)",
+      "evidence": "While technically correct, this parenthetical explanation is unnecessary and could confuse readers unfamiliar with log probabilities. It is not present in the reference description.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The fine-tuned models show varying performance across specialties, with the model fine-tuned on a given specialty performing best on that specialty’s terms",
+      "evidence": "The description overgeneralizes by claiming that fine-tuned models perform best on their own specialty terms, which is not explicitly supported by the figure for all specialties.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 74.12,
+  "total_penalty": 22.0,
+  "atom_coverage": {
+    "correct": 14,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 17,
+    "accuracy": 0.875,
+    "completeness": 0.9333
+  }
+}

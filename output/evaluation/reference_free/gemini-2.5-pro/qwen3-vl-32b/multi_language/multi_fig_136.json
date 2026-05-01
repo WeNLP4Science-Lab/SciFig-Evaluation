@@ -1,0 +1,170 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the marker shapes used for each line series: circles for L=16, squares for L=32, and triangles for L=64 and L=128."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "For all L values, the 'dKV-Cache-Decode' lines exhibit a steep initial increase in speed as batch size grows from 0 to 20, followed by a gradual tapering off toward saturation.",
+          "evidence": "The prompt requires a description of each individual line. This sentence groups four distinct lines ('dKV-Cache-Decode' for L=16, 32, 64, 128) and describes their trend collectively, failing to adhere to the prompt's instruction to describe each line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "rises from approximately 30 Token/s at batch size 0 to 202.31 Token/s at batch size 128; for L=32, it increases from ~30 to 183.28; for L=64, from ~30 to 130.58;",
+          "evidence": "The description incorrectly states that the starting values for the 'dKV-Cache-Decode' lines for L=16, L=32, and L=64 are all approximately 30 Token/s. The plot shows these lines starting at approximately 45, 40, and 40 Token/s, respectively. Also, the first data points are not at batch size 0, but at a small positive value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "for L=16, it rises from ~30 to 69.62; for L=32, from ~30 to 59.71; for L=64, from ~30 to 48.93; and for L=128, from ~30 to 35.42.",
+          "evidence": "The description incorrectly claims the starting value for all four 'Origin' lines is '~30' Token/s. The plot shows these lines starting at values closer to 25 (for L=16), 20 (for L=32), 25 (for L=64), and 20 (for L=128)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "showing minimal improvement with increasing batch size",
+          "evidence": "The phrase 'minimal improvement' is a subjective interpretation of the data trend, which the prompt instructs to avoid."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The 'dKV-Cache-Decode' method consistently outperforms the 'Origin' baseline across all batch sizes and L values.",
+          "evidence": "This sentence makes a direct comparison between the two methods, which is explicitly forbidden by the generation prompt's instruction: 'Do not include... comparisons between lines.'"
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Four distinct lines are shown",
+          "evidence": "The chart displays eight distinct lines (four solid for dKV-Cache-Decode and four dashed for Origin), not four."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "L=16 (black)",
+          "evidence": "The line for L=16 is light gray in the plot, not black. The dark navy blue/black line corresponds to L=128."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "L=128 (gray)",
+          "evidence": "The line for L=128 is dark navy blue/black, not gray. The gray line corresponds to L=16."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid triangles for L=32",
+          "evidence": "The marker for L=32 is a square, not a triangle."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid diamonds for L=64",
+          "evidence": "The marker for L=64 is a triangle, not a diamond. There are no diamond markers in the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid squares for L=128",
+          "evidence": "The marker for L=128 is a triangle. The square marker is used for L=32."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at a batch size of 0, the dKV-Cache-Decode method achieves speeds of 34.53 (L=16), 36.81 (L=32), 59.71 (L=64), and 118.24 (L=128) tokens/s",
+          "evidence": "The chart does not have data points at batch size 0. The first data points appear at batch size 2 or 4. The values listed are either incorrect, from different parts of the chart, or do not appear at all (e.g., 36.81, 118.24)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while at a batch size of 128, the corresponding speeds are 81.18, 183.28, 130.58, and 202.31 tokens/s.",
+          "evidence": "This sentence implies the values correspond to L=16, L=32, L=64, and L=128 in that order. This is incorrect. For example, for L=16, the speed at batch size ~128 is 202.31, not 81.18. The value 81.18 corresponds to L=128."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "175.95",
+          "evidence": "The value for the Origin method for L=128 at batch size ~128 is 35.42, not 175.95. The value 175.95 belongs to the dKV-Cache-Decode method for L=32 at batch size 64."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at batch size 128, the speeds are 35.42, 69.62, 48.93, and 175.95 tokens/s for L=16, L=32, L=64, and L=128, respectively.",
+          "evidence": "The description incorrectly maps the value 35.42 to L=16. In the chart, the Origin method for L=16 ends at 59.71, while the value 35.42 corresponds to L=128."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The Origin method shows lower speeds across all batch sizes and sequence lengths",
+          "evidence": "This is a comparative statement between groups of lines, which the prompt asks to avoid ('Vermeiden Sie es, ... Vergleiche zwischen Linien anzustellen')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The gray line (L=128, dKV-Cache-Decode) shows the highest speed across all batch sizes, reaching 202.31 tokens/s at batch size 128, while the black dashed line (L=16, Origin) remains the lowest, reaching 35.42 tokens/s at batch size 128.",
+          "evidence": "This sentence makes explicit comparisons about which lines are 'highest' and 'lowest', which constitutes interpretation beyond objective description. The prompt requires avoiding comparisons."
+        }
+      ],
+      "mqm_score": 48.5,
+      "total_penalty": 51.5,
+      "error_count": 12,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 66.0
+}

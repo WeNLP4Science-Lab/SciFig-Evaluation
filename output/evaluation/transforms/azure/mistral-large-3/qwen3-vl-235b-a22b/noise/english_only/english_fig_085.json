@@ -1,0 +1,77 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-235b-a22b",
+  "transform": "noise",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "mistral-large-3",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "light blue for Cardio, light orange for Gastro, medium orange for Infect, dark orange for Neuro, brown for Obstetrics, and dark brown for Pediatrics",
+      "evidence": "The legend in the figure shows light blue for MistralV0.2-Base, not Cardio. The colors for the specialties are: light orange for Cardio, orange for Gastro, darker orange for Infect, light brown for Neuro, medium brown for Obstetrics, and dark brown for Pediatrics."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the light blue bar (fine-tuned on Cardio) is the shortest (best performance, ~-26.8), while the dark brown bar (fine-tuned on Pediatrics) is the tallest (worst performance, ~-22.5)",
+      "evidence": "The light blue bar represents MistralV0.2-Base, not Cardio fine-tuned. The shortest bar in the Cardio group is the Cardio fine-tuned bar (light orange), not light blue. The tallest bar in the Cardio group is the Pediatrics bar (dark brown), but its value is closer to -22, not -22.5."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Within each group, the bars are arranged in the same order as the legend",
+      "evidence": "The bars within each group are not arranged in the same order as the legend. The light blue bar (MistralV0.2-Base) is always the first bar in each group, followed by the specialty bars in the order of the legend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the self-fine-tuned bar consistently at the bottom",
+      "evidence": "The self-fine-tuned bars are not consistently at the bottom (shortest) in all groups. The light blue bar (MistralV0.2-Base) is always the tallest (shortest in negative log probability value) in each group."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits mentioning that the light blue bar (MistralV0.2-Base) is always the tallest bar in each group, which is a key visual feature highlighted in the reference."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "A consistent pattern emerges: each specialty’s own fine-tuned model performs best (lowest negative log probability) on its own terms, while performance degrades when evaluated on terms from other specialties, particularly those more distant in medical domain.",
+      "evidence": "The description introduces an interpretation about performance degradation and medical domain distance, which is not explicitly shown or indicated in the figure. The reference does not mention this inference."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "where lower values indicate better model performance",
+      "evidence": "While this is a reasonable interpretation, it is not explicitly stated in the figure or reference description and thus constitutes an unwanted interpretation."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "descending bar heights within each group",
+      "evidence": "The phrase 'descending bar heights' is ambiguous as it could imply a sorted order, which is not the case. The bars are not sorted by height within each group."
+    }
+  ],
+  "mqm_score": 70.5,
+  "total_penalty": 29.5,
+  "error_count": 8
+}

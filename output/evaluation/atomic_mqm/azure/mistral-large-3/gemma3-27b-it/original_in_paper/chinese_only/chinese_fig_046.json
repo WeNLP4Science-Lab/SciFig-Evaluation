@@ -1,0 +1,204 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original_in_paper",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 31,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "准确率与微调比例的关系",
+      "evidence": "The x-axis represents '漏标率' (missing label rate), not '微调比例' (fine-tuning ratio). The y-axis represents 'F1得分' (F1 score), not '准确率' (accuracy).",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x 轴表示微调比例，刻度为线性，范围为 0 到 0.585，数据点间隔为 0.02",
+      "evidence": "The x-axis range is correct, but the tick intervals are not 0.02; they are 0.1 (0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.585).",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "y 轴表示准确率，刻度为线性，范围为 55 到 72.5，数据点间隔为 1",
+      "evidence": "The y-axis range is incorrect; it should be 52.5 to 72.5, and the tick interval is 2.5, not 1.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "教师线为蓝色，无标记",
+      "evidence": "The 'Teacher' line is red with circular markers, not blue and without markers.",
+      "atom_id": "teacher_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "教师线为蓝色，无标记，从 (0, 69.5) 逐渐上升至 (0.585, 71.3)",
+      "evidence": "The 'Teacher' line starts at 72.0 (not 69.5) and decreases to 54.0 (not increases to 71.3).",
+      "atom_id": "teacher_0"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "自训练线为橙色，无标记",
+      "evidence": "The 'Self-Training' line is blue with square markers, not orange and without markers.",
+      "atom_id": "selftraining_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "自训练线为橙色，无标记，从 (0, 64.5) 上升至 (0.3, 66.0) 后基本稳定在 66 左右，并在 (0.585, 66.9) 处结束",
+      "evidence": "The 'Self-Training' line starts at 70.0 (not 64.5) and decreases to 52.7 (not increases to 66.9).",
+      "atom_id": "selftraining_0"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "PST 线为绿色，无标记",
+      "evidence": "The 'PST' line is green but has circular markers, not without markers.",
+      "atom_id": "pst_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "PST 线为绿色，无标记，从 (0, 66.0) 上升至 (0.18, 67.1) 后趋于平稳，并在 (0.585, 67.8) 处结束",
+      "evidence": "The 'PST' line starts at 72.2 (not 66.0) and decreases to 62.0 (not increases to 67.8).",
+      "atom_id": "pst_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not state the purpose of the chart (showing F1 scores for three methods under different missing label rates).",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the correct y-axis label ('F1得分') and x-axis label ('漏标率').",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the marker shapes (circular for 'Teacher' and 'PST', square for 'Self-Training').",
+      "atom_id": "teacher_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the exact F1 scores for each method at each missing label rate.",
+      "atom_id": "teacher_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "数据点间隔为 0.02",
+      "evidence": "The x-axis tick intervals are 0.1, not 0.02. No atom supports this claim.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "y 轴表示准确率，刻度为线性，范围为 55 到 72.5，数据点间隔为 1",
+      "evidence": "The y-axis represents F1 score, not accuracy, and the range starts at 52.5, not 55. The tick interval is 2.5, not 1.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "教师线为蓝色，无标记，从 (0, 69.5) 逐渐上升至 (0.585, 71.3)",
+      "evidence": "The description incorrectly states the 'Teacher' line increases, while it actually decreases. This is an incorrect interpretation.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "自训练线为橙色，无标记，从 (0, 64.5) 上升至 (0.3, 66.0) 后基本稳定在 66 左右",
+      "evidence": "The description incorrectly states the 'Self-Training' line increases and stabilizes, while it actually decreases. This is an incorrect interpretation.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "PST 线为绿色，无标记，从 (0, 66.0) 上升至 (0.18, 67.1) 后趋于平稳",
+      "evidence": "The description incorrectly states the 'PST' line increases and stabilizes, while it actually decreases. This is an incorrect interpretation.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "图 3(a) 展示了三种训练方法（教师、自训练和 PST）下准确率与微调比例的关系",
+      "evidence": "The description uses '图 3(a)' but does not clarify if this is the correct figure identifier. It also mislabels the axes, causing ambiguity.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "自训练线为橙色，无标记，从 (0, 64.5) 上升至 (0.3, 66.0) 后基本稳定在 66 左右，并在 (0.585, 66.9) 处结束",
+      "evidence": "The phrase '基本稳定在 66 左右' is vague and does not accurately reflect the data trend.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 20,
+  "mqm_score": 53.87,
+  "total_penalty": 71.5,
+  "atom_coverage": {
+    "correct": 20,
+    "inaccurate": 9,
+    "missing": 4,
+    "total": 31,
+    "accuracy": 0.6897,
+    "completeness": 0.8333
+  }
+}

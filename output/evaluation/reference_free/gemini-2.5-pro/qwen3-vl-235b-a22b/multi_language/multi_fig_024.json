@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_024",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with G1 and G2 each contributing 3",
+          "evidence": "In layers 20–22, the stacked bar shows that G1 contributes 3 experts (from 1 to 4) and G2 contributes 2 experts (from 4 to 6), not 3 each."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually conveys a non-uniform, layer-dependent allocation of expert capacity, with G2 dominating in early layers and a more balanced distribution emerging in middle and later layers.",
+          "evidence": "The prompt explicitly forbids interpretation and comparison ('Не правете интерпретации... не сравнявайте стойности'). This sentence interprets the overall pattern, uses comparative language ('dominating', 'more balanced'), and draws conclusions not explicitly stated in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "No explicit trend or monotonicity is enforced; instead, the allocation appears optimized per layer, possibly reflecting varying computational or representational demands.",
+          "evidence": "This sentence is entirely interpretive and speculative. It suggests the allocation is 'optimized' and proposes a possible cause ('reflecting varying computational or representational demands'), which directly violates the prompt's instruction to not make interpretations or suggest causal links."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the vertical axis omits that the scale has labeled tick marks at intervals of 2."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "in the upper right",
+          "evidence": "The legend is located in the top center of the chart, not the upper right."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G0 experts appear in every layer except Layer 10",
+          "evidence": "The chart shows that the blue segment representing G0 experts is present in Layer 10, with a value of 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and G2 experts are absent only in Layer 10",
+          "evidence": "The chart shows that the yellow segment representing G2 experts is present in Layer 10, with a value of 2."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "orange für G2",
+          "evidence": "The color used to represent G2 is yellow, not orange."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "oben rechts",
+          "evidence": "The legend is located in the top center of the chart area, not the top right."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit Tick-Markierungen in Einerschritten",
+          "evidence": "The tick marks on the vertical axis are in increments of two (0, 2, 4, 6, 8, 10, 12), not one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während G0 in allen Layern konstant bei 1 oder 0 bleibt",
+          "evidence": "The value for G0 (the blue segment) is 1 in every layer shown in the chart; it is never 0."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.83
+}

@@ -1,0 +1,150 @@
+{
+  "figure_key": "chinese_fig_014",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original_in_paper",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 23,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x轴表示调整概率(ρ)，刻度类型为线性，数值范围为[0, 1]，数值间隔为0.1，数值刻度为0、0.1、0.2、0.3、0.4、0.5、0.6、0.7、0.8、0.9、1",
+      "evidence": "左图x轴标记为'α'，范围为0.1到0.9，间隔为0.2；右图x轴标记为'p'，范围为0.05到0.45，间隔为0.1。机器描述错误地将两个图的x轴统一描述为ρ，且范围和间隔不正确。",
+      "atom_id": "x_axis_left_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "数值范围为[28.1, 28.6]",
+      "evidence": "y轴范围应为28.0到28.6，机器描述错误地将最小值设为28.1。",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图中有两条线，一条为蓝色实线三角形标记，一条为紫色实线圆形标记",
+      "evidence": "图中只有一条蓝色折线，且标记为圆形，没有紫色线或三角形标记。",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线三角形标记在ρ=0时值为28.2，在ρ=0.3时值为28.3，在ρ=0.5时值为28.3，在ρ=0.7时值为28.3，在ρ=0.9时值为28.3，在ρ=1时值为28.3",
+      "evidence": "图中没有ρ=0、0.5、0.6、0.7、0.8、0.9、1的数据点，且数值与实际不符。左图α=0.1对应28.00，α=0.3对应28.32，α=0.5对应28.55（最高点），α=0.7对应28.40，α=0.9对应28.12。",
+      "atom_id": "alpha_01_bleu"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "紫色实线圆形标记在ρ=0时值为28.3，在ρ=0.1时值为28.3，在ρ=0.2时值为28.3，在ρ=0.3时值为28.3，在ρ=0.4时值为28.3，在ρ=0.5时值为28.3，在ρ=0.6时值为28.4，在ρ=0.7时值为28.4，在ρ=0.8时值为28.4，在ρ=0.9时值为28.4",
+      "evidence": "图中不存在紫色线或圆形标记，且右图p值范围为0.05到0.45，数值与描述不符。p=0.05对应28.30，p=0.15对应28.55（最高点），p=0.25对应28.38，p=0.35对应28.44，p=0.45对应28.40。",
+      "atom_id": "p_005_bleu"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "描述未提及图表展示的是不同参数（'α'，'p'）对BLEU分数的影响。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "描述未明确区分左图x轴为'α'，右图x轴为'p'，且未提及左图x轴范围和间隔。",
+      "atom_id": "x_axis_left_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "描述未提及右图x轴范围为0.05到0.45，间隔为0.1。",
+      "atom_id": "x_axis_right_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "描述未提及左图和右图的具体数据点及趋势（如α=0.5和p=0.15为最高点）。",
+      "atom_id": "alpha_05_bleu"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "描述未提及两个图的布局（左图为'α'，右图为'p'）。",
+      "atom_id": "layout"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "图1展示了在MuST-C英语德语翻译任务中，对于目标词翻译概率的单侧调整对微调概率和翻译质量的影响",
+      "evidence": "图表未提及MuST-C英语德语翻译任务或目标词翻译概率的单侧调整，属于无中生有。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "一条为蓝色实线三角形标记，一条为紫色实线圆形标记",
+      "evidence": "图中不存在紫色线或三角形标记，属于无中生有。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "x轴表示调整概率(ρ)，刻度类型为线性，数值范围为[0, 1]，数值间隔为0.1，数值刻度为0、0.1、0.2、0.3、0.4、0.5、0.6、0.7、0.8、0.9、1",
+      "evidence": "描述冗余，重复提及数值刻度，未区分两个图的x轴差异。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "蓝色实线三角形标记在ρ=0时值为28.2，在ρ=0.3时值为28.3，在ρ=0.5时值为28.3，在ρ=0.7时值为28.3，在ρ=0.9时值为28.3，在ρ=1时值为28.3",
+      "evidence": "描述冗长且重复，句式不简洁。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 14,
+  "mqm_score": 55.22,
+  "total_penalty": 51.5,
+  "atom_coverage": {
+    "correct": 14,
+    "inaccurate": 5,
+    "missing": 5,
+    "total": 23,
+    "accuracy": 0.7368,
+    "completeness": 0.7368
+  }
+}

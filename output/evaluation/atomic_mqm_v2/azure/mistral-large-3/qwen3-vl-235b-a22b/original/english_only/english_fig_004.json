@@ -1,0 +1,78 @@
+{
+  "figure_key": "english_fig_004",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 30,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "drops to ~-5% at Layer5-12",
+      "evidence": "The red line (LB-Avg of 1×tokens,16-bit) does not drop to -5% at Layer5-12; it remains close to 0% with a slight dip, approximately -1% to -2%.",
+      "atom_id": "english_fig_004_sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "recovers to ~-2% at Layer13-20",
+      "evidence": "The red line (LB-Avg of 1×tokens,16-bit) dips further at Layer13-20, not recovers to -2%. It is closer to -3% to -4%.",
+      "atom_id": "english_fig_004_sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "indicating layer-dependent sensitivity to quantization and token count",
+      "evidence": "The description introduces interpretation beyond what is explicitly shown in the figure, which only presents relative change data without explaining causes or sensitivity.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "when applying layer-wise quantized pruning to the Mistral-7B-v0.2-Instruct model using the SnapKV method, under a KV cache budget of 1/64",
+      "evidence": "This information is not present in the figure or atom checklist and is not visually supported.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "All lines show significant dips in the middle layers (especially Layer13-20), with recovery toward the final layers",
+      "evidence": "The yellow and red lines do not show 'significant dips'; their dips are minor and not comparable to the light blue and dark blue lines.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The x-axis represents grouped transformer layers — Layer1-4, Layer5-12, Layer13-20, Layer21-28, and Layer29-32 — with no numerical scale, while the y-axis shows the “Relative Change” as a percentage, ranging from -25% to +5%, with major gridlines at 5% intervals.",
+      "evidence": "The sentence is overly long and awkwardly structured, reducing readability.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 91.0,
+  "total_penalty": 13.5,
+  "atom_coverage": {
+    "correct": 29,
+    "inaccurate": 1,
+    "missing": 0,
+    "total": 30,
+    "accuracy": 0.9667,
+    "completeness": 1.0
+  }
+}

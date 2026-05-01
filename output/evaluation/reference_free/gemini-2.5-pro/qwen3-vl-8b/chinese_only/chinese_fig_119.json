@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_119",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "占比最大的是“具备两类语体的同义词簇”，为51.1%, 以橙色显示；其次是“具备一类语体的同义词簇”，为32.5%, 以深蓝色显示",
+      "evidence": "The description incorrectly identifies summary values (51.1% and 32.5%) as representing single slices. These percentages are totals for groups of slices (51.1% is the sum of three slices, 32.5% is the sum of another three). The largest single slice is actually 41.4% (yellow)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“具备两类语体的同义词簇”中仅具备口语词和通用语词（4.7%）、仅具备口语词和书面语词（5.0%）、仅具备通用语词和书面语词（10.2%）以及“具备一类语体的同义词簇”中仅具备口语词（1.5%）、仅具备通用语词（20.8%）、仅具备书面语词（41.4%）",
+      "evidence": "This sentence contains multiple incorrect mappings between categories and their percentage values. For example, '口语词和通用语词' is 5.0%, not 4.7%; '口语词和书面语词' is 4.7%, not 5.0%; '通用语词和书面语词' is 41.4%, not 10.2%; '通用语词' is 10.2%, not 20.8%; and '书面语词' is 20.8%, not 41.4%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "部分较大的切片（如51.1%和32.5%）则通过引线连接至外部文字框进行标注",
+      "evidence": "The values 51.1% and 32.5% are not slices in the chart; they are summary labels for groups of slices. The description incorrectly identifies them as labels for 'larger slices'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "切片按从大到小的顺序排列，视觉上呈现出由外向内、由大到小的层级结构。",
+      "evidence": "The chart's slices are not arranged in order of size. Additionally, the chart is a single-ring donut chart and does not have a visual 'outside to inside' hierarchical structure."
+    }
+  ],
+  "mqm_score": 81.5,
+  "total_penalty": 18.5,
+  "error_count": 4
+}

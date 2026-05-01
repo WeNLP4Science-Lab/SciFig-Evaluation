@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_106",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Освен това, има допълнителни по-малки вертикални линии, които съответстват на интервали от 20 стъпки, въпреки че не са етикетирани.",
+          "evidence": "The chart does not have minor vertical grid lines at 20-step intervals. The only vertical grid lines are at the labeled 100-step intervals."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Диапазонът на стойностите е от 0.02 до 0.10",
+          "evidence": "The description states that the Y-axis range is from 0.02 to 0.10, but the axis visually extends below 0.02 and above 0.10. The 'Training Loss' line starts at a value visibly higher than 0.10."
+        },
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Визуално се виждат допълнителни по-малки хоризонтални линии, които съответстват на интервали от 0.01, но без етикети.",
+          "evidence": "The chart does not have minor horizontal grid lines at 0.01 intervals. The only horizontal grid lines are at the labeled 0.02 intervals."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "бързо спада до около 0.07 към стъпка 10",
+          "evidence": "For the 'Training Loss' line, the value at step 10 is approximately 0.08, not 0.07. The value drops to 0.07 at a later point (around step 25)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада до около 0.04 към стъпка 10",
+          "evidence": "For the 'Validation Loss' line, the value at step 10 is approximately 0.05, not 0.04. The value drops to 0.04 at a later point (around step 40)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "като валидационната губяща функция е винаги по-ниска от тренировъчната и има по-малка вариация.",
+          "evidence": "The generation prompt explicitly forbids comparing lines or making interpretations. This sentence directly compares the two lines ('validation loss is always lower') and interprets their behavior ('has less variation'), which violates the instructions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Тя започва при стойност около 0.10 при стъпка 0",
+          "evidence": "The blue 'Training Loss' line starts at a value visibly above 0.10, closer to 0.108. Stating it starts at 'around 0.10' is an understatement."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Тя започва при стойност около 0.07 при стъпка 0",
+          "evidence": "The orange 'Validation Loss' line starts at a value visibly above 0.07, closer to 0.075."
+        }
+      ],
+      "mqm_score": 77.5,
+      "total_penalty": 22.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranges from 0.00 to 0.10",
+          "evidence": "The description states the y-axis ranges from 0.00 to 0.10, but the first data point for the training loss is visibly above the 0.10 tick mark (at approximately 0.108)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The training loss begins at approximately 0.10 at step 0 and decreases sharply to around 0.03 by step 100",
+          "evidence": "The training loss begins at approximately 0.108, not 0.10. More significantly, at step 100, the value is approximately 0.038, which is much closer to 0.04 than the reported 0.03."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The validation loss starts at approximately 0.07 at step 0, drops to around 0.03 by step 100, and then stabilizes between 0.015 and 0.02 for the remainder of the steps.",
+          "evidence": "Multiple numerical values for the validation loss are incorrect. At step 100, the loss is approximately 0.023, not 0.03. Furthermore, the line ends at approximately 0.012, which is below the stated stabilization range of 0.015 to 0.02."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the validation loss consistently lower than the training loss after the initial steps",
+          "evidence": "The prompt explicitly instructs to avoid making comparisons between lines. This phrase directly compares the two data series, which violates a negative constraint."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.5
+}

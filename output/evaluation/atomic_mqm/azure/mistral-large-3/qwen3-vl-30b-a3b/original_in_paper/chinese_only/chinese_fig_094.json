@@ -1,0 +1,96 @@
+{
+  "figure_key": "chinese_fig_094",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original_in_paper",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 11,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart is divided into three colored segments, each representing a different structural pattern.",
+      "evidence": "The figure consists of two pie charts, not one. The machine-generated description incorrectly merges the two charts into a single pie chart with three segments.",
+      "atom_id": "layout"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The smallest segment, colored green, is labeled \"“的”字只隐不现\" (The \"de\" character is only implied, not visible) and constitutes 18.34% of the total.",
+      "evidence": "The green segment is part of the sub-pie chart (right), not the main pie chart (left). It represents \"的\"字显不隐 (visible), not \"隐不现\" (implied). The machine-generated description incorrectly assigns it to the main pie chart and mislabels its meaning.",
+      "atom_id": "sub_pie_visible"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the yellow segment to category 2",
+      "evidence": "The legend at the bottom indicates blue=1, orange=2, and green=3. The machine-generated description incorrectly maps yellow to category 2, which should be orange.",
+      "atom_id": "legend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the purpose of the chart: to showcase the compositional characteristics of the adhesive \"an\" structure.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the existence of the sub-pie chart (right) and its purpose: to further analyze the \"的\" character visibility in the \"单音形容词 + 单音名词\" structure.",
+      "atom_id": "sub_pie_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the gray connecting line between the two pie charts, which indicates the relationship between the main and sub-pie charts.",
+      "atom_id": "connection"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart visually emphasizes the \"的\"字只隐不现 (the \"de\" character is only implied, not visible) segment by slightly offsetting it from the main body of the pie.",
+      "evidence": "The green segment (\"的\"字显不隐) is slightly offset, not the orange segment (\"的\"字隐不现). The machine-generated description incorrectly states the offset segment.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The image displays Figure 5, a pie chart titled \"粘合式“an”结构\" (Adhesive \"an\" Structure), which illustrates the syntactic structure of compound words with a single noun as the central element.",
+      "evidence": "The description incorrectly refers to the figure as \"Figure 5,\" which is not mentioned in the image or atom checklist. It also inaccurately describes the chart's focus as \"syntactic structure of compound words with a single noun as the central element,\" which is not the explicit purpose shown in the figure.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 49.09,
+  "total_penalty": 28.0,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 3,
+    "missing": 3,
+    "total": 11,
+    "accuracy": 0.625,
+    "completeness": 0.625
+  }
+}

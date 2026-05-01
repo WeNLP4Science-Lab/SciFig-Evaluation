@@ -1,0 +1,123 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 28,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "attn_output (orange dotted line), attn_residual (blue dashed line), ffn_output (green dash-dot line), and ffn_residual (red solid line)",
+      "evidence": "The description incorrectly maps line colors and styles: attn_output is blue dashed, attn_residual is orange dotted, ffn_output is green dash-dot, and ffn_residual is red solid.",
+      "atom_id": "multi_fig_009_sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The attn_output line remains around 0 until layer 7, then increases to approximately 700 at layer 13, and subsequently decreases, ending around 100 at layer 24",
+      "evidence": "The attn_output line remains near zero and only sharply increases to ~200 between layers 22 and 23, not 700 at layer 13.",
+      "atom_id": "multi_fig_009_sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The attn_residual line stays near 0 throughout, with slight variations",
+      "evidence": "The attn_residual line peaks sharply at layer 5 to ~1400 and remains stable before declining after layer 22, not near 0 throughout.",
+      "atom_id": "multi_fig_009_sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The ffn_output line follows a similar pattern to attn_output, with a peak of around 850 at layer 13, and then decreases to about 100 at layer 24",
+      "evidence": "The ffn_output line spikes to ~1000 at layers 5, 13, and 22, not just layer 13, and does not follow attn_output's pattern.",
+      "atom_id": "multi_fig_009_sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The ffn_residual line shows a sharp increase to around 1000 at layer 13, followed by a decline to approximately 500 at layer 24",
+      "evidence": "The ffn_residual line peaks sharply at layer 5 to ~1400-1600, not 1000 at layer 13, and declines after layer 22.",
+      "atom_id": "multi_fig_009_sent_7"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "All lines exhibit a significant spike between layers 12 and 14",
+      "evidence": "Only ffn_output exhibits a spike at layer 13; attn_output and attn_residual do not spike in this range.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the specific peak values for attn_residual (~1400) and ffn_residual (~1600) at layer 5.",
+      "atom_id": "multi_fig_009_sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the stability of attn_residual between layers 5 and 22.",
+      "atom_id": "multi_fig_009_sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "comparing four distinct outputs: attn_output, ffn_residual, attn_residual, and ffn_output",
+      "evidence": "The description lists 'ffn_output' twice and omits the correct order of series as per the legend.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The ffn_output line follows a similar pattern to attn_output",
+      "evidence": "The claim is misleading; ffn_output and attn_output do not follow similar patterns.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "All lines exhibit a significant spike between layers 12 and 14",
+      "evidence": "This overgeneralizes the behavior of the lines, as only ffn_output spikes in this range.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 72.5,
+  "total_penalty": 38.5,
+  "atom_coverage": {
+    "correct": 24,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 28,
+    "accuracy": 0.8571,
+    "completeness": 0.96
+  }
+}

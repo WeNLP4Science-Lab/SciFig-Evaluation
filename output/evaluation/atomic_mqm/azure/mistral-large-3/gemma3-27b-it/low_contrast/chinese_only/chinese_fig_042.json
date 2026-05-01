@@ -1,0 +1,96 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "low_contrast",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色“训练集数量”的各柱状图分别对应的值为：1102、1095、0.8714、1077 和 675",
+      "evidence": "蓝色柱状图代表训练集数量，但0.8714是准确率（灰色折线），不应出现在蓝色柱状图的值中。",
+      "atom_id": "role_acc"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色“验证集数量”的各柱状图的值分别为：250、190、40、55 和 5",
+      "evidence": "同义识别的验证集数量应为55，空间推理的验证集数量应为675，描述顺序和数值错误。",
+      "atom_id": "spatial_val"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "灰色线段则显示出近似的准确率值（经过量化）：0.7666、0.692、0.2852 和 0.3769",
+      "evidence": "缺少角色识别的准确率0.8714，且顺序错误。",
+      "atom_id": "role_acc"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明垂直轴分为左右两部分，左轴为数量，右轴为准确率。",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及右轴准确率的范围和标记间隔。",
+      "atom_id": "y_axis_right_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明灰色折线代表准确率。",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "垂直轴显示值，标记为“训练集数量”和“验证集数量”",
+      "evidence": "描述模糊，未明确说明垂直轴分为两部分，且未提及准确率。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "本柱状图旨在展示五个不同类别的数据，即“实体识别”、“角色识别”、“异常识别”、“空间推理”和“同义识别”的“训练集数量”和“验证集数量”，以及可能相关的“准确率”",
+      "evidence": "句子冗长且表述不够清晰，使用了“可能相关的”这一模糊表述。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 80.42,
+  "total_penalty": 23.5,
+  "atom_coverage": {
+    "correct": 19,
+    "inaccurate": 2,
+    "missing": 3,
+    "total": 24,
+    "accuracy": 0.9048,
+    "completeness": 0.8636
+  }
+}

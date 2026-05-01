@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_049",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "етикетирана като \"Брои на примерите\"",
+          "evidence": "The x-axis label in the figure is \"Number of Shots\", not \"Брои на примерите\" (Number of examples). While semantically similar in this context, it is not the literal label from the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Диаграмата включва три групи стълби, представени с различни цветове: тъмночервено за \"Минимален\", оранжев за \"Сбит\" и син за \"Обяснителен\". За всяка група стълбите са подредени по следния ред: 0, 1, 2, 3 и 4 примера.",
+          "evidence": "The description of the structure is confusing and inaccurate. The chart contains five groups of bars, with each group corresponding to a \"Number of Shots\" (0, 1, 2, 3, 4) on the x-axis. The statement that there are three groups of bars defined by color, and that for each group the bars are ordered 0-4, misrepresents the visual organization."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При 0 примера, стойностите на точността са около 0,43 за \"Сбит\"",
+          "evidence": "The bar for the \"Сбит\" (Concise) category at 0 shots reaches approximately 0.45 on the y-axis, not 0.43."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "при 4 примера, стойностите са около 0,24 за \"Минимален\"",
+          "evidence": "The bar for the \"Минимален\" (Minimal) category at 4 shots has a value closer to 0.22, not 0.24. The bar is visibly below the halfway point between 0.20 and 0.25."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Всички стълби намаляват с увеличаването на броя на примерите.",
+          "evidence": "This statement is incorrect. The value for the \"Минимален\" (Minimal) category increases from approximately 0.28 at 1 shot to 0.30 at 2 shots."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "und der Explanatory-Balken eine Länge von ungefähr 0,45",
+          "evidence": "The description states that the 'Explanatory' bar for 0 shots has a value of approximately 0.45, the same as the 'Concise' bar. However, the 'Explanatory' bar is visibly shorter than the 'Concise' bar, with a value of approximately 0.44."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Mit zunehmender Anzahl von Shots nimmt die Länge aller Balken ab.",
+          "evidence": "The description claims that the length of all bars decreases as the number of shots increases. This is not true. For the 'Minimal' category, the bar length increases from approximately 0.28 at 1 shot to approximately 0.30 at 2 shots."
+        }
+      ],
+      "mqm_score": 98.0,
+      "total_penalty": 2.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.5
+}

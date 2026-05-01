@@ -1,0 +1,76 @@
+{
+  "figure_key": "bulgarian_fig_122",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Clarity",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "Фигурата съдържа две графики, които са представени една до друга, като всяка от тях показва различни данни за цените на нефт сорт \"Брент\". \n\n**Първа графика (ляво):**\n- **Обща цел:** Графиката показва реалните дневни цени на нефт сорт \"Брент\" в рамките на 250 дни.\n- **Оста X:** Означена е като дати от 15 април 2021 г. до 15 март 2022 г. с етикети на интервали от около месец. Скалата е линейна със седмични или месечни интервали. Няма единици.\n- **Оста Y:** Означена е с диапазон от 50 до 130, със стъпка от 10. Няма изрично посочени единици (вероятно USD/барел).\n- **Линията:** Представена е с плътна черна линия без маркери. Започва около 60 и се покачва до около 120, след което намалява до около 100 в края на периода.\n\n**Втора графика (дясно):**\n- **Обща цел:** Графиката показва симулирана ценова траектория на нефт посредством скоково-дифузен модел при дневна честота.\n- **Оста X:** Показва стойности от 1 до 239 без ясни етикети за дати, но със забележки за интервалите. Скалата е линейна с дневни или подобни интервали. Няма единици.\n- **Оста Y:** Идентична с оста Y на първата графика - диапазон от 50 до 130 със стъпка от 10. Няма изрично посочени единици.\n- **Линията:** Също е плътна черна линия без маркери. Започва около 60, бързо се покачва до около 110, след което намалява до малко над 50.\n\n**Сравнителни бележки:** \nДвете графики имат еднакъв мащаб на осите Y, но се различават значително по данните и периода, който обхващат. Първата графика показва реални цени в рамките на около година, докато втората показва симулирани данни за по-дълъг период с по-плавна начална покачка и по-рязък спад. Няма припокриване на данните или периодите.",
+      "evidence": "The prompt explicitly asks for the description to be a single, cohesive paragraph (or separate paragraphs for each subplot after discussing common elements). The generated text uses a bulleted list and section headers, which violates the required output format."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "(вероятно USD/барел)",
+      "evidence": "The prompt instructs to describe only what is visually present and avoid assumptions. The units for the Y-axis are not specified in the chart, and adding \"(вероятно USD/барел)\" is an interpretation."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "се покачва до около 120",
+      "evidence": "In the left graph, the line peaks significantly above 120, reaching a value of approximately 128."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "намалява до около 100 в края на периода.",
+      "evidence": "In the left graph, the line ends at a value of approximately 110, not 100."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Започва около 60",
+      "evidence": "The line in the right-hand graph (second graph) starts at a value above 100 (approximately 102), not 60."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the legends for the lines in both plots. The left plot's line is labeled 'Real price data' and the right plot's line is labeled 'Jump-diffusion simulated price'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "**Сравнителни бележки:** \nДвете графики имат еднакъв мащаб на осите Y, но се различават значително по данните и периода, който обхващат. Първата графика показва реални цени в рамките на около година, докато втората показва симулирани данни за по-дълъг период с по-плавна начална покачка и по-рязък спад. Няма припокриване на данните или периодите.",
+      "evidence": "The prompt explicitly forbids comparing the lines or drawing conclusions not stated in the chart. This entire section provides a comparative analysis, which violates the instructions."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "втората показва симулирани данни за по-дълъг период",
+      "evidence": "The description incorrectly states that the second graph covers a longer period. The first graph covers approximately 11 months (from 15-Apr-21 to 15-Mar-22), while the second graph covers 239 days, which is approximately 8 months. Therefore, the second period is shorter."
+    }
+  ],
+  "mqm_score": 69.5,
+  "total_penalty": 30.5,
+  "error_count": 8
+}

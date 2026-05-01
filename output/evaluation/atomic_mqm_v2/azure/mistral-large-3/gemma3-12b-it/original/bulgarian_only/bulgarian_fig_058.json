@@ -1,0 +1,96 @@
+{
+  "figure_key": "bulgarian_fig_058",
+  "subfolder": "bulgarian_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Bulgarian",
+  "num_atoms": 9,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Секторите са оцветени в синьо, кафяво, оранжево и графитено сиво, съответно за бензин, дизел, електрически и хибридни",
+      "evidence": "The colors are incorrectly mapped: бензин is light blue (not синьо), дизел is orange (not кафяво), електрически is grey (not оранжево), хибридни is yellow (not графитено сиво).",
+      "atom_id": "diesel_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "бензин (414 098), дизел (1 456 846), електрически (13 466), хибридни (1 071 600)",
+      "evidence": "The numerical values for бензин and електрически, and хибридни are swapped. бензин should be 1,071,600, електрически should be 414,098, and хибридни should be 13,466.",
+      "atom_id": "gasoline_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "електрически (13 466)",
+      "evidence": "The value for електрически is incorrect; the image shows 414,098, not 13,466.",
+      "atom_id": "electric_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "хибридни (1 071 600)",
+      "evidence": "The value for хибридни is incorrect; the image shows 13,466, not 1,071,600.",
+      "atom_id": "hybrid_sector"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the purpose of the chart as the distribution of registered cars by fuel type in Bulgaria for 2024, though it is implied.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the values are explicitly labeled on each sector in the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Секторите са оцветени в синьо, кафяво, оранжево и графитено сиво, съответно за бензин, дизел, електрически и хибридни",
+      "evidence": "The phrase 'съответно за бензин, дизел, електрически и хибридни' is ambiguous because it incorrectly maps colors to categories, leading to confusion.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Представени са общо четири категории: бензин, дизел, електрически и хибридни автомобили, както и категория \"други\".",
+      "evidence": "The description states 'общо четири категории' but then lists five, which is contradictory and confusing.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 44.44,
+  "total_penalty": 25.0,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 9,
+    "accuracy": 0.5,
+    "completeness": 0.8
+  }
+}

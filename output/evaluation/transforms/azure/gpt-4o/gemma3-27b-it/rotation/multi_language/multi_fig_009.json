@@ -1,0 +1,347 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "gemma3-27b-it",
+  "transform": "rotation",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Оста X е обозначена като \"Layer\" и представя числова величина с линейна скала, която варира от 0 до 22 с равномерни интервали от 1.",
+          "evidence": "The x-axis ranges from 0 to 24 with tick intervals of 5, not 0 to 22 with intervals of 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Оста Y е обозначена като \"Max Activation Value\" и представя числова величина с линейна скала, която варира от 0 до 1600 с равномерни интервали от 200.",
+          "evidence": "The description correctly states the y-axis range and intervals, but fails to mention the units or purpose of the axis as 'Max Activation Value,' which is critical for understanding the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Първата линия е в червен цвят, с пунктиран стил и е обозначена като \"attn_output\".",
+          "evidence": "The red line is solid, not dotted, and represents 'ffn_residual,' not 'attn_output.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Втората линия е в оранжев цвят, с двойна пунктирана линия и е обозначена като \"attn_residual\".",
+          "evidence": "The orange line is dotted, not double-dotted, and correctly represents 'attn_residual.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Третата линия е в зелен цвят, с пунктиран стил и е обозначена като \"ffn_output\".",
+          "evidence": "The green line is dash-dotted, not dotted, and correctly represents 'ffn_output.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Четвъртата линия е в син цвят, с пунктиран стил и е обозначена като \"ffn_residual\".",
+          "evidence": "The blue line is dashed, not dotted, and represents 'attn_output,' not 'ffn_residual.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Тя започва в точка (0, 0) и се покачва до приблизително (4, 800), след което намалява до (17, 600), след което се покачва и достига (22, 1400).",
+          "evidence": "The red line ('ffn_residual') starts at 0, rises sharply to 1400 at layer 5, remains between 1400 and 1600 until layer 20, and then drops to 500 at layer 23. The described trajectory is incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explain that the chart illustrates the maximum activation values of different components across layers under baseline conditions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend, which identifies the lines as 'attn_output,' 'attn_residual,' 'ffn_output,' and 'ffn_residual.'"
+        }
+      ],
+      "mqm_score": 58.0,
+      "total_penalty": 42.0,
+      "error_count": 9,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "图表包含三条曲线",
+          "evidence": "图中实际包含四条曲线：蓝色虚线（attn_output）、橙色点线（attn_residual）、绿色点划线（ffn_output）、红色实线（ffn_residual）。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "激活值为 1400，到 x = 5 处，降至 0，并保持稳定",
+          "evidence": "蓝色虚线（attn_output）在图中起始值接近零，并在第 5 层和第 20 层附近略有增加，而非从 1400 降至 0。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "到 x = 5 处，上升至 900，随后在 x = 12 处达到峰值约 1200",
+          "evidence": "橙色点线（attn_residual）在第 5 层达到峰值约 1400，并在 1400 到 1600 之间稳定，而非在第 12 层达到峰值约 1200。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "到 x = 7 处，上升至 800，随后在 x = 10 处达到峰值约 1400",
+          "evidence": "绿色点划线（ffn_output）在第 5 层和第 15 层出现明显峰值，最高达 800 左右，而非在第 7 层和第 10 层达到峰值约 1400。"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "数值范围为 0 到 23",
+          "evidence": "x 轴范围为 0 到 24，而非 0 到 23。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成描述未提及红色实线（ffn_residual），其在第 2 层迅速上升到约 1400，并保持高值直到第 20 层后急剧下降。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成描述未明确说明图表的目的，即展示基线条件下模型不同层的最大激活值。"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "机器生成描述未提及 x 轴刻度间隔为 5，而非 1。"
+        }
+      ],
+      "mqm_score": 64.5,
+      "total_penalty": 35.5,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The x-axis is labeled “Layer” and has a linear scale ranging from 0 to 21, with tick labels at integer values.",
+          "evidence": "The x-axis in the figure ranges from 0 to 24 with tick labels at intervals of 5, not 0 to 21 with integer tick labels."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A red solid line, representing “attn_output”",
+          "evidence": "The red solid line in the figure represents 'ffn_residual,' not 'attn_output.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "An orange dashed line labeled “attn_residual”",
+          "evidence": "The orange line in the figure is dotted, not dashed, and it represents 'attn_residual.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A green dashed line, representing “ffn_residual”",
+          "evidence": "The green line in the figure is dash-dot, not dashed, and it represents 'ffn_output,' not 'ffn_residual.'"
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at approximately 1400 at layer 0, decreases to around 900 at layer 5",
+          "evidence": "The red solid line ('ffn_residual') starts near 0 at layer 0 and peaks at around 1400 at layer 5, not the described pattern."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at approximately 800 at layer 0, descends to around 200 at layer 5",
+          "evidence": "The orange dotted line ('attn_residual') starts at 0 at layer 0 and peaks at around 1400 at layer 5, not the described pattern."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at approximately 0 at layer 0, rises sharply to approximately 1200 at layer 5",
+          "evidence": "The green dash-dot line ('ffn_output') starts near 0 and spikes to around 1000 at layer 5, not 1200."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the plot shows maximum activation values across layers in a model under a baseline condition."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the blue dashed line representing 'attn_output,' which starts near zero and increases sharply to a max activation value of 200 between layers 22 and 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the red solid line ('ffn_residual') follows a similar pattern to the orange dotted line ('attn_residual')."
+        }
+      ],
+      "mqm_score": 54.5,
+      "total_penalty": 45.5,
+      "error_count": 10,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die x-Achse ist als 'Layer' beschriftet und skaliert linear von 0 bis 21 in Schritten von 1.",
+          "evidence": "The x-axis is labeled 'Layer' and spans from 0 to 24, not 0 to 21, with tick marks at intervals of 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die y-Achse ist als 'Max Activation Value' beschriftet und skaliert linear von 0 bis 1600 in Schritten von 200.",
+          "evidence": "The y-axis is correctly labeled 'Max Activation Value' and spans from 0 to 1600, but the machine description omits the tick intervals of 200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Das Diagramm enthält drei Linien.",
+          "evidence": "The figure contains four lines, not three, as indicated by the legend: 'attn_output', 'attn_residual', 'ffn_output', and 'ffn_residual'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die erste Linie ist rot und durchgezogen, gekennzeichnet als 'attn_output'.",
+          "evidence": "The red solid line is labeled 'ffn_residual' in the legend, not 'attn_output'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die zweite Linie ist orange und gestrichelt, gekennzeichnet als 'attn_residual'.",
+          "evidence": "The orange dotted line is labeled 'attn_residual' in the legend, but its description of the values and behavior is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die dritte Linie ist grün und gestrichelt, gekennzeichnet als 'ffn_residual'.",
+          "evidence": "The green dashed line is labeled 'ffn_output' in the legend, not 'ffn_residual'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explain the purpose of the chart, which is to illustrate maximum activation values across layers under baseline conditions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the blue dashed line labeled 'attn_output' in the legend."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not describe the behavior of the green dashed line ('ffn_output'), which has peaks at layers 5, 13, and 23."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not describe the behavior of the orange dotted line ('attn_residual'), which closely follows the red solid line ('ffn_residual') but is shifted by one layer."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the tick intervals on the x-axis (5) or the y-axis (200)."
+        }
+      ],
+      "mqm_score": 52.5,
+      "total_penalty": 47.5,
+      "error_count": 11,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 57.38
+}

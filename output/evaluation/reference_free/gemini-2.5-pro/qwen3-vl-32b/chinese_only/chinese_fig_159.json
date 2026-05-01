@@ -1,0 +1,76 @@
+{
+  "figure_key": "chinese_fig_159",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "刻度间隔为1.2（即0、1.2、3.7、7）",
+      "evidence": "The description incorrectly states that the x-axis has a uniform interval of 1.2. The x-axis points are discrete categories labeled 0, 1.2, 3.7, and 7.max, and the intervals between them are not uniform."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "但根据上下文可理解为词语之间的距离（如词位置差）",
+      "evidence": "The description infers the meaning of the x-axis beyond its explicit label, which violates the prompt's instruction to avoid inference and stick to objective features."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色实线带圆形标记代表BLC",
+      "evidence": "The marker for the BLC line is a diamond, not a circle (圆形)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "灰色虚线带三角形标记代表ABLC",
+      "evidence": "The line for ABLC is a solid line (实线), not a dashed/dotted line (虚线)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "约0.9（BLAC）",
+      "evidence": "At x=0, the F1 value for BLAC is approximately 0.94, which is nearly identical to ABLC, not 0.9 which is the value for BLC."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "随着距离增加至x=1.2，F1值分别下降至约0.8（BLC）、约0.7（BLAC）和约0.75（ABLC）",
+      "evidence": "The reported F1 values at x=1.2 are all significantly incorrect. The actual approximate values are 0.57 (BLC), 0.59 (BLAC), and 0.68 (ABLC), not 0.8, 0.7, and 0.75 respectively."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在x=3.7处，F1值进一步下降至约0.6（BLC）",
+      "evidence": "The F1 value for BLC at x=3.7 is approximately 0.53, not 0.6."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "整体趋势显示，随着角色与目标词距离增大，所有方法的F1值均呈下降趋势，且ABLC在所有距离点上均保持最高F1值。",
+      "evidence": "This sentence provides a summary and compares the performance of the different lines, which is explicitly forbidden by the generation prompt ('avoid... comparing different lines')."
+    }
+  ],
+  "mqm_score": 65.0,
+  "total_penalty": 35.0,
+  "error_count": 8
+}

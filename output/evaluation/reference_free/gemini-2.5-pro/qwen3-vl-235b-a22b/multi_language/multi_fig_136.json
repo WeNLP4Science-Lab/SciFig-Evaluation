@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Five distinct lines are plotted",
+          "evidence": "The plot contains eight distinct lines, not five. There are two main categories, 'dKV-Cache-Decode' (solid lines) and 'Origin' (dashed lines), each comprising four lines for L = 16, 32, 64, and 128."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“L = 16” (gray solid line with square markers)",
+          "evidence": "The gray line corresponding to L = 16 has circle markers, not square markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at approximately 34.53 Token/s at batch size 0",
+          "evidence": "The gray solid line (L=16, dKV-Cache-Decode) does not start at batch size 0, and its first data point is well above 34.53 Token/s. The value 34.53 Token/s appears on the dashed dark blue line (L=128, Origin) at a batch size of 32."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“L = 32” (blue solid line with circle markers)",
+          "evidence": "The blue solid line corresponding to L = 32 has upward-pointing triangle markers, not circle markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at 46.69",
+          "evidence": "The blue solid line (L=32, dKV-Cache-Decode) begins at a value of 73.17. The value 46.69 is associated with the dashed red line (L=64, Origin) at a batch size of 32."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at 59.71",
+          "evidence": "The red solid line (L=64, dKV-Cache-Decode) starts with a value around 40 Token/s. The value 59.71 is the endpoint of the dashed blue line (L=32, Origin)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“L = 128” (orange solid line with inverted triangle markers)",
+          "evidence": "The L=128 lines are dark blue/black, not orange. Their markers are upward-pointing triangles, not inverted triangles. The color orange and inverted triangles are not present in the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "begins at 48.93 and ends at 35.42",
+          "evidence": "This mischaracterizes the L=128 lines. The value 48.93 is the endpoint of the dashed red line (L=64, Origin), and 35.42 is the endpoint of the dashed dark blue line (L=128, Origin). The solid dark blue line (L=128, dKV-Cache-Decode) starts at 75.72 and ends at 81.18."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“Origin” (black dashed line with diamond markers)",
+          "evidence": "'Origin' refers to a category of four dashed lines, not a single line. Furthermore, there are no diamond markers in the plot; the 'Origin' lines use circles, pluses, and triangles."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at 34.95 and rises slightly to 81.18",
+          "evidence": "The description incorrectly combines values from different lines. The value 34.95 belongs to the dashed dark blue line (L=128, Origin) at a batch size of 64. The endpoint value of 81.18 belongs to the solid dark blue line (L=128, dKV-Cache-Decode), not any of the dashed 'Origin' lines."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“dKV Cache-Decode” line (black solid line with diamond markers)",
+          "evidence": "'dKV-Cache-Decode' is a category of four solid lines, not a single line. There are no diamond markers in the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at 59.43 and increases to 69.62",
+          "evidence": "The description incorrectly combines values from different lines. The value 59.43 belongs to the dashed blue line (L=32, Origin) at a batch size of 64. The endpoint value 69.62 belongs to the dashed gray line (L=16, Origin)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "All lines exhibit an initial increase in throughput with batch size, though “L = 128” and “Origin” plateau or decline at higher batch sizes, while the other configurations continue to scale.",
+          "evidence": "The prompt explicitly forbids making comparisons between lines and drawing conclusions. This sentence compares the trends of different lines ('while the other configurations continue to scale') and generalizes behavior ('All lines exhibit...', 'plateau or decline'), which constitutes interpretation beyond objective description."
+        }
+      ],
+      "mqm_score": 36.5,
+      "total_penalty": 63.5,
+      "error_count": 13,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 36.5
+}

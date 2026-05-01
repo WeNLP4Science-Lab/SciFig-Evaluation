@@ -1,0 +1,170 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "подредени в азбучен (нарастващ) ред",
+          "evidence": "The description states that the x-axis categories are ordered alphabetically, but they are ordered numerically by percentage (10%, 20%, 30%, etc.)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При 70% разреденост пер-слоевата перплексност достига около 10^2, докато пер-изходната е малко под 10^2",
+          "evidence": "At 70% sparsity, the value for Per-Layer (orange bar) is approximately 40, not around 10^2 (100). The value for Per-Output (blue bar) is approximately 20, which is significantly lower than 'a little below 10^2'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "пер-изходната е около 10^2.5",
+          "evidence": "At 80% sparsity, the value for Per-Output (blue bar) is visually around 600. The description states it is around 10^2.5, which is approximately 316. This is a significant underestimation."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "刻度标记为10⁰、10¹、10²、10³",
+          "evidence": "The description states that the y-axis has tick marks for 10⁰, 10¹, 10², and 10³. However, the chart's y-axis is only explicitly labeled with 10¹, 10², and 10³."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "两者在每个稀疏率下均以相同高度呈现，表明在各稀疏率下两种策略的困惑度数值非常接近",
+          "evidence": "The description incorrectly claims that the blue ('Per-Output') and orange ('Per-Layer') bars are the same height at each sparsity rate. The chart clearly shows that the orange bar is consistently taller than the blue bar, and this difference becomes very large at 70% and 80% sparsity rates. This generalization misses the key comparison shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在10%至60%稀疏率区间，所有柱状图高度均低于10（即在10⁰至10¹之间）",
+          "evidence": "The description states that all bars in the 10%-60% range are below 10. However, at the 60% sparsity rate, the orange 'Per-Layer' bar is at or slightly above the 10¹ (10) line, and the blue 'Per-Output' bar is very close to it."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在70%稀疏率时，两者困惑度均上升至约10²（100左右）",
+          "evidence": "The description claims that at a 70% sparsity rate, the perplexity for both methods rises to 'about 10² (around 100)'. This is a significant overestimation. The blue bar is at approximately 20 and the orange bar is at approximately 40, both well below 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在80%稀疏率时则进一步升高至约10³（1000左右）",
+          "evidence": "The description claims that at 80% sparsity, *both* methods have a perplexity of 'about 10³ (around 1000)'. This is incorrect. While the orange 'Per-Layer' bar is close to 1000, the blue 'Per-Output' bar is significantly lower, at approximately 500-600."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 10⁰ (1) to 10³ (1000)",
+          "evidence": "The y-axis has labeled tick marks at 10¹, 10², and 10³. There is no label for 10⁰ (1), so stating the range starts at 1 is an incorrect interpretation of the explicit axis labels."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 80% sparsity, Per-Output reaches approximately 200",
+          "evidence": "The blue bar for 'Per-Output' at 80% sparsity reaches a value significantly higher than 200. On the logarithmic scale, it is more than halfway between 10² (100) and 10³ (1000), corresponding to a value closer to 500-600."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "justifying the use of a logarithmic scale for comparison",
+          "evidence": "This phrase interprets the reason for using a logarithmic scale, which goes beyond describing the visual elements present in the chart."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "mit Tick-Markierungen bei 10⁰, 10¹, 10² und 10³",
+          "evidence": "The y-axis has labeled major gridlines and ticks at 10¹, 10², and 10³, but there is no labeled tick mark for 10⁰."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei die blauen Balken leicht höher sind",
+          "evidence": "For low sparsity rates (20%-50%), the orange bars (Per-Layer) are visibly slightly higher than the blue bars (Per-Output), not the other way around as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 60% Sparsity steigen beide Werte auf etwa 10¹,⁵ (ca. 30–40)",
+          "evidence": "At 60% sparsity, the perplexity values are around 10 (the blue bar is just under 10¹, the orange bar is just over 10¹). The stated range of 30-40 is a significant overestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 70% Sparsity erreichen die Werte etwa 10² (100)",
+          "evidence": "At 70% sparsity, the values are approximately 20 (blue bar) and 40 (orange bar), which is significantly lower than the stated value of 100 (10²)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei der blaue Balken bei etwa 10²,⁵ (ca. 300)",
+          "evidence": "At 80% sparsity, the blue bar represents a value of approximately 500-600, which is substantially higher than the stated value of 10^2.5 (around 316)."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.88
+}

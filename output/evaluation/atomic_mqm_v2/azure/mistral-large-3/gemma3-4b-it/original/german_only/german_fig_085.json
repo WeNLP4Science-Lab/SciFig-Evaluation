@@ -1,0 +1,132 @@
+{
+  "figure_key": "german_fig_085",
+  "subfolder": "german_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 25,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die vertikale Achse zeigt das erwartete Geschäftsvolumen in Prozent, auf einer Skala von 0 bis 65, wobei die Tick-Intervalle alle fünf Prozentpunkte platziert sind.",
+      "evidence": "The vertical axis lists categories, not percentages. The horizontal axis shows percentages from 0 to 65.",
+      "atom_id": "x_axis_scale"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Es gibt insgesamt sechs Balken, der erste Balken darstellt das erwartete Geschäftsvolumen für \"gleichbleibend\", der zweite Balken für \"steigend\", der dritte für \"fallend\" und der vierte für \"ungewiss\". Der fünfte Balken stellt die \"Beschäftigungserwartung\" dar",
+      "evidence": "There are nine categories on the vertical axis, not six. The description incorrectly groups all Beschäftigungserwartung categories into one.",
+      "atom_id": "num_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "die Balken für \"gleichbleibend\" und \"steigend\" haben eine Höhe von etwa 40 %",
+      "evidence": "The 'gleichbleibend' bars are about 38-44%, and the 'steigend' bars are about 25%, not 40%. The description also incorrectly groups both categories together.",
+      "atom_id": "val_geschaeft_gleich"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "die Balken für \"fallend\" und \"ungewiss\" haben eine Höhe von etwa 30 %",
+      "evidence": "The 'fallend' bars are about 18-22%, and the 'ungewiss' bars are about 12%, not 30%. The description also incorrectly groups both categories together.",
+      "atom_id": "val_geschaeft_fallend"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "der Balken für \"Beschäftigungserwartung\" haben eine Höhe von etwa 25 % bis 50 %",
+      "evidence": "The 'Beschäftigungserwartung: gleichbleibend' bars are about 63-64%, not 25-50%. The description incorrectly groups all Beschäftigungserwartung categories into one.",
+      "atom_id": "val_beschaeft_gleich"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Ein blau gefärbter Balken repräsentiert die \"Mindestlohnbetriebe\" und ein dunkelblauer Balken die \"übrigen Betriebe\"",
+      "evidence": "The 'Mindestlohnbetriebe' bars are light blue, not blue. The description uses an incorrect color name.",
+      "atom_id": "legend_lightblue"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not clearly state the purpose of the chart: showing expectations of businesses regarding business volume and employment, differentiated by minimum wage and other businesses.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the full list of nine categories on the vertical axis, including all Beschäftigungserwartung categories.",
+      "atom_id": "num_categories"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the specific values for 'Beschäftigungserwartung: steigend', 'fallend', and 'noch ungewiss'.",
+      "atom_id": "val_beschaeft_steigend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention that the bars are grouped and color-coded for Mindestlohnbetriebe and übrige Betriebe.",
+      "atom_id": "bar_grouping"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "der fünfte Balken stellt die \"Beschäftigungserwartung\" dar und zeigt die erwartete Beschäftigungserwartung in Prozent",
+      "evidence": "The description is ambiguous and incorrectly groups all Beschäftigungserwartung categories into one bar. It also redundantly uses 'erwartete Beschäftigungserwartung'.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "die Balken für \"gleichbleibend\" und \"steigend\" haben eine Höhe von etwa 40 %",
+      "evidence": "The description oversimplifies and incorrectly groups distinct values for 'gleichbleibend' and 'steigend' into a single approximate value.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 64.8,
+  "total_penalty": 44.0,
+  "atom_coverage": {
+    "correct": 16,
+    "inaccurate": 6,
+    "missing": 4,
+    "total": 25,
+    "accuracy": 0.7273,
+    "completeness": 0.8
+  }
+}

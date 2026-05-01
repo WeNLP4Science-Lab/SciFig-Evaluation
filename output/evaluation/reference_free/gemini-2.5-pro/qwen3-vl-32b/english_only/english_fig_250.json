@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_250",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "The counts then increase gradually from -0.6 to -0.2",
+      "evidence": "The description states the increase is gradual, but the plot shows a non-monotonic trend in this interval: the counts increase from x=-0.6 to x=-0.5, then decrease at x=-0.4, before increasing again towards x=-0.2."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits a significant data point at x = -0.1, where the count is approximately 92,000. It incorrectly describes a direct rise from the point at x = -0.2 (approx. 40,000) to the peak at x = 0.0, missing a key step in the sharpest part of the ascent."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "falling to roughly 5,000 at 0.6",
+      "evidence": "The data point at x=0.6 has a value much lower than 5,000, estimated to be around 1,500. The provided value is more than three times the actual value."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The distribution is heavily skewed toward neutral sentiment (polarity score of 0.0), with fewer instances of strongly negative or positive sentiments.",
+      "evidence": "This sentence provides an interpretation of the data's distribution ('heavily skewed') and draws a conclusion ('fewer instances'), which violates the prompt's instruction to describe only objective features without making inferences or conclusions."
+    }
+  ],
+  "mqm_score": 88.0,
+  "total_penalty": 12.0,
+  "error_count": 4
+}

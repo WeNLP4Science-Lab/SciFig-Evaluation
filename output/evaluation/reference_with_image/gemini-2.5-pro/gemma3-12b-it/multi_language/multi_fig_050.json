@@ -1,0 +1,154 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "червен",
+          "evidence": "The description identifies the color for the \"Reasoning\" category as red (\"червен\"), but it is clearly orange/salmon in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "докато стойността 1040 е показана за стълба при 3 стрелби",
+          "evidence": "The description incorrectly states that 1040 is the value for the bar at 3 shots. The value -1040 shown on the chart represents the difference in token count between the bar at 0 shots (6393) and the bar at 3 shots. The total value of the bar at 3 shots is 6393 - 1040 = 5353."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "стрелки, които описват промените в стойностите между последователните стълбове; например, между стълба 0 и стълба 1 има промяна от -1952, между стълба 1 и стълба 2 - от -1613 и между стълба 3 и стълба 4 - от -1379",
+          "evidence": "The description incorrectly interprets the meaning of the arrows and the negative numbers. They do not represent the change between consecutive bars, but rather the difference between the 0-shot bar and each subsequent bar. For example, -1613 is the difference between the 0-shot bar and the 2-shot bar, not between the 1-shot and 2-shot bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention a key structural feature of the chart: that the bars for shots 1, 2, 3, and 4 are stacked bars, each composed of a \"Reasoning\" and a \"Demonstration\" segment."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by shot number, with each group containing two stacked bars representing \"Reasoning\" (in orange) and \"Demonstration\" (in blue).",
+          "evidence": "The chart is a stacked bar chart, not a grouped bar chart. There is only one bar for each 'Number of Shots' on the x-axis, and this single bar is stacked for shots 1 through 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The shortest bar, corresponding to 4 shots",
+          "evidence": "The shortest bar corresponds to 1 shot (total token count 6393 - 1952 = 4441), not 4 shots (total token count 6393 - 1379 = 5014)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "has a total height of approximately 4248 tokens",
+          "evidence": "The total height of the bar for 4 shots is 6393 - 1379 = 5014. The value 4248 is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with a \"Reasoning\" component of approximately 2869 tokens",
+          "evidence": "For the bar at 4 shots, the orange 'Reasoning' component extends to approximately 4250 on the y-axis. The stated value of 2869 is incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the dashed horizontal line at the top of the 0-shot bar (value 6393), which serves as a baseline for the reduction values shown by the red arrows."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the legend, which maps the orange color to \"Reasoning\" and the blue color to \"Demonstration\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken sind in zwei Farben dargestellt: orange und blau.",
+          "evidence": "This is an incomplete description. The bars for shots 1 through 4 are stacked bar charts, with the blue segment on top of the orange segment. The description fails to mention this stacked structure and subsequently treats them as separate orange and blue bars, which is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der orangefarbene Balken für 1 Shot dreht sich um -1952.",
+          "evidence": "The description completely misinterprets the red annotation \"-1952\". This number is not the value of the orange segment; it represents the total reduction in token count for the 1-shot bar compared to the 0-shot bar. The phrasing \"dreht sich um\" (revolves around) is also nonsensical in this context. This error is repeated for shots 2 and 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "1379",
+          "evidence": "The value in the chart for the 4-shot annotation is \"-1379\", not \"1379\". The negative sign is missing."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Der blaue Balken für 0 Shots hat den Wert 1040.",
+          "evidence": "There is no blue bar or blue segment for the \"0 Shots\" category. The bar is entirely orange. The description hallucinates this element and assigns it a value taken from another bar's annotation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der blaue Balken für 1 Shot dreht sich um -1613.",
+          "evidence": "This statement is incorrect in multiple ways. It misinterprets the annotation as a value for the blue segment, uses the nonsensical phrase \"dreht sich um\", and wrongly assigns the annotation from the 2-shot bar (\"-1613\") to the 1-shot bar."
+        }
+      ],
+      "mqm_score": 73.0,
+      "total_penalty": 27.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.67
+}

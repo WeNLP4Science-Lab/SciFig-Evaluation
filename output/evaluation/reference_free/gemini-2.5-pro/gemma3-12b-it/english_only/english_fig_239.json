@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_239",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis represents two comparison categories: \"Ours\" and \"Standard,\" while the vertical axis displays the rate",
+      "evidence": "The chart is a horizontal bar chart, so the categories (\"Ours\", \"Standard\") are on the vertical axis and the rate (percentage) is on the horizontal axis. The description has swapped them."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with a linear scale ranging from 0% to 70% and tick labels at increments of 10%",
+      "evidence": "The chart does not have a visible axis line with a scale, range, or tick labels for the percentage values. These details are hallucinated."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "three bars are present",
+      "evidence": "This is a stacked bar chart. For each category (e.g., \"Ours\"), there is one bar composed of three stacked segments, not three separate bars."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The bars are sorted alphabetically within each comparison category.",
+      "evidence": "There is no sorting applied. The categories on the y-axis (\"Ours\", \"Standard\") are not alphabetical. The segments within each bar are in a fixed order based on the legend, not sorted."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The \"Context\" bars appear visually distinct due to a darker blue shade.",
+      "evidence": "This is a subjective interpretation. The color is simply blue as defined in the legend; there is no visual cue (like a different shade compared to something else) to suggest it is intentionally made \"distinct\" or is a \"darker\" shade for emphasis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The shortest bars in the chart are the green \"Other\" bars, with a value of 7.7% for \"Ours\" and 25.3% for \"Standard,\" while the tallest bars are the blue \"Context\" bars with a value of 60.6% for \"Ours\" and 23.6% for \"Standard\".",
+      "evidence": "This statement is factually incorrect for the \"Standard\" category. For \"Standard\", the shortest segment is \"Context\" (blue) at 23.6%, not \"Other\" (green) at 25.3%. Also for \"Standard\", the tallest segment is \"Generated Response\" (orange) at 51.1%, not \"Context\" (blue) at 23.6%."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The shortest bars in the chart are... while the tallest bars are...",
+      "evidence": "The generation prompt explicitly instructs to \"Avoid making inferences, comparisons, or drawing conclusions about the data.\" This sentence makes comparisons about the shortest and tallest segments, which violates the prompt's instructions."
+    }
+  ],
+  "mqm_score": 75.0,
+  "total_penalty": 25.0,
+  "error_count": 7
+}

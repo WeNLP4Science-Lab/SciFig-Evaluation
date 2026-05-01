@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each chart contains a series of grouped bars, with four bars per group corresponding to \"Expert 1\" through \"Expert 4\"",
+          "evidence": "The charts are 100% stacked bar charts, not grouped bar charts. Each 'MoE layer idx' is represented by a single bar composed of stacked colored segments, not a group of four separate bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In the \"Text\" chart, the bars for \"Expert 1\" start at around 80% and decrease in height as \"MoE layer idx\" increases, while \"Expert 2\", \"Expert 3\", and \"Expert 4\" start at lower percentages and generally increase.",
+          "evidence": "This incorrectly describes the chart as if the stacked segments were individual bars of varying heights. The description misrepresents the trends; for example, the percentage for Expert 1 does not steadily decrease, it is high at index 1, then drops to zero, and then fluctuates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In the \"Image\" chart, \"Expert 1\" starts at a very low percentage and increases, while \"Expert 4\" remains consistently high across all \"MoE layer idx\" values.",
+          "evidence": "This incorrectly interprets the stacked segments as individual bars. While the percentage for Expert 1 does generally increase, the percentage for Expert 4 is not consistently high; it dominates the early and middle layers but has a much smaller share in layers 19, 21, and 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are organized in groups according to their \"MoE layer idx\" values",
+          "evidence": "This repeats the error of describing the charts as having grouped bars when they are stacked bar charts."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the height of each bar corresponds to its respective percentage value",
+          "evidence": "This is incorrect for a 100% stacked bar chart, where the total height of every bar is constant (100%). The height of the individual colored segments within each bar corresponds to that segment's percentage value."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by data type (text and image) and are further divided into four categories",
+          "evidence": "The figure contains two separate plots, not bars grouped by data type. The bars are 100% stacked bars, not simply 'divided into four categories'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreases to approximately 20% for subsequent layers",
+          "evidence": "In the 'Text' plot, the percentage for Expert 1 is not consistently around 20% for subsequent layers; for many layers (e.g., 3, 5, 7, 11, 13, 15, 17, 21) it is 0%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "remains relatively consistent",
+          "evidence": "In the 'Text' plot, the percentage for Expert 2 is highly variable, ranging from approximately 0% (layer 9) to 80% (layer 21), not 'relatively consistent'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Experts 3 and 4 are mostly around 0% for initial layers",
+          "evidence": "In the 'Text' plot, this is incorrect for Expert 3, which has a percentage of approximately 80% at layer index 3."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "significant presence",
+          "evidence": "The term 'significant' is evaluative and constitutes an interpretation, which the prompt asks to avoid."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the image data, Expert 1 starts at around 15%",
+          "evidence": "In the 'Image' plot, Expert 1's percentage at layer index 1 is 0%, not 15%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "increases to 100% for later layers",
+          "evidence": "In the 'Image' plot, the percentage for Expert 1 does not consistently increase to 100% for later layers. For example, it is about 10% at layer 15 and 0% at layer 17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while Expert 2 is consistently at 0%",
+          "evidence": "In the 'Image' plot, Expert 2 has non-zero percentages in multiple layers, such as approximately 50% at layer 7 and layer 17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "whereas Expert 4 is mostly around 0%",
+          "evidence": "In the 'Image' plot, Expert 4 has a very high percentage in many layers, including approximately 85% at layer 1 and 100% at layers 3 and 13. It is not 'mostly around 0%'."
+        }
+      ],
+      "mqm_score": 60.0,
+      "total_penalty": 40.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 67.5
+}

@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_116",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The bar chart illustrates the Hessian trace values (scaled by $10^{-5}$) for the COPA dataset, as a function of the rank of QLoRA adapters, with results shown for two different configurations (represented by blue and orange bars).",
+          "evidence": "The description incorporates information from the external caption (Hessian trace values, QLoRA adapters, configurations) which is not present in the figure's labels. The figure title is just \"Traces × 10⁻⁵ (COPA)\" and there is no legend to identify the bars as different \"configurations\"."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "measures the Hessian trace values",
+          "evidence": "The description again uses the term \"Hessian trace values\" which is taken from the caption, not the figure's axis label, which is \"Traces × 10⁻⁵ (COPA)\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the orange bar is about 0.8",
+          "evidence": "At rank 16, the orange bar's value is approximately 1.1, not 0.8. The value 0.8 is a significant underestimate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue bar rises to about 4.2",
+          "evidence": "At rank 64, the blue bar's value appears to be approximately 4.0, aligning with the grid line. 4.2 is an inaccurate overestimation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating a positive correlation between rank and Hessian trace.",
+          "evidence": "The prompt explicitly asks to avoid interpreting trends. Stating a \"positive correlation\" is an inferential statistical summary, not a direct description of the visual elements."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The blue bars are consistently higher than the orange bars at each rank, suggesting that the blue configuration yields higher Hessian traces.",
+          "evidence": "The prompt states \"do not compare categories unless the comparison is explicitly labeled\". This sentence makes a comparison across all categories and draws a conclusion (\"suggesting that...\") based on it, which violates the instructions."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the orange bar is around 3.0",
+          "evidence": "At rank 64, the top of the orange bar is at approximately 3.4 on the y-axis, not 3.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the orange bar is about 6.0",
+          "evidence": "At rank 256, the top of the orange bar is at approximately 7.0 on the y-axis, not 6.0."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually suggests that as the rank increases, the Hessian trace values also increase, and that the orange bars consistently show lower trace values than the blue bars across all ranks.",
+          "evidence": "The prompt explicitly forbids interpreting trends or making comparisons between categories. This sentence describes both a trend (values increasing with rank) and a comparison (orange bars vs. blue bars), which violates the instructions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "which may correspond to the orange bars",
+          "evidence": "The prompt requires describing only what is visually present in the chart. Speculating on the meaning of the colors by correlating them with external information from the caption is a form of forbidden interpretation, especially since there is no legend in the chart itself."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 82.0
+}

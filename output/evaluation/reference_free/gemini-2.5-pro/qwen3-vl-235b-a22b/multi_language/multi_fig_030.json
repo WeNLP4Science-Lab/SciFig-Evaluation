@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_030",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with each task represented by a grouped set of three adjacent bars, one for each model variant",
+          "evidence": "The chart does not show a group of three adjacent bars for each task. Instead, each task category contains one regular bar for the 'Base' model and one stacked bar. The stacked bar represents 'RMU' as the bottom segment and the total height of the stack represents 'RMU with Enhanced GCG'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually emphasizes the task-dependent effectiveness of Enhanced GCG: while it significantly improves RMU’s performance in MCQ Eval (from 0.299 to 0.539), its impact is much smaller in Generation Eval (from 0.106 to 0.263), where it still falls well below the Base model’s performance.",
+          "evidence": "This sentence provides interpretation and comparison of the data, using subjective language like 'significantly improves', 'impact is much smaller', and 'falls well below'. This violates the prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions from the data' and to 'use a neutral and professional tone'."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating that Enhanced GCG partially mitigates the accuracy drop from the base model",
+          "evidence": "The prompt explicitly forbids making inferences or comparisons. This phrase interprets the relationship between the data points, which violates the instructions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "revealing a significantly diminished effectiveness of Enhanced GCG in this task",
+          "evidence": "The prompt explicitly forbids drawing conclusions about the data. This phrase makes a judgment about the 'effectiveness' of a method, which is an interpretation, not a description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the stacked arrangement of bars within each task group",
+          "evidence": "The chart is not a stacked arrangement within each group. It is a grouped bar chart where, for each group, one bar is simple ('Base') and the other is a stacked bar representing two other models ('RMU' and 'RMU with Enhanced GCG'). The description mischaracterizes this structure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "visually emphasizes the relative performance gaps",
+          "evidence": "This phrase describes the intended effect or purpose of the visual design, which is a form of interpretation beyond simply describing what is shown."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The caption underscores that Enhanced GCG’s effectiveness is task-dependent, performing well in generation tasks involving maximum letter probability (as implied by MCQ Eval) but poorly in broader text generation tasks (Generation Eval), supporting the paper’s claim that existing LLM unlearning evaluations are inconclusive due to such variability.",
+          "evidence": "The description summarizes a caption that was provided as context to the evaluator but is not part of the figure image itself. The prompt asks to describe only what is shown in the figure. This is external information and also contains significant interpretation ('as implied by...')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to explain the unique and crucial structure of the stacked bars. It omits that for the stacked bars, the bottom 'RMU' segment's value is given (e.g., 0.299), and the total height of the stack represents the value for 'RMU with Enhanced GCG' (e.g., 0.539). This is a key feature for understanding the chart."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Jede Aufgabe wird durch einen gestapelten Balken dargestellt,",
+          "evidence": "This is incorrect. Each task category on the x-axis (MCQ Eval, Generation Eval) is represented by a group of two bars shown side-by-side: a single solid red bar for 'Base' and a separate stacked bar for the 'RMU' models."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "der gestapelte Balken für „RMU with Enhanced GCG“",
+          "evidence": "The description incorrectly attributes the entire stacked bar to the legend entry 'RMU with Enhanced GCG'. In the figure, 'RMU with Enhanced GCG' corresponds only to the upper, light green segment of the stacked bar, while the entire stacked bar represents the sum of 'RMU' (bottom segment) and 'RMU with Enhanced GCG' (top segment)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "wobei der rote „Base“-Balken in beiden Fällen am höchsten ist",
+          "evidence": "The description makes a comparative statement ('is the highest') between different bars, which is a form of interpretation forbidden by the prompt instructions to avoid comparisons unless explicitly labeled."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "und die grünen Anteile in „Generation Eval“ deutlich geringer ausfallen als in „MCQ Eval“",
+          "evidence": "This is a direct comparison between the two main categories ('Generation Eval' vs. 'MCQ Eval') and uses evaluative language ('deutlich geringer' / 'significantly smaller'). The prompt explicitly forbids such comparisons and interpretations."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 84.67
+}

@@ -1,0 +1,87 @@
+{
+  "figure_key": "chinese_fig_053",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 15,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "顺序为升序排列",
+      "evidence": "The description states the bars are in ascending order, but the image shows they are ordered by increasing frequency (x-axis labels), not by bar height. The atom 'ordering' specifies the data is sorted by occurrence count, not by value.",
+      "atom_id": "ordering"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "未按数值大小排序",
+      "evidence": "The description incorrectly states the bars are not sorted by value, but the atom 'ordering' confirms they are sorted by occurrence count, which is the intended structure. This is a wording issue rather than a factual error, but it misrepresents the sorting logic.",
+      "atom_id": "ordering"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the y-axis label '义项数量' (though it mentions '义项数', which is close but not exact).",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the visual emphasis on the '25+' bar, which is noted in the atom 'visual_emphasis'.",
+      "atom_id": "visual_emphasis"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description states '展示了数据集中各个词义项的分布情况', which is less precise than the atom 'chart_purpose' ('展示了\"义项出现次数\"与\"义项数量\"之间的分布关系'). The core purpose is mentioned but not as explicitly.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "从左到右，各柱状图的长度呈现总体下降趋势，但有部分波动",
+      "evidence": "The description oversimplifies the trend by calling it '总体下降趋势' without acknowledging the rebound at '25+', which is a key feature noted in the atoms and reference.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "单位未标明",
+      "evidence": "The description incorrectly states the y-axis units are not labeled, but the image clearly shows the y-axis is labeled '义项数量'. This is a hallucination of omission.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 82.0,
+  "total_penalty": 13.5,
+  "atom_coverage": {
+    "correct": 11,
+    "inaccurate": 1,
+    "missing": 3,
+    "total": 15,
+    "accuracy": 0.9167,
+    "completeness": 0.7857
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by the number of shots, with each group consisting of two stacked components",
+          "evidence": "The chart shows individual stacked bars for each category on the x-axis, not grouped bars. Additionally, the bar for 0 shots is not stacked and has only one component, not two."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "significantly",
+          "evidence": "The prompt requires avoiding interpretative or evaluative language. \"Significantly\" is a subjective assessment of the change."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "5040",
+          "evidence": "The total token count for 3 shots is indicated by the annotation as 6393 - 1040 = 5353, not 5040."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "4400",
+          "evidence": "The total token count for 4 shots is indicated by the annotation as 6393 - 1379 = 5014, not 4400."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "The total token count for each group decreases significantly from 6393 at 0 shots to around 4441, 4780, 5040, and 4400 for 1, 2, 3, and 4 shots, respectively.",
+          "evidence": "This phrasing suggests a monotonic decrease after the initial drop at 0 shots. However, the token counts for shots 1 through 4 fluctuate (4441, 4780, 5353, 5014) and do not follow a simple decreasing trend."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "4441",
+          "evidence": "The description states the 'Reasoning' token count for 1 shot is 4441. This is the total token count for that bar (6393 - 1952 = 4441). The bar is clearly stacked, so the reasoning component must be less than the total."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "4449",
+          "evidence": "The description states the 'Reasoning' token count for 2 shots is 4449. However, adding this to the stated 'Demonstration' count for 2 shots (411) gives a total of 4860, which does not match the actual total of 4780 (6393 - 1613 = 4780). Therefore, the value is incorrect."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For 1, 2, 3, and 4 shots, the \"Reasoning\" tokens are approximately 4441, 4777, 5393, and 4462, respectively, while the \"Demonstration\" tokens are roughly 357, 236, 206, and 885, respectively.",
+          "evidence": "The description fails to identify that the bars for shots 1, 2, 3, and 4 are stacked bars. It incorrectly reports the total height of each bar as the value for the \"Reasoning\" (orange) component alone. For example, for 1 shot, the total height is approx. 4441, but this is composed of an orange segment (Reasoning, ~4250) and a blue segment (Demonstration, ~191). The description also provides incorrect and seemingly hallucinated values for the \"Demonstration\" component."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description incorrectly states that no bars are highlighted and completely omits the prominent numerical annotations. The chart explicitly labels the first bar with its value (6393) and uses red arrows and numerical values (-1952, -1613, -1040, -1379) to annotate the difference in height for the other bars."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.67
+}

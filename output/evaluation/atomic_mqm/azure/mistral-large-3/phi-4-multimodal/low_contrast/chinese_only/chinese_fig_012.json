@@ -1,0 +1,141 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "phi-4-multimodal",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "low_contrast",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the y-axis is labeled \"accuracy\"",
+      "evidence": "The y-axis is labeled \"F1分数\" (F1 score), not \"accuracy\".",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The \"lattice\" line starts at 0.55 accuracy",
+      "evidence": "The lattice line starts at approximately 0.59, not 0.55.",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching approximately 0.90 by epoch 18",
+      "evidence": "The lattice line reaches approximately 0.85 by epoch 16, not 0.90 by epoch 18.",
+      "atom_id": "lattice_epoch16_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The \"FLAT\" line begins at around 0.70 accuracy",
+      "evidence": "The FLAT line does not have a data point at epoch 1; the first visible point at epoch 2 is approximately 0.78, not 0.70.",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching about 0.85 by epoch 18",
+      "evidence": "The FLAT line reaches approximately 0.88 by epoch 14, and no data is shown for epoch 18.",
+      "atom_id": "flat_epoch14_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The \"OURS\" line starts at the highest point of around 0.80 accuracy",
+      "evidence": "The OURS line starts at approximately 0.81, not 0.80, and this is not the highest initial point (FLAT at epoch 2 is ~0.78).",
+      "atom_id": "ours_initial_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the purpose of the chart (showing F1 score evolution for different methods).",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the y-axis tick interval of 0.05.",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the fact that OURS converges faster and surpasses FLAT at epoch 10.",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Numerical Data",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not provide specific F1 values for lattice at epochs 2, 4, and 8.",
+      "atom_id": "lattice_epoch2_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Numerical Data",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not provide specific F1 values for FLAT at epochs 4 and 8.",
+      "atom_id": "flat_epoch4_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Numerical Data",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not provide specific F1 values for OURS at epochs 2, 4, and 8.",
+      "atom_id": "ours_epoch2_f1"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "All lines exhibit a positive trend, indicating improved accuracy with increasing epochs",
+      "evidence": "The statement is overly general; the lattice line shows a steep increase initially, while FLAT and OURS show more gradual improvements.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 67.41,
+  "total_penalty": 44.0,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 6,
+    "missing": 3,
+    "total": 27,
+    "accuracy": 0.75,
+    "completeness": 0.8571
+  }
+}

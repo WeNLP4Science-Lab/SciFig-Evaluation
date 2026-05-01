@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_201",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dark purple dash-dotted line",
+      "evidence": "The legend and the plot show that the line for 'Inconsistency-CE' is a dashed line, not a dash-dotted line."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starts at approximately 20.5 at AL=2",
+      "evidence": "The 'Consistency-CE' model (light purple line) actually starts at AL=1 with a BLEU score of approximately 19.2. At AL=2, the interpolated value on the line is approximately 22, making 20.5 a significant underestimate."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "increases to 30.5 at AL=8",
+      "evidence": "For the 'Inconsistency-CE' model, the BLEU score at AL=8 is approximately 31.3, which is visibly higher than the reported 30.5."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "starting at approximately 26.5 at AL=2",
+      "evidence": "For the 'Consistency-Bi' model, the interpolated value on the line at AL=2 is closer to 26.0, not 26.5."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "ranging from 2 to 8",
+      "evidence": "The description states the x-axis range is 2 to 8, which only describes the labeled tick marks. The actual data extends below AL=2 (to AL=1) and slightly above AL=8, making the full data range wider."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "in units of tokens",
+      "evidence": "The x-axis label is 'Average Lagging (AL)'. The units 'tokens' are not explicitly mentioned on the chart and are an assumption based on external knowledge, not the visual information provided."
+    }
+  ],
+  "mqm_score": 80.5,
+  "total_penalty": 19.5,
+  "error_count": 6
+}

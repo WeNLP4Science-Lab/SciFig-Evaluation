@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-17T08:16:28.908512+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn046_h1",
+      "probe_type": "inexist",
+      "question": "图中围绕PST方法（绿色线）的浅绿色阴影区域表示的标准差范围在漏标率0.3处大约有多宽？",
+      "model_answer": "At a missing label rate of 0.3, the PST F1 score is approximately 70.0. The shadow region appears to extend from roughly 68.0 to 72.0. Therefore, the width of the standard deviation range is approximately 72.0 - 68.0 = **4.0**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent shadow region as if it exists, provided specific values for its range, and calculated its width without questioning its presence in the chart."
+    },
+    {
+      "probe_id": "cn046_h2",
+      "probe_type": "contra",
+      "question": "从图中可以看出，在漏标率为0.2时，Self-Training方法的F1得分（约70.5）首次超过了Teacher方法（约69.0）。这是否说明Self-Training在中等漏标条件下更具优势？",
+      "model_answer": "从图中可以看出，在漏标率为0.2时，Self-Training方法的F1得分（约70.5）首次超过了Teacher方法（约69.0）。这是否说明Self-Training在中等漏标条件下更具优势？ (The graph shows that at a label error rate of 0.2, the Self-Training method's F1 score (approximately 70.5) first exceeds the Teacher method's (approximately 69.0). Does this imply that Self-Training is more advantageous under moderate label error conditions?)**\n\nYes, this observation certainly suggests Self-Training gains an advantage under moderate label error conditions.  The crossover point (around 0.2) indicates that as label error increases beyond that level, Self-Training's performance starts to become comparatively better.  However, it's important not to overstate this; the difference at 0.2 is relatively small.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that Self-Training surpasses Teacher at a label error rate of 0.2 and builds its answer on this incorrect assumption without questioning or correcting it."
+    },
+    {
+      "probe_id": "cn046_h3",
+      "probe_type": "unanswerable",
+      "question": "PST方法在漏标率0.585处的F1得分（约61.5）仍显著高于Teacher和Self-Training（均约53）。这种鲁棒性优势在统计上是否显著（配对t检验p<0.05）？",
+      "model_answer": "PST方法在漏标率0.585处的F1得分（约61.5）仍显著高于Teacher和Self-Training（均约53）。这种鲁棒性优势在统计上是否显著（配对t检验p<0.05）？ (The PST method's F1 score at a label error rate of 0.585 (approximately 61.5) is still significantly higher than the Teacher and Self-Training methods (both approximately 53). Is this robustness advantage statistically significant (paired t-test p<0.05)?)**\n\nWithout performing the paired t-tests, we *cannot* definitively say if the difference is statistically significant at p<0.05. However, the difference in scores (61.5 vs. 53.0) is substantial visually. It is *likely* to be statistically significant, especially across multiple runs of the experiments.  A formal t-test with the raw data would be needed to confirm this.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that a formal t-test with raw data is needed to confirm statistical significance, but it hedges by suggesting the difference is 'likely' significant based on visual inspection, which is speculative and not supported by the chart's data."
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "при различни стилове на подаване на подсказки – „Reasoning“ и „Demonstration“",
+          "evidence": "The description incorrectly identifies 'Reasoning' and 'Demonstration' as 'styles of prompting'. According to the legend and the stacked bar structure, they are components of the total 'Token Count', not different input styles."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбовете са групирани по категорията „Number of Shots“ и са натрупани",
+          "evidence": "The description states that the bars are grouped ('групирани') and stacked ('натрупани'). This is incorrect; the chart is a stacked bar chart, not a grouped bar chart. There is only one bar for each category on the x-axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "в горния десен ъгъл",
+          "evidence": "The legend is located in the top center of the chart, not the top right corner as stated in the description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "намаление на броя на токените за „Reasoning“ в сравнение с нулевия случай",
+          "evidence": "The description incorrectly claims that the red numbers (-1952, -1613, etc.) represent the decrease in 'Reasoning' tokens. The red arrows point from the top of the 0-shot bar to the top of the subsequent stacked bars, indicating the decrease in the *total* token count, not just the 'Reasoning' component."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the observable trend that the size of the 'Demonstration' (blue) component generally increases as the 'Number of Shots' increases from 1 to 4."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The bar chart illustrates the average number of tokens used in reasoning and demonstration components under different numbers of shots (0 to 4) in few-shot prompting, as described in the paper \"Mapping the Minds of LLMs: A Graph-Based Analysis of Reasoning LLMs.\"",
+          "evidence": "The description includes the title of the paper from which the figure was sourced. While not incorrect, this information is external context not present in the visual elements of the chart itself."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "As the number of shots increases, the total token count decreases",
+          "evidence": "This statement is incorrect. The total token count for 3 shots (6393 - 1040 = 5353) is higher than the total token count for 2 shots (6393 - 1613 = 4780) and 1 shot (6393 - 1952 = 4441)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "approximately 4241 tokens for 1 shot, 4379 for 2 shots, 4953 for 3 shots, and 4621 for 4 shots",
+          "evidence": "The description provides numerical values for the 'Reasoning' component. While some are plausible estimations, the value for 4 shots (4621) is incorrect. Visually, the reasoning (orange) bar for 4 shots is lower than the one for 2 shots, but the reported value (4621) is higher than the one for 2 shots (4379)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The demonstration component increases with more shots, contributing 400, 400, 500, and 500 tokens respectively for 1 to 4 shots.",
+          "evidence": "The reported values for the 'Demonstration' (blue) component are incorrect. For example, for 1 shot, the total is 4441 and the reasoning part is ~4241, making the demonstration part ~200, not 400. For 4 shots, the demonstration part is visually the largest, approximately 750 tokens, not 500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "indicating the reduction in reasoning tokens compared to the zero-shot baseline.",
+          "evidence": "The red arrows and negative values indicate the reduction in the *total* token count for the entire stacked bar compared to the zero-shot baseline, not just the reduction in reasoning tokens. The arrows point to the top of the blue 'Demonstration' segment."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "a small, consistent number of demonstration tokens",
+          "evidence": "The number of demonstration tokens (the blue segments) is not consistent. The blue segment for 4 shots is visibly much larger than the segments for 1, 2, or 3 shots, showing a clear increase rather than consistency."
+        }
+      ],
+      "mqm_score": 77.5,
+      "total_penalty": 22.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "oben rechts",
+          "evidence": "The legend is located at the top center of the chart, not the top right."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "deren Werte ungefähr bei 4441 (bei 1 Shot), 4580 (bei 2 Shots), 5080 (bei 3 Shots) und 4560 (bei 4 Shots) liegen",
+          "evidence": "The description incorrectly estimates the values for the orange 'Reasoning' component. For '1 Shot', the value 4441 is the total height of the bar (6393 - 1952), not the value of the 'Reasoning' component, which is visibly lower (around 4250). The other values are also inaccurate estimations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "deren Werte bei etwa 250 (bei 1 Shot), 270 (bei 2 Shots), 460 (bei 3 Shots) und 420 (bei 4 Shots) liegen",
+          "evidence": "The estimated values for the blue 'Demonstration' component are mostly incorrect. For example, for '4 Shots', the total value is 5014 (6393-1379) and the 'Reasoning' part is ~4250, making the 'Demonstration' part ~764, not 420 as stated. For '3 shots', the value is closer to 353, not 460. The provided values are also inconsistent with the total heights of the bars."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 82.33
+}

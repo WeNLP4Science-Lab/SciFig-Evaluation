@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T19:22:41.730105+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The vertical dashed line marking the end of the learning rate warmup phase ends at approximately 20,000 iterations. At that boundary, the Vanilla model has a loss of around 3.1, and StrmLLM (n=64) has a loss of around 3.0.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model described the non-existent vertical dashed line as if it exists, provided a specific iteration (20,000) for its location, and included analysis of model losses at that boundary without questioning its existence."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?\nStreaming attention allows the model to process the input sequence sequentially, attending to only the relevant parts of the sequence at each step. This can be more efficient than traditional self-attention, which attends to all parts of the sequence simultaneously.  The sequential processing might lead to faster convergence by reducing the computational burden and potentially allowing the model to focus on the most important information earlier in the training process.  It could also help with longer sequences by mitigating the quadratic complexity of standard self-attention.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that StrmLLM achieves a lower final loss than Vanilla and builds its answer on this incorrect assumption without questioning or correcting it."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?\nThe chart does not provide perplexity values. It only shows loss.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model correctly stated that the chart does not provide perplexity values and only shows loss, clearly indicating the information cannot be determined from the figure."
+    }
+  ]
+}

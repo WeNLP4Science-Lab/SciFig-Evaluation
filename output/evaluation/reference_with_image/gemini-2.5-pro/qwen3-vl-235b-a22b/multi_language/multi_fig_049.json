@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_049",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The bar chart illustrates the accuracy of few-shot prompting on the GPQA-Diamond dataset using the reasoning Qwen-7B model (distilled from DeepSeek-R1)",
+          "evidence": "This information is taken from the paper's caption, not from the visual elements of the chart itself. The description should only contain information explicitly shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Minimal at approximately 0.425, Concise at 0.45, and Explanatory at 0.445",
+          "evidence": "The description misreads the value for the 'Explanatory' bar at 0 shots. The 'Explanatory' bar (blue) is visibly shorter than the 'Concise' bar (orange), which is at 0.45. The value for 'Explanatory' is approximately 0.44, not 0.445 which would be almost indistinguishable from 0.45."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "with the most pronounced drop occurring between 0 and 1 shot",
+          "evidence": "This statement is presented as a general feature for all prompt types, but it is not true for the 'Concise' category. For 'Concise', the drop between 0 and 1 shot is very small (from 0.45 to ~0.43), while a larger drop occurs between 2 and 3 shots (from ~0.39 to ~0.34)."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "The chart visually conveys a consistent trend: increasing the number of shots in the prompt correlates with a decrease in model accuracy across all prompt styles.",
+          "evidence": "The trend is not a 'consistent' decrease. For both 'Minimal' and 'Explanatory' styles, the accuracy increases between 1 and 2 shots. 'Consistent decrease' implies a monotonic trend, which is not what the data shows. A more accurate description would be a 'general downward trend'."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0.305 (Explanatory)",
+          "evidence": "The bar for 'Explanatory' at 3 shots is exactly on the 0.30 grid line, not slightly above at 0.305."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "und 0.305 (Explanatory)",
+          "evidence": "The bar for 'Explanatory' at 4 shots is exactly on the 0.30 grid line, not slightly above at 0.305."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "wobei die Abstände zwischen den Balken mit zunehmender Shot-Zahl kleiner werden",
+          "evidence": "This claim is incorrect. The distances between the bars do not consistently decrease with more shots. For example, the gap between 'Concise' and 'Explanatory' is much larger at 1 shot (~0.14) than at 0 shots (~0.01)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "auf dem GPQA-Diamond*-Datensatz dar, wobei das Modell Qwen-7B (destilliert aus DeepSeek-R1) verwendet wird",
+          "evidence": "This information, while likely true contextually, is not present in the image itself (including axes, labels, and legend). It is sourced from the figure's external caption, which should not be included as part of a direct description of the visual elements in the chart."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.0
+}

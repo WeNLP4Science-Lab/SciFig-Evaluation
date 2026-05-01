@@ -1,0 +1,96 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 28,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "`attn_output` (blue dashed line) and `attn_residual` (orange dotted line) maintain low activation values (close to 0) across all layers",
+      "evidence": "The `attn_residual` (orange dotted line) does not maintain low activation values; it peaks sharply at layer 5 to around 1400 and remains high until layer 22. The `attn_output` (blue dashed line) is correctly described as maintaining low values initially but increases sharply near layer 22, which is not mentioned here.",
+      "atom_id": "multi_fig_009_sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "`ffn_output` (green dash-dotted line) and `ffn_residual` (red solid line) exhibit a dramatic spike in activation. Both of these lines show a sharp increase from near 0 at layer 5 to a peak of approximately 1500 around layer 14-15",
+      "evidence": "The `ffn_residual` (red solid line) does not spike at layer 14-15; it peaks at layer 5 and remains high until layer 22. The `ffn_output` (green dash-dotted line) spikes at layers 5, 13, and 22, not at layer 14-15, and its peak is around 1000, not 1500.",
+      "atom_id": "multi_fig_009_sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dropping to about 400 at layer 22 and `ffn_output` to around 600",
+      "evidence": "The `ffn_residual` (red solid line) drops to near 0 at layer 22, not 400. The `ffn_output` (green dash-dotted line) spikes to around 1000 at layer 22, not 600.",
+      "atom_id": "multi_fig_009_sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ranging from 0 to 22 on a linear scale",
+      "evidence": "The x-axis range is from 0 to 24, not 0 to 22.",
+      "atom_id": "multi_fig_009_axis_range_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the sharp peak of `attn_residual` (orange dotted line) at layer 5 or its decline after layer 22.",
+      "atom_id": "multi_fig_009_sent_5"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the spikes of `ffn_output` (green dash-dotted line) at layers 5, 13, and 22.",
+      "atom_id": "multi_fig_009_sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the similarity in pattern between `ffn_residual` (red solid line) and `attn_residual` (orange dotted line).",
+      "atom_id": "multi_fig_009_sent_7"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Both of these lines show a sharp increase from near 0 at layer 5 to a peak of approximately 1500 around layer 14-15",
+      "evidence": "The description ambiguously groups `ffn_output` and `ffn_residual` as behaving similarly, which is incorrect based on the image.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 81.79,
+  "total_penalty": 25.5,
+  "atom_coverage": {
+    "correct": 23,
+    "inaccurate": 4,
+    "missing": 3,
+    "total": 28,
+    "accuracy": 0.8519,
+    "completeness": 0.8846
+  }
+}

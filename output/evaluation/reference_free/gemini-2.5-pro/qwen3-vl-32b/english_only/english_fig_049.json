@@ -1,0 +1,84 @@
+{
+  "figure_key": "english_fig_049",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits that the five colored data series (yellow, green, purple, blue, red) all use circular markers for their data points."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "dotted lines",
+      "evidence": "The figure displays dashed horizontal lines, not dotted lines."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "rises slightly to about 35.7 at S=4",
+      "evidence": "For the red line (DPR w/ curriculum), the value at S=4 is approximately 35.65. The line reaches its peak of approximately 35.8 at S=6, not 35.7 at S=4."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "then plateaus",
+      "evidence": "The red line (DPR w/ curriculum) does not plateau; after its peak at S=6, it shows a slight but noticeable decline to S=10."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "gradually declines",
+      "evidence": "The purple line (DPR w/ bottom-1) does not gradually decline from the start. It first rises from S=1 (approx. 34.9) to a peak at S=3 (approx. 35.1), and only then does it begin to decline."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The yellow line (DPR w/ gold) starts at 33.0",
+      "evidence": "The plotted data for the yellow line (DPR w/ gold) does not begin at S=1. The first visible data point is at S=3, with a value of approximately 33.3. Stating it starts at 33.0 is an incorrect assumption, as the line appears to start below the chart's y-axis range at S=1."
+    },
+    {
+      "category": "Hallucinated Content",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "The black line (DPR w/o query) is not visible in the plot, likely because it is constant and below the visible range.",
+      "evidence": "The black solid line for 'DPR w/o query' is clearly visible as a horizontal line at an MRR@10 value of approximately 34.25."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Dotted lines for each strategy are horizontally aligned with their corresponding solid lines",
+      "evidence": "This is incorrect. The dashed lines are horizontal baselines, but they are not 'aligned' with the solid lines. For example, the green solid line trends far above its corresponding green dashed line. The solid lines show performance changing with S, while the dashed lines are fixed values."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "indicating no improvement from expansion for those methods.",
+      "evidence": "The generation prompt explicitly instructs to \"Avoid interpreting the cause of changes or making comparisons between lines.\" This statement is an interpretation of what the relationship between the solid and dashed lines means, which violates the prompt's constraints."
+    }
+  ],
+  "mqm_score": 76.0,
+  "total_penalty": 24.0,
+  "error_count": 9
+}

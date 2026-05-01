@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_011",
+  "subfolder": "multi_language",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "English",
+  "num_atoms": 8,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching around 30 at layer 20, before sharply rising to approximately 120 at the final layer",
+      "evidence": "The blue dashed line ('attn_output') reaches approximately 100 at layer 23, not 120. The value at layer 20 is closer to 10-15, not 30.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "then rises sharply to approximately 260 at the final layer",
+      "evidence": "The orange dotted line ('attn_residual') reaches approximately 250 at layer 23, not 260.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching approximately 50 at layer 15, 130 at layer 20, and peaking near 190 at the final layer",
+      "evidence": "The red solid line ('ffn_residual') reaches approximately 50 at layer 15 (correct), but peaks at 400 at layer 23, not 190. The value at layer 20 is closer to 100, not 130.",
+      "atom_id": "sent_7"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The red solid line represents \"ffn_residual,\" which begins near 0 at layer 0 and shows a steady, roughly exponential increase throughout all layers",
+      "evidence": "The red solid line ('ffn_residual') shows a roughly quadratic rise, not exponential, matching the pattern of 'attn_residual'.",
+      "atom_id": "sent_7"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The x-axis represents \"Layer\" on a linear scale, ranging from 0 to approximately 23",
+      "evidence": "The x-axis range is exactly 0 to 23, not approximately 23.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the legend or the line styles (dashed, dotted, dash-dotted, solid) for all four lines as shown in the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "making it the highest value through most of the plot except at the very last layer where \"attn_residual\" surpasses it",
+      "evidence": "The red line ('ffn_residual') is the highest value throughout the entire plot, including the final layer, where it reaches 400, not 190. 'attn_residual' does not surpass it.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "This plot illustrates the maximum activation values at different layers for the \"atten_output_gate\" component",
+      "evidence": "The title of the plot is 'Massive Activation of atten_output_gate,' but the description incorrectly refers to it as the 'atten_output_gate component,' which is ambiguous and not explicitly shown in the figure.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 30.0,
+  "total_penalty": 28.0,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 4,
+    "missing": 0,
+    "total": 8,
+    "accuracy": 0.5,
+    "completeness": 1.0
+  }
+}

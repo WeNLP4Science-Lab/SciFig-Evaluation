@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-20T13:14:29.703680+00:00",
+  "evaluations": [
+    {
+      "question_id": "en005_q1",
+      "question": "At approximately what number of completions (k) does Llama-1B first reach a coverage of 0.6?",
+      "expected_answer": "~10-12 (between 2^3 and 2^4 on log scale)",
+      "model_answer": "Looking at the graph, Llama-1B (the light green line with triangle markers) reaches 0.6 coverage somewhere between k=8 (2^3) and k=16 (2^4).  A reasonable estimate would be **k=10-12 (roughly 2^3.3 - 2^3.5)**.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        10,
+        12
+      ],
+      "score": 1.0,
+      "reason": "Answer aligns with expected range and reasoning is accurate.",
+      "excluded": false
+    },
+    {
+      "question_id": "en005_q2",
+      "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1?",
+      "expected_answer": "~0.18-0.20 (Llama-3B starts at ~0.42, Llama-1B at ~0.22-0.24)",
+      "model_answer": "The approximate coverage gap between Llama-3B and Llama-1B at k=1 is around 0.15. This is the difference between their coverage values, roughly 0.8 for 3B and 0.65 for 1B.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Incorrect values and gap calculation; deviates from expected range.",
+      "excluded": false
+    },
+    {
+      "question_id": "en005_q3",
+      "question": "At k=256, what is the approximate coverage difference between the 3B models and the 1B models?",
+      "expected_answer": "~0.04 (3B models reach ~0.90-0.92, 1B models reach ~0.85-0.88)",
+      "model_answer": "At k=256, the coverage difference between the 3B models and the 1B models is roughly 0.1. The 3B models consistently have a higher coverage compared to the 1B models at this value of k.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        0.025,
+        0.06
+      ],
+      "score": 0.0,
+      "reason": "Model's answer exceeds acceptable range; claims difference is roughly 0.1.",
+      "excluded": false
+    },
+    {
+      "question_id": "en005_q4",
+      "question": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?",
+      "expected_answer": "~3.5-4x",
+      "model_answer": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?**\n\n*   Looking at the graph, at k=1 (which is 2^0), the coverage for Llama-1B is approximately 0.35.\n*   At k=256 (which is 2^8), the coverage for Llama-1B is approximately 0.78.\n*   The factor of increase is (0.78 / 0.35) ≈ **2.23**.  So, the coverage increases by about a factor of 2.23.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        3.5,
+        4.0
+      ],
+      "score": 0.0,
+      "reason": "Factor 2.23 outside acceptable range [3.5, 4.0].",
+      "excluded": false
+    },
+    {
+      "question_id": "en005_q5",
+      "question": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?",
+      "expected_answer": "At k=256 (2^8), the gap is smallest at approximately 0.04-0.06",
+      "model_answer": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?**\n\n*   The Llama-3B (dark blue) and Llama-1B (light green) lines appear closest around **k=2^5 (32)**.\n*   At k=32, the coverage for Llama-3B is about 0.64 and for Llama-1B is about 0.62. The gap is approximately **0.02**.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model's k=32 diverges from expected k=256; gap also incorrect.",
+      "excluded": false
+    }
+  ],
+  "average_score": 0.2,
+  "total_scored": 5,
+  "total_excluded": 0
+}

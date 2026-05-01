@@ -1,0 +1,50 @@
+{
+  "figure_key": "multi_fig_129",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The AIME bars have values of 43.4% for both methods",
+          "evidence": "This is incorrect. The chart explicitly labels the 'Vanilla CoT' bar as 43.4%. The 'TLDR (Ours)' bar is shorter, with an annotation indicating a difference of -0.1%, making its value 43.3%, not 43.4%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and no bars are visually emphasized",
+          "evidence": "This statement is incorrect. Each pair of bars is visually emphasized with a colored annotation above it indicating the percentage difference in accuracy (e.g., -1.6%, +0.2%, -0.1%, +3.9%). The prompt specifically lists 'annotated' as a form of visual emphasis."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the corresponding values for \"TLDR (Ours)\" are approximately 90.9%, 86.6%, 43.3%, and 83.5%",
+          "evidence": "The prompt instructs to avoid making inferences about the data (\"Rückschlüsse auf die Daten zu ziehen\"). The description calculates and states the absolute accuracy values for the \"TLDR (Ours)\" bars, but these values are not explicitly labeled in the figure. The figure only provides the percentage point change relative to the \"Vanilla CoT\" bars. Stating the calculated absolute values constitutes an interpretation/inference, which violates the prompt's instructions."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 93.25
+}

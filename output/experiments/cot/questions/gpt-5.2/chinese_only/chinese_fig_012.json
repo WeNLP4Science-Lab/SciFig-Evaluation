@@ -1,0 +1,94 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "gpt-5.2",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:23:05.369799+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "这是一张**折线图（line chart）**：横轴是 **epoch（次）**（刻度大致有 2、4、8、16），纵轴是 **F1 分数**（约从 0.55 到 0.92）。图中有三条数据系列：**lattice**（红色实线，方形标记）、**FLAT**（蓝色实线，圆点标记）、**OURS**（黄色/金色实线，三角标记）。整体趋势是三种方法随 epoch 增加 F1 都上升；lattice 从 epoch=2 到 4 提升很陡，之后趋缓；OURS 在后期整体最高，FLAT 次之，lattice 最低。图例在右侧中部。\n\n1. 在epoch=4时，OURS方法与lattice方法的F1分数差值大约是 **0.09**（约 0.825 − 0.735）。  \n2. lattice从epoch=2到epoch=4增幅约 **0.145**（0.59→0.735），FLAT增幅约 **0.05**（0.79→0.84），所以 **lattice更大**，大约 **多0.10**。  \n3. OURS方法首次超过FLAT方法的F1分数是在 **epoch=2**。  \n4. 图中没有绿色虚线的BERT基线；若按图中三条线来看，**epoch=8时**对应点大约为：lattice≈0.81，FLAT≈0.86，OURS≈0.88（但**epoch=8不存在BERT线**）。  \n5. **正确**，这张图中包含 **3条**折线。",
+      "items": [
+        {
+          "id": "cn012_q1",
+          "type": "capability",
+          "question": "在epoch=4时，OURS方法与lattice方法的F1分数差值大约是多少？",
+          "model_answer": "在epoch=4时，OURS方法与lattice方法的F1分数差值大约是 **0.09**（约 0.825 − 0.735）。",
+          "full_response": "在epoch=4时，OURS方法与lattice方法的F1分数差值大约是 **0.09**（约 0.825 − 0.735）。"
+        },
+        {
+          "id": "cn012_q2",
+          "type": "capability",
+          "question": "lattice方法从epoch=2到epoch=4的F1分数增幅与FLAT方法在相同区间的增幅相比，哪个更大，大约大多少？",
+          "model_answer": "lattice从epoch=2到epoch=4增幅约 **0.145**（0.59→0.735），FLAT增幅约 **0.05**（0.79→0.84），所以 **lattice更大**，大约 **多0.10**。",
+          "full_response": "lattice从epoch=2到epoch=4增幅约 **0.145**（0.59→0.735），FLAT增幅约 **0.05**（0.79→0.84），所以 **lattice更大**，大约 **多0.10**。"
+        },
+        {
+          "id": "cn012_q3",
+          "type": "capability",
+          "question": "OURS方法在哪个epoch首次超过FLAT方法的F1分数？",
+          "model_answer": "OURS方法首次超过FLAT方法的F1分数是在 **epoch=2**。",
+          "full_response": "OURS方法首次超过FLAT方法的F1分数是在 **epoch=2**。"
+        },
+        {
+          "id": "cn012_h1",
+          "type": "hallucination_inexist",
+          "question": "图中第四条线（绿色虚线）代表的BERT基线方法，其在epoch=8时的F1分数大约是多少？",
+          "model_answer": "图中没有绿色虚线的BERT基线；若按图中三条线来看，**epoch=8时**对应点大约为：lattice≈0.81，FLAT≈0.86，OURS≈0.88（但**epoch=8不存在BERT线**）。",
+          "full_response": "图中没有绿色虚线的BERT基线；若按图中三条线来看，**epoch=8时**对应点大约为：lattice≈0.81，FLAT≈0.86，OURS≈0.88（但**epoch=8不存在BERT线**）。"
+        },
+        {
+          "id": "cn012_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "这张图中包含3条折线，是否正确？",
+          "model_answer": "，这张图中包含 **3条**折线。",
+          "full_response": "**正确**，这张图中包含 **3条**折线。"
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T13:25:23.002251+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**图形结构描述**：这是一张**折线图**。横轴为 **epoch（次）**（大致取值点：2、4、8、16），纵轴为 **F1分数**（约0.55到0.92）。共有**3条数据系列**：  \n- **lattice**：红色线，方形标记（■）  \n- **FLAT**：蓝色线，圆形标记（●）  \n- **OURS**：黄色线，三角标记（▲）  \n图例在右侧。整体趋势：三种方法随epoch增加F1均上升；lattice起点最低但提升较大；OURS在后期（8、16）最高；FLAT在epoch=4略高于OURS，但之后被OURS反超。\n\n1. epoch=16时从高到低：**OURS≈0.91 > FLAT≈0.885 > lattice≈0.855**  \n2. epoch=2到8增长最快的是 **lattice**：约从0.59涨到0.81，增长量≈**0.22**  \n3. 不正确：图中**FLAT并未始终优于OURS**，且epoch=16时OURS更高；两者差距约 **0.91−0.885≈0.025**（约0.02–0.03）  \n4. 图中只展示F1随epoch变化，**没有训练时间信息**，无法从该图估计“每个epoch平均训练时间减少多少”  \n5. 不正确：图中是**3条折线**，不是5条",
+      "items": [
+        {
+          "id": "cn012_q4",
+          "type": "capability",
+          "question": "在epoch=16时，三种方法的F1分数从高到低排列是什么？各自的近似值是多少？",
+          "model_answer": "epoch=16时从高到低：**OURS≈0.91 > FLAT≈0.885 > lattice≈0.855**",
+          "full_response": "epoch=16时从高到低：**OURS≈0.91 > FLAT≈0.885 > lattice≈0.855**"
+        },
+        {
+          "id": "cn012_q5",
+          "type": "capability",
+          "question": "哪种方法在epoch=2到epoch=8之间的F1增长速率最快？其增长量大约是多少？",
+          "model_answer": "epoch=2到8增长最快的是 **lattice**：约从0.59涨到0.81，增长量≈**0.22**",
+          "full_response": "epoch=2到8增长最快的是 **lattice**：约从0.59涨到0.81，增长量≈**0.22**"
+        },
+        {
+          "id": "cn012_h2",
+          "type": "hallucination_contra",
+          "question": "根据图表，FLAT方法（蓝色圆形标记线）在整个训练过程中始终优于OURS方法（黄色三角形标记线），两者在epoch=16时的F1差距最为明显。请问这个最终差距大概有多大？",
+          "model_answer": "不正确：图中**FLAT并未始终优于OURS**，且epoch=16时OURS更高；两者差距约 **0.91−0.885≈0.025**（约0.02–0.03）",
+          "full_response": "不正确：图中**FLAT并未始终优于OURS**，且epoch=16时OURS更高；两者差距约 **0.91−0.885≈0.025**（约0.02–0.03）"
+        },
+        {
+          "id": "cn012_h3",
+          "type": "hallucination_unanswerable",
+          "question": "从图中三种方法的收敛曲线来看，OURS方法相比FLAT在每个epoch的平均训练时间大约减少了多少？",
+          "model_answer": "图中只展示F1随epoch变化，**没有训练时间信息**，无法从该图估计“每个epoch平均训练时间减少多少”",
+          "full_response": "图中只展示F1随epoch变化，**没有训练时间信息**，无法从该图估计“每个epoch平均训练时间减少多少”"
+        },
+        {
+          "id": "cn012_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "这张图中包含5条折线，是否正确？",
+          "model_answer": "不正确：图中是**3条折线**，不是5条",
+          "full_response": "不正确：图中是**3条折线**，不是5条"
+        }
+      ]
+    }
+  ]
+}

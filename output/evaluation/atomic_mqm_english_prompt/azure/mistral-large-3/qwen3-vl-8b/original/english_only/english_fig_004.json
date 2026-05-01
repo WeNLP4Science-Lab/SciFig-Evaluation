@@ -1,0 +1,96 @@
+{
+  "figure_key": "english_fig_004",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 30,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dips slightly below -5%",
+      "evidence": "The red line (LB-Avg of 1×tokens,16-bit) does not dip below -5%; it remains above -5% throughout.",
+      "atom_id": "english_fig_004_sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The light blue line begins near 0%, dips to approximately -15% around Layer13-20",
+      "evidence": "The light blue line (RULER4k of 2×tokens,8-bit) starts near -2% and dips to around -12%, not -15%.",
+      "atom_id": "english_fig_004_sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the exact tick marks on the y-axis (-25%, -15%, -5%, 0%, 5%).",
+      "atom_id": "english_fig_004_sent_1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with a fixed KV cache budget of 1/64",
+      "evidence": "The figure and atoms do not mention a KV cache budget of 1/64; this is not supported by any atom or visual element.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "applied to the KV cache of Mistral-7B-v0.2-Instruct using SnapKV pruning",
+      "evidence": "The figure and atoms do not mention Mistral-7B-v0.2-Instruct or SnapKV pruning; this is not supported by any atom or visual element.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the baseline (gray dashed line) is constant at 0% across all layers, though it is implied.",
+      "atom_id": "english_fig_004_sent_6"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "This line plot illustrates the layer-wise relative change in performance metrics for different quantization configurations applied to the KV cache of Mistral-7B-v0.2-Instruct using SnapKV pruning, with a fixed KV cache budget of 1/64.",
+      "evidence": "The description includes unnecessary details (e.g., KV cache, Mistral-7B-v0.2-Instruct, SnapKV pruning) not present in the figure or atoms, reducing conciseness.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The x-axis represents the model layers, grouped into five segments: “Layer1-4”, “Layer5-12”, “Layer13-20”, “Layer21-28”, and “Layer29-32”, and is plotted on a linear scale without numerical tick labels.",
+      "evidence": "The phrase 'without numerical tick labels' is misleading; the x-axis labels are clearly visible and categorical, not numerical.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 84.0,
+  "total_penalty": 24.0,
+  "atom_coverage": {
+    "correct": 26,
+    "inaccurate": 2,
+    "missing": 2,
+    "total": 30,
+    "accuracy": 0.9286,
+    "completeness": 0.9286
+  }
+}

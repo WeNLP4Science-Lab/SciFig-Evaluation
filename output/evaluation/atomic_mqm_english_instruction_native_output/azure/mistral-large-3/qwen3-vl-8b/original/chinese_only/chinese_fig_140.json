@@ -1,0 +1,78 @@
+{
+  "figure_key": "chinese_fig_140",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 11,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在因子=3时降至约6.5，在因子=5时降至约5.5，在因子=7时降至约3，在因子=9时降至约2",
+      "evidence": "Figure shows the value at factor 3 is approximately 5, at factor 5 is approximately 3, at factor 7 is approximately 2, and at factor 9 is approximately 1.5. The description reports incorrect numerical values.",
+      "atom_id": "decline_pattern"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在因子=13至49的区间内，特征值稳定在0.1至0.2之间，最终在因子=49处收敛至0",
+      "evidence": "Figure shows the plateau values are between 0 and 1, not 0.1 to 0.2, and the final value at factor 49 is not 0 but slightly above 0.",
+      "atom_id": "plateau"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "刻度间隔为2",
+      "evidence": "The x-axis tick interval is 1, not 2, though the description correctly states the y-axis interval as 2.",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits mentioning that the x-axis and y-axis units are not explicitly labeled in the figure.",
+      "atom_id": "x_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "单位未标注",
+      "evidence": "The description claims units are not labeled, but the atom checklist and figure do not mention units at all, making this an unsupported assumption.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "在因子=3时降至约6.5，在因子=5时降至约5.5，在因子=7时降至约3，在因子=9时降至约2，在因子=11时降至约1.5",
+      "evidence": "The description provides overly detailed numerical values for intermediate points, which are not required for a high-level summary.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 67.27,
+  "total_penalty": 18.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 3,
+    "missing": 1,
+    "total": 11,
+    "accuracy": 0.7,
+    "completeness": 0.875
+  }
+}

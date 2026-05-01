@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_043",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "labeled \"Step\",",
+      "evidence": "The x-axis in the figure is not labeled. The label \"Step\" is an inference."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with tick marks at regular intervals of 0.003",
+      "evidence": "The tick mark intervals on the y-axis are not regular; they alternate between 0.003 and 0.002 (e.g., 0.850 - 0.848 = 0.002, while 0.853 - 0.850 = 0.003)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "decreasing to 0.845 at step 4",
+      "evidence": "The final data point for the \"0-CoT\" line at step 4 is visibly below the 0.845 tick mark on the y-axis, closer to 0.8445."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "starting at a value of 0.860 at step 0",
+      "evidence": "The \"CoRe\" line starts slightly below 0.860, at visually the same point as the \"0-CoT\" line (which was described as 0.8595). Stating the value as exactly 0.860 is an over-approximation and creates a false distinction between the two lines' starting points."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Both lines show a general downward trend, with the \"CoRe\" line beginning at a higher value than \"0-CoT\" and maintaining a higher value for the first three steps before the \"0-CoT\" line continues to decline.",
+      "evidence": "The generation prompt explicitly forbids making comparisons between lines. This entire sentence consists of such comparisons. Furthermore, the comparisons are factually inaccurate; the lines start at the same value and are nearly identical for the first three data points."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 5
+}

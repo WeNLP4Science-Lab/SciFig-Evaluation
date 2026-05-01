@@ -1,0 +1,315 @@
+{
+  "figure_key": "multi_fig_007",
+  "model_name": "phi-4-multimodal",
+  "transform": "blurred_in_paper",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Chart Purpose",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Proportion of SDPA output values below threshold after gating (Left: 1e-2, Right: 1e-3)",
+          "evidence": "The figure represents the sparsity ratio of SDPA output at different layers under a threshold of 1e-2, not proportions below threshold or comparisons between thresholds 1e-2 and 1e-3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the x-axis label ('Layer'), its range (0 to 25), or tick intervals (5)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the y-axis label ('Sparsity Ratio'), its range (0.0 to 1.0), or tick intervals (0.2)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the three lines in the plot, their colors (blue, orange, green), or their corresponding labels ('sparsity ratio before gate', 'sparsity ratio after gate', 'sparsity ratio after average gate')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the legend in the top-right corner, which provides the labels and average values for each line."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explain that the chart shows the sparsity ratio of SDPA output across layers under a threshold of 1e-2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "We also include sparsity measurements obtained by multiplying the average gating score with pre-gating hidden states.",
+          "evidence": "The figure does not include any information about sparsity measurements obtained by multiplying average gating scores with pre-gating hidden states."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Left: 1e-2, Right: 1e-3",
+          "evidence": "The figure does not compare thresholds of 1e-2 and 1e-3; it only uses a threshold of 1e-2."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "A.3 Layerwise Massive Activations and Attention Sinks",
+          "evidence": "This section title and subsequent text are unrelated to the figure content, making the description ambiguous and confusing."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "In this section, we compare and analyze the presence of massive activations and attention sinks (the attention score of the first token) within the model. From the results, we observe the following: For the baseline (row 1), the output of the 5th layer’s FFN contains massive activations, which are subsequently added to the residual stream, causing large activations to persist in the residuals of subsequent layers. Correspondingly, significant attention sinks appear starting from the 6th layer. After applying gating to the SDPA output (row 2), the outputs of the earlier layers in the network remain relatively small overall, with massive activations growing gradually as the layer depth increases. Notably, no significant attention sink phenomenon is observed in any layer of the network. When gating is applied only at the value layer (row 3), the model exhibits massive activations similar to row 2. However, a certain degree of attention sink phenomenon persists. This indicates that massive activations are necessary for the attention sinks. When enforcing shared gating scores across different heads (row 4) or modulating the activation function of gating to suppress sparsity (row 5), the sparsity introduced by gating is reduced. In these cases, both massive activations and attention sinks become comparable to those observed in the baseline. These observations suggest that introducing sufficient sparsity within the attention mechanism may help mitigate the occurrence of massive activations. However, further investigation is needed to fully understand the interplay between sparsity, massive activations, and attention sinks, particularly in the context of scaling to deeper and larger models.",
+          "evidence": "The description includes excessive and irrelevant details about massive activations and attention sinks, which are unrelated to the figure content."
+        }
+      ],
+      "mqm_score": 63.5,
+      "total_penalty": 36.5,
+      "error_count": 10,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Chart Purpose",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Proportion of SDPA output values below threshold after gating",
+          "evidence": "The chart represents the sparsity ratio of SDPA output at different layers, not the proportion of values below the threshold after gating."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Left: 1e-2, Right: 1e-3",
+          "evidence": "The figure does not contain a split view or any reference to 'Left' or 'Right' with thresholds 1e-2 and 1e-3. It only shows data for a threshold of 1e-2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "We also include sparsity measurements obtained by multiplying the average gating score with pre-gating hidden states.",
+          "evidence": "The figure does not mention or depict sparsity measurements obtained by multiplying the average gating score with pre-gating hidden states."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state that the chart shows the sparsity ratio of SDPA output across layers at a threshold of 1e-2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the x-axis label ('Layer'), its range (0 to 20), or its linear scale."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis label ('Sparsity Ratio'), its range (0.0 to 1.0), or its linear scale."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the three lines in the chart: the blue dashed line ('sparsity ratio before gate'), the orange dotted line ('sparsity ratio after gate'), and the green dash-dotted line ('sparsity ratio after average gate')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the average values of the sparsity ratios indicated in the legend: 0.03 for 'before gate,' 0.44 for 'after gate,' and 0.33 for 'after average gate.'"
+        }
+      ],
+      "mqm_score": 67.5,
+      "total_penalty": 32.5,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The line for the sparsity ratio before gate starts at approximately 0.1",
+          "evidence": "The blue dashed line for 'sparsity ratio before gate' starts at approximately 0.2, not 0.1, as shown in the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The line for the sparsity ratio after gate starts at approximately 0.1 and shows a significant increase, peaking at around 0.8",
+          "evidence": "The orange dotted line for 'sparsity ratio after gate' starts at approximately 1.0, not 0.1, and does not peak at 0.8. It decreases steadily to about 0.2 by layer 14 and fluctuates thereafter."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The line for the average gate after gate starts at approximately 0.1 and shows a more pronounced increase, peaking at around 0.9",
+          "evidence": "The green dash-dot line for 'sparsity ratio after average gate' starts at approximately 1.0, not 0.1, and does not peak at 0.9. It decreases smoothly to about 0.17 by layer 14 and remains relatively stable with slight fluctuations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "There are four lines in the plot",
+          "evidence": "The plot contains three lines, not four, as shown in the image and described in the reference."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Figure 5(left) is a line plot that illustrates the proportion of SDPA output values below threshold after gating for two different threshold values, 1e-2 and 1e-3",
+          "evidence": "The plot only represents data for a single threshold value of 1e-2, as indicated in the title and legend."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the plot illustrates the sparsity ratio of SDPA output across different layers."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the x-axis uses a linear scale ranging from 0 to 22 with tick labels at intervals of 5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the y-axis uses a linear scale ranging from 0.0 to 1.0 with tick labels at intervals of 0.2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the specific line styles (blue dashed, orange dotted, green dash-dot) or their corresponding labels in the legend."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not describe the trends of the three lines, such as the blue dashed line remaining flat, the orange dotted line decreasing and fluctuating, and the green dash-dot line decreasing smoothly and stabilizing."
+        }
+      ],
+      "mqm_score": 57.5,
+      "total_penalty": 42.5,
+      "error_count": 10,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Chart Purpose",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Figure 5(left) shows the proportion of SDPA output values below threshold after gating (Left: 1e-2, Right: 1e-3).",
+          "evidence": "The machine-generated description incorrectly states that the figure shows the proportion of SDPA output values below threshold after gating, while the figure actually depicts the sparsity ratio of SDPA output across layers under a threshold of 1e-2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the x-axis label ('Layer'), its range (0 to 25), or its linear scale."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the y-axis label ('Sparsity Ratio'), its range (0.0 to 1.0), or its linear scale."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the three lines in the plot, their colors, styles (dashed, dotted, dash-dotted), or their corresponding labels ('sparsity ratio before gate', 'sparsity ratio after gate', 'sparsity ratio after average gate')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the legend in the top-right corner of the figure, which provides the labels and average values for each line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "We also include sparsity measurements obtained by multiplying the average gating score with pre-gating hidden states.",
+          "evidence": "The machine-generated description introduces information about sparsity measurements obtained by multiplying the average gating score with pre-gating hidden states, which is not depicted or mentioned in the figure."
+        }
+      ],
+      "mqm_score": 76.0,
+      "total_penalty": 24.0,
+      "error_count": 6,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 66.12
+}

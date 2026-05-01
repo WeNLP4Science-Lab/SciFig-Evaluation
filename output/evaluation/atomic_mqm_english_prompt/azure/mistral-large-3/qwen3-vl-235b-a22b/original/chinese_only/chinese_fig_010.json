@@ -1,0 +1,132 @@
+{
+  "figure_key": "chinese_fig_010",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "以醒目的青绿色突出显示",
+      "evidence": "Description states the largest slice is '青绿色' (cyan-green), but the figure shows it as a standard green. No visual emphasis (e.g., explosion or offset) is present.",
+      "atom_id": "slice_yuwaihanji"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“文献”占3%，为深蓝色",
+      "evidence": "Description assigns '深蓝色' (dark blue) to '文献', but the figure shows it as a standard blue.",
+      "atom_id": "slice_wenxian"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“图书馆杂志”...橙色、...“文学遗产”...紫色、...“中国典籍与文化”...橄榄绿",
+      "evidence": "Description misassigns colors: '图书馆杂志' is orange-brown (not orange), '文学遗产' is purple (correct), and '中国典籍与文化' is dark green (not olive green).",
+      "atom_id": "slice_tushuguan_zazhi"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“国际汉学”“图书馆理论与实践”“古籍整理研究学刊”各占2%",
+      "evidence": "Description incorrectly lists these three categories as 2% slices, but the figure shows they are 1% or less. Only '图书馆论坛', '文学遗产', and '中国典籍与文化' are 2%.",
+      "atom_id": "small_slices"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "“国际汉学”“图书馆理论与实践”“古籍整理研究学刊”",
+      "evidence": "These three categories are not labeled as 2% slices in the figure; they are either 1% or not explicitly shown. No atom supports their inclusion as 2% slices.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "按发文量从高到低顺时针排列",
+      "evidence": "Description states ordering is by '发文量' (publication volume), but the atom specifies ordering is by '百分比大小' (percentage size). The figure supports the atom.",
+      "atom_id": "ordering"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "Description omits the specific 2% slices '图书馆论坛' and '中国典籍与文化' (only '文学遗产' is mentioned).",
+      "atom_id": "slice_tushuguan_luntan"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "Description does not mention that the figure has no visual emphasis (e.g., no exploded slices or offsets), which is a critical visual feature.",
+      "atom_id": "no_emphasis"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "近三十年域外汉籍研究领域刊文量排名前二十的期刊分布情况，旨在直观呈现各期刊在该研究主题下的发文贡献比例",
+      "evidence": "Description introduces context ('近三十年', '发文贡献比例') not present in the figure or atoms. The atom specifies the purpose as '展示了不同类别在某一特定领域中的百分比分布情况'.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "前三大期刊占据主导地位，其余期刊分布较为分散，切片大小清晰反映了发文量的层级差异",
+      "evidence": "Description includes interpretive language ('主导地位', '层级差异') not supported by the figure or atoms. The reference avoids such interpretations.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "以更细小的彩色切片呈现，部分切片内也标注了“1%”",
+      "evidence": "Description is redundant; the figure already labels all slices with percentages, and the atom confirms this. The phrase '部分切片内也标注了“1%”' is unnecessary.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "其余十种期刊如“学习与探索”“大学图书馆学报”“中国文化研究”等各占1%",
+      "evidence": "Description uses '如' (such as) to list examples, implying there are more 1% slices than explicitly named. This is vague; the atom lists all small slices explicitly.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 48.75,
+  "total_penalty": 41.0,
+  "atom_coverage": {
+    "correct": 9,
+    "inaccurate": 5,
+    "missing": 2,
+    "total": 16,
+    "accuracy": 0.6429,
+    "completeness": 0.8182
+  }
+}

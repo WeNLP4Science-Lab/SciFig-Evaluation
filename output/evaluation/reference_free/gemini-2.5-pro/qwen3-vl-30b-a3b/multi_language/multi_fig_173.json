@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_173",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The prompt asks to describe each line including its marker shape, but the description fails to mention that both lines use circular markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "decreasing to around 0.025 by step 100",
+          "evidence": "For the blue line (Training Loss), the value at step 100 is approximately 0.028, not 0.025."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reaching a value of approximately 0.025 by step 50",
+          "evidence": "For the orange line (Validation Loss), the value at step 50 is approximately 0.022, not 0.025."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with a slight upward trend",
+          "evidence": "The orange line (Validation Loss) fluctuates after step 50, but the overall trend is slightly downward, not upward. It ends at a lower value (~0.016) than it had at step 50 (~0.022)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizing at a value of approximately 0.020 by step 250",
+          "evidence": "The orange line (Validation Loss) ends at a value of approximately 0.016 at step 250, not 0.020."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Both lines converge towards a similar low loss value by the end of the 250 steps.",
+          "evidence": "The prompt explicitly states to avoid making comparisons between lines. This sentence compares the final values of the two lines."
+        }
+      ],
+      "mqm_score": 76.0,
+      "total_penalty": 24.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 76.0
+}

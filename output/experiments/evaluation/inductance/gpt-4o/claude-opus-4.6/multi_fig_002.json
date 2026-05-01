@@ -1,0 +1,16 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "gpt-4o",
+  "question": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest?",
+  "expected_answer": "80% sparsity. On the logarithmic y-axis, the visual gap at 80% represents the largest absolute difference.",
+  "naive_answer": "The gaps look similar across sparsity rates, so no clear largest (or picking a lower sparsity rate where bars look equally spaced)",
+  "trap": "On a log scale, visually similar gaps at lower sparsity rates represent much smaller absolute differences than at higher rates",
+  "model_answer": "# Finding the Largest Gap Between Per-Layer and Per-Output Perplexity\n\n## Analysis\n\nLooking at the figure, I need to compare the Per-Output (blue) and Per-Layer (orange) bars at each sparsity rate. Since the y-axis is on a logarithmic scale, I need to consider the absolute differences carefully.\n\nLet me examine the values at each sparsity rate:\n\n| Sparsity Rate | Per-Output (blue) | Per-Layer (orange) | Approximate Gap |\n|---|---|---|---|\n| 10% | ~5 | ~5 | negligible |\n| 20% | ~5 | ~5 | negligible |\n| 30% | ~5 | ~5.5 | very small |\n| 40% | ~6 | ~6.5 | small |\n| 50% | ~7 | ~8 | small |\n| 60% | ~10 | ~12 | moderate |\n| 70% | ~20 | ~35 | ~15 |\n| 80% | ~500 | ~900 | ~400 |\n\n## Conclusion\n\nThe largest gap between Per-Layer and Per-Output perplexity occurs at **80% sparsity rate**. At this point, the Per-Output perplexity is approximately 500 while the Per-Layer perplexity reaches approximately 900, creating a difference of roughly 400 — by far the largest absolute gap between the two methods. This makes intuitive sense, as extreme sparsity levels amplify the differences between pruning granularities.",
+  "score": 1.0,
+  "fell_for_trap": false,
+  "showed_reasoning": true,
+  "correct_answer": true,
+  "reason": "Model correctly identified 80% sparsity and explained log scale impact on gap size.",
+  "timestamp": "2026-04-24T09:07:08.372609+00:00"
+}

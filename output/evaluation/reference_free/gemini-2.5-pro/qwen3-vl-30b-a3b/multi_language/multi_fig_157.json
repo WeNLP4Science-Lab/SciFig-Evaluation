@@ -1,0 +1,42 @@
+{
+  "figure_key": "multi_fig_157",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each block index has two corresponding bars: a blue one for 4-Fbit and a green one for 2-Fbit, allowing for a direct comparison of sensitivity between the two quantization schemes.",
+          "evidence": "The chart is not a grouped bar chart. Each block index has only one bar, which is either blue (for 4-Fbit) or green (for 2-Fbit), but not both."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where the sensitivity reaches approximately $10^{-4}$",
+          "evidence": "The bar for the highest block index (79) has a sensitivity value significantly above 10^-4, appearing closer to 2x10^-4 or 3x10^-4."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The 2-Fbit method consistently shows lower sensitivity across all block indices compared to the 4-Fbit method.",
+          "evidence": "This is an interpretive comparison that is not explicitly stated in the chart. Furthermore, it is factually incorrect as there are instances where green bars (2-Fbit) are higher than blue bars (4-Fbit) in the middle section of the chart (e.g., around block index 50)."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.5
+}

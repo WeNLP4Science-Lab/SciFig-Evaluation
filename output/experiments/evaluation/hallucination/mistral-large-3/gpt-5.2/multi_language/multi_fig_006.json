@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_006",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:36:58.708601+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml006_h1",
+      "probe_type": "inexist",
+      "question": "At which layer does the shaded confidence interval around the blue dashed line first become noticeably wider, suggesting increased uncertainty in the hidden state mean before gating?",
+      "model_answer": "The blue dashed line’s confidence band first becomes noticeably wider at about **layer 20** (and it widens dramatically from ~21 onward).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model describes the non-existent shaded confidence interval as if it exists, providing specific layer numbers where widening supposedly occurs, without questioning its presence."
+    },
+    {
+      "probe_id": "ml006_h2",
+      "probe_type": "contra",
+      "question": "Considering that the orange dotted line (hidden state mean after gate) converges with the blue dashed line (hidden state mean before gate) around layer 20, what does this convergence suggest about the effectiveness of gating in later layers?",
+      "model_answer": "That convergence around **layer ~20** suggests the gating is **becoming much less effective in later layers**—i.e., it is no longer substantially attenuating the hidden-state mean, and the “after gate” behavior approaches a near **pass-through** of the “before gate” values.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that the orange dotted line converges with the blue dashed line around layer 20 and builds its entire answer on this incorrect assumption without questioning or correcting it."
+    },
+    {
+      "probe_id": "ml006_h3",
+      "probe_type": "unanswerable",
+      "question": "Given the average values reported in the legend (0.71 before gate, 0.05 after gate, 0.04 baseline), what is the standard deviation of the hidden state mean before gating across all layers?",
+      "model_answer": "The **standard deviation cannot be determined** from the legend averages alone. Knowing only the mean (**0.71**) is insufficient to compute a standard deviation; you’d need the per-layer values (or at least additional summary statistics like variance/second moment).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the standard deviation cannot be determined from the chart alone, explicitly noting the insufficiency of the provided mean values and the need for additional data. This aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

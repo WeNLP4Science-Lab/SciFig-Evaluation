@@ -1,0 +1,36 @@
+{
+  "figure_key": "chinese_fig_111",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Clarity",
+      "sub_type": "Over-generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "在所有测试集中，绿色柱状图（无）的WER值最高，近似为22%；蓝色柱状图（i-vector）次之，约19%；黄色柱状图（d-vector）约为17%；深绿色柱状图（s-vector）最低，约16%。",
+      "evidence": "This sentence incorrectly summarizes the performance of each method with a single approximate value across all five test sets. This hides the significant trend of decreasing WER from Test1 to Test5 for all methods. For example, the WER for \"无\" (green) ranges from about 21.5% in Test1 down to about 17.2% in Test5, so summarizing it with a single value is misleading."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention a key trend visible in the chart: for all methods, the Word Error Rate (WER) generally decreases across the test sets from Test1 to Test5."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "即WER值从“无”到“s-vector”依次降低",
+      "evidence": "The statement that WER values decrease sequentially from \"无\" to \"s-vector\" in all test sets is an over-generalization. In Test2, the 'd-vector' and 's-vector' bars have approximately the same height. In Test4, the 'i-vector' and 'd-vector' bars have approximately the same height. Therefore, the decrease is not strictly sequential in every group."
+    }
+  ],
+  "mqm_score": 96.5,
+  "total_penalty": 3.5,
+  "error_count": 3
+}

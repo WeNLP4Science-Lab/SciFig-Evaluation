@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_054",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:58:19.860834+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual Structure Description:**\nThe image is a grouped bar chart. \n*   **X-axis:** Labeled \"Number of Shots\" with discrete categories: 0, 1, 2, 3, and 4.\n*   **Y-axis:** Labeled \"$\\gamma_C$\" with a scale ranging from 0.0 to 0.6, featuring horizontal dotted grid lines at intervals of 0.2.\n*   **Data Series & Legend:** There are two categories represented in the legend at the top:\n    *   \"Incorrect\": Represented by blue bars with a dotted pattern.\n    *   \"Correct\": Represented by magenta/dark red bars with diagonal line hatching.\n*   **Patterns:** For every number of shots, the \"Correct\" bar is significantly higher than the \"Incorrect\" bar. The \"Correct\" values remain relatively stable and high (around 0.5-0.6) from 0 to 3 shots before dropping at 4 shots. The \"Incorrect\" values start around 0.2-0.25 for 0 and 1 shots, then drop sharply to a very low level (around 0.05) for 2, 3, and 4 shots.\n\n**Answers:**\n1. 2\n2. ~0.34\n3. 2\n4. Data for 5 shots is not shown on the chart; the rightmost position is 4 shots.\n5. Yes",
+      "items": [
+        {
+          "id": "ml054_q1",
+          "type": "capability",
+          "question": "At which number of shots is the ratio of Correct to Incorrect gamma_C the largest?",
+          "model_answer": "2",
+          "full_response": "2"
+        },
+        {
+          "id": "ml054_q2",
+          "type": "capability",
+          "question": "What is the approximate decrease in gamma_C for the Correct category from 0 shots to 4 shots?",
+          "model_answer": "~0.34",
+          "full_response": "~0.34"
+        },
+        {
+          "id": "ml054_q3",
+          "type": "capability",
+          "question": "At how many shot counts does the Incorrect bar exceed a gamma_C value of 0.1?",
+          "model_answer": "2",
+          "full_response": "2"
+        },
+        {
+          "id": "ml054_h1",
+          "type": "hallucination_inexist",
+          "question": "What is the approximate value of the convergence ratio for the 'Incorrect' category at 5 shots, as shown by the blue dotted bar at the rightmost position?",
+          "model_answer": "Data for 5 shots is not shown on the chart; the rightmost position is 4 shots.",
+          "full_response": "Data for 5 shots is not shown on the chart; the rightmost position is 4 shots."
+        },
+        {
+          "id": "ml054_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "The Incorrect bars decrease sharply in height from 0 to 2 shots. Is this correct?",
+          "model_answer": "Yes",
+          "full_response": "Yes"
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T14:08:15.977171+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "Based on the visual structure of the figure:\n*   **Chart Type:** Grouped bar chart.\n*   **Axes:** The x-axis is labeled \"Number of Shots\" with discrete values (0, 1, 2, 3, 4). The y-axis is labeled \"$\\gamma_C$\" with a continuous scale from 0.0 to 0.6, including dotted horizontal grid lines at 0.2, 0.4, and 0.6.\n*   **Data Series & Legend:** There are two categories shown in the legend at the top: \"Incorrect\" (blue bars with a dotted pattern) and \"Correct\" (magenta/red bars with a diagonal striped pattern).\n*   **Notable Patterns:** The \"Correct\" values are consistently higher than the \"Incorrect\" values across all shot numbers. The \"Incorrect\" bars show a significant drop after 1 shot and remain low. The \"Correct\" bars remain relatively high (above 0.5) for 0 through 3 shots, but experience a sharp decline at 4 shots.\n\nHere are the answers to your questions:\n\n1. 3 and 4\n2. 0.05\n3. The premise of the question contradicts the visual evidence in the chart; the 'Correct' category actually decreases overall and reaches its lowest point at 4 shots, rather than increasing monotonically to a peak.\n4. Cannot be determined from the provided image.\n5. No",
+      "items": [
+        {
+          "id": "ml054_q4",
+          "type": "capability",
+          "question": "Between which two consecutive shot numbers does the Correct gamma_C show the steepest decline?",
+          "model_answer": "3 and 4",
+          "full_response": "3 and 4"
+        },
+        {
+          "id": "ml054_q5",
+          "type": "capability",
+          "question": "What is the approximate value of Incorrect gamma_C at 2 shots?",
+          "model_answer": "0.05",
+          "full_response": "0.05"
+        },
+        {
+          "id": "ml054_h2",
+          "type": "hallucination_contra",
+          "question": "Given that the convergence ratio for the 'Correct' category increases monotonically from 0 to 4 shots, reaching its peak at 4 shots, what does this trend suggest about the benefits of additional few-shot examples?",
+          "model_answer": "The premise of the question contradicts the visual evidence in the chart; the 'Correct' category actually decreases overall and reaches its lowest point at 4 shots, rather than increasing monotonically to a peak.",
+          "full_response": "The premise of the question contradicts the visual evidence in the chart; the 'Correct' category actually decreases overall and reaches its lowest point at 4 shots, rather than increasing monotonically to a peak."
+        },
+        {
+          "id": "ml054_h3",
+          "type": "hallucination_unanswerable",
+          "question": "Based on the convergence ratio differences between Correct and Incorrect outcomes, what is the statistical significance (p-value) of the difference at 2 shots compared to 0 shots?",
+          "model_answer": "Cannot be determined from the provided image.",
+          "full_response": "Cannot be determined from the provided image."
+        },
+        {
+          "id": "ml054_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "The Incorrect bars increase in height from 0 to 2 shots. Is this correct?",
+          "model_answer": "No",
+          "full_response": "No"
+        }
+      ]
+    }
+  ]
+}

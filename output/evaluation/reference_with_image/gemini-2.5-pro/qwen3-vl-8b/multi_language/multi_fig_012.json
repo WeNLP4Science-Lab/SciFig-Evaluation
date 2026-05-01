@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_012",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "spans from 0 to 20",
+          "evidence": "The horizontal axis represents layers, and while the last tick mark is at 20, the data and the axis itself clearly extend to approximately layer 23."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at layer 6",
+          "evidence": "The first local peak of the blue line occurs at layer 5, not layer 6. The value at layer 6 is lower than the value at layer 5."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "occasionally dipping below 0.0",
+          "evidence": "The y-axis begins at 0.0, and the blue line representing the attention score never goes below this value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "before falling back to near 0.0 by layer 20",
+          "evidence": "The line has a peak at layer 20 and then falls *after* layer 20. Stating it falls back 'by layer 20' is contradictory and incorrect."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 0 to 20",
+          "evidence": "The x-axis represents data points up to approximately layer 23, not just 20. This incorrectly truncates the description of the data."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "in linear increments of 1",
+          "evidence": "The labeled increments on the x-axis are in steps of 5, not 1. Stating an increment of 1 is an assumption about the data point frequency, not what is shown on the axis labels."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dips to approximately 0.01 at layer 15",
+          "evidence": "At layer 15, the value of the blue line is approximately 0.04, just below the green mean line (0.048). A value of 0.01 is a significant misreading."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "rises again to approximately 0.05 at layer 20, and then falls to 0.0 at layer 20",
+          "evidence": "This part of the description contains multiple errors. The line has a small peak around layer 19 with a value of approximately 0.08. At layer 20, the value is approximately 0.04, not 0.05, and it does not fall to 0.0. The line also continues beyond layer 20."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 0 to 20",
+          "evidence": "The x-axis represents data that extends beyond layer 20, up to approximately layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a peak of approximately 0.08 at layer 5",
+          "evidence": "The peak at layer 5 is clearly at 0.1 on the y-axis, not 0.08. This value is halfway between the 0.0 and 0.2 tick marks."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fluctuates with minor peaks around 0.05–0.07 between layers 5 and 20, and then declines to near 0.0 at layer 20",
+          "evidence": "This description of the line's trend is inaccurate. A peak occurs at layer 20 with a value of approximately 0.08, which is outside the stated 0.05-0.07 range. Additionally, the line has a peak at layer 20; it does not decline to zero at this point."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "from 0 to 20",
+          "evidence": "The green line extends across the entire plotted x-axis range, which goes beyond layer 20 to approximately layer 22."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.5
+}

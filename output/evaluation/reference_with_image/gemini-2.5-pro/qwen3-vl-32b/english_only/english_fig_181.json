@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_181",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with circular markers",
+      "evidence": "The description incorrectly states that the lines have circular markers. The figure shows solid lines without any markers."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "a light blue line with circular markers (labeled LoRA_r = 1), and a cyan line with circular markers (labeled Linear)",
+      "evidence": "The description incorrectly assigns colors to the lines. The line for 'LoRA_r = 1' is light gray in the plot, not light blue. The line for 'Linear' is light blue, not cyan. This mislabeling makes the subsequent descriptions of these lines confusing and incorrect."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching about 0.95 by epoch 400",
+      "evidence": "The description for the 'C³A_b = 128/2' line states it reaches about 0.95 by epoch 400. However, the plot shows this line reaches an accuracy of 1.0 by approximately epoch 100 and remains there."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "reaching approximately 0.8 by epoch 400",
+      "evidence": "The description for the 'LoRA_r = 1' line (the noisy, light gray line) states it reaches approximately 0.8 by epoch 400. The plot shows its final value is higher, closer to 0.9, despite significant fluctuations."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "particularly the light blue and cyan lines, which show more pronounced fluctuations as training progresses",
+      "evidence": "This statement is confusing due to the incorrect color mapping. While the 'LoRA_r=1' line (which the description calls 'light blue') is indeed very noisy, the 'Linear' line (which the description calls 'cyan') becomes very stable after epoch 60 and does not show 'pronounced fluctuations as training progresses'."
+    }
+  ],
+  "mqm_score": 80.5,
+  "total_penalty": 19.5,
+  "error_count": 5
+}

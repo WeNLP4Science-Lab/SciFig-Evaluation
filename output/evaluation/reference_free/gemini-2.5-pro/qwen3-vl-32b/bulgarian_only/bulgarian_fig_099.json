@@ -1,0 +1,28 @@
+{
+  "figure_key": "bulgarian_fig_099",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "стълбът в интервала 4 има височина около 0,12, в интервала 5 – около 0,06, в интервала 6 – около 0,47 (най-висок), а в интервала 7 – около 0,18",
+      "evidence": "The description incorrectly identifies 4 bars associated with integer labels 4, 5, 6, and 7. The histogram actually contains 5 bars. This leads to a cascade of errors: it mis-maps bar heights to the wrong intervals (e.g., the bar at interval 5 has a height of ~0.175, not 0.06; the bar at interval 6 has a height of ~0.175, not 0.47) and hallucinates a bar at interval 7, which does not exist."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "която вероятно представлява средноаритметичната стойност на рН в измерените данни",
+      "evidence": "The description speculates that the value \"6,38\" probably represents the arithmetic mean. This is an interpretation of the data, which is explicitly forbidden by the generation prompt's instruction to avoid making inferences."
+    }
+  ],
+  "mqm_score": 93.5,
+  "total_penalty": 6.5,
+  "error_count": 2
+}

@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_167",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The bars are arranged in descending order of optimisation steps",
+      "evidence": "The description claims the optimisation steps are in descending order, but it is not clear what metric they are descending by. Visually, they are not sorted by value, nor are they sorted alphabetically. This claim is ambiguous and unsubstantiated by the visual information."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "and the chart visually compares the performance of the two models across these steps, with the SESHA model generally showing slightly lower WER differences (better performance) in most cases, except for \"Add Spacing\" and \"Normalised\" where NESAC performs slightly better.",
+      "evidence": "The prompt explicitly instructs to \"Avoid making inferences, comparisons, or drawing conclusions about the data\" and \"do not compare categories unless the comparison is explicitly labeled\". This entire sentence provides a comparative analysis of the models' performance, which violates the prompt's core instructions."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "except for \"Add Spacing\" and \"Normalised\" where NESAC performs slightly better.",
+      "evidence": "This statement is factually incorrect based on the chart data, where a lower WER is better. For the \"Normalised\" category, the SESHA model has a lower WER (0.00323) than the NESAC model (0.00334), meaning SESHA performed better, not NESAC. The two cases where NESAC performed better (had a lower WER) are \"Add Spacing\" and \"Americanisms\"."
+    }
+  ],
+  "mqm_score": 90.5,
+  "total_penalty": 9.5,
+  "error_count": 3
+}

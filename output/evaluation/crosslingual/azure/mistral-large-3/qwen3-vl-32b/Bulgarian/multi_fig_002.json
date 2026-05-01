@@ -1,0 +1,67 @@
+{
+  "figure_key": "multi_fig_002",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Bulgarian",
+  "num_atoms": 10,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "около 10¹.5 за „Per-Output“ и около 10² за „Per-Layer“",
+      "evidence": "At 70% sparsity, the blue (Per-Output) bar is approximately 15, not 10^1.5 (~31.6), and the orange (Per-Layer) bar is approximately 30, not 10^2 (100). The description overestimates the values.",
+      "atom_id": "sent_8"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "около 10².5 за „Per-Output“",
+      "evidence": "At 80% sparsity, the blue (Per-Output) bar is approximately 300, not 10^2.5 (~316). The description slightly overestimates the value, but the image shows it is closer to 10^2 than 10^2.5.",
+      "atom_id": "sent_9"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that all values remain below 10^1 up to 50% sparsity, as noted in atom sent_6.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "перплекситетът е нисък и почти еднакъв за двете методи, със стойности под 10¹",
+      "evidence": "The description oversimplifies the values for 10%-50% sparsity by stating they are 'almost identical', while the image shows slight but visible differences between the two methods.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "стойностите се увеличават експоненциално",
+      "evidence": "The description introduces an interpretive claim ('increase exponentially') that is not explicitly shown or labeled in the figure. The y-axis is logarithmic, but the data trend is not explicitly described as exponential.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 5,
+  "mqm_score": 73.0,
+  "total_penalty": 13.5,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 2,
+    "missing": 1,
+    "total": 10,
+    "accuracy": 0.7778,
+    "completeness": 0.875
+  }
+}

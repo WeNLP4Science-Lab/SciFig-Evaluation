@@ -1,0 +1,112 @@
+{
+  "figure_key": "multi_fig_013",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 7,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x轴表示网络的层索引，从0到22",
+      "evidence": "The x-axis range on the image extends to 25, not 22.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "y轴表示最大激活值，范围从0到350",
+      "evidence": "The y-axis range on the image extends to 400, not 350.",
+      "atom_id": "sent_2"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色虚线带圆点标记（attn_output）在x=0至x=20区间内值接近0，在x=21处上升至约50，x=22处升至约80",
+      "evidence": "The blue dashed line (attn_output) ends at approximately 50 at layer 23, not 80 at layer 22. The image does not show a sharp rise at layer 21 or 22.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "绿色虚线带圆点标记（ffn_output）在x=0至x=20区间内值在0至20之间波动，在x=21处上升至约100，x=22处升至约170",
+      "evidence": "The green dash-dot line (ffn_output) ends at approximately 50 at layer 23, not 170 at layer 22. The image does not show a sharp rise at layer 21 or 22.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色点线（attn_residual）在x=0至x=20区间内值从0缓慢上升至约50，在x=21处升至约200，x=22处升至约300",
+      "evidence": "The orange dotted line (attn_residual) ends at approximately 150 at layer 23, not 300 at layer 22. The image does not show a sharp rise at layer 21 or 22.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色实线（ffn_residual）在x=0至x=20区间内值从0缓慢上升至约60，在x=21处升至约150，x=22处急剧上升至约350",
+      "evidence": "The red solid line (ffn_residual) rises sharply after layer 15 and ends at approximately 350 at layer 23, not layer 22. The description incorrectly states a gradual rise to 60 by layer 20.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the exact axis labels ('Layer' for x-axis and 'Max Activation Value' for y-axis).",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the line styles (e.g., dashed, dotted) as referenced in the legend.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "所有线条在x=21至x=22区间内均呈现显著上升趋势，其中红色实线和橙色点线在末尾层达到最高值",
+      "evidence": "The description introduces an interpretation of 'significant rise' and 'highest value' that is not explicitly supported by the image or atoms. The image shows data only up to layer 23, not 21 or 22.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "单位无明确标注",
+      "evidence": "The description unnecessarily states that units are not explicitly labeled, which is not required for clarity.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 0.0,
+  "total_penalty": 36.0,
+  "atom_coverage": {
+    "correct": 1,
+    "inaccurate": 6,
+    "missing": 1,
+    "total": 7,
+    "accuracy": 0.1429,
+    "completeness": 0.5
+  }
+}

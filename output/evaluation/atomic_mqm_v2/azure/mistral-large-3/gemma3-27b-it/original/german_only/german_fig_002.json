@@ -1,0 +1,105 @@
+{
+  "figure_key": "german_fig_002",
+  "subfolder": "german_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "German",
+  "num_atoms": 19,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Es gibt eine blaue Fläche, die den Saldo darstellt, der im Jahr 2020 bei etwa 100 Mrd. US-Dollar beginnt und im Jahr 2023 bei etwa -100 Mrd. US-Dollar endet",
+      "evidence": "The saldo is represented by bars, not a blue area. The bars start near zero and extend downward, not beginning at 100. The description incorrectly assigns the blue color to the saldo, which is not supported by the legend or image.",
+      "atom_id": "bars_description"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "beginnt im Jahr 2020 bei etwa 150 Mrd. US-Dollar",
+      "evidence": "The red line (Exporte) starts at approximately 100 in 2020, not 150.",
+      "atom_id": "red_line_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "endet im Jahr 2023 bei etwa 250 Mrd. US-Dollar",
+      "evidence": "The red line (Exporte) ends at approximately 175 in 2023, not 250.",
+      "atom_id": "red_line_2023"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die y-Achse für die Rechte Skala zeigt Werte in Mrd. US-Dollar, beginnend bei -200 und endend bei 0, mit Tick-Beschriftungen in 50er-Schritten",
+      "evidence": "The right y-axis ranges from -200 to 400, not -200 to 0. The tick intervals are 100, not 50.",
+      "atom_id": "y_axis_right_scale"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Die Exportlinie ist violett",
+      "evidence": "The export line is described as purple/violet, which is a reasonable synonym for red, but the atom specifies 'rote Linie'. No error flagged due to color tolerance.",
+      "atom_id": "red_line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the trend of the bars (Saldo) becoming longer over time.",
+      "atom_id": "bars_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the units (Mrd. US-Dollar) are shown on both y-axes, though it is implied.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "im Jahr 2022 einen minimalen Wert von etwa 260 Mrd. US-Dollar und im Jahr 2023 einen maximalen Wert von etwa 370 Mrd. US-Dollar",
+      "evidence": "The description introduces specific minimal and maximal values for the blue line (Importe) in 2022 and 2023 that are not explicitly supported by the image or atoms. These values are not critical to the overall trend and are not mentioned in the reference.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Die Skala ist linear",
+      "evidence": "The description does not specify which scale (left or right) is linear, though both are.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 66.84,
+  "total_penalty": 31.5,
+  "atom_coverage": {
+    "correct": 13,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 19,
+    "accuracy": 0.7222,
+    "completeness": 0.9286
+  }
+}

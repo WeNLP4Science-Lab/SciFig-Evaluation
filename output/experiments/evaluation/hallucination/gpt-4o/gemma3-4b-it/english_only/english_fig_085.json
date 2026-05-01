@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-17T07:59:25.476991+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "The negative log probability value for the Radiology per-specialty term group is approximately **-25.8**.  The Cardio fine-tuned bar (orange) is approximately -23.7. Therefore, the Radiology group has a *higher* negative log probability than the Cardio group for the fine-tuned model.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the 'Radiology' group as if it exists, providing specific negative log probability values and comparing it to the 'Cardio' group without questioning its existence or acknowledging that it is not present in the chart."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?**\n\nThere are several possibilities:\n\n*   **Overfitting:** The fine-tuning process might have caused the model to overfit to the specific training data for the Obstetrics specialty. This could lead to reduced generalization ability on the Neuro specialty (which might be different in composition).\n*   **Data Bias:**  The Obstetrics fine-tuning data might contain biases not present in the Neuro data or that are detrimental to performance in the Neuro domain.\n*   **Distribution Shift:** The distribution of terms in the Neuro specialty might be significantly different from the distribution in the Obstetrics specialty, leading to less effective learned representations.\n*   **Catastrophic Forgetting:** Fine-tuning could have caused the model to “forget” or degrade its prior knowledge about related medical concepts.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that the Base model outperforms the Fine-tuned model for the Neuro specialty and builds its answer around this incorrect assumption. It does not identify or correct the error in the question."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?**\n\nVisually, it's hard to quantify this precisely without access to the term lists themselves. However, a quick observation suggests a moderate level of overlap. Terms like “disease”, “patient”, “treatment”, etc., appear in multiple specialties.\n\nIt’s likely that controlling for shared terminology *would* change the relative rankings. If terms with high overlap are weighted appropriately during the model evaluation, the ranking might shift, potentially making the MistralV0.2-Base model appear stronger in domains with more overlap.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific answer suggesting a moderate vocabulary overlap and speculates about the impact of controlling for shared terminology, without acknowledging that the chart does not contain the necessary information to make these determinations."
+    }
+  ]
+}

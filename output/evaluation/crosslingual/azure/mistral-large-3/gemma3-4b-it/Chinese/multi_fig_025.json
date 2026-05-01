@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_025",
+  "subfolder": "multi_language",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 9,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表由四个柱状图组成，分别是G0（蓝色），G1（绿色），和G2（黄色）。每个柱状图代表一层，其高度表示该层中“专家”的数量。",
+      "evidence": "The chart is a stacked bar chart, not four separate bar charts. Each layer has one stacked bar composed of G0, G1, and G2 segments, not individual bars for each group per layer.",
+      "atom_id": "sent_2"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "垂直轴表示“专家”数量，轴标签为“Number of Experts”，此轴上的刻度从0到9，取值为整数，刻度间隔为1。",
+      "evidence": "The y-axis range is from 0 to 10, not 0 to 9, and the tick interval is 2, not 1.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "最长的柱状图（黄色）代表G2层，其高度约为8。G0层的柱状图（蓝色）的高度约为6。G1层的柱状图（绿色）的高度约为5。",
+      "evidence": "The description incorrectly assigns a single height to each group (G0, G1, G2) as if they are separate bars. In reality, the heights vary per layer, and the values provided do not correspond to the image (e.g., G0 is always 1, not 6).",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars are stacked, which is a critical structural feature of the chart.",
+      "atom_id": "sent_2"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the specific examples of expert distribution per layer (e.g., Layer 1: 1/4/5, total 10), which are important details.",
+      "atom_id": "sent_8"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the total height of each stacked bar represents the total number of experts per layer.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the variation in the proportion of each expert group (G0, G1, G2) across layers, such as G2 being more prominent in Layer 1 and Layer 16.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "图表由四个柱状图组成",
+      "evidence": "The chart contains 24 stacked bars (one per layer), not four separate bar charts. This is a clear hallucination.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 43.33,
+  "total_penalty": 25.5,
+  "atom_coverage": {
+    "correct": 4,
+    "inaccurate": 3,
+    "missing": 4,
+    "total": 9,
+    "accuracy": 0.5714,
+    "completeness": 0.5
+  }
+}

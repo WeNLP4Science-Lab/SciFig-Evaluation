@@ -1,0 +1,96 @@
+{
+  "figure_key": "bulgarian_fig_058",
+  "subfolder": "bulgarian_only",
+  "model_name": "gemma3-12b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Bulgarian",
+  "num_atoms": 9,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Секторите са оцветени в синьо, кафяво, оранжево и графитено сиво, съответно за бензин, дизел, електрически и хибридни",
+      "evidence": "Цветовете са разменени: бензин е светлосин, дизел е оранжев, електрически е сив, хибридни е жълт, а не графитено сиво. Кафяво не е правилният цвят за дизел.",
+      "atom_id": "diesel_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "бензин (414 098), дизел (1 456 846), електрически (13 466), хибридни (1 071 600)",
+      "evidence": "Числените стойности са разменени: бензин е 1,071,600, електрически е 414,098, хибридни е 13,466.",
+      "atom_id": "gasoline_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "електрически (13 466)",
+      "evidence": "Електрическите автомобили са 414,098, а не 13,466.",
+      "atom_id": "electric_sector"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "хибридни (1 071 600)",
+      "evidence": "Хибридните автомобили са 13,466, а не 1,071,600.",
+      "atom_id": "hybrid_sector"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Липсва споменаване на точния цвят на хибридния сектор (жълт) и сектора 'други' (тъмносин).",
+      "atom_id": "hybrid_sector"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Не се споменава, че числата са абсолютни стойности (брой автомобили), а не проценти.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Секторите са оцветени в синьо, кафяво, оранжево и графитено сиво, съответно за бензин, дизел, електрически и хибридни",
+      "evidence": "Неясно съответствие между цветовете и категориите поради грешно описание на цветовете.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Приблизителните дялове на секторите са: бензин (414 098), дизел (1 456 846), електрически (13 466), хибридни (1 071 600) и други (51 910)",
+      "evidence": "Описанието представя числата като 'приблизителни дялове', въпреки че са абсолютни стойности.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 44.44,
+  "total_penalty": 25.0,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 9,
+    "accuracy": 0.5556,
+    "completeness": 0.8333
+  }
+}

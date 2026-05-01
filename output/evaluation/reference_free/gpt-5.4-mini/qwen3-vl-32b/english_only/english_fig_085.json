@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The baseline model’s bar (light blue) is consistently the shortest, indicating the highest negative log-probability (i.e., lowest probability of generating relevant tokens) across all specialties.",
+      "evidence": "In the chart, the light blue baseline bars are not consistently the shortest; in each group they are the longest/lowest bars (most negative values), while the specialty-colored bars are shorter and closer to -22."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the fine-tuned models show progressively taller bars (lower negative log-probabilities, meaning higher token probabilities) within their respective specialty groups",
+      "evidence": "The relative heights do not show a monotonic progression within groups. The specialty bars vary slightly and are not ordered as a progressive increase/decrease; the description imposes an unsupported pattern."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that each group contains one baseline bar plus multiple fine-tuned specialty bars shown as separate color-coded bars, nor that the legend labels the baseline and six specialty fine-tuning conditions."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "In general, the fine-tuned models exhibit improved performance (lower negative log-probabilities) in their corresponding specialty, with the most significant improvements observed when the model is fine-tuned on the same specialty as the test tokens.",
+      "evidence": "The figure shows bar lengths but does not explicitly indicate performance improvement or 'most significant improvements'; this is interpretive language beyond the chart."
+    }
+  ],
+  "mqm_score": 83.5,
+  "total_penalty": 16.5,
+  "error_count": 4
+}

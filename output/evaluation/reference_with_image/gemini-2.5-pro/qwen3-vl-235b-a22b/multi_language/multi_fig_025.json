@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_025",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "In early layers (e.g., layers 1–5), G2 dominates with the largest segment",
+          "evidence": "This statement is not consistently true for the specified range. For example, in layer 1, G1 and G2 are equal (both are 4). In layers 3 and 5, the G1 segment is larger than the G2 segment (Layer 3: G1=3, G2=2; Layer 5: G1=3, G2=1)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G0 still minimal",
+          "evidence": "In layers 23 and 24, G0 is not minimal. All three groups, G0, G1, and G2, have a value of 1, meaning they contribute equally."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Layer 1 contains 1 expert from G0, 4 from G1, and 4 from G2, totaling 9 experts.",
+          "evidence": "According to the chart, Layer 1 contains 1 expert from G0 (blue), 4 from G1 (green, from 1 to 5), and 4 from G2 (yellow, from 5 to 9), totaling 9 experts. The description is correct, but the reference description incorrectly states there are 5 experts from G2, totaling 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "(like 1, 2, 4, and 5) hosting as many as 8 or 9 experts",
+          "evidence": "This statement is inaccurate. Layer 5 has a total of 7 experts (1 G0, 3 G1, 3 G2), not 8 or 9."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "(like 7, 11, 12, 13, 14, 15, 23, and 24) host as few as 3",
+          "evidence": "This grouping is incorrect. Layers 23 and 24 each have a total of 4 experts (1 G0, 2 G1, 1 G2), not 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with G1 consistently contributing the largest segment in most layers, followed by G2",
+          "evidence": "This claim is false. G1 is not the largest segment in \"most\" layers. The number of experts from G1 and G2 are equal in 13 out of 24 layers. G2 has more experts than G1 in 4 layers (2, 3, 4, 10). G1 has more experts than G2 in only 7 layers (6, 19, 20, 21, 22, 23, 24). Therefore, it is incorrect to state that G1 is consistently the largest segment in most layers."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "in a Layer-wise Mixture-of-Experts (MoE) architecture, as described in the paper “Less, but Better: Efficient Multilingual Expansion for LLMs via Layer-wise Mixture-of-Experts.”",
+          "evidence": "The description includes information about the context of the chart (the specific paper and architecture type) which is not present in the visual content of the figure itself. The figure has no title or caption providing this information."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Layer 1 contains 9 total experts",
+          "evidence": "The bar for Layer 1 has a total height slightly below 9 on the y-axis, closer to 8.8 or 8.9. The sum of its components is G0=1, G1=4, G2=~3.8, totaling ~8.8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and 4 from G2",
+          "evidence": "In Layer 1, the yellow segment for G2 starts at 5 and ends just below 9, representing a value closer to 3.8 or 3.9, not 4."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "suggesting a strategic allocation of expert capacity across the model’s depth.",
+          "evidence": "This phrase provides an interpretation of the data's meaning ('strategic allocation'), which is an inference not directly stated or visualized in the chart."
+        }
+      ],
+      "mqm_score": 87.0,
+      "total_penalty": 13.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In Layer 3: 6 Experten (1 G0, 2 G1, 3 G2)",
+          "evidence": "For Layer 3, the description states the values for G1 are 2 and G2 are 3. However, the chart shows G1 has a value of 3 (from 1 to 4) and G2 has a value of 2 (from 4 to 6)."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "In Layer 1 beträgt die Gesamtzahl der Experten 9, aufgeteilt in 1 (G0), 4 (G1) und 4 (G2). In Layer 2 sind es 8 Experten: 1 (G0), 3 (G1), 4 (G2). In Layer 3: 6 Experten (1 G0, 2 G1, 3 G2). In Layer 4: 8 Experten (1 G0, 3 G1, 4 G2). In Layer 5: 7 Experten (1 G0, 3 G1, 3 G2). In Layer 6: 5 Experten (1 G0, 2 G1, 2 G2). In Layer 7: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 8: 5 Experten (1 G0, 2 G1, 2 G2). In Layer 9: 5 Experten (1 G0, 2 G1, 2 G2). In Layer 10: 4 Experten (1 G0, 1 G1, 2 G2). In Layer 11: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 12: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 13: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 14: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 15: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 16: 5 Experten (1 G0, 2 G1, 2 G2). In Layer 17: 5 Experten (1 G0, 2 G1, 2 G2). In Layer 18: 5 Experten (1 G0, 2 G1, 2 G2). In Layer 19: 6 Experten (1 G0, 3 G1, 2 G2). In Layer 20: 6 Experten (1 G0, 3 G1, 2 G2). In Layer 21: 6 Experten (1 G0, 3 G1, 2 G2). In Layer 22: 6 Experten (1 G0, 3 G1, 2 G2). In Layer 23: 3 Experten (1 G0, 1 G1, 1 G2). In Layer 24: 3 Experten (1 G0, 1 G1, 1 G2).",
+          "evidence": "The description lists the exact numerical breakdown for every single one of the 24 bars. This level of detail is excessive and makes the description difficult to read and understand. A summary of trends and key points would be more effective."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.75
+}

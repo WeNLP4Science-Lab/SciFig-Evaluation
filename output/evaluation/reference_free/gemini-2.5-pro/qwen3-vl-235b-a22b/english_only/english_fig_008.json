@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_008",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "ranging from 0.0 to 0.8",
+      "evidence": "The description states the vertical axis ranges from 0.0 to 0.8, but the axis visually extends higher to accommodate bars with values of 0.88 and 0.89."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the bars are colored in progressively lighter shades of blue as ambiguity increases",
+      "evidence": "This is incorrect for the left chart. The bar at Ambiguity Std = 0.82 (value 0.03) is the lightest shade, but the next bar at 0.94 (value 0.24) is a darker shade of blue, breaking the 'progressively lighter' pattern."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Both charts visually demonstrate a general inverse relationship: as ambiguity increases (either by standard deviation or maximum value), inter-annotator agreement (Fleiss Kappa) tends to decrease, with the exception of the third bar in the left chart (Ambiguity Std = 0.82, Kappa = 0.03), which shows a notably lower agreement than the subsequent level (Ambiguity Std = 0.94, Kappa = 0.24).",
+      "evidence": "The prompt explicitly instructs to avoid interpreting trends or making comparisons. This entire sentence describes a trend ('inverse relationship', 'tends to decrease') and compares data points, which violates the negative constraints of the prompt."
+    }
+  ],
+  "mqm_score": 89.5,
+  "total_penalty": 10.5,
+  "error_count": 3
+}

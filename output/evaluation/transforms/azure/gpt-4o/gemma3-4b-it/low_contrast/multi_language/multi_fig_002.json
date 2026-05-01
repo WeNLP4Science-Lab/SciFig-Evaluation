@@ -1,0 +1,323 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "gemma3-4b-it",
+  "transform": "low_contrast",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Хоризонталната ос съдържа категориите sparsity rate, подредени в произволен ред от 10% до 80%.",
+          "evidence": "Хоризонталната ос показва степен на разреждане (*Sparsity Rate*), подредена в нарастващ ред от 10% до 80%, а не в произволен ред."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Хоризонталната ос е етикетирана с проценти и скалата е линейна, с равномерни интервали, като най-ниската стойност е 10%, а най-високата е 80%.",
+          "evidence": "Скалата на хоризонталната ос е правилно линейна, но описанието пропуска да уточни, че интервалите са с крачка от 10%, което е важно за точността."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Вертикалната ос показва perplexity, изразена в логаритмична скала, започваща от 1 и достигаща до 2, указвайки единицата perplexity.",
+          "evidence": "Вертикалната ос показва перплекситет в логаритмична скала, но стойностите варират от 10^1 до 10^3, а не от 1 до 2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбовете са подредени от левия към десния, като възходящите стълбове представляват Per-Output sparsity rate, обозначени с синьо, и съответно низходящите стълбове представляват Per-Layer sparsity rate, обозначени с оранжев.",
+          "evidence": "Стълбовете не са възходящи или низходящи; те са двойки съседни стълбчета за всяка степен на разреждане, като синьото представлява *Per-Output*, а оранжевото *Per-Layer*."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Описанието не уточнява, че диаграмата показва стойностите на перплекситет за конфигурациите *Per-Output* и *Per-Layer* в зависимост от степента на разреждане."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Описанието не споменава, че сините стълбчета са разположени вляво във всяка двойка, а оранжевите вдясно."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Описанието не споменава, че височината на стълбчетата нараства с увеличаването на степента на разреждане."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Описанието не уточнява, че вертикалната ос е означена с логаритмична скала със стойности при 10^1, 10^2 и 10^3."
+        }
+      ],
+      "mqm_score": 66.0,
+      "total_penalty": 34.0,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "纵坐标是 Perplexity 计数，刻度从 10 到 80，指数刻度，间隔均匀。",
+          "evidence": "The y-axis represents perplexity on a logarithmic scale ranging from 10^1 to 10^3, not 'Perplexity count' with a range from 10 to 80."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Output 稀疏性的柱状图具有大约 35% 的高度。",
+          "evidence": "The description states 'approximately 35% height' for Per-Output bars, but the actual values vary significantly depending on sparsity rate and are not consistently 35%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Layer 稀疏性的柱状图具有大约 65% 的高度。",
+          "evidence": "The description states 'approximately 65% height' for Per-Layer bars, but the actual values vary significantly depending on sparsity rate and are not consistently 65%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not explain the chart's purpose, which is to compare the perplexity of two pruning configurations (Per-Output and Per-Layer) at different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis label 'Perplexity' or its logarithmic scale from 10^1 to 10^3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the paired bar structure for each sparsity rate, where blue bars represent Per-Output and orange bars represent Per-Layer pruning methods."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the trend that perplexity remains low for sparsity rates between 10% and 50%, and increases sharply at 70% and 80%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend indicating the color mapping of Per-Output (blue) and Per-Layer (orange)."
+        }
+      ],
+      "mqm_score": 67.5,
+      "total_penalty": 32.5,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The horizontal axis, labeled \"Sparsity Rate,\" displays a continuous scale ranging from 10% to 80%, with tick intervals of 10%, indicating the percentage of zero-valued weights.",
+          "evidence": "The horizontal axis represents sparsity rates, but it does not indicate the percentage of zero-valued weights explicitly."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The vertical axis, labeled “Perplexity,” represents the perplexity values, with a scale ranging from approximately 1 to 8, and tick intervals of 1.",
+          "evidence": "The vertical axis uses a logarithmic scale ranging from 10^1 to 10^3, not a linear scale from 1 to 8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart consists of three bars, colored blue, orange, and light orange, each corresponding to a different perplexity value.",
+          "evidence": "The chart consists of pairs of bars (blue and orange) for each sparsity rate, not three bars. There is no light orange bar in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue bar represents the per-output perplexity, reaching a value of approximately 60% at 40% sparsity rate.",
+          "evidence": "The blue bar at 40% sparsity rate represents a perplexity value below 10^1, not 60%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The orange bar represents the per-layer perplexity, reaching a value of approximately 65% at 40% sparsity rate.",
+          "evidence": "The orange bar at 40% sparsity rate represents a perplexity value below 10^1, not 65%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The light orange bar represents the density of the sparsity rate.",
+          "evidence": "There is no light orange bar or any representation of density in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state that the chart compares perplexity values of 'Per-Output' and 'Per-Layer' at different sparsity rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the logarithmic scale of the vertical axis or its range from 10^1 to 10^3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend in the top-left corner defining 'Per-Output' and 'Per-Layer' with their respective colors."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the approximate perplexity values of the bars, which increase with higher sparsity rates, starting from around 2 at 10% sparsity and approaching 10^3 at 80% sparsity."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the orange bars are taller than the blue bars at 50%, 60%, 70%, and 80% sparsity rates."
+        }
+      ],
+      "mqm_score": 52.5,
+      "total_penalty": 47.5,
+      "error_count": 11,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Chart Purpose",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In diesem Balkendiagramm wird die Perplexität und die Sparsity-Rate für zwei verschiedene Schichten dargestellt.",
+          "evidence": "The chart does not represent 'two different layers'; it shows Perplexity values for 'Per-Output' and 'Per-Layer' across different Sparsity Rates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die vertikale Achse stellt die Perplexität in Logarithmen dar, wobei sie von 1 bis 10 reicht und in logarithmischen Schritten angeordnet ist.",
+          "evidence": "The vertical axis represents Perplexity in a logarithmic scale, but the range is from 10^1 to 10^3, not '1 to 10'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der blaue Balken repräsentiert die Perplexität und erstreckt sich bis etwa 8, während der orangefarbene Balken die Sparsity-Rate darstellt und sich über 60 % erstreckt.",
+          "evidence": "The blue and orange bars represent 'Per-Output' and 'Per-Layer' Perplexity values, respectively, not 'Perplexity' and 'Sparsity-Rate'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken sind in der Reihenfolge der abnehmenden Sparsity-Rate angeordnet, wobei der Balken mit 80 % Sparsity am längsten ist und der Balken mit 10 % Sparsity am kürzesten ist.",
+          "evidence": "The bars are arranged in increasing Sparsity Rate order, not decreasing. Additionally, the bar lengths represent Perplexity values, not Sparsity Rate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not state that the chart shows Perplexity values for 'Per-Output' and 'Per-Layer' across different Sparsity Rates."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the logarithmic scale of the vertical axis or the specific tick marks at 10^1, 10^2, and 10^3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the paired bar structure for each Sparsity Rate, with blue bars representing 'Per-Output' and orange bars representing 'Per-Layer'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description does not mention the trend that Perplexity values increase with Sparsity Rate, with values remaining below 10^1 until 50%, exceeding 10^1 at 60%, and reaching the highest values at 80%."
+        }
+      ],
+      "mqm_score": 66.0,
+      "total_penalty": 34.0,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 63.0
+}

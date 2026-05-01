@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_157",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For blocks 0 to approximately 58, only 2-Fbit sensitivity values are shown (green bars), with sensitivities generally ranging between 10⁻⁷ and 10⁻⁶, showing relatively low sensitivity. Starting around block 59, both 4-Fbit (blue) and 2-Fbit (green) bars appear side by side for each block",
+          "evidence": "The description incorrectly states that only 2-Fbit bars appear up to block 58; in reality, blue 4-Fbit bars are present for several blocks starting at index 46. It also incorrectly claims that both bar types appear side-by-side from block 59 onwards; in fact, there is only one bar per block index, and from block 59 onwards, only blue 4-Fbit bars are shown."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart visually supports the PM-KVQ strategy of applying lower precision (2-Fbit) to earlier, less sensitive blocks and reserving higher precision (4-Fbit) for later, more sensitive blocks to balance efficiency and accuracy in long-chain-of-thought reasoning tasks.",
+          "evidence": "This entire sentence is a major interpretation that draws a conclusion about a complex strategy from the paper. The prompt explicitly forbids making inferences, drawing conclusions, or interpreting the data."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 10⁻⁷ to 10⁻⁴",
+          "evidence": "The labeled y-axis range shown in the figure is from 10⁻⁶ to 10⁻⁴. While some bars are slightly below the 10⁻⁶ line, stating the range starts at 10⁻⁷ is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "peaking near 10⁻⁴ at block 79",
+          "evidence": "The peak sensitivity value is not at block 79; the tallest bar is at block 78. Furthermore, its value is significantly above 10⁻⁴, closer to 2x10⁻⁴."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "as part of the PM-KVQ framework for progressive mixed-precision KV cache quantization.",
+          "evidence": "This phrase introduces external information from the paper's title to interpret the chart's purpose, which violates the prompt's requirement to describe only what is shown."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "indicating the degree to which each block’s performance degrades under quantization.",
+          "evidence": "This clause interprets the meaning of \"Sensitivity\" rather than just stating the axis label, which goes against the prompt's instruction to be objective and avoid interpretation."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "revealing that 4-Fbit quantization consistently exhibits higher sensitivity (i.e., greater performance impact) than 2-Fbit across these later blocks",
+          "evidence": "This is an interpretive comparison that also defines sensitivity as 'performance impact'. The prompt asks to avoid comparisons unless explicitly labeled and to avoid interpretation."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.0
+}

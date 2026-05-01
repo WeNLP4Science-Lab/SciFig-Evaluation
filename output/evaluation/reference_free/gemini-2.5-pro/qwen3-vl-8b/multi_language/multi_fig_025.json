@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_025",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with gridlines marking integer intervals",
+          "evidence": "The major gridlines on the y-axis are at intervals of 2 (0, 2, 4, 6, 8, 10), not every integer."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The prompt requires the description to include representative values from the shortest and highest bars. The generated text does not provide any specific numerical values from the chart, such as the total number of experts for the highest bar (Layer 1, approximately 9) or the lowest bars (e.g., Layer 7, with a total of 3)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "without indicating any trend or pattern beyond the discrete values shown",
+          "evidence": "This part of the sentence offers a conclusion about the data (the absence of a trend), which is a form of interpretation explicitly forbidden by the prompt's instructions to avoid making conclusions."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "数值间隔为1单位",
+          "evidence": "The description states that the numerical interval for the y-axis is 1 unit, but the labeled gridlines on the axis show an interval of 2 units (0, 2, 4, 6, 8, 10)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在Layer 10，G0部分高度约为1，G1部分高度约为2，G2部分高度约为1，总高度约为4。",
+          "evidence": "The description incorrectly states the values for Layer 10. The figure shows G0 is 1, G1 (green part, from y=1 to y=2) is 1, and G2 (yellow part, from y=2 to y=4) is 2. The description swaps the values for G1 and G2, stating G1 is ~2 and G2 is ~1."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "便于识别各组别",
+          "evidence": "This phrase, which translates to 'making it easy to identify each group', is a subjective evaluation of the chart's clarity and not a purely objective description of its features."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G1 contributing about 3, and G0 contributing around 2",
+          "evidence": "The description states that for Layer 1, G1 contributes about 3 and G0 contributes around 2. However, the chart shows that the G0 (blue) segment has a value of 1, and the G1 (green) segment has a value of 4 (from y=1 to y=5)."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit einem linearen Skalenintervall von 0 bis 10",
+          "evidence": "The description states that the scale interval is 0 to 10. This is the range of the y-axis. The actual tick interval (Skalenintervall) is 2, as shown by the labels 0, 2, 4, 6, 8, 10."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während der niedrigste Balken bei Schicht 7 und 23 jeweils etwa 3 erreicht",
+          "evidence": "This statement is incomplete. While the bars for layers 7 and 23 are among the lowest with a value of 3, the bars for layers 11, 12, 13, 14, 15, and 24 also have this same minimum value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Sortierung der Gruppen innerhalb der Schichten",
+          "evidence": "The description claims there is no sorting of groups within the layers. This is incorrect, as the stacking order is consistently G0 (blue) at the bottom, followed by G1 (green), and G2 (yellow) on top for every bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention a highly consistent trend visible in the chart: the value for the G0 group (the blue segment) is constant at 1 for all 24 layers."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.5
+}

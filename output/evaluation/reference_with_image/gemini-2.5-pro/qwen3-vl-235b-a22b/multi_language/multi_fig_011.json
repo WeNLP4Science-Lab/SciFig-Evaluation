@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_011",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "с кръгли маркери",
+          "evidence": "The description claims that the 'attn_output' line has round markers ('с кръгли маркери'), but none of the lines in the plot have any markers. This error is repeated for 'ffn_output' and 'attn_residual' as well."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достигайки стойност около 150 при слой 20",
+          "evidence": "The description states that the `ffn_residual` (red line) reaches a value of about 150 at layer 20. However, the plot shows the value at layer 20 is approximately 125."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "Няма видими участъци без промяна или спадове — всички линии показват монотонно или почти монотонно нарастване, особено в последните слоеве.",
+          "evidence": "This statement claims that all lines show a monotonic or almost monotonic increase. This is incorrect, as the 'attn_output' (blue dashed line) has a visible dip around layer 21 before it rises steeply."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "该图表展示了在不同门控配置下，Transformer模型各层中“atten_output_gate”相关组件的最大激活值随层数变化的趋势，旨在比较大规模激活与注意力沉没现象的出现情况；",
+          "evidence": "The description introduces external context from the paper caption ('in different gating configurations', 'aiming to compare... attention sink phenomena'). The figure itself only displays one specific scenario and does not show a comparison of different configurations."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "绿色虚线“ffn_output”",
+          "evidence": "The description incorrectly identifies the line style for 'ffn_output' as '虚线' (dashed line), when the legend and plot show it as a dash-dot line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "第22层达到约160",
+          "evidence": "The description states that the 'ffn_output' line reaches about 160 at layer 22. However, the chart shows this value is reached at the final data point (layer 23), while at layer 22, the value is approximately 30."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "第22层达到约260",
+          "evidence": "The description states that the 'attn_residual' line reaches about 260 at layer 22. However, the chart shows this value is reached at the final data point (layer 23), while at layer 22, the value is approximately 180."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "第22层达到约390",
+          "evidence": "The description states that the 'ffn_residual' line reaches about 390 at layer 22. However, the chart shows this value is reached at the final data point (layer 23), which is approximately 380-390. The value at layer 22 is only around 140."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "green dashed line",
+          "evidence": "The green line corresponding to `ffn_output` has a dash-dot pattern, not a dashed pattern. The blue line is the dashed one."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "remain relatively flat through Layer 10",
+          "evidence": "This is an over-generalization as the `attn_residual` and `ffn_residual` lines show a clear, non-flat upward trend from the beginning, reaching a value of about 25-30 by Layer 10."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The plot visually emphasizes the explosive growth in activation values for residual components in later layers, particularly for `ffn_residual`, while output components show delayed but still substantial growth.",
+          "evidence": "This sentence provides a summary using subjective and interpretive language (e.g., 'explosive growth,' 'substantial growth') rather than a neutral, factual description of the plot's data."
+        }
+      ],
+      "mqm_score": 95.5,
+      "total_penalty": 4.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with circular markers",
+          "evidence": "The description incorrectly states that the 'attn_output' line has circular markers, but the line in the chart does not have any markers."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with circular markers",
+          "evidence": "The description incorrectly states that the 'ffn_output' line has circular markers, but the line in the chart does not have any markers."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with circular markers",
+          "evidence": "The description incorrectly states that the 'attn_residual' line has circular markers, but the line in the chart does not have any markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "about 170",
+          "evidence": "The 'ffn_output' line (green) reaches a value of approximately 160 at layer 23, not 170 as stated."
+        }
+      ],
+      "mqm_score": 87.5,
+      "total_penalty": 12.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.0
+}

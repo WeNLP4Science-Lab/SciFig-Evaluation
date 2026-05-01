@@ -1,0 +1,73 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-20T13:33:27.992383+00:00",
+  "evaluations": [
+    {
+      "question_id": "ml009_q1",
+      "question": "At which layer does the ffn_residual (red) line first reach a value above 1400?",
+      "expected_answer": "~5",
+      "model_answer": "The ffn_residual (red) line first reaches a value above 1400 at approximately layer **5**.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Model's answer matches expected approximate value.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q2",
+      "question": "How many distinct spikes (peaks rising above 200 and returning near zero) does the ffn_output (green) line exhibit?",
+      "expected_answer": "3",
+      "model_answer": "The ffn_output (green) line exhibits **6** distinct spikes.",
+      "answer_type": "exact",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model's answer is incorrect; expected 3 spikes.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q3",
+      "question": "At approximately which layer does the attn_residual line first exceed the ffn_residual line?",
+      "expected_answer": "~15-19",
+      "model_answer": "The attn_residual line first exceeds the ffn_residual line at approximately layer 5.  This signifies that the attention mechanism is contributing more strongly to the activation value at this point in the model.  It indicates as the input progresses through the network the attention mechanism is becoming more influential.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        15,
+        19
+      ],
+      "score": 0.0,
+      "reason": "Answer outside acceptable range [15, 19].",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q4",
+      "question": "What is the approximate Max Activation Value of the ffn_output line at its second spike?",
+      "expected_answer": "~1000",
+      "model_answer": "The approximate Max Activation Value of the ffn_output line at its second spike is around 1150.  The second spike is clearly visible at this value, representing a significant peak in the activation.  It's a noticeably higher activation compared to the surrounding values.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        950,
+        1000
+      ],
+      "score": 0.0,
+      "reason": "Answer outside acceptable range.",
+      "excluded": false
+    },
+    {
+      "question_id": "ml009_q5",
+      "question": "Between layers 6 and 20, which line maintains the highest sustained Max Activation Value, and what is that approximate value?",
+      "expected_answer": "ffn_residual (red) or attn_residual (orange), both sustaining ~1500-1600",
+      "model_answer": "The `ffn_residual` (red solid) line maintains the highest sustained Max Activation Value between layers 6 and 20. Its approximate value is **1450**.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Value within expected approximate range.",
+      "excluded": false
+    }
+  ],
+  "average_score": 0.4,
+  "total_scored": 5,
+  "total_excluded": 0
+}

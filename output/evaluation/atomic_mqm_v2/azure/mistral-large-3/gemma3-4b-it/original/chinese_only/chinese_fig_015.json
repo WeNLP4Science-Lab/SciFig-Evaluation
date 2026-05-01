@@ -1,0 +1,141 @@
+{
+  "figure_key": "chinese_fig_015",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 18,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色线在 x 轴的 0 到 10 之间稳定，然后下降到约 0.41",
+      "evidence": "蓝色线在x=0时约为1.25，迅速下降，在第5次迭代后趋于平稳，最终在第30次迭代时收敛至约0.45，而非0.41。",
+      "atom_id": "series1_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色线在 x 轴的 0 到 10 之间略有下降，然后达到约 0.54，随后在 x 轴的 10 到 30 之间线性下降",
+      "evidence": "橙色线起始值略低于1.1，下降速度快于蓝色线，最终在第30次迭代时下降至约0.40，而非0.54。此外，红色线并非在x=10时达到0.54，而是持续下降。",
+      "atom_id": "series2_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红线表示该模型的“语音级别后”",
+      "evidence": "图例和原子描述中橙色线表示“语音增强后”，而非红线。",
+      "atom_id": "series2_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "两种模型都带有标记的散点",
+      "evidence": "图中两条线均为实线，未显示散点标记。",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "此图显示了两个语音模型在 MuST-C 英语-德语训练期间的目标端预测概率分布的不一致程度",
+      "evidence": "图表未提及MuST-C英语-德语训练，且y轴标签为“目标端概率分布不一致程度”，而非“预测概率分布的不一致程度”。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确提及y轴的刻度范围（0.4到约1.2）和刻度间隔（0.2）。",
+      "atom_id": "y_axis_scale"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及蓝色线起始值约为1.25。",
+      "atom_id": "series1_start"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明橙色线在各个迭代阶段均低于蓝色线。",
+      "atom_id": "series2_comparison"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及橙色线下降速度略快于蓝色线。",
+      "atom_id": "series2_speed"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "以不同分数的分割度量为基础",
+      "evidence": "图表未提及任何关于“分数的分割度量”的信息。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "MuST-C 英语-德语训练",
+      "evidence": "图表未提及MuST-C英语-德语训练相关信息。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "这些散点显示了一种弱的、以及总体上不太稳定的趋势",
+      "evidence": "描述含糊不清，未明确说明趋势的具体含义，且图中无散点标记。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "蓝色线在 x 轴的 0 到 10 之间稳定",
+      "evidence": "蓝色线在0到5次迭代间迅速下降，并非稳定。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 56.67,
+  "total_penalty": 39.0,
+  "atom_coverage": {
+    "correct": 10,
+    "inaccurate": 4,
+    "missing": 4,
+    "total": 18,
+    "accuracy": 0.7143,
+    "completeness": 0.7143
+  }
+}

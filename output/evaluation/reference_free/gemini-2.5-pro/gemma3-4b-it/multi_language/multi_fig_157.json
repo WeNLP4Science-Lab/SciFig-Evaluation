@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_157",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "for three different bit depths – 4-bit, 2-bit, and 2-bit",
+          "evidence": "The chart legend and data show only two categories, '4-Fbit' and '2-Fbit', not three."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick intervals of 20",
+          "evidence": "The tick intervals on the horizontal axis are not regularly 20; the first interval is 19 (from 0 to 19)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick intervals of 0.1 * 10-6",
+          "evidence": "The vertical axis has a logarithmic scale, not a linear scale with fixed intervals. The major tick labels are powers of 10 (10^-6, 10^-5, 10^-4)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reaching a maximum value of approximately 10-4 at block index 79",
+          "evidence": "The maximum value for the blue bars is visibly above the 10^-4 gridline (closer to 2*10^-4) and occurs at block index 78, not 79."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "peaking at approximately 8.5 * 10-5 at block index 79",
+          "evidence": "The green bars do not extend past block index ~57 and their maximum value is approximately 4*10^-6, not 8.5 * 10^-5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The dark green bar represents the sensitivity index for the 2-bit representation, ranging from approximately 1.3 * 10-6 to around 4.8 * 10-5.",
+          "evidence": "There is no 'dark green bar' category in the chart; there is only one shade of green, which corresponds to '2-Fbit'. The associated values are also incorrect for the existing green bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "All three bars are sorted in descending order of sensitivity index",
+          "evidence": "The bars are not sorted by sensitivity (height). They are ordered along the x-axis by 'Block Index'."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "with the 4-bit representation consistently exhibiting the highest sensitivity across the block index range",
+          "evidence": "This is an interpretation, which the prompt forbids. It is also factually incorrect, as there are several instances (e.g., around block index 45-57) where green bars (2-Fbit) are taller than adjacent blue bars (4-Fbit)."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 68.0
+}

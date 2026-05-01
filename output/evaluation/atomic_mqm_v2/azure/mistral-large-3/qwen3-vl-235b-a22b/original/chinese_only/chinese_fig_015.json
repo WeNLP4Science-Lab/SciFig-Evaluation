@@ -1,0 +1,96 @@
+{
+  "figure_key": "chinese_fig_015",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 18,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "下降速度略缓于蓝色线",
+      "evidence": "The orange line (语音增强后) descends faster than the blue line (语音增强前), not slower, as shown in the image.",
+      "atom_id": "series2_speed"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在第5次迭代时约0.55",
+      "evidence": "The blue line at iteration 5 is closer to ~0.58, not 0.55, but this is within the ±10% tolerance for axis values. However, the atom specifies a rapid drop without a precise value, so this is a minor discrepancy.",
+      "atom_id": "series1_trend"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在第30次迭代时稳定在0.44左右",
+      "evidence": "The blue line at iteration 30 is closer to ~0.45, not 0.44, but this is within the ±10% tolerance for axis values.",
+      "atom_id": "series1_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在第30次迭代时稳定于约0.38",
+      "evidence": "The orange line at iteration 30 is closer to ~0.40, not 0.38, but this is within the ±10% tolerance for axis values.",
+      "atom_id": "series2_end"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description mentions the context (MuST-C English-to-German training) but omits the explicit purpose stated in the atom: '展示了两个数据集在不同迭代次数下目标端概率分布不一致程度的变化'.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "在MuST-C英语到德语训练过程中",
+      "evidence": "The image and atoms do not mention MuST-C, English-to-German training, or any specific dataset. This is an unsupported addition.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "用于比较语音增强前与增强后两种条件下的分布稳定性",
+      "evidence": "The description adds interpretive language ('分布稳定性') not present in the image or atoms, which focus on '不一致程度'.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "且波动更小",
+      "evidence": "The description adds an unsupported claim about the orange line having smaller fluctuations, which is not explicitly shown or stated in the image or atoms.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 78.89,
+  "total_penalty": 19.0,
+  "atom_coverage": {
+    "correct": 13,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 18,
+    "accuracy": 0.7647,
+    "completeness": 0.9286
+  }
+}

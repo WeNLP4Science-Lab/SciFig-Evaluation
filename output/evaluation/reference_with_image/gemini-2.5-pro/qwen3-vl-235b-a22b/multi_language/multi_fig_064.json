@@ -1,0 +1,218 @@
+{
+  "figure_key": "multi_fig_064",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranges from 0 to 220",
+          "evidence": "The y-axis range visibly starts from 20, not 0. The first labeled tick mark is 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in increments of 20",
+          "evidence": "The increments on the y-axis are 40 (20, 60, 100, 140, 180, 220), not 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "each domain containing six grouped bars",
+          "evidence": "Each domain (e.g., Movies) contains nine bars, not six. There are three bars for each of the three models (Llama3, Qwen2, ChatGPT), totaling nine bars per domain."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "solid for Acc=0 & GT Ans, cross-hatched for Acc=0 & Gene Ans, and outlined for Acc=1 & GT Ans",
+          "evidence": "The description incorrectly maps the bar patterns to their meanings. According to the legend and the chart: 'Acc=0 & GT Ans' is represented by a cross-hatched/checkered pattern (not solid); 'Acc=0 & Gene Ans' is represented by a striped pattern (not cross-hatched); and 'Acc=1 & GT Ans' is represented by a solid color fill (described as 'outlined' which is also incorrect)."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at intervals of 20",
+          "evidence": "The tick marks on the y-axis are at intervals of 40 (20, 60, 100, 140, 180, 220), not 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each domain contains six bars grouped by model",
+          "evidence": "Each domain (Movies, Songs, Basketball) contains nine bars, not six. There are three groups of three bars, one group for each model (Llama3, Qwen2, ChatGPT)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "each distinguished by fill pattern (solid, crosshatched, or diagonal lines) as indicated in the legend",
+          "evidence": "The description incorrectly identifies one of the patterns as 'crosshatched'. The legend and bars show a dotted pattern, not a crosshatched one. The description is also ambiguous as it does not map which pattern corresponds to which metric."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with Llama3’s “Acc=0 & GT Ans” reaching ~70",
+          "evidence": "In the 'Songs' category, the bar for Llama3's “Acc=0 & GT Ans” (blue, dotted) has a popularity value of approximately 58, not 70."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Llama3’s “Acc=0 & GT Ans” is ~150",
+          "evidence": "In the 'Basketball' category, the bar for Llama3’s “Acc=0 & GT Ans” (blue, dotted) has a popularity value of approximately 102, not 150. The value 150 corresponds to Llama3's 'Acc=0 & Gene Ans' bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Qwen2’s “Acc=0 & GT Ans” reaches ~185",
+          "evidence": "In the 'Basketball' category, the bar for Qwen2’s “Acc=0 & GT Ans” (red, dotted) has a popularity value of approximately 100, not 185. The value 185 corresponds to Qwen2's 'Acc=0 & Gene Ans' bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ChatGPT’s “Acc=1 & GT Ans” is ~170",
+          "evidence": "In the 'Basketball' category, the bar for ChatGPT’s “Acc=1 & GT Ans” (yellow, solid) has a popularity value of approximately 138, not 170. The value 170 corresponds to ChatGPT's 'Acc=0 & Gene Ans' bar."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Across all domains, the “Acc=0 & GT Ans” bars (incorrect answers with ground truth popularity) tend to be taller than those for “Acc=0 & Gene Ans” (incorrect answers with generated answer popularity), suggesting that ground truth answers in incorrect samples are often more popular than the generated ones.",
+          "evidence": "This statement describes a trend that is the opposite of what is shown in the chart. For 8 out of the 9 model/domain pairs, the “Acc=0 & Gene Ans” (hatched) bar is taller than the “Acc=0 & GT Ans” (dotted) bar."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Qwen2 consistently shows the highest popularity values among the models for incorrect samples with ground truth answers",
+          "evidence": "This statement is factually incorrect. For 'incorrect samples with ground truth answers' (the dotted bars, Acc=0 & GT Ans), Llama3 has the highest value in Movies (~25) and Songs (~58), and its value is slightly higher than Qwen2's in Basketball (~102 vs ~100)."
+        }
+      ],
+      "mqm_score": 65.0,
+      "total_penalty": 35.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "von 0 bis 220",
+          "evidence": "The y-axis scale starts at 20, not 0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit Tick-Markierungen in 20er-Schritten",
+          "evidence": "The tick marks on the y-axis are in increments of 40 (20, 60, 100, 140, 180, 220), not 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Jede Kategorie enthält sechs Balken",
+          "evidence": "Each category on the x-axis (Movies, Songs, Basketball) contains nine bars, not six. There are three models, each with three different answer conditions/patterns."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ein gestreifter Balken (Acc=0 & GT Ans)",
+          "evidence": "The legend indicates that 'Acc=0 & GT Ans' corresponds to the checkered/dotted pattern, not a striped bar."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ein punktiert-gestreifter Balken (Acc=0 & Gene Ans)",
+          "evidence": "The legend indicates that 'Acc=0 & Gene Ans' corresponds to the striped pattern, not a 'dotted-striped' one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ChatGPT in Acc=1 & GT Ans am höchsten bei etwa 55",
+          "evidence": "The value for the solid yellow bar (ChatGPT, Acc=1 & GT Ans) in the 'Movies' category is approximately 32, not 55. It is also not the highest bar in that category."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Llama3 (Acc=0 & GT Ans) bei etwa 70",
+          "evidence": "The value for the checkered blue bar (Llama3, Acc=0 & GT Ans) in the 'Songs' category is approximately 58, not 70."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Qwen2 (Acc=0 & GT Ans) bei etwa 65",
+          "evidence": "The value for the checkered red bar (Qwen2, Acc=0 & GT Ans) in the 'Songs' category is approximately 58, not 65."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Llama3 (Acc=0 & GT Ans) liegt bei etwa 150",
+          "evidence": "The value for the checkered blue bar (Llama3, Acc=0 & GT Ans) in the 'Basketball' category is approximately 102, not 150. The description seems to be reporting the value for the striped blue bar (Acc=0 & Gene Ans) instead."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Qwen2 (Acc=0 & GT Ans) bei etwa 185",
+          "evidence": "The value for the checkered red bar (Qwen2, Acc=0 & GT Ans) in the 'Basketball' category is approximately 102, not 185. The description seems to be reporting the value for the striped red bar (Acc=0 & Gene Ans) instead."
+        }
+      ],
+      "mqm_score": 50.0,
+      "total_penalty": 50.0,
+      "error_count": 10,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 65.0
+}

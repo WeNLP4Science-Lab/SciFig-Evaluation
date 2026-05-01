@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_046",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色带圆点标记的实线",
+      "evidence": "The red line representing the \"Teacher\" scheme has star-shaped markers, not round dots (\"圆点\"). The green line has round dots."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "F1值从0时的约70.2开始",
+      "evidence": "The blue line for the \"Self-Training\" scheme starts exactly at F1 = 70.0 when the missing label rate is 0, not approximately 70.2."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "在漏标率0.2前略有下降后趋于平缓，至0.4后加速下降",
+      "evidence": "This describes the rate of change (\"tends to be flat\", \"accelerates decline\") which is an interpretation of the trend. The prompt asks to describe the variation by noting data points, not by interpreting the rate of change."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "三条曲线均显示F1分数随漏标率升高而降低，但下降速率和幅度各异。",
+      "evidence": "This sentence compares the trends and rates of decline across the three lines, which is explicitly forbidden by the generation prompt's instruction: \"Avoid comparing different lines.\""
+    }
+  ],
+  "mqm_score": 88.0,
+  "total_penalty": 12.0,
+  "error_count": 4
+}

@@ -1,0 +1,84 @@
+{
+  "figure_key": "chinese_fig_110",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表中共有四组柱状图",
+      "evidence": "The chart contains five groups of bars, not four. There is a group for each test set from Test1 to Test5."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 Test1 中，绿色柱最高（约 26%），其他依次为黄色（约 24%）、深绿色（约 23.5%）和蓝色（约 23%）",
+      "evidence": "The ranking of the bars in Test1 is incorrect. The actual descending order by height is green (~26.5%), blue (~24.5%), dark green (~24%), and yellow (~23.5%). The description also reports an incorrect value for the blue bar, stating 23% when it is approximately 24.5%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 Test3 中，绿色柱最高（约 24%）",
+      "evidence": "This statement is false. In the 'Test3' group, the yellow bar (d-vector) is the highest, with a value of approximately 25%, while the green bar is lower, at about 24.5%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色（约 23.5%）",
+      "evidence": "In the description for Test3, the value for the yellow bar is stated as approximately 23.5%. The actual value shown in the chart is approximately 25%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色（约 20.5%）、黄色（约 20%）",
+      "evidence": "In the description for Test4, the values for the blue and yellow bars are incorrect. The chart shows the blue bar at approximately 21.5% and the yellow bar at approximately 22.5%."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "其他三根柱子高度相近",
+      "evidence": "In the description for Test4, this phrase over-generalizes the data. The bars have visibly different heights of approximately 22.5%, 21.5%, and 20.5%."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "均为约 20%",
+      "evidence": "In the description for Test5, stating that the other three bars are all approximately 20% is an oversimplification. The blue bar is visibly higher (at ~20.5%) than the yellow and dark green bars (which are at ~20%)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "整体来看，绿色柱在所有测试集中均为最高",
+      "evidence": "This summary statement is factually incorrect. In the Test3 group, the yellow bar (d-vector) is higher than the green bar."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "但整体趋势是蓝色、黄色和深绿色的柱子高度相近且低于绿色柱",
+      "evidence": "This part of the sentence provides a summary of an overall trend, which is a form of interpretation that was explicitly forbidden by the generation prompt."
+    }
+  ],
+  "mqm_score": 66.5,
+  "total_penalty": 33.5,
+  "error_count": 9
+}

@@ -1,0 +1,87 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "low_contrast",
+  "figure_type": "Bar Chart",
+  "language": "English",
+  "num_atoms": 17,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "scaled from -22 to -27",
+      "evidence": "The y-axis range is from -27 to -22, not -22 to -27. Bars start from -22 downwards towards -27.",
+      "atom_id": "english_fig_085_axis_range_0"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Within each specialty group, there are seven bars: one light blue bar representing the base model (Mistralv0.2-Base), and six colored bars (light orange to dark brown) representing models fine-tuned on each of the six specialties.",
+      "evidence": "Each specialty group contains only six bars, not seven. The six bars correspond to the base model (light blue) and five fine-tuned models (not six), as the fine-tuned model for the specialty itself is not repeated.",
+      "atom_id": "english_fig_085_bar_items_listed"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the fine-tuned model corresponding to that specialty (e.g., the \"Cardio\" fine-tuned model in the \"Cardio\" group) typically exhibits the lowest (most negative) log probability",
+      "evidence": "The fine-tuned model for the corresponding specialty does not always exhibit the lowest (most negative) log probability. For example, in the 'Cardio' group, the 'Cardio' fine-tuned bar is not the lowest; the base model (light blue) is the tallest (least negative).",
+      "atom_id": "english_fig_085_sent_6"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that all bars start from -22 downwards towards -27.",
+      "atom_id": "english_fig_085_sent_9"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "indicating higher likelihood or better performance on its respective specialty terms. The base model consistently shows higher (less negative) log probabilities across all specialties, suggesting lower performance compared to fine-tuned models. The chart visually emphasizes that fine-tuning improves model performance on specialty-specific terms, with the most significant improvement observed when the model is fine-tuned on the same specialty as the evaluation terms.",
+      "evidence": "The description includes interpretation and inference about model performance and likelihood, which is not explicitly shown in the figure. The figure only shows negative log probabilities without implying performance or likelihood.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "the fine-tuned model corresponding to that specialty (e.g., the \"Cardio\" fine-tuned model in the \"Cardio\" group) typically exhibits the lowest (most negative) log probability",
+      "evidence": "The use of 'typically' is an over-generalization, as the fine-tuned model for the corresponding specialty does not consistently exhibit the lowest log probability.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The bars are arranged in groups by specialty, with each group containing one base model bar and six fine-tuned model bars, and the bars are sorted within each group from left to right by specialty in the order: Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics.",
+      "evidence": "The sentence is overly verbose and redundant, as it repeats information about the bar arrangement and sorting that was already mentioned earlier in the description.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 74.12,
+  "total_penalty": 22.0,
+  "atom_coverage": {
+    "correct": 13,
+    "inaccurate": 3,
+    "missing": 1,
+    "total": 17,
+    "accuracy": 0.8125,
+    "completeness": 0.9286
+  }
+}

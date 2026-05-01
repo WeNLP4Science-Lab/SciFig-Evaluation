@@ -1,0 +1,70 @@
+{
+  "figure_key": "bulgarian_fig_014",
+  "subfolder": "bulgarian_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T18:42:24.771484+00:00",
+  "evaluations": [
+    {
+      "question_id": "bg014_q1",
+      "question": "Коя година показва най-стръмен спад от месец VI до месец VIII и приблизително колко е спадът?",
+      "expected_answer": "2022, ~36 000",
+      "model_answer": "Най-стръмният спад от месец VI до месец VIII се наблюдава през 2024 г. Стойността в месец VI е около 110 000, а в месец VIII – около 80 000, което означава спад от приблизително 30 000.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Year and values do not match the expected answer.",
+      "excluded": false
+    },
+    {
+      "question_id": "bg014_q2",
+      "question": "В колко месеца стойността за 2022 г. пада под 90 000?",
+      "expected_answer": "2",
+      "model_answer": "Стойността за 2022 г. пада под 90 000 в 3 месеца: месец VIII (около 80 000), месец IX (около 85 000) и месец XII (около 80 000).",
+      "answer_type": "exact",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model states 3 months; expected answer is 2 months.",
+      "excluded": false
+    },
+    {
+      "question_id": "bg014_q3",
+      "question": "В кои месеци стойността за 2024 г. е по-висока от тази за 2022 г.?",
+      "expected_answer": "II, III, V, VIII, X, XI",
+      "model_answer": "Стойността за 2024 г. е по-висока от тази за 2022 г. в месеци: III (120 000 > 105 000), VI (110 000 > 115 000? – не, 110 000 < 115 000, така че не), Всъщност, след внимателно изглеждане:\n- III: 120 000 > 105 000 → да\n- IV: 105 000 > 105 000 → не (равни)\n- V: 105 000 > 100 000 → да\n- VI: 110 000 < 115 000 → не\n- VII: 100 000 > 100 000 → не (равни)\n- VIII: 80 000 < 80 000 → не (равни)\n- IX: 90 000 > 85 000 → да\n- X: 115 000 > 105 000 → да\n- XI: 95 000 > 95 000 → не (равни)\n- XII: 110 000 < 125 000 → не\n→ Трябва да се върнем към точните стойности.\nВ месец III: 2024 (120 000) > 2022 (105 000)\nВ месец V: 2024 (105 000) > 2022 (100 000)\nВ месец IX: 2024 (90 000) > 2022 (85 000)\nВ месец X: 2024 (115 000) > 2022 (105 000)\n→ Отговор: III, V, IX, X.",
+      "answer_type": "open_ended",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model's answer doesn't align with expected months: II, III, V, VIII, X, XI.",
+      "excluded": false
+    },
+    {
+      "question_id": "bg014_q4",
+      "question": "Каква е приблизителната разлика между най-високата и най-ниската стойност за 2022 г. през цялата година?",
+      "expected_answer": "~44 000-46 000",
+      "model_answer": "45 000",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        44000,
+        46000
+      ],
+      "score": 1.0,
+      "reason": "Model's answer is within the acceptable range of 44000-46000.",
+      "excluded": false
+    },
+    {
+      "question_id": "bg014_q5",
+      "question": "В кой месец трите години имат най-близки стойности една до друга?",
+      "expected_answer": "IX",
+      "model_answer": "VII",
+      "answer_type": "open_ended",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model's answer VII doesn't align with expected IX.",
+      "excluded": false
+    }
+  ],
+  "average_score": 0.2,
+  "total_scored": 5,
+  "total_excluded": 0
+}

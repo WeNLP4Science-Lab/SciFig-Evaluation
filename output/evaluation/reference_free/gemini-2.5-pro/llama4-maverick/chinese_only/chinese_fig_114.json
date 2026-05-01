@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_114",
+  "model_name": "llama4-maverick",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x轴刻度是数值且均匀分布",
+      "evidence": "The x-axis is categorical, representing four distinct categories ('单个关键词', '两个关键词', '三个关键词', '四个关键词'). It is not a numerical scale."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图中有三条线，分别代表三种不同的模型：Transformer（蓝色实线）、GPT（绿色实线）和TiPLMT（橙色实线）。",
+      "evidence": "The chart is a grouped bar chart, not a line chart. The description incorrectly identifies the data series as 'three lines' ('三条线') and describes them with line styles ('实线')."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "GPT的覆盖率从87.34%下降到57.63%",
+      "evidence": "The final coverage rate for GPT (green bar at '四个关键词') is 54.89%, not 57.63%. The description appears to have swapped the final values for GPT and TiPLMT."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "TiPLMT的覆盖率从91.65%下降到54.89%",
+      "evidence": "The final coverage rate for TiPLMT (orange bar at '四个关键词') is 57.63%, not 54.89%. The description appears to have swapped the final values for GPT and TiPLMT."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "在单个关键词的情况下，三个模型的覆盖率最高，其中TiPLMT最高，为91.65%；而在四个关键词的情况下，覆盖率均降至最低值，其中Transformer最低，为45.46%。",
+      "evidence": "The generation prompt explicitly states to 'avoid... comparing different lines'. This part of the description compares the performance of the different models ('其中TiPLMT最高', '其中Transformer最低'), which violates that instruction."
+    }
+  ],
+  "mqm_score": 78.5,
+  "total_penalty": 21.5,
+  "error_count": 5
+}

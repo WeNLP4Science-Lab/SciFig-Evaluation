@@ -1,0 +1,60 @@
+{
+  "figure_key": "chinese_fig_033",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "这些类别按字母顺序排列",
+      "evidence": "The categories on the x-axis are not sorted alphabetically. For example, 'AVG' comes after the 'Fin' categories, and within the 'Fin' categories, the order (FinFE, FinQA, FinNA...) is not alphabetical."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "范围从0到80",
+      "evidence": "The y-axis labels range from 0 to 80, but the data values extend beyond 80, as seen in the 'FinNSP1' category where bars are close to 90. Stating the range is 0 to 80 is misleading."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "刻度以10为间隔均匀分布",
+      "evidence": "The major ticks on the y-axis are at 0, 20, 40, 60, and 80, which means the interval is 20, not 10."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "在所有任务中，“Utility”策略的得分普遍高于“Random”策略",
+      "evidence": "This is an incorrect generalization. The 'Random' strategy has higher scores than 'Utility' in three categories (FinFE, FinQA, FinNSP2), and they are approximately equal in one (FinNA). 'Utility' is only higher in four categories, so it is not 'generally higher'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在FinNA任务中，“Utility”得分约为50，“Random”约为48",
+      "evidence": "In the 'FinNA' category, the two bars are visually identical, both at a value of approximately 50. The description incorrectly states a difference between them ('50' vs '48')."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "整体上，该图通过并列柱状图直观呈现了“Utility”策略在各任务及平均性能上均优于“Random”策略。",
+      "evidence": "The claim that the 'Utility' strategy is superior in all tasks ('均优于') is factually incorrect. In several tasks, such as FinFE and FinQA, the 'Random' strategy has a higher score."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 6
+}

@@ -1,0 +1,132 @@
+{
+  "figure_key": "german_fig_002",
+  "subfolder": "german_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "German",
+  "num_atoms": 19,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die Exporte (lila Linie, linke Skala) beginnen 2020 bei etwa 135 Mrd. US-Dollar, fallen kurzzeitig auf rund 90 Mrd. US-Dollar",
+      "evidence": "Die rote Linie (Exporte) startet in 2020 bei 100 Mrd. US-Dollar, nicht 135 Mrd. US-Dollar, und fällt nicht auf 90 Mrd. US-Dollar.",
+      "atom_id": "red_line_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "steigen dann kontinuierlich bis 2023 auf etwa 175 Mrd. US-Dollar",
+      "evidence": "Die rote Linie erreicht 175 Mrd. US-Dollar bereits vor 2023 und bleibt konstant, was korrekt ist, aber der Startwert ist falsch.",
+      "atom_id": "red_line_2023"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die Importe (blaue Linie, linke Skala) starten 2020 bei etwa 200 Mrd. US-Dollar, sinken auf rund 160 Mrd. US-Dollar, steigen dann bis 2022 auf etwa 280 Mrd. US-Dollar und schwanken danach leicht, um 2023 bei etwa 260 Mrd. US-Dollar zu liegen",
+      "evidence": "Die blaue Linie (Importe) steigt bis Ende 2023 auf 350 Mrd. US-Dollar, nicht 260 Mrd. US-Dollar. Der Wert 280 Mrd. für 2022 ist ebenfalls zu niedrig (sollte ~300 sein).",
+      "atom_id": "blue_line_2022"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "blue_line_end",
+      "evidence": "Die Importe enden bei 350 Mrd. US-Dollar, nicht 260 Mrd. US-Dollar.",
+      "atom_id": "blue_line_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "lila Linie",
+      "evidence": "Die Exporte sind als rote Linie dargestellt, nicht lila.",
+      "atom_id": "red_line_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Das Saldo (blaue Balken, rechte Skala)",
+      "evidence": "Die Balken sind nicht blau, sondern grau/schwarz gestreift. Die Farbe 'blau' ist den Importen zugeordnet.",
+      "atom_id": "bars_description"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Das Saldo (blaue Balken, rechte Skala) beginnt 2020 bei etwa +40 Mrd. US-Dollar, fällt bis Mitte 2020 auf etwa -20 Mrd. US-Dollar, bleibt danach überwiegend negativ mit Werten zwischen -50 und -150 Mrd. US-Dollar, bis es Ende 2023 plötzlich auf etwa +350 Mrd. US-Dollar ansteigt",
+      "evidence": "Das Saldo beginnt bei 0, nicht bei +40 Mrd. US-Dollar, und steigt nicht auf +350 Mrd. US-Dollar. Die Balken zeigen negative Werte, die bis ~-150 reichen, aber kein positives Saldo am Ende.",
+      "atom_id": "bars_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "Die Beschreibung erwähnt nicht, dass die Balken (Saldo) auf Höhe 0 der rechten Skala beginnen und nach unten laufen.",
+      "atom_id": "bars_description"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "wobei die genauen Monate durch kleinere Ticks angedeutet sind",
+      "evidence": "Die x-Achse zeigt keine monatlichen Ticks, nur Jahresmarkierungen.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "fallen kurzzeitig auf rund 90 Mrd. US-Dollar",
+      "evidence": "Die Exporte fallen nicht auf 90 Mrd. US-Dollar; dies ist eine falsche Beobachtung.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "schwanken danach leicht",
+      "evidence": "Die Beschreibung interpretiert Schwankungen, die nicht explizit als solche im Diagramm gekennzeichnet sind.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "bis es Ende 2023 plötzlich auf etwa +350 Mrd. US-Dollar ansteigt",
+      "evidence": "Die Beschreibung suggeriert einen plötzlichen Anstieg des Saldos, der nicht im Diagramm sichtbar ist (Halluzination).",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 51.58,
+  "total_penalty": 46.0,
+  "atom_coverage": {
+    "correct": 12,
+    "inaccurate": 7,
+    "missing": 1,
+    "total": 19,
+    "accuracy": 0.6316,
+    "completeness": 0.9231
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_097",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "жълт квадратен маркер",
+          "evidence": "The markers in the plot are orange, not yellow."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "При Rank = 64, стойността нараства до около 4.0.",
+          "evidence": "The data point for Rank = 64 is visibly below the 4.0 grid line, at a value of approximately 3.8."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "значително нарастване",
+          "evidence": "The word \"значително\" (significant) is a subjective evaluation of the trend's magnitude, which is a form of interpretation forbidden by the prompt. The description should remain neutral."
+        }
+      ],
+      "mqm_score": 94.5,
+      "total_penalty": 5.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "vertical error bars",
+          "evidence": "The error bars shown in the plot are horizontal, indicating uncertainty on the x-axis, not vertical."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "it remains nearly constant at about 1.0",
+          "evidence": "The value at rank 16 is visibly lower than the value at rank 4. Describing it as 'nearly constant' is inaccurate; it shows a slight decrease from ~1.0 to ~0.8."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The trend shows that the Hessian trace increases with rank, suggesting that higher-rank adapters converge to sharper minima, while lower-rank adapters (e.g., rank 16) achieve flatter minima, which correlates with lower generalization errors as noted in the caption.",
+          "evidence": "The prompt explicitly forbids interpretation, inference, and drawing conclusions ('without making inferences or drawing conclusions. Stick to objective features only.'). This entire sentence provides an interpretation of the trend, linking it to concepts like 'sharper minima' and 'generalization errors' which are not directly plotted."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Das Diagramm zeigt die Hessian-Trace-Werte (multipliziert mit 10⁻⁵) für das COPA-Dataset in Abhängigkeit vom Rang (Rank) der Adapter in einem QLoRA-Modell.",
+          "evidence": "This introductory sentence includes information (\"Hessian-Trace-Werte\", \"Adapter in einem QLoRA-Modell\") that is not present in the figure itself but comes from the external paper caption. The figure's title is \"Traces × 10⁻⁵ (COPA)\" and the axes are \"Traces × 10⁻⁵ (COPA)\" and \"Rank\". The prompt requires describing only what is objectively visible in the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description only mentions vertical error bars (\"vertikalen Fehlern\"), but the data points also have horizontal error bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "etwa 1.0 × 10⁻⁵",
+          "evidence": "At a Rank of 4, the y-axis value is approximately 1.2, not 1.0. Additionally, since the y-axis is already labeled \"Traces × 10⁻⁵\", stating the value with the scaling factor is redundant and confusing."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt er nahezu konstant bei etwa 1.0 × 10⁻⁵",
+          "evidence": "This statement is incorrect in two ways. First, the value does not remain constant; it decreases from approximately 1.2 at Rank 4 to approximately 0.8 at Rank 16. Second, the value at Rank 16 is approximately 0.8, not 1.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "etwa 4.0 × 10⁻⁵",
+          "evidence": "At a Rank of 64, the center of the data point is clearly below the 4.0 grid line, at a value of approximately 3.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "zunächst flach",
+          "evidence": "Describing the initial trend as \"flach\" (flat) is inaccurate. The line shows a distinct drop in value between Rank 4 (value ~1.2) and Rank 16 (value ~0.8)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "eine geringe Unsicherheit anzeigen",
+          "evidence": "Stating that the error bars indicate \"geringe Unsicherheit\" (low uncertainty) is a subjective evaluation, not an objective description of the visual data as requested by the prompt."
+        }
+      ],
+      "mqm_score": 73.5,
+      "total_penalty": 26.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.83
+}

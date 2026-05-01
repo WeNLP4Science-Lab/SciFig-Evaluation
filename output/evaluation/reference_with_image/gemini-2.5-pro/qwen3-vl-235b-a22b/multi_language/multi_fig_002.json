@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "visually clustered near the 10¹ level",
+          "evidence": "For sparsity rates from 10% to 50%, the perplexity values are all clearly below the 10¹ (10) level, not just near it. They range from approximately 5 to 8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "No bars are grouped or stacked",
+          "evidence": "The chart is a grouped bar chart, with bars grouped in pairs for each sparsity rate. The statement that bars are not grouped is incorrect and contradicts the latter part of the same sentence which mentions 'two adjacent bars'."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "hovering just above 10¹",
+          "evidence": "For sparsity rates from 10% to 50%, the perplexity values for both methods are visibly below the 10¹ line, not above it. The values appear to be in the range of approximately 5 to 8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "“Per-Layer” exceeds 1000 (above 10³)",
+          "evidence": "The orange bar for the “Per-Layer” method at 80% sparsity reaches a value very close to the 10³ line (1000), but it does not visibly exceed it. Describing it as exceeding 1000 is an inaccurate exaggeration."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating a more severe degradation in performance under aggressive pruning",
+          "evidence": "This part of the sentence interprets the meaning of the perplexity metric ('degradation in performance') rather than strictly describing the visual information presented in the chart."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "“Per-Layer” exceeds 600",
+          "evidence": "The bar for 'Per-Layer' at 80% sparsity has a value of approximately 900, very close to the 1000 mark on the logarithmic scale. While 'exceeds 600' is technically true, it is a significant understatement that misrepresents the magnitude of the value and the severity of the performance degradation compared to the 'Per-Output' method."
+        }
+      ],
+      "mqm_score": 98.0,
+      "total_penalty": 2.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "10⁰,",
+          "evidence": "The y-axis does not have a labeled tick mark at 10⁰ (which is 1). The labeled ticks are at 10¹, 10², and 10³."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "liegen beide Balken nahe bei 10⁰",
+          "evidence": "At low sparsity rates (10-50%), the bar values are not close to 10⁰ (which is 1). They are visibly in the range of approximately 4 to 8, which is closer to 10¹ than 10⁰."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "liegt der „Per-Output“-Wert bei etwa 10¹",
+          "evidence": "At 70% sparsity, the blue 'Per-Output' bar is visibly well above 10¹ (which is 10), at a value of approximately 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "knapp über 10¹",
+          "evidence": "At 70% sparsity, the orange 'Per-Layer' bar is not 'just above 10¹'. It is significantly higher, at a value of approximately 30-40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "über 1000",
+          "evidence": "At 80% sparsity, the orange 'Per-Layer' bar is close to but visibly below the 10³ (1000) line, not over it."
+        }
+      ],
+      "mqm_score": 76.5,
+      "total_penalty": 23.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.5
+}

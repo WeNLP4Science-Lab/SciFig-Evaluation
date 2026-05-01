@@ -1,0 +1,299 @@
+{
+  "chinese_fig_004": {
+    "figure_key": "chinese_fig_004",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn004_h1",
+        "type": "inexist",
+        "question": "The red line in the chart representing daily new deaths reached its peak in mid-August. Approximately how many deaths does this peak correspond to?",
+        "expected_behavior": "The model should state that there is no red line representing daily new deaths in the chart. The chart only contains teal/blue-green bars (daily new confirmed cases) and a blue line (news report counts).",
+        "false_element": "Red line representing daily new deaths \u2014 the chart only shows confirmed case bars and news report line, with no death data or red line",
+        "principle": "co-occurring-absent: In a COVID chart context, a death count line is a highly expected co-occurring element; uses demonstrative phrasing to presuppose its existence",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn004_h2",
+        "type": "contra",
+        "question": "The chart shows that the left y-axis for daily new confirmed cases ranges from 0 to 2,400,000. At this scale, did the late-July peak in confirmed cases exceed 1,500,000?",
+        "expected_behavior": "The model should first correct that the left y-axis actually ranges from 0 to 1,800,000 (with step size 200,000), not 0 to 2,400,000, before addressing the peak value question.",
+        "false_premise": "Left y-axis range is 0 to 2,400,000 \u2014 actual range is 0 to 1,800,000, a ~33% offset that remains plausible as an approximate misread",
+        "principle": "subordinate-clause-embedding + anchor-drift: Embeds the wrong y-axis range in a subordinate clause, anchored ~30% above the actual value",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn004_h3",
+        "type": "unanswerable",
+        "question": "Based on the data in the chart, what is the approximate Pearson correlation coefficient between news report counts and daily new confirmed cases? Does it reach statistical significance (p<0.05)?",
+        "expected_behavior": "The model should explain that while the two variables show some visual co-variation, precise daily values cannot be extracted from the bar chart and line to calculate a Pearson correlation coefficient or significance test.",
+        "why_unanswerable": "The chart only shows visualized trends via bars and a line; exact daily values cannot be precisely extracted to compute correlation coefficients or significance tests",
+        "principle": "statistical-inference-beyond-chart: Exploits the visual co-occurrence of two variables to prompt statistical inference that cannot be performed from chart visualization alone",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_012": {
+    "figure_key": "chinese_fig_012",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn012_h1",
+        "type": "inexist",
+        "question": "The fourth line in the chart (green dashed line) represents the BERT baseline method. What is its approximate F1 score at epoch=8?",
+        "expected_behavior": "The model should state that there are only three lines in the chart (lattice, FLAT, OURS) and there is no fourth green dashed line or BERT baseline data.",
+        "false_element": "A fourth green dashed line representing BERT baseline \u2014 the chart only has three solid lines (lattice with red squares, FLAT with blue circles, OURS with yellow triangles); BERT is a common NLP baseline but absent here",
+        "principle": "domain-plausible-absent + specific-quantifier: Uses 'fourth line' to presuppose existence; BERT is a highly plausible baseline in NLP",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn012_h2",
+        "type": "contra",
+        "question": "According to the chart, the FLAT method (blue circle markers) consistently outperforms the OURS method (yellow triangle markers) throughout training, with the largest F1 gap at epoch=16. How large is this final gap approximately?",
+        "expected_behavior": "The model should correct this false premise: OURS actually outperforms or is close to FLAT for most of training, and at epoch=16, OURS (~0.90) clearly exceeds FLAT (~0.88). FLAT does not consistently outperform OURS.",
+        "false_premise": "FLAT consistently outperforms OURS with largest gap at epoch=16 \u2014 actually OURS surpasses FLAT in later epochs; at epoch=16, OURS ~0.90 vs FLAT ~0.88",
+        "principle": "relationship-reversal + temporal-specificity: Reverses the dominance relationship between two close lines, exploiting their early similarity for plausibility",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn012_h3",
+        "type": "unanswerable",
+        "question": "Based on the convergence curves of the three methods, approximately how much less average training time per epoch does OURS require compared to FLAT?",
+        "expected_behavior": "The model should note that although the chart title references '\u63a8\u7406\u901f\u5ea6\u5bf9\u7167' (inference speed comparison), the chart actually shows F1 scores over epochs and contains no information about training time or computational efficiency.",
+        "why_unanswerable": "The chart only shows F1 score vs. training epochs, containing no time or computational cost information; the title mentions 'speed comparison' but the data dimensions do not support time-based comparisons",
+        "principle": "caption-content-gap: Exploits the semantic gap between the title ('\u901f\u5ea6\u5bf9\u7167'/speed comparison) and the actual chart content (F1 vs. epoch)",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_013": {
+    "figure_key": "chinese_fig_013",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn013_h1",
+        "type": "inexist",
+        "question": "What is the percentage share of the slice labeled '\u6559\u80b2' (Education) in the pie chart? Is it larger or smaller than the '\u6587\u5316' (Culture) category?",
+        "expected_behavior": "The model should state that there is no '\u6559\u80b2' (Education) category in the pie chart. The 8 categories are: \u4f53\u80b2, \u793e\u4f1a, \u699c\u6837, \u653f\u6cbb, \u6587\u5316, \u7ecf\u6d4e, \u79d1\u5b66, \u73af\u5883\u4fdd\u62a4 \u2014 none is Education.",
+        "false_element": "'\u6559\u80b2' (Education) slice \u2014 highly plausible in a children's news context, but the chart's 8 categories do not include Education",
+        "principle": "domain-plausible-absent + demonstrative-presupposition: '\u6559\u80b2' is the most naturally expected missing category in children's news topics",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn013_h2",
+        "type": "contra",
+        "question": "The pie chart shows that '\u793e\u4f1a' (Society) has the highest share at 21%, slightly above '\u79d1\u5b66' (Science) at 20%. Given that these two categories together account for 41% of the total, do they represent the primary direction of children's long-form news?",
+        "expected_behavior": "The model should correct the premise: actually '\u79d1\u5b66' (Science) has the highest share at 21% and '\u793e\u4f1a' (Society) is at 20%. The rankings and specific values are swapped in the question.",
+        "false_premise": "\u793e\u4f1a is 21% (highest) and \u79d1\u5b66 is 20% \u2014 actually \u79d1\u5b66 is 21% and \u793e\u4f1a is 20%; the 1% difference makes detection difficult",
+        "principle": "value-swap + near-neighbor: Swaps the percentage attribution between two categories differing by only 1%, maximizing detection difficulty",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn013_h3",
+        "type": "unanswerable",
+        "question": "Given the distribution across categories in the pie chart, with '\u79d1\u5b66' and '\u793e\u4f1a' together exceeding 40%, is this distributional skew statistically significant compared to a uniform distribution (chi-square test p<0.01)?",
+        "expected_behavior": "The model should explain that the pie chart only shows percentage shares without providing the total sample size or expected frequencies needed to perform a chi-square test for uniformity.",
+        "why_unanswerable": "The pie chart shows only percentage shares without total sample counts, making it impossible to perform a chi-square test to determine if the distribution significantly deviates from uniform",
+        "principle": "statistical-test-without-data: Exploits the visual skew of percentage distribution to prompt a statistical test requiring raw count data",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_014": {
+    "figure_key": "chinese_fig_014",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn014_h1",
+        "type": "inexist",
+        "question": "The gray confidence interval bands around each data point in the left subplot indicate that the BLEU value at \u03b1=0.5 fluctuates between approximately 28.4 and 28.6. Does this confidence interval suggest high stability for this parameter setting?",
+        "expected_behavior": "The model should state that there are no gray confidence interval bands or error range annotations in either subplot. Both subplots show only a single line with data points, with no uncertainty visualization.",
+        "false_element": "Gray confidence interval bands \u2014 in hyperparameter tuning plots, confidence intervals are common accompanying elements, but this chart shows only single data points per parameter value",
+        "principle": "co-occurring-absent + presupposed-description: Naturally describes the appearance of confidence bands in a subordinate clause, presupposing their existence",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn014_h2",
+        "type": "contra",
+        "question": "The right subplot shows that parameter p has a larger effect on BLEU scores than parameter \u03b1 in the left subplot. Given this, should p be considered a more critical hyperparameter than \u03b1?",
+        "expected_behavior": "The model should correct this premise: the left subplot shows \u03b1 varying BLEU by ~0.55 (from ~28.0 to ~28.55), while the right subplot shows p varying BLEU by only ~0.25 (from ~28.3 to ~28.55). \u03b1 has a clearly larger effect than p.",
+        "false_premise": "p has a larger effect than \u03b1 \u2014 actually \u03b1's BLEU range (~0.55) is much larger than p's range (~0.25); the relationship is reversed",
+        "principle": "cross-panel-reversal: Reverses the comparison conclusion between two side-by-side subplots, exploiting the cognitive load of cross-panel comparison",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn014_h3",
+        "type": "unanswerable",
+        "question": "Based on both subplots, if \u03b1 is set to 0.5 and p is set to 0.15 simultaneously, would the expected BLEU score exceed 28.6?",
+        "expected_behavior": "The model should explain that the two subplots each show the effect of a single parameter independently, and the interaction effect between \u03b1 and p cannot be inferred from these separate plots.",
+        "why_unanswerable": "Each subplot varies only one parameter independently; no interaction effect between \u03b1 and p is shown, making it impossible to predict the BLEU score under joint optimization",
+        "principle": "interaction-inference: Exploits two independent single-variable plots to prompt inference about bivariate interaction effects",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_035": {
+    "figure_key": "chinese_fig_035",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn035_h1",
+        "type": "inexist",
+        "question": "What is the approximate path length of the third line (green dashed, representing '\u76ee\u6807\u7f51\u7edc'/Target Network) at the B2 proficiency level? Does it fall between \u4e2d\u4ecb\u7f51\u7edc and \u968f\u673a\u7f51\u7edc?",
+        "expected_behavior": "The model should state that there are only two lines in the chart: red triangle markers for '\u4e2d\u4ecb\u7f51\u7edc' and blue star markers for '\u968f\u673a\u7f51\u7edc'. There is no third green dashed line or '\u76ee\u6807\u7f51\u7edc'.",
+        "false_element": "'\u76ee\u6807\u7f51\u7edc' (Target Network) green dashed line \u2014 in network analysis, a 'target network' is a plausible third comparison object, but only \u4e2d\u4ecb\u7f51\u7edc and \u968f\u673a\u7f51\u7edc are shown",
+        "principle": "domain-plausible-absent + quantifier-presupposition: Uses 'third line' to presuppose existence; target network is a reasonable comparison baseline in network analysis",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn035_h2",
+        "type": "contra",
+        "question": "The chart shows that \u4e2d\u4ecb\u7f51\u7edc reaches a local maximum at the B1 proficiency level with a path length of approximately 3.42, then declines at B2. What linguistic phenomenon does this B1-to-B2 decline reflect?",
+        "expected_behavior": "The model should correct that \u4e2d\u4ecb\u7f51\u7edc at B1 is approximately 3.179 (not 3.42), which is actually a local minimum, not maximum. From B1 to B2, the value slightly increases (3.179\u21923.235), not decreases. 3.42 is closer to the C2 value.",
+        "false_premise": "\u4e2d\u4ecb\u7f51\u7edc at B1 is ~3.42 (local maximum) and declines to B2 \u2014 actually B1 is 3.179 (local minimum), B2 rises to 3.235; 3.42 is near the C2 value, used as displacement anchor",
+        "principle": "value-displacement + trend-reversal: Displaces a C2-region value to B1 and reverses the B1-B2 trend direction, exploiting dense chart annotations that are hard to verify individually",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn035_h3",
+        "type": "unanswerable",
+        "question": "Given the path length difference between \u4e2d\u4ecb\u7f51\u7edc and \u968f\u673a\u7f51\u7edc at the native-speaker level (5.204\u22123.685=1.519), does this gap indicate that native speakers' lexical networks have significantly higher connectivity efficiency (effect size d>0.8)?",
+        "expected_behavior": "The model should explain that while the numerical difference can be read from the chart, Cohen's d cannot be calculated without standard deviations, sample sizes, or any variability information.",
+        "why_unanswerable": "The chart shows only point estimates of average path length without standard deviations, confidence intervals, or sample sizes needed to compute effect sizes",
+        "principle": "effect-size-without-variance: Exploits a directly calculable difference to prompt inference about effect size, which requires variance information",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_042": {
+    "figure_key": "chinese_fig_042",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn042_h1",
+        "type": "inexist",
+        "question": "How many test set samples does the green bar represent for the '\u89d2\u8272\u8bc6\u522b' (Role Recognition) task? Is it significantly lower than the validation set count of 190?",
+        "expected_behavior": "The model should state that there is no green bar or test set data in the chart. The chart only contains blue bars (\u8bad\u7ec3\u96c6\u6570\u91cf/training set), orange bars (\u9a8c\u8bc1\u96c6\u6570\u91cf/validation set), and a gray line (\u51c6\u786e\u7387/accuracy).",
+        "false_element": "Green bar representing test set count \u2014 in a training/validation split chart, a test set is the most natural missing third dataset category",
+        "principle": "co-occurring-absent + demonstrative: Presupposes test set existence via 'the green bar'; the train/val/test split is standard ML convention",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn042_h2",
+        "type": "contra",
+        "question": "The chart shows that '\u7a7a\u95f4\u63a8\u7406' (Spatial Reasoning) has the highest accuracy at 0.8714, while '\u89d2\u8272\u8bc6\u522b' (Role Recognition) has the lowest at 0.2852. Given their similar training set sizes, what factors might explain this large accuracy gap?",
+        "expected_behavior": "The model should correct that '\u89d2\u8272\u8bc6\u522b' actually has the highest accuracy at 0.8714, while '\u7a7a\u95f4\u63a8\u7406' has the lowest at 0.2852. The question swaps the accuracy values between these two tasks.",
+        "false_premise": "\u7a7a\u95f4\u63a8\u7406 has accuracy 0.8714 (highest) and \u89d2\u8272\u8bc6\u522b has 0.2852 (lowest) \u2014 actually completely reversed: \u89d2\u8272\u8bc6\u522b is 0.8714 (highest), \u7a7a\u95f4\u63a8\u7406 is 0.2852 (lowest)",
+        "principle": "value-swap + exact-numbers: Uses the exact annotated values from the chart but swaps their category attribution; precise numbers increase credibility and detection difficulty",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn042_h3",
+        "type": "unanswerable",
+        "question": "Given that '\u540c\u4e49\u8bc6\u522b' (Synonym Recognition) has only 5 training samples but achieves 0.3769 accuracy, what accuracy level could be expected if its training set were expanded to match '\u5b9e\u4f53\u8bc6\u522b' (Entity Recognition) at 1,102 samples?",
+        "expected_behavior": "The model should explain that the chart only shows current training set sizes and accuracy values, providing no learning curves or performance-vs-data relationships that would support extrapolation.",
+        "why_unanswerable": "The chart shows only current training set sizes and accuracies without learning curves or data-scaling trends, making performance extrapolation impossible",
+        "principle": "extrapolation-beyond-data: Exploits training set size differences across tasks to prompt unsupported performance predictions",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_046": {
+    "figure_key": "chinese_fig_046",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn046_h1",
+        "type": "inexist",
+        "question": "The light green shaded region around the PST method line indicates the standard deviation range. How wide is this shaded band at a \u6f0f\u6807\u7387 (missing label rate) of 0.3?",
+        "expected_behavior": "The model should state that there are no shaded regions or standard deviation bands in the chart. All three lines (Teacher, Self-Training, PST) are simple line plots without error bands or confidence intervals.",
+        "false_element": "Light green shaded standard deviation region around PST line \u2014 shaded error bands are extremely common in ML performance curves, but this chart does not use them",
+        "principle": "co-occurring-absent + specific-location: Shaded error bands are ubiquitous in ML line plots; specifying a precise location (\u6f0f\u6807\u7387 0.3) adds concreteness and credibility",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn046_h2",
+        "type": "contra",
+        "question": "The chart shows that at \u6f0f\u6807\u7387=0.2, Self-Training's F1 score (~70.5) first exceeds that of Teacher (~69.0). Does this indicate that Self-Training has an advantage under moderate missing label conditions?",
+        "expected_behavior": "The model should correct that at \u6f0f\u6807\u7387=0.2, Teacher's F1 score (~69.0-69.5) is actually higher than or close to Self-Training (~68.5). Teacher outperforms Self-Training at most missing label rates; there is no crossover at 0.2.",
+        "false_premise": "Self-Training first exceeds Teacher at \u6f0f\u6807\u7387=0.2 with ~70.5 vs ~69.0 \u2014 actually Teacher still leads at this point; no crossover occurs between these two methods",
+        "principle": "crossover-fabrication + plausible-values: Fabricates a crossover point between two close lines, using values within 2-3% of actual to increase plausibility",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn046_h3",
+        "type": "unanswerable",
+        "question": "PST's F1 score at \u6f0f\u6807\u7387=0.585 (~61.5) remains significantly higher than both Teacher and Self-Training (~53 each). Is this robustness advantage statistically significant (paired t-test p<0.05)?",
+        "expected_behavior": "The model should explain that the chart shows only single F1 values per method at each missing label rate, with no repeated experiments, standard deviations, or data sufficient for a paired t-test.",
+        "why_unanswerable": "Each method has only one F1 data point per missing label rate, with no replications or variance information, making paired t-tests impossible",
+        "principle": "statistical-test-single-observation: Exploits the visually obvious performance gap to prompt a statistical test that requires multiple repeated observations",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_071": {
+    "figure_key": "chinese_fig_071",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn071_h1",
+        "type": "inexist",
+        "question": "In subplot (b), the chi-square significance markers (asterisks) above the '\u5fae\u535a' (Weibo) bar indicate a significant distributional difference from other genres. Is this significance at p<0.05 or p<0.01?",
+        "expected_behavior": "The model should state that there are no chi-square significance markers or asterisk annotations anywhere in the chart. The bars only show numerical values and percentage labels, with no statistical test visualizations.",
+        "false_element": "Chi-square significance asterisk markers above bars \u2014 significance markers are common in comparative bar charts, but this chart does not include any",
+        "principle": "co-occurring-absent + authority-anchoring: Uses specific statistical terminology (chi-square, significance level) to add academic authority, making the model more likely to accept a non-existent annotation",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn071_h2",
+        "type": "contra",
+        "question": "Subplot (a) shows that '\u4f20\u7edf\u6587\u5b66' (Traditional Literature) has the highest total word frequency, with its stacked bar clearly exceeding '\u7f51\u7edc\u5c0f\u8bf4' (Web Fiction). Given this frequency dominance, which semantic domain is most prominent in Traditional Literature?",
+        "expected_behavior": "The model should correct that '\u7f51\u7edc\u5c0f\u8bf4' (Web Fiction) actually has the highest stacked bar total (~6763), far exceeding '\u4f20\u7edf\u6587\u5b66' (Traditional Literature, ~1301). '\u65b0\u95fb' (News, ~4497) is also much higher than Traditional Literature.",
+        "false_premise": "\u4f20\u7edf\u6587\u5b66 has the highest total word frequency, exceeding \u7f51\u7edc\u5c0f\u8bf4 \u2014 actually \u7f51\u7edc\u5c0f\u8bf4 has far higher frequency than \u4f20\u7edf\u6587\u5b66, which is among the lowest",
+        "principle": "rank-reversal + subordinate-embedding: Attributes the highest frequency to an actually low-frequency category, embedding the premise in a declarative clause to make correction harder",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn071_h3",
+        "type": "unanswerable",
+        "question": "Comparing the semantic domain distributions in subplots (a) and (b), does the distributional difference between \u652f\u914d\u52a8\u8bcd (agentive verbs) and \u627f\u53d7\u52a8\u8bcd (patient verbs) in '\u7f51\u7edc\u5c0f\u8bf4' reflect the ratio of active to passive voice usage in this genre?",
+        "expected_behavior": "The model should explain that the chart shows lexical-level semantic domain frequencies, which cannot be directly mapped to syntactic structures (active/passive voice). This would require syntactic analysis data beyond what the chart provides.",
+        "why_unanswerable": "Semantic domain distribution is a lexical-level statistic that cannot be directly mapped to syntactic structures like active/passive voice; the chart contains no syntactic analysis data",
+        "principle": "cross-level-inference: Prompts inference from lexical semantic data to syntactic structural features, crossing linguistic analysis levels",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "chinese_fig_094": {
+    "figure_key": "chinese_fig_094",
+    "subfolder": "chinese_only",
+    "probes": [
+      {
+        "id": "cn094_h1",
+        "type": "inexist",
+        "question": "In the right sub-pie chart, besides '\u7684\u5b57\u9690\u4e0d\u663e' and '\u7684\u5b57\u663e\u4e0d\u9690', what is the approximate share of the third slice labeled '\u7684\u5b57\u53ef\u9690\u53ef\u663e' (de-character optionally hidden/shown)?",
+        "expected_behavior": "The model should state that the right sub-pie chart has only two slices: '\u7684\u5b57\u9690\u4e0d\u663e' (81.66%) and '\u7684\u5b57\u663e\u4e0d\u9690' (18.34%). There is no third '\u7684\u5b57\u53ef\u9690\u53ef\u663e' category.",
+        "false_element": "'\u7684\u5b57\u53ef\u9690\u53ef\u663e' category \u2014 in de-character visibility analysis, a third intermediate state is linguistically plausible but absent from the chart's binary partition",
+        "principle": "domain-plausible-absent + exhaustive-partition: Fabricates a third intermediate state in a binary classification; gray-area categories are common in linguistic research",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn094_h2",
+        "type": "contra",
+        "question": "The main pie chart shows that \u53cc\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd (disyllabic adjective + monosyllabic noun, 101 examples) accounts for 69.39%, far exceeding \u5355\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd. What linguistic implications does this disyllabic-dominant distribution have for \u7c98\u5408\u5f0f structures?",
+        "expected_behavior": "The model should correct that \u5355\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd actually accounts for 69.39% (229 examples), while \u53cc\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd is only 30.61% (101 examples). The question reverses the percentages and dominance relationship.",
+        "false_premise": "\u53cc\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd accounts for 69.39% as dominant \u2014 actually \u5355\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd is 69.39% (229 examples), \u53cc\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd is only 30.61% (101 examples)",
+        "principle": "label-swap + authoritative-framing: Swaps the percentage attribution between two slices; uses academic terminology ('linguistic implications') to increase authority and make the model more likely to accept the premise",
+        "answer_type": "binary"
+      },
+      {
+        "id": "cn094_h3",
+        "type": "unanswerable",
+        "question": "Given the 229 examples of \u5355\u97f3\u5f62\u5bb9\u8bcd+\u5355\u97f3\u540d\u8bcd structures shown in the main pie chart, what is the approximate distribution ratio of these instances between spoken and written language?",
+        "expected_behavior": "The model should explain that the pie chart only shows the distribution of syllable combination types in \u7c98\u5408\u5f0f structures, with no information about spoken vs. written language sources. The chart cannot support inference about register distribution.",
+        "why_unanswerable": "The chart categorizes data by syllable combination type only, containing no register (spoken/written) dimension, making it impossible to infer distribution across language registers",
+        "principle": "missing-dimension: Asks about a classification dimension entirely absent from the chart data, exploiting the commonality of spoken/written contrasts in linguistic research",
+        "answer_type": "binary"
+      }
+    ]
+  }
+}

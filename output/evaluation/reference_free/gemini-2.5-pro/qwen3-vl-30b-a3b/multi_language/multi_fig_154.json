@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_154",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each block index has two corresponding bars: a green bar representing 2-Fbit quantization and a blue bar representing 4-Fbit quantization.",
+          "evidence": "The chart is not a grouped bar chart with two bars for each index. Instead, each block index has a single bar that is either green (2-Fbit) or blue (4-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the 4-Fbit sensitivity consistently higher than the 2-Fbit sensitivity across all blocks.",
+          "evidence": "This comparison is incorrect and cannot be verified from the chart. For most block indices, data is only provided for one of the two methods, not both. Where both appear in nearby indices (e.g., around index 32), the 2-Fbit bar can be higher than adjacent 4-Fbit bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the 2-Fbit sensitivity is slightly lower.",
+          "evidence": "This statement refers to the sensitivity at the highest block indices (46 and 47). The chart shows no 2-Fbit (green) bars at these indices; this data point is hallucinated, likely stemming from the incorrect assumption that every index has bars for both categories."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "where the 4-Fbit sensitivity reaches approximately $10^{-4}$",
+          "evidence": "The tallest bars at indices 46 and 47 are significantly higher than the 10^-4 gridline. Their values are approximately 2x10^-4 and 3x10^-4, respectively."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "from $10^{-5}$ to $10^{-4}$",
+          "evidence": "The y-axis scale is not limited to the range between 10^-5 and 10^-4. The data values extend both below 10^-5 (down to approx. 2x10^-6) and above 10^-4 (up to approx. 3x10^-4)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The chart highlights that higher block indices are more sensitive to quantization, particularly under 4-Fbit precision.",
+          "evidence": "The phrase 'The chart highlights that...' presents a conclusion or interpretation, which the prompt instructs to avoid. The description should state the observed trend objectively without such framing."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.0
+}

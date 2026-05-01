@@ -1,0 +1,105 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-16T08:12:13.594235+00:00",
+      "raw_response": "1. Llama-1B first reaches ~0.6 coverage at about **k ≈ 32** (i.e., **2⁵**).\n\n2. At **k = 1 (2⁰)**, the gap is about **0.17** (≈0.42 for Llama-3B vs ≈0.25 for Llama-1B).\n\n3. At **k = 256 (2⁸)**, the 3B models are about **0.04** higher in coverage than the 1B models (≈0.90 vs ≈0.86, roughly).\n\n4. The Llama-3B confidence interval appears **already narrower at the first point**, so this happens at about **k = 1 (2⁰)**.\n\n5. **Yes**, Llama-3B is above Llama-1B at the leftmost point. **Yes**, that is consistent with what the figure shows.",
+      "items": [
+        {
+          "id": "en005_q1",
+          "type": "capability",
+          "question": "At approximately what number of completions (k) does Llama-1B first reach a coverage of 0.6?",
+          "model_answer": "Llama-1B first reaches ~0.6 coverage at about **k ≈ 32** (i.e., **2⁵**)."
+        },
+        {
+          "id": "en005_q2",
+          "type": "capability",
+          "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1?",
+          "model_answer": "About **0.18** coverage (≈0.43 for Llama‑3B vs ≈0.25 for Llama‑1B at k=1).",
+          "rerun_timestamp": "2026-04-18T16:14:17.610605+00:00"
+        },
+        {
+          "id": "en005_q3",
+          "type": "capability",
+          "question": "At k=256, what is the approximate coverage difference between the 3B models and the 1B models?",
+          "model_answer": "About **0.05** coverage higher for the **3B** models than the **1B** models at k=256 (≈0.92–0.93 vs ≈0.87–0.89).",
+          "rerun_timestamp": "2026-04-18T16:14:17.610618+00:00"
+        },
+        {
+          "id": "en005_h1",
+          "type": "hallucination_inexist",
+          "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+          "model_answer": "The Llama-3B confidence interval appears **already narrower at the first point**, so this happens at about **k = 1 (2⁰)**."
+        },
+        {
+          "id": "en005_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the Llama-3B line above the Llama-1B line at the leftmost data point? Is this correct?",
+          "model_answer": "**Yes**, Llama-3B is above Llama-1B at the leftmost point. **Yes**, that is consistent with what the figure shows."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-16T08:16:49.208735+00:00",
+      "raw_response": "1. From the plot, Llama‑1B coverage rises from about **0.25 at k=1** to about **0.86 at k=256**, i.e. an increase by a factor of roughly **0.86 / 0.25 ≈ 3.4×**.\n\n2. They appear closest at the largest k, **k = 256 (2^8)**. At that point, Llama‑3B is about **0.90** and Llama‑1B about **0.86**, for an approximate gap of **~0.04 (4 percentage points)**.\n\n3. A plausible explanation is that fine-tuning shifts the model’s sampling distribution to place more probability mass on *valid and diverse* outputs (less repetition/mode collapse, better adherence to the target task/format, better coverage of rarer correct answers). That advantage compounds when you take **many samples (high k)**: if the untuned model concentrates probability on a smaller set of “easy/common” completions, additional samples don’t add much new coverage, whereas the fine-tuned model continues to yield new, correct variants as k grows—hence the large gap at higher k.\n\n4. The error bars at **k=256** look **very small** for all curves (on the order of **a few thousandths to ~1 percentage point**). Approximate standard errors from the visual size of the bars:\n   - **Llama‑3B:** ~**0.005–0.01**\n   - **Llama‑3B + FT:** ~**0.005–0.01**\n   - **Llama‑1B:** ~**0.005–0.01**\n   - **Llama‑1B + FT:** ~**0.005–0.01**  \n   The Llama‑3B vs Llama‑1B gap at k=256 is ~**0.04**, which is several times larger than these SEs, so **yes, it still appears statistically significant** at that point.\n\n5. **No.** At the leftmost point (k=1), **Llama‑1B is below Llama‑3B**. **Yes, that is correct/expected** given the larger model’s higher coverage.",
+      "items": [
+        {
+          "id": "en005_q4",
+          "type": "capability",
+          "question": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?",
+          "model_answer": "From the plot, Llama‑1B coverage rises from about **0.25 at k=1** to about **0.86 at k=256**, i.e. an increase by a factor of roughly **0.86 / 0.25 ≈ 3.4×**."
+        },
+        {
+          "id": "en005_q5",
+          "type": "capability",
+          "question": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?",
+          "model_answer": "They appear closest at the largest k, **k = 256 (2^8)**. At that point, Llama‑3B is about **0.90** and Llama‑1B about **0.86**, for an approximate gap of **~0.04 (4 percentage points)**."
+        },
+        {
+          "id": "en005_h2",
+          "type": "hallucination_contra",
+          "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+          "model_answer": "A plausible explanation is that fine-tuning shifts the model’s sampling distribution to place more probability mass on *valid and diverse* outputs (less repetition/mode collapse, better adherence to the target task/format, better coverage of rarer correct answers). That advantage compounds when you take **many samples (high k)**: if the untuned model concentrates probability on a smaller set of “easy/common” completions, additional samples don’t add much new coverage, whereas the fine-tuned model continues to yield new, correct variants as k grows—hence the large gap at higher k."
+        },
+        {
+          "id": "en005_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+          "model_answer": "The error bars at **k=256** look **very small** for all curves (on the order of **a few thousandths to ~1 percentage point**). Approximate standard errors from the visual size of the bars:\n- **Llama‑3B:** ~**0.005–0.01**\n- **Llama‑3B + FT:** ~**0.005–0.01**\n- **Llama‑1B:** ~**0.005–0.01**\n- **Llama‑1B + FT:** ~**0.005–0.01**\nThe Llama‑3B vs Llama‑1B gap at k=256 is ~**0.04**, which is several times larger than these SEs, so **yes, it still appears statistically significant** at that point."
+        },
+        {
+          "id": "en005_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the Llama-1B line above the Llama-3B line at the leftmost data point? Is this correct?",
+          "model_answer": "**No.** At the leftmost point (k=1), **Llama‑1B is below Llama‑3B**. **Yes, that is correct/expected** given the larger model’s higher coverage."
+        }
+      ]
+    }
+  ],
+  "reruns": [
+    {
+      "timestamp": "2026-04-18T16:14:17.610620+00:00",
+      "question_ids": [
+        "en005_q2",
+        "en005_q3"
+      ],
+      "raw_response": "1. About **0.18** coverage (≈0.43 for Llama‑3B vs ≈0.25 for Llama‑1B at k=1).  \n2. About **0.05** coverage higher for the **3B** models than the **1B** models at k=256 (≈0.92–0.93 vs ≈0.87–0.89).",
+      "parsed": [
+        {
+          "id": "en005_q2",
+          "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1?",
+          "model_answer": "About **0.18** coverage (≈0.43 for Llama‑3B vs ≈0.25 for Llama‑1B at k=1)."
+        },
+        {
+          "id": "en005_q3",
+          "question": "At k=256, what is the approximate coverage difference between the 3B models and the 1B models?",
+          "model_answer": "About **0.05** coverage higher for the **3B** models than the **1B** models at k=256 (≈0.92–0.93 vs ≈0.87–0.89)."
+        }
+      ]
+    }
+  ]
+}

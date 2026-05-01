@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_116",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "displays Hessian trace values (a measure of sharpness) for different adapter ranks in the context of QLoRA fine-tuning,",
+          "evidence": "The description provides an interpretation of what the 'Traces' on the y-axis represent ('Hessian trace values...'). This information is not present in the visual elements of the chart (title, axes, legend) and is derived from external context (the paper's caption), which constitutes unwanted interpretation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At rank 64, the blue bar is about 4.0 and the orange bar is around 3.0.",
+          "evidence": "The value for the orange bar at rank 64 is stated as 'around 3.0'. However, the bar clearly extends to the halfway point between the 0.0 and 8.0 gridlines, with the midpoint being 4.0. The bar is halfway between 0.0 and the 4.0 line, making its value approximately 3.5, not 3.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At rank 256, the blue bar reaches approximately 8.0 and the orange bar is about 6.0.",
+          "evidence": "The description reports values of 8.0 for the blue bar and 6.0 for the orange bar. In the chart, the blue bar is clearly below the 8.0 line (approx. 7.8), and the orange bar is clearly above the halfway mark between 4.0 and 8.0 (which is 6.0), making its value closer to 7.0 or 7.2. Both reported values are significantly incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "possibly different ensembles or configurations, as implied by the caption",
+          "evidence": "The description speculates on what the blue and orange bars represent based on the paper's caption, which is not information directly available from the chart image itself. This is a form of unwanted interpretation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "but the caption indicates that smaller adapters (e.g., rank 16) achieve lower generalization errors and Hessian traces, and that ensembles of adapters (with total dimension fixed at 256) yield lower values, which may correspond to the orange bars.",
+          "evidence": "This entire clause is an interpretation based on the external caption, not the visual data in the chart. It attempts to explain the data's meaning and correlate the colors to specific experimental conditions mentioned only in the caption."
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.5
+}

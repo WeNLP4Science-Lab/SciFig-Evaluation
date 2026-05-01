@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_098",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "при фиксирана общо сума от размерностите им (256)",
+          "evidence": "This information is not present in the visual representation of the chart itself. It appears to be taken from the accompanying text (caption), which violates the prompt's instruction to describe only what is visually present in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Оста Y е означена като „Errors (RTE)“",
+          "evidence": "The Y-axis is not labeled. \"Errors (RTE)\" is the title of the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "които показват несигурността или вариацията на измерването",
+          "evidence": "This part of the sentence explains the statistical meaning of error bars, which constitutes an interpretation rather than a purely visual description, contrary to the prompt's instructions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "като дължината им намалява с увеличаване на k",
+          "evidence": "The statement that the length of the error bars decreases as 'k' increases is incorrect. Visually, the error bar at k=4 is longer than or approximately equal to the one at k=1, and the one at k=2 is similar in length to the one at k=8. There is no clear monotonic decrease."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "on a linear scale",
+          "evidence": "The description states the x-axis is on a linear scale, but the tick marks (1, 2, 4, 8) are equally spaced, which indicates a logarithmic scale (base 2)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "the y-axis shows RTE",
+          "evidence": "The y-axis in the figure is unlabeled. The description assigns it the label 'RTE', which is an inference from the chart's title, not an objective feature of the axis itself."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while maintaining a fixed total dimension of 256 across all configurations",
+          "evidence": "This information is not present anywhere in the figure itself (title, axes, data points). It is external information that comes from the provided paper caption, violating the instruction to describe only what is visually represented in the plot."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "zeigt die Fehler (RTE)",
+          "evidence": "The description claims the y-axis shows 'die Fehler (RTE)', but the y-axis has no label. This information is inferred from the chart's title, not from the axis itself, which is a hallucination of an axis label."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit einem linearen Skalierungsbereich von 0 bis 0,9",
+          "evidence": "The description states the y-axis range is from 0 to 0.9, but the visible axis in the figure clearly starts at 0.3."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "die jeweils die mittleren Fehlerwerte an den Punkten k=1, k=2, k=4 und k=8 darstellen",
+          "evidence": "The description states that the green circles represent mean error values ('mittleren Fehlerwerte'). The chart does not explicitly label them as such. This is an interpretation based on the presence of error bars, which violates the prompt's instruction to only describe objective features."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Der Fehlerwert beginnt bei k=1 bei etwa 0,65",
+          "evidence": "The data point for k=1 is at approximately 0.63. The value 0.65 is a slight overestimation, though stated as an approximation."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.67
+}

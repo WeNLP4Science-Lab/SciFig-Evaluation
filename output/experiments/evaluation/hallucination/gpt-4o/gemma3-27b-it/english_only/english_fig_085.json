@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-17T07:50:05.617455+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "There is no Radiology specialty in the chart, but upon reviewing the chart, the negative log possibility value for the **Cardio** per-specialty term group and the **Fine-tuned** model is approximately **-23.2**.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that there is no Radiology specialty in the chart, which correctly identifies the non-existence of the element. It does not describe or analyze the non-existent element, and its mention of the Cardio group is unrelated to the Radiology group."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "Several factors could explain the performance degradation of the Fine-tuned model in the Neuro specialty compared to the MistralV0.2-Base model. Some possible explanations include:\n*   **Overfitting:** The fine-tuning process might have caused the model to overfit to the training data for Neuro, leading to poor generalization.\n*   **Catastrophic Forgetting:** Fine-tuning on the Neuro data might have caused the model to \"forget\" knowledge it had from the pre-training phase, especially if the Neuro dataset was small or significantly different.\n*   **Data Quality/Quantity:** The Neuro fine-tuning dataset might have been of lower quality or smaller in size compared to other specialties, hindering effective learning.\n*   **Hyperparameter Tuning:**  The hyperparameters used for fine-tuning might not have been optimal for the Neuro specialty.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that the Base model outperforms the Fine-tuned model for Neuro and builds its answer around this incorrect assumption. It does not identify or correct the error, nor does it show any awareness that the premise is false."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "The figure *does not provide information* about the vocabulary overlap between the medical domain term lists. It also does *not* state whether controlling for shared terminology changes the relative rankings. This information would require external data or a deeper analysis of the methodology.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the chart does not provide information about vocabulary overlap or controlled analyses, and acknowledges that external data or further analysis would be required. This aligns with the criteria for a score of 1.0."
+    }
+  ]
+}

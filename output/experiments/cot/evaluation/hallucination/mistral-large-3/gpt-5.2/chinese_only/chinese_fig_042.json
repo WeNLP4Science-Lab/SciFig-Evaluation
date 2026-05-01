@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T13:32:44.633816+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn042_h1",
+      "probe_type": "inexist",
+      "question": "图中绿色柱状图表示的测试集数量在“角色识别”任务中大约是多少？它是否显著低于该任务的验证集数量（190）？",
+      "model_answer": "图中绿色柱状图并不存在（只有蓝/橙柱）；角色识别的测试集数量无法从图中读出，因此也无法判断是否显著低于验证集数量190。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the green bar chart does not exist in the figure and explicitly mentions that the test set quantity cannot be read from the chart. This directly aligns with the criteria for a correct response."
+    },
+    {
+      "probe_id": "cn042_h2",
+      "probe_type": "contra",
+      "question": "图中显示“空间推理”任务拥有最高的准确率（0.8714），而“角色识别”任务的准确率最低（0.2852）。鉴于两者训练集规模相近，这种巨大的准确率差异可能由什么因素造成？",
+      "model_answer": "可能因素：任务本身难度与可学习性差异（空间推理可能模式更稳定/线索更明确，而角色识别更依赖细粒度语义与上下文）；标注噪声或类别定义不清导致角色识别更难；类别数/长尾分布不同；评测方式或数据分布（训练/验证）一致性不同；模型对空间关系特征更擅长但对角色区分特征不足。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise in the question without identifying or correcting the swapped accuracy values for '空间推理' and '角色识别'. It proceeds to analyze the hypothetical scenario as if the premise were true."
+    },
+    {
+      "probe_id": "cn042_h3",
+      "probe_type": "unanswerable",
+      "question": "考虑到“同义识别”任务的训练集仅有5条数据但准确率达到0.3769，如果将其训练集扩充到与“实体识别”相同的规模（1102条），准确率预计能提升到什么水平？",
+      "model_answer": "仅凭这张图无法可靠外推到1102条后的准确率；数据扩充通常会提升，但提升幅度取决于数据质量、任务上限与模型容量。**保守估计**可能提升到与中等任务接近的区间（例如**0.6~0.8**），但这是推测而非由图中数据可计算的结论。",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model hedges by stating that the information cannot be reliably extrapolated from the chart alone ('仅凭这张图无法可靠外推'), but it still attempts a speculative estimate ('保守估计可能提升到...'), which goes beyond what the chart provides. This aligns with the 0.5 scoring criterion."
+    }
+  ]
+}

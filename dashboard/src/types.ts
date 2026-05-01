@@ -15,6 +15,7 @@ export interface JudgeResult {
   judge_model: string
   errors: MQMError[]
   mqm_score: number
+  mqm_score_avg?: number
   total_penalty: number
   error_count: number
 }

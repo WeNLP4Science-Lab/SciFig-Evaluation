@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T18:41:07.336671+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "For the Radiology per-specialty term group — wait, there is no “Radiology” group in the chart. The groups shown are Cardio, Gastro, Infect, Neuro, Obstetrics, and Pediatrics. Assuming this is a typo and you meant “Neuro”: the negative log probability for the Neuro group’s fine-tuned model (Neuro, dark orange bar) is approximately -24.2, while for the Cardio group’s fine-tuned model (Cardio, light orange bar) it is approximately -24.8 — so the Cardio fine-tuned model has a slightly more negative (worse) value than the Neuro fine-tuned model.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that there is no 'Radiology' group in the chart and correctly lists the existing groups. This meets the criteria for a clear denial of the element's existence."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "The degradation in performance for the Neuro specialty when fine-tuned may be explained by several factors: (a) the fine-tuning data for Neuro may be noisy, sparse, or misaligned with the test set; (b) catastrophic forgetting — the model may have lost general knowledge during fine-tuning; (c) overfitting to the Neuro training data, reducing generalization; or (d) the base model may already have strong prior knowledge of Neuro terms, making fine-tuning redundant or harmful.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it. It proceeds to explain the degradation as if the premise were true, despite the clear factual error in the question."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "The figure does not provide information about vocabulary overlap between the per-specialty term lists. Without this data, we cannot determine whether shared terminology affects relative rankings. Controlling for shared terms would require additional analysis not presented here.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the figure does not provide the necessary information and explicitly acknowledges that the question cannot be answered from the chart alone. It avoids any hedging or speculative attempts to answer the question."
+    }
+  ]
+}

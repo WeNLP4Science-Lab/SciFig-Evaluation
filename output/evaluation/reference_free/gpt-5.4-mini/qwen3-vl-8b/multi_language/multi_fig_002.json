@@ -1,0 +1,178 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description says it compares perplexity values between two pruning strategies, but it does not clearly state the chart’s purpose in terms of the paper/figure context as shown in the caption: comparison of per-output and per-layer perplexity at different sparsity rates."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with the “Per-Layer” bar extending to approximately 10^3 and the “Per-Output” bar slightly lower, around 10^2",
+          "evidence": "At 80% sparsity, the Per-Layer bar is below 10^3 but close to it, while the Per-Output bar is around 5×10^2, not around 10^2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The chart employs a grouped bar format, with each sparsity rate category containing two adjacent bars",
+          "evidence": "While the chart is grouped, the description does not give the actual visible approximate values for several bars as requested by the prompt; this specific numerical characterization at 80% is inaccurate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the y-axis uses a logarithmic scale with major ticks at powers of ten (10^1, 10^2, 10^3) as explicitly visible, only that it is logarithmic. It also does not mention the legend location in the upper-left corner in a direct visual-feature sense."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "indicating higher perplexity for the “Per-Layer” strategy",
+          "evidence": "This is an interpretive comparison. The prompt asks for objective description and to avoid conclusions unless encoded in the diagram."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "indicating low perplexity values near 10^1",
+          "evidence": "This infers a qualitative meaning from bar height rather than simply describing the displayed values."
+        }
+      ],
+      "mqm_score": 87.0,
+      "total_penalty": 13.0,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "at 80%, the “Per-Output” bar reaches approximately 10^2.5 (around 316), while the “Per-Layer” bar is significantly taller, reaching approximately 10^2.8 (around 631)",
+          "evidence": "In the figure, the 80% Per-Output bar is around 500 and the Per-Layer bar is around 800–900, not ~316 and ~631."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The vertical axis, labeled “Perplexity,” uses a logarithmic scale ranging from 10^1 to 10^3, with major gridlines and tick marks at powers of ten (10, 100, 1000), indicating that the values increase multiplicatively.",
+          "evidence": "The y-axis is indeed logarithmic and labeled Perplexity, but the description overstates the precise tick formatting/range by presenting it as exactly 10^1 to 10^3 with ticks at 10, 100, 1000; the plot shows log ticks but the claim is more specific than visibly warranted."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the x-axis label 'Sparsity Rate' explicitly, nor does it clearly state that the x-axis categories are percentage values with a linear arrangement."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits that the bars are grouped side-by-side for each sparsity rate and does not explicitly mention the legend box placement in the upper-left of the chart."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At every sparsity rate, both bars are approximately equal in height, with the Per-Output bar being slightly shorter than the Per-Layer bar.",
+          "evidence": "The bars are not approximately equal: at 70% sparsity Per-Output is around 20 while Per-Layer is around 40, and at 80% sparsity Per-Output is around 500 while Per-Layer is around 800."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at 10% sparsity, both bars are approximately 10^1 (10), at 20% sparsity, both are approximately 10^1 (10), at 30% sparsity, both are approximately 10^1 (10), at 40% sparsity, both are approximately 10^1 (10), at 50% sparsity, both are approximately 10^1 (10), at 60% sparsity, both are approximately 10^1 (10), at 70% sparsity, both are approximately 10^1 (10), and at 80% sparsity, both are approximately 10^3 (1000).",
+          "evidence": "Several values are misstated. The 10%–60% bars are around 5–11, not all exactly 10. At 70%, the bars are about 20 and 40, not 10. At 80%, the bars are about 500 and 800, not both 1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description mentions grouping and colors but does not explicitly mention the legend that identifies Per-Output and Per-Layer."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The vertical axis, labeled “Perplexity,” is scaled logarithmically, spanning from 10^1 to 10^3, with major gridlines and tick marks at these powers of ten.",
+          "evidence": "The y-axis is logarithmic, but the visible tick labels include values around 10^0 (the lowest major tick is below 10^1), so the stated span from 10^1 to 10^3 is incomplete/incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "At the lowest sparsity rate of 10%, both bars are very short, with their heights approximately corresponding to a perplexity value of 10^1.",
+          "evidence": "The bars at 10% are around 5–6 perplexity, which is below 10^1 (=10), not approximately 10^1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "At the highest sparsity rate of 80%, both bars reach their maximum heights, with the “Per-Layer” bar appearing to be slightly taller than the “Per-Output” bar, both extending beyond the 10^2 gridline and approaching 10^3.",
+          "evidence": "While the 80% bars are the tallest, the blue bar is around 500 and the orange bar around 800–900; saying they 'approach 10^3' is imprecise, though close."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis tick labeling interval/range in a fully accurate way for the visible logarithmic scale, including the lowest major tick below 10^1."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 89.5
+}

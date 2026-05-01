@@ -1,0 +1,94 @@
+{
+  "figure_key": "english_fig_171",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-32b",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T16:18:26.918004+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure consists of two subplots: \"Easy Training Set\" (top) and \"Hard Training Set\" (bottom). Both plots show \"Training Rewards\" on the y-axis and \"Steps\" on the x-axis, ranging from 0 to 500. Each subplot contains two lines with shaded confidence intervals:\n\n- **Top subplot (Easy Training Set)**:\n  - **Llama-On-Policy-Easy**: Teal line.\n  - **Llama-LUFFY-Easy**: Red line.\n  - Both lines start near 0 and increase over steps, with Llama-LUFFY-Easy generally outperforming Llama-On-Policy-Easy.\n\n- **Bottom subplot (Hard Training Set)**:\n  - **Llama-On-Policy-Hard**: Teal line.\n  - **Llama-LUFFY-Hard**: Red line.\n  - Llama-On-Policy-Hard quickly drops to near 0 after ~100 steps, while Llama-LUFFY-Hard continues to rise and stabilizes around 0.2.\n\nThe shaded regions around each line represent uncertainty (likely standard deviation or confidence intervals).\n\n---\n\n1. At step 500, Llama-LUFFY-Easy is at approximately 0.4, and Llama-On-Policy-Easy is at approximately 0.35. The difference is about 0.05.\n\n2. In the Hard Training Set subplot, Llama-On-Policy-Hard drops to nearly 0 around step 100.\n\n3. Llama-LUFFY-Easy’s final reward (at step 500) is ~0.4. Llama-LUFFY-Hard’s final reward is ~0.2. The ratio is approximately 0.4 / 0.2 = 2.\n\n4. In the Easy Training Set subplot, the green line (Llama-Mixed-Policy-Easy) is not shown. The legend only lists Llama-On-Policy-Easy and Llama-LUFFY-Easy. Therefore, there is no green line to compare with Llama-LUFFY-Easy. This question is based on incorrect information.\n\n5. In the Easy Training Set subplot, both lines (Llama-On-Policy-Easy and Llama-LUFFY-Easy) show an increasing trend over steps, with some fluctuations. This is correct.\n\n---\n\n1. 0.05  \n2. 100  \n3. 2  \n4. The green line (Llama-Mixed-Policy-Easy) is not present in the Easy Training Set subplot, so the question is invalid.  \n5. Yes, both lines show an increasing trend over steps, which is correct.",
+      "items": [
+        {
+          "id": "en171_q1",
+          "type": "capability",
+          "question": "At step 500, what is the approximate training reward difference between Llama-LUFFY-Easy and Llama-On-Policy-Easy?",
+          "model_answer": "0.05",
+          "full_response": "0.05"
+        },
+        {
+          "id": "en171_q2",
+          "type": "capability",
+          "question": "At approximately what step does Llama-On-Policy-Hard's training reward drop to essentially 0?",
+          "model_answer": "100",
+          "full_response": "100"
+        },
+        {
+          "id": "en171_q3",
+          "type": "capability",
+          "question": "What is the approximate ratio of Llama-LUFFY's final training reward on the Easy set versus the Hard set?",
+          "model_answer": "2",
+          "full_response": "2"
+        },
+        {
+          "id": "en171_h1",
+          "type": "hallucination_inexist",
+          "question": "In the Easy Training Set subplot, at what step does the Llama-Mixed-Policy-Easy curve (shown in green) first surpass the Llama-LUFFY-Easy curve?",
+          "model_answer": "The green line (Llama-Mixed-Policy-Easy) is not present in the Easy Training Set subplot, so the question is invalid.",
+          "full_response": "The green line (Llama-Mixed-Policy-Easy) is not present in the Easy Training Set subplot, so the question is invalid."
+        },
+        {
+          "id": "en171_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Do both lines in the Easy Training Set subplot show an increasing trend over steps? Is this correct?",
+          "model_answer": "Yes, both lines show an increasing trend over steps, which is correct.",
+          "full_response": "Yes, both lines show an increasing trend over steps, which is correct."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T16:20:56.392501+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure consists of two line plots stacked vertically, each showing \"Training Rewards\" on the y-axis and \"Steps\" on the x-axis, ranging from 0 to 500.\n\n- **Top Plot: Easy Training Set**\n  - Two lines: \n    - **Llama-On-Policy-Easy** (teal/dark blue line with shaded confidence interval)\n    - **Llama-LUFFY-Easy** (red line with shaded confidence interval)\n  - Both lines start near 0.0 and increase over steps.\n  - Llama-LUFFY-Easy slightly outperforms Llama-On-Policy-Easy after step 100, peaking around 0.4 at step 500.\n  - The shaded areas represent uncertainty (likely standard deviation or confidence intervals).\n\n- **Bottom Plot: Hard Training Set**\n  - Two lines:\n    - **Llama-On-Policy-Hard** (teal/dark blue line with shaded confidence interval)\n    - **Llama-LUFFY-Hard** (red line with shaded confidence interval)\n  - Llama-On-Policy-Hard starts high but drops to near 0.0 by step 100 and remains flat.\n  - Llama-LUFFY-Hard starts low, increases steadily, and reaches ~0.2 at step 500.\n\nNotable patterns:\n- On Easy set, both methods perform well and are similar.\n- On Hard set, Llama-On-Policy-Hard fails to maintain performance, while Llama-LUFFY-Hard improves steadily.\n- The shaded regions indicate variability or uncertainty in the training rewards.\n\n---\n\n1. In the Hard Training Set plot, does Llama-On-Policy-Hard ever achieve a training reward above 0.05 after step 200?  \n   → No. After step 200, the Llama-On-Policy-Hard line remains flat and near 0.0, well below 0.05.\n\n2. At approximately what step does Llama-LUFFY-Easy first reach a training reward of 0.3?  \n   → Around step 150. The red line crosses the 0.3 mark slightly before step 200, but more precisely at approximately step 150.\n\n3. Since Llama-On-Policy-Hard steadily climbs from 0.05 to approximately 0.35 by step 500, eventually matching Llama-LUFFY-Hard's final reward, what does this convergence suggest about the long-run equivalence of the two training strategies?  \n   → The convergence suggests that, in the long run, both training strategies may achieve similar performance on the Hard training set. However, this is misleading because Llama-On-Policy-Hard initially fails and then recovers only after a long period, whereas Llama-LUFFY-Hard steadily improves from the start. This indicates that while final rewards may converge, the learning dynamics and efficiency differ significantly, with Llama-LUFFY-Hard being more stable and effective during training.\n\n4. What are the corresponding test set accuracy scores for Llama-LUFFY at step 500 on both the Easy and Hard evaluation benchmarks?  \n   → The figure does not provide test set accuracy scores. It only shows training rewards. Therefore, this information cannot be determined from the figure.\n\n5. Do both lines in the Easy Training Set subplot show a decreasing trend over steps? Is this correct?  \n   → No, this is not correct. Both lines in the Easy Training Set subplot show an increasing trend over steps, not decreasing. They start near 0.0 and rise to approximately 0.4 by step 500.",
+      "items": [
+        {
+          "id": "en171_q4",
+          "type": "capability",
+          "question": "In the Hard Training Set plot, does Llama-On-Policy-Hard ever achieve a training reward above 0.05 after step 200?",
+          "model_answer": "In the Hard Training Set plot, does Llama-On-Policy-Hard ever achieve a training reward above 0.05 after step 200?\n→ No. After step 200, the Llama-On-Policy-Hard line remains flat and near 0.0, well below 0.05.",
+          "full_response": "In the Hard Training Set plot, does Llama-On-Policy-Hard ever achieve a training reward above 0.05 after step 200?\n→ No. After step 200, the Llama-On-Policy-Hard line remains flat and near 0.0, well below 0.05."
+        },
+        {
+          "id": "en171_q5",
+          "type": "capability",
+          "question": "At approximately what step does Llama-LUFFY-Easy first reach a training reward of 0.3?",
+          "model_answer": "At approximately what step does Llama-LUFFY-Easy first reach a training reward of 0.3?\n→ Around step 150. The red line crosses the 0.3 mark slightly before step 200, but more precisely at approximately step 150.",
+          "full_response": "At approximately what step does Llama-LUFFY-Easy first reach a training reward of 0.3?\n→ Around step 150. The red line crosses the 0.3 mark slightly before step 200, but more precisely at approximately step 150."
+        },
+        {
+          "id": "en171_h2",
+          "type": "hallucination_contra",
+          "question": "Since Llama-On-Policy-Hard steadily climbs from 0.05 to approximately 0.35 by step 500, eventually matching Llama-LUFFY-Hard's final reward, what does this convergence suggest about the long-run equivalence of the two training strategies?",
+          "model_answer": "Since Llama-On-Policy-Hard steadily climbs from 0.05 to approximately 0.35 by step 500, eventually matching Llama-LUFFY-Hard's final reward, what does this convergence suggest about the long-run equivalence of the two training strategies?\n→ The convergence suggests that, in the long run, both training strategies may achieve similar performance on the Hard training set. However, this is misleading because Llama-On-Policy-Hard initially fails and then recovers only after a long period, whereas Llama-LUFFY-Hard steadily improves from the start. This indicates that while final rewards may converge, the learning dynamics and efficiency differ significantly, with Llama-LUFFY-Hard being more stable and effective during training.",
+          "full_response": "Since Llama-On-Policy-Hard steadily climbs from 0.05 to approximately 0.35 by step 500, eventually matching Llama-LUFFY-Hard's final reward, what does this convergence suggest about the long-run equivalence of the two training strategies?\n→ The convergence suggests that, in the long run, both training strategies may achieve similar performance on the Hard training set. However, this is misleading because Llama-On-Policy-Hard initially fails and then recovers only after a long period, whereas Llama-LUFFY-Hard steadily improves from the start. This indicates that while final rewards may converge, the learning dynamics and efficiency differ significantly, with Llama-LUFFY-Hard being more stable and effective during training."
+        },
+        {
+          "id": "en171_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What are the corresponding test set accuracy scores for Llama-LUFFY at step 500 on both the Easy and Hard evaluation benchmarks?",
+          "model_answer": "What are the corresponding test set accuracy scores for Llama-LUFFY at step 500 on both the Easy and Hard evaluation benchmarks?\n→ The figure does not provide test set accuracy scores. It only shows training rewards. Therefore, this information cannot be determined from the figure.",
+          "full_response": "What are the corresponding test set accuracy scores for Llama-LUFFY at step 500 on both the Easy and Hard evaluation benchmarks?\n→ The figure does not provide test set accuracy scores. It only shows training rewards. Therefore, this information cannot be determined from the figure."
+        },
+        {
+          "id": "en171_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Do both lines in the Easy Training Set subplot show a decreasing trend over steps? Is this correct?",
+          "model_answer": "Do both lines in the Easy Training Set subplot show a decreasing trend over steps? Is this correct?\n→ No, this is not correct. Both lines in the Easy Training Set subplot show an increasing trend over steps, not decreasing. They start near 0.0 and rise to approximately 0.4 by step 500.",
+          "full_response": "Do both lines in the Easy Training Set subplot show a decreasing trend over steps? Is this correct?\n→ No, this is not correct. Both lines in the Easy Training Set subplot show an increasing trend over steps, not decreasing. They start near 0.0 and rise to approximately 0.4 by step 500."
+        }
+      ]
+    }
+  ]
+}

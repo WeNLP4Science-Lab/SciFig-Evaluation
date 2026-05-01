@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { DataManifest, JudgeType } from '../types'
 import { JUDGE_LABELS } from '../types'
 import AnnotatedText from '../components/AnnotatedText'
+import { FIGURES_BASE_URL } from '../config'
 import ErrorPanel from '../components/ErrorPanel'
 import FigureSidebar from '../components/FigureSidebar'
 import { useTheme } from '../ThemeContext'
@@ -62,7 +63,12 @@ function ThemeToggle() {
   )
 }
 
-export default function JudgeReview() {
+interface JudgeReviewProps {
+  manifestFile?: string
+  title?: string
+}
+
+export default function JudgeReview({ manifestFile = 'manifest.json', title = 'Judge Review' }: JudgeReviewProps) {
   const [manifest, setManifest] = useState<DataManifest | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -79,9 +85,14 @@ export default function JudgeReview() {
   const { isDark } = useTheme()
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/manifest.json`)
+    setLoading(true)
+    setManifest(null)
+    const url = import.meta.env.PROD && (manifestFile === 'manifest_full.json' || manifestFile === 'manifest_sample.json')
+      ? `https://scifigfigures.blob.core.windows.net/data/${manifestFile}`
+      : `${import.meta.env.BASE_URL}data/${manifestFile}`
+    fetch(url)
       .then(r => {
-        if (!r.ok) throw new Error('Failed to load manifest.json')
+        if (!r.ok) throw new Error(`Failed to load ${manifestFile}`)
         return r.json()
       })
       .then((data: DataManifest) => {
@@ -92,7 +103,7 @@ export default function JudgeReview() {
       })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false))
-  }, [])
+  }, [manifestFile])
 
   const filteredFigures = useMemo(() => {
     if (!manifest) return []
@@ -198,7 +209,7 @@ export default function JudgeReview() {
         }}
       >
         <Link
-          to="/"
+          to="/evaluation"
           className="flex items-center gap-1.5 text-xs font-medium m3-state-hover px-2 py-1.5 -ml-2 rounded-lg"
           style={{
             color: 'var(--m3-on-surface-variant)',
@@ -225,7 +236,7 @@ export default function JudgeReview() {
             className="text-base font-medium"
             style={{ color: 'var(--m3-on-surface)', letterSpacing: '0.15px' }}
           >
-            Judge Review
+            {title}
           </h1>
         </div>
 
@@ -449,7 +460,7 @@ export default function JudgeReview() {
                     }}
                   >
                     <img
-                      src={`${import.meta.env.BASE_URL}${currentFigure.figure_image}`}
+                      src={`${FIGURES_BASE_URL}/${currentFigure.figure_image.replace('figures/', '')}`}
                       alt={currentFigure.figure_key}
                       className="w-full"
                       style={{ display: 'block' }}

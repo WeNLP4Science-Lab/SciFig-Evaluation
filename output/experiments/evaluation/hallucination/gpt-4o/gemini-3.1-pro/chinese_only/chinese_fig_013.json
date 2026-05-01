@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "gemini-3.1-pro",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-16T14:27:05.757868+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn013_h1",
+      "probe_type": "inexist",
+      "question": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？",
+      "model_answer": "，因此无法得知其占比并与“文化”类别进行比较。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model does not acknowledge that the '教育' category does not exist in the chart. Instead, it proceeds as if the category might exist and states it cannot determine its proportion or compare it to '文化', which is incorrect."
+    },
+    {
+      "probe_id": "cn013_h2",
+      "probe_type": "contra",
+      "question": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？",
+      "model_answer": "提问中的前提存在事实错误。根据饼图和图例对应关系，占比最高（21%）的深蓝色扇形是**“科学”**类，而占20%的橙色扇形是**“社会”**类。\n如果修正这个口误来看其核心问题：是的。排名第一和第二的“科学”与“社会”合计占比达到41%，占据了近半壁江山，这说明它们确实代表了该样本库中儿童长新闻的最主要内容方向。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise in the question, corrected the error by stating the accurate data (scientific news at 21% and social news at 20%), and then proceeded to answer the core question based on the corrected information."
+    },
+    {
+      "probe_id": "cn013_h3",
+      "probe_type": "unanswerable",
+      "question": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？",
+      "model_answer": "如果完全呈均匀分布，图中的8个类别每个应该占据12.5%。然而实际数据呈现出明显的头重脚轻（前三大类别占了60%，而最小的类别仅占2%）。虽然进行严格的卡方检验需要具体的总样本量（N值），但面对如此巨大的期望值与观测值差异（例如21% vs 12.5%，2% vs 12.5%），在任何具有统计学意义的合格样本量下，计算出的p值都会远小于0.01，即显著拒绝均匀分布的假设。",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that a strict chi-square test requires the total sample size (N), which is missing, but it still attempts to infer statistical significance based on observed differences in percentages, rather than clearly stating the question cannot be answered from the chart alone."
+    }
+  ]
+}

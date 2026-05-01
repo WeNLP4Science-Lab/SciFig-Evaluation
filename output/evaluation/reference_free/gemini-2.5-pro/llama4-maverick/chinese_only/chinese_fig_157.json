@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_157",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "16+",
+      "evidence": "The last category on the x-axis is labeled '15-16', not '16+'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "纵轴代表预测时间，单位为秒",
+      "evidence": "The y-axis label is '句对数/s', which translates to 'sentence pairs/s'. This is a measure of speed or throughput, not '预测时间' (prediction time) with units of '秒' (seconds)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "句子长度为1-5的预测时间为3516秒，6-10为2731秒，11-15为1125秒，16+为72秒；对于“TreeLSTM”模型，相应的预测时间分别为112秒、75秒、51秒和27秒",
+      "evidence": "This sentence incorrectly describes the y-axis values as 'prediction time' in 'seconds'. The y-axis unit is 'sentence pairs/s', so the values represent speed, not time."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "“Our”模型的柱状图明显高于“TreeLSTM”模型的柱状图。",
+      "evidence": "The prompt instructs to avoid comparisons. Stating that one model's bars are 'significantly higher' ('明显高于') than the other is a direct comparison forbidden by the instructions."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "图表显示，“Our”模型的预测时间明显高于“TreeLSTM”模型，且随着句子长度的增加，两个模型的预测时间均呈下降趋势。",
+      "evidence": "This sentence provides both a comparison ('明显高于' - significantly higher) and a trend analysis ('呈下降趋势' - shows a downward trend), both of which are explicitly forbidden by the generation prompt."
+    }
+  ],
+  "mqm_score": 85.0,
+  "total_penalty": 15.0,
+  "error_count": 5
+}

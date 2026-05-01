@@ -1,0 +1,146 @@
+{
+  "figure_key": "multi_fig_006",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the legend box, even though a legend is clearly present."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Третата линия, обозначена като \"hidden state mean of baseline, avg 0.04\", е зелена, с плътен стил и без маркери.",
+          "evidence": "The baseline line is green, but it is not described as fully horizontal: it shows a slight upward trend and small fluctuations near the end rather than staying flat for the entire range."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Тя започва от 0 при X=0 и остава хоризонтална в целия диапазон",
+          "evidence": "This overstates the visual pattern; the green baseline is mostly near zero but not perfectly horizontal across the whole range."
+        }
+      ],
+      "mqm_score": 95.5,
+      "total_penalty": 4.5,
+      "error_count": 3,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "x轴标记为“Layer”，采用线性刻度，数值范围从0到24",
+          "evidence": "The x-axis shows layers from 0 to 23, not 0 to 24."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "y轴标记为“Abs Mean”，采用线性刻度，数值范围从0到4.5",
+          "evidence": "The y-axis upper limit is about 4.4, not 4.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "在x=23处达到峰值约4.3",
+          "evidence": "The final blue value is closer to about 4.35; 4.3 is a slight underestimate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "“hidden state mean after gate, avg 0.05”的线是一条橙色点线",
+          "evidence": "The after-gate line is orange dotted, but the description says \"点线\" which is acceptable as dotted; no error here."
+        }
+      ],
+      "mqm_score": 92.0,
+      "total_penalty": 8.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "all without markers",
+          "evidence": "The blue, orange, and green lines in the figure are drawn without point markers, so this statement is correct? Wait, the figure indeed shows no markers. No error."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die y-Achse trägt die Beschriftung „Abs Mean“, ist ebenfalls linear skaliert, reicht von 0 bis 4,5 ohne angegebene Einheiten und weist ein regelmäßiges Tick-Intervall von 1 auf.",
+          "evidence": "The y-axis tick labels visible in the figure run from about 0 to 4, not to 4.5; 4.5 is above the displayed tick labels/axis range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die blaue, gestrichelte Linie („hidden state mean before gate, avg 0.71“) beginnt bei Schicht 0 bei einem Wert von etwa 0,04, verläuft bis Schicht 17 mit leichten Schwankungen überwiegend unterhalb von 0,5 und steigt dann bei Schicht 19 auf etwa 0,9 an. Nach einem leichten Rückgang auf etwa 0,84 bei Schicht 20 verzeichnet die Linie einen steilen Anstieg auf etwa 2,6 bei Schicht 21, stagniert kurz auf etwa 2,56 bei Schicht 22 und erreicht schließlich am Ende der x-Achse bei Schicht 23 eine deutliche Spitze von etwa 4,35.",
+          "evidence": "The blue series is described with several approximate values that are notably off; in the figure it is around 0.05 at layer 0, about 0.9 at layer 19, about 0.85 at layer 20, about 2.6 at layer 21, about 2.55 at layer 22, and about 4.3 at layer 23. The major issue is that the description implies a continuous rise to 0.9 at layer 19 after being under 0.5 through 17, but the curve already rises near layer 18 and the early/later values are imprecise enough to misstate the plotted points."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die orangefarbene, gepunktete Linie („hidden state mean after gate, avg 0.05“) startet bei Schicht 0 nahe 0,0, zeigt einen extrem flachen Verlauf mit einem minimalen Anstieg auf etwa 0,1 bei Schicht 20, fällt bei Schicht 21 leicht auf etwa 0,05 ab und endet bei Schicht 23 bei etwa 0,1.",
+          "evidence": "The orange line is closer to about 0.09 at layer 20 and about 0.08–0.09 at layer 23; the stated values are approximate but slightly off."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die grüne, durchgezogene Linie („hidden state mean of baseline, avg 0.04“) beginnt ebenfalls bei Schicht 0 nahe 0,0, verläuft bis zu Schicht 14 nahezu konstant und steigt im weiteren Verlauf der x-Achse minimal und stetig an, um bei Schicht 23 mit einem Endwert von etwa 0,1 abzuschließen.",
+          "evidence": "The green baseline ends a bit above 0.08, not roughly 0.1; the overall trend description is acceptable, but the end value is slightly inaccurate."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "stellt den absoluten Durchschnittswert verschiedener Modellzustände über eine fortlaufende Reihe von Schichten dar",
+          "evidence": "The prompt asks for objective description only. This phrasing interprets the title/plot as 'various model states' and 'continuous series of layers' rather than strictly describing visible elements."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 91.75
+}

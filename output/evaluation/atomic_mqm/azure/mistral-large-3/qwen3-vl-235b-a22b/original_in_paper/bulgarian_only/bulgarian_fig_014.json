@@ -1,0 +1,87 @@
+{
+  "figure_key": "bulgarian_fig_014",
+  "subfolder": "bulgarian_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original_in_paper",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Chart Purpose",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Фигура 1 представлява стълбовидна диаграма, която илюстрира календарно изградени базисни индекси на производените лекарствени вещества и продукти в България за периода 2022–2024 г., като базовата стойност е 2021=100",
+      "evidence": "The chart purpose in the machine-generated description is incorrect. The figure does not illustrate 'базисни индекси на производените лекарствени вещества и продукти в България' or use 2021 as a base value. The atom checklist states it shows percentage values for three years by month.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "с интервали от 20,000",
+      "evidence": "The y-axis intervals are labeled as 20, not 20,000, as per the atom checklist (y_axis_range).",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "през месец XII стойността за 2024 г. надхвърля 120,000",
+      "evidence": "The highest value in December is for 2022, not 2024, as per the atom checklist (max_value).",
+      "atom_id": "max_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "през месец VIII за 2023 г. стойността е близо до 80,000",
+      "evidence": "The lowest value for 2023 is in December and July, not August, as per the atom checklist (min_value).",
+      "atom_id": "min_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "2024 е най-успешната година, защото има най-високи стойности като цяло",
+      "evidence": "The machine-generated description does not include this claim, but the atom checklist (trend_interpretation) explicitly marks this as unwanted interpretation. However, since the machine-generated description does not include it, this is not an error for the description. Instead, the description omits the incorrect interpretation present in the atom checklist, which is correct.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the bars are vertically aligned in groups by month for easy comparison, as mentioned in the atom checklist (sort_order).",
+      "atom_id": "sort_order"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Височината на стълбовете варира според месеца и годината",
+      "evidence": "The phrase is overly general and does not add specific informational value compared to the reference description.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 61.67,
+  "total_penalty": 23.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 12,
+    "accuracy": 0.6364,
+    "completeness": 0.875
+  }
+}

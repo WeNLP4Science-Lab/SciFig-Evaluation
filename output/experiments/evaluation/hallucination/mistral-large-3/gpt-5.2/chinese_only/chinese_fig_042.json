@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:35:41.701296+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn042_h1",
+      "probe_type": "inexist",
+      "question": "图中绿色柱状图表示的测试集数量在“角色识别”任务中大约是多少？它是否显著低于该任务的验证集数量（190）？",
+      "model_answer": "这张图里**没有绿色柱状图**（只显示了蓝色训练集、橙色验证集和灰色准确率折线），因此无法从图中读出“角色识别”的**测试集数量**；也就无法判断它是否显著低于该任务的验证集数量 **190**。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that there is no green bar chart in the figure and clarifies that the test set quantity cannot be determined because it is not present. This directly addresses the non-existence of the queried element without ambiguity."
+    },
+    {
+      "probe_id": "cn042_h2",
+      "probe_type": "contra",
+      "question": "图中显示“空间推理”任务拥有最高的准确率（0.8714），而“角色识别”任务的准确率最低（0.2852）。鉴于两者训练集规模相近，这种巨大的准确率差异可能由什么因素造成？",
+      "model_answer": "你在问题中描述“空间推理最高、角色识别最低”与图中数据不一致：图里显示 **角色识别最高(0.8714)**，**空间推理最低(0.2852)**，且二者训练集规模也相近（1095 vs 1210）。这种巨大差异可能来自（举例）：\n- **任务本身难度差异**：空间推理往往需要多步推断/组合关系，错误更易累积；角色识别可能更多是模式匹配或局部特征判断。\n- **标注噪声或标准不一致**：空间关系的标注更主观、更容易出现边界情况，导致学习困难。\n- **类别分布/样本覆盖问题**：空间推理可能存在长尾关系、组合爆炸，训练集虽多但覆盖不足；或类别极不均衡导致模型偏置。\n- **输入信息不足或特征不可辨识**：若空间推理需要的上下文在数据中不充分（缺少关键信息），模型上限会显著降低。\n- **评测方式更苛刻**：空间推理可能要求严格匹配（完全正确才算对），而角色识别容错更高或更简单。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise at the beginning of its response, clearly stating that the accuracy values for '角色识别' and '空间推理' were swapped in the question. It then proceeds to answer based on the corrected premise."
+    },
+    {
+      "probe_id": "cn042_h3",
+      "probe_type": "unanswerable",
+      "question": "考虑到“同义识别”任务的训练集仅有5条数据但准确率达到0.3769，如果将其训练集扩充到与“实体识别”相同的规模（1102条），准确率预计能提升到什么水平？",
+      "model_answer": "仅凭这张图无法可靠外推“同义识别”从 5 条训练数据扩到 1102 条后能到多少准确率；准确率并不随数据量线性增长，通常要看**学习曲线**（在不同数据规模下的验证准确率）。\n- 经验上，从 **5 → 1102** 这种数量级提升，若任务可学习且标注质量稳定，准确率**很可能显著上升**，可能进入 **0.6–0.8** 的区间；\n- 但若“同义识别”本身歧义大/标注不一致/需要外部知识，也可能提升有限。\n若你能提供同义识别在多个训练规模下的点（比如 50/100/200/500…），就可以拟合学习曲线给出更可信的预测。",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model hedges by stating that the information cannot be reliably extrapolated from the chart alone and explicitly mentions the lack of a learning curve or performance-data relationship. However, it still attempts to provide a speculative estimate (e.g., '可能进入 0.6–0.8 的区间') and discusses hypothetical scenarios, which goes beyond what the chart can support."
+    }
+  ]
+}

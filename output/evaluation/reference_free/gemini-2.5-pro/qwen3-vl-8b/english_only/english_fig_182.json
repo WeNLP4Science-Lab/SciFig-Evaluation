@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_182",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "labeled \"Context Length\"",
+      "evidence": "The x-axis is not labeled in the provided image. The label \"Context Length\" seems to be inferred from the paper's context, but it is not visually present on the chart."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "presented on a linear scale",
+      "evidence": "The x-axis tick marks are for 128, 256, 512, and 1024. Since these values are powers of 2 and are spaced equally, the scale is logarithmic (base 2), not linear."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with tick labels at intervals of 128",
+      "evidence": "The intervals between the x-axis tick labels are not a constant 128. The intervals are 128 (256-128), 256 (512-256), and 512 (1024-512)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with the red line consistently having the highest ratio and the green line the lowest",
+      "evidence": "The prompt explicitly forbids making comparisons between lines. Furthermore, this comparison is factually inaccurate. For example, at x=512, the red and orange lines have approximately the same value, so the red line is not uniquely the highest. At x=1024, the green line is not the lowest; the blue line is."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 4
+}

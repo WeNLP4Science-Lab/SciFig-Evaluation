@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T19:24:44.157488+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?\nThe negative log probability value for the “Infect” per-specialty term group is approximately -24.5. The negative log probability value for the “Cardio” group for the fine-tuned model is approximately -23.5. The Infect group is slightly more negative than the Cardio group.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model does not acknowledge the non-existence of the 'Radiology' per-specialty term group. Instead, it ignores the question about 'Radiology' entirely and provides unrelated values for the 'Infect' and 'Cardio' groups, treating the query as if the 'Radiology' group exists or is valid."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?\nSeveral factors could explain this. Fine-tuning can lead to overfitting on the specific training data, causing the model to memorize the training set rather than generalize well.  The fine-tuning data might be biased or not representative of the broader distribution of terms in the Neuro specialty.  Alternatively, the fine-tuning process itself could have introduced noise or distortions that negatively impact performance.  It's also possible that the base model already had a good understanding of the Neuro domain and the fine-tuning didn't significantly improve it.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it. It proceeds to answer the question as if the incorrect statement about MistralV0.2-Base outperforming the Fine-tuned model for Neuro were true."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?\nWithout access to the specific term lists used for each specialty, it's impossible to quantify the exact vocabulary overlap. However, it's highly likely that there is significant overlap between the term lists, particularly for closely related specialties (e.g., Cardiology and Gastro, or Pediatrics and Obstetrics). Controlling for shared terminology would likely *not* drastically change the relative rankings. The base model's performance is likely influenced by the overall prevalence of terms in the data, and fine-tuning might not effectively adjust for this shared vocabulary.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model hedges by stating that 'it's impossible to quantify the exact vocabulary overlap' without access to the term lists, but it still attempts to speculate about the likely overlap and the effect of controlling for shared terminology, rather than clearly stating that the information cannot be determined from the chart alone."
+    }
+  ]
+}

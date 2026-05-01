@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_156",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each block index, two adjacent bars represent the sensitivity values for the 4-Fbit and 2-Fbit quantization methods, respectively.",
+          "evidence": "The chart does not show two adjacent bars per block index. It displays a single bar for each of the 64 block indices. The color of the bar indicates whether the 4-Fbit (blue) or 2-Fbit (green) method was used for that specific block."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The green bars (2-Fbit) are consistently shorter than the blue bars (4-Fbit) across most block indices, indicating lower sensitivity for the 2-Fbit scheme.",
+          "evidence": "This statement is based on the incorrect assumption that there are paired bars for comparison at each index. The chart does not support such a direct comparison. The choice of 2-Fbit or 4-Fbit is applied to different blocks, not simultaneously to the same block."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while the green bars remain below 10⁻⁵",
+          "evidence": "This is factually incorrect. Almost all green bars in the chart are above the 10⁻⁵ sensitivity level. For instance, the green bars from index 15 to 48 are all visibly higher than the 10⁻⁵ gridline."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are arranged in groups of two per block index",
+          "evidence": "This statement repeats the fundamental error in understanding the chart's structure. There is only one bar per block index, not a group of two."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "marked at intervals of 15",
+          "evidence": "The tick marks on the x-axis are at 0, 15, 31, 47, and 63. The intervals between these marks are not consistently 15 (they are 15, 16, 16, 16)."
+        }
+      ],
+      "mqm_score": 79.0,
+      "total_penalty": 21.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.0
+}

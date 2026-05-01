@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_121",
+  "model_name": "gpt-5.2",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "uses a linear scale",
+          "evidence": "While the tick marks on the x-axis are evenly spaced (visually linear), the values themselves (4, 16, 64, 256) represent a logarithmic progression. Describing the scale as simply linear is an incomplete interpretation of the axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at rank 256 around 0.42",
+          "evidence": "The y-value at rank 256 is approximately 0.45, visibly higher than the point at rank 64 (which is at ~0.42). The description incorrectly reports the value as 0.42."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "remains at a similar level at rank 256",
+          "evidence": "The line segment from rank 64 to rank 256 has a distinct positive slope, rising from approximately 0.42 to 0.45. Describing it as remaining at a 'similar level' is inaccurate and misrepresents the trend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "to about a tenth of a unit in y",
+          "evidence": "The description underestimates the size of the largest error bars. The bars at ranks 4 and 256 span approximately 0.2 units on the y-axis, which is double the 'tenth of a unit' (0.1) stated in the description."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "to about 0.8 at the top",
+          "evidence": "The description states the y-axis ranges to about 0.8, but the plot's visible frame ends closer to 0.75."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "remains at a similar level at rank 256 around 0.42",
+          "evidence": "The description states the value at rank 256 is around 0.42, similar to the value at rank 64. However, the plot shows a visible increase, with the value at rank 256 being approximately 0.45, while the value at rank 64 is lower, at about 0.41."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.5
+}

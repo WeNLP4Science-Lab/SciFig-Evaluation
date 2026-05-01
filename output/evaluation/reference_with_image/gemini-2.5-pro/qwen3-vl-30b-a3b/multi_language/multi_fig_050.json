@@ -1,0 +1,162 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The legend in the upper left corner",
+          "evidence": "The legend is located in the upper center of the chart, not the upper left."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The values above each bar indicate the total token count for that category",
+          "evidence": "This statement is incorrect for bars 1 through 4. For these bars, the red numbers (-1952, -1613, -1040, -1379) indicate the difference in token count relative to the first bar, not the total count. Only the first bar has its total value (6393) explicitly labeled."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "followed by 4500 for one shot, 4800 for two shots, 5400 for three shots, and 4800 for four shots",
+          "evidence": "These values are not explicitly written on the chart for bars 1 through 4. They appear to be visual estimations of the total bar heights, but are presented as if they are labeled data. The chart only provides the total for the first bar and the differences for the subsequent bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and 4800 for four shots",
+          "evidence": "The description provides an estimated value of 4800 for the bar at four shots. However, the actual value, calculated from the provided data (6393 - 1379), is 5014. The visual representation of the bar is also clearly above the 5000 gridline, making 4800 a significant error."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "error bars",
+          "evidence": "The red vertical lines with arrows are not error bars, which typically represent statistical uncertainty. They are annotations used to visually represent the difference in token count between the zero-shot bar and the other bars."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Each category on the x-axis contains two stacked bars",
+          "evidence": "The chart contains a single bar for each category on the x-axis. For shots 1 through 4, the single bar is stacked with two components ('Reasoning' and 'Demonstration'). The bar for 0 shots is not stacked."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dropping to 4500 at one shot, 4900 at two shots, 5200 at three shots, and 4600 at four shots",
+          "evidence": "The reported values for the reasoning (orange) token count are incorrect. For example, at two shots, the top of the orange bar is at 4500, not 4900. At three shots, it is at 5000, not 5200. At four shots, it is at approximately 4250, not 4600."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with values of 1952, 1613, 1040, and 1379, respectively",
+          "evidence": "The description incorrectly assigns the values from the red annotations to the 'Demonstration' tokens. These annotations (-1952, -1613, etc.) represent the total reduction in token count compared to the zero-shot case, not the size of the blue 'Demonstration' segment."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The error bars on top of each bar indicate variability in the token counts, with the largest error bars observed at zero shots and one shot.",
+          "evidence": "The chart does not contain any error bars. The description misinterprets the red annotations (arrows with negative numbers indicating token reduction) as error bars."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "as described in the paper \"Mapping the Minds of LLMs: A Graph-Based Analysis of Reasoning LLM.\"",
+          "evidence": "This information is derived from the paper title provided as external context, not from the visual elements within the figure itself."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 1 Shot beträgt der „Reasoning“-Token-Count 4400, und der „Demonstration“-Balken erreicht 4400, was zu einer Gesamtsumme von 4400 entspricht.",
+          "evidence": "The description incorrectly states that for the 1-shot bar, the 'Reasoning' component is 4400, the 'Demonstration' component is 4400, and the total is 4400. This is contradictory for a stacked bar and numerically incorrect. The total value is 6393 - 1952 = 4441. The 'Reasoning' component is approximately 4250, and the 'Demonstration' component is the small remainder."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 2 Shots beträgt der „Reasoning“-Token-Count 4600, und der „Demonstration“-Balken erreicht 4600, was zu einer Gesamtsumme von 4600 entspricht.",
+          "evidence": "The description incorrectly states that for the 2-shot bar, the 'Reasoning' component is 4600, the 'Demonstration' component is 4600, and the total is 4600. This is contradictory for a stacked bar and numerically incorrect. The total value is 6393 - 1613 = 4780. The 'Reasoning' component is approximately 4500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 3 Shots beträgt der „Reasoning“-Token-Count 5100, und der „Demonstration“-Balken erreicht 5100, was zu einer Gesamtsumme von 5100 entspricht.",
+          "evidence": "The description incorrectly states that for the 3-shot bar, the 'Reasoning' component is 5100, the 'Demonstration' component is 5100, and the total is 5100. This is contradictory for a stacked bar and numerically incorrect. The total value is 6393 - 1040 = 5353. The 'Reasoning' component is approximately 5000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei 4 Shots beträgt der „Reasoning“-Token-Count 4300, und der „Demonstration“-Balken erreicht 4300, was zu einer Gesamtsumme von 4300 entspricht.",
+          "evidence": "The description incorrectly states that for the 4-shot bar, the 'Reasoning' component is 4300, the 'Demonstration' component is 4300, and the total is 4300. This is contradictory for a stacked bar and numerically incorrect. The total value is 6393 - 1379 = 5014. The 'Reasoning' component is approximately 4250."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "der die Differenz zwischen dem Wert des vorherigen Balkens und dem aktuellen Balken angibt",
+          "evidence": "The description incorrectly states that the red numbers indicate the difference from the previous bar. In fact, they show the difference from the first bar (0 shots)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die Legende oben rechts",
+          "evidence": "The legend is located at the top center of the chart, not the top right."
+        }
+      ],
+      "mqm_score": 73.0,
+      "total_penalty": 27.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.67
+}

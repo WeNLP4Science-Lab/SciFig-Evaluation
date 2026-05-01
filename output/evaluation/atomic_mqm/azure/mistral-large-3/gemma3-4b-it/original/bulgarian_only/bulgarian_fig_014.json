@@ -1,0 +1,122 @@
+{
+  "figure_key": "bulgarian_fig_014",
+  "subfolder": "bulgarian_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Линейната диаграма представя месечни данни",
+      "evidence": "The figure is a bar chart, not a line chart. The atom 'chart_type' specifies it as a bar chart.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "измерващ се в диапазони от 0% до 140 000%",
+      "evidence": "The y-axis represents values from 0 to 140,000, not percentages up to 140,000%. The atom 'y_axis_label' specifies the y-axis as percentages, but the range is not in percentage points.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Стълбиците за 2022 година са оцветени в синьо и показват относително по-ниски стойности в сравнение със стълбиците за 2023 и 2024 години",
+      "evidence": "The 2022 bars (blue) show the highest values overall, not the lowest. The atom 'max_value' specifies the highest value is in 2022 for December.",
+      "atom_id": "max_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Стълбиците за 2023 година са оцветени в оранжево и показват най-високите стойности от трите години",
+      "evidence": "The 2023 bars (orange) do not show the highest values; 2022 (blue) and 2024 (gray) have higher values in many months. The atom 'max_value' confirms the highest value is in 2022.",
+      "atom_id": "max_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "най-малката стойност е през 2023 година - 80,000 за месеците декември и юли",
+      "evidence": "The description does not explicitly state this, but the atom 'min_value' specifies the lowest value is in 2023 for December and July. However, the machine-generated description incorrectly assigns the lowest values to 2022 in its interpretation.",
+      "atom_id": "min_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not clearly state that the chart illustrates percentage values for three different years by month. This is specified in the atom 'chart_type'.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention that the bars are grouped by month for easy comparison, as specified in the atom 'bar_grouping'.",
+      "atom_id": "bar_grouping"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "като има значителен скок в стойностите между месец I и месец XII",
+      "evidence": "The description introduces an interpretation of a 'significant jump' that is not explicitly shown or supported by the figure or atoms. This is subjective and not verifiable.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "2024 е най-успешната година, защото има най-високи стойности като цяло",
+      "evidence": "The atom 'trend_interpretation' states this, but it is an interpretation rather than a factual description of the figure. The machine-generated description does not include this, but it is an error in the atom checklist itself (not the machine description). However, the machine description does include other unwanted interpretations.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "променят височината си през месеците от годината",
+      "evidence": "The phrase is vague and does not clearly specify how the values change for 2024.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Стълбиците за 2024 година са оцветени в сиво и показват стойности между тези на 2022 и 2023 години",
+      "evidence": "This is an over-generalization; 2024 does not consistently fall between 2022 and 2023 for all months.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 35.0,
+  "total_penalty": 39.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 12,
+    "accuracy": 0.6364,
+    "completeness": 0.7778
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "figure_key": "multi_fig_121",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description of the y-axis is incomplete. It does not mention that the scale is linear, what the numerical range is (0.0 to over 0.6), or the tick intervals (every 0.3)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and slightly decreases to about 0.45 at rank 256",
+          "evidence": "The plot shows that the error value increases from rank 64 (approx. 0.42) to rank 256 (approx. 0.45), it does not decrease."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "This pattern suggests that smaller adapters (lower rank) may achieve better generalization, but the performance deteriorates at higher ranks, potentially indicating a trade-off between model capacity and generalization.",
+          "evidence": "This sentence provides an interpretation of the data's meaning, which is explicitly forbidden by the prompt's instruction to describe only objective features without making inferences or drawing conclusions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The error bars indicate variability in the measurements, and the overall trend supports the caption's claim that smaller adapters tend to have lower generalization errors, with the Hessian trace values likely correlating with these errors.",
+          "evidence": "This sentence interprets the data and refers to external information (the caption), which violates the prompt's instruction to describe only what is shown in the figure itself."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the error decreases from approximately 0.2 at rank 4 to about 0.2 at rank 16",
+          "evidence": "While the values are close, there is a visible decrease from rank 4 (approx. 0.2) to rank 16 (approx. 0.18). Stating the value is 'about 0.2' at both points obscures this change."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "and then a slight decline",
+          "evidence": "This repeats the error of mischaracterizing the trend between rank 64 and rank 256. The plot shows a slight incline (increase), not a decline."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that the line connecting the points is a solid black line, which is a required detail as per the prompt's instruction to describe the 'line style'."
+        }
+      ],
+      "mqm_score": 79.0,
+      "total_penalty": 21.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 79.0
+}

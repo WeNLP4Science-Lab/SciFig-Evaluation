@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the value ranges and tick intervals for the vertical axes, as requested by the prompt. For example, it does not state that the y-axis for charts (a) and (c) ranges from 0 to 30 with intervals of 5, while the y-axis for chart (b) ranges up to over 400 with intervals of 50."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "вариращи от около 420 до 320 за \"Uniform\"",
+          "evidence": "In chart (b) PTB, the perplexity values for the \"Uniform\" category range from approximately 410 down to about 298. The reported range of 420 to 320 is inaccurate for both the starting and ending points."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "от 250 до 150 за \"Ours\"",
+          "evidence": "In chart (b) PTB, the perplexity values for the \"Ours\" category range from approximately 245 down to about 182. The reported end value of 150 is significantly incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "подобни на тези в (a) WikiText",
+          "evidence": "The description makes a comparison between chart (c) and chart (a), which is an interpretation that goes beyond describing a single chart objectively, as instructed by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "от 21 до 17 за \"Ours\"",
+          "evidence": "In chart (c) C4, the perplexity value for \"Ours\" at 16 bits is approximately 18, not 17."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Във всички диаграми стълбовете за \"Ours\" са постоянно по-ниски от тези за \"Uniform\" в целия диапазон от битове на квантуване, а объркаността намалява с увеличаване на броя на битовете на квантуване за двете групи във всички диаграми.",
+          "evidence": "This concluding sentence summarizes trends and makes comparisons across all charts, which violates the prompt's instruction to avoid making interpretations, comparisons, or drawing conclusions about the data."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "320 to 410 in (b)",
+          "evidence": "The description states the range for the blue 'Uniform' bars in chart (b) is 320 to 410. However, the lowest value for a blue bar in this chart is approximately 298 (at 16 quantization bits), which is significantly lower than the stated 320."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "140 to 250 in (b)",
+          "evidence": "The description states the range for the orange 'Ours' bars in chart (b) is 140 to 250. However, the lowest value for an orange bar in this chart is approximately 178 (at 4 quantization bits), which is significantly higher than the stated 140."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the perplexity values for the uniform quantization method remain relatively consistent across different quantization bits",
+          "evidence": "This statement is not accurate for chart (b) PTB, where the value for the 'Uniform' method drops significantly from over 400 at 3 bits to around 315 at 4 bits, which is not 'relatively consistent'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and around 320 for PTB",
+          "evidence": "The perplexity values for the 'Uniform' method in the PTB chart are not 'around 320'. They start at over 400 for 3 bits and decrease to 300 for 8 and 16 bits. The range is approximately 300-420."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the perplexity values for the \"Ours\" method decrease as the quantization bits increase",
+          "evidence": "This is an over-generalization. In all three plots, the values for the 'Ours' method decrease initially and then level off or slightly increase (e.g., in PTB, the value at 8 bits is slightly higher than at 4 bits). They do not consistently decrease across the entire range of quantization bits."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis tick intervals for any of the plots (e.g., intervals of 5 for WikiText and C4, and intervals of 50 for PTB), which was a requirement of the prompt."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.33
+}

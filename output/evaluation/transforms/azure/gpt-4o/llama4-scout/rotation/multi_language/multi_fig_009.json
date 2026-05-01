@@ -1,0 +1,315 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "llama4-scout",
+  "transform": "rotation",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-4o",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "**attn_output** (синя пунктирана линия): Тя започва близо до 0, спада до малко над 0 около слой 5, след което се покачва леко до около 50 около слой 10, като остава близо до тази стойност до около слой 20, след което отново се покачва до около 200 при слой 24.",
+          "evidence": "Синята пунктирана линия (attn_output) в графиката остава близо до 0 през всички слоеве, с изключение на малко покачване до около 300 при слой 23, което не е описано правилно."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "**attn_residual** (зелена пунктирана линия): Тя започва близо до 0, покачва се рязко до около 400 при слой 5, след което спада рязко до около 0 при слой 10, като остава близо до 0 до около слой 20, след което се покачва до около 200 при слой 24.",
+          "evidence": "Зелената линия (attn_residual) в графиката всъщност следва подобен ход на червената линия (ffn_residual), но е изместена с едно ниво надясно. Описанието не съответства на визуалните данни."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "**ffn_output** (оранжева пунктирана линия): Тя започва близо до 0, покачва се рязко до около 1000 при слой 5, след което спада до около 300 при слой 10, като остава близо до тази стойност до около слой 16, след което се покачва до около 900 при слой 18, спада до около 500 при слой 20 и отново се покачва до около 400 при слой 24.",
+          "evidence": "Оранжевата линия (ffn_output) в графиката има три пика на слоеве 5, 13 и 23, което не е правилно описано в текста."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "**ffn_residual** (червена плътна линия): Тя започва близо до 50, спада до около 25 при слой 5, след което се покачва рязко до около 1000 при слой 10, като остава близо до тази стойност до около слой 16, след което спада до около 400 при слой 20 и отново се покачва до около 600 при слой 24.",
+          "evidence": "Червената линия (ffn_residual) в графиката започва от 0, покачва се до 1400 при слой 5, остава между 1400 и 1600 до слой 20, след което спада до 500 при слой 23. Описанието не съответства на визуалните данни."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че графиката илюстрира максималните стойности на активиране на различни нива на модела при базови условия."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "Машинно генерираното описание не споменава, че легендата е разположена в центъра на диаграмата и обозначава линиите с техните съответни компоненти."
+        }
+      ],
+      "mqm_score": 73.0,
+      "total_penalty": 27.0,
+      "error_count": 6,
+      "judge_model": "gpt-4o"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "绿色虚线表示attn_residual，红色实线表示ffn_output，橙色虚线表示ffn_residual",
+          "evidence": "The figure shows that the green dashed-dotted line represents 'ffn_output', the red solid line represents 'ffn_residual', and the orange dotted line represents 'attn_residual'. The machine description misassigns these labels."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第0层，红色线的最大激活值约为50，绿色线的最大激活值约为25，其余两条线接近于0",
+          "evidence": "In the figure, at layer 0, all lines start near 0. The machine description incorrectly states that the red line is around 50 and the green line is around 25."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第5层，蓝色线达到约25，绿色线达到约100，红色线达到约100，橙色线达到约75",
+          "evidence": "At layer 5, the figure shows the blue line ('attn_output') slightly increasing but still near 0, the green line ('ffn_output') peaking around 800, the red line ('ffn_residual') around 1400, and the orange line ('attn_residual') around 1400. The machine description provides incorrect values and trends."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "从第5层到第12层，绿色线迅速增加到约1000，而红色线增加到约900，橙色线增加到约500",
+          "evidence": "From layer 5 to 12, the green line ('ffn_output') does not increase to 1000 but instead peaks around 800 at layer 15. The red line ('ffn_residual') remains stable around 1400, and the orange line ('attn_residual') remains stable around 1400. The machine description misrepresents these trends and values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第12层，绿色线达到峰值1000，红色线达到峰值约为1050，橙色线达到峰值约为500",
+          "evidence": "At layer 12, the green line ('ffn_output') does not peak at 1000 but remains near 0. The red line ('ffn_residual') is stable around 1400, and the orange line ('attn_residual') is also stable around 1400. The machine description provides incorrect peak values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第12层之后，所有线的最大激活值都迅速下降，到24层时趋近于0",
+          "evidence": "After layer 12, the red line ('ffn_residual') and the orange line ('attn_residual') remain high until around layer 20 before dropping sharply. The green line ('ffn_output') peaks at layer 15 and then decreases, while the blue line ('attn_output') remains low throughout. The machine description incorrectly states that all lines drop to 0 after layer 12."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine description does not explicitly state that the chart represents the maximum activation values of different components across layers under a baseline condition."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine description does not mention the specific trends of the blue line ('attn_output'), which remains relatively flat with slight increases near layers 5 and 20."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine description does not describe the sharp rise of the red line ('ffn_residual') near layer 2 and its stability at high values until layer 20."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine description does not mention the two distinct peaks of the green line ('ffn_output') at layers 5 and 15, reaching approximately 800."
+        }
+      ],
+      "mqm_score": 56.0,
+      "total_penalty": 44.0,
+      "error_count": 10,
+      "judge_model": "gpt-4o"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a blue line with no markers and a solid style for attn_output",
+          "evidence": "The blue line representing 'attn_output' is dashed, not solid, as shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a green dashed line with no markers for ffn_output",
+          "evidence": "The green line representing 'ffn_output' is dash-dot, not dashed, as shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue line starts at approximately 25 and ends at approximately 75.",
+          "evidence": "The blue line ('attn_output') starts near zero and ends near 200, as shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The orange line starts at approximately 25 and ends at approximately 375.",
+          "evidence": "The orange line ('attn_residual') starts at zero and peaks at approximately 1400, remaining stable between 1400 and 1600 before declining, as shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The green line starts at approximately 25, increases to approximately 875 at layer 7, decreases to approximately 25 at layer 12, and then increases to approximately 875 at layer 23, before decreasing to approximately 125 at layer 24.",
+          "evidence": "The green line ('ffn_output') remains near zero, with spikes up to approximately 1000 at layers 5, 13, and 22, as shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The red line starts at approximately 50, increases to approximately 1000 at layer 7, remains steady at approximately 1000 until layer 19, and then decreases to approximately 100 at layer 24.",
+          "evidence": "The red line ('ffn_residual') follows a similar pattern to the orange line ('attn_residual'), peaking at approximately 1400 at layer 5, remaining stable between 1400 and 1600, and declining after layer 22, as shown in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the sharp spikes in the green line ('ffn_output') at layers 5, 13, and 22, which are visually prominent in the figure."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the similarity in patterns between the red line ('ffn_residual') and the orange line ('attn_residual'), which is highlighted in the reference description."
+        }
+      ],
+      "mqm_score": 63.0,
+      "total_penalty": 37.0,
+      "error_count": 8,
+      "judge_model": "gpt-4o"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "\"attn_output\" in Blau mit Dreieckmarkierungen und durchgezogener Linie",
+          "evidence": "The figure shows 'attn_output' as a blue dashed line, not a solid line with triangle markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "\"attn_residual\" in Grün mit Kreismarkierungen und gestrichelter Linie",
+          "evidence": "The figure shows 'attn_residual' as an orange dotted line, not a green dashed line with circle markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "\"ffn_output\" in Orange mit Kreuzmarkierungen und gepunkteter Linie",
+          "evidence": "The figure shows 'ffn_output' as a green dashed line, not an orange dotted line with cross markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "\"ffn_residual\" in Rot mit Quadratmarkierungen und durchgezogener Linie",
+          "evidence": "The figure shows 'ffn_residual' as a red solid line, but there are no square markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnend bei (0, 0) und endend bei (24, 100)",
+          "evidence": "The 'attn_output' line starts near 0 and ends at approximately 300 at layer 24, not 100."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnend bei (0, 25) und endend bei (24, 75)",
+          "evidence": "The 'attn_residual' line starts near 0 and ends at approximately 500 at layer 24, not 75."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnend bei (0, 50) und endend bei (24, 200)",
+          "evidence": "The 'ffn_output' line starts near 0 and has peaks at layers 5, 13, and 23, reaching values of 1400, 1000, and 1200, respectively. It does not end at 200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnend bei (0, 50) und endend bei (24, 100), mit einem Spitzenwert von etwa 1000 bei Schicht 12",
+          "evidence": "The 'ffn_residual' line starts near 0, peaks at 1400 at layer 5, remains between 1400 and 1600 until layer 20, and ends at approximately 500 at layer 24. It does not peak at 1000 at layer 12."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not explicitly state that the chart illustrates maximum activation values across layers under baseline conditions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The machine-generated description does not mention the legend placement in the center of the chart."
+        }
+      ],
+      "mqm_score": 53.0,
+      "total_penalty": 47.0,
+      "error_count": 10,
+      "judge_model": "gpt-4o"
+    }
+  },
+  "mqm_score_avg": 61.25
+}

@@ -1,0 +1,242 @@
+{
+  "figure_key": "multi_fig_092",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Тази стълбовидна диаграма представя сравнение на изчислителните разходи и ефективността на различни техники за фино настройване на езикови модели, използвайки Llama-3-8B, за десет задачи за обработка на естествен език.",
+          "evidence": "The description includes extensive details from the paper's context (e.g., 'Llama-3-8B', 'ten natural language processing tasks') that are not present in the figure itself, which only shows FLOPs for different methods."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "MTLoRA",
+          "evidence": "The description lists 'MTLoRA' as one of the categories on the x-axis, but this category does not exist in the chart. The correct category is 'MTL-FT'."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "в долната част на диаграмата",
+          "evidence": "The green bar for 'Ours' is described as being 'at the bottom of the chart', which is confusing. It is the rightmost bar along the horizontal axis, not positioned at the bottom relative to the other bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Най-високата стълба за Full FT е около 1e20 FLOPs, като стълбовете на QLoRA и Ours са около 1e19 FLOPs, а стълбовете на LoRA, MTLoRA и TAG са приблизително 1e18 FLOPs.",
+          "evidence": "This entire sentence contains grossly inaccurate numerical estimations. 'Full FT' is below 1e20 (approx. 8e19). 'QLoRA' and 'Ours' are well below 1e19 (in the 1e18 range). 'TAG' and 'LoRA' are well above 1e19 (approx. 7e19 and 4e19 respectively), not 1e18. The statement also repeats the hallucinated 'MTLoRA'."
+        }
+      ],
+      "mqm_score": 87.0,
+      "total_penalty": 13.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "floating-point operations per second (FLOPs)",
+          "evidence": "The y-axis label is '# FLOPs', which refers to the total number of floating-point operations, not a rate like 'per second'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "“LoRA-FT,”",
+          "evidence": "The chart does not contain a category named 'LoRA-FT' on the x-axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in alphabetical order",
+          "evidence": "The categories on the x-axis ('Full FT', 'TAG', 'LoRA', 'MTL-FT', 'QLoRA', 'Ours') are not arranged in alphabetical order."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bar corresponding to “Full FT” has a height of approximately 10^19 FLOPs",
+          "evidence": "The bar for 'Full FT' is much closer to 10^20, at approximately 8 x 10^19 FLOPs. The stated value is an eight-fold underestimate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bar for “Ours” has a height of approximately 10^18 FLOPs",
+          "evidence": "The bar for 'Ours' has a value of approximately 5 x 10^18 FLOPs, which is five times higher than the stated value of 10^18 FLOPs."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bar for “QLoRA” reaches approximately 10^19 FLOPs",
+          "evidence": "The bar for 'QLoRA' is at approximately 4 x 10^18 FLOPs. The stated value of 10^19 FLOPs is incorrect by a factor of more than 20."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the bar for “LoRA-FT” reaches approximately 10^18 FLOPs",
+          "evidence": "The description provides a data value for 'LoRA-FT', a category that does not exist in the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and the bar for “LoRA” reaches approximately 10^18 FLOPs",
+          "evidence": "The bar for 'LoRA' is at approximately 4 x 10^19 FLOPs. The stated value of 10^18 FLOPs is off by a factor of about 40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bar for “MTL-FT” is approximately 10^18 FLOPs",
+          "evidence": "The bar for 'MTL-FT' is at approximately 8 x 10^18 FLOPs. The stated value of 10^18 FLOPs is an eight-fold underestimate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and the bar for “TAG” is approximately 10^18 FLOPs",
+          "evidence": "The bar for 'TAG' is at approximately 6 x 10^19 FLOPs. The stated value of 10^18 FLOPs is off by a factor of about 60."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "with a logarithmic scale. The value axis is labeled “# FLOPs,” and the scale is logarithmic, with tick labels spaced by a factor of 10.",
+          "evidence": "The information that the scale is logarithmic is repeated unnecessarily in the same sentence and the one immediately following it."
+        }
+      ],
+      "mqm_score": 52.0,
+      "total_penalty": 48.0,
+      "error_count": 11,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "(Floating Point Operations per Second)",
+          "evidence": "The y-axis is labeled '# FLOPs', which stands for the number of floating-point operations. The addition of 'per Second' is an assumption not supported by the figure's labels."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der Balken für QLoRA erstreckt sich über etwa 10^19 FLOPs.",
+          "evidence": "The bar for QLoRA is one of the lowest, at approximately 4 * 10^18, which is significantly less than the stated 10^19 FLOPs."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der Balken für LoRA erreicht etwa 10^19 FLOPs.",
+          "evidence": "The bar for LoRA is clearly above 10^19, at approximately 4 * 10^19 FLOPs. The stated value is a significant underestimate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der Balken für TAG erreicht etwa 10^18 FLOPs.",
+          "evidence": "The bar for TAG is the second highest in the chart, at approximately 6 * 10^19 FLOPs. The stated value of 10^18 is incorrect by more than an order of magnitude."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Poor Sentence Structure",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Der Balken für QLoRA erreicht etwa 10^18 FLOPs.",
+          "evidence": "The description mentions QLoRA twice with two different incorrect values (the first being 'etwa 10^19 FLOPs'). This repetition is confusing and poorly structured."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der Balken für Ours erreicht etwa 10^17 FLOPs.",
+          "evidence": "The y-axis begins at 10^18; no value is at 10^17. The bar for 'Ours' is approximately 5 * 10^18."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Der Balken für Full FT erstreckt sich über etwa 10^17 FLOPs.",
+          "evidence": "The bar for 'Full FT' is the highest on the chart, at approximately 8 * 10^19. The stated value of 10^17 is completely wrong and is below the minimum value of the y-axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Alle Balken sind in absteigender Reihenfolge sortiert",
+          "evidence": "The bars are not strictly sorted in descending order. The bar for 'Ours' is higher than the preceding bar for 'QLoRA'."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei der höchste Balken rechts steht",
+          "evidence": "The highest bar, 'Full FT', is on the far left of the chart, not the right."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that the bar for 'Ours' is green, while all other bars are orange. This is a deliberate visual distinction."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Die Werteachse ist als logarithmische Skala beschriftet und beginnt bei 10^18 und weist in regelmäßigen Intervallen Werte im Bereich von 10^18 bis 10^20 auf.",
+          "evidence": "This sentence redundantly describes the vertical axis, which was already sufficiently described in the previous sentence."
+        }
+      ],
+      "mqm_score": 60.0,
+      "total_penalty": 40.0,
+      "error_count": 11,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 66.33
+}

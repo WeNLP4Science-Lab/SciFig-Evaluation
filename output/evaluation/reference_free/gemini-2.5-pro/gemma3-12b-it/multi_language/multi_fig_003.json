@@ -1,0 +1,186 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Диаграмата представя perplexity на LLaMA1-7B върху различни валидационни набори данни при различни битове на квантуване.",
+          "evidence": "The description treats the three separate subplots ((a) WikiText, (b) PTB, (c) C4) as a single chart, failing to mention their individual titles and characteristics."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Вертикалната ос е етикетирана като \"Perplexity\" и показва стойности от 0 до 30 с равномерни интервали.",
+          "evidence": "This description of the y-axis range (0-30) is only correct for subplots (a) and (c). It completely ignores subplot (b) PTB, where the y-axis range goes up to over 400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "етикетиран като \"Wiki/PTB\"",
+          "evidence": "The description incorrectly labels the blue bar as \"Wiki/PTB\". The legend in all three subplots clearly shows the label for the blue bar is \"Uniform\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "За стойността на битовете на квантуване 3, стълбът \"Ours\" показва perplexity от приблизително 18, докато стълбът \"Wiki/PTB\" показва стойност от приблизително 23.",
+          "evidence": "The stated values of ~18 and ~23 for 3 bits are incorrect for all subplots. For example, in subplot (a), the actual values are approximately 21.5 for \"Ours\" and 29 for \"Uniform\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "За стойността на битовете на квантуване 16, стълбът \"Ours\" показва perplexity от приблизително 22, а стълбът \"Wiki/PTB\" показва стойност от приблизително 22.",
+          "evidence": "The description incorrectly states that both bars at 16 bits have a value of approximately 22. In all subplots, the bars have visibly different heights. For example, in subplot (a) at 16 bits, the \"Ours\" bar is at ~18.5 and the \"Uniform\" bar is at ~26.5."
+        }
+      ],
+      "mqm_score": 75.0,
+      "total_penalty": 25.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with values incrementing by 1",
+          "evidence": "The horizontal axis shows discrete values of 3, 4, 8, and 16, which are not incrementing by 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Tick labels are present at regular intervals of 10 on the vertical axis.",
+          "evidence": "This is incorrect for all three charts. The tick label interval is 5 for the WikiText and C4 charts, and 50 for the PTB chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the WikiText dataset, the shortest \"Uniform\" bar at 3 quantization bits has a value of approximately 28, while the tallest \"Uniform\" bar at 16 quantization bits has a value of approximately 27.",
+          "evidence": "The description incorrectly identifies the shortest and tallest bars. For the \"Uniform\" bars in the WikiText chart, the bar at 3 bits is the tallest (approx. 29), not the shortest. The bar at 16 bits is one of the shortest (approx. 26), not the tallest. The reported values are also inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The shortest \"Ours\" bar at 3 quantization bits has a value of approximately 22, and the tallest \"Ours\" bar at 16 quantization bits has a value of approximately 25.",
+          "evidence": "The description incorrectly identifies the shortest and tallest bars. For the \"Ours\" bars in the WikiText chart, the bar at 3 bits is the tallest (approx. 21.5), not the shortest. The bar at 16 bits is one of the shortest (approx. 18.5), not the tallest. The reported values are inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For the PTB dataset, the shortest \"Uniform\" bar at 3 quantization bits has a value of approximately 310, while the tallest \"Uniform\" bar at 16 quantization bits has a value of approximately 320.",
+          "evidence": "In addition to incorrectly identifying the shortest and tallest bars, the reported values are significantly wrong. The bar at 3 quantization bits has a value of approximately 410, not 310. The bar at 16 quantization bits has a value of approximately 300, not 320."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The shortest \"Ours\" bar at 3 quantization bits has a value of approximately 160, and the tallest \"Ours\" bar at 16 quantization bits has a value of approximately 180.",
+          "evidence": "This description incorrectly maps categories, heights, and values. For the \"Ours\" bars in the PTB chart, the tallest bar is at 3 bits (approx. 245), and the shortest is at 4 bits (approx. 178). The description misidentifies which bars are shortest and tallest, their locations on the x-axis, and their values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The shortest \"Ours\" bar at 3 quantization bits has a value of approximately 12, and the tallest \"Ours\" bar at 16 quantization bits has a value of approximately 20.",
+          "evidence": "The description incorrectly identifies the shortest and tallest bars for the C4 dataset and reports wildly inaccurate values. The value '12' does not correspond to any bar in the chart; the lowest bar for \"Ours\" is approximately 18. The tallest bar is at 3 bits (approx. 20.5), not 16 bits."
+        }
+      ],
+      "mqm_score": 65.0,
+      "total_penalty": 35.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Das Balkendiagramm stellt die Perplexität des LLaMA1-7B-Modells auf verschiedenen Validierungsdatensätzen unter Verwendung verschiedener Quantisierungsbits dar.",
+          "evidence": "The figure contains three separate, labeled subplots ((a) WikiText, (b) PTB, (c) C4), but the description treats them as a single, unified bar chart, failing to describe this fundamental structure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectAxisOrLegendInterpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "die von 0 bis 30 reicht",
+          "evidence": "The description states the y-axis range is 0 to 30, which is only correct for subplots (a) and (c). Subplot (b) has a y-axis range from 0 to over 400."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectAxisOrLegendInterpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Tick-Beschriftungen sind in Intervallen von 5 auf der Perplexitätsskala verteilt.",
+          "evidence": "This is only true for charts (a) and (c). Chart (b) has y-axis tick intervals of 50."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "\"Uniform\" (orange) und \"Ours\" (blau)",
+          "evidence": "The description incorrectly swaps the colors. The legend in all three subplots clearly shows that 'Uniform' is blue and 'Ours' is orange."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für den Datensatz \"Uniform\" hat der Balken für 3 Quantisierungsbits eine Höhe von etwa 20, der Balken für 4 Quantisierungsbits eine Höhe von etwa 18, der Balken für 8 Quantisierungsbits eine Höhe von etwa 15 und der Balken für 16 Quantisierungsbits eine Höhe von etwa 13.",
+          "evidence": "These values are incorrect. The description incorrectly identifies 'Uniform' as orange. The actual orange bars ('Ours') in charts (a) and (c) have values around 21.5, 19, 18.5, 18.5 and 20.5, 18.5, 18, 18 respectively. The values reported (20, 18, 15, 13) do not accurately match any series in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für den Datensatz \"Ours\" hat der Balken für 3 Quantisierungsbits eine Höhe von etwa 300, der Balken für 4 Quantisierungsbits eine Höhe von etwa 280, der Balken für 8 Quantisierungsbits eine Höhe von etwa 250 und der Balken für 16 Quantisierungsbits eine Höhe von etwa 230.",
+          "evidence": "These values are incorrect. The description incorrectly identifies 'Ours' as blue. The actual blue bars ('Uniform') in chart (b) have values of approximately 405, 315, 298, and 298. The reported values (300, 280, 250, 230) are not present in the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "UnwantedInterpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "unterliegen einer konsistenten Abnahme in ihren Werten mit zunehmenden Quantisierungsbits",
+          "evidence": "The prompt instructs to avoid interpreting trends. Stating a 'consistent decrease' is an interpretation of a trend, not a direct description of the visual elements."
+        }
+      ],
+      "mqm_score": 68.5,
+      "total_penalty": 31.5,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 69.5
+}

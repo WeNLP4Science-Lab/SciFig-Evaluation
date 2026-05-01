@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_098",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits that the x-axis uses a logarithmic scale, a fact indicated by the equally spaced labels 1, 2, 4, and 8. The prompt explicitly asks to identify the scale type (e.g., linear or logarithmic)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "the number of adapters, denoted as k, in an ensemble setup",
+          "evidence": "This information is derived from the accompanying caption text, not from the visual elements of the chart itself. The chart's x-axis is labeled only as 'k'. The prompt strictly requires describing only the visually presented information."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating the uncertainty or variability associated with that measurement",
+          "evidence": "Explaining the statistical purpose of error bars constitutes an interpretation, which is forbidden by the prompt's instruction to describe only the visual information without making interpretations or assumptions."
+        }
+      ],
+      "mqm_score": 93.5,
+      "total_penalty": 6.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "(Root Mean Square Error)",
+          "evidence": "The abbreviation RTE is not defined in the figure or its title. Providing the full form 'Root Mean Square Error' is an addition of external information not present in the visual."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "is plotted on a linear scale",
+          "evidence": "The x-axis tick marks are at 1, 2, 4, and 8. The equal spacing for these values that double at each step indicates a logarithmic scale, not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The y-axis, labeled Errors (RTE)",
+          "evidence": "The y-axis has no label. 'Errors (RTE)' is the title of the plot, not the y-axis label."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "approximately 0.55 at k=2",
+          "evidence": "The data point at k=2 is visibly below the 0.55 mark, closer to approximately 0.52 or 0.53."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "approximately 0.50 at k=4",
+          "evidence": "The data point at k=4 is visibly below the 0.5 mark, closer to approximately 0.48."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating the uncertainty or standard deviation associated with that measurement",
+          "evidence": "The figure does not specify what the error bars represent. Stating they indicate 'uncertainty or standard deviation' is an interpretation, which is forbidden by the prompt's instruction to describe only objective features."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "uses a linear scale",
+          "evidence": "The x-axis tick marks are placed at 1, 2, 4, and 8 with equal spacing between them, which indicates a logarithmic scale (base 2), not a linear scale."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The y-axis, labeled Errors (RTE)",
+          "evidence": "The y-axis is not labeled. 'Errors (RTE)' is the title of the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at k=1 with an RTE value of approximately 0.65, decreases to approximately 0.55 at k=2",
+          "evidence": "The reported values are overestimations. The value at k=1 is approximately 0.63, not 0.65. The value at k=2 is approximately 0.53, not 0.55."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.17
+}

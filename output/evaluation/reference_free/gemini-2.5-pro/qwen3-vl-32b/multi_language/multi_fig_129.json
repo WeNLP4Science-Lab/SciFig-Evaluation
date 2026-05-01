@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_129",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while TLDR achieves 90.9%",
+          "evidence": "The chart does not explicitly state the value 90.9%. This value is calculated by the model (92.5 - 1.6), which constitutes an inference. The prompt requires describing only what is explicitly shown. The description should have reported the labeled change (-1.6%). This error is repeated for all four TLDR values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart indicates that TLDR (Ours) either slightly reduces or slightly improves accuracy relative to Vanilla CoT, with notable improvements on AMC and minimal changes on the other datasets.",
+          "evidence": "This sentence provides a summary and interpretation of the data, using subjective terms like \"notable\" and \"minimal\". The prompt explicitly forbids making inferences, comparisons, or drawing conclusions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the accuracy percentage and delta values displayed above each green bar",
+          "evidence": "This is incorrect. The absolute accuracy percentages (e.g., 92.5%, 86.4%) are displayed above the yellow bars (Vanilla CoT), while only the delta values (e.g., -1.6%, +0.2%) are displayed above the green bars."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "No visual emphasis (e.g., shading or annotations) is applied beyond...",
+          "evidence": "The prompt lists annotations as a form of visual emphasis. Stating that there is no emphasis 'beyond' the annotations is contradictory and confusing. The description should have simply stated that the bars are annotated with values."
+        }
+      ],
+      "mqm_score": 87.0,
+      "total_penalty": 13.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while TLDR (Ours) achieves 86.4%",
+          "evidence": "The description states that for the GSM8K dataset, TLDR (Ours) achieves 86.4% accuracy. However, the chart shows the value for Vanilla CoT is 92.5%, and the annotation for TLDR (Ours) is a change of -1.6%, making its actual value 90.9% (92.5 - 1.6). The value 86.4% corresponds to the Vanilla CoT bar for the MATH500 dataset."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "On AIME, both methods score 43.4%",
+          "evidence": "The description claims that on the AIME dataset, both methods score 43.4%. The chart shows that Vanilla CoT scores 43.4%, but TLDR (Ours) has a labeled change of -0.1%, meaning its score is 43.3%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "TLDR (Ours) scores 83.5%",
+          "evidence": "The description states that on AMC, TLDR (Ours) scores 83.5%. This value is not directly labeled on the chart; it is an interpretation derived from adding the base value (79.6%) and the change (+3.9%). While the calculation is correct, the prompt requires describing the chart objectively and avoiding inferences. The description should have stated the base value and the labeled change, rather than presenting the calculated result as a fact from the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "via small red labels above each pair of bars",
+          "evidence": "The description states that the labels showing relative change are red. In the chart, the labels for negative changes (-1.6% and -0.1%) are red, but the labels for positive changes (+0.2% and +3.9%) are green."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The caption notes that the TLDR method consistently reduces generation length while maintaining or improving accuracy across both 7B and 14B model scales, though generation length is not visually represented in this chart.",
+          "evidence": "The description includes information from the figure's caption that is not visually depicted in the bar chart itself. The prompt asks for a description of the visual elements of the diagram, and this sentence introduces external information."
+        }
+      ],
+      "mqm_score": 78.5,
+      "total_penalty": 21.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 82.75
+}

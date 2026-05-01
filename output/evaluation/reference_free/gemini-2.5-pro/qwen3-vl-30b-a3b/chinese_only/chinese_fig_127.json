@@ -1,0 +1,68 @@
+{
+  "figure_key": "chinese_fig_127",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "数值范围从0到300",
+      "evidence": "The x-axis ticks are labeled from 50 to 300, and the data begins at a dimension value less than 50 (approximately 25). The axis does not explicitly start at 0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色虚线",
+      "evidence": "The blue line representing the TF-IDF method is a solid line, not a dashed line (虚线)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "起始于维度50时准确率为82.6%",
+      "evidence": "The blue TF-IDF line does not start at dimension 50. Its first data point is at a dimension of approximately 25 with an accuracy of about 81.1%. While a data point exists at (50, 82.6%), it is not the starting point of the line."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "起始于维度50时准确率为81.9%",
+      "evidence": "This incorrectly states that for the red MFDSL line, the accuracy is 81.9% at dimension 50. In the figure, the accuracy of 81.9% corresponds to the starting dimension of approximately 25. At dimension 50, the accuracy for MFDSL is approximately 83.9%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色虚线代表TF-IDF方法...红色实线代表MFDSL方法",
+      "evidence": "The description incorrectly swaps the data for the two lines. The TF-IDF line (blue) has its first data point at approx. 81.1% and the MFDSL line (red) has its first data point at approx. 81.9%. The description states that TF-IDF starts at 82.6% (at dim 50) and MFDSL starts at 81.9% (at dim 50), which incorrectly attributes the lower starting value (81.9%) to the wrong line (MFDSL)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "最终在维度300时准确率仍维持在84.0%左右",
+      "evidence": "For the MFDSL (red) line, the accuracy at dimension 300 is visibly higher than 84.0%, closer to 84.2%. Describing it as 'around 84.0%' is an inaccurate understatement."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "且MFDSL在较低维度下即达到较高准确率",
+      "evidence": "This part of the sentence makes a direct comparison between the two methods, which is explicitly forbidden by the prompt's instruction: 'Do not ... compare different lines.'"
+    }
+  ],
+  "mqm_score": 72.5,
+  "total_penalty": 27.5,
+  "error_count": 7
+}

@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_152",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 20,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色实线带圆形标记代表300维，灰色实线带圆形标记代表200维，黄色实线带圆形标记代表100维",
+      "evidence": "300维应为方形标记，200维应为菱形标记，100维应为三角形标记，而非均为圆形标记。",
+      "atom_id": "300dim_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "500维、300维、200维、100维的准确率分别约为0.9、0.92、0.91、0.96",
+      "evidence": "500维起点约为0.9（正确），但300维起点应接近0.95而非0.92，200维起点约0.92而非0.91，100维起点约0.9而非0.96。",
+      "atom_id": "500dim_start"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在“词2n”类别处，四者分别约为0.95、0.94、0.93、0.85",
+      "evidence": "500维在“词2n”处应约为0.93而非0.95，100维在“词2n”处无明确原子要求，但图示约为0.9而非0.85。",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在“词类2n”类别处，四者分别约为0.8、0.87、0.88、0.9",
+      "evidence": "100维在“词类2n”处最低点约0.8（正确），但300维应约为0.9而非0.87，200维应约为0.88（接近正确），500维约0.8（正确）。",
+      "atom_id": "300dim_trend"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "100维在“词”类别处达到最高点0.96",
+      "evidence": "100维起点约0.9而非0.96，且无原子支持最高点在“词”类别。",
+      "atom_id": "100dim_start_end"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "500维在“词2n”类别处达到0.95",
+      "evidence": "500维在“词2n”处约为0.93而非0.95。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确描述200维的起点数值（约0.92）。",
+      "atom_id": "200dim_start"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及200维的整体趋势描述（波动平缓，最终稳定在大约0.9）。",
+      "atom_id": "200dim_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "各线条在不同类别间呈现波动变化",
+      "evidence": "使用了主观性描述“波动变化”，未严格基于图示数据。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "横轴（x轴）为类别标签，采用离散刻度，依次标注“词”、“词2n”、“词类2n”、“标点”、“标点2n”，无单位，刻度间隔为一个类别单位。纵轴（y轴）为组合准确率，采用线性刻度，数值范围从0.8到1.0，单位为无量纲比例，刻度间隔为0.05。",
+      "evidence": "过度详细描述刻度和单位，与参考描述相比冗余。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "500维在“词2n”类别处达到0.95，随后在“词类2n”类别处下降至0.8，之后回升至“标点2n”类别处的0.9",
+      "evidence": "未明确说明“之后回升”的具体数值（应为约0.95）。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 63.5,
+  "total_penalty": 36.5,
+  "atom_coverage": {
+    "correct": 14,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 20,
+    "accuracy": 0.7778,
+    "completeness": 0.875
+  }
+}

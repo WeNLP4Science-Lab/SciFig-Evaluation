@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_155",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "comparing two precision levels: 4-Fbit (blue bars) and 2-Fbit (green bars)",
+          "evidence": "The description implies that the chart is a grouped bar chart where both 4-Fbit and 2-Fbit are plotted for comparison at each block index. However, the chart shows only a single bar for each block index, which is either blue (4-Fbit) or green (2-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from $10^{-5}$ to $10^{-4}$",
+          "evidence": "The description incorrectly states the range of the y-axis. The plotted values extend both below 10^-5 and significantly above 10^-4."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description mentions the dashed horizontal line at 10^-5 but omits the second dashed horizontal line present at 10^-4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For block indices 0 to 31, the green bars (2-Fbit) are generally higher than the blue bars (4-Fbit)",
+          "evidence": "This statement is factually incorrect. In this range, there are very few blue bars, but where they do appear (e.g., indices 28-31), they are generally higher than the neighboring green bars."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "indicating greater sensitivity at this precision level.",
+          "evidence": "The description draws a conclusion about what the data indicates, which violates the prompt's instruction to avoid interpretation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the sensitivity peaking at block index 63",
+          "evidence": "The tallest bar, representing the peak sensitivity, is at block index 62, not 63."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reaches approximately $3 \\times 10^{-4}$",
+          "evidence": "The description overestimates the peak value. The tallest bar (at index 62) is approximately 2.5 x 10^-4. The bar at index 63, which the description incorrectly identifies as the peak, is even lower, around 1.5 x 10^-4."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart highlights that sensitivity varies across block indices and is influenced by the quantization precision, with the 4-Fbit precision showing notably higher sensitivity for later blocks.",
+          "evidence": "This concluding sentence summarizes trends and suggests causation ('influenced by'), which constitutes interpretation beyond the objective description required by the prompt."
+        }
+      ],
+      "mqm_score": 73.5,
+      "total_penalty": 26.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 73.5
+}

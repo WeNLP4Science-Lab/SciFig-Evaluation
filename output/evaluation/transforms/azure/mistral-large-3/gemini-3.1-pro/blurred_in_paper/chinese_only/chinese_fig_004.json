@@ -1,0 +1,61 @@
+{
+  "figure_key": "chinese_fig_004",
+  "model_name": "gemini-3.1-pro",
+  "transform": "blurred_in_paper",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "mistral-large-3",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "您提供的图片中没有包含任何柱状图",
+      "evidence": "The figure clearly shows a bar chart (blue-green bars) representing daily new confirmed COVID-19 cases, contradicting the machine-generated claim that no bar chart is present."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图片中包含一个表格（表3：预测结果样例）和一段被遮挡的图表（图3：新闻报道与新增病例数目统计）",
+      "evidence": "The image does not contain any table labeled '表3' or a partially obscured chart labeled '图3'. This content is entirely hallucinated."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The reference description explicitly states the chart's purpose: to show trends in daily new COVID-19 cases and related media reports from July 1 to August 26, 2022. The machine-generated description omits this entirely."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The reference describes the x-axis (dates), left y-axis (daily new cases, range 0–1,800,000, step 200,000), and right y-axis (media reports, range 0–6,000, step 1,000). The machine-generated description omits all axis details."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The reference mentions blue-green bars for daily cases and a blue line for media reports, as well as their synchronous but sometimes lagging trends. The machine-generated description omits all visual features and trends."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "由于图表被完全遮挡，我无法看到其内容，也无法确认它是否是一个柱状图",
+      "evidence": "The machine-generated description incorrectly claims the chart is obscured, which is not true. This introduces an unnecessary and false interpretation."
+    }
+  ],
+  "mqm_score": 78.5,
+  "total_penalty": 21.5,
+  "error_count": 6
+}

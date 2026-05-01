@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_094",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The scale is linear",
+          "evidence": "The description states the x-axis scale is linear. However, the tick labels (4, 16, 64, 256) are powers of 4 and are spaced equally, which indicates a logarithmic scale, not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The y-axis is labeled \"Error (RTE)\"",
+          "evidence": "The y-axis itself has no label. \"Error (RTE)\" is the title of the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating the variability or uncertainty in the RTE measurements",
+          "evidence": "The description explains the meaning of error bars, which is an interpretation. The prompt asks to describe only what is visually present, not to interpret what visual elements represent."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The plot visually demonstrates that the generalization error is minimized at a rank of 16, which aligns with the caption's claim that smaller adapters with a rank of 16 achieve the lowest generalization errors. The error increases as the rank increases beyond 16, reaching its highest value at rank 256.",
+          "evidence": "This entire paragraph is dedicated to interpretation, summarization, and comparison with external information (the caption). The prompt explicitly forbids making interpretations ('minimized', 'highest value'), drawing conclusions, or using information not visually present in the chart itself."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "(Root Mean Square Error)",
+          "evidence": "The figure labels the y-axis and title with the acronym 'RTE' but does not define it. Expanding it to 'Root Mean Square Error' is an assumption not directly stated in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "is linear",
+          "evidence": "The x-axis is on a logarithmic scale, not a linear one. The tick marks at 4, 16, 64, and 256 are equally spaced, indicating a log scale."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at regular intervals of 12 (4, 16, 64, 256)",
+          "evidence": "This statement is contradictory and incorrect. While the first interval (16 - 4) is 12, the subsequent intervals are 48 and 192. Therefore, the intervals are not regular."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating the uncertainty or standard deviation of the measurement",
+          "evidence": "While this is the function of error bars, stating their purpose is an interpretation rather than a direct description of a visual feature."
+        }
+      ],
+      "mqm_score": 87.0,
+      "total_penalty": 13.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "uses a linear scale",
+          "evidence": "The x-axis does not use a linear scale. The tick marks 4, 16, 64, and 256 are spaced equally, indicating a logarithmic scale (base 4), not a linear one."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at intervals of 12",
+          "evidence": "The x-axis tick marks are not at intervals of 12. The values are 4, 16, 64, 256. The numerical difference between them is not constant (16-4=12, but 64-16=48)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The y-axis, labeled \"Error (RTE)\"",
+          "evidence": "The y-axis does not have a label. \"Error (RTE)\" is the title of the chart, not the y-axis label."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.67
+}

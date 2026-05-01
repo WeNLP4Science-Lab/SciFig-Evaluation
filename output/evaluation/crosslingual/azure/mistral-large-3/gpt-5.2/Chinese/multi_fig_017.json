@@ -1,0 +1,112 @@
+{
+  "figure_key": "multi_fig_017",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "Chinese",
+  "num_atoms": 8,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "范围从 0 到 23（图中标注的主要刻度为 0、5、10、15、20，间隔 5）",
+      "evidence": "x-axis range is from 0 to 22 (visible in the image), not 0 to 23. The description's range exceeds the image's visible range by 1 unit.",
+      "atom_id": "sent_1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "蓝色虚线（attn_output）在第 0–18 层基本贴近 0，随后在第 19–20 层仍处于低值（约几十量级），并在第 21 层开始明显上升（约 50 左右），第 22 层升至约 300 左右，至第 23 层约 330 左右",
+      "evidence": "The image shows the blue line (attn_output) reaches approximately 300 at layer 21, not layer 22. The description also hallucinates a value for layer 23, which is not visible in the image.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "橙色点线（attn_residual）在第 0–3 层接近 0，第 4 层跃升至约 1050，第 5–11 层维持在约 1210–1220 的平台；第 12–14 层继续上升并在第 14–20 层附近维持在约 1500 左右；之后在第 21 层仍接近该高位，但第 22 层出现大幅下降（约 700 左右），第 23 层进一步降至约 350–400",
+      "evidence": "The orange line (attn_residual) peaks at layer 15 (~1500), not layer 14–20. The description also hallucinates values for layers 22 and 23, which are not visible in the image.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "绿色点划线（ffn_output）在第 0–2 层接近 0，第 3 层出现一次尖峰（约 1050），随后第 4 层降至约 150–200，第 5 层接近 0，并在第 5–11 层保持接近 0；第 12 层出现第二次尖峰（约 1180），第 13–15 层快速回落至接近 0，之后第 16–20 层仍接近 0；第 21 层出现第三次上升至约 720，随后第 22–23 层逐步回落至约 520 和约 350–400",
+      "evidence": "The green line (ffn_output) shows two peaks (layers 4 and 12), not three. The description hallucinates a third peak at layer 21 and values for layers 22–23, which are not visible in the image.",
+      "atom_id": "sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "红色实线（ffn_residual）在第 0–2 层接近 0，第 3 层跃升至约 1050，第 4 层继续升至约 1210–1220，并在第 4–11 层维持该平台；第 12–14 层上升并在第 14–20 层附近保持在约 1520 的高位平台，随后第 21 层略低于平台（约 1480–1500），第 22 层发生显著下跌至约 360，至第 23 层回升至约 650",
+      "evidence": "The red line (ffn_residual) peaks at layer 13 (~1500), not layer 14–20. The description also hallucinates values for layers 22 and 23, which are not visible in the image.",
+      "atom_id": "sent_7"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "至第 23 层约 330 左右",
+      "evidence": "The image does not show data for layer 23. This value is hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "第 23 层进一步降至约 350–400",
+      "evidence": "The image does not show data for layer 23. This value is hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "第 22–23 层逐步回落至约 520 和约 350–400",
+      "evidence": "The image does not show data for layer 23. Values for layers 22 and 23 are hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "至第 23 层回升至约 650",
+      "evidence": "The image does not show data for layer 23. This value is hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该图为一张折线图，用于展示在不同网络层（Layer）上四个张量（attn_output、attn_residual、ffn_output、ffn_residual）的“最大激活值（Max Activation Value）”随层数变化的情况。x 轴标签为“Layer”，为线性刻度，范围从 0 到 23（图中标注的主要刻度为 0、5、10、15、20，间隔 5）。y 轴标签为“Max Activation Value”，为线性刻度，范围从 0 到 1600，刻度以 200 为等间隔递增。",
+      "evidence": "The description is overly verbose in repeating axis details (e.g., '图中标注的主要刻度为 0、5、10、15、20，间隔 5') that are already implied by the axis range and scale type.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 37.5,
+  "total_penalty": 25.0,
+  "atom_coverage": {
+    "correct": 3,
+    "inaccurate": 5,
+    "missing": 0,
+    "total": 8,
+    "accuracy": 0.375,
+    "completeness": 1.0
+  }
+}

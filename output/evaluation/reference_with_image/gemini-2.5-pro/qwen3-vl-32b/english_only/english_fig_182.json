@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_182",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The x-axis is labeled with token lengths",
+      "evidence": "The x-axis is not labeled. It has tick marks with the values 128, 256, 512, and 1024, but there is no textual label describing what these values represent (e.g., 'token lengths' or 'sample sizes')."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "All lines show an increasing trend with token length.",
+      "evidence": "This is an over-generalization. Three of the four lines (blue, orange, and green) are mostly flat between x=512 and x=1024, not showing a continuous increasing trend across the entire range."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The green line (LLaVA-1.5-7B on MMSafetyBench) starts at 0.07 and increases to 0.37.",
+      "evidence": "The phrase \"increases to 0.37\" is ambiguous as it does not specify the x-coordinate where this value is reached. The line reaches approximately 0.37 at x=512 and then continues to x=1024, ending at a slightly higher value of ~0.38."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "The red and orange lines remain above the green and blue lines across all token lengths",
+      "evidence": "This statement is incorrect. At x=128, the orange line (Qwen2-VL-7B on FigStep) is at approximately 0.15, which is below the blue line (LLaVA-1.5-7B on FigStep) at 0.20."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 4
+}

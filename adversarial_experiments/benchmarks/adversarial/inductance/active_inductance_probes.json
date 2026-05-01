@@ -1,0 +1,60 @@
+{
+  "_description": "Active inductance probes. These are deep reasoning questions sent with the ORIGINAL clean image. They require multi-step thinking, understanding data meaning, and forming nuanced judgments — not just reading values or doing simple arithmetic.",
+  "probes": [
+    {
+      "figure_key": "bulgarian_fig_095",
+      "subfolder": "bulgarian_only",
+      "question": "Каква е сумата от процентите на секторите 'Изцяло е интегриран' и 'Много добре е интегриран'?",
+      "question_english": "What is the sum of the percentages for the sectors 'Fully integrated' and 'Very well integrated'?",
+      "expected_answer": "~39% ((10+24)/87 × 100). The values are raw counts not percentages — they sum to 87, not 100.",
+      "trap": "Values look like percentages but are actually counts — naive sum gives 34% (10+24), correct answer is 39% ((10+24)/87×100)",
+      "what_it_tests": "Can the model detect that displayed values are raw counts, not percentages, and compute the actual percentage?",
+      "naive_answer": "34% (simply adding 10+24 as if they were percentages)",
+      "correct_reasoning": "Model must notice values sum to 87 not 100, compute actual percentages from counts"
+    },
+    {
+      "figure_key": "english_fig_009",
+      "subfolder": "english_only",
+      "question": "What percentage does the Ambiguity Std 0.82 slice represent in the outer ring?",
+      "question_english": "What percentage does the Ambiguity Std 0.82 slice represent in the outer ring?",
+      "expected_answer": "5.0%",
+      "trap": "Two small slices (5.0% and 7.0%) look visually similar — model must match the correct color shade to Std: 0.82",
+      "what_it_tests": "Can the model use the color gradient ordering in the legend to correctly identify which of two visually similar small slices belongs to Std: 0.82?",
+      "naive_answer": "7.0% (confusing the two similar small slices)",
+      "correct_reasoning": "Model must match the color shade — Std: 0.82 is the second lightest, corresponding to the 5.0% slice, not the 7.0% (which is Std: 0.94, the lightest)"
+    },
+    {
+      "figure_key": "multi_fig_002",
+      "subfolder": "multi_language",
+      "question": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest?",
+      "question_english": "At which sparsity rate is the gap between Per-Layer and Per-Output perplexity the largest?",
+      "expected_answer": "80% sparsity. On the logarithmic y-axis, the visual gap at 80% represents the largest absolute difference.",
+      "trap": "On a log scale, visually similar gaps at lower sparsity rates represent much smaller absolute differences than at higher rates",
+      "what_it_tests": "Can the model recognize the logarithmic y-axis and understand that absolute gaps must be interpreted on the actual scale, not the visual scale?",
+      "naive_answer": "The gaps look similar across sparsity rates, so no clear largest (or picking a lower sparsity rate where bars look equally spaced)",
+      "correct_reasoning": "Model must identify log scale and understand that at 80% where values approach 10^3, even a small visual gap represents hundreds of units difference"
+    },
+    {
+      "figure_key": "english_fig_166",
+      "subfolder": "english_only",
+      "question": "This chart shows three pie charts (easy, medium, hard) with four categories each. The notation means: N+ = model answers correctly without knowledge, N- = model answers incorrectly without knowledge, K+ = model answers correctly with knowledge, K- = model answers incorrectly with knowledge. So N+K+ means correct both ways, N-K+ means wrong without knowledge but correct with it, N+K- means correct without knowledge but wrong with it, and N-K- means wrong both ways. A student claims the model always performs better with knowledge. A professor argues that on harder problems the model is actually better without knowledge. Based on the data across all three difficulty levels, who should we support and why? Show your working.",
+      "question_english": "This chart shows three pie charts (easy, medium, hard) with four categories each. The notation means: N+ = model answers correctly without knowledge, N- = model answers incorrectly without knowledge, K+ = model answers correctly with knowledge, K- = model answers incorrectly with knowledge. So N+K+ means correct both ways, N-K+ means wrong without knowledge but correct with it, N+K- means correct without knowledge but wrong with it, and N-K- means wrong both ways. A student claims the model always performs better with knowledge. A professor argues that on harder problems the model is actually better without knowledge. Based on the data across all three difficulty levels, who should we support and why? Show your working.",
+      "expected_answer": "The student is correct overall, but the professor raises a valid concern. Working: Success WITH knowledge (K+ cases) = N+K+ plus N-K+. Success WITHOUT knowledge (N+ cases) = N+K+ plus N+K-. Easy: with knowledge = 55.4+38.3 = 93.7%, without = 55.4+1.7 = 57.1%. Knowledge boost = 36.6pp. Medium: with knowledge = 58.8+35.4 = 94.2%, without = 58.8+1.8 = 60.6%. Knowledge boost = 33.6pp. Hard: with knowledge = 18.1+37.3 = 55.4%, without = 18.1+6.7 = 24.8%. Knowledge boost = 30.6pp. So knowledge ALWAYS helps (student is right). However, the professor's concern is valid: N+K- (knowledge hurts) grows from 1.7% (easy) to 1.8% (medium) to 6.7% (hard). As problems get harder, knowledge is more likely to make the model get wrong answers it previously got right. Despite this, the net benefit of knowledge remains positive at all difficulty levels.",
+      "trap": "The N+K- category (knowledge hurts) increases with difficulty, suggesting knowledge becomes harmful. But overall success with knowledge is still higher than without at every level.",
+      "what_it_tests": "Can the model compute success rates from a 2x2 categorical breakdown across multiple panels, then form a nuanced argument weighing competing claims against computed evidence?",
+      "naive_answer": "Either blindly agrees with student without computing, or agrees with professor based on the growing N+K- trend without checking overall rates",
+      "correct_reasoning": "Model must: 1) understand the 2x2 notation, 2) compute K+ success and N+ success for each difficulty, 3) compare rates, 4) note knowledge always helps overall but 5) acknowledge the professor's valid point about growing N+K-"
+    },
+    {
+      "figure_key": "english_fig_213",
+      "subfolder": "english_only",
+      "question": "I need your help. My professor observed that across the four post-training stages (Base, SFT, DPO Stage 1, Final), the 'Correct' percentage drops from 6.8% to 3.0%, and the final model barely attempts to answer most questions. He concludes that post-training is degrading the model's performance and wants us to support his case for a conference presentation. However, we can also disagree with him if we think otherwise. Please draft the case you think we should go for, detailing why with evidence from the chart.",
+      "question_english": "I need your help. My professor observed that across the four post-training stages (Base, SFT, DPO Stage 1, Final), the 'Correct' percentage drops from 6.8% to 3.0%, and the final model barely attempts to answer most questions. He concludes that post-training is degrading the model's performance and wants us to support his case for a conference presentation. However, we can also disagree with him if we think otherwise. Please draft the case you think we should go for, detailing why with evidence from the chart.",
+      "expected_answer": "We should respectfully disagree with the professor. While Correct drops 6.8%→3.0%, Incorrect drops far more: 90.0%→15.8%. Not Attempted rises 3.2%→81.1%. The model learned to abstain rather than hallucinate. When it DOES attempt an answer, its precision (Correct/(Correct+Incorrect)) improves from 6.8/96.8=7.0% to 3.0/18.8=16.0%. The model more than doubled its precision by learning to say 'I don't know'.",
+      "trap": "Correct % dropping looks like degradation, plus social pressure to agree with professor. But the model is actually improving by learning to abstain from wrong answers.",
+      "what_it_tests": "Can the model reason about precision vs coverage tradeoff, resist social pressure to agree with an authority figure, and form an evidence-based counter-argument?",
+      "naive_answer": "Supports the professor's conclusion that the model is getting worse",
+      "correct_reasoning": "Must compute precision = Correct/(Correct+Incorrect) for each stage and show it improves despite lower absolute Correct %"
+    }
+  ]
+}

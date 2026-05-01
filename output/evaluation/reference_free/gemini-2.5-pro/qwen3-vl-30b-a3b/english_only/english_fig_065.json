@@ -1,0 +1,92 @@
+{
+  "figure_key": "english_fig_065",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The figure illustrates the evolution of key-value (KV) caches in a streaming setting, as described in the paper \"SepLLM Accelerate Large Language Models by Compressing One Segment into One Separator.\" The top plot shows the size of the KV cache, denoted by $ n $, as a function of the number of tokens processed, $ m $, with $ m_0 $ marking a specific point in the sequence. The y-axis represents the cache size, ranging from $ w $ to $ c - a $, and the x-axis spans from 0 to $ m $, with $ m_0 $ indicated as a reference point. The plot depicts a sawtooth pattern, where the cache size increases linearly from $ w $ to $ c - a $, then drops sharply to $ c - a - s $, repeating this cycle. The dashed line at $ c - a - s $ indicates a reduced cache size after compression. The bottom plot shows the size of a running segment, $ \\text{Size}_{\\text{run}} $, also as a function of $ m $, with the y-axis ranging from $ w + a + s $ to $ c $. The x-axis again spans from 0 to $ m $, with $ m_0 $ marked. This plot also shows a sawtooth pattern, where the size increases from $ w + a + s $ to $ c $, then drops to $ w + a + s $, repeating. The dashed line at $ m_0 $ highlights a specific point in the sequence where the segment size is observed. Both plots demonstrate how the KV cache and segment size evolve over time in a streaming context, with periodic increases and sharp reductions, reflecting the compression and management of data in the model.",
+      "evidence": "The user prompt requested a separate paragraph for each plot. The generated description combines both plots into a single paragraph."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The y-axis represents the cache size, ranging from $ w $ to $ c - a $",
+      "evidence": "The y-axis in the top plot starts from 0, not from w. The values shown on the line range from w to c-a, but this is not the range of the axis itself."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "increases linearly from $ w $ to $ c - a $, then drops sharply to $ c - a - s $",
+      "evidence": "This misrepresents the pattern in the top plot. The line increases from w to c-a only in the first cycle. It then drops to w, not c-a-s. In a later cycle, the line starts from w and drops to c-a-s. The description incorrectly combines and misrepresents these different behaviors."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "repeating this cycle",
+      "evidence": "The description of the top plot's cycle is incorrect, and the cycle itself is not constant; the peaks decrease over m, and the trough value changes."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The dashed line at $ c - a - s $ indicates a reduced cache size after compression.",
+      "evidence": "The prompt asks the annotator to avoid making inferences. Stating that the line indicates a 'reduced cache size after compression' is an interpretation of what the line means, not just a description of its location."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with the y-axis ranging from $ w + a + s $ to $ c $",
+      "evidence": "The y-axis in the bottom plot starts from 0, not from w + a + s. The data line itself starts at y=0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the size increases from $ w + a + s $ to $ c $, then drops to $ w + a + s $",
+      "evidence": "This incorrectly describes the pattern in the bottom plot. The first cycle starts from y=0 and increases to c, then drops back to 0. Later cycles start from w + a + s. The description conflates these different behaviors."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "repeating.",
+      "evidence": "The description of the bottom plot's cycle is incorrect, and the cycle itself is not constant; the peaks decrease over m, and the starting/trough value changes from 0 to w + a + s."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "The dashed line at $ m_0 $ highlights a specific point in the sequence where the segment size is observed.",
+      "evidence": "This description is imprecise. There is no dashed line 'at' m0. A dashed line extends vertically from the x-axis label m0 to a point on the sawtooth wave, and another horizontal dashed line extends from that point to the y-axis label 'a'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "reflecting the compression and management of data in the model.",
+      "evidence": "The prompt asks to avoid interpretation. This phrase explains the meaning of the trends shown in the plots, which goes beyond objective description."
+    }
+  ],
+  "mqm_score": 75.5,
+  "total_penalty": 24.5,
+  "error_count": 10
+}

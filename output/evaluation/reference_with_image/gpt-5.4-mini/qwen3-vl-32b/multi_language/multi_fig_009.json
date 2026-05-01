@@ -1,0 +1,242 @@
+{
+  "figure_key": "multi_fig_009",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "показва номера на слоевете от 0 до 22",
+          "evidence": "The x-axis in the figure extends to layer 24, and the reference states a linear scale from 0 to 24. Saying 0 to 22 is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "при слой 5 се наблюдава рязко увеличение на стойностите на „ffn_residual“ (червена линия), „attn_residual“ (оранжева линия) и „ffn_output“ (зелена линия), които достигат стойности над 1400",
+          "evidence": "At layer 5, the red and green series are around 1400, but the orange series is still near 0 at layer 5 and rises only around layer 6. So grouping all three as jumping at layer 5 is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "„attn_output“ (синя линия) остава ниска, под 100, до слой 20, където започва да се увеличава рязко, достигайки около 200 при слой 22.",
+          "evidence": "The blue attn_output remains near 0 until about layer 22 and is only around 300 at the final point near layer 23/24. It does not start rising at layer 20 nor is it about 200 at layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "„ffn_output“ (зелена линия) показва рязко спадане на стойностите след слой 13, достигайки нулеви стойности до слой 18, след което отново се увеличава.",
+          "evidence": "The green series spikes at layer 13 and then drops, but it does not stay at zero until layer 18; it has small nonzero values around layers 14-17 and rises again near layer 22/23. The described timing is inaccurate."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "„ffn_residual“ (червена линия) и „attn_residual“ (оранжева линия) остават на високи нива (над 1400) от слой 6 до слой 20, след което рязко спадат до нулеви стойности при слой 22.",
+          "evidence": "The red line stays high through about layer 21, then drops sharply near layer 22 to around 400 and rebounds to about 600 by the end, while the orange line stays high until about layer 22 and then drops to roughly 250, not to zero. The layer numbers and end values are wrong."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description mentions the axis labels and numeric ranges, but it omits the x-axis tick interval detail present in the reference: ticks are spaced every 5 units and the y-axis ticks every 200."
+        }
+      ],
+      "mqm_score": 73.5,
+      "total_penalty": 26.5,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "范围从0到22",
+          "evidence": "The x-axis in the figure extends to about 24 (with ticks at 0, 5, 10, 15, 20), not 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "蓝色虚线（attn_output）在层0至5间保持在0附近，在层5后上升，在层21处达到约200",
+          "evidence": "The blue dashed attn_output stays near zero for most layers and only rises sharply near the final layer, reaching roughly 250 at the end; it does not rise around layer 5 or peak at layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "橙色点线（attn_residual）在层0至5间接近0，在层5后迅速上升至约1600，在层13处略有下降后维持在1600左右，层21处下降至约400",
+          "evidence": "The orange dotted attn_residual rises to about 1400 around layer 5, stays roughly between 1480 and 1580, and drops sharply only near the last layers; it is not near 1600 at layer 5 or around 400 at layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "绿色虚线（ffn_output）在层0至5间接近0，在层5后迅速上升至约1200，在层13处下降至约0，层21处再次上升至约1200",
+          "evidence": "The green dash-dot ffn_output has sharp peaks around layers 5 and 13, with values around 1400 and 800 respectively, and another peak near layer 22 around 1200; it does not remain around 1200 at layer 5 or drop to 0 at layer 13."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "红色实线（ffn_residual）在层0至5间接近0，在层5后迅速上升至约1500，在层13处略有下降后维持在1500左右，层21处下降至约400",
+          "evidence": "The red solid ffn_residual rises to about 1400 at layer 5, stays near 1480-1580 until around layer 21, then drops sharply and ends near 600; it does not fall to about 400 at layer 21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "所有线条在层5处均出现显著上升，在层13和层21处出现下降或波动。",
+          "evidence": "Not all lines show a descent at layer 13 or layer 21; the blue line remains near zero until the final layers, and the green line has peaks rather than a simple down-then-up pattern."
+        }
+      ],
+      "mqm_score": 76.0,
+      "total_penalty": 24.0,
+      "error_count": 6,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The x-axis, labeled \"Layer,\" ranges from 0 to 22",
+          "evidence": "The x-axis in the figure spans layers 0 to 24, with data extending to layer 23, not 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The green dash-dotted line (`ffn_output`) begins near zero, spikes to around 1200 at layer 5",
+          "evidence": "The green spike at layer 5 is approximately 1400, not 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "then rises again to approximately 1200 at layer 13",
+          "evidence": "The green spike at layer 13 is around 1000, not 1200."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The blue dashed line (`attn_output`) remains close to zero throughout, with a slight increase to about 100 near layer 20.",
+          "evidence": "The blue line stays near zero until the final layer, where it rises to about 200–250 around layer 23; the increase is not near layer 20 and is larger than 100."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the visible tick-label intervals on both axes, which are part of the figure's formatting."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die x-Achse ist linear skaliert und repräsentiert die Schichtnummer („Layer“) von 0 bis 22",
+          "evidence": "The x-axis in the figure spans layers 0 to 23 (with ticks shown up to 20), not 0 to 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fällt dann in Schicht 22 auf etwa 400 ab",
+          "evidence": "The red curve drops to about 500 at the end (around layer 23), not 400 at layer 22."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "steigt in Schicht 5 auf etwa 1300",
+          "evidence": "The orange curve rises to about 1400 at layer 5, not 1300."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bleibt bis Schicht 20 auf einem Wert von etwa 1500",
+          "evidence": "The orange curve is closer to about 1550-1580 near layers 20-22, not 1500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "und fällt dann auf etwa 500 ab",
+          "evidence": "The orange curve drops sharply to about 250-300 at the end, not 500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die grüne gestrichelte Linie („ffn_output“) bleibt bis Schicht 5 nahe 0, steigt dann in Schicht 5 auf etwa 1200, fällt in Schicht 10 auf etwa 0, steigt in Schicht 13 auf etwa 1200, fällt in Schicht 15 auf etwa 0 und steigt erneut in Schicht 20 auf etwa 1200, bevor sie in Schicht 22 auf etwa 0 fällt.",
+          "evidence": "The green curve has peaks around layers 5, 13, and 22-23, but the middle peak is near 1000 and the last peak is near 1200; the curve does not repeatedly fall exactly to 0 at the stated layers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die blaue gestrichelte Linie („attn_output“) bleibt bis Schicht 5 nahe 0, steigt dann in Schicht 5 auf etwa 100, bleibt bis Schicht 20 auf einem Wert von etwa 100 und steigt in Schicht 22 auf etwa 200 an.",
+          "evidence": "The blue curve stays near 0 until very late, then rises only near the last layers to about 250, not to 100 around layer 5 or 200 at layer 22."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the y-axis label in the original form shown in the figure ('Max Activation Value') or the x-axis label exactly as shown ('Layer') in the context of the displayed chart title/legend; it also omits the visible tick range details for the plotted lines' end at layer 23."
+        }
+      ],
+      "mqm_score": 75.5,
+      "total_penalty": 24.5,
+      "error_count": 8,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 78.88
+}

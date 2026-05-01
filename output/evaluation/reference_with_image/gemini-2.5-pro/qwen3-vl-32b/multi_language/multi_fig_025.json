@@ -1,0 +1,194 @@
+{
+  "figure_key": "multi_fig_025",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "в горния десен ъгъл",
+          "evidence": "The legend is located in the top center of the chart, not the top right corner as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стойностите на G1 варират, но във всички случаи са 3 експерта, както се вижда от височината на зеления сегмент, който е еднакъв за всички стълби.",
+          "evidence": "This sentence is self-contradictory and factually incorrect. It first states that G1 values vary, but then claims they are always 3. The chart clearly shows that the value of G1 (the green segment) is not constant; for example, it is 4 for layer 1, 2 for layer 3, and 1 for layer 7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стойностите на G2 също варират и са 4, 4, 3, 4, 3, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1 за слоевете от 1 до 24 съответно",
+          "evidence": "The list of numerical values for the G2 category is incorrect. For instance, for layer 6, the chart shows a value of 1 for G2 (total height 4 - G0 1 - G1 2 = 1), but the description lists it as 2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "максималната височина на стълба е 9 (за слоеве 1, 2, 4, 5, 19, 20, 21, 22)",
+          "evidence": "While the maximum bar height is 9, it only occurs for layer 1. The other layers listed have different heights (e.g., layer 2 has a height of 8, layer 5 has a height of 7), making the statement incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "минималната е 4 (за слоеве 7, 11, 12, 13, 14, 15, 23, 24)",
+          "evidence": "The minimum bar height in the chart is 3, not 4. The layers listed (7, 11, 12, etc.) all have a total height of 3."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G1在所有层中的专家数量均为2，绿色部分高度也恒定",
+          "evidence": "The description claims that the number of experts for G1 is always 2, but the chart shows it varies. For example, in Layer 1, the value for G1 is 4 (green segment from y=1 to y=5). In Layer 2, it is 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G2的专家数量在各层中变化，从Layer 1到Layer 5为4，Layer 6到Layer 15为2，Layer 16到Layer 22为3，Layer 23和Layer 24为1",
+          "evidence": "The description provides incorrect ranges of values for G2. For example, it claims G2 is 3 for layers 16-22, but the chart shows the value is 2 for these layers (e.g., layer 16 has a total height of 5, with G0=1 and G1=2, leaving G2=2)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "因此，每个堆叠柱状图的总高度在Layer 1至Layer 5为7（1+2+4），Layer 6至Layer 15为5（1+2+2），Layer 16至Layer 22为6（1+2+3），Layer 23和Layer 24为4（1+2+1）",
+          "evidence": "This sentence calculates total heights based on the previously stated incorrect values for G1 and G2, leading to incorrect totals. For instance, the total height for Layer 1 is 9, not 7. The total height for Layer 22 is 6, which matches the calculation (1+2+3), but the underlying component values (G2=3) are wrong."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "G1 contributes 3 experts per layer (green segment height ≈ 3)",
+          "evidence": "The description incorrectly states that G1 consistently contributes 3 experts per layer. The chart shows that the number of G1 experts varies significantly, for example, it is 4 in Layer 1, 2 in Layer 3, and 1 in Layer 7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and G2 varies significantly, ranging from 1 to 5 experts (yellow segment height from ≈1 to ≈5)",
+          "evidence": "The description states that the number of G2 experts ranges up to 5. However, by observing the y-axis, the maximum value for the yellow G2 segment is 4, seen in layers 1, 2, and 4. No G2 segment reaches a height of 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in Layer 1, the total number of experts is 9 (1 from G0, 3 from G1, and 5 from G2)",
+          "evidence": "The breakdown of experts for Layer 1 is incorrect. The chart shows G0=1, G1=4 (from 1 to 5 on the y-axis), and G2=4 (from 5 to 9 on the y-axis). The description incorrectly states G1=3 and G2=5."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "The chart shows a general decline in the number of experts from Layer 1 to Layer 7",
+          "evidence": "This is an over-generalization. While the value at Layer 7 (3) is much lower than at Layer 1 (9), the trend is not a simple decline. For example, the total number of experts increases from 6 in Layer 3 to 8 in Layer 4."
+        }
+      ],
+      "mqm_score": 84.0,
+      "total_penalty": 16.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "wobei die Legende oben rechts die Zuordnung der Farben zu den Gruppen angibt",
+          "evidence": "The legend is located in the top center of the chart, not the top right."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in G1 ebenfalls konstant 3",
+          "evidence": "The number of experts for G1 is not constant. For example, in layer 1, the value for G1 is 4 (the green bar extends from 1 to 5). In layer 3, the value for G1 is 2 (from 1 to 3)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in G2 variiert die Anzahl zwischen 1 und 5",
+          "evidence": "The number of experts for G2 varies between 1 and 4, not 1 and 5. The maximum value for G2 is 4, seen in layers 1 and 2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "was zu einer Gesamtanzahl von Experten pro Schicht von 5 bis 9 führt",
+          "evidence": "The total number of experts per layer ranges from 3 to 9, not 5 to 9. Several layers, such as 7, 11-15, 23, and 24, have a total of 3 experts."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "(G0: 1, G1: 3, G2: 5)",
+          "evidence": "The breakdown of experts for layer 1, which has the maximum of 9, is incorrect. The actual values are G0: 1, G1: 4, and G2: 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während die niedrigste Gesamtanzahl von 5 Experten in Schicht 7 und 23 auftritt (G0: 1, G1: 3, G2: 1)",
+          "evidence": "The lowest total number of experts is 3, not 5. This minimum value occurs in multiple layers, including 7 and 23. The breakdown for these layers is G0: 1, G1: 1, and G2: 1, which totals 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "dass G0 und G1 in allen Schichten eine konstante Anzahl von Experten aufweisen",
+          "evidence": "This statement incorrectly repeats the assertion that G1 has a constant number of experts. Only G0 is constant; G1 is variable."
+        }
+      ],
+      "mqm_score": 68.0,
+      "total_penalty": 32.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 78.75
+}

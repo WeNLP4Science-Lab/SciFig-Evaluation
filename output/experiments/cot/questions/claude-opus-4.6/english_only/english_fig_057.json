@@ -1,0 +1,94 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "claude-opus-4.6",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T14:55:54.422972+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "## Visual Structure Description\n\n**Chart Type:** Line chart showing training loss curves over iterations.\n\n**Axes:**\n- **X-axis:** #Iteration (ranging from 0 to 140,000)\n- **Y-axis:** Loss (ranging from approximately 2.4 to 3.4)\n\n**Data Series (6 models):**\n1. **Vanilla** (purple) — lowest loss trajectory\n2. **StrmLLM (n=64)** (blue) — highest loss trajectory among converged models\n3. **SepLLM (n=64)** (orange) — closely tracks Vanilla\n4. **SepLLM (n=64, H)** (green) — closely tracks Vanilla\n5. **SepLLM (n=64, H/T)** (red) — closely tracks Vanilla\n6. **SepLLM (n=128)** (dark blue) — slightly above the SepLLM n=64 variants\n\n**Notable Patterns:** All models show rapid loss decrease in early iterations, then gradual convergence. StrmLLM (n=64) consistently has the highest loss. Vanilla and the SepLLM (n=64) variants cluster tightly together at the bottom. SepLLM (n=128) sits between StrmLLM and the tighter cluster.\n\n---\n\n## Answers\n\n1. At iteration 140,000, **Vanilla** achieves the lowest loss at approximately **2.49–2.50**.\n\n2. StrmLLM (n=64) first drops below a loss of 3.0 at approximately **iteration 10,000**.\n\n3. The approximate loss gap between StrmLLM (n=64) and Vanilla at iteration 140,000 is about **0.12–0.13** (StrmLLM ≈ 2.62, Vanilla ≈ 2.50).\n\n4. There is **no visible vertical dashed line** in this chart marking a learning rate warmup phase boundary. All curves simply show smooth decay from the start without any explicit demarcation.\n\n5. Yes, the y-axis is labeled **\"Loss\"**, and this appears **correct** given the context of training loss curves for language models.",
+      "items": [
+        {
+          "id": "en057_q1",
+          "type": "capability",
+          "question": "At iteration 140,000, which model achieves the lowest loss and what is its approximate value?",
+          "model_answer": "At iteration 140,000, **Vanilla** achieves the lowest loss at approximately **2.49–2.50**.",
+          "full_response": "At iteration 140,000, **Vanilla** achieves the lowest loss at approximately **2.49–2.50**."
+        },
+        {
+          "id": "en057_q2",
+          "type": "capability",
+          "question": "At approximately what iteration does StrmLLM (n=64) first drop below a loss of 3.0?",
+          "model_answer": "StrmLLM (n=64) first drops below a loss of 3.0 at approximately **iteration 10,000**.",
+          "full_response": "StrmLLM (n=64) first drops below a loss of 3.0 at approximately **iteration 10,000**."
+        },
+        {
+          "id": "en057_q3",
+          "type": "capability",
+          "question": "What is the approximate loss gap between StrmLLM (n=64) and Vanilla at iteration 140,000?",
+          "model_answer": "The approximate loss gap between StrmLLM (n=64) and Vanilla at iteration 140,000 is about **0.12–0.13** (StrmLLM ≈ 2.62, Vanilla ≈ 2.50).",
+          "full_response": "The approximate loss gap between StrmLLM (n=64) and Vanilla at iteration 140,000 is about **0.12–0.13** (StrmLLM ≈ 2.62, Vanilla ≈ 2.50)."
+        },
+        {
+          "id": "en057_h1",
+          "type": "hallucination_inexist",
+          "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+          "model_answer": "There is **no visible vertical dashed line** in this chart marking a learning rate warmup phase boundary. All curves simply show smooth decay from the start without any explicit demarcation.",
+          "full_response": "There is **no visible vertical dashed line** in this chart marking a learning rate warmup phase boundary. All curves simply show smooth decay from the start without any explicit demarcation."
+        },
+        {
+          "id": "en057_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the y-axis of this chart labeled Loss? Is this correct?",
+          "model_answer": "Yes, the y-axis is labeled **\"Loss\"**, and this appears **correct** given the context of training loss curves for language models.",
+          "full_response": "Yes, the y-axis is labeled **\"Loss\"**, and this appears **correct** given the context of training loss curves for language models."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T14:58:58.661017+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "## Visual Structure Description\n\n**Chart Type:** Line chart showing training loss curves over iterations.\n\n**Axes:**\n- **X-axis:** #Iteration (ranging from 0 to 140,000)\n- **Y-axis:** Loss (ranging from approximately 2.4 to 3.4)\n\n**Data Series (6 models):**\n1. **Vanilla** (purple) – converges to approximately 2.50\n2. **StrmLLM (n=64)** (blue) – converges to approximately 2.61\n3. **SepLLM (n=64)** (orange) – converges to approximately 2.51\n4. **SepLLM (n=64, H)** (green) – converges to approximately 2.50\n5. **SepLLM (n=64, H/T)** (red) – converges to approximately 2.49\n6. **SepLLM (n=128)** (dark blue) – converges to approximately 2.52\n\n**Notable Patterns:** All curves show rapid initial descent followed by gradual convergence. StrmLLM (n=64) clearly converges to a higher loss than the other models. The SepLLM variants and Vanilla cluster together at lower final loss values, with SepLLM (n=64, H/T) appearing slightly lowest.\n\n---\n\n## Answers\n\n1. Five of the six models achieve a final loss below 2.55 at iteration 140,000. The only model that does not is StrmLLM (n=64), which converges to approximately 2.61.\n\n2. **SepLLM (n=64, H/T)** converges to the lowest final loss, at approximately **2.49**.\n\n3. This question is based on a false premise. StrmLLM (n=64) does **not** achieve a lower final loss than Vanilla at iteration 140,000. In fact, StrmLLM (n=64) converges to approximately 2.61, which is notably **higher** (worse) than Vanilla's approximately 2.50. Thus, streaming attention alone does not show superior convergence here; it is the SepLLM variants that match or outperform Vanilla.\n\n4. The chart only shows training loss curves; **no validation set perplexity data is presented** in this figure. Therefore, it is impossible to determine validation perplexity or the train-validation gap for any model from this chart alone.\n\n5. No, the y-axis is **not** labeled \"Accuracy.\" It is labeled **\"Loss.\"** This is correct, as the chart depicts training loss curves, not accuracy.",
+      "items": [
+        {
+          "id": "en057_q4",
+          "type": "capability",
+          "question": "How many of the six models achieve a final loss below 2.55 at iteration 140,000?",
+          "model_answer": "Five of the six models achieve a final loss below 2.55 at iteration 140,000. The only model that does not is StrmLLM (n=64), which converges to approximately 2.61.",
+          "full_response": "Five of the six models achieve a final loss below 2.55 at iteration 140,000. The only model that does not is StrmLLM (n=64), which converges to approximately 2.61."
+        },
+        {
+          "id": "en057_q5",
+          "type": "capability",
+          "question": "Which SepLLM variant converges to the lowest final loss, and approximately what is its final loss value?",
+          "model_answer": "converges to the lowest final loss, at approximately **2.49**.",
+          "full_response": "**SepLLM (n=64, H/T)** converges to the lowest final loss, at approximately **2.49**."
+        },
+        {
+          "id": "en057_h2",
+          "type": "hallucination_contra",
+          "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+          "model_answer": "This question is based on a false premise. StrmLLM (n=64) does **not** achieve a lower final loss than Vanilla at iteration 140,000. In fact, StrmLLM (n=64) converges to approximately 2.61, which is notably **higher** (worse) than Vanilla's approximately 2.50. Thus, streaming attention alone does not show superior convergence here; it is the SepLLM variants that match or outperform Vanilla.",
+          "full_response": "This question is based on a false premise. StrmLLM (n=64) does **not** achieve a lower final loss than Vanilla at iteration 140,000. In fact, StrmLLM (n=64) converges to approximately 2.61, which is notably **higher** (worse) than Vanilla's approximately 2.50. Thus, streaming attention alone does not show superior convergence here; it is the SepLLM variants that match or outperform Vanilla."
+        },
+        {
+          "id": "en057_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+          "model_answer": "The chart only shows training loss curves; **no validation set perplexity data is presented** in this figure. Therefore, it is impossible to determine validation perplexity or the train-validation gap for any model from this chart alone.",
+          "full_response": "The chart only shows training loss curves; **no validation set perplexity data is presented** in this figure. Therefore, it is impossible to determine validation perplexity or the train-validation gap for any model from this chart alone."
+        },
+        {
+          "id": "en057_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the y-axis of this chart labeled Accuracy? Is this correct?",
+          "model_answer": "No, the y-axis is **not** labeled \"Accuracy.\" It is labeled **\"Loss.\"** This is correct, as the chart depicts training loss curves, not accuracy.",
+          "full_response": "No, the y-axis is **not** labeled \"Accuracy.\" It is labeled **\"Loss.\"** This is correct, as the chart depicts training loss curves, not accuracy."
+        }
+      ]
+    }
+  ]
+}

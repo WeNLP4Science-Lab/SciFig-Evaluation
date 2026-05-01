@@ -1,0 +1,275 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "gpt-5.2",
+  "transform": "jpeg_compression",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/mistral-large-3",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "оранжевата е по-висока (приблизително около 40)",
+          "evidence": "At 70% sparsity, the orange bar (Per-Layer) is approximately 20, not 40, as shown in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "синята приблизително около 400–500",
+          "evidence": "At 80% sparsity, the blue bar (Per-Output) is slightly below 10^3 (around 800–900), not 400–500."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "оранжевата близо до 900–1000",
+          "evidence": "At 80% sparsity, the orange bar (Per-Layer) is very close to 10^3 (around 900–1000), but the description slightly overestimates its exact value. The figure shows it is just below 10^3, not explicitly 900–1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the observation that at 60% sparsity, the orange bar (Per-Layer) slightly exceeds 10^1 while the blue bar (Per-Output) remains below it, which is explicitly mentioned in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state that the blue bars are on the left and the orange bars are on the right for each sparsity rate, as highlighted in the reference."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Категориите са по хоризонталната ос, етикетирана „Sparsity Rate“, като са изписани дискретни проценти в нарастващ ред от 10% до 80% (10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%), а за всяка категория има по две съседни стълби (синя и оранжева), съответстващи на двете серии от легендата.",
+          "evidence": "The description is unnecessarily repetitive in explaining the x-axis categories and bar grouping, which could be stated more concisely."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 6,
+      "judge_model": "mistral-large-3"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Per-Output 约 600，Per-Layer 约 900–1000",
+          "evidence": "The figure shows Per-Output at 80% sparsity is approximately 800–900, and Per-Layer is approximately 900–1000, not 600 for Per-Output."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "70% 时柱高进入 10¹ 到 10² 之间（约 20 与 40）",
+          "evidence": "The figure shows Per-Output at 70% is closer to ~15 and Per-Layer is ~25, not 20 and 40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "60% 时约 10 左右（约 9.5 与 11）",
+          "evidence": "The figure shows Per-Output at 60% is closer to ~8 and Per-Layer is ~10, not 9.5 and 11."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description omits the chart's purpose: to illustrate the impact of Dynamic Layerwise Pruning (DLP) on large language model performance by comparing perplexity under two pruning configurations."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly mention that the y-axis uses a logarithmic scale (though it is implied), which is explicitly stated in the reference."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "从柱高读取的近似值为：10% 时两者均在约 5–6 左右（Per-Output 约 5.3、Per-Layer 约 5.6）；20% 时仍约 5–6（约 5.5 与 5.7）；30% 时约 6 左右（约 5.8 与 6.0）；40% 时约 6–7（约 6.4 与 6.9）；50% 时约 7–8（约 7.3 与 7.8）；60% 时约 10 左右（约 9.5 与 11）；70% 时柱高进入 10¹ 到 10² 之间（约 20 与 40）；80% 时两柱明显接近 10³ 量级，其中 Per-Output 约 600，Per-Layer 约 900–1000。",
+          "evidence": "The description provides overly detailed numerical approximations for each sparsity level, which are not critical for understanding the overall trend and may reduce readability."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 6,
+      "judge_model": "mistral-large-3"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "roughly 5–6",
+          "evidence": "At 10% sparsity, the bars are closer to 2, not 5–6 as stated in the description."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around ~6",
+          "evidence": "At 20% and 30% sparsity, the bars are closer to 2–3, not around 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue bar is about ~7 and the orange about ~7–8",
+          "evidence": "At 40% sparsity, the blue bar is closer to 3 and the orange bar is slightly above 3, not 7 or 7–8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue is around ~8 and the orange around ~9",
+          "evidence": "At 50% sparsity, the blue bar is closer to 4 and the orange bar is slightly above 4, not 8 or 9."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue is near ~10 and the orange near ~11",
+          "evidence": "At 60% sparsity, the blue bar is below 10 (around 6–7) and the orange bar is slightly above 10, not near 11."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the blue bar rises to roughly ~20 while the orange reaches about ~40",
+          "evidence": "At 70% sparsity, the blue bar is closer to 15–20, but the orange bar is closer to 30, not 40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue 'Per-Output' around ~500 and the orange 'Per-Layer' around ~900–1000",
+          "evidence": "At 80% sparsity, the blue bar is closer to 400–500, and the orange bar is closer to 800–900, not exactly 500 or 900–1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits mentioning that the perplexity values remain below 10^2 until 70% sparsity, as highlighted in the reference."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state that at 60%, the orange bar is slightly above 10^1 while the blue bar is still below 10^1."
+        }
+      ],
+      "mqm_score": 65.0,
+      "total_penalty": 35.0,
+      "error_count": 9,
+      "judge_model": "mistral-large-3"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bei 10% liegen beide Balken bei etwa 5–6",
+          "evidence": "The figure shows both bars at 10% sparsity rate are closer to approximately 3–4, not 5–6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bei 20% und 30% ebenfalls im Bereich um etwa 5–6",
+          "evidence": "The figure shows bars at 20% and 30% sparsity rates closer to approximately 3–4, not 5–6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bei 40% etwa um 6–7",
+          "evidence": "The figure shows bars at 40% sparsity rate closer to approximately 4–5, not 6–7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bei 50% etwa um 7–8",
+          "evidence": "The figure shows bars at 50% sparsity rate closer to approximately 5–6, not 7–8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "bei 60% etwa um 9–12",
+          "evidence": "The figure shows the blue bar (Per-Output) at 60% sparsity rate below 10, and the orange bar (Per-Layer) slightly above 10, not both in the 9–12 range."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 70% liegt „Per-Output“ ungefähr um 20 und „Per-Layer“ ungefähr um 35–40",
+          "evidence": "The figure shows Per-Output at 70% sparsity rate closer to approximately 15, and Per-Layer closer to approximately 25, not 20 and 35–40."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "mit „Per-Output“ grob im Bereich mehrerer hundert (ca. 500–700)",
+          "evidence": "The figure shows Per-Output at 80% sparsity rate closer to approximately 300–400, not 500–700."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits mentioning that the y-axis uses a logarithmic scale explicitly in the context of the bar heights' progression, which the reference highlights."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 8,
+      "judge_model": "mistral-large-3"
+    }
+  },
+  "mqm_score_avg": 78.12
+}

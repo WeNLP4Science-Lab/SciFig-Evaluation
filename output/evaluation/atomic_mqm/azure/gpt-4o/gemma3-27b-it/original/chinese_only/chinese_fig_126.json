@@ -1,0 +1,87 @@
+{
+  "figure_key": "chinese_fig_126",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/gpt-4o",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 21,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "左侧图表包含七个切片",
+      "evidence": "图表(a)实际包含八个切片，而非七个。",
+      "atom_id": "num_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "右侧的图表同样包含七个切片",
+      "evidence": "图表(b)实际包含八个切片，而非七个。",
+      "atom_id": "num_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "这些切片近似占比分别为3%、3%、6%、17%、16%、18%、0% 以及37%",
+      "evidence": "顺序和数值错误，图表(a)中正确的顺序和比例为：预测为空(37%)、一个为0(0%)、预测过长(18%)、预测过短(16%)、下一层级(17%)、上一层级(6%)、超出NTC(3%)、其他(3%)。",
+      "atom_id": "fig_a_yuce_weikong"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "这些切片的前后占比分别为6%、9%、6%、8%、21%、21%和29%",
+      "evidence": "顺序和数值错误，图表(b)中正确的顺序和比例为：预测为空(21%)、预测过短(21%)、一个为0(8%)、预测过长(29%)、下一层级(6%)、上一层级(9%)、其他(6%)。",
+      "atom_id": "fig_b_yuce_weikong"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "描述未明确说明图表的目的，即展示滑动窗口缺失和NTC缺失分别在多个预测误点错误类别中的比例分布。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及图表中切片内部附有百分比标签。",
+      "atom_id": "legend_labels"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "切片似乎按照大小递减的顺序排列",
+      "evidence": "切片并未按照大小递减顺序排列，而是按类别顺序排列。",
+      "atom_id": "no_emphasis"
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 74.29,
+  "total_penalty": 27.0,
+  "atom_coverage": {
+    "correct": 15,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 21,
+    "accuracy": 0.7895,
+    "completeness": 0.8824
+  }
+}

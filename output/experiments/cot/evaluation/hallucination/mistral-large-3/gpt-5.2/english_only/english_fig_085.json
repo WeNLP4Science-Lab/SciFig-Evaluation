@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T13:32:53.339709+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en085_h1",
+      "probe_type": "inexist",
+      "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+      "model_answer": ", so its value can’t be read; for the fine-tuned model, **Cardio** is around **-25.7 to -26.1** depending on which fine-tune bar you mean",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model does not state that the 'Radiology' per-specialty term group does not exist. Instead, it implies the element might exist but is unreadable, and it proceeds to provide a value for the 'Cardio' group without addressing the absence of 'Radiology'."
+    },
+    {
+      "probe_id": "en085_h2",
+      "probe_type": "contra",
+      "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+      "model_answer": "*domain overfitting / catastrophic forgetting**—fine-tuning on another specialty (or even on a neuro dataset that is narrow, noisy, or stylistically different from the evaluation term list) can shift probability mass toward that fine-tuning distribution and **reduce calibration/generalization** on the specific neuro term set used here.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise in the question without questioning or correcting it. It proceeds to explain the degradation as if the premise (that the Base model outperforms the Fine-tuned model for Neuro) were true."
+    },
+    {
+      "probe_id": "en085_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+      "model_answer": "the plot/caption provides **no term lists**, so the **overlap can’t be determined from this figure**, and we also **can’t tell** whether controlling for shared terminology would change rankings.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the information cannot be determined from the chart, explicitly mentioning the absence of term lists and the inability to assess vocabulary overlap or controlled analyses. This aligns perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

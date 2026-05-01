@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Poor Sentence Structure",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "но това не е интерпретирано като сравнение или извод",
+          "evidence": "The sentence makes a direct comparison ('Ours' are lower than 'Uniform') and then immediately states that this is not interpreted as a comparison, which is self-contradictory and illogical phrasing."
+        }
+      ],
+      "mqm_score": 99.0,
+      "total_penalty": 1.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "approximately 30, 27, 26, and 26",
+          "evidence": "For WikiText (a) at 3 bits, the 'Uniform' bar value is approximately 29, visibly below the 30 mark on the y-axis, but it is reported as 30."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "30, 26, 25, and 25",
+          "evidence": "For C4 (c) at 4 bits, the 'Uniform' bar value is 25, as its top aligns with the y-axis tick mark, but it is reported as 26. Additionally, the value for 3 bits is closer to 29, not 30."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "consistently outperforms 'Uniform' across all settings",
+          "evidence": "The phrase 'outperforms' is evaluative language that goes beyond a neutral, factual description of the chart's data. A more neutral phrasing would be that the 'Ours' method has lower perplexity."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "both methods exhibit decreasing perplexity with increasing quantization bits",
+          "evidence": "This is an over-generalization of the trend. In most cases, the perplexity decreases and then plateaus between 8 and 16 bits, rather than consistently decreasing across all quantization bit increases."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "27 (bei 16 Bits)",
+          "evidence": "Im Diagramm (a) WikiText sind die Balken für \"Uniform\" bei 8 und 16 Bits visuell identisch (ca. 26,5). Die Beschreibung gibt diese mit 26 (8 Bits) bzw. 27 (16 Bits) an. Die Angabe eines anderen Wertes für den 16-Bit-Balken ist ungenau und impliziert einen nicht vorhandenen Unterschied."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "18 (bei 4 Bits)",
+          "evidence": "Im Diagramm (c) C4 ist der \"Ours\"-Balken für 4 Bits (ca. 18,5) sichtlich höher als die Balken für 8 und 16 Bits (beide ca. 18). Die Beschreibung gibt für alle drei den Wert 18 an und ignoriert damit den sichtbaren Unterschied."
+        }
+      ],
+      "mqm_score": 96.0,
+      "total_penalty": 4.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 95.17
+}

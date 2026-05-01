@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "grouped bar chart",
+          "evidence": "The chart is a stacked bar chart, not a grouped bar chart. Each bar at a given layer index is a single column composed of segments representing the percentage contribution of each expert, summing to 100%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bars are grouped by layer index",
+          "evidence": "The bars are not grouped. There is a single stacked bar for each layer index, not a group of four separate bars."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "Expert 1 starts with a high percentage at layer 1 and gradually decreases",
+          "evidence": "In the \"Text\" plot, the percentage for Expert 1 is high at layer 1 and then drops to near zero for most of the subsequent layers. This is not a gradual decrease."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "while Expert 2 starts low and increases",
+          "evidence": "In the \"Text\" plot, the trend for Expert 2 is not a simple increase; its percentage fluctuates significantly across the layers (e.g., it is high at layer 7, low at 9, and high again at 19)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are not stacked, but rather grouped",
+          "evidence": "This statement is factually incorrect. The bars are clearly stacked, as the different colored sections for each expert are placed on top of one another within a single bar for each layer index."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bars are grouped by MoE layer index and stacked",
+          "evidence": "The charts are stacked bar charts. They are not grouped bar charts. The description incorrectly uses both terms."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with Expert 1 being dominant in the initial layers",
+          "evidence": "In the \"Text\" chart, Expert 1 is only dominant in the first layer (index 1). In the subsequent initial layers (e.g., 3, 5, 7), Expert 3 and Expert 2 are dominant."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "particularly in the initial layers, where Expert 1 dominates",
+          "evidence": "In the \"Image\" chart, Expert 4 (red) is dominant in the initial layers. Expert 1 (blue) has zero or near-zero contribution in the initial layers, only becoming prominent in later layers (starting at index 13)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "and the data is presented in a clear and organized manner, allowing for a straightforward comparison of the expert distributions between text and image data across different layers.",
+          "evidence": "This part of the description offers a subjective evaluation of the chart's quality (\"clear and organized\", \"straightforward comparison\") rather than an objective description of its visual elements."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "The bars in both charts are sorted by MoE layer index",
+          "evidence": "The x-axis categories (MoE layer index) are presented in their natural numerical order. Describing this as the bars being \"sorted\" is redundant and slightly awkward phrasing."
+        }
+      ],
+      "mqm_score": 82.5,
+      "total_penalty": 17.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.75
+}

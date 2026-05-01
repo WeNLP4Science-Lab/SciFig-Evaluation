@@ -1,0 +1,242 @@
+{
+  "figure_key": "multi_fig_038",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "На графиката са изобразени шест линии",
+          "evidence": "The chart clearly displays seven distinct lines corresponding to the seven entries in the legend (DiP, CoT, L2M, SBP, AnP, Dynamic w/ Oracle, Adaptive + Dynamic w/ Oracle), not six."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "в долния десен ъгъл",
+          "evidence": "The legend is located in the bottom-middle section of the plot, not in the bottom right corner."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Тя започва при точност 88.0",
+          "evidence": "The line for 'Adaptive + Dynamic w/ Oracle' starts at an accuracy value of approximately 88.7, not 88.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "при sampling time = 0",
+          "evidence": "The first data point for all lines is at a Sampling Time value greater than 0 (approximately 1), not at 0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "остава стабилна на ниво 88.0 до края на графиката при sampling time = 25, без да показва никакви промени",
+          "evidence": "The 'Adaptive + Dynamic w/ Oracle' line does not remain stable at 88.0. It clearly rises from ~88.7 to nearly 90.0 and then plateaus at approximately 89.8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Тя започва при точност 87.0",
+          "evidence": "The line for 'Dynamic w/ Oracle' starts at the same point as the 'Adaptive...' line, at an accuracy of approximately 88.7, not 87.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спада леко до около 86.2 при sampling time = 5, след което се стабилизира около 86.0 до sampling time = 25",
+          "evidence": "The 'Dynamic w/ Oracle' line does not drop to 86.2. Its lowest point is around 86.7 (at time=10 and 20), and it generally fluctuates between 86.7 and 87.5, not stabilizing at 86.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Тя започва при точност 78.0",
+          "evidence": "The 'CoT' line starts at an accuracy of approximately 79.8, not 78.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "светлосини триъгълници, насочени надолу",
+          "evidence": "The markers for the 'L2M' line are upward-pointing triangles, not downward-pointing."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "оранжеви триъгълници, насочени надолу",
+          "evidence": "The markers for the 'SBP' line are upward-pointing triangles, not downward-pointing. Also, the color is more accurately described as light orange or peach to distinguish it from the other orange line (AnP)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Тя започва при точност 74.0",
+          "evidence": "The 'SBP' line starts at an accuracy of approximately 75.7, not 74.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "след което се стабилизира около 80.0 до края",
+          "evidence": "The 'SBP' line does not stabilize at 80.0. It continues to rise throughout the plotted range, reaching its peak value of approximately 81.1 at the final data point (time=25)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Линията за „AnP“ е оранжева, сплошна и маркирана с оранжеви триъгълници, насочени нагоре. Тя започва при точност 74.0 при sampling time = 0, нараства до около 79.0 при sampling time = 15, след което се стабилизира около 79.0 до края.",
+          "evidence": "The description hallucinates the entire description for the 'AnP' line. While the chart contains seven lines, the description claims there are six and then proceeds to describe seven, with the description for 'AnP' being the seventh one added after describing the others. It seems to have corrected its earlier error by adding another line description, but the initial count remains wrong."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Всички линии показват общо нарастване на точността в началото, следвано от стабилизация, с изключение на „Adaptive + Dynamic w/ Oracle“ и „Dynamic w/ Oracle“, които показват по-малко или никакво нарастване.",
+          "evidence": "The prompt explicitly forbids comparing lines or making summary judgments. This sentence compares multiple lines ('Всички линии... с изключение на...') and provides an interpretive summary of their collective behavior, which violates the instructions."
+        }
+      ],
+      "mqm_score": 42.5,
+      "total_penalty": 57.5,
+      "error_count": 14,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Es werden sechs verschiedene Strategien dargestellt",
+          "evidence": "The chart shows and the legend lists seven different strategies, not six. The description later mentions the seventh strategy (\"Dynamic w/ Oracle\"), but the initial count is incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "DiP (lila, gestrichelte Linie mit Dreiecken)",
+          "evidence": "The line for DiP is solid (durchgezogen), not dashed (gestrichelt)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "AnP (orange, gestrichelte Linie mit Dreiecken)",
+          "evidence": "The line for AnP is solid (durchgezogen), not dashed (gestrichelt)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "„Adaptive + Dynamic w/ Oracle“ (rot, gestrichelte Linie mit Quadraten)",
+          "evidence": "The marker for the \"Adaptive + Dynamic w/ Oracle\" line is a circle (Kreis), not a square (Quadrat)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnt bei einer Genauigkeit von etwa 88,5 bei Sampling-Time 0",
+          "evidence": "The first data point for the \"Adaptive + Dynamic w/ Oracle\" line is at Sampling Time of approximately 1, not 0. The accuracy value at this point is approximately 88.7%, not 88.5%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt über den gesamten Bereich nahezu konstant bei etwa 89,0",
+          "evidence": "The \"Adaptive + Dynamic w/ Oracle\" line rises to and plateaus at an accuracy of approximately 89.8%, not 89.0%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "beginnt bei etwa 87,5",
+          "evidence": "The line for \"Dynamic w/ Oracle\" starts at an accuracy of approximately 88.4%, not 87.5%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "sinkt leicht bis zu etwa 86,5 bei Sampling-Time 25",
+          "evidence": "The line for \"Dynamic w/ Oracle\" ends at an accuracy of approximately 87.2% at Sampling-Time 25, not 86.5%."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "bleibt dann stabil",
+          "evidence": "The line for CoT continues to rise slightly after Sampling-Time 15, from about 83.2% to a final value of about 83.5%. Describing it as 'stable' is an over-generalization."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt bis zu etwa 82,5 bei Sampling-Time 15",
+          "evidence": "For the DiP line, the accuracy at Sampling-Time 15 is approximately 83.0%. The value of 82.5% is incorrect for that time point."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt bis zu etwa 81,5 bei Sampling-Time 15",
+          "evidence": "For the L2M line, the accuracy at Sampling-Time 15 is approximately 81.0%. It reaches 81.5% later, around Sampling-Time 20."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt bis zu etwa 80,5 bei Sampling-Time 25",
+          "evidence": "The SBP line ends at an accuracy of approximately 81.2% at Sampling-Time 25, not 80.5%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt bis zu etwa 79,5 bei Sampling-Time 15 und sinkt dann leicht auf etwa 79,0 bei Sampling-Time 25",
+          "evidence": "The AnP line does not peak at Sampling-Time 15; its peak of about 79.5% occurs around Sampling-Time 22.5. Furthermore, its final value at Sampling-Time 25 is approximately 79.3%, not 79.0%."
+        }
+      ],
+      "mqm_score": 40.0,
+      "total_penalty": 60.0,
+      "error_count": 13,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 41.25
+}

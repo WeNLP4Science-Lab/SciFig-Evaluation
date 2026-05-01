@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_038",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "spans from 0K to 440K",
+      "evidence": "The x-axis is not continuous from 0K to 440K; the plot has a break between 80K and 420K, as shown in the reference and image."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with tick marks at intervals of 20K (e.g., 0K, 20K, 40K, 60K, 80K, 420K, 430K, 440K)",
+      "evidence": "The visible ticks are only at 0K, 20K, 40K, 60K, 80K, then 420K, 430K, 440K across the broken axis; describing this as a single uniform 20K interval over the entire range is misleading."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ranges from 0.0 to 0.85 in a linear scale",
+      "evidence": "The y-axis is broken: the main lower segment spans about 0.0 to 0.4 and there is an upper break around 0.75 to 0.85, not a single uninterrupted 0.0 to 0.85 range."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Each model is represented by a distinct colored line with a unique marker",
+      "evidence": "The figure shows colored lines only; no point markers are visible."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the red line (ChemBART Small 20M) starts at approximately 0.78 and declines to about 0.08; the blue line (ChemBART Medium 20M) begins near 0.78 and ends around 0.08; the green line (ChemBERTa Small 20M) starts at about 0.78 and ends near 0.08; the orange line (ChemBERTa Medium 20M) begins at roughly 0.78 and concludes near 0.08; the purple line (ChemLLaMA Small 20M) starts at approximately 0.78 and ends around 0.08; and the brown line (ChemLLaMA Medium 20M) begins at about 0.78 and ends near 0.08",
+      "evidence": "The starting values are around 0.80 to above 0.80, and the ending values differ substantially across models: several lines end near 0.02–0.06 in the 420K–440K segment, while the green line remains around 0.10–0.13 rather than 0.08."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "indicating decreasing training loss over time",
+      "evidence": "This is an interpretation of the trend rather than a direct visual description, though it is broadly supported by the plot."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "the green line showing a slightly higher initial loss and a slightly more stable plateau compared to the others after approximately 80K steps",
+      "evidence": "The green curve does stay higher overall, but the claim of a 'slightly more stable plateau' is not explicitly shown and is interpretive; the figure mainly shows the green line staying above the others."
+    }
+  ],
+  "mqm_score": 76.0,
+  "total_penalty": 24.0,
+  "error_count": 7
+}

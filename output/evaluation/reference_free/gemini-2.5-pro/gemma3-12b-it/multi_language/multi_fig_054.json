@@ -1,0 +1,170 @@
+{
+  "figure_key": "multi_fig_054",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to state that the chart is a grouped bar chart, where each category on the x-axis has two bars associated with it (\"Incorrect\" and \"Correct\"). This is a fundamental omission of the chart's structure, which is required by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "черно шарено, като според легендата розовото представлява \"Correct\", а черното – \"Incorrect\"",
+          "evidence": "The description incorrectly identifies the color of the bars for the \"Incorrect\" category as \"черно\" (black). The bars are blue with a dot pattern."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "и може да се види, че обемите на розовите стълбове надвишават тези на черните",
+          "evidence": "This phrase makes a comparison between the values of the two series, which is explicitly forbidden by the generation prompt ('не сравнявайте стойности')."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Ambiguous Description",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Първият стълб, съответстващ на 0 изстрела, има височина от приблизително 0.6, докато последният стълб, съответстващ на 4 изстрела, достига приблизително 0.3.",
+          "evidence": "Since the chart is a grouped bar chart with two bars for each category, referring to \"the first bar\" and \"the last bar\" is ambiguous. It is not clear whether the values provided correspond to the \"Correct\" or \"Incorrect\" bar in each group."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "Стълбовете са подредени възходящо според \"Number of Shots\".",
+          "evidence": "This information is redundant as it was already established earlier in the description that the horizontal axis categories (0, 1, 2, 3, 4) are arranged in ascending order."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Five bars are present, each corresponding to a different number of shots, and are colored in a shade of pink.",
+          "evidence": "The chart contains ten bars, not five. It is a grouped bar chart with five groups, each containing two bars: a blue 'Incorrect' bar and a pink 'Correct' bar. The description completely omits the blue bars and the grouped structure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bar associated with 0 shots has an approximate height of 0.6, while the bar representing 4 shots has an approximate height of 0.3.",
+          "evidence": "This incorrectly assigns a single value to each group. The '0 shots' category has two bars: a pink one around 0.61 and a blue one around 0.24. The '4 shots' category also has two bars: a pink one around 0.28 and a blue one around 0.05. The description only provides a value for the pink bar in each case, ignoring the blue bar."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The heights of the bars decrease steadily from the zero-shot condition through the four-shot condition.",
+          "evidence": "This generalization is inaccurate because it only describes the trend for one of the two data series (the 'Correct' pink bars) and ignores the 'Incorrect' blue bars. Furthermore, the decrease for the pink bars is not 'steady', as the values for 0 and 1 shot are nearly identical (approx. 0.61)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "A legend denotes that the pink bars represent the convergence ratio _C, in contrast to the lighter blue dots appearing above each bar.",
+          "evidence": "The legend is completely misinterpreted. The legend defines two categories of bars: 'Incorrect' (blue with a dot pattern) and 'Correct' (pink with a striped pattern). The y-axis label, 'γC', applies to both series, not just the pink bars. The description also hallucinates that the blue elements are 'dots appearing above each bar' when they are, in fact, bars filled with a dot pattern."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei jede Anzahl durch einen einzelnen Balken dargestellt wird",
+          "evidence": "The description states that each number on the x-axis is represented by a single bar, but the chart clearly shows that each number (0, 1, 2, 3, 4) is represented by a group of two bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "reicht von 0 bis 0,7, wobei die Tick-Beschriftungen in 0,1-Schritten angeordnet sind",
+          "evidence": "The y-axis labels are at intervals of 0.2 (0.0, 0.2, 0.4, 0.6), not 0.1. Also, the visible axis does not extend to 0.7; the highest labeled tick is 0.6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Es gibt zwei Balkengruppen für jede Anzahl von Versuchen",
+          "evidence": "This is structurally incorrect. For each 'Anzahl von Versuchen' (Number of Shots), there is one group of two bars, not two separate groups."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "0,28",
+          "evidence": "For 0 shots, the 'Incorrect' bar has a value of approximately 0.24, not 0.28."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "0,08",
+          "evidence": "For 2 shots, the 'Incorrect' bar has a value of approximately 0.05, not 0.08."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "0,31",
+          "evidence": "For 4 shots, the 'Correct' bar has a value of approximately 0.27, not 0.31."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the distinct patterns used to fill the bars: a dotted pattern for 'Incorrect' and a hatched/striped pattern for 'Correct'. This is a key visual feature for differentiation."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "hervorgehoben",
+          "evidence": "The word 'hervorgehoben' (highlighted) is misleading. The colors are used for standard categorization of the two series, not to specifically emphasize them over other potential data."
+        }
+      ],
+      "mqm_score": 67.5,
+      "total_penalty": 32.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 80.17
+}

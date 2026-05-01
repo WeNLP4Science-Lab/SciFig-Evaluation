@@ -1,0 +1,78 @@
+{
+  "figure_key": "chinese_fig_061",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 15,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "左侧为“本文方法”（斜线填充），右侧为“基线模型”（灰色填充）",
+      "evidence": "The description reverses the visual mapping: the lighter pattern represents '本文方法' and the darker pattern represents '基线模型'. The image shows the opposite.",
+      "atom_id": "series_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在“近”距离下，“本文方法”F1值约为59.5%，“基线模型”约为59.0%",
+      "evidence": "The values for '近' are overstated. The figure shows both values closer to 59%, with '本文方法' only slightly higher than '基线模型'.",
+      "atom_id": "near_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在“中”距离下，“本文方法”约为59.2%，“基线模型”约为58.8%",
+      "evidence": "The values for '中' are slightly overstated. The figure shows both values closer to 59%, with a smaller gap.",
+      "atom_id": "mid_values"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "在“远”距离下，“本文方法”约为59.1%，“基线模型”约为56.5%",
+      "evidence": "The value for '基线模型' in '远' is slightly overstated. The figure shows it closer to 56%.",
+      "atom_id": "far_values"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "整体可见，“本文方法”在所有距离条件下F1值均高于“基线模型”，且随着要素距离由“近”至“远”，“基线模型”性能下降明显，而“本文方法”相对稳定",
+      "evidence": "The description includes interpretive claims about performance trends and stability, which go beyond the explicit visual data and are not supported by any atom.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该柱状图旨在展示“本文方法”与“基线模型”在不同“要素距离”（近、中、远）条件下所取得的F1值（%）表现，以直观比较两种方法在处理不同距离关系的事件要素时的性能差异",
+      "evidence": "The description is overly verbose, repeating the purpose in a redundant manner without adding new information.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 79.33,
+  "total_penalty": 15.5,
+  "atom_coverage": {
+    "correct": 11,
+    "inaccurate": 4,
+    "missing": 0,
+    "total": 15,
+    "accuracy": 0.7333,
+    "completeness": 1.0
+  }
+}

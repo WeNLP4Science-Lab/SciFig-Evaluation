@@ -123,6 +123,7 @@ class GPT52Annotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
@@ -130,46 +131,54 @@ class GPT52Annotator(FigureAnnotator):
 
 
 # ---------------------------------------------------------------------------
-# Gemini 3.1 Pro via Vertex AI
+# Azure OpenAI annotator (for GPT and Phi models deployed on Azure)
 # ---------------------------------------------------------------------------
 
-class Gemini31ProAnnotator(FigureAnnotator):
-    """Gemini 3.1 Pro Preview via Vertex AI."""
+class AzureAnnotator(FigureAnnotator):
+    """Annotator for models deployed on Azure OpenAI."""
 
-    def __init__(self, max_tokens: int = 4096):
+    def __init__(self, name: str, deployment_name: str, max_tokens: int = 2048):
+        self._model_name = name
+        self._deployment_name = deployment_name
         self.max_tokens = max_tokens
 
     @property
     def model_name(self) -> str:
-        return "gemini-3.1-pro"
+        return self._model_name
 
     @property
     def router_model_id(self) -> str:
-        return "gemini-3.1-pro-preview"
+        return self._deployment_name
 
     def annotate_figure(self, prompt: str, image_path: Path, caption: str, paper_title: str = "") -> str:
-        from google.genai import types
+        from openai import AzureOpenAI
 
-        client = _get_vertex_client()
-
-        image_bytes = image_path.read_bytes()
+        client = AzureOpenAI(
+            azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
+            api_key=os.environ["AZURE_OPENAI_API_KEY"],
+            api_version="2024-12-01-preview",
+        )
+        b64 = _encode_image_base64(image_path)
         user_text = f"Paper: {paper_title}\nCaption: {caption}" if paper_title else f"Caption: {caption}"
 
-        contents = [
-            prompt,
-            types.Part.from_bytes(data=image_bytes, mime_type="image/png"),
-            user_text,
+        user_content = [
+            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}", "detail": "high"}},
+            {"type": "text", "text": user_text},
         ]
 
+        token_param = "max_completion_tokens" if any(v in self._deployment_name for v in ["gpt-5", "gpt-4.1"]) else "max_tokens"
+
         def _call():
-            response = client.models.generate_content(
-                model=self.router_model_id,
-                contents=contents,
-                config=types.GenerateContentConfig(
-                    max_output_tokens=self.max_tokens,
-                ),
+            response = client.chat.completions.create(
+                model=self._deployment_name,
+                messages=[
+                    {"role": "system", "content": prompt},
+                    {"role": "user", "content": user_content},
+                ],
+                **{token_param: self.max_tokens},
+                temperature=0,
             )
-            return response.text.strip()
+            return response.choices[0].message.content.strip()
 
         return _retry(_call)
 
@@ -217,6 +226,7 @@ class Llama4MaverickAnnotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
@@ -268,6 +278,7 @@ class OpenRouterAnnotator(FigureAnnotator):
                     {"role": "user", "content": user_content},
                 ],
                 max_tokens=self.max_tokens,
+                temperature=0,
             )
             return response.choices[0].message.content.strip()
 
@@ -286,36 +297,62 @@ def _openrouter_factory(name: str, router_id: str):
 # ---------------------------------------------------------------------------
 
 MODEL_REGISTRY: dict[str, type[FigureAnnotator]] = {
-    "gpt-5.2": GPT52Annotator,
-    "gemini-3.1-pro": Gemini31ProAnnotator,
     "llama4-maverick": Llama4MaverickAnnotator,
 }
 
-# Additional OpenRouter models (using generic annotator)
+# Azure-deployed models
+AZURE_MODELS = {
+    "gpt-5.2": "gpt-5-2",
+    "phi-4-multimodal": "phi-4-multimodal",
+}
+
+# OpenRouter models (using generic annotator)
 OPENROUTER_MODELS = {
-    "qwen3-vl-8b": "qwen/qwen3-vl-8b-instruct",
-    "qwen3-vl-30b-a3b": "qwen/qwen3-vl-30b-a3b-instruct",
-    "qwen3-vl-235b-a22b": "qwen/qwen3-vl-235b-a22b-instruct",
-    "llama4-scout": "meta-llama/llama-4-scout",
     "gemma3-4b-it": "google/gemma-3-4b-it",
     "gemma3-12b-it": "google/gemma-3-12b-it",
-    # Temporary OpenRouter fallbacks (normally these run on Vertex AI)
-    "qwen3-vl-32b-or": "qwen/qwen3-vl-32b-instruct",
-    "gemma3-27b-it-or": "google/gemma-3-27b-it",
+    "gemma3-27b-it": "google/gemma-3-27b-it",
+    "qwen3-vl-8b": "qwen/qwen3-vl-8b-instruct",
+    "qwen3-vl-30b-a3b": "qwen/qwen3-vl-30b-a3b-instruct",
+    "qwen3-vl-32b": "qwen/qwen3-vl-32b-instruct",
+    "qwen3-vl-235b-a22b": "qwen/qwen3-vl-235b-a22b-instruct",
+    "llama4-scout": "meta-llama/llama-4-scout",
+    "claude-opus-4.6": "anthropic/claude-opus-4-6",
+}
+
+
+def _azure_factory(name: str, deployment_name: str):
+    """Create a factory function for an Azure-deployed model."""
+    def factory(**kwargs):
+        return AzureAnnotator(name, deployment_name, **kwargs)
+    return factory
+
+
+# Models with custom max_tokens
+CUSTOM_TOKEN_MODELS = {
+    "gemini-3.1-pro": ("google/gemini-3.1-pro-preview", 16000),
 }
 
 
 def _get_all_models() -> dict:
     """Merge all model registries."""
     all_models = dict(MODEL_REGISTRY)
+    # Add models with custom max_tokens
+    for name, (router_id, max_tok) in CUSTOM_TOKEN_MODELS.items():
+        all_models[name] = _openrouter_factory(name, router_id)
+        # Override default max_tokens via a wrapper
+        base_factory = all_models[name]
+        def _custom_factory(bf=base_factory, mt=max_tok):
+            def factory(**kwargs):
+                kwargs.setdefault('max_tokens', mt)
+                return bf(**kwargs)
+            return factory
+        all_models[name] = _custom_factory()
+    # Add Azure-deployed models
+    for name, deployment in AZURE_MODELS.items():
+        all_models[name] = _azure_factory(name, deployment)
     # Add generic OpenRouter models
     for name, router_id in OPENROUTER_MODELS.items():
         all_models[name] = _openrouter_factory(name, router_id)
-    try:
-        from llm_generation.models_opensource import OPENSOURCE_MODEL_REGISTRY
-        all_models.update(OPENSOURCE_MODEL_REGISTRY)
-    except ImportError:
-        pass
     return all_models
 
 

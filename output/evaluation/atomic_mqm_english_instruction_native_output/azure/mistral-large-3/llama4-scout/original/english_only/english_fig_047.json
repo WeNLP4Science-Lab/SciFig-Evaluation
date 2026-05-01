@@ -1,0 +1,87 @@
+{
+  "figure_key": "english_fig_047",
+  "subfolder": "english_only",
+  "model_name": "llama4-scout",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Bar Chart",
+  "language": "English",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The chart features four groups of bars, each representing a different SFT configuration: no SFT (blue), + SFT on D0 (yellow), + SFT on D0, D1 (purple), and + SFT on D0, D1, D2 (red). For each model variant, the bars are arranged in ascending order of SFT configurations.",
+      "evidence": "The bars are stacked, not grouped. The machine-generated description incorrectly describes the bars as grouped rather than stacked.",
+      "atom_id": "english_fig_047_bar_arrangement"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "87% for LLaMA-2-13B and LLaMA-2-70B with + SFT on D0, D1, D2",
+      "evidence": "The figure shows the red bar (+ SFT on D0, D1, D2) for LLaMA-2-13B at approximately 80% and for LLaMA-2-70B at close to 80%, not 87%.",
+      "atom_id": "english_fig_047_sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "65% for LLaMA-2-7B with no SFT",
+      "evidence": "The figure shows the blue bar (no SFT) for LLaMA-2-7B at approximately 66%, not 65%.",
+      "atom_id": "english_fig_047_sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "no SFT (blue), + SFT on D0 (yellow), + SFT on D0, D1 (purple), and + SFT on D0, D1, D2 (red)",
+      "evidence": "The description omits the pattern details: 'no SFT' has white diagonal stripes, '+ SFT on D0' has white horizontal stripes, and '+ SFT on D0, D1' has slanted stripes. The red bar is correctly described as solid fill.",
+      "atom_id": "english_fig_047_sent_3"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the bars are visually emphasized with distinct color patterns for each category.",
+      "atom_id": "english_fig_047_sent_7"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The bar chart illustrates the effect of scaling up model scales and Supervised Fine-Tuning (SFT) datasets on the performance of LLaMA-2 models, specifically measuring the CoLeG-R percentage.",
+      "evidence": "The description introduces interpretation ('effect of scaling up model scales and SFT datasets') not explicitly shown in the figure. The figure only shows CoLeG-R percentages under different conditions.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The approximate CoLeG-R percentages for the shortest and tallest bars are 65% for LLaMA-2-7B with no SFT and 87% for LLaMA-2-13B and LLaMA-2-70B with + SFT on D0, D1, D2.",
+      "evidence": "The description oversimplifies by only mentioning the shortest and tallest bars, ignoring the intermediate values and their relative differences.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 73.75,
+  "total_penalty": 21.0,
+  "atom_coverage": {
+    "correct": 11,
+    "inaccurate": 4,
+    "missing": 1,
+    "total": 16,
+    "accuracy": 0.7333,
+    "completeness": 0.9167
+  }
+}

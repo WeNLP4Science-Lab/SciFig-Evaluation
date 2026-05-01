@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_050",
+  "model_name": "llama4-maverick",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by the number of shots, with each group containing two segments",
+          "evidence": "The chart shows stacked bars, not grouped bars. For each number of shots from 1 to 4, there is a single bar composed of two stacked segments. For 0 shots, there is only one segment."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "and decreases for 1 to 4 shots, with values ranging between approximately 4441 and 4797",
+          "evidence": "This describes the \"Reasoning\" segment. However, the value for this segment does not consistently decrease (shot 3's reasoning bar is taller than shots 1, 2, and 4). Furthermore, the specified range (4441 to 4797) is incorrect for the \"Reasoning\" segment; these values appear to be derived from the total height of some bars, not just the reasoning portion. The actual range for the reasoning segment is approximately 4250 to 5000."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart does not display any specific ordering or visual highlighting beyond the color-coding of the segments.",
+          "evidence": "This statement is false. The chart includes several forms of visual highlighting and annotation: a dashed horizontal line at the 6393 level, and red arrows with numerical values (-1952, -1613, -1040, -1379) indicating the difference in token count from the 0-shot condition."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description provides the total token count for the stacked bars (shots 1-4) but does not provide the approximate values for the individual components (\"Reasoning\" and \"Demonstration\"). For a stacked bar chart, describing the size of the components is a primary descriptive requirement. For instance, it fails to mention that for 4 shots, the bar consists of approximately 4250 \"Reasoning\" tokens and 750 \"Demonstration\" tokens."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the dashed horizontal line extending from the top of the '0 shots' bar. This line acts as a visual reference or baseline for the annotated decreases shown for the other bars."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by the number of shots, with each group consisting of two stacked bars representing 'Reasoning' and 'Demonstration'",
+          "evidence": "The chart does not show grouped bars. It displays five individual bars, one for each category on the x-axis. The bars for shots 1, 2, 3, and 4 are stacked bars, but they are not arranged in groups."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "no specific bar is visually highlighted beyond the coloring indicating the type of token",
+          "evidence": "This statement is incorrect and contradicts the earlier part of the description. The bars for shots 1, 2, 3, and 4 are explicitly highlighted with red arrows and numerical annotations indicating the reduction in token count from the 0-shot case."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.0
+}

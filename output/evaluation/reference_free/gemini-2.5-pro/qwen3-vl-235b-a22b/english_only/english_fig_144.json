@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_144",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "gradually declines to about 74% at 410m",
+      "evidence": "For the Precision line, the value at the 410m model size is approximately 70%, not 74%."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "then stabilizes near 75–77% across larger models up to 7.0B",
+      "evidence": "The Precision line does not stabilize after 410m; it shows a clear upward trend, rising from approximately 70% at 410m to about 77% at 7.0B."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "with Recall and F1-score exhibiting more pronounced growth than Precision",
+      "evidence": "The generation prompt explicitly forbids making comparisons between lines: \"Avoid interpreting the cause of changes or making comparisons between lines.\""
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The legend in the upper right",
+      "evidence": "The legend is located in the bottom right of the plot, not the upper right."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The caption notes that models from 70m to 2.8B are of one type (implied by context, likely standard models), while the 7.0B model is of another (likely incorporating the [IDK] token mechanism), though the plot itself does not visually distinguish them beyond parameter count.",
+      "evidence": "This sentence describes information from the paper's caption, not the visual content of the plot itself. The prompt asks for a description of what is shown in the plot, not an interpretation of surrounding text. It also includes subjective inferences like \"implied by context, likely\"."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 5
+}

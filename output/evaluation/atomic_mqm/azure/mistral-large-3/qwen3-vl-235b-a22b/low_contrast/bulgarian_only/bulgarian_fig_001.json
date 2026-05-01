@@ -1,0 +1,96 @@
+{
+  "figure_key": "bulgarian_fig_001",
+  "subfolder": "bulgarian_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "low_contrast",
+  "figure_type": "line_plot",
+  "language": "Bulgarian",
+  "num_atoms": 25,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Всички линии са сплошни и маркирани с кръгли точки, които са обозначени с конкретни числови стойности.",
+      "evidence": "The lines in the figure are solid but do not have markers (circular points). The atom checklist confirms no markers are present (blue_line_style, orange_line_style, grey_line_style).",
+      "atom_id": "blue_line_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "най-ниската стойност е 95 през 2020 г.",
+      "evidence": "The lowest value for the blue line (administrative buildings) is 70 in 2022, not 95 in 2020. The atom checklist (blue_line_2022) confirms 70 as the final value.",
+      "atom_id": "blue_line_2022"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "най-висока стойност от 5 562 през 2017 г.",
+      "evidence": "The highest value for the orange line (other buildings) is 5,774 in 2018, not 5,562 in 2017. The atom checklist (orange_line_peak) states the peak is 5,460 in 2017, but the figure shows 5,774 in 2018.",
+      "atom_id": "orange_line_peak"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the y-axis has no labels or units, as required by the atom (y_axis_label).",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the detail that the blue line (administrative buildings) is predominantly straight with minor variations, as specified in the atom (blue_line_trend).",
+      "atom_id": "blue_line_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the specific trend of the orange line (other buildings) having both rises and falls, as required by the atom (orange_line_trend).",
+      "atom_id": "orange_line_trend"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Оста Y, макар и без явно обозначение на единици, показва броя на разрешенията, като стойностите са изписани върху всяка точка от линиите.",
+      "evidence": "The description incorrectly states that values are written on every point of the lines. The figure only shows values at select points, not all. No atom supports this claim.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Сивата линия, отговаряща на „Жилищни“ сгради, започва от 4 238 през 2012 г., има леко намаление до 2015 г., след което расте стабилно до 8 169 през 2022 г.",
+      "evidence": "The description oversimplifies the trend by stating 'леко намаление до 2015 г.' without specifying the lowest point in 2013 (4,120), as detailed in the reference and atom (grey_line_2013).",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 79.2,
+  "total_penalty": 26.0,
+  "atom_coverage": {
+    "correct": 19,
+    "inaccurate": 3,
+    "missing": 3,
+    "total": 25,
+    "accuracy": 0.8636,
+    "completeness": 0.8636
+  }
+}

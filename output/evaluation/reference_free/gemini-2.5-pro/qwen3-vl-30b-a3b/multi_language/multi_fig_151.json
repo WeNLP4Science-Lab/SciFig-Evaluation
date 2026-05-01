@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_151",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "five medical specialties—Cardio, Gastro, Infect, Neuro, and Pediatrics",
+          "evidence": "The description states there are five specialties and omits 'Obstetrics', but the chart clearly shows six specialties on both the x-axis and in the legend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "each group containing five bars",
+          "evidence": "Each group on the x-axis contains seven bars, not five. There is one bar for the base model and one bar for each of the six fine-tuned models."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "where lower values indicate higher confidence in the model's predictions",
+          "evidence": "The prompt explicitly forbids interpretation. This sentence interprets the meaning of the y-axis values instead of just describing them."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectVisualAttributeMapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with Cardio showing the lowest (best) performance",
+          "evidence": "This incorrectly describes the data for the baseline model. In the 'Cardio' group, the light blue bar for the baseline model is the highest on the chart (approx. -22.5), not the lowest. The lowest value for the baseline model is for 'Neuro' (approx. -24.5)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The bars are sorted by the baseline model's negative log-probability",
+          "evidence": "This is an inference about why the x-axis groups are ordered the way they are. The chart does not state this; the groups are actually in alphabetical order. This violates the instruction to avoid interpretation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "In general, fine-tuning on a specialty's data tends to improve the model's confidence for tokens related to that specialty, as seen by the lower negative log-probability for the corresponding bar (e.g., the dark brown bar for Pediatrics in the Pediatrics group).",
+          "evidence": "This entire sentence is a conclusion drawn from the data, which violates the prompt's instruction to avoid making inferences or drawing conclusions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart highlights that the model's performance is most sensitive to fine-tuning on the specialty it is being evaluated on, with the greatest improvement observed when the model is fine-tuned on the same specialty as the target tokens.",
+          "evidence": "This is a summary conclusion about the data trends, which is explicitly forbidden by the generation prompt."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the legend items omits the 'Obstetrics' category and its corresponding color."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Each bar within a group corresponds to a different fine-tuning dataset",
+          "evidence": "This is inaccurate as one of the bars (the light blue one) corresponds to the baseline model, which is not a fine-tuned dataset. It creates ambiguity about the composition of the bar groups."
+        }
+      ],
+      "mqm_score": 68.5,
+      "total_penalty": 31.5,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 68.5
+}

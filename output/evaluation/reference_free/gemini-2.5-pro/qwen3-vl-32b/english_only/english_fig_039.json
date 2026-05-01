@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_039",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "slightly above the 0-CoT line",
+      "evidence": "The prompt explicitly instructs to \"Avoid ... making comparisons between lines.\" This phrase is a direct comparison of the two data series."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "0-CoT at about 0.922",
+      "evidence": "At x=3, the marker for 0-CoT (blue circle) is located at or slightly below the 0.920 grid line. The stated value of 0.922 is incorrect and would be visibly higher than the marker's actual position."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-generalization",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Throughout the entire range, the CoRe line remains slightly above the 0-CoT line",
+      "evidence": "This statement is factually incorrect. At x=1, the 0-CoT line (blue, value approx. 0.952) is visibly higher than the CoRe line (orange, value approx. 0.950). The generalization does not hold for the entire range."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Throughout the entire range, the CoRe line remains slightly above the 0-CoT line, indicating consistently higher informativeness scores.",
+      "evidence": "The prompt requires avoiding comparisons and conclusions. This concluding sentence makes a comparative summary of the two lines over the entire x-axis range, which is a form of interpretation forbidden by the prompt."
+    }
+  ],
+  "mqm_score": 85.0,
+  "total_penalty": 15.0,
+  "error_count": 4
+}

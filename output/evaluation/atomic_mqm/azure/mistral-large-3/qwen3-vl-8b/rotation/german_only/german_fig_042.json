@@ -1,0 +1,132 @@
+{
+  "figure_key": "german_fig_042",
+  "subfolder": "german_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "rotation",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "gestapeltes Balkendiagramm",
+      "evidence": "The figure shows grouped bars (blue and green segments side-by-side conceptually), not stacked bars. The atom 'stacked_segments' (minor) clarifies that each bar consists of two segments but does not imply stacking.",
+      "atom_id": "stacked_segments"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "der obere Teil ist blau und repräsentiert den „Anstieg zwischen 2021 und 2024“, der untere Teil ist grün und repräsentiert die „Ausgaben 2021“",
+      "evidence": "The blue segment represents the increase, but it is not the 'upper' part; both segments are aligned from the origin (0). The description incorrectly implies vertical stacking.",
+      "atom_id": "blue_segment"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "wobei die Achsenmarkierungen in regelmäßigen Abständen von 1 angezeigt werden",
+      "evidence": "The x-axis scale intervals are 0.5, not 1, as specified in the atom 'x_axis_scale'.",
+      "atom_id": "x_axis_scale"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Der blaue Teil des Balkens für Polen ist etwa 3,5 Prozent lang und der grüne Teil etwa 1,5 Prozent lang",
+      "evidence": "The blue segment (increase) for Poland is approximately 0.5%, and the green segment (2021 expenditures) is about 3.5%. The description reverses the values.",
+      "atom_id": "top_countries"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "für Spanien ist der blaue Teil etwa 1,5 Prozent lang und der grüne Teil etwa 0,5 Prozent lang",
+      "evidence": "The blue segment for Spain is approximately 0.3%, and the green segment is about 1.2%. The description reverses and exaggerates the values.",
+      "atom_id": "bottom_countries"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the black line indicating 1.5% above the 2021 reference value, a critical visual feature.",
+      "atom_id": "black_line"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state the chart's purpose of illustrating government expenditures as a percentage of GDP for various European countries.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention the legend's position or its role in clarifying the color coding and meanings of the segments and line.",
+      "atom_id": "legend_position"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Die Balken sind nicht sortiert, sondern folgen der alphabetischen Reihenfolge der Länder auf der vertikalen Achse",
+      "evidence": "The countries are not listed in alphabetical order; the atom 'y_axis_countries' specifies the exact order, which is not alphabetical.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "prognostizierten Anstieg zwischen 2021 und 2024",
+      "evidence": "The term 'prognostizierten' (projected) implies a forecast, which is not explicitly stated in the figure or atoms. The figure only shows an 'Anstieg' (increase) without specifying if it is projected.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Die Balken sind nicht visuell hervorgehoben oder mit besonderen Markierungen versehen",
+      "evidence": "This statement is vague and misleading; the black line is a significant visual marker, which is not acknowledged here.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Jeder Balken ist visuell in zwei Teile unterteilt",
+      "evidence": "The description oversimplifies the structure by not clarifying that the segments represent distinct temporal data (2021 vs. increase to 2024).",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 49.38,
+  "total_penalty": 40.5,
+  "atom_coverage": {
+    "correct": 8,
+    "inaccurate": 5,
+    "missing": 3,
+    "total": 16,
+    "accuracy": 0.6154,
+    "completeness": 0.7273
+  }
+}

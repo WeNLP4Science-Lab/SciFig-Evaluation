@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_174",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at intervals of 5",
+          "evidence": "The tick marks on the x-axis are at 0, 5, 10, 20, and 40. The intervals between them are 5, 5, 10, and 20, which are not regular intervals of 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranges from 0 to 5",
+          "evidence": "The y-axis as depicted in the plot starts at 1, so its range is from 1 to 5, not 0 to 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue line with square markers represents Bianchi",
+          "evidence": "According to the legend and the plot, the blue line representing Bianchi has circle markers, not square markers. The red line (BeaverTails) is the one with square markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-generalization",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "and then remains relatively stable around 2.3 to 2.5",
+          "evidence": "The BeaverTails line drops to 2.0 at 5 samples, then increases to approximately 2.3 at 10 samples, stays there at 20 samples, and increases again to 2.6 at 40 samples. Describing this entire section as 'relatively stable around 2.3 to 2.5' over-generalizes the trend, which shows a slight but clear increase after the initial drop."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at intervals of 5",
+          "evidence": "The tick marks on the x-axis are at 0, 5, 10, 20, and 40. The intervals are not regular and are not all 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The blue line with square markers represents Bianchi",
+          "evidence": "The blue line representing Bianchi has circular markers, not square ones. The red line (BeaverTails) has square markers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreasing slightly to around 1.1 at 40 safety samples",
+          "evidence": "For the Bianchi line, the value at 40 safety samples is exactly 1.0, not 1.1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreases to about 2.2 at 5 safety samples",
+          "evidence": "For the BeaverTails line, the value at 5 safety samples is exactly 2.0, not 2.2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Both lines show a decrease in harmfulness score as the number of safety samples increases, but Bianchi exhibits a more pronounced initial drop and maintains a lower score overall compared to BeaverTails.",
+          "evidence": "The prompt explicitly instructs to \"Avoid... making comparisons between lines.\" This sentence is a direct comparison between the two data series, violating a negative constraint."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.25
+}

@@ -1,0 +1,123 @@
+{
+  "figure_key": "german_fig_009",
+  "subfolder": "german_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 26,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Chart Purpose",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "zeigt die Veränderung der Importanteile der auf der horizontalen Achse aufgeführten Länder – nämlich China, Vietnam, Indien, Mexiko, Polen und Deutschland – an den Importen der in der Legende genannten Länder (China, USA, Japan, Indien, Frankreich, Vereinigtes Königreich, Mexiko, Thailand, Malaysia, Brasilien) zwischen den Jahren 2015 und 2023, ausgedrückt in Prozentpunkten",
+      "evidence": "The chart shows export development, not import shares, and the time frame is after 2018, not 2015-2023. The atom 'chart_purpose' specifies export development after 2018.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "für Indien als Quellland die Veränderung für Thailand etwa +4 Prozentpunkte beträgt",
+      "evidence": "The description incorrectly assigns Thailand's +4% value to India as the source country. The +4% value for Thailand is associated with China, not India, as per the atom 'china_france_thailand'.",
+      "atom_id": "china_france_thailand"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "Die horizontale Achse listet die sechs Quellländer in alphabetischer Reihenfolge von links nach rechts auf",
+      "evidence": "The countries on the x-axis are not listed in alphabetical order. The order is China, Vietnam, Indien, Mexiko, Polen, Deutschland.",
+      "atom_id": "x_axis_categories"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the specific values for Vietnam, India, Mexico, and Poland, which are detailed in atoms 'vietnam_range', 'india_range', 'mexico_usa', 'mexico_others', and 'poland_growth'.",
+      "atom_id": "vietnam_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the negative values for Japan, Malaysia, and Brazil in the context of China, as specified in atom 'china_negative'.",
+      "atom_id": "china_negative"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the slight positive gains for the UK, India, and Mexico in the context of China, as specified in atom 'china_positive'.",
+      "atom_id": "china_positive"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the specific negative values for France, Brazil, Malaysia, and China in the context of Germany, as specified in atom 'germany_others_negative'.",
+      "atom_id": "germany_others_negative"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "zwischen den Jahren 2015 und 2023",
+      "evidence": "The time frame 2015-2023 is not present in the figure or supported by any atom. The reference is to 'after 2018'.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "Es gibt keine besonderen visuellen Hervorhebungen wie Schattierungen oder Umrandungen einzelner Balken",
+      "evidence": "The description includes an unnecessary observation about the lack of visual emphasis, which is not part of the atoms or reference description.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "während die Veränderungen für die meisten anderen Importeure in der Nähe von Null liegen",
+      "evidence": "The description oversimplifies the values for Germany, ignoring the specific negative values mentioned in the atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Jeder Quellland-Balken ist in mehrere farbige Balken unterteilt, die jeweils einen Importeur aus der Legende repräsentieren",
+      "evidence": "The term 'Quellland-Balken' is ambiguous and could be clearer, as the reference uses 'Ländergruppen' and 'Exportentwicklung'.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 74.62,
+  "total_penalty": 33.0,
+  "atom_coverage": {
+    "correct": 19,
+    "inaccurate": 3,
+    "missing": 4,
+    "total": 26,
+    "accuracy": 0.8636,
+    "completeness": 0.8261
+  }
+}

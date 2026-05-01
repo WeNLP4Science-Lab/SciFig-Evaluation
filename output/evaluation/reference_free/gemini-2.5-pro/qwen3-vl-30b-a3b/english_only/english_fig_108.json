@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_108",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "is on a logarithmic scale spanning from $10^{-1}$ to $10^{0}$, with an additional negative range down to $-10^{0}$",
+      "evidence": "The y-axis is a symmetric logarithmic scale (symlog), not a standard logarithmic scale with an added negative range. Furthermore, the description of the positive range as spanning 'from 10^-1 to 10^0' is incorrect, as the axis includes values between 0 and 10^-1."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The blue and orange lines both start at approximately $10^{-1}$ at 0 training steps",
+      "evidence": "This is incorrect. The blue line starts near 0, and the orange line starts near 10^0 (which is 1). Neither line starts at 10^-1 (0.1)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "and rise sharply to around $10^{0}$ within the first 7,540 steps",
+      "evidence": "This description is incorrectly applied to both the blue and orange lines. While the blue line does rise sharply, the orange line starts high (near 10^0), dips slightly, and then remains stable; it does not rise."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "rapidly decreases to a value near $-10^{-1}$",
+      "evidence": "The brown line decreases to a value near -10^0 (which is -1), not -10^-1 (which is -0.1). The reported value is incorrect by an order of magnitude."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The caption notes that one of the sharpness contributions tends to be negative for most of training, which is consistent with the behavior of the brown line.",
+      "evidence": "The prompt instructs to describe only what is shown in the plot and stick to objective features. This sentence includes information from the caption provided separately to the model, which is not part of the visual information in the plot itself."
+    }
+  ],
+  "mqm_score": 78.5,
+  "total_penalty": 21.5,
+  "error_count": 5
+}

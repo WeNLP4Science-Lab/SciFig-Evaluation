@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_108",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The data is presented as grouped bars, with each group corresponding to a value of m and containing two bars: one purple representing the Fine-to-Coarse Sampling Strategy and one yellow representing the Uniform Sampling Strategy.",
+          "evidence": "The chart does not display grouped bars where each 'm' value has a corresponding pair of purple and yellow bars. Instead, it shows two distinct sets of bars. The first set consists of five purple bars for 'm' values from 6 to 10 under the 'Fine-to-Coarse Sampling Strategy'. The second set consists of five yellow bars for 'm' values from 6 to 10 under the 'Uniform Sampling Strategy'."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each value of m, two bars are displayed side-by-side",
+          "evidence": "The bars are not displayed side-by-side for each value of m. Instead, there are two separate clusters of bars. The first cluster shows the results for the Fine-to-Coarse strategy for m values from 6 to 10, and the second cluster shows the results for the Uniform strategy for m values from 6 to 10."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the Fine-to-Coarse strategy consistently achieving higher MAP@10 scores than the Uniform strategy",
+          "evidence": "The prompt instructs to avoid making comparisons unless explicitly labeled in the chart. This statement is a comparative conclusion drawn by observing the data, which violates the prompt's instructions."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the lowest value, around 24.35, is for the Uniform strategy at m = 6",
+          "evidence": "The bar for the Uniform strategy at m=6 has a value of approximately 24.4. The bar at m=10 has a similar or slightly lower value. Stating the lowest is at m=6 is an oversimplification and the value 24.35 is slightly off, though a reasonable approximation."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectStructuralDescription",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für jeden Wert von m sind zwei Balken dargestellt: ein lila Balken für die Fine-to-Coarse Sampling Strategy und ein gelber Balken für die Uniform Sampling Strategy.",
+          "evidence": "This statement incorrectly describes the grouping of the bars. The chart does not show a pair of bars (one purple, one yellow) for each value of 'm'. Instead, it presents two separate clusters of bars: a cluster of five purple bars for 'm' values 6 through 10, followed by a separate cluster of five yellow bars for the same 'm' values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "IncorrectNumericalValue",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die lila Balken liegen bei allen Werten von m über 25,9",
+          "evidence": "The description states that all purple bars are above 25.9. However, the bar for m=6 has a value of approximately 25.9, not strictly 'above' it."
+        }
+      ],
+      "mqm_score": 93.0,
+      "total_penalty": 7.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 92.5
+}

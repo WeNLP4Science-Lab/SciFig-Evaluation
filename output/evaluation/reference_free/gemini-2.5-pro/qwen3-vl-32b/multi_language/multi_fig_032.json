@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_032",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "（以“内化偏好”为单位）",
+          "evidence": "The description incorrectly identifies \"Instilled Preferences\" (内化偏好) as the unit for the y-axis. In the axis label \"Self-Report Accuracy (Instilled Preferences)\", \"Instilled Preferences\" is a qualifier for the type of accuracy being measured, not a unit of measurement."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "但代表归一化偏好权重",
+          "evidence": "The description makes an assumption that the y-axis values represent \"normalized preference weights.\" This information is not present in the visual chart itself and constitutes interpretation, which the prompt forbids."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "灰色柱高度约为0.20",
+          "evidence": "The description states that the gray bar for the GPT-4o group is approximately 0.20. However, the chart shows this bar's height is much lower, at approximately 0.12."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "表示95%的高密度区间（HDIs）",
+          "evidence": "The description states that the error bars represent '95% High-Density Intervals (HDIs)'. This level of statistical detail is not provided on the chart itself (it is likely from the paper's caption) and therefore constitutes adding information not visually present, which is a form of interpretation forbidden by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "但均未触及轴线",
+          "evidence": "The description claims that none of the error bars touch the axis. This is incorrect. The error bar for the 'Control' condition in the 'GPT-4o-mini' group clearly crosses the horizontal axis (the 0.00 line)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "柱状图的高度趋势显示，经过内省训练后，两个模型的自我报告准确性均显著提高，而对照组的准确性最低，尤其在GPT-4o-mini中几乎为零。",
+          "evidence": "This entire sentence provides an interpretation of trends, makes comparisons between conditions ('significantly improve', 'lowest accuracy'), and draws conclusions, all of which are explicitly forbidden by the generation prompt's instruction to 'avoid inference, comparison, or conclusions' and 'not compare categories'."
+        }
+      ],
+      "mqm_score": 74.5,
+      "total_penalty": 25.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "(measured as instilled preferences)",
+          "evidence": "The y-axis is labeled 'Self-Report Accuracy (Instilled Preferences)'. The phrasing 'measured as instilled preferences' incorrectly interprets the parenthetical text as a unit of measurement, when it is specifying the context of the accuracy being measured."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "near 0.20",
+          "evidence": "The bar for the 'Control' condition for GPT-4o has a value of approximately 0.12, which is a noticeable overestimation from the stated value of 'near 0.20'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually demonstrates that both models show improved self-report accuracy after introspection training, with the dark blue bars consistently higher than the light blue and gray bars, and the accuracy levels for both models after training are nearly identical.",
+          "evidence": "This sentence provides interpretation and comparison (e.g., 'improved', 'consistently higher', 'nearly identical') which is explicitly forbidden by the prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions about the data'."
+        }
+      ],
+      "mqm_score": 92.5,
+      "total_penalty": 7.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei GPT-4o beträgt die Höhe des grauen Balkens (Control) etwa 0.25",
+          "evidence": "The height of the gray bar (Control) for GPT-4o is approximately 0.12, which is significantly lower than the stated value of 0.25."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei GPT-4o-mini ist der graue Balken (Control) deutlich niedriger, bei etwa 0.05",
+          "evidence": "The height of the gray bar (Control) for GPT-4o-mini is very close to 0.00, not 0.05. The error bar even extends into the negative range."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "der die 95% HDIs (Highest Density Intervals) darstellt",
+          "evidence": "The description states that the error bars represent 95% HDIs. This information is not present anywhere in the figure itself (axes, labels, legend). The prompt requires describing only visually labeled features."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 84.5
+}

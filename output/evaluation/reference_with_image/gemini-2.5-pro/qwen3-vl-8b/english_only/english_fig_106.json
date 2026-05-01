@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_106",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "an orange line with circular markers and a blue line with square markers",
+      "evidence": "The plot features two solid lines without any discernible markers. The description incorrectly hallucinates the presence of circular and square markers."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "remains relatively flat, hovering slightly below 10⁰ throughout the training process",
+      "evidence": "The orange line does not remain relatively flat. It starts at 10^0, drops sharply to a value around 0.6, and then flattens out. Describing this as 'hovering slightly below 10^0' is a significant over-generalization, especially on a logarithmic scale."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The blue line begins at approximately 10⁰ at step 0",
+      "evidence": "The blue line starts at the bottom of the y-axis, with a value close to 10⁻³, not 10⁰."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "then plateaus at a value slightly above 10⁻¹, fluctuating slightly before settling near 10⁻¹ by step 37700",
+      "evidence": "After the initial sharp rise, the blue line plateaus and settles at a value close to 10⁰ (approximately 0.9), not 10⁻¹ (which is 0.1). This represents an error of an order of magnitude."
+    }
+  ],
+  "mqm_score": 86.5,
+  "total_penalty": 13.5,
+  "error_count": 4
+}

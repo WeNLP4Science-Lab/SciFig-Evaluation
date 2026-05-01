@@ -1,0 +1,114 @@
+{
+  "figure_key": "chinese_fig_012",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 27,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色方块标记的“lattice”曲线从第 2 轮的约 0.61 开始",
+      "evidence": "Description states lattice F1 at epoch 2 is ~0.61, but the figure and atom checklist show it is ~0.59.",
+      "atom_id": "lattice_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "迅速上升至第 8 轮的约 0.82",
+      "evidence": "Description states lattice F1 at epoch 8 is ~0.82, but the figure and atom checklist show it is ~0.80.",
+      "atom_id": "lattice_epoch8_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色圆点标记的“FLAT”曲线从第 2 轮的约 0.80 开始",
+      "evidence": "Description states FLAT F1 at epoch 2 is ~0.80, but the figure and atom checklist show it is ~0.78.",
+      "atom_id": "flat_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "持续上升至第 16 轮的约 0.89",
+      "evidence": "Description states FLAT F1 at epoch 16 is ~0.89, but the figure shows it is ~0.88 at epoch 14 (no data for epoch 16).",
+      "atom_id": "flat_epoch14_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色三角形标记的“OURS”曲线从第 2 轮的约 0.83 开始",
+      "evidence": "Description states OURS F1 at epoch 2 is ~0.83, but the figure and atom checklist show it is ~0.81.",
+      "atom_id": "ours_epoch2_f1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色方块标记的“lattice”曲线从第 2 轮的约 0.61 开始",
+      "evidence": "Description omits lattice data at epoch 1, which is critical for showing the initial value.",
+      "atom_id": "lattice_epoch1_f1"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "Description does not mention that OURS method converges faster and surpasses FLAT at epoch 10.",
+      "atom_id": "ours_convergence"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "总体来看，所有方法的 F1 分数均随训练轮次增加而提高，其中 OURS 方法在所有轮次中均表现出最高的 F1 分数",
+      "evidence": "Description includes interpretation not explicitly shown in the figure (e.g., 'all methods improve' is not universally true for lattice at epoch 2, and OURS does not lead in all epochs).",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "所有方法的 F1 分数均随训练轮次增加而提高",
+      "evidence": "Lattice F1 does not increase between epoch 1 and 2, so the claim is not universally true.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "之后趋于平缓",
+      "evidence": "Vague reference; does not specify the exact epoch range or F1 values for the plateau.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 71.11,
+  "total_penalty": 39.0,
+  "atom_coverage": {
+    "correct": 20,
+    "inaccurate": 6,
+    "missing": 1,
+    "total": 27,
+    "accuracy": 0.7692,
+    "completeness": 0.9524
+  }
+}

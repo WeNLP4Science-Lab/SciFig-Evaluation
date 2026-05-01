@@ -1,0 +1,234 @@
+{
+  "figure_key": "multi_fig_025",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "с равномерни интервали от по 1",
+          "evidence": "The y-axis labels (0, 2, 4, 6, 8, 10) are at intervals of 2, not 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Стълбовете са групирани за всеки слой, като всеки стълб представлява една от трите групи",
+          "evidence": "The chart is a stacked bar chart, not a grouped bar chart. Each bar is composed of three stacked segments (G0, G1, G2), with the total height representing the total number of experts for that layer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "най-високият брой експерти е около 9 за Layer 1 (G0) и Layer 2 (G0)",
+          "evidence": "The description incorrectly attributes the total height of the bars to the G0 component. For Layer 1, the total height is approximately 9, but the value for the G0 component (blue segment) is 1. For Layer 2, the total height is 8, and the G0 component is also 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Най-ниският брой експерти е около 2 за Layer 14 (G0) и Layer 23 (G0)",
+          "evidence": "The description misreads the chart. The lowest total bar heights are approximately 3 (e.g., for layers 7, 23, 24). The value for the G0 component in layers 14 and 23 is 1, not 2. The description incorrectly states the value and attributes it to the wrong component based on a misunderstanding of the chart structure."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "Височината на стълбовете варира за всеки слой и всяка група",
+          "evidence": "This phrasing is ambiguous. The height of the total bar varies for each layer. The height of the individual segments (representing each group) varies within each bar. It is unclear to say the height of the 'bars' varies for each 'group'."
+        }
+      ],
+      "mqm_score": 80.0,
+      "total_penalty": 20.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "刻度间隔为 1",
+          "evidence": "The description states the y-axis tick interval is 1, but the labeled gridlines on the chart are at intervals of 2 (0, 2, 4, 6, 8, 10)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "对于每一层，都显示了一组三个堆叠的柱状图",
+          "evidence": "The chart displays a single stacked bar with three segments for each layer, not a set of three separate stacked bar charts."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第 1 层，G0 柱状图高度约为 4.8，G1 柱状图高度约为 3.5，G2 柱状图高度约为 0.8。",
+          "evidence": "The description fundamentally misunderstands how to read a stacked bar chart. The values reported are incorrect. For Layer 1, the value for the G0 segment is 1, the G1 segment is 4 (from y=1 to y=5), and the G2 segment is approximately 4 (from y=5 to y=9)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "直到第 11 列，G0 柱状图的高度通常是最高的",
+          "evidence": "The description incorrectly states that the G0 (blue) segment is the tallest. Visually, the G0 segment is consistently the smallest segment in every bar, with a value of 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "平均约为 4.5",
+          "evidence": "Following the incorrect assertion that G0 is the highest, the description claims its average height is 4.5. The actual value of the G0 segment is consistently 1 across all layers."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第 11 列之后，G2 柱状图高度变得占主导地位，通常在 6 到 8 之间。",
+          "evidence": "The description misreads the value of the G2 (yellow) segment by reading its top position on the y-axis instead of its actual height. For example, in layer 19, the G2 segment value is 2 (from y=4 to y=6), not 6."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "以表示每个组别的专家总数",
+          "evidence": "The stacking represents the total number of experts for each layer (the sum of all groups), not the total for 'each group'."
+        }
+      ],
+      "mqm_score": 72.0,
+      "total_penalty": 28.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at integer values",
+          "evidence": "This is imprecise. The labeled tick marks on the y-axis are at intervals of 2 (0, 2, 4, 6, 8, 10), not all integer values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a grouped set of three bars",
+          "evidence": "The chart is a stacked bar chart, not a grouped bar chart. Each layer is represented by a single bar composed of three stacked segments."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For Layer 1, the G0 bar extends to approximately 4.7, the G1 bar to approximately 3.8, and the G2 bar reaches 8.3.",
+          "evidence": "The description misreads the stacked chart as a grouped chart and reports incorrect values. For Layer 1, the stacked segments represent approximately 1 expert for G0, 4 experts for G1, and 4 experts for G2."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "Across all layers, the height of G2 bars consistently exceeds the heights of the G0 and G1 bars.",
+          "evidence": "This statement is incorrect and results from misinterpreting the stacked structure as grouped. When comparing the actual size of the segments, the G2 segment is not always the largest. For example, in Layer 19, the G1 segment (3 experts) is larger than the G2 segment (2 experts)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "In Layer 11, for instance, G0 extends to around 2.3, G1 to around 2.3, and G2 to approximately 3.7.",
+          "evidence": "The description misreads the stacked chart and reports incorrect values. For Layer 11, the stacked segments represent approximately 1 expert for G0, 1 expert for G1, and 1 expert for G2."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "gruppierte Balken",
+          "evidence": "The chart is a stacked bar chart, not a grouped bar chart. The components of each bar are stacked on top of each other, not placed side-by-side."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Balken sind für jede Schicht nebeneinander angeordnet, wobei G0 am weitesten links, dann G1 und schließlich G2 am weitesten rechts angeordnet ist.",
+          "evidence": "This describes a grouped bar chart. In the actual figure, the bars are stacked, with the blue G0 segment at the bottom, the green G1 segment in the middle, and the yellow G2 segment on top."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einem blauen G0-Balken einer Höhe von etwa 4",
+          "evidence": "For layer 1, the height of the blue G0 segment is 1, not approximately 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einem gelben G2-Balken einer Höhe von etwa 8",
+          "evidence": "For layer 1, the height of the yellow G2 segment is 4 (from y=5 to y=9), not approximately 8. The total height of the bar for layer 1 is approximately 9."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einem blauen G0-Balken einer Höhe von etwa 2",
+          "evidence": "For layer 23, the height of the blue G0 segment is 1, not approximately 2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einem grünen G1-Balken einer Höhe von etwa 2",
+          "evidence": "For layer 23, the height of the green G1 segment is 1 (from y=1 to y=2), not approximately 2."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "Es gibt einen erkennbaren Fluss in der Länge der Balken über die aufgeführten 24 Schichten.",
+          "evidence": "This statement is too vague ('recognizable flow') and does not adequately describe the trend in bar heights, which generally decrease, then increase, then decrease again."
+        }
+      ],
+      "mqm_score": 70.0,
+      "total_penalty": 30.0,
+      "error_count": 7,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 76.25
+}

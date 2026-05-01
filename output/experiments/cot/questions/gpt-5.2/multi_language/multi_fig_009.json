@@ -1,0 +1,94 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:24:30.351373+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure is a multi-series line chart titled **“Massive Activation of baseline”**. The x-axis is **Layer** (roughly 0–23) and the y-axis is **Max Activation Value** (0–1600). There are four data series with a legend: **attn_output** (blue dashed), **attn_residual** (orange dotted), **ffn_output** (green dash-dot), and **ffn_residual** (red solid). Notable patterns: the red and orange lines jump sharply around layer ~5 to very large values (~1400–1600) and stay high for many layers; the green line shows a few sharp spikes (notably near ~5, ~13, and ~22) while otherwise staying near zero; the blue line stays near zero until the final layers where it rises.\n\n1. **Layer 5**.  \n2. **3**.  \n3. **Around layer 22**.  \n4. **No purple ‘mlp_output’ line is present, so this can’t be read from the chart**.  \n5. **Yes—there are exactly 4 lines plotted; that is correct**.",
+      "items": [
+        {
+          "id": "ml009_q1",
+          "type": "capability",
+          "question": "At which layer does the ffn_residual (red) line first reach a value above 1400?",
+          "model_answer": ".",
+          "full_response": "**Layer 5**."
+        },
+        {
+          "id": "ml009_q2",
+          "type": "capability",
+          "question": "How many distinct spikes (peaks rising above 200 and returning near zero) does the ffn_output (green) line exhibit?",
+          "model_answer": ".",
+          "full_response": "**3**."
+        },
+        {
+          "id": "ml009_q3",
+          "type": "capability",
+          "question": "At approximately which layer does the attn_residual line first exceed the ffn_residual line?",
+          "model_answer": ".",
+          "full_response": "**Around layer 22**."
+        },
+        {
+          "id": "ml009_h1",
+          "type": "hallucination_inexist",
+          "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+          "model_answer": ".",
+          "full_response": "**No purple ‘mlp_output’ line is present, so this can’t be read from the chart**."
+        },
+        {
+          "id": "ml009_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Are there exactly 4 lines plotted in this chart? Is this correct?",
+          "model_answer": ".",
+          "full_response": "**Yes—there are exactly 4 lines plotted; that is correct**."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T13:27:10.775100+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "The figure is a multi-series line chart titled **“Massive Activation of baseline”**. The x-axis is **Layer** (roughly 0–23), and the y-axis is **Max Activation Value** (0–1600). It plots four data series with a legend: **attn_output** (blue dashed), **attn_residual** (orange dotted), **ffn_output** (green dash-dot), and **ffn_residual** (red solid). Notable patterns: the **residual** lines (orange/red) jump sharply around layer ~5 to ~1400–1600 and stay high through mid-layers, while **ffn_output** shows sharp spikes (around ~5, ~13, and ~22) and is near-zero otherwise; **attn_output** stays near zero until a late rise near the final layers.\n\n1. Approximately **~700** (at the second spike around layer ~13).  \n2. **ffn_residual** (red solid), approximately **~1550–1600** sustained.  \n3. It suggests **attention outputs can contribute comparably to the large mid-layer activations**, i.e., massive activations are **not solely driven by FFN residuals** in the middle layers.  \n4. **Cannot be determined from this plot** (it shows activation magnitudes, not attention weight distributions).  \n5. **No**—there are **4** lines plotted, not 3.",
+      "items": [
+        {
+          "id": "ml009_q4",
+          "type": "capability",
+          "question": "What is the approximate Max Activation Value of the ffn_output line at its second spike?",
+          "model_answer": "Approximately **~700** (at the second spike around layer ~13).",
+          "full_response": "Approximately **~700** (at the second spike around layer ~13)."
+        },
+        {
+          "id": "ml009_q5",
+          "type": "capability",
+          "question": "Between layers 6 and 20, which line maintains the highest sustained Max Activation Value, and what is that approximate value?",
+          "model_answer": "(red solid), approximately **~1550–1600** sustained.",
+          "full_response": "**ffn_residual** (red solid), approximately **~1550–1600** sustained."
+        },
+        {
+          "id": "ml009_h2",
+          "type": "hallucination_contra",
+          "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+          "model_answer": "It suggests **attention outputs can contribute comparably to the large mid-layer activations**, i.e., massive activations are **not solely driven by FFN residuals** in the middle layers.",
+          "full_response": "It suggests **attention outputs can contribute comparably to the large mid-layer activations**, i.e., massive activations are **not solely driven by FFN residuals** in the middle layers."
+        },
+        {
+          "id": "ml009_h3",
+          "type": "hallucination_unanswerable",
+          "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+          "model_answer": "(it shows activation magnitudes, not attention weight distributions).",
+          "full_response": "**Cannot be determined from this plot** (it shows activation magnitudes, not attention weight distributions)."
+        },
+        {
+          "id": "ml009_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Are there exactly 3 lines plotted in this chart? Is this correct?",
+          "model_answer": "—there are **4** lines plotted, not 3.",
+          "full_response": "**No**—there are **4** lines plotted, not 3."
+        }
+      ]
+    }
+  ]
+}

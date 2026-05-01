@@ -1,0 +1,100 @@
+{
+  "figure_key": "english_fig_186",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The average correct gate rate is defined as the proportion of question embeddings that achieve the maximum inner product with the relevant passage embeddings, computed for each dataset partition consisting of 50 passage samples.",
+      "evidence": "This sentence provides a definition taken from the paper's caption, which goes beyond describing the visual elements of the plot itself as requested by the prompt ('Stick to objective features only')."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The shaded regions around each line represent the standard deviation across 20 dataset partitions, indicating the variability in the measurements.",
+      "evidence": "This sentence provides an explanation of the shaded areas taken from the paper's caption. While it describes a visual feature, its meaning ('standard deviation across 20 dataset partitions') is external information not present in the plot's labels or legend."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "The blue solid line, corresponding to Character Attention input, starts at approximately 0.2 at layer 0, rises sharply to about 0.8 at layer 5, and then gradually declines to around 0.7 at layer 30. The blue dashed line, representing Character MLP input, begins at about 0.8 at layer 0, peaks slightly above 0.9 at layer 5, and then decreases to approximately 0.85 at layer 30. The red solid line, for Wiki Attention input, starts at 0.2 at layer 0, increases to about 0.8 at layer 5, and then fluctuates between 0.6 and 0.8 until layer 30. The red dashed line, for Wiki MLP input, starts at 0.8 at layer 0, peaks at 0.9 at layer 5, and then decreases to about 0.85 at layer 30. Overall, the MLP input lines (dashed) consistently show higher average correct gate rates compared to the attention input lines (solid), suggesting that embeddings at the input of MLP layers are more effective than those at the input of attention layers. This observation supports the decision to use the last MLP layer input as the embedding in the main experiments of MEGa.",
+      "evidence": "The generated description is split into two paragraphs, but the prompt explicitly requested a single paragraph."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starts at approximately 0.2 at layer 0",
+      "evidence": "The blue solid line for 'Character Attention input' starts at a value of approximately 0.1 at layer 0, not 0.2."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "and then gradually declines to around 0.7 at layer 30",
+      "evidence": "This description for the 'Character Attention input' line is misleading. The line does not gradually decline; it drops sharply to a minimum of about 0.25 around layer 13 before rising again."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "and then decreases to approximately 0.85 at layer 30",
+      "evidence": "This description for the 'Character MLP input' line is misleading. The line does not simply decrease; it drops sharply to a minimum of about 0.55 around layer 13 before rising again."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "approximately 0.85 at layer 30",
+      "evidence": "The 'Character MLP input' line ends closer to 0.9 at layer 30, not 0.85."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "and then fluctuates between 0.6 and 0.8 until layer 30",
+      "evidence": "This description for the 'Wiki Attention input' line is misleading. It omits the sharp drop to a minimum of about 0.38 around layer 13."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "and then decreases to about 0.85 at layer 30",
+      "evidence": "This description for the 'Wiki MLP input' line is misleading. It omits the sharp drop to a minimum of about 0.62 around layer 12 before rising again."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Overall, the MLP input lines (dashed) consistently show higher average correct gate rates compared to the attention input lines (solid), suggesting that embeddings at the input of MLP layers are more effective than those at the input of attention layers.",
+      "evidence": "This sentence makes direct comparisons between lines and suggests a conclusion ('more effective'), which is explicitly forbidden by the prompt's instruction to 'Avoid interpreting the cause of changes or making comparisons between lines'."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "This observation supports the decision to use the last MLP layer input as the embedding in the main experiments of MEGa.",
+      "evidence": "This sentence draws a conclusion based on information external to the plot (from the paper's caption), which violates the prompt's instruction to 'describe what is shown, without making inferences or drawing conclusions'."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 11
+}

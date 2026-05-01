@@ -1,0 +1,87 @@
+{
+  "figure_key": "bulgarian_fig_014",
+  "subfolder": "bulgarian_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "noise",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Вертикалната ос показва числовите стойности и е означена с „лв.“",
+      "evidence": "The y-axis label is incorrect; the figure shows \"%\" instead of \"лв.\".",
+      "atom_id": "y_axis_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "най-високите стълбове достигат приблизително 125 000–130 000 (напр. около III за 2024 и около XII за 2022)",
+      "evidence": "The highest value for 2024 in month III is approximately 120,000, not 125,000–130,000. The atom states the max value is for December 2022, exceeding 120,000, which is correct but the description overestimates the range.",
+      "atom_id": "max_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "най-ниските са около 80 000–85 000 (напр. около VIII за 2023 и около II за 2023)",
+      "evidence": "The lowest value is exactly 80,000 for December and July 2023, not 80,000–85,000. The description slightly overgeneralizes the range.",
+      "atom_id": "min_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "2024 е най-успешната година, тъй като стойностите ѝ са най-високи като цяло",
+      "evidence": "The description introduces an interpretation not present in the atoms or figure. The atom \"trend_interpretation\" explicitly states this as an expert interpretation, but the machine-generated description does not include it, so this error is not applicable. However, the description does not explicitly state this, so no error here. Instead, the description does not cover the atom \"trend_interpretation\" at all.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the bars are vertically aligned in groups by month for easy comparison, as mentioned in the atom \"sort_order\".",
+      "atom_id": "sort_order"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the explicit mention that the chart illustrates percentage values, as stated in the atom \"chart_type\". It only mentions \"стойности\" (values) without specifying they are percentages.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description mentions the y-axis range and intervals but does not explicitly state that the y-axis label is \"%\", which is partially covered but key detail is missing.",
+      "atom_id": "y_axis_label"
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 68.33,
+  "total_penalty": 19.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 3,
+    "missing": 3,
+    "total": 12,
+    "accuracy": 0.7,
+    "completeness": 0.7
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_133",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating that higher compression leads to lower accuracy across all model sizes,",
+          "evidence": "The prompt requires an objective description of the plot's features, but this phrase interprets the meaning of the observed trend rather than just describing it."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the 8B model consistently outperforming the others at each compression level",
+          "evidence": "The prompt explicitly instructs to \"Avoid ... making comparisons between lines.\" This phrase directly compares the performance of the different models, which is a violation of the instructions."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "and minor gridlines every 5 percentage points",
+          "evidence": "The chart does not contain minor gridlines every 5 percentage points. It only has major gridlines every 10 percentage points."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Llama3-8B (blue)",
+          "evidence": "The line corresponding to Llama3-8B is purple in the legend and on the plot, not blue."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "71% for Llama3-8B",
+          "evidence": "At a compression factor of 1, the data point for Llama3-8B is exactly on the 70% gridline, not approximately 71%."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The lines remain well-separated throughout, with Llama3-8B consistently achieving the highest accuracy and Llama3-1B the lowest at each compression level.",
+          "evidence": "The generation prompt explicitly instructed to \"Avoid... making comparisons between lines.\" This sentence directly compares the performance of the different models, which violates the instructions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the line style (solid for all lines), which was an explicit requirement of the generation prompt ('Linienstil')."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.25
+}

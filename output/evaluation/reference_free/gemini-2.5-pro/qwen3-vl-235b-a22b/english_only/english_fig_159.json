@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_159",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starts at approximately NPMI = 0.37 at weight 0.5, rises slightly to 0.38 at weight 1.5, dips to 0.37 at weight 2.0, and ends at 0.38 at weight 3.0",
+      "evidence": "The numerical values reported for the 20NG line are inaccurate. The points for this line do not fall on the 0.37 or 0.38 grid lines. For example, the starting value at weight 0.5 is approximately 0.373, not 0.37. The points at weights 1.5 and 3.0 are both just under 0.38 (approx. 0.379), not 0.38. This coarse rounding misrepresents the data shown."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "peaks at 0.20 at weight 1.5",
+      "evidence": "The data point for the IMDB model at weight 1.5 is visibly above the 0.20 tick mark on the y-axis. The actual value is approximately 0.202, so reporting it as 0.20 is an underestimate and factually incorrect."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "declines slightly to 0.405 at weight 2.0, and ends at 0.405 at weight 3.0",
+      "evidence": "The description states that the NIPS model's NPMI value is 0.405 at both weight 2.0 and weight 3.0, implying the line is flat between these points. However, the plot clearly shows a continued slight decline, with the point at weight 3.0 being lower than the point at weight 2.0."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Overall, NIPS consistently achieves the highest NPMI scores across all weights, followed by 20NG, while IMDB remains the lowest.",
+      "evidence": "This sentence makes direct comparisons between the different data series, which was explicitly forbidden by the generation prompt's instruction: \"Avoid...making comparisons between lines.\""
+    }
+  ],
+  "mqm_score": 81.5,
+  "total_penalty": 18.5,
+  "error_count": 4
+}

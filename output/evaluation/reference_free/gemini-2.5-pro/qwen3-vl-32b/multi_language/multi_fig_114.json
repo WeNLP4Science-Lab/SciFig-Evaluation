@@ -1,0 +1,154 @@
+{
+  "figure_key": "multi_fig_114",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "under the QLoRA framework",
+          "evidence": "The chart is titled \"Errors (COPA)\". The term \"QLoRA framework\" is not mentioned anywhere in the figure and is information taken from the external paper caption, which violates the prompt's instruction to describe only what is shown."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The blue bars represent errors for individual adapters of the specified rank, while the green bars represent errors for an ensemble of adapters whose total dimension sums to 256 (as implied by the caption and the highest rank being 256).",
+          "evidence": "The figure does not contain a legend or any labels to identify what the blue and green bars represent. This information is derived from the external paper caption, not the visual content of the chart, which is a direct violation of the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "0.10 at rank 16",
+          "evidence": "For rank 16, the green bar's value is approximately 0.08, as it is clearly below the 0.1 mark. The value 0.10 is an inaccurate approximation."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Notably, for rank 16, the green bar is significantly shorter than the blue bar, indicating lower error for the ensemble",
+          "evidence": "The description uses subjective and evaluative language ('Notably', 'significantly') and interprets the meaning of the bar height difference ('indicating lower error'), both of which are forbidden by the prompt. It also uses the hallucinated term 'ensemble'."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating higher variability in error at higher ranks",
+          "evidence": "This phrase interprets the meaning of the error bars ('variability') rather than simply describing their visual characteristics (e.g., presence and relative size), which goes beyond the objective description requested by the prompt."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart indicates that smaller adapter ranks (particularly rank 16) result in lower generalization errors, and ensembling adapters (green bars) generally leads to improved performance, especially at lower ranks.",
+          "evidence": "This concluding sentence summarizes the findings and draws conclusions about the data, which is explicitly forbidden by the prompt's instruction to 'Avoid making inferences, comparisons, or drawing conclusions about the data.'"
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the vertical axis is unlabeled, which is an important piece of information for a complete description."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that the chart does not have a legend, which is a key reason why the identities of the blue and green bars are not knowable from the figure alone."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "in the context of QLoRA, with two sets of bars (blue and green) representing different conditions or models, possibly QLoRA and LoRA or different ensemble configurations",
+          "evidence": "The description infers context from the paper caption ('QLoRA', 'LoRA', 'ensemble') that is not present in the figure itself, which lacks a legend. The prompt requires describing only what is visually present."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "labeled \"Errors (COPA),\"",
+          "evidence": "The vertical axis is not labeled. \"Errors (COPA)\" is the title of the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "from 0.0 to 0.6",
+          "evidence": "The vertical axis range extends beyond 0.6, as the bars for the '256' rank category exceed this value. The axis appears to go up to at least 0.75."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "suggesting uncertainty or standard deviation in the error measurements",
+          "evidence": "This is an inference about the statistical meaning of error bars, not a direct visual description as requested by the prompt."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 0.60",
+          "evidence": "The green bar at rank 256 reaches a value of approximately 0.65, not 0.60."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "significantly higher",
+          "evidence": "The prompt requires neutral, objective language and forbids evaluative terms like \"significantly\"."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart visually supports the claim that smaller adapters (particularly rank 16) achieve lower generalization errors, and that the green bars (possibly representing QLoRA or an ensemble) consistently show lower errors than the blue bars across all ranks, especially at rank 16.",
+          "evidence": "This entire sentence summarizes trends, makes comparisons, and draws conclusions by referencing an external \"claim\", which is explicitly forbidden by the prompt's instructions to describe only visual features objectively."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention that there is no legend to define what the blue and green bars represent. This is a critical piece of information for an objective description."
+        }
+      ],
+      "mqm_score": 84.5,
+      "total_penalty": 15.5,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 82.0
+}

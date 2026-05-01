@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_067",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description of the x-axis does not state the tick interval, which is 1, as requested by the prompt."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the marker shapes for each line (circles for F1, triangles for Acc), which was explicitly requested in the prompt ('标记形状')."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "单位为距离单位",
+      "evidence": "The description states that the unit for the x-axis is 'distance units', but the chart does not specify any units for the 'captured_distance' axis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在captured_distance=5时上升至76.0%",
+      "evidence": "The value for the Acc curve at captured_distance=5 is reported as 76.0%. However, the blue triangle marker at this point is visibly below the 76% line, closer to 75.8% or 75.9%. The F1 point at captured_distance=4 is exactly at 76.0%, and the Acc point at 5 is lower."
+    }
+  ],
+  "mqm_score": 88.5,
+  "total_penalty": 11.5,
+  "error_count": 4
+}

@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_208",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Scatter Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The figure, titled \"Wait-k Policy,\"",
+      "evidence": "The figure itself does not have a title. \"Wait-k Policy\" is the caption associated with the figure in the source paper, not a title printed on the image."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Consistency-Bi + beam consistently achieves the highest BLEU scores across all AL values, followed by Consistency-Bi + sampling",
+      "evidence": "This statement is factually incorrect. The plot shows that at lower Average Lagging (AL) values (approximately AL < 5), the orange line ('Consistency-Bi + sampling') is above the green line ('Consistency-Bi + beam'), indicating a higher BLEU score. The ranking of these two methods is not consistent across all AL values."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "28.5 for Consistency-Bi + sampling",
+      "evidence": "At AL = 8, the BLEU score for 'Consistency-Bi + sampling' (orange line) is approximately 29.4, not 28.5."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "29.0 for Consistency-CE",
+      "evidence": "At AL = 8, the BLEU score for 'Consistency-CE' (blue line) is approximately 28.6, not 29.0. This error, combined with the previous one, incorrectly inverts the performance order of 'Consistency-CE' and 'Consistency-Bi + sampling' at AL = 8."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "This suggests that incorporating beam search into the consistency framework yields superior translation quality, especially at higher levels of lagging.",
+      "evidence": "This is an interpretation that goes beyond describing the visual data. Furthermore, the conclusion is flawed because it is based on the previously stated incorrect values and the incorrect claim that the 'beam' method is consistently superior. The chart actually shows that at high AL, the 'beam' and 'sampling' methods have nearly identical performance."
+    }
+  ],
+  "mqm_score": 80.0,
+  "total_penalty": 20.0,
+  "error_count": 5
+}

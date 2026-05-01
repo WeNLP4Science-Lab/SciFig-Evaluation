@@ -1,0 +1,114 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-30b-a3b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 31,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红色虚线连接的圆点代表Teacher方法，蓝色虚线连接的方块代表Self-Training方法，绿色虚线连接的三角形代表PST方法",
+      "evidence": "Teacher和Self-Training的线条为实线而非虚线；PST的标记为圆形而非三角形。",
+      "atom_id": "teacher_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "PST方法的F1分数分别为约70.0和71.0",
+      "evidence": "漏标率为0时，PST的F1得分为72.2，而非约71.0；漏标率为0.1时，PST的F1得分为71.3，而非约70.0。",
+      "atom_id": "pst_0"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Teacher和PST方法的F1分数分别下降至约60.0和65.0",
+      "evidence": "漏标率为0.5时，Teacher的F1得分为58.5，而非约60.0；PST的F1得分为67.0，而非约65.0。",
+      "atom_id": "teacher_05"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Teacher方法降至约53.0",
+      "evidence": "漏标率为0.585时，Teacher的F1得分为54.0，而非约53.0。",
+      "atom_id": "teacher_0585"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未明确说明x轴的具体刻度值（0、0.1、0.2、0.3、0.4、0.5、0.585）。",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供Teacher方法在漏标率0.1、0.2、0.3、0.4的具体F1得分。",
+      "atom_id": "teacher_01"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供Self-Training方法在漏标率0.1、0.2、0.3、0.4的具体F1得分。",
+      "atom_id": "selftraining_01"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供PST方法在漏标率0.1、0.2、0.3、0.4的具体F1得分。",
+      "atom_id": "pst_01"
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "总体来看，PST方法在所有漏标率下均表现出较高的F1分数，且下降趋势相对平缓",
+      "evidence": "描述包含主观评价，超出图表直接展示的内容。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "以0.1为间隔进行标记",
+      "evidence": "未明确说明x轴的具体刻度值，导致描述不够精确。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 78.71,
+  "total_penalty": 33.0,
+  "atom_coverage": {
+    "correct": 23,
+    "inaccurate": 4,
+    "missing": 4,
+    "total": 31,
+    "accuracy": 0.8519,
+    "completeness": 0.8519
+  }
+}

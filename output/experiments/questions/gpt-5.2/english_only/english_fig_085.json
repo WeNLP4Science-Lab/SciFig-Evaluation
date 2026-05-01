@@ -1,0 +1,98 @@
+{
+  "figure_key": "english_fig_085",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-16T08:13:24.100424+00:00",
+      "raw_response": "1. **Cardio** (the MistralV0.2-Base/light-blue bar is the lowest there, around **−26.7**).\n\n2. **No.** The MistralV0.2-Base bar is **not** always the tallest (least negative). In every specialty group shown, the fine-tuned bars are generally **higher/closer to −22** than the Base bar.\n\n3. **Infect** shows the **smallest gap** between the Base model and the best (least negative) fine-tuned model (Base ≈ **−23.7** vs best fine-tuned ≈ **−22.9**, a difference of roughly **0.8**).\n\n4. The figure **does not include a “Radiology”** per-specialty term group, so its negative log probability **cannot be read from this chart**.  \n   For reference, in the **Cardio** group, the best fine-tuned bar is roughly **−25.7** (compared to Base at ~−26.7).\n\n5. **Yes.** In this plot, the **fine-tuned (prt) bars are consistently closer to zero (less negative)** than the MistralV0.2-Base bars across all shown specialties, so that statement is **correct** for this figure.",
+      "items": [
+        {
+          "id": "en085_q1",
+          "type": "capability",
+          "question": "For which per-specialty term group does the MistralV0.2-Base (lightest bar) show the largest negative log probability (most negative value)?",
+          "model_answer": "**Cardio** (the MistralV0.2-Base/light-blue bar is the lowest there, around **−26.7**)."
+        },
+        {
+          "id": "en085_q2",
+          "type": "capability",
+          "question": "Across all per-specialty term groups, is the MistralV0.2-Base bar always the most negative compared to the fine-tuned variants?",
+          "model_answer": "Yes. In every per-specialty term group (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics), the MistralV0.2-Base (blue) bar is the lowest (most negative) relative to all fine-tuned variants.",
+          "rerun_timestamp": "2026-04-18T16:14:16.917512+00:00"
+        },
+        {
+          "id": "en085_q3",
+          "type": "capability",
+          "question": "Which per-specialty term group shows the smallest difference between the Base model and the best fine-tuned model?",
+          "model_answer": "**Infect** shows the **smallest gap** between the Base model and the best (least negative) fine-tuned model (Base ≈ **−23.7** vs best fine-tuned ≈ **−22.9**, a difference of roughly **0.8**)."
+        },
+        {
+          "id": "en085_h1",
+          "type": "hallucination_inexist",
+          "question": "What is the negative log probability value for the Radiology per-specialty term group, and how does it compare to the Cardio group for the fine-tuned model?",
+          "model_answer": "The figure **does not include a “Radiology”** per-specialty term group, so its negative log probability **cannot be read from this chart**.\nFor reference, in the **Cardio** group, the best fine-tuned bar is roughly **−25.7** (compared to Base at ~−26.7)."
+        },
+        {
+          "id": "en085_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Are the Fine-tuned-prt bars consistently closer to zero than the MistralV0.2-Base bars across all specialties? Is this correct?",
+          "model_answer": "**Yes.** In this plot, the **fine-tuned (prt) bars are consistently closer to zero (less negative)** than the MistralV0.2-Base bars across all shown specialties, so that statement is **correct** for this figure."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-16T08:17:25.777246+00:00",
+      "raw_response": "1. **Neuro per-specialty terms (range across all bars):** approximately from **−24.2** (tallest / least negative) down to **−25.4** (shortest / most negative), i.e. a spread of about **1.2 nats**.\n\n2. **Count of term groups where any fine-tuned variant is better than −23:** **1 group** — **Infect** (several fine-tuned bars sit just above −23, around ~−22.9).\n\n3. **Possible explanation for “fine-tuning hurts Neuro” degradation (if that pattern were observed):**\n   - **Catastrophic forgetting / specialization trade-off:** fine-tuning on a different distribution can degrade previously-good general-domain or Neuro-relevant representations.\n   - **Domain/data mismatch or label noise:** Neuro fine-tuning data might be smaller, noisier, more heterogeneous, or stylistically different from the evaluation “Neuro terms” list.\n   - **Overfitting / hyperparameter issues:** too high a learning rate, too many steps, or insufficient regularization can reduce generalization to the evaluation term list.\n   - **Evaluation mismatch:** if the “Neuro terms” include abbreviations, rare spellings, or tokenization patterns not well covered in the fine-tuning corpus, performance can drop.\n   *Note:* the plotted Neuro bars appear to show the **Base** bar being **more negative** than the fine-tuned variants (i.e., worse), so the premise doesn’t match the figure as shown.\n\n4. **Vocabulary overlap between per-specialty term lists, and effect of controlling shared terminology:**\n   - The figure does **not provide** the underlying term lists, so the **overlap can’t be determined from the plot**.\n   - To answer, you’d need to compute something like **Jaccard overlap** (set-based) or a **token-level overlap** after normalization (lowercasing, stemming, acronym handling).\n   - Controlling for shared terminology (e.g., removing common medical terms appearing in multiple specialties) **could** change absolute values and potentially some relative gaps, but **the figure alone doesn’t establish whether rankings would change**.\n\n5. **Are Base bars consistently closer to zero than the Fine-tuned(-prt) bars? Is that correct?**\n   - **No.** In every specialty group shown, the **MistralV0.2-Base (blue)** bar is generally **more negative** than the cluster of fine-tuned bars, meaning it is **farther from zero** (worse), not closer.\n   - So the statement that Base is consistently closer to zero than fine-tuned appears **incorrect for this figure**.",
+      "items": [
+        {
+          "id": "en085_q4",
+          "type": "capability",
+          "question": "For the Neuro per-specialty term group, approximately what is the negative log probability range across all bars (from the tallest to the shortest bar)?",
+          "model_answer": "**Neuro per-specialty terms (range across all bars):** approximately from **−24.2** (tallest / least negative) down to **−25.4** (shortest / most negative), i.e. a spread of about **1.2 nats**."
+        },
+        {
+          "id": "en085_q5",
+          "type": "capability",
+          "question": "In how many per-specialty term groups does any fine-tuned variant achieve a negative log probability better (less negative) than -23?",
+          "model_answer": "**Count of term groups where any fine-tuned variant is better than −23:** **1 group** — **Infect** (several fine-tuned bars sit just above −23, around ~−22.9)."
+        },
+        {
+          "id": "en085_h2",
+          "type": "hallucination_contra",
+          "question": "Since the MistralV0.2-Base model achieves a less negative log probability than the Fine-tuned model for the Neuro specialty, suggesting that fine-tuning actually hurts performance in this domain, what might explain this degradation?",
+          "model_answer": "**Possible explanation for “fine-tuning hurts Neuro” degradation (if that pattern were observed):**\n- **Catastrophic forgetting / specialization trade-off:** fine-tuning on a different distribution can degrade previously-good general-domain or Neuro-relevant representations.\n- **Domain/data mismatch or label noise:** Neuro fine-tuning data might be smaller, noisier, more heterogeneous, or stylistically different from the evaluation “Neuro terms” list.\n- **Overfitting / hyperparameter issues:** too high a learning rate, too many steps, or insufficient regularization can reduce generalization to the evaluation term list.\n- **Evaluation mismatch:** if the “Neuro terms” include abbreviations, rare spellings, or tokenization patterns not well covered in the fine-tuning corpus, performance can drop.\n*Note:* the plotted Neuro bars appear to show the **Base** bar being **more negative** than the fine-tuned variants (i.e., worse), so the premise doesn’t match the figure as shown."
+        },
+        {
+          "id": "en085_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the vocabulary overlap between the per-specialty term lists used for each medical domain, and does controlling for shared terminology change the relative rankings?",
+          "model_answer": "**Vocabulary overlap between per-specialty term lists, and effect of controlling shared terminology:**\n- The figure does **not provide** the underlying term lists, so the **overlap can’t be determined from the plot**.\n- To answer, you’d need to compute something like **Jaccard overlap** (set-based) or a **token-level overlap** after normalization (lowercasing, stemming, acronym handling).\n- Controlling for shared terminology (e.g., removing common medical terms appearing in multiple specialties) **could** change absolute values and potentially some relative gaps, but **the figure alone doesn’t establish whether rankings would change**."
+        },
+        {
+          "id": "en085_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Are the MistralV0.2-Base bars consistently closer to zero than the Fine-tuned-prt bars across all specialties? Is this correct?",
+          "model_answer": "**Are Base bars consistently closer to zero than the Fine-tuned(-prt) bars? Is that correct?**\n- **No.** In every specialty group shown, the **MistralV0.2-Base (blue)** bar is generally **more negative** than the cluster of fine-tuned bars, meaning it is **farther from zero** (worse), not closer.\n- So the statement that Base is consistently closer to zero than fine-tuned appears **incorrect for this figure**."
+        }
+      ]
+    }
+  ],
+  "reruns": [
+    {
+      "timestamp": "2026-04-18T16:14:16.917523+00:00",
+      "question_ids": [
+        "en085_q2"
+      ],
+      "raw_response": "Yes. In every per-specialty term group (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics), the MistralV0.2-Base (blue) bar is the lowest (most negative) relative to all fine-tuned variants.",
+      "parsed": [
+        {
+          "id": "en085_q2",
+          "question": "Across all per-specialty term groups, is the MistralV0.2-Base bar always the most negative compared to the fine-tuned variants?",
+          "model_answer": "Yes. In every per-specialty term group (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics), the MistralV0.2-Base (blue) bar is the lowest (most negative) relative to all fine-tuned variants."
+        }
+      ]
+    }
+  ]
+}

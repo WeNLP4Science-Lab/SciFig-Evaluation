@@ -1,0 +1,114 @@
+{
+  "figure_key": "chinese_fig_071",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 16,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"科技\"、\"传统文学\"、\"网络小说\"、\"微博\"",
+      "evidence": "The x-axis categories in the image are \"新闻\" (news), \"学术\" (academic), \"网络小说\" (web novels), and \"微博\" (Weibo). The description incorrectly maps \"科技\" (science/tech) to \"新闻\" and \"传统文学\" (traditional literature) to \"学术\".",
+      "atom_id": "x_axis_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"微博\"语体的支配动词总频次最高（约6700）",
+      "evidence": "In figure (a), the highest bar corresponds to \"新闻\" (news), not \"微博\" (Weibo), and its value is approximately 7000, not 6700. The \"微博\" bar is much shorter.",
+      "atom_id": "fig_a_highest"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"科技\"语体总频次次之（约4400）",
+      "evidence": "In figure (a), the \"学术\" (academic) bar is the shortest, not \"科技\" (which is not even present). The description incorrectly assigns a value of 4400 to a non-existent category.",
+      "atom_id": "fig_a_lowest"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"网络小说\"类别中，达到最高值",
+      "evidence": "In figure (b), the highest bar corresponds to \"网络小说\" (web novels), but the description incorrectly states \"微博\" as the highest for both figures. The value for \"网络小说\" is approximately 7000, not attributed to \"微博\".",
+      "atom_id": "fig_b_highest"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "\"科技\"语体总频次最低（约300）",
+      "evidence": "In figure (b), the shortest bar corresponds to \"微博\" (Weibo), not \"科技\" (which is not present). The description incorrectly assigns a value of 300 to a non-existent category.",
+      "atom_id": "fig_b_lowest"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "展示不同语体中两类动词（支配动词与承受动词）在一级语义域中的分布情况",
+      "evidence": "The image and atom checklist describe the purpose as showing the frequency and distribution of \"变量词\" (variable words), not \"支配动词与承受动词\" (dominant and receptive verbs) or \"一级语义域\" (primary semantic domains).",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the legend represents different categories of variable words, as stated in the atom checklist.",
+      "atom_id": "legend_info"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "所有柱状图均标注了各语义域的频次数值，部分柱体顶部还标注了该语义域在该语体中的百分比（如“微博”中“动作”语义域在支配动词中占55%，在承受动词中占64%）",
+      "evidence": "The image does not show any numerical labels or percentage annotations on the bars. This information is hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "图例位于图表右侧，颜色与语义域一一对应，并标注了该语义域在整体数据中的总频次",
+      "evidence": "The legend in the image does not include total frequency counts for each semantic domain (e.g., \"心理（117）\"). This information is hallucinated.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "\"微博\"语体在两类动词中均显著高于其他语体，视觉上最为突出",
+      "evidence": "The description introduces an interpretive claim (\"显著高于\") that is not explicitly supported by the image or atom checklist. The image shows \"新闻\" and \"网络小说\" as the highest in figures (a) and (b), respectively.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 10,
+  "mqm_score": 50.62,
+  "total_penalty": 39.5,
+  "atom_coverage": {
+    "correct": 9,
+    "inaccurate": 6,
+    "missing": 1,
+    "total": 16,
+    "accuracy": 0.6,
+    "completeness": 0.9
+  }
+}

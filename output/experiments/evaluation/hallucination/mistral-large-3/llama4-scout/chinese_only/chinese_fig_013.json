@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-scout",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:59:10.519564+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn013_h1",
+      "probe_type": "inexist",
+      "question": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？",
+      "model_answer": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？\n\n图没有标注\"教育\"类别，但是根据图例，\"教育\"类别应该是图中标注为\"体育\"的部分，它的占比是$21\\%$；而文化类别占比是$14\\%$。$21\\% > 14\\%$，所以“教育”类别比“文化”类别占比更大。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly treats the non-existent '教育' (Education) category as if it exists, incorrectly mapping it to the '体育' (Sports) slice and providing specific values and comparisons. It fails to acknowledge the absence of the '教育' category in the chart."
+    },
+    {
+      "probe_id": "cn013_h2",
+      "probe_type": "contra",
+      "question": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？",
+      "model_answer": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？\n- 是的，“社会”和“科学”类新闻占比合计达到了41%，是儿童长新闻的主要方向之一。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise without questioning or correcting it. It repeats the incorrect statement about '社会' (social) news being 21% and '科学' (science) news being 20%, then proceeds to answer the question based on this incorrect information."
+    },
+    {
+      "probe_id": "cn013_h3",
+      "probe_type": "unanswerable",
+      "question": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？",
+      "model_answer": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？\n- 均匀分布的情况下，每个类别应占 $\\frac{100\\%}{8} = 12.5\\%$。\n- “科学”和“社会”类新闻占比合计为 $21\\% + 20\\% = 41\\%$，远超 $2 \\times 12.5\\% = 25\\%$。\n- 由于差异较大，且经过卡方检验（p<0.01）通常用于检验观察频数与期望频数之间的差异显著性，在这里直观上可以认为显著偏离了均匀分布。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific answer as if the information is available in the chart, including calculations and a conclusion about statistical significance without acknowledging the lack of necessary data (sample size) to perform the chi-square test. It fails to recognize that the question cannot be answered from the chart alone."
+    }
+  ]
+}

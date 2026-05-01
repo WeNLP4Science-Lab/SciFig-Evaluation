@@ -1,0 +1,92 @@
+{
+  "figure_key": "english_fig_105",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "for three regions—AU (Australia), TU (Turkey), and EU (European Union)—",
+      "evidence": "The model hallucinates that the legend labels AU, TU, and EU stand for Australia, Turkey, and the European Union. There is no information in the figure to support this; it is a complete fabrication that fundamentally misrepresents the chart's subject matter."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "the y-axis shows the uncertainty score",
+      "evidence": "The y-axis has no label. The description invents the label \"uncertainty score\"."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "increases steadily to about 0.180 at a temperature of 0.8",
+      "evidence": "The AU line does not increase steadily. It is relatively flat from 0.0 to 0.2, dips at 0.4, and then rises. The term \"steadily\" is an inaccurate over-generalization of the trend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "follows a similar upward trend",
+      "evidence": "The TU line does not have a simple upward trend. It is relatively flat from 0.0 to 0.2, dips at 0.4, and then rises. Describing it as an \"upward trend\" is an over-generalization that misses key features."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The prompt asks for the tick label interval for numeric axes. The y-axis has regularly spaced ticks every 0.025 units, which is not mentioned in the description."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The prompt asks for a description of the line style (e.g., solid, dashed). The description omits that all three lines are solid."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The prompt requires noting peaks and declines. The description of the AU and TU lines completely omits the slight dip in value that occurs at the decoding temperature of 0.4 for both lines."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "This suggests that the uncertainty estimation for AU and TU is sensitive to changes in decoding temperature, whereas the EU shows little to no sensitivity.",
+      "evidence": "This entire sentence is a conclusion that interprets and compares the trends, which is explicitly forbidden by the prompt instructions (\"Avoid interpreting the cause of changes or making comparisons between lines\")."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "follows a similar upward trend",
+      "evidence": "The prompt explicitly forbids making comparisons between lines. Using the word \"similar\" directly compares the TU line to the previously described AU line."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "indicating minimal change in uncertainty estimation for the EU region regardless of the decoding temperature",
+      "evidence": "The prompt asks for objective description, not interpretation. The phrase \"indicating minimal change...\" goes beyond describing the flat line and interprets what it means in the context of the experiment."
+    }
+  ],
+  "mqm_score": 78.0,
+  "total_penalty": 22.0,
+  "error_count": 10
+}

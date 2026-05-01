@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_010",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "с равномерно разположени етикети на всяко цяло число",
+          "evidence": "The description states that the X-axis has labels at every integer, but the figure shows labels only at intervals of 5 (0, 5, 10, 15, 20)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "продължава да варира между 0.4 и 0.8 до слой 22",
+          "evidence": "The description claims that after layer 6, the score varies between 0.4 and 0.8. However, in this range, the score never drops below the mean of 0.467; its lowest value is approximately 0.5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "спад до около 0.4 при слой 22",
+          "evidence": "The description states there is a drop to about 0.4 at layer 22. The figure shows the final value at layer 22 is significantly higher, at approximately 0.7."
+        }
+      ],
+      "mqm_score": 85.0,
+      "total_penalty": 15.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "and a dip at layer 22 (approximately 0.45)",
+          "evidence": "The point at layer 22 is the final point of the data series, not a dip, which implies a local minimum. The line simply ends at this value after dropping from layer 21."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention the tick mark intervals for the axes. The x-axis has labeled ticks every 5 units, and the y-axis has labeled ticks every 0.2 units. The prompt explicitly asks for this information."
+        }
+      ],
+      "mqm_score": 96.5,
+      "total_penalty": 3.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits the x-axis tick label interval, which the prompt requested. The ticks are labeled every 5 layers (0, 5, 10, 15, 20)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fluctuates between roughly 0.4 and 0.85",
+          "evidence": "The description states the score fluctuates down to roughly 0.4 after layer 6, but the lowest points in this range are at approximately 0.5 (e.g., at layers 11 and 16)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "declining to about 0.45 at layer 22",
+          "evidence": "The description incorrectly states the final value at layer 22 is about 0.45. The plot shows the value is significantly higher, at approximately 0.73."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The plot visually highlights the emergence of significant attention sinks—layers where the first token receives disproportionately high attention—after layer 6, consistent with the caption's observation of massive activations and attention sink phenomena in the baseline configuration.",
+          "evidence": "This concluding sentence provides an interpretation of the data (referencing 'attention sinks') and links it to external information from the paper's caption. This violates the prompt's explicit instruction to 'Stick to objective features only' and 'without making inferences or drawing conclusions'."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bis sie bei Schicht 5 auf etwa 0.10 ansteigen",
+          "evidence": "The description states that the value rises to approximately 0.10 at layer 5. However, the chart shows that the value at layer 5 is approximately 0.07, which is a decrease from the value at layer 4 (approximately 0.11). Therefore, both the value and the trend direction are incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The prompt asks for the tick label interval if numerical and regular. The description of the x-axis does not mention that the tick labels are at an interval of 5 (0, 5, 10, 15, 20)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The prompt asks for the tick label interval if numerical and regular. The description of the y-axis does not mention that the tick labels are at an interval of 0.2 (0.0, 0.2, 0.4, etc.)."
+        }
+      ],
+      "mqm_score": 92.0,
+      "total_penalty": 8.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.38
+}

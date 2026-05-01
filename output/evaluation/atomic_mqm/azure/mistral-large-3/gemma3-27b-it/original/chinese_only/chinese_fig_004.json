@@ -1,0 +1,104 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-27b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "每个日期都有两个并排绘制的柱状图，一个为浅绿色表示“该全球确诊数量”，另一个为蓝色表示“有关 COVID-19 新闻报道数”",
+      "evidence": "图中只有一组蓝绿色柱状图表示确诊病例数，蓝色折线表示新闻报道数量，而非两组柱状图。",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在 2022 年 7 月 1 日，两根柱子高度都大约为 200,000 和 2,000",
+      "evidence": "2022年7月1日确诊病例数约为300,000，新闻报道数量约为1,000，而非200,000和2,000。",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "2022 年 7 月 29 日的柱子高度达到峰值，分别为 1,700,000 和 5,000",
+      "evidence": "2022年7月29日确诊病例数峰值约为1,500,000，新闻报道数量峰值约为4,000，而非1,700,000和5,000。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及蓝色折线图表示新闻报道数量，仅提到柱状图。",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及两者在多数时间段呈现同步波动特征。",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及确诊高峰与报道上升的滞后效应。",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "每个日期都有两个并排绘制的柱状图",
+      "evidence": "图中只有一组柱状图和一条折线，并非两组柱状图。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "此图表中的柱状图在时间顺序上排列，柱子高度波动相当大，显示出数量的变化",
+      "evidence": "描述模糊，未明确说明波动趋势与两者关系。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "分组条形图显示了特定日期在全球确认病例数和媒体报道之间的视觉关联",
+      "evidence": "过于笼统，未具体说明同步或滞后关系。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 48.33,
+  "total_penalty": 31.0,
+  "atom_coverage": {
+    "correct": 8,
+    "inaccurate": 1,
+    "missing": 3,
+    "total": 12,
+    "accuracy": 0.8889,
+    "completeness": 0.7273
+  }
+}

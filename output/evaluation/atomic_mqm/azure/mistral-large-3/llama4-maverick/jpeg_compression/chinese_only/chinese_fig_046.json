@@ -1,0 +1,123 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "jpeg_compression",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 31,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "红线代表“Teacher”，标记为菱形",
+      "evidence": "Teacher线的标记应为圆形，而非菱形。",
+      "atom_id": "teacher_style"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "从x=0时约71.0下降到x=0.585时约61.0",
+      "evidence": "Teacher在x=0时F1得分应为72.0，在x=0.585时应为54.0，而非61.0。",
+      "atom_id": "teacher_0"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "从x=0.585时约53.0",
+      "evidence": "Self-Training在x=0.585时F1得分应为52.7，而非53.0。",
+      "atom_id": "selftraining_0585"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "从x=0时约72.0下降到x=0.585时约62.0",
+      "evidence": "PST在x=0时F1得分应为72.2，在x=0.585时应为62.0（正确），但x=0的值不准确。",
+      "atom_id": "pst_0"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "并在x=0.2后迅速下降",
+      "evidence": "Teacher在x=0.2时F1得分为68.7，与x=0.1（68.5）变化不大，并非迅速下降。",
+      "atom_id": "teacher_02"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供Teacher、Self-Training和PST在所有漏标率点（0.1, 0.2, 0.3, 0.4, 0.5）的具体F1得分值。",
+      "atom_id": "teacher_01"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供Teacher在漏标率0.1、0.2、0.3、0.4、0.5的具体F1得分值。",
+      "atom_id": "teacher_01"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供Self-Training在漏标率0.1、0.2、0.3、0.4、0.5的具体F1得分值。",
+      "atom_id": "selftraining_01"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提供PST在漏标率0.1、0.2、0.3、0.4、0.5的具体F1得分值。",
+      "atom_id": "pst_01"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "并在x=0.2后迅速下降",
+      "evidence": "描述过于笼统，未明确说明哪条线在x=0.2后迅速下降，且Teacher和Self-Training在x=0.2后的下降趋势并不一致。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "在x=0.4之前下降较为平缓，之后加速下降",
+      "evidence": "未明确说明是PST线的下降趋势，容易引起混淆。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 11,
+  "mqm_score": 73.55,
+  "total_penalty": 41.0,
+  "atom_coverage": {
+    "correct": 23,
+    "inaccurate": 5,
+    "missing": 3,
+    "total": 31,
+    "accuracy": 0.8214,
+    "completeness": 0.8846
+  }
+}

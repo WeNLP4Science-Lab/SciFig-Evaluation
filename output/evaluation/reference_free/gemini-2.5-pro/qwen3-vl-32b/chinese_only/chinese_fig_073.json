@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_073",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "两条线均使用圆形标记点连接",
+      "evidence": "The lines in the chart are solid lines without any visible markers at the data points."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在层数1处，ACC-2的值约为83.6，F1-Score的值约为83.7",
+      "evidence": "At x=1, both lines start at the same value, which is approximately 83.9, not 83.6 and 83.7."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在层数6处，ACC-2下降至约83.9，F1-Score下降至约83.9",
+      "evidence": "At x=6, both lines end at a value of exactly 84.0, not 83.9."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "两条线在整体趋势上高度重合，均在第3层达到最高点，随后在第4层下降，并在第5层略有回升，第6层再次下降。",
+      "evidence": "This sentence provides a high-level summary and comparison of the two lines (\"高度重合\", \"均在\"), which is explicitly forbidden by the prompt instructions (\"不要比较不同线条\", \"避免进行推断或得出结论\")."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 4
+}

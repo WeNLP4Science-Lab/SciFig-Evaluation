@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_013",
+  "model_name": "gemini-3.1-pro",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "леко се покачва до около 10 при слой 15",
+          "evidence": "The description states that the 'attn_output' line rises to about 10 at layer 15. However, the plot shows that at layer 15, the value is still very close to 0. It reaches a value of approximately 10 around layer 17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "достига до около 55 при слой 7",
+          "evidence": "The description states that the 'ffn_residual' line reaches a value of about 55 at layer 7. The plot shows that the line reaches this value at layer 6 and then plateaus."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "запазва се визуално плоска в участъка между слой 7 и слой 15",
+          "evidence": "The description states that the 'ffn_residual' line is visually flat between layers 7 and 15. The plot shows this plateau actually occurs between layer 6 and layer 16."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "数值范围从0到25",
+          "evidence": "The description states the x-axis range is from 0 to 25. However, the axis ticks only go up to 20 and the data points end at layer 23. Stating the range is 25 is an unsupported extrapolation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "在第6层缓慢上升至约30",
+          "evidence": "The description claims the 'attn_residual' line rises to about 30 at layer 6. The actual value at layer 6 is approximately 55."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "随后在第7层急剧增加至约55",
+          "evidence": "The description states that the 'attn_residual' line sharply increases to about 55 at layer 7. The sharp increase to ~55 actually occurs at layer 6; layer 7 is part of the subsequent plateau."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "并在第6层再次升至约25",
+          "evidence": "The description claims the 'ffn_output' line rises again to about 25 at layer 6. The actual value at layer 6 is approximately 15. The peak of ~25 occurs around layer 8."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "verläuft dann bis Schicht 17 als flacher Trend nahezu konstant auf diesem Niveau",
+          "evidence": "The description states that the orange dotted line ('attn_residual') has a flat, nearly constant trend between layer 7 and layer 17. However, the plot shows a notable dip in this interval, with the value dropping from about 55 at layer 7 to about 40 at layer 8 before recovering. This is not a flat or constant trend."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 1,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.17
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_014",
+  "subfolder": "chinese_only",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T08:57:48.014018+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn014_h1",
+      "probe_type": "inexist",
+      "question": "左图中围绕每个数据点的灰色置信区间带表明，α=0.5处的BLEU值波动范围约为28.4到28.6。这个置信区间是否说明该参数设置具有较高的稳定性？",
+      "model_answer": "该置信区间范围仅约0.2（28.4到28.6），范围较窄，说明在α=0.5处的BLEU值波动较小，确实表明该参数设置具有较高的稳定性。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model's response describes the non-existent gray confidence interval band as if it exists, providing specific values (28.4 to 28.6) and analyzing its implications for stability without questioning its presence in the chart."
+    },
+    {
+      "probe_id": "cn014_h2",
+      "probe_type": "contra",
+      "question": "右图显示参数p对BLEU分数的影响幅度大于左图中参数α的影响幅度。在这种情况下，是否意味着p是比α更关键的超参数？",
+      "model_answer": "不一定。虽然右图中p的影响幅度看起来较大，但影响幅度大并不直接等同于更关键。实际上从图中看，左图α的变化范围约为0.5（从27.99到28.53），右图p的变化范围约为0.22（从28.31到28.53），α的影响幅度反而更大，因此需要更谨慎地判断哪个超参数更关键。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise by stating the actual BLEU score ranges for both parameters (α and p) and clarifies that α's influence amplitude is larger than p's, contrary to the question's claim. It then proceeds to answer the question based on the corrected premise."
+    },
+    {
+      "probe_id": "cn014_h3",
+      "probe_type": "unanswerable",
+      "question": "基于左图和右图的数据，如果同时将α设为0.5且p设为0.15，模型的预期BLEU得分是否会超过28.6？",
+      "model_answer": "从左图看α=0.5时BLEU约为28.53，从右图看p=0.15时BLEU约为28.53，两者各自的最优值都在28.5以上。但两个参数同时设定的交互效果无法仅从单变量图中确定，不过基于两者均接近各自最优值，预期BLEU得分超过28.6是有可能的，但无法从现有数据中确切保证。",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that the interaction effect of the two parameters cannot be determined from the charts alone, which is correct. However, it still attempts to make a speculative estimate ('预期BLEU得分超过28.6是有可能的'), which hedges but does not fully adhere to the requirement of explicitly stating the information is unanswerable from the chart."
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "figure_key": "multi_fig_101",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Both lines show initial improvement with the first example, but ST-ES consistently achieves lower minFDE₂₀ values than Random across all example counts.",
+          "evidence": "The prompt explicitly forbids making interpretations ('improvement') and comparisons between lines. This sentence does both, violating the instructions."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "where lower values indicate better performance",
+          "evidence": "This is an interpretation of the downward arrow symbol (↓) in the y-axis label. While a common convention, it is not explicitly stated in text and thus constitutes an interpretation, which the prompt asks to avoid."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at each integer",
+          "evidence": "The description of the x-axis states there are tick marks at each integer. However, the labeled tick marks appear only at intervals of 2 (0, 2, 4, 6, 8). While gridlines are at each integer, the description of the tick marks is imprecise."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ending at 0.213 at 8 examples",
+          "evidence": "For the 'ST-ES' line, the final data point at 8 examples is visibly at the same level as the point at 6 examples, which is approximately 0.212, not 0.213."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "ending at 0.225 at 8 examples",
+          "evidence": "For the 'Random' line, the final data point at 8 examples is visibly above 0.225, at approximately 0.226."
+        }
+      ],
+      "mqm_score": 89.0,
+      "total_penalty": 11.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "(in Einheiten von Metern)",
+          "evidence": "The description states the y-axis unit is meters, but this is not mentioned anywhere in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "in Einerschritten",
+          "evidence": "The description states that the x-axis tick labels are in steps of one ('Einerschritten'), but the labels on the chart are at 0, 2, 4, 6, and 8, which are in steps of two."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bleibt bis x=4 leicht unter 0.21",
+          "evidence": "The description states that the blue line remains slightly below 0.21 until x=4. In the figure, the data points for the blue line at x=1, x=2, and x=3 are all above 0.21. Only the point at x=4 is below 0.21."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt dann auf 0.213 bei x=5, fällt leicht auf 0.21 bei x=6, steigt auf 0.211 bei x=7",
+          "evidence": "This phrase contains multiple inaccuracies for the blue line. At x=5, the value is approximately 0.209, not 0.213. At x=6, the value is approximately 0.212, and it rises from x=5, but the description says it falls to 0.21. At x=7, the value is approximately 0.21, and it falls from x=6, but the description says it rises to 0.211."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "endet bei 0.213 bei x=8",
+          "evidence": "For the blue line (ST-ES), the value at x=8 is approximately 0.212, not 0.213."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fällt auf 0.218 bei x=1",
+          "evidence": "The value for the orange line at x=1 is approximately 0.2175, not 0.218."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "steigt leicht auf 0.219 bei x=2",
+          "evidence": "For the orange line (Random), the value at x=2 is approximately 0.22, not 0.219."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "steigt weiter auf 0.219 bei x=5",
+          "evidence": "For the orange line (Random), the value at x=5 is approximately 0.22, not 0.219."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "endet bei 0.225 bei x=8",
+          "evidence": "For the orange line (Random), the value at x=8 is approximately 0.226, not 0.225."
+        }
+      ],
+      "mqm_score": 74.5,
+      "total_penalty": 25.5,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 81.75
+}

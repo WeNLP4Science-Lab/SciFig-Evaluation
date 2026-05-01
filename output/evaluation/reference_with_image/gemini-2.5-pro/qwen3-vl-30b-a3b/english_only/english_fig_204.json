@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_204",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "with data points at 2.5, 5.0, and 10.0",
+      "evidence": "This is an inaccurate oversimplification. The data points are not consistently located at these specific x-axis values. For instance, the first data points for three of the lines are at an AL value of approximately 2.0, not 2.5, and the first data point for 'Consistency-Bi' is at an AL of approximately 4.0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Inconsistency-CE-MP (blue squares, dash-dotted line)",
+      "evidence": "The line style for 'Inconsistency-CE-MP' is incorrectly described as dash-dotted. Both the legend and the plot clearly show this line is dashed."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "and 26.9 for Consistency-Bi",
+      "evidence": "The description hallucinates a data point for the 'Consistency-Bi' series at an AL of 2.5. The plot shows that the 'Consistency-Bi' line (red with stars) does not have a data point at or near an AL of 2.5; its first point is at approximately AL=4.0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At an AL of 5.0, the scores are approximately 29.3 for Consistency-CE, 30.0 for Inconsistency-CE, 29.6 for Inconsistency-CE-MP",
+      "evidence": "The description provides inaccurate BLEU values by reading the lines at AL=5.0 instead of reporting the actual data points nearby. The data points are near AL=4.0. Even if interpolating at AL=5.0, the values are incorrect. For example, at AL=5.0, the 'Inconsistency-CE' line is at approximately BLEU=29.5, not 30.0, and the 'Inconsistency-CE-MP' line is at approximately BLEU=30.0, not 29.6."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "At an AL of 10.0, the scores are approximately 31.4 for Consistency-CE, 31.6 for Inconsistency-CE, 32.2 for Inconsistency-CE-MP, and 33.1 for Consistency-Bi.",
+      "evidence": "The description incorrectly states that the 'Consistency-Bi' data point is at AL=10.0 with a score of 33.1. The plot shows this final data point is located at an AL of approximately 10.5 with a BLEU score of 33.0. Additionally, the score for 'Inconsistency-CE' is stated as 31.6, but it appears to be nearly identical to the 'Consistency-CE' point at 31.4."
+    }
+  ],
+  "mqm_score": 79.5,
+  "total_penalty": 20.5,
+  "error_count": 5
+}

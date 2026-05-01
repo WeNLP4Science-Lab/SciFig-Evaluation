@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "green to Expert 2, orange to Expert 3",
+          "evidence": "The description incorrectly maps the colors in the legend to the experts. The legend shows that green corresponds to Expert 3 and orange corresponds to Expert 2, but the description states the opposite."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "with the topmost segment being the largest in height for each bar",
+          "evidence": "This claim about the \"Text\" chart is an incorrect generalization. For several bars (e.g., at MoE layer idx 1, 19, and 23), the topmost segment is not the largest; a segment lower in the stack is larger."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "sind die Balken gruppiert",
+          "evidence": "The bars in the chart are stacked, not grouped. The different colored segments for each x-axis category are placed on top of one another to form a single bar totaling 100%."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei die Experten 1, 2 und 4 in den meisten Fällen dominieren",
+          "evidence": "In the left 'Text' chart, Expert 3 is the most dominant, having the largest share in 6 of the 12 bars (indices 3, 5, 9, 13, 15, 21). Therefore, the statement that experts 1, 2, and 4 dominate in most cases is false."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während Expert 3 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat",
+          "evidence": "This statement is grossly inaccurate. In the 'Text' chart, Expert 3 only has a share of approximately 100% for layer indices 13 and 15. For many other listed indices, its share is significantly lower (e.g., 0% at index 1, ~20% at index 7)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Expert 2 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat, Expert 1 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat, und Expert 3 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat",
+          "evidence": "This entire section about the 'Image' chart is factually incorrect and nonsensical. It claims that Experts 1, 2, and 3 each have an approximate 100% share for all listed layer indices, which is visually false. For example, at index 3, Expert 4 has 100%, meaning the others have 0%. This incorrect claim is repeated for all three experts."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "Expert 2 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat, Expert 1 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat, und Expert 3 in den Layer idx 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21 und 23 jeweils einen Anteil von etwa 100% hat",
+          "evidence": "The description becomes extremely repetitive by listing all 12 layer indices for each of the three experts (Expert 1, 2, and 3), making the text difficult to read and unnecessarily long."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.5
+}

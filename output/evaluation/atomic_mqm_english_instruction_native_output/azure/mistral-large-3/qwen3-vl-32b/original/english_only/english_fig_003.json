@@ -1,0 +1,105 @@
+{
+  "figure_key": "english_fig_003",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "Line Plot",
+  "language": "English",
+  "num_atoms": 34,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "dips slightly to about -1% at Layer5-12, rises to approximately 1% at Layer13-20, and ends near 2% at Layer29-32",
+      "evidence": "The yellow line ('LB-Avg of 2×tokens,8-bit') remains close to 0% throughout all layers, not dipping to -1% or rising to 1% or 2%.",
+      "atom_id": "english_fig_003_sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "decreases to about -2% at Layer5-12, remains stable around -2% through Layer13-20 and Layer21-28, and ends near -1% at Layer29-32",
+      "evidence": "The red line ('LB-Avg of 1×tokens,16-bit') dips slightly below 0% but does not reach -2% at any point and returns close to 0% by Layer29-32.",
+      "atom_id": "english_fig_003_sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "drops to about -3% at Layer5-12, further declines to approximately -6% at Layer13-20, rises to around -4% at Layer21-28, and ends near -2% at Layer29-32",
+      "evidence": "The light blue line ('RULER4k of 2×tokens,8-bit') moves to around +5% at Layer13-20, not -6%, and returns just below 0% by Layer29-32.",
+      "atom_id": "english_fig_003_sent_6"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "recovers to around -10% at Layer21-28",
+      "evidence": "The dark blue line ('RULER4k of 1×tokens,16-bit') recovers to around -5% at Layer21-28, not -10%.",
+      "atom_id": "english_fig_003_sent_7"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description mentions KV cache compression and SnapKV, which are not part of the figure or atom checklist. The purpose of the chart (relative change in performance across layers) is only partially implied, not explicitly stated.",
+      "atom_id": "english_fig_003_sent_0"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the y-axis label 'Relative Change', though it describes the scale and range correctly.",
+      "atom_id": "english_fig_003_yaxis_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "in the KV cache compression of Llama-3-8B-Instruct, using SnapKV as the pruning method",
+      "evidence": "This information is not present in the figure or supported by any atom in the checklist.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "with a categorical scale and no numerical units",
+      "evidence": "The x-axis is not explicitly described as categorical in the atom checklist, and this interpretation is unnecessary for understanding the figure.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The plot illustrates the layer-wise relative change in performance for different quantization and token configuration settings in the KV cache compression of Llama-3-8B-Instruct, using SnapKV as the pruning method.",
+      "evidence": "The description includes excessive detail about KV cache compression and SnapKV, which are not relevant to the figure's content.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 82.94,
+  "total_penalty": 29.0,
+  "atom_coverage": {
+    "correct": 28,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 34,
+    "accuracy": 0.875,
+    "completeness": 0.9333
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "figure_key": "chinese_fig_042",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "jpeg_compression",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "水平轴标记了类别：条件识别、角点识别、异质识别和空间排序",
+      "evidence": "The x-axis categories should be 实体识别、角色识别、异常识别、空间推理和同义识别, not 条件识别、角点识别、异质识别 and 空间排序. Also missing 同义识别.",
+      "atom_id": "x_axis_categories"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "垂直轴标记为“值（归一化）”，从 0.1 到 1.0，刻度间隔为 0.1。垂直轴的值范围从 55 到 1210，带有“数值（归一化）”单位",
+      "evidence": "The left y-axis should be labeled 数量 with a range from 0 to 1200, and the right y-axis should be labeled 准确率 with a range from 0 to 1. The description incorrectly merges and mislabels both axes.",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色柱状图代表的数值分别是：250、190、777、1095 和 1102",
+      "evidence": "The blue bars represent 训练集数量, which should be 1102, 1095, 1077, 1210, and 5. The values 250 and 190 are incorrect for blue bars (they belong to orange bars).",
+      "atom_id": "entity_train"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "橙色柱状图的最高值为 1077，最低值为 55。橙色柱状图代表的数值分别是：55、190、3769、72852 和 1077",
+      "evidence": "The orange bars represent 验证集数量, which should be 250, 190, 40, 675, and 55. The values 3769 and 72852 are incorrect and hallucinated (these resemble accuracy values but are misplaced).",
+      "atom_id": "entity_val"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色柱子代表“训练集数量”，而橙色柱子代表“验证集数量”",
+      "evidence": "The description correctly maps colors to data types, but the numerical values assigned to these colors are incorrect (see above). This is noted for completeness but not flagged separately.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "柱状图是按“训练集数量”从高到低排序的",
+      "evidence": "The bars are not sorted by 训练集数量; they follow the original order: 实体识别、角色识别、异常识别、空间推理和同义识别.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not state the purpose of the chart, which is to present the distribution of training set size, validation set size, and accuracy across different tasks.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the right y-axis label (准确率) and its range (0 to 1).",
+      "atom_id": "y_axis_right_label"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the left y-axis range (0 to 1200) and tick interval (200).",
+      "atom_id": "y_axis_left_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the accuracy values (准确率) for each task, which are critical data points shown by the gray line.",
+      "atom_id": "entity_acc"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the gray line representing accuracy or its values for each task.",
+      "atom_id": "line_color"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "3769、72852",
+      "evidence": "The values 3769 and 72852 do not exist in the figure. These resemble misplaced accuracy values (0.3769 and 0.72852) but are incorrectly scaled and assigned to orange bars.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "水平轴的刻度是线性的，并且按字母顺序排列",
+      "evidence": "The x-axis categories are not sorted alphabetically; they follow a logical task order. The description introduces an incorrect inference.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "垂直轴的值范围从 55 到 1210，带有“数值（归一化）”单位",
+      "evidence": "The description ambiguously merges two y-axes with different units and ranges, causing confusion.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该柱状图显示了两种类型的组合，即“训练集数量”和“验证集数量”，按不同类别进行比较",
+      "evidence": "The phrasing is awkward and unclear. The chart does not show a 'combination' of two types but rather compares them across categories.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 15,
+  "mqm_score": 56.25,
+  "total_penalty": 52.5,
+  "atom_coverage": {
+    "correct": 15,
+    "inaccurate": 4,
+    "missing": 5,
+    "total": 24,
+    "accuracy": 0.7895,
+    "completeness": 0.75
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_094",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The scale is linear and discrete",
+          "evidence": "The description states the x-axis scale is linear, but the equal spacing between the tick marks for values 4, 16, 64, and 256 clearly indicates a logarithmic or exponential scale, not a linear one."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The plot visually demonstrates that the generalization error is minimized at a rank of 16, which aligns with the caption's claim that smaller adapters with a rank of 16 achieve the lowest generalization errors. The error increases as the rank increases beyond 16, reaching its highest value at rank 256.",
+          "evidence": "This final paragraph provides an interpretation of the chart's data by identifying the minimum point and connecting it to claims from the paper's caption. A descriptive summary should only state what is visually present, not draw conclusions or reference external text."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "measured as RTE (Root Mean Square Error)",
+          "evidence": "The description incorrectly expands the acronym RTE to 'Root Mean Square Error'. Based on the paper context and common NLP benchmarks, RTE stands for 'Recognizing Textual Entailment', which is a task, not an error metric type. The error metric is the generalization error on that task."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "is linear",
+          "evidence": "The x-axis is described as linear, but it is a logarithmic scale. The tick marks are at 4, 16, 64, and 256, which are powers of 4 (or powers of 2) and are not evenly spaced."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at regular intervals of 12 (4, 16, 64, 256)",
+          "evidence": "The intervals between the x-axis tick marks are not regular, nor are they 12. The intervals are 12 (16-4), 48 (64-16), and 192 (256-64)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "decreases to approximately 0.47 at rank 16",
+          "evidence": "The marker for rank 16 is visually closer to 0.45, as it lies on the grid line exactly halfway between 0.3 and 0.6. 0.47 is a slight overestimation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "rises slightly to approximately 0.51 at rank 64",
+          "evidence": "The marker for rank 64 is visually closer to 0.48, slightly above the 0.45 mid-line. 0.51 is a slight overestimation."
+        }
+      ],
+      "mqm_score": 82.5,
+      "total_penalty": 17.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The diagram displays the empirical generalization error, labeled as Error (RTE), plotted against the rank of QLoRA adapters, with the sum of dimensions across k adapters fixed at 256.",
+          "evidence": "The description incorporates explanatory details from the paper's caption (e.g., 'empirical generalization error', 'QLoRA adapters') rather than providing a direct visual description of the chart's components. A pure description would state what is visually present on the axes and in the title."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "uses a linear scale",
+          "evidence": "The x-axis does not use a linear scale. The values are 4, 16, 64, 256, which represent a logarithmic scale (base 4), even though the tick marks are evenly spaced."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick marks at intervals of 12",
+          "evidence": "The intervals between the x-axis tick marks are not 12. The intervals are 12 (16-4), 48 (64-16), and 192 (256-64)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The y-axis, labeled \"Error (RTE)\"",
+          "evidence": "The y-axis is not labeled. 'Error (RTE)' is the title of the chart, not the label for the y-axis."
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.83
+}

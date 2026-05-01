@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_234",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The prompt requires describing the tick label interval if it is numeric and regularly spaced. The description of the x-axis omits that the tick interval is 1."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with the 6-digit task at approximately 5% and the 5-digit task at around 10%",
+      "evidence": "The starting values are incorrect. In the plot, at iteration 0, the 6-digit task is at approximately 2% and the 5-digit task is at approximately 1%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "surpassing 85% by iteration 9",
+      "evidence": "This is an inaccurate and misleading description of the end value for the 6-digit task. The prompt asks for the value at the end of the x-axis. The actual value at iteration 9 is approximately 91%. The line surpasses 85% much earlier, at iteration 4."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "starting at 10% and increasing to about 90% by iteration 9",
+      "evidence": "The starting and ending values for the 5-digit task are incorrect. The plot shows it starts at approximately 1% (not 10%) and ends at approximately 87% (not 90%)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "the 5-digit task surpasses the 6-digit task in accuracy from iteration 3 onward",
+      "evidence": "This statement is factually incorrect. The two lines have nearly identical accuracy at iteration 3. From iteration 4 onward, the 6-digit task (blue line) has a higher accuracy than the 5-digit task (orange line)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Notably, the 5-digit task surpasses the 6-digit task in accuracy from iteration 3 onward, with both tasks converging to high accuracy levels by the final iteration.",
+      "evidence": "The generation prompt explicitly forbids making comparisons between lines. This entire sentence compares the performance of the two tasks."
+    }
+  ],
+  "mqm_score": 73.0,
+  "total_penalty": 27.0,
+  "error_count": 6
+}

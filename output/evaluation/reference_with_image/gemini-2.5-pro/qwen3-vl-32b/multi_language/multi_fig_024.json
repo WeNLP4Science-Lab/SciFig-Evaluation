@@ -1,0 +1,218 @@
+{
+  "figure_key": "multi_fig_024",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "в горния десен ъгъл",
+          "evidence": "The description states the legend is in the top right corner, but the figure shows it in the top center."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Стойностите на отделните сегменти са визуално определими: за слой 1, синият сегмент достига до 1, зеленият до 5, а жълтият до 10; за слой 2, синият е до 1, зеленият до 4, а жълтият до 8; за слой 3, синият е до 1, зеленият до 3, а жълтият до 6; за слой 4, синият е до 1, зеленият до 5, а жълтият до 9; за слой 5, синият е до 1, зеленият до 4, а жълтият до 8; за слой 6, синият е до 1, зеленият до 3, а жълтият до 5; за слой 7, синият е до 1, зеленият до 2, а жълтият до 3; за слоеве 8 до 17, синият сегмент е винаги до 1, зеленият до 2, а жълтият до 3; за слоеве 18 до 22, синият е до 1, зеленият до 3, а жълтият до 5; за слоеве 23 и 24, синият е до 1, зеленият до 2, а жълтият до 3.",
+          "evidence": "The description attempts to list the value of every segment for every bar, which is excessively detailed and prone to errors. A high-level summary of trends, as seen in the reference description, would be more effective and readable."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "за слой 1, синият сегмент достига до 1, зеленият до 5, а жълтият до 10;",
+          "evidence": "The description of segment values is ambiguous. For a stacked bar, stating that the green segment goes 'to 5' and the yellow 'to 10' describes the cumulative position on the y-axis, not the actual value of the segment. The actual value for the green segment is 4 (from 1 to 5) and for the yellow segment is 5 (from 5 to 10). This confusing phrasing is used throughout the detailed list of values."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "за слоеве 8 до 17, синият сегмент е винаги до 1, зеленият до 2, а жълтият до 3;",
+          "evidence": "This statement is incorrect for layers 8, 9, and 10. For example, in layer 8, the green segment ends at 3 and the yellow ends at 5. The described values (green to 2, yellow to 3) are only correct for layers 11 through 17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "за слоеве 18 до 22, синият е до 1, зеленият до 3, а жълтият до 5;",
+          "evidence": "This statement is incorrect for layers 20, 21, and 22. In these layers, the green segment ends at 4 and the yellow segment ends at 6, not 3 and 5 respectively. The statement is only correct for layers 18 and 19."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "за слоеве 23 и 24, синият е до 1, зеленият до 2, а жълтият до 3.",
+          "evidence": "This statement is incorrect. For layers 23 and 24, the green segment ends at 3 and the yellow segment ends at 4, not 2 and 3 respectively."
+        }
+      ],
+      "mqm_score": 77.0,
+      "total_penalty": 23.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Layer 2中，G0为1，G1为3，G2为5，总高度为9",
+          "evidence": "The description states that for Layer 2, G2 is 5 and the total is 9. However, the chart shows that G2 is 4 (the yellow segment goes from 4 to 8) and the total is 8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Layer 3中，G0为1，G1为2，G2为4，总高度为7",
+          "evidence": "The description states that for Layer 3, G2 is 4 and the total is 7. However, the chart shows that G2 is 3 (the yellow segment goes from 3 to 6) and the total is 6."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "Layer 6至Layer 17中，G0始终为1，G1为2，G2为2，总高度为5",
+          "evidence": "This is an incorrect generalization. While Layer 6 has these values, Layers 7, 10, and 11-17 have different values. For example, Layers 11 through 17 have a total of 3 experts (G0=1, G1=1, G2=1), not 5."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "Layer 18至Layer 22中，G0为1，G1为3，G2为2，总高度为6",
+          "evidence": "This is an incorrect generalization. The stated values are correct for Layers 20, 21, and 22, but incorrect for Layers 18 and 19, which each have a total of 5 experts (G0=1, G1=2, G2=2)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Layer 23和Layer 24中，G0为1，G1为2，G2为2，总高度为5",
+          "evidence": "The description states that for Layers 23 and 24, G2 is 2 and the total is 5. However, the chart shows that for both layers, G2 is 1 and the total is 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "所有柱状图均未进行特殊视觉强调，如阴影或加粗。",
+          "evidence": "The description claims there are no visual emphases like shadows, but the legend box clearly has a drop shadow effect."
+        }
+      ],
+      "mqm_score": 79.0,
+      "total_penalty": 21.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Anzahl der Experten in G1 variiert zwischen 2 und 4",
+          "evidence": "The number of experts in G1 varies between 1 and 4, not 2 and 4. For example, in layers 6, 7, 10, and 11-17, the value for G1 is 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "wobei die Werte in den ersten fünf Schichten (1–5) 4 betragen",
+          "evidence": "The values for G1 in layers 1-5 are not all 4. They are 3 (layer 1), 3 (layer 2), 2 (layer 3), 4 (layer 4), and 3 (layer 5)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ab Schicht 6 sinken sie auf 2 und bleiben bis Schicht 19 konstant",
+          "evidence": "The values for G1 are not constantly 2 from layer 6 to 19. They fluctuate, for example, the value is 1 for layers 6, 7, and 10-17, and 2 for layers 8, 9, 18, and 19."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bevor sie ab Schicht 20 wieder auf 4 ansteigen",
+          "evidence": "The value for G1 does not rise to 4 from layer 20 onwards. It is 3 for layers 20-22 and 2 for layers 23-24."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Anzahl der Experten in G2 variiert zwischen 3 und 5",
+          "evidence": "The number of experts in G2 has a much wider range than 3 to 5. For example, it is 6 in layer 1 and 1 in layer 7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "in den Schichten 1 bis 5 beträgt sie 5",
+          "evidence": "The value for G2 is not 5 in layers 1-5. The values are 6, 4, 3, 4, and 4 respectively."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "sinkt dann auf 3 bis Schicht 19",
+          "evidence": "The value for G2 does not sink to 3 for layers up to 19. For example, it is 2 in layer 6 and 1 in layers 7 and 11-17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "und steigt ab Schicht 20 wieder auf 4",
+          "evidence": "The value for G2 does not rise to 4 from layer 20 onwards. It is 2 for layers 20, 21, and 22, and 1 for layers 23 and 24."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Die Gesamtanzahl der Experten pro Schicht schwankt zwischen 6 und 10",
+          "evidence": "The total number of experts per layer fluctuates between 3 and 10, not 6 and 10. For example, layers 7 and 11-17 have a total of 3 experts."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "einem Minimum von 6 in den Schichten 7 bis 19",
+          "evidence": "The minimum number of experts is not 6. The minimum is 3, which occurs in layers 7 and 11 through 17."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Die Legende befindet sich oben rechts im Diagramm",
+          "evidence": "The legend is located in the top center of the chart, not the top right."
+        }
+      ],
+      "mqm_score": 48.0,
+      "total_penalty": 52.0,
+      "error_count": 11,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 68.0
+}

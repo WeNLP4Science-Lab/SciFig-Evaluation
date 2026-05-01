@@ -1,0 +1,141 @@
+{
+  "figure_key": "bulgarian_fig_014",
+  "subfolder": "bulgarian_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "bar_chart",
+  "language": "Bulgarian",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "ranging from 0% to 120,000%, with a linear scale",
+      "evidence": "The y-axis range is from 0 to 140,000, not 120,000. The atom 'y_axis_range' specifies 0 to 140,000.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "tick marks every 20,000%, with numerical values displayed at intervals of 20,000%",
+      "evidence": "The y-axis tick intervals are 20,000, but the unit is not percentages (%). The atom 'y_axis_label' specifies the label as '%' but not the unit for tick intervals.",
+      "atom_id": "y_axis_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The 2022 bar reaches approximately 82,000% in January and decreases to approximately 78,000% in December",
+      "evidence": "The 2022 values for January and December are incorrect. January is ~100,000, and December is the highest value (~130,000).",
+      "atom_id": "max_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The 2023 bar begins at approximately 75,000% in January and rises to approximately 115,000% in December",
+      "evidence": "The 2023 values are incorrect. January is ~85,000, and December is ~80,000 (the lowest value). The atom 'min_value' specifies 80,000 for December 2023.",
+      "atom_id": "min_value"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The 2024 bar starts at approximately 80,000% in January and reaches approximately 105,000% in December",
+      "evidence": "The 2024 values are incorrect. January is ~95,000, and December is ~110,000.",
+      "atom_id": null
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "All bars are sorted in ascending order based on their height",
+      "evidence": "The bars are not sorted by height; they are grouped by month in chronological order. The atom 'sort_order' specifies vertical alignment by month, not by height.",
+      "atom_id": "sort_order"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly state that the chart illustrates percentage values for three years (2022, 2023, 2024) as specified in the atom 'chart_type'.",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description omits the fact that the highest value is in December 2022 (~130,000), as specified in the atom 'max_value'.",
+      "atom_id": "max_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the lowest value is in December and July 2023 (~80,000), as specified in the atom 'min_value'.",
+      "atom_id": "min_value"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "This bar chart illustrates the percentage of sales",
+      "evidence": "The chart does not specify that the percentages represent 'sales'. The atom 'chart_type' states it illustrates 'percentage values' without specifying 'sales'.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "no bars are visually emphasized",
+      "evidence": "The description introduces an interpretation not supported by the atoms or the figure. The atom 'trend_interpretation' is the only one allowing interpretation but does not mention visual emphasis.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The value axis is labeled “%” and features tick marks every 20,000%, with numerical values displayed at intervals of 20,000%",
+      "evidence": "The use of '%' after 20,000 is misleading, as the values are absolute (e.g., 20,000) and not percentages. This creates ambiguity.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The horizontal axis represents the months, ordered from I to XII, and the vertical axis displays the percentage of sales, ranging from 0% to 120,000%, with a linear scale. The value axis is labeled “%” and features tick marks every 20,000%, with numerical values displayed at intervals of 20,000%",
+      "evidence": "The description is overly repetitive in explaining the axis details, particularly the tick intervals and units.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 13,
+  "mqm_score": 27.5,
+  "total_penalty": 43.5,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 4,
+    "missing": 3,
+    "total": 12,
+    "accuracy": 0.6364,
+    "completeness": 0.7
+  }
+}

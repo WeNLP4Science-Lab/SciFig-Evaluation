@@ -1,0 +1,60 @@
+{
+  "figure_key": "chinese_fig_081",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "用于比较模型在集成过程中不确定性估计的收敛情况",
+      "evidence": "The prompt instructs to describe only what is shown and avoid inference or conclusions. This phrase interprets the scientific purpose and meaning of the data trend, which constitutes a conclusion."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "纵轴标记为置信区间宽度值",
+      "evidence": "The vertical (y) axis does not have a label in the figure. The description hallucinates this label, likely inferring it from the chart's title."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "y≈1.85",
+      "evidence": "The starting data point at x=0 has a y-value visibly below 1.85, closer to 1.84."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "急剧下降至x=2处的y≈1.6",
+      "evidence": "The sharpest initial drop is from x=0 to x=1, not x=2. The value at x=1 is approximately 1.58, and the value at x=2 is approximately 1.57. The description is incorrect about both the x-coordinate where the drop ends and the corresponding y-value."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最终在x=28处下降至y≈1.45",
+      "evidence": "The line does not end at x=28; there is one more data point at what appears to be x=29. The y-value at x=28 is approximately 1.50, not 1.45. The final data point (at x=29) has a value of approximately 1.42."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在x=12至x=20区间内数值基本稳定于1.55至1.57之间",
+      "evidence": "In the specified interval from x=12 to x=20, the y-value is stable at approximately 1.53, which is outside the described range of 1.55 to 1.57."
+    }
+  ],
+  "mqm_score": 78.0,
+  "total_penalty": 22.0,
+  "error_count": 6
+}

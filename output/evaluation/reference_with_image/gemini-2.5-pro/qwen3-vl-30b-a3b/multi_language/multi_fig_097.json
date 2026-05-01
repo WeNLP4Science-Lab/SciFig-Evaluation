@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_097",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Фигурата илюстрира зависимостта между рангът на адаптерите и стойностите на следите от Хесиановата матрица, изразени в единици „Traces × 10⁻⁵ (COPA)“, като целта е да се покаже връзката между размера на адаптерите и мера за острина на минимума.",
+          "evidence": "The description provides an interpretation of the chart's purpose using external knowledge (Hessian matrix, sharpness of the minimum) that is not directly available from the visual elements of the figure, such as its title and labels."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Линията започва при стойност 2.0 на оста Y при ранг 4",
+          "evidence": "The description states the value at Rank 4 is 2.0, but the plot clearly shows the value is approximately 1.2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "стойност 2.0 при ранг 16",
+          "evidence": "The description states the value at Rank 16 is 2.0, but the plot shows it is approximately 1.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достигайки 8.0 при ранг 256",
+          "evidence": "The description states that the value at Rank 256 is 8.0, which is the maximum value on the y-axis. The data point is clearly below this line, at approximately 7.2."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "при положение, че сумата от размерите на k адаптери е фиксирана на 256",
+          "evidence": "The description includes information from the paper's caption about the experimental setup ('the sum of the dimensions of k adapters is fixed at 256'), which is not present in the figure itself."
+        }
+      ],
+      "mqm_score": 78.0,
+      "total_penalty": 22.0,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the range of the y-axis, which is from 0.0 to 8.0. This information is crucial for understanding the scale of the plot."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "This trend suggests that smaller adapters (lower rank) correspond to flatter minima, which aligns with the caption's claim that smaller adapters achieve lower generalization errors and correlate with lower Hessian trace values.",
+          "evidence": "This sentence provides an interpretation of the data's scientific meaning (linking rank, trace, and flatter minima) by drawing from the paper's caption, rather than simply describing the visual information presented in the chart."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description mentions the presence of error bars but fails to describe their relative sizes. The error bars are visibly smallest at rank 16 and largest at rank 64."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "it starts at approximately 1.0 × 10⁻⁵ for a rank of 4, remains relatively flat at around 1.0 × 10⁻⁵ for a rank of 16, rises to about 3.5 × 10⁻⁵ for a rank of 64, and reaches approximately 7.5 × 10⁻⁵ for a rank of 256",
+          "evidence": "The description unnecessarily repeats the scaling factor '× 10⁻⁵' for each data point, after already establishing that the y-axis values are scaled by 10⁻⁵. This makes the sentence structure repetitive and less clear."
+        }
+      ],
+      "mqm_score": 90.5,
+      "total_penalty": 9.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "fällt bei einer Ranggröße von 16 auf etwa 0.8 × 10⁻⁵",
+          "evidence": "The value for rank 16 is visibly higher than 0.8, it is approximately 1.0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "und in Einheiten von COPA",
+          "evidence": "The chart title is \"Traces × 10⁻⁵ (COPA)\". The parenthetical \"(COPA)\" indicates the context (likely a dataset), not the unit of measurement."
+        }
+      ],
+      "mqm_score": 96.0,
+      "total_penalty": 4.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 88.17
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_013",
+  "subfolder": "chinese_only",
+  "model_name": "llama4-maverick",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:49:56.220419+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn013_h1",
+      "probe_type": "inexist",
+      "question": "图中标注为“教育”类别的那个切片占比是多少？它和“文化”类别相比哪个更大？",
+      "model_answer": "图中标注为“教育”的类别不存在，但根据图例，各个类别的颜色和名称已标明。如果我们假设有一个标注为“教育”的类别，那么它应该对应某种颜色，但由于“教育”类别在图例中不存在，无法直接确定其占比。然而，图中占比为 6% 的类别是“经济”，可能是被误认为是“教育”。“文化”类别的占比是 14%，因此“文化”类别的占比更大。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the '教育' (education) category does not exist in the chart and explicitly mentions that it is not present in the legend. It does not provide specific values for the non-existent element or incorporate it into the analysis without questioning its existence."
+    },
+    {
+      "probe_id": "cn013_h2",
+      "probe_type": "contra",
+      "question": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？",
+      "model_answer": "从饼图来看，“社会”类新闻占比最高（21%），略高于“科学”类（20%）。考虑到这两个类别合计占总数的41%，它们是否代表了儿童长新闻的主要方向？\n\n*   “社会”和“科学”类新闻合计占比41%，是占比最高的两个类别。\n*   由于它们占据了总数的41%，可以认为它们代表了儿童长新闻的主要方向。\n*   答案：是的，它们代表了儿童长新闻的主要方向。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise in the question without identifying or correcting the error about the percentages of '社会' (social) and '科学' (science) categories. It proceeds to answer the question based on the incorrect information provided."
+    },
+    {
+      "probe_id": "cn013_h3",
+      "probe_type": "unanswerable",
+      "question": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？",
+      "model_answer": "根据饼图中各类别的分布，“科学”和“社会”类新闻的占比之和超过了40%。从统计学角度看，这种分布偏斜是否显著偏离了均匀分布（卡方检验p<0.01）？\n\n*   均匀分布意味着每个类别占比为1/8 = 12.5%。\n*   实际分布为：体育（4%）、社会（21%）、榜样（19%）、政治（14%）、文化（2%）、经济（6%）、科学（20%）、环境保护（14%）。\n*   计算卡方统计量：\n$\\chi^2 = \\sum \\frac{(观察频数 - 期望频数)^2}{期望频数}$\n各类别的观察频数分别为：4%，21%，19%，14%，2%，6%，20%，14%；\n期望频数（均匀分布）为：12.5%。\n$\\chi^2 = \\frac{(4-12.5)^2}{12.5} + \\frac{(21-12.5)^2}{12.5} + \\frac{(19-12.5)^2}{12.5} + \\frac{(14-12.5)^2}{12.5} + \\frac{(2-12.5)^2}{12.5} + \\frac{(6-12.5)^2}{12.5} + \\frac{(20-12.5)^2}{12.5} + \\frac{(14-12.5)^2}{12.5} = 59.24$\n*   自由度 = 8 - 1 = 7，查卡方分布表得临界值（p<0.01）为18.48。由于59.24 > 18.48，因此显著偏离均匀分布。\n*   答案：是的，这种分布偏斜显著偏离了均匀分布。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a detailed and specific answer, including calculations and a conclusion, as if the necessary information (sample size) is available in the chart. It fails to acknowledge that the question cannot be answered without additional data, such as the total sample size."
+    }
+  ]
+}

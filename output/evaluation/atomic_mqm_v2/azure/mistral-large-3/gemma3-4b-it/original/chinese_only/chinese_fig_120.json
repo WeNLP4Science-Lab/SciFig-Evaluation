@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_120",
+  "subfolder": "chinese_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 11,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最顶大的切片用蓝色表示，标签为“语体->通语语面向书面语”",
+      "evidence": "The largest slice is yellow and labeled '通用语->书面语', not blue. The blue slice is labeled '口语->通用语->书面语' and is not the largest.",
+      "atom_id": "slice_oral_common_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "第二个最大切片也是蓝色，带有标签“语体->通语语面向书面语”",
+      "evidence": "The second largest slice is orange and labeled '口语->通用语', not blue. The description incorrectly assigns the same color and label pattern to two slices.",
+      "atom_id": "slice_oral_common"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "第三个切片用棕色表示，标签为“语体->通语语面向书面语”",
+      "evidence": "The third slice is gray and labeled '口语->书面语', not brown. The label is also incorrect.",
+      "atom_id": "slice_oral_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最后一个切片用黄色表示，标签为“语体->通语语面向书面语”",
+      "evidence": "The label for the yellow slice is incorrect. It should be '通用语->书面语', not '语体->通语语面向书面语'.",
+      "atom_id": "slice_common_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表包含四片切片。最顶大的切片用蓝色表示...第二个最大切片也是蓝色...第三个切片用棕色表示...最后一个切片用黄色表示",
+      "evidence": "The description incorrectly states that the two largest slices are both blue, which is not true. The largest slice is yellow, and the second largest is orange.",
+      "atom_id": "dominant_slice"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not state the purpose of the chart as showing the proportion of four language conversion types. Instead, it incorrectly mentions '基于《同义词词林》构建的中文语体分类资源的分布情况'.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "基于《同义词词林》构建的中文语体分类资源的分布情况",
+      "evidence": "The description introduces information ('《同义词词林》') and context ('中文语体分类资源') not present in the figure or atom checklist.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "最顶大的切片用蓝色表示，标签为“语体->通语语面向书面语”",
+      "evidence": "The label '语体->通语语面向书面语' is ambiguous and does not match any of the correct labels in the figure. It is repeated incorrectly for multiple slices.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "切片按大小排列，大到小",
+      "evidence": "While technically correct, the description does not specify the order clearly (e.g., clockwise or counterclockwise), which is less precise than the reference.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 38.18,
+  "total_penalty": 34.0,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 5,
+    "missing": 1,
+    "total": 11,
+    "accuracy": 0.5,
+    "completeness": 0.8333
+  }
+}

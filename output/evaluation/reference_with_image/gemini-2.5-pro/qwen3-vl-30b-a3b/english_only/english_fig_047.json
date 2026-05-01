@@ -1,0 +1,44 @@
+{
+  "figure_key": "english_fig_047",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description fails to mention the fill patterns for the first two bars in each group. The 'no SFT' bar has diagonal stripes and the '+ SFT on D₀' bar has horizontal stripes, which are important visual differentiators mentioned in the legend."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Major",
+      "weight": 2.0,
+      "text_span": "For all three model scales, performance generally increases with the addition of SFT data",
+      "evidence": "This statement is an over-generalization and factually incorrect for some cases shown in the chart. For LLaMA-2-7B, performance slightly decreases from 'no SFT' (approx. 67%) to '+ SFT on D₀' (approx. 66%). For both LLaMA-2-13B and LLaMA-2-70B, performance peaks at '+ SFT on D₀, D₁' and then decreases when D₂ is added."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "with the highest CoLeG-R scores observed for the largest model, LLaMA-2-70B, particularly under the '+ SFT on D₀, D₁, D₂' condition",
+      "evidence": "This is incorrect. The highest score for the LLaMA-2-70B model is under the '+ SFT on D₀, D₁' condition (approx. 84%), not the '+ SFT on D₀, D₁, D₂' condition (approx. 82.5%). Additionally, the highest score in the entire chart is shared between the LLaMA-2-13B and LLaMA-2-70B models, both under the '+ SFT on D₀, D₁' condition."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart suggests that both scaling up the model size and expanding the SFT dataset contribute to improved performance.",
+      "evidence": "This is an interpretation of the data's implications rather than a direct description of what the chart shows. Furthermore, the interpretation is an oversimplification, as the data shows that expanding the SFT dataset does not consistently improve performance (e.g., adding D₂ causes a decrease for the 13B and 70B models)."
+    }
+  ],
+  "mqm_score": 88.0,
+  "total_penalty": 12.0,
+  "error_count": 4
+}

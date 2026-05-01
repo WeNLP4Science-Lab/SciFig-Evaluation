@@ -1,0 +1,85 @@
+{
+  "figure_key": "multi_fig_041",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "German",
+  "num_atoms": 9,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "fünf nebeneinander angeordnete Balken",
+      "evidence": "The figure shows 6 bars per category, not 5. The machine-generated description omits the SRPO (orange) bar or miscounts.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "DAPO+Self-reflection (dunkelblau, gestreift), DAPO (hellblau, gestreift), GRPO (orange, diagonal gestreift), PPO+Self-reflection (dunkelgrün, diagonal gestreift) und PPO (hellgrün, diagonal gestreift)",
+      "evidence": "The description incorrectly maps the patterns and colors. The first bar is blue striped (DAPO), not dark blue striped (DAPO+Self-reflection). The second bar is solid blue (DAPO+Self-reflection), not light blue striped. The third bar is orange striped (GRPO), not SRPO. The fourth bar is solid orange (SRPO), which is missing from the description. The fifth bar is green striped (PPO), and the sixth is solid green (PPO+Self-reflection).",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "GRPO (orange, diagonal gestreift)",
+      "evidence": "The description incorrectly assigns GRPO to the orange striped bar. The legend shows GRPO as orange striped, but the third bar (orange striped) is correctly GRPO, while the fourth bar (solid orange) is SRPO, which is missing from the description.",
+      "atom_id": "sent_8"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the SRPO (solid orange) bar entirely, which is present in the figure.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Die horizontale Achse listet die drei Benchmarks in alphabetischer Reihenfolge auf",
+      "evidence": "The figure does not show the categories in alphabetical order. The order is Mathverse, MMLU, Physics, which is not alphabetical.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "dunkelblau, hellblau, dunkelgrün, hellgrün",
+      "evidence": "The description uses color qualifiers (dark/light) not present in the atom checklist or figure legend. While these may be reasonable interpretations, they are not explicitly supported by the figure or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "mit einem linearen Intervall von 2 Prozentpunkten (50, 52, 54, 56, 58, 60, 62)",
+      "evidence": "The description redundantly lists the tick values, which is unnecessary given the earlier mention of the scale range and interval.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 7,
+  "mqm_score": 45.56,
+  "total_penalty": 24.5,
+  "atom_coverage": {
+    "correct": 6,
+    "inaccurate": 3,
+    "missing": 1,
+    "total": 9,
+    "accuracy": 0.6667,
+    "completeness": 0.8571
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_125",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Hallucinated Content",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "图表显示在 k=1 时准确率达到约 68.0%，在 k=2 时准确率下降到约 67.8%，在 k=3 时准确率增至约 66.8%，在 k=4、5 和 6 时准确率保持在约 66.6%，在 k=7 时准确率降至约 67.0%。",
+      "evidence": "This sentence attempts to describe a single trend for the entire chart, but the chart contains two distinct lines with different trends. The numerical values and trends mentioned do not correspond correctly to either of the two lines, effectively describing a non-existent, hallucinated data series. For example, at k=1, neither line is near 68.0; at k=2, the SimCSE line peaks at 68.0, it does not drop to 67.8%."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "数值范围从 66.5 到 68.0",
+      "evidence": "The y-axis range shown in the figure is from 65.5 to 68.0, not from 66.5 to 68.0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "带有蓝色圆点的、实线的 Cosine Similarity 线开始于 65.5，在 k=2 处达到峰值约 68.0",
+      "evidence": "The description incorrectly attributes the peak of the 'SimCSE Similarity' line (which occurs at k=2 with a value of 68.0) to the 'Cosine Similarity' line. The 'Cosine Similarity' line's value at k=2 is approximately 66.3 and its peak is at k=3 and k=6."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "带有橙色星号的 SimCSE Similarity 线...在 k=3 处达到一个峰值约 67.8",
+      "evidence": "The description incorrectly identifies the peak of the 'SimCSE Similarity' line. The actual peak is at k=2 with a value of 68.0. At k=3, this line reaches a local minimum, not a peak."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "随后在 k=3 处下降到约 66.8",
+      "evidence": "This describes the 'Cosine Similarity' line. In the figure, this line increases from k=2 to k=3, reaching a peak of approximately 67.0. It does not decrease to 66.8."
+    }
+  ],
+  "mqm_score": 80.0,
+  "total_penalty": 20.0,
+  "error_count": 5
+}

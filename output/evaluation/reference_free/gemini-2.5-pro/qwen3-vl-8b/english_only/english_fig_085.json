@@ -1,0 +1,52 @@
+{
+  "figure_key": "english_fig_085",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Each specialty is represented by a group of six vertical bars",
+      "evidence": "Each group on the x-axis consists of seven vertical bars, not six. There is one bar for the baseline model and six bars for the fine-tuned models."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The remaining five bars within each group correspond to the five specialties",
+      "evidence": "Besides the baseline model's bar, there are six bars corresponding to the six fine-tuned specialties shown in the legend, not five."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The baseline Mistral-v0.2-Base bar is consistently the tallest (least negative) in each group, indicating the highest probability for the tokens it predicts.",
+      "evidence": "This statement is incorrect. For the 'Cardio' group, the baseline (blue) bar is the longest, which corresponds to the most negative value (approx. -26.8), not the least negative. A more negative log probability indicates a lower, not higher, probability. Furthermore, this trend is not consistent across all groups."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The bars for the fine-tuned models are generally shorter (more negative), indicating lower probabilities.",
+      "evidence": "Shorter bars on this chart have less negative values (e.g., -22 is shorter than -26). A less negative log probability indicates a higher probability, not a lower one. The description incorrectly links shorter bars to more negative values and lower probabilities."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The shortest bars (most negative) in each group correspond to the Neuro specialty",
+      "evidence": "This statement is incorrect in two ways. First, the shortest bars represent the least negative values, not the most negative. Second, the shortest bar in each group generally corresponds to the model fine-tuned on that group's specialty (e.g., the 'Cardio' bar is shortest in the 'Cardio' group), not consistently the 'Neuro' specialty bar."
+    }
+  ],
+  "mqm_score": 75.0,
+  "total_penalty": 25.0,
+  "error_count": 5
+}

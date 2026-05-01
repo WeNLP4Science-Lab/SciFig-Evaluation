@@ -1,0 +1,78 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-235b-a22b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "aspect_ratio",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "左侧纵轴为“每日新增患者人数”",
+      "evidence": "The left y-axis label should be '每日新增确诊人数' (daily new confirmed cases), not '每日新增患者人数' (daily new patients).",
+      "atom_id": "y_axis_left_label"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "数值在约300,000至1,600,000之间波动",
+      "evidence": "The bar values occasionally drop below 300,000 (e.g., around early July), so the lower bound should be lower than 300,000.",
+      "atom_id": "y_axis_left_range"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "数值在约1,000至5,000篇之间变化",
+      "evidence": "The line values occasionally drop below 1,000 (e.g., around early July), so the lower bound should be lower than 1,000.",
+      "atom_id": "y_axis_right_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the trend synchronization and differences (e.g., lag effect) between the two datasets.",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the trend differences (e.g., lag effect) between the two datasets.",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "图例位于底部中央，明确区分柱状图与折线图的含义。整体上，柱状图与折线图均未按数值排序，而是严格按时间顺序排列，未见任何柱状图被特别加粗、阴影或注释强调，视觉焦点集中于时间序列上的波动趋势。",
+      "evidence": "The description includes unnecessary details about the lack of sorting, emphasis, or annotations, which do not add informational value.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 83.33,
+  "total_penalty": 10.0,
+  "atom_coverage": {
+    "correct": 7,
+    "inaccurate": 3,
+    "missing": 2,
+    "total": 12,
+    "accuracy": 0.7,
+    "completeness": 0.7778
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_110",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Clarity",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "按字母顺序排列",
+      "evidence": "The x-axis categories are Test1, Test2, Test3, Test4, Test5, which are ordered numerically, not alphabetically. The description is inaccurate."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-generalization",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "在所有测试集中，浅绿色柱状图（无特征）的高度最高...各测试集的柱状图组内，四种方法的柱高顺序基本一致，即“无” > “i-vector” > “d-vector” > “s-vector”",
+      "evidence": "This describes a consistent trend and ranking order that is factually incorrect. For example, in Test3, the 'd-vector' bar is higher than the '无' (none) bar. The ranking of the four methods is different in almost every test set and never matches the stated order '“无” > “i-vector” > “d-vector” > “s-vector”'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色柱状图（i-vector）次之，WER值约在22%至24%之间",
+      "evidence": "The stated value range for 'i-vector' is incorrect. In Test5, the value is approximately 20.5%, which is outside the 22% to 24% range."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "深绿色柱状图（s-vector）高度最低，WER值在20%至22%之间",
+      "evidence": "The stated value range for 's-vector' is incorrect. In Test1, the value is approximately 24%, and in Test2 it is approximately 22.5%, both of which are outside the 20% to 22% range."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 4
+}

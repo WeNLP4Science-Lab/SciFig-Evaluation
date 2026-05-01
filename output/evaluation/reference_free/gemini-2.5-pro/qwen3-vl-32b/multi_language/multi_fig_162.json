@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_162",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with integer tick marks at regular intervals of 1",
+          "evidence": "The tick mark labels on the x-axis are at 0, 2, 4, 6, and 8, which is an interval of 2, not 1."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "continues to decline more gradually to around 21.05 at 6 examples",
+          "evidence": "At 6 examples, the value for the ST-ES line is approximately 21.32. The value of approximately 21.05 is reached at 7 examples, not 6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "starts at a minADE₂₀ of approximately 24.10 when 0 examples are used",
+          "evidence": "The ST-ES line starts at approximately 24.05, visibly lower than the Random line. Reporting 24.10 is inaccurate and obscures this difference."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "starting at approximately 24.10 at 0 examples",
+          "evidence": "The Random line starts at approximately 24.15, visibly higher than the ST-ES line. Using the same value (24.10) for both lines is inaccurate."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at approximately 24.00 when the number of examples is 0",
+          "evidence": "When describing the orange 'Random' line, the description states it starts at approximately 24.00. However, the data point at x=0 is visibly above the 24.00 grid line, at a value of approximately 24.2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a slight decline to around 23.70 at 8 examples",
+          "evidence": "The description states the orange 'Random' line ends at around 23.70. The data point at x=8 is visibly higher, at approximately 23.8."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "decreases steadily",
+          "evidence": "The description claims the blue 'ST-ES' line 'decreases steadily'. This is an over-generalization, as the rate of decrease is much sharper at the beginning and then flattens. Furthermore, it completely misses the slight increase in value between x=7 and x=8."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating improved performance with more examples",
+          "evidence": "This phrase provides an interpretation of the data trend, which violates the prompt's instruction to 'avoid drawing conclusions or making assumptions' and stick to objective features."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.25
+}

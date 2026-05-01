@@ -1,0 +1,105 @@
+{
+  "figure_key": "chinese_fig_035",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original_in_paper",
+  "figure_type": "line_plot",
+  "language": "Chinese",
+  "num_atoms": 24,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "one for the intermediate networks, marked with red triangles and a solid red line, and another for the random network, marked with blue circles and a solid blue line",
+      "evidence": "The red line represents '中介网络' (intermediate network), but the blue line represents '随机网络' (random network), not the other way around. Also, the blue line uses star markers, not circles.",
+      "atom_id": "series_names"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The intermediate network line starts at 3.254 for A1, increases to 4.189 for A2, continues to rise with values of 4.030, 4.188, 4.265, and 4.613, and ends at 5.204 for the native language",
+      "evidence": "The intermediate network (中介网络) values are incorrectly mixed with the random network (随机网络) values. The correct intermediate network values are 3.254 (A1), 3.278 (A2), 3.179 (B1), 3.235 (B2), 3.304 (C1), 3.420 (C2), and 3.685 (母语).",
+      "atom_id": "zhongjie_A1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The random network line starts at 0.166 for A1, peaks at 0.175 for B1, and then decreases to 0.103 for the native language",
+      "evidence": "The random network (随机网络) values are entirely incorrect. The correct values are 4.189 (A1), 4.233 (A2), 4.030 (B1), 4.188 (B2), 4.265 (C1), 4.613 (C2), and 5.204 (母语).",
+      "atom_id": "suiji_A1"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "blue circles",
+      "evidence": "The blue line uses star markers, not circles.",
+      "atom_id": "suiji_style"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the y-axis interval (0.5) or scale type (linear).",
+      "atom_id": "y_axis_interval"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the y-axis scale type (linear).",
+      "atom_id": "y_axis_scale"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Figure 3(a) presents a line chart comparing the average path length",
+      "evidence": "The figure does not explicitly state that the y-axis represents 'average path length'; this is an assumption not supported by the image or atoms.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "peaks at 0.175 for B1, and then decreases to 0.103 for the native language",
+      "evidence": "The description includes incorrect interpretation of trends (peaks and decreases) for hallucinated values.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "continues to rise with values of 4.030, 4.188, 4.265, and 4.613",
+      "evidence": "The description does not clearly associate these values with specific x-axis categories (B1, B2, C1, C2).",
+      "atom_id": null
+    }
+  ],
+  "error_count": 9,
+  "mqm_score": 75.83,
+  "total_penalty": 29.0,
+  "atom_coverage": {
+    "correct": 18,
+    "inaccurate": 4,
+    "missing": 2,
+    "total": 24,
+    "accuracy": 0.8182,
+    "completeness": 0.9
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_007",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:41:50.430912+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml007_h1",
+      "probe_type": "inexist",
+      "question": "What color are the data point markers on the blue dashed line representing the sparsity ratio before gate?",
+      "model_answer": "(While there are no distinct marker shapes like circles or squares, the line representing the data points is blue).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model does not explicitly state that the data point markers do not exist. Instead, it describes the line as representing data points (implying markers exist) and focuses on the line's color, which aligns with a hallucinating response."
+    },
+    {
+      "probe_id": "ml007_h2",
+      "probe_type": "contra",
+      "question": "Since the sparsity ratio before gate (blue dashed line) starts at approximately 1.0 and decreases to near 0.0, while the sparsity ratio after gate (orange dotted line) starts near 0.0 and increases, at which layer do these two lines intersect?",
+      "model_answer": "The premise of your question contradicts the graph provided. In the image, the sparsity ratio before gate (blue dashed line) starts *low* (near 0.2) and goes close to 0.0, while the sparsity ratio after gate (orange dotted line) starts *high* (near 1.0) and decreases. The orange line remains above the blue line for the entire graph.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise by stating that the blue dashed line (before gate) starts low (near 0.2) and the orange dotted line (after gate) starts high (near 1.0), directly contradicting the incorrect values in the question. It then clarifies the actual behavior of the lines before addressing the intersection point."
+    },
+    {
+      "probe_id": "ml007_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the sparsity ratio trends shown for the 1e-2 threshold, what would the average sparsity ratio after gate be if the threshold were changed to 1e-4?",
+      "model_answer": "from the provided image. The graph and legend only display data calculated for a threshold of 1e-2. There is no information given to extrapolate the results for a threshold of 1e-4.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the chart only shows data for the 1e-2 threshold and explicitly mentions that there is no information to extrapolate results for a threshold of 1e-4, aligning perfectly with the criteria for a score of 1.0."
+    }
+  ]
+}

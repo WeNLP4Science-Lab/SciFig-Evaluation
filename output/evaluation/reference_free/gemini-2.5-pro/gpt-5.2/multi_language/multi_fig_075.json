@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_075",
+  "model_name": "gpt-5.2",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "след това се покачва до около 0.43 при ~40, достига около 0.64 при ~90",
+          "evidence": "This phrasing implies a continuous increase for the Accuracy line between x=40 and x=90. However, the chart shows that after the point at x≈40 (y≈0.43), the line dips to a lower value (at x≈50, y≈0.38) before rising to its peak at x≈90. Omitting this local trough oversimplifies and misrepresents the line's movement."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "достига около 0.85 при ~90",
+          "evidence": "The description states that the peak for the 'Confidence' line is at approximately 0.85. Visually, the point is clearly below the halfway mark between 0.8 and 0.9, making its value closer to 0.84."
+        }
+      ],
+      "mqm_score": 96.0,
+      "total_penalty": 4.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "verläuft über die x-Werte 10, 20, 30, 40, 50, 60, 70, 90, 120 und 150",
+          "evidence": "The list of x-values for the data points is incorrect. The plot shows data points at x-values of approximately 10, 20, 30, 40, 50, 60, 80, 90, 120, and 155. The description incorrectly lists 70 instead of 80, and 150 instead of approximately 155."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "0.43, 0.64, 0.34",
+          "evidence": "In the list of y-values for the \"Accuracy\" line, the value 0.43 is implicitly mapped to the incorrect x-value of 70. There is no data point at x=70. The data point at x=80 has a y-value of approximately 0.43, but the description hallucinates the point at x=70."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "0.81, 0.85, 0.80",
+          "evidence": "In the list of y-values for the \"Confidence\" line, the value 0.81 is implicitly mapped to the incorrect x-value of 70. There is no data point at x=70. The data point at x=80 has a y-value of approximately 0.82, but the description hallucinates a point at x=70 with the value 0.81."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "0.62, 0.79, 0.54",
+          "evidence": "In the list of y-values for the \"Alignment\" line, the value 0.62 is implicitly mapped to the incorrect x-value of 70. There is no data point at x=70. The data point at x=80 has a y-value of approximately 0.62, but the description hallucinates a point at x=70 with this value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "endet bei 150",
+          "evidence": "The description states that all three lines end at an x-value of 150. However, the plot shows the final data point for all lines is at an x-value of approximately 155, not 150."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 87.75
+}

@@ -1,0 +1,76 @@
+{
+  "figure_key": "chinese_fig_069",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Pie Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gpt-5.4-mini",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表由两个嵌套饼图构成：外圈大饼图共分为九个语义域切片，内圈小饼图则对“其他”类别进行了细分，共包含十个子类别。",
+      "evidence": "图中不是嵌套饼图；它是两个并列的饼图，并且左侧主饼图有8个切片，右侧细分饼图有10个切片。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "外圈切片按比例从大到小依次为：“生活工作”（23.3%，蓝色）、“生产”（16.91%，绿色）、“其他”（19.38%，浅灰蓝）、“身体动作”（9.9%，浅蓝）、“生理活动”（9.48%，深蓝）、“战争”（8.87%，红棕）、“文教”（5.57%，深红）、“社交”（6.6%，灰蓝）。",
+      "evidence": "左侧饼图中“其他”不是19.38%（这是“其他”切片的标签没错，但其位置不在按大小递减序列中）；此外该句声称“按比例从大到小依次为”却把19.38%放在16.91%之后，顺序错误。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "外圈切片按比例从大到小依次为：“生活工作”（23.3%，蓝色）、“生产”（16.91%，绿色）、“其他”（19.38%，浅灰蓝）、“身体动作”（9.9%，浅蓝）、“生理活动”（9.48%，深蓝）、“战争”（8.87%，红棕）、“文教”（5.57%，深红）、“社交”（6.6%，灰蓝）。",
+      "evidence": "左侧饼图中各切片并非按从大到小顺序排列；同时“文教”5.57%与“社交”6.6%的大小关系也被颠倒。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "外圈切片按比例从大到小依次为：“生活工作”（23.3%，蓝色）、“生产”（16.91%，绿色）、“其他”（19.38%，浅灰蓝）、“身体动作”（9.9%，浅蓝）、“生理活动”（9.48%，深蓝）、“战争”（8.87%，红棕）、“文教”（5.57%，深红）、“社交”（6.6%，灰蓝）。",
+      "evidence": "左侧饼图的颜色与标签对应关系描述不准确；例如“其他”切片为深蓝色系而不是“浅灰蓝”，“文教”切片也不是“深红”这种表述所对应的颜色。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "内圈“其他”类别被分解为：“物态事态”（23.4%，紫红）、“心理活动”（10.64%，深紫）、“司法”（10.64%，深灰）、“判断”（8.51%，浅灰）、“方位改变”（18.09%，橙红）、“际遇”（5.32%，灰棕）、“交通”（4.26%，浅青）、“表情”（5.32%，浅粉）、“帮助”（4.26%，浅橙）、“斗争”（9.57%，深紫红）。",
+      "evidence": "右侧图不是对左侧“其他”进行嵌套分解；它是单独的第二个饼图，并且其类别构成与左侧没有从属嵌套关系。"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "根据生成提示，应描述图表中的视觉结构信息；该图虽无坐标轴，但机器描述未明确说明这是两个并列饼图的布局及其视觉关系，属于关键结构信息缺失。"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "描述提到有图例和百分比标签，但没有明确指出两个饼图是并列显示、左侧大饼图与右侧小饼图通过连线关联这一视觉特征。"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "旨在通过多语体语料库与依存分析呈现其语义使用偏好",
+      "evidence": "这是对图表含义的解释性推断，不是图中直接呈现的视觉信息。"
+    }
+  ],
+  "mqm_score": 68.0,
+  "total_penalty": 32.0,
+  "error_count": 8
+}

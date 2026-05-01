@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_009",
+  "subfolder": "english_only",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T08:58:01.824413+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en009_h1",
+      "probe_type": "inexist",
+      "question": "What percentage does the Std: 1.41 slice in the outer ring represent, and how does it compare to the adjacent Std: 0.94 slice?",
+      "model_answer": "There is no Std: 1.41 slice in the outer ring. The outer ring contains slices for Std: 0.0 (47.7%), Std: 0.47 (7.0%), Std: 0.82 (5.0%), and Std: 0.94 (49.0%). The Std: 0.94 slice at 49.0% is the largest segment.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly states that 'There is no Std: 1.41 slice in the outer ring,' which is correct, but it then proceeds to describe the existing slices with incorrect percentages (e.g., Std: 0.0 at 47.7% instead of 49.0%, Std: 0.94 at 49.0% instead of 5.0%). This undermines the correctness of the initial statement and suggests the model may have hallucinated or misrepresented the chart's actual data, treating the non-existent element as a framing device for incorrect analysis."
+    },
+    {
+      "probe_id": "en009_h2",
+      "probe_type": "contra",
+      "question": "Considering that Max: 2 is the dominant category in the inner ring at 47.7%, what does this imply about the typical level of annotator disagreement in the dataset?",
+      "model_answer": "With Max: 2 being dominant at ~39% (inner ring) and Max: 1 at 38%, most samples have relatively low to moderate annotator disagreement, suggesting that while annotators occasionally disagree, the maximum ambiguity rating typically stays at 1 or 2 out of 3, indicating moderate but not extreme disagreement.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model partially corrects the false premise by stating Max: 2 is at ~39% (not 47.7%) and Max: 1 at 38% (though the actual value for Max: 1 should be 47.7%). However, it does not explicitly call out the error in the question or fully clarify the correct dominant category (Max: 1 at 47.7%). It proceeds with an analysis that is somewhat consistent with the corrected values but lacks a clear correction of the false premise."
+    },
+    {
+      "probe_id": "en009_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the inter-annotator agreement measured by Cohen's kappa or Fleiss' kappa for the ambiguity ratings shown in this chart?",
+      "model_answer": "The chart does not provide any information about Cohen's kappa or Fleiss' kappa; this metric cannot be determined from the data shown in the figure.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model's response clearly states that the information about Cohen's kappa or Fleiss' kappa cannot be determined from the chart, directly addressing the unanswerable nature of the question without hedging or attempting to provide an estimate."
+    }
+  ]
+}

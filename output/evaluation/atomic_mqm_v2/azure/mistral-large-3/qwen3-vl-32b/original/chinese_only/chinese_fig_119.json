@@ -1,0 +1,159 @@
+{
+  "figure_key": "chinese_fig_119",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "original",
+  "figure_type": "pie_chart",
+  "language": "Chinese",
+  "num_atoms": 15,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "该图表为一个环形饼图",
+      "evidence": "图表是饼图而非环形饼图，中心无空白区域。",
+      "atom_id": "chart_type"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "共包含六个切片",
+      "evidence": "图表实际包含七个切片，而非六个。",
+      "atom_id": "num_slices"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "占比最大的切片为橙色，标签为“具备两类语体的同义词簇, 51.1%”",
+      "evidence": "占比最大的切片实际为橙色，但标签应为“具备两类语体的同义词簇（口语词和通用词）”，且占比为41.4%，非51.1%。51.1%是两类语体同义词簇的总和，而非单个切片。",
+      "atom_id": "slice_two_oral_common_alt"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "蓝色切片，标签为“具备一类语体的同义词簇, 32.5%”，对应“仅具备口语词的词簇”",
+      "evidence": "蓝色切片（深蓝色）对应的是“仅具备书面语词的词簇”，占32.5%，而非“仅具备口语词的词簇”。",
+      "atom_id": "slice_one_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "浅蓝色切片，标签为“具备三类语体的同义词簇, 16.4%”",
+      "evidence": "“具备三类语体的同义词簇”的切片颜色为蓝色，而非浅蓝色。浅蓝色切片对应的是“仅具备通用词语的词簇”，占10.2%。",
+      "atom_id": "slice_three_types"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "深绿色切片（10.2%），标签为“具备一类语体的同义词簇 仅具备通用语词的词簇”",
+      "evidence": "“仅具备通用语词的词簇”切片颜色为浅蓝色，而非深绿色。",
+      "atom_id": "slice_one_common"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "深蓝色切片（20.8%），标签为“具备一类语体的同义词簇 仅具备书面语词的词簇”",
+      "evidence": "“仅具备书面语词的词簇”切片占比为32.5%，而非20.8%。深蓝色切片对应的是“仅具备书面语词的词簇”，但数值错误。",
+      "atom_id": "slice_one_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "灰色切片（4.7%），标签为“具备两类语体的同义词簇 仅具备口语词和书面语词的词簇”",
+      "evidence": "灰色切片占比为5.0%，而非4.7%。4.7%对应的是黄色切片。",
+      "atom_id": "slice_two_oral_written"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "极小的深灰色切片（1.5%），标签为“具备两类语体的同义词簇 仅具备通用语词和书面语词的词簇”",
+      "evidence": "1.5%对应的是绿色切片（“仅具备口语词的词簇”），而非“具备两类语体的同义词簇”。标签与黄色切片重复且错误。",
+      "atom_id": "slice_one_oral"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "黄色切片（41.4%）",
+      "evidence": "黄色切片占比应为4.7%，而非41.4%。41.4%对应的是橙色切片。",
+      "atom_id": "slice_two_common_written"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未提及“具备两类语体的同义词簇，仅具备口语词和通用词语的词簇”切片（橙色，20.8%）。",
+      "atom_id": "slice_two_oral_common"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "切片的排列顺序并非按大小递减，而是按语体类型分组分布",
+      "evidence": "图表切片实际按比例大小排列，而非按语体类型分组。",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "中心为空白区域",
+      "evidence": "图表为饼图，非环形饼图，无空白区域。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "其具体子类为“仅具备口语词和通用语词的词簇”",
+      "evidence": "描述中未明确说明该子类对应的切片占比（41.4%或20.8%），导致歧义。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Overly Verbose Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "（注：此处标签与黄色切片重复，可能为标注错误）",
+      "evidence": "描述中包含不必要的主观推测，影响简洁性。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 15,
+  "mqm_score": 19.33,
+  "total_penalty": 60.5,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 9,
+    "missing": 1,
+    "total": 15,
+    "accuracy": 0.3571,
+    "completeness": 0.8333
+  }
+}

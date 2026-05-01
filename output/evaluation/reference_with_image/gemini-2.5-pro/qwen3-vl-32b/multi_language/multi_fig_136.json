@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_136",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Four distinct lines are shown",
+          "evidence": "The chart shows 8 distinct lines, not four. There are four pairs of lines, with each pair consisting of a solid line (dKV-Cache-Decode) and a dashed line (Origin) for a specific 'L' value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "L=16 (black), L=32 (blue), L=64 (red), and L=128 (gray)",
+          "evidence": "The mapping of colors to 'L' values is incorrect. According to the legend, L=16 is gray, L=32 is blue, L=64 is red, and L=128 is dark blue/black."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each line is represented with a unique marker: solid circles for L=16, solid triangles for L=32, solid diamonds for L=64, and solid squares for L=128.",
+          "evidence": "The description of markers is completely wrong. For example, L=16 (gray lines) uses circle and star markers, not just solid circles. L=32 (blue lines) uses square and plus markers, not solid triangles. L=64 (red lines) uses triangle-down markers, not solid diamonds. L=128 (dark blue/black lines) uses triangle-up markers, not solid squares."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at a batch size of 0, the dKV-Cache-Decode method achieves speeds of 34.53 (L=16), 36.81 (L=32), 59.71 (L=64), and 118.24 (L=128) tokens/s",
+          "evidence": "This sentence contains multiple errors. The data points do not start at batch size 0. The values listed are incorrect or mismatched. For example, 118.24 tokens/s is the starting value for the solid L=16 line, but it's attributed to L=128. 34.53 is the starting value for the dashed L=128 line, not the solid L=16 line. 59.71 is the final value for the dashed L=32 line. 36.81 is not found on the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at a batch size of 128, the corresponding speeds are 81.18, 183.28, 130.58, and 202.31 tokens/s.",
+          "evidence": "The speeds are associated with the wrong 'L' values due to the initial incorrect color mapping. The description implies L=16 has a speed of 81.18 (which is for L=128) and L=128 has a speed of 202.31 (which is for L=16)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at batch size 128, the speeds are 35.42, 69.62, 48.93, and 175.95 tokens/s for L=16, L=32, L=64, and L=128, respectively.",
+          "evidence": "The values are incorrectly assigned to the 'L' values. For L=16, the speed should be 69.62, not 35.42. For L=32, it should be 59.71, not 69.62. Most egregiously, the value for L=128 is listed as 175.95, which is a data point from a different line (solid blue L=32 line at batch size 64); the correct value is 35.42."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The gray line (L=128, dKV-Cache-Decode)",
+          "evidence": "The gray line corresponds to L=16, not L=128."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the black dashed line (L=16, Origin)",
+          "evidence": "The dark blue/black dashed line corresponds to L=128, not L=16."
+        }
+      ],
+      "mqm_score": 60.0,
+      "total_penalty": 40.0,
+      "error_count": 8,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 60.0
+}

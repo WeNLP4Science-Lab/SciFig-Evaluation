@@ -1,0 +1,98 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Диаграмата представлява стълбовидна диаграма, показваща разпределението на експерти за различни слоеве MoE (Mixture of Experts).",
+          "evidence": "The figure contains two separate, side-by-side stacked bar charts, one titled 'Text' and the other 'Image'. The description incorrectly describes it as a single chart, failing to mention the two subplots."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "представлява слоевете от 1 до 23, подредени последователно",
+          "evidence": "The x-axis does not show all layers from 1 to 23; it only shows the odd-numbered layers (1, 3, 5, ..., 23)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "за MoE слой 1, Expert 1 заема около 75% от стълба, докато Expert 2 заема около 25%",
+          "evidence": "The example provided refers to the 'Text' chart. In that chart, for MoE layer 1, Expert 1 is approximately 85% and Expert 2 is approximately 15%. The values 75% and 25% are incorrect."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "При MoE слой 23 виждаме, че Expert 1 заема около 15%, Expert 2 около 10%, Expert 3 около 25% и Expert 4 около 50%.",
+          "evidence": "This description of the values for MoE layer 23 does not match either of the two charts. In the 'Text' chart, layer 23 is composed of Expert 2 (~15%) and Expert 3 (~85%). In the 'Image' chart, layer 23 is composed of Expert 1 (~85%), Expert 2 (~10%), and Expert 3 (~5%). The reported values are completely incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description completely omits the fact that there are two separate plots, one titled 'Text' and one titled 'Image'. This is a critical structural feature of the figure."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing_Visual_Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description completely omits the fact that the figure consists of two separate stacked bar charts, one titled 'Text' and the other 'Image'. It describes the figure as if it were a single chart."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "wobei der Experte 4 den größten Teil jeder Säule einnimmt",
+          "evidence": "This statement claims that Expert 4 (red) makes up the largest part of each column. This is incorrect. In the 'Text' chart, Expert 1, 2, or 3 are dominant in many columns (e.g., idx 1, 3, 5, 7). In the 'Image' chart, Expert 1 or 3 are also dominant in several columns (e.g., idx 5, 9, 11). This is a significant misrepresentation of the data."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect_Numerical_Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für MoE-Layer-Idx 23 trägt Experte 1 einen Prozentsatz von etwa 20 % bei, während Experte 2 etwa 10 %, Experte 3 etwa 5 % und Experte 4 etwa 65 % beiträgt.",
+          "evidence": "The provided values for MoE-Layer-Idx 23 do not match either chart. In the 'Text' chart, idx 23 consists of ~17% Expert 2 and ~83% Expert 3. In the 'Image' chart, idx 23 consists of ~85% Expert 1, ~10% Expert 2, and ~5% Expert 3. The values in the description appear to be hallucinated."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous_Description",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "Für MoE-Layer-Idx 23 trägt Experte 1 einen Prozentsatz von etwa 20 % bei, während Experte 2 etwa 10 %, Experte 3 etwa 5 % und Experte 4 etwa 65 % beiträgt.",
+          "evidence": "Because the description fails to mention the two separate charts ('Text' and 'Image'), it is unclear which chart this (incorrect) data point is supposed to describe."
+        }
+      ],
+      "mqm_score": 87.5,
+      "total_penalty": 12.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 83.5
+}

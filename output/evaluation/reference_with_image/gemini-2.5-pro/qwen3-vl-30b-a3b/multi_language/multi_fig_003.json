@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_003",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "The perplexity for both methods generally decreases as the number of quantization bits increases.",
+          "evidence": "This statement is an over-generalization and factually incorrect for one series. In chart (b) PTB, the perplexity for the 'Ours' method decreases from 3 bits (~245) to 4 bits (~178), but then increases to ~182 for 8 and 16 bits. Therefore, it does not 'generally decrease' across the full range of quantization bits for this method."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description mentions 'tick marks at regular intervals' for the y-axis but omits the specific interval values, which are 5 for charts (a) and (c), and 50 for chart (b)."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "The data points for the \"Ours\" method are consistently lower than those for the \"Uniform\" method,",
+          "evidence": "This statement is redundant. An earlier sentence already established the same fact: 'In all three datasets, the perplexity values for the \"Uniform\" method are consistently higher than those for the \"Ours\" method across all quantization bit levels.'"
+        }
+      ],
+      "mqm_score": 95.5,
+      "total_penalty": 4.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreases to around 310 at 16 bits",
+          "evidence": "In the PTB chart, the perplexity for the Uniform method at 16 bits is approximately 300, not 310."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "suggesting improved performance with less information loss compared to uniform quantization",
+          "evidence": "This part of the sentence provides an interpretation of what lower perplexity means (improved performance, less information loss), which is an inference beyond describing the visual data presented in the chart."
+        }
+      ],
+      "mqm_score": 91.5,
+      "total_penalty": 8.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "zwei Balkengruppen pro Quantisierungsbit (3, 4, 8 und 16)",
+          "evidence": "The description incorrectly states there are two bar groups per quantization bit. The chart shows one group of two bars for each quantization bit."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Ambiguous Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "Die Balken sind in der Reihenfolge der Quantisierungbits sortiert",
+          "evidence": "This statement is ambiguous. It should clarify that the bar groups are arranged according to the numerical order of the quantization bits on the x-axis, not that the bars themselves are sorted in some way (e.g., by height)."
+        }
+      ],
+      "mqm_score": 94.0,
+      "total_penalty": 6.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 93.67
+}

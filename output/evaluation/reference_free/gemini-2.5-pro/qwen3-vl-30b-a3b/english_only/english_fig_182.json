@@ -1,0 +1,36 @@
+{
+  "figure_key": "english_fig_182",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "represents the number of training examples",
+      "evidence": "The x-axis does not have a label. The description hallucinates the label \"number of training examples\" based on external context, which is not present in the figure itself."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "plotted on a linear scale",
+      "evidence": "The x-axis tick marks are at 128, 256, 512, and 1024. The spacing between these values is not linear; they represent powers of 2, indicating a logarithmic scale, not a linear one."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The 'Qwen2-VL-7B on MMSafetyBench' line consistently remains above the others across all data points.",
+      "evidence": "The generation prompt explicitly states to \"Avoid...making comparisons between lines.\" This sentence is a direct comparison between one line and the others, which violates the instructions. Furthermore, the statement is factually inaccurate, as the red line is tied with the orange line at x=512."
+    }
+  ],
+  "mqm_score": 88.0,
+  "total_penalty": 12.0,
+  "error_count": 3
+}

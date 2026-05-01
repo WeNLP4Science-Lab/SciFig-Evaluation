@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_113",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "while the vertical axis, labeled \"Error (RTE)\"",
+          "evidence": "The chart title is \"Error (RTE)\", but the vertical axis itself has no label. The description incorrectly assigns the title as the y-axis label."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "indicating low variance across runs",
+          "evidence": "The description interprets the meaning of the error bars (\"indicating low variance across runs\"), which is an inference about the data's statistical properties, not a direct visual description. The prompt requires avoiding inferences."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The chart visually confirms that QLoRA consistently outperforms LoRA in terms of lower error, and that smaller ranks (particularly 16) yield the best performance for both methods, with QLoRA achieving the lowest error overall at rank 16.",
+          "evidence": "This entire sentence is a conclusion that summarizes trends and uses evaluative language (\"outperforms,\" \"best performance\"). The prompt explicitly forbids making inferences, drawing conclusions, or making comparisons."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "increases to",
+          "evidence": "The phrase \"increases to\" describes a trend between the values at rank 16 and rank 64, which the prompt instructs to avoid."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Overly Verbose Description",
+          "severity": "Minor",
+          "weight": 1.0,
+          "text_span": "The error bars for all bars are relatively small and consistent",
+          "evidence": "This phrase uses subjective and evaluative language (\"relatively small and consistent\") rather than objectively describing the visual elements."
+        }
+      ],
+      "mqm_score": 85.5,
+      "total_penalty": 14.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "with LoRA consistently showing higher error than QLoRA across all ranks",
+          "evidence": "The prompt explicitly forbids making comparisons or drawing conclusions. This statement makes a direct comparison across all categories, which is a form of interpretation."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "QoRA is slightly lower, around 0.55. At rank 16, LoRA error remains near 0.6, while QLoRA drops to about 0.45, marking the lowest error observed. At rank 64, LoRA error rises to approximately 0.7... At rank 256, LoRA error peaks at about 0.8",
+          "evidence": "The description uses interpretive language such as 'slightly lower', 'drops to', 'marking the lowest error', 'rises to', and 'peaks at'. This describes trends and makes comparisons, which is forbidden by the prompt's instruction to only describe visual features objectively."
+        },
+        {
+          "category": "Incorrect Numerical Value",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "and QLoRA is around 0.6.",
+          "evidence": "For the rank of 256, the green bar representing QLoRA reaches a value of approximately 0.65, not 0.6 as stated. This is a noticeable inaccuracy."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart visually confirms that QLoRA consistently achieves lower generalization errors than LoRA, and that rank 16 yields the lowest error for QLoRA, supporting the claim that smaller adapters achieve better generalization.",
+          "evidence": "This entire sentence consists of conclusions, comparisons, and references to external claims ('supporting the claim...'). This is a direct violation of the prompt's core instruction to avoid interpretation and stick to objective description."
+        },
+        {
+          "category": "Unwanted Interpretation",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "but the trend remains clear",
+          "evidence": "Stating that a 'trend remains clear' is a subjective interpretation, not an objective description of a visual feature."
+        },
+        {
+          "category": "Hallucinated Content",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "The chart does not show Hessian trace values directly, but the caption indicates a correlation between lower error and flatter minima, which is consistent with the observed trends.",
+          "evidence": "This sentence introduces information ('Hessian trace values', 'flatter minima') from the external paper caption, which is not visually represented in the chart itself. The prompt instructs to focus exclusively on visual and labeled features of the chart."
+        }
+      ],
+      "mqm_score": 100.0,
+      "total_penalty": 0.0,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 92.75
+}

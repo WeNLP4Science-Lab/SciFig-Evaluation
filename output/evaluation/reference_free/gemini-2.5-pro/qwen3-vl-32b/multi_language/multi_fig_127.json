@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_127",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "above each pair of bars",
+          "evidence": "The delta annotations are not positioned above the pair of bars, but rather directly above the second bar (the green TLDR bar) in each group."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The visual presentation suggests that TLDR maintains or slightly improves accuracy over Vanilla CoT in most cases, particularly on MATH500 and AMC, while showing a small decrease on GSM8K and AIME.",
+          "evidence": "The prompt explicitly forbids making inferences, drawing conclusions, or interpreting trends. This sentence summarizes the overall performance comparison, which constitutes an interpretation rather than an objective description of the visual data."
+        }
+      ],
+      "mqm_score": 94.5,
+      "total_penalty": 5.5,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description of the vertical axis states it represents \"accuracy\" but omits the unit \"(%)\", which is explicitly part of the axis label \"Accuracy (%)\"."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart includes numerical labels on top of each bar indicating the exact accuracy percentage and a delta value",
+          "evidence": "This is incorrect. The Vanilla CoT bars have labels showing the exact accuracy percentage, while the TLDR bars have labels showing the delta value (the change). Each bar does not have both types of labels."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "while TLDR achieves 87.7% ... and TLDR scores 87.4% ... and TLDR scores 41.2% ... and TLDR scores 83.1%",
+          "evidence": "The description reports calculated absolute accuracy values for the TLDR method (87.7%, 87.4%, 41.2%, 83.1%). The chart itself does not show these absolute values; it only shows the percentage change annotations (+/- x.x%). Reporting calculated values instead of the explicitly shown annotations constitutes interpretation, which is not a direct description of the visual data."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "The legend at the top right",
+          "evidence": "The legend is located at the top center of the chart, not the top right."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The overall trend indicates that TLDR maintains or slightly improves accuracy compared to Vanilla CoT across the four datasets, with the exception of GSM8K and AIME, where accuracy slightly decreases.",
+          "evidence": "This sentence summarizes and interprets the overall trend across the datasets. The prompt explicitly forbids interpretation and trend analysis, instructing to focus only on describing visual and labeled features."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 90.5
+}

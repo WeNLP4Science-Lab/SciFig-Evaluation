@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_101",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "In contrast,",
+          "evidence": "The prompt explicitly instructs to \"Avoid ... making comparisons between lines.\" The phrase \"In contrast\" violates this rule by directly comparing the two methods."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "decreases to approximately 0.218 at 1 example",
+          "evidence": "For the Random method (orange line), the value at x=1 is approximately 0.223, not 0.218. The value 0.218 is a significant misreading of the plot."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "between 0.218 and 0.222 for the rest of the range",
+          "evidence": "For the Random method (orange line), for x-values greater than 1, the y-values fluctuate between approximately 0.2215 (at x=6) and 0.228 (at x=8). The stated range of 0.218 to 0.222 is incorrect."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The prompt asks to \"include representative values at the start and end of the x-axis\". The description provides the start values for both lines but omits the end values at x=8."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The prompt asks for a description of the line style (e.g., solid, dashed). The description does not mention that both lines are solid."
+        }
+      ],
+      "mqm_score": 83.5,
+      "total_penalty": 16.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "mit einem Intervall von 1",
+          "evidence": "The tick labels on the x-axis are at an interval of 2 (0, 2, 4, 6, 8), not 1. While there are gridlines for every integer, the prompt asks for the interval of the tick labels."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "die Einheiten sind in Metern angegeben",
+          "evidence": "The y-axis label does not specify any units. Stating that the units are meters is an assumption not supported by the visual information in the chart."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "besteht aus Punkten mit Kreuzmarkierungen",
+          "evidence": "The markers for the ST-ES line are filled circles, not crosses."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "steigt leicht auf etwa 0,211 bei 5 Beispielen",
+          "evidence": "At x=5, the value for the ST-ES line is visibly below the 0.21 gridline (approximately 0.209), not 0.211."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "besteht aus Punkten mit quadratischen Markierungen",
+          "evidence": "The markers for the Random line are filled circles, not squares."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "fällt auf etwa 0,221 bei 1 Beispiel, bleibt bei etwa 0,221 bei 2 Beispielen, fällt auf etwa 0,220 bei 3 Beispielen, bleibt bei etwa 0,220 bei 4 Beispielen, steigt auf etwa 0,222 bei 5 Beispielen, fällt auf etwa 0,221 bei 6 Beispielen, steigt auf etwa 0,223 bei 7 Beispielen und endet bei etwa 0,224 bei 8 Beispielen",
+          "evidence": "The entire sequence of values reported for the 'Random' line is incorrect. For example, at x=1, the value is approximately 0.224, not 0.221. At x=2, the value is approximately 0.2245, not 0.221. At x=8, the value is approximately 0.228, not 0.224. All reported values in this span are significantly inaccurate."
+        }
+      ],
+      "mqm_score": 71.5,
+      "total_penalty": 28.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 77.5
+}

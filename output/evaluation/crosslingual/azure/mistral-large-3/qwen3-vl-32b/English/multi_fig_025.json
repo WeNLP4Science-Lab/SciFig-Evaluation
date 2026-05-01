@@ -1,0 +1,76 @@
+{
+  "figure_key": "multi_fig_025",
+  "subfolder": "multi_language",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "English",
+  "num_atoms": 8,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "G1 contributes 3 experts per layer (green segment height ≈ 3)",
+      "evidence": "The green segment (G1) does not consistently contribute 3 experts per layer. For example, in Layer 7, the green segment is approximately 1 expert, not 3.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "G0 consistently contributes 1 expert per layer (blue segment height ≈ 1)",
+      "evidence": "The blue segment (G0) does not consistently contribute 1 expert per layer. In many layers (e.g., Layer 1), the blue segment is clearly less than 1 expert in height.",
+      "atom_id": "sent_5"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "in Layer 1, the total number of experts is 9 (1 from G0, 3 from G1, and 5 from G2)",
+      "evidence": "The total number of experts in Layer 1 is approximately 9, but the breakdown is incorrect. The blue segment (G0) is less than 1, not exactly 1, and the green segment (G1) is less than 3, not exactly 3.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "in Layer 7, the total is 3 (1 from G0, 1 from G1, and 1 from G2)",
+      "evidence": "The total number of experts in Layer 7 is approximately 3, but the breakdown is incorrect. The blue segment (G0) is approximately 1, but the green (G1) and yellow (G2) segments are not exactly 1 each.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The chart shows a general decline in the number of experts from Layer 1 to Layer 7, followed by a relatively stable pattern with minor fluctuations until Layer 24.",
+      "evidence": "The description introduces an interpretation of trends (decline, stable pattern) that is not explicitly stated in the figure or supported by the atom checklist.",
+      "atom_id": null
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "in a layer-wise Mixture-of-Experts (MoE) model",
+      "evidence": "The figure does not mention or imply that the data represents a Mixture-of-Experts (MoE) model. This is an unsupported inference.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 6,
+  "mqm_score": 47.5,
+  "total_penalty": 21.0,
+  "atom_coverage": {
+    "correct": 6,
+    "inaccurate": 2,
+    "missing": 0,
+    "total": 8,
+    "accuracy": 0.75,
+    "completeness": 1.0
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "figure_key": "multi_fig_029",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Clarity",
+          "sub_type": "Over-Generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "All four lines start near 0.33 at 0 samples.",
+          "evidence": "This is an over-generalization. The two green lines start at approximately 0.33, but the two orange lines start lower, at approximately 0.31."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "At 5 samples, the solid orange line rises sharply to ~0.39",
+          "evidence": "The solid orange line at 5 samples has an accuracy value of approximately 0.35, not 0.39."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "while the solid green line remains near 0.35.",
+          "evidence": "The prompt explicitly forbids comparing the lines. This phrase directly compares the behavior of the solid orange line to the solid green line."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the dashed orange line is at ~0.38.",
+          "evidence": "At 10 samples, the dashed orange line has an accuracy value of approximately 0.35, not 0.38."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "stabilizes",
+          "evidence": "The prompt asks for a neutral and objective description. Using evaluative language like 'stabilizes' is an interpretation of the trend, rather than a direct description of the values (e.g., 'remains at approximately 0.38')."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the orange lines showing wider bands than the green lines, especially at 10 and 50 samples.",
+          "evidence": "The prompt explicitly instructs to avoid comparing the lines. This statement compares the visual properties (width of the shaded bands) of the orange lines against the green lines, violating the instructions."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "in einer linearen Skala",
+          "evidence": "The description states the x-axis has a linear scale, but the tick marks are not evenly spaced (0, 5, 10, then a large jump to 50). The axis is not linear."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 5 Proben auf 0,39 steigt",
+          "evidence": "For the solid orange line (\"Corpora Unlearn, Corpora Relearn\"), the value at x=5 is approximately 0.35, not 0.39 as stated."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "bei 5 Proben auf 0,36 steigt, bei 10 Proben auf 0,35 fällt",
+          "evidence": "For the dashed orange line (\"Corpora Unlearn, MCQ Relearn\"), the value at x=5 is approximately 0.35, not 0.36. The line is flat between x=5 and x=10, it does not rise and then fall."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "der vermutlich die Unsicherheit oder Streuung der Messungen darstellt",
+          "evidence": "The description presumes what the shaded areas represent ('vermutlich... darstellt' means 'presumably represents'), which is an interpretation forbidden by the prompt."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 84.0
+}

@@ -6,6 +6,7 @@ a manifest JSON + copied images for the Vite dashboard.
 Usage:
     python3 scripts/evaluation/export_dashboard_data.py --judge gpt-4o --judge gpt-4o-mini
     python3 scripts/evaluation/export_dashboard_data.py --judge gpt-4o --subfolder english_only
+    python3 scripts/evaluation/export_dashboard_data.py --judge gpt-4o --samples samples.json --output manifest_sample.json
 """
 
 import argparse
@@ -25,8 +26,22 @@ JUDGE_TYPES = ["reference_free", "reference_only", "reference_with_image"]
 ALL_SUBFOLDERS = ["bulgarian_only", "chinese_only", "english_only", "german_only", "multi_language"]
 
 
-def export(judge_slugs, subfolder_filter=None):
+def _load_samples(samples_path):
+    """Load samples.json and return a dict of {subfolder: set(fig_keys)}."""
+    with open(samples_path) as f:
+        data = json.load(f)
+    result = {}
+    for subfolder, types in data["samples"].items():
+        keys = set()
+        for fig_type, figs in types.items():
+            keys.update(figs)
+        result[subfolder] = keys
+    return result
+
+
+def export(judge_slugs, subfolder_filter=None, samples_path=None, output_name="manifest.json"):
     subfolders = [subfolder_filter] if subfolder_filter else ALL_SUBFOLDERS
+    sample_keys = _load_samples(samples_path) if samples_path else None
     out_dir = DASHBOARD_PUBLIC / "data"
     img_dir = DASHBOARD_PUBLIC / "figures"
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -54,6 +69,10 @@ def export(judge_slugs, subfolder_filter=None):
 
             for gen_path in sorted(gen_dir.glob("*.json")):
                 fig_key = gen_path.stem
+                # Filter by samples if provided
+                if sample_keys is not None:
+                    if subfolder not in sample_keys or fig_key not in sample_keys[subfolder]:
+                        continue
                 combo_key = (model_name, subfolder, fig_key)
                 if combo_key in seen:
                     continue
@@ -114,7 +133,7 @@ def export(judge_slugs, subfolder_filter=None):
         "figures": figures,
     }
 
-    manifest_path = out_dir / "manifest.json"
+    manifest_path = out_dir / output_name
     with open(manifest_path, "w") as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False)
 
@@ -129,5 +148,7 @@ if __name__ == "__main__":
     parser.add_argument("--judge", required=True, action="append", dest="judges",
                         help="Judge model slug (can specify multiple: --judge gpt-4o --judge gpt-4o-mini)")
     parser.add_argument("--subfolder", default=None, help="Filter to specific subfolder")
+    parser.add_argument("--samples", default=None, help="Path to samples.json to filter figures")
+    parser.add_argument("--output", default="manifest.json", help="Output filename (default: manifest.json)")
     args = parser.parse_args()
-    export(args.judges, args.subfolder)
+    export(args.judges, args.subfolder, args.samples, args.output)

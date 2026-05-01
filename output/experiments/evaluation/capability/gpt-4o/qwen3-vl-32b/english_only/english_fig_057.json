@@ -1,0 +1,73 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "qwen3-vl-32b",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-20T13:06:53.911980+00:00",
+  "evaluations": [
+    {
+      "question_id": "en057_q1",
+      "question": "At iteration 140,000, which model achieves the lowest loss and what is its approximate value?",
+      "expected_answer": "Vanilla, approximately 2.45",
+      "model_answer": "At iteration 140,000, the model achieving the lowest loss is **Vanilla**, with an approximate loss value of **2.5**.",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        2.45,
+        2.47
+      ],
+      "score": 0.5,
+      "reason": "Correct model but loss value outside acceptable range [2.45, 2.47].",
+      "excluded": false
+    },
+    {
+      "question_id": "en057_q2",
+      "question": "At approximately what iteration does StrmLLM (n=64) first drop below a loss of 3.0?",
+      "expected_answer": "~5,000-8,000 iterations",
+      "model_answer": "StrmLLM (n=64) first drops below a loss of 3.0 at approximately **iteration 10,000**.",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 0.0,
+      "reason": "Model's answer exceeds expected range and is incorrect.",
+      "excluded": false
+    },
+    {
+      "question_id": "en057_q3",
+      "question": "What is the approximate loss gap between StrmLLM (n=64) and Vanilla at iteration 140,000?",
+      "expected_answer": "~0.15 (StrmLLM ~2.60, Vanilla ~2.45)",
+      "model_answer": "At iteration 140,000, the approximate loss gap between StrmLLM (n=64) and Vanilla is **0.1** (StrmLLM ≈ 2.6, Vanilla ≈ 2.5).",
+      "answer_type": "approximate",
+      "acceptable_range": [
+        0.12,
+        0.16
+      ],
+      "score": 0.0,
+      "reason": "Loss gap 0.1 is outside acceptable range [0.12, 0.16].",
+      "excluded": false
+    },
+    {
+      "question_id": "en057_q4",
+      "question": "How many of the six models achieve a final loss below 2.55 at iteration 140,000?",
+      "expected_answer": "4 or 5 (Vanilla ~2.45, SepLLM n=64 H/T ~2.49, SepLLM n=64 H ~2.51, SepLLM n=64 ~2.52, SepLLM n=128 ~2.50-2.52)",
+      "model_answer": "At iteration 140,000, the six models are: Vanilla, StrmLLM (n=64), SepLLM (n=64), SepLLM (n=64, H), SepLLM (n=64, H/T), and SepLLM (n=128). From the graph, all six models have final loss values below 2.55. The purple (Vanilla) and red (SepLLM n=64, H/T) lines are clearly below 2.55, and the others (orange, green, dark blue, light blue) are also below 2.55, though the light blue (StrmLLM) is slightly above 2.6. Wait — let's check carefully.\n\nActually, the **light blue line (StrmLLM n=64)** ends at approximately **2.62**, which is **above 2.55**. The other five models (Vanilla, SepLLM n=64, SepLLM n=64 H, SepLLM n=64 H/T, SepLLM n=128) all end below 2.55. So, **5 models** achieve a final loss below 2.55.\n\n✅ **Answer: 5**\n\n---",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Model correctly identified 5 models below 2.55 at iteration 140,000.",
+      "excluded": false
+    },
+    {
+      "question_id": "en057_q5",
+      "question": "Which SepLLM variant converges to the lowest final loss, and approximately what is its final loss value?",
+      "expected_answer": "SepLLM (n=64, H/T), approximately 2.49",
+      "model_answer": "The SepLLM variant with the lowest final loss is the **purple line (Vanilla)**, which ends at approximately **2.48**. But wait — the legend says \"Vanilla\" is purple, and it’s the lowest. However, the question asks for a **SepLLM variant**. So we must exclude Vanilla.\n\nAmong the SepLLM variants:\n- SepLLM (n=64) — orange — ends ~2.50\n- SepLLM (n=64, H) — green — ends ~2.50\n- SepLLM (n=64, H/T) — red — ends ~2.48\n- SepLLM (n=128) — dark blue — ends ~2.50\n\nThe **red line (SepLLM n=64, H/T)** achieves the lowest final loss among SepLLM variants, approximately **2.48**.\n\n✅ **Answer: SepLLM (n=64, H/T) with final loss ≈ 2.48**\n\n---",
+      "answer_type": "approximate",
+      "acceptable_range": null,
+      "score": 1.0,
+      "reason": "Correct variant and loss value within acceptable range.",
+      "excluded": false
+    }
+  ],
+  "average_score": 0.5,
+  "total_scored": 5,
+  "total_excluded": 0
+}

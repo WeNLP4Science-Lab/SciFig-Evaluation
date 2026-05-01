@@ -1,0 +1,130 @@
+{
+  "figure_key": "multi_fig_108",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each value of m, two adjacent bars are plotted, allowing direct visual comparison between the two strategies.",
+          "evidence": "The chart does not show adjacent bars for each value of 'm'. It shows two separate groups of five bars each. The first group corresponds to the 'Fine-to-Coarse Sampling Strategy' for m values 6 through 10, and the second group corresponds to the 'Uniform Sampling Strategy' for the same m values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The Fine-to-Coarse strategy consistently yields higher MAP@10 scores than the Uniform strategy across all m values;",
+          "evidence": "The generation prompt explicitly instructs to avoid comparisons ('не сравнявайте стойности'). This statement directly compares the performance of the two strategies, which violates the prompt's objectivity requirement."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The Fine-to-Coarse bars exhibit relatively high and stable performance, ... whereas the Uniform bars show a more variable pattern",
+          "evidence": "The prompt requires a neutral and objective description, avoiding interpretation. Phrases like 'relatively high and stable performance' and 'more variable pattern' are subjective evaluations of the data trends, not objective descriptions."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "For each m, two adjacent bars represent the respective sampling strategies.",
+          "evidence": "The chart does not show adjacent bars for each value of m. Instead, it shows two separate groups of bars: a group of five purple bars for the first strategy (m=6-10), followed by a separate group of five yellow bars for the second strategy (m=6-10). The bars are grouped by strategy, not by the value of m."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Overall, the Fine-to-Coarse strategy outperforms the Uniform strategy across all tested values of m.",
+          "evidence": "The prompt explicitly instructs to 'Avoid making inferences, comparisons, or drawing conclusions about the data.' This sentence makes a direct comparative conclusion about the performance of the two strategies, which violates the prompt's negative constraint against interpretation."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "the bars are grouped by m value",
+          "evidence": "This is incorrect. The bars are grouped by sampling strategy. The first five bars correspond to the 'Fine-to-Coarse' strategy for m values 6 through 10, and the second group of five bars correspond to the 'Uniform' strategy for the same m values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "The Fine-to-Coarse strategy consistently achieves higher MAP@10 scores",
+          "evidence": "The prompt instructs to avoid comparisons. Stating that one strategy achieves 'higher' scores is a direct comparison."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "In contrast, the Uniform strategy scores lower",
+          "evidence": "The prompt instructs to avoid comparisons. Stating that one strategy scores 'lower' is a direct comparison."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "26.8 (at m=7)",
+          "evidence": "The top of the bar for m=7 in the Fine-to-Coarse strategy aligns with the gridline halfway between 26.5 and 27.0, which is approximately 26.75, not 26.8."
+        }
+      ],
+      "mqm_score": 81.5,
+      "total_penalty": 18.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Für jede m-Kategorie sind zwei nebeneinander angeordnete Balken zu sehen, wobei der linke Balken die Fine-to-Coarse-Strategie und der rechte Balken die Uniform-Strategie repräsentiert.",
+          "evidence": "The chart does not show two side-by-side bars for each 'm' category. Instead, it displays two separate groups of five bars each. The first group (purple) shows the results for the 'Fine-to-Coarse' strategy across m-values 6 to 10, and the second group (yellow) shows the results for the 'Uniform' strategy across the same m-values."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "Die Fine-to-Coarse-Strategie erzielt bei allen m-Werten höhere MAP@10-Werte",
+          "evidence": "The prompt explicitly instructs to avoid making comparisons unless explicitly labeled in the chart. This statement compares the performance of the two strategies, which is an interpretation of the data, not a direct description of a visual element."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "zwischen etwa 25.95 (für m=6) und 26.8 (für m=7) liegen",
+          "evidence": "The reported values are inaccurate. The bar for m=6 is approximately at 25.9, not 25.95. The bar for m=7 is at approximately 26.75, not 26.8. The value 25.95 is overly precise and incorrect."
+        }
+      ],
+      "mqm_score": 86.5,
+      "total_penalty": 13.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 85.33
+}

@@ -1,0 +1,76 @@
+{
+  "figure_key": "english_fig_049",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Five strategies are represented by distinct colored lines",
+      "evidence": "The description states there are five strategies represented, but the legend and the plot clearly show six distinct strategies/lines (black, yellow, green, purple, blue, and red)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "dotted lines",
+      "evidence": "The description refers to the horizontal lines as 'dotted lines', but they are clearly depicted as dashed lines in the figure. This error is repeated later in the text."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "The red line (DPR w/ curriculum) starts at around 35.2, rises slightly to about 35.7 at S=4, then plateaus.",
+      "evidence": "Describing the red line's behavior after S=4 as a 'plateau' is an over-generalization. The line continues to rise to a peak at S=6 (approx. 35.8) and then slightly declines."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The purple line (DPR w/ bottom-1) starts at 35.0",
+      "evidence": "The purple line starts at S=1 with an MRR@10 value of approximately 34.8, not 35.0. The value 35.0 is reached at S=2."
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "gradually declines",
+      "evidence": "Describing the purple line's behavior as a gradual decline is an over-generalization. The line first rises from S=1 to a peak at S=3, and only then does it begin to decline."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "While the starting y-value is approximately correct, the description omits the crucial detail that the yellow line does not start at S=1 like the other lines, but rather at S=3. This omission is misleading."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The black line (DPR w/o query) is not visible in the plot, likely because it is constant and below the visible range.",
+      "evidence": "The solid black line for 'DPR w/o query' is clearly visible in the plot as a horizontal line at an MRR@10 value of approximately 34.25."
+    },
+    {
+      "category": "Unwanted Content",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "Dotted lines for each strategy are horizontally aligned with their corresponding solid lines, indicating no improvement from expansion for those methods.",
+      "evidence": "This is a multi-part error. First, the dashed lines are horizontal baselines, not 'aligned with their corresponding solid lines' which are non-horizontal. Second, the interpretation that this indicates 'no improvement' is incorrect. For several strategies (e.g., green, red, blue), the solid line is well above the dashed line, indicating significant improvement from expansion."
+    }
+  ],
+  "mqm_score": 79.0,
+  "total_penalty": 21.0,
+  "error_count": 8
+}

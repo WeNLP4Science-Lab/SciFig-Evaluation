@@ -1,0 +1,178 @@
+{
+  "figure_key": "multi_fig_002",
+  "model_name": "llama4-scout",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "azure/gpt-5.4-mini",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Хоризонталната ос показва степени на рядкост",
+          "evidence": "The x-axis is labeled 'Sparsity Rate' (разреждане), not 'рядкост' (rarity)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "като скалата е линейна",
+          "evidence": "The figure/caption indicate the x-axis is a regular categorical percentage axis, but the machine description explicitly states it is linear and adds properties not shown (e.g., no negative values)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "На диаграмата са представени две групи стълби, оцветени в синьо за Per-Output и оранжево за Per-Layer.",
+          "evidence": "The chart shows paired bars, not 'groups of stairs'. The series colors and labels are correct, but the structural description is wrong."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "при 70% е около $10^2$ и достига до около $10^3$ при 80% рядкост",
+          "evidence": "At 70%, Per-Output is around 20 and Per-Layer around 40, both below 10^2. At 80%, Per-Output is around 500 and Per-Layer around 800-900, so only the latter is close to 10^3 while the former is below it."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Няма ясно изразени последователни промени във височината при по-ниските степени на рядкост.",
+          "evidence": "This is an interpretive/generalizing statement not explicitly shown; the figure does show a gradual increase across the lower sparsity rates."
+        }
+      ],
+      "mqm_score": 81.0,
+      "total_penalty": 19.0,
+      "error_count": 5,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "Chinese": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "At the lowest sparsity rate of 10%, both blue and orange bars are approximately at 4.",
+          "evidence": "In the figure, the 10% bars are around 5–6, not 4."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the blue bars reaching around 7 at 60%, and the orange bars reaching around 10 at 60%.",
+          "evidence": "At 60% sparsity, the blue bar is just under 10 and the orange bar is slightly above 10; the stated values are a bit low, especially for blue."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "at 80% sparsity, the blue bar is approximately at 400 and the orange bar is approximately at 1000.",
+          "evidence": "The 80% blue bar is around 500, and the orange bar is around 850–900, not 1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the two bars at each sparsity rate are grouped side-by-side as paired bars, which is a visible structural feature."
+        }
+      ],
+      "mqm_score": 92.5,
+      "total_penalty": 7.5,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "around 3 and 3 at 60%",
+          "evidence": "At 60% sparsity, the blue Per-Output bar is just below 10^1 (about 9) and the orange Per-Layer bar is just above 10^1 (about 11), not both around 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "13 and 5 at 70%",
+          "evidence": "At 70% sparsity, the blue Per-Output bar is about 20 and the orange Per-Layer bar is about 40, not 13 and 5."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "400 and 800 at 80%",
+          "evidence": "At 80% sparsity, the bars are roughly 500 (Per-Output) and 800 (Per-Layer), so 400 for Per-Output is noticeably low."
+        },
+        {
+          "category": "Clarity",
+          "sub_type": "Over-generalization",
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "As the sparsity rate increases, the perplexity for both Per-Output and Per-Layer also increases",
+          "evidence": "This is broadly true, but it smooths over the nontrivial differences between the two series at higher sparsity rates and is more interpretive than purely descriptive."
+        }
+      ],
+      "mqm_score": 88.0,
+      "total_penalty": 12.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Bei einer Sparsity Rate von 10% beginnen beide Balken bei etwa 3 auf der logarithmischen Skala",
+          "evidence": "At 10% sparsity, both bars are around 5–6, not about 3."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "Bei 80% erreichen die Balken Werte von ungefähr 600 für Per-Output und 1000 für Per-Layer.",
+          "evidence": "At 80% sparsity, Per-Output is about 500 and Per-Layer is about 800–900; 1000 is too high for the orange bar and 600 is slightly high for the blue bar."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Chart Purpose",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not explicitly state that the chart compares perplexity at different sparsity rates across the two methods, which is the main purpose indicated by the title/caption."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description omits that each sparsity rate is shown as a side-by-side pair of bars (grouped bar chart)."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 4,
+      "judge_model": "gpt-5.4-mini"
+    }
+  },
+  "mqm_score_avg": 87.88
+}

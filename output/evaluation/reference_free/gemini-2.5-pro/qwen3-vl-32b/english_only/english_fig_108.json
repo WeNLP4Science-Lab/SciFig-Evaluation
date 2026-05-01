@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_108",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "on a logarithmic scale",
+      "evidence": "The y-axis is not on a standard logarithmic scale, which cannot display zero or negative values. The figure uses a symmetric logarithmic (symlog) scale, which is linear around zero and logarithmic for larger positive and negative values."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description of the y-axis ticks is incomplete. It mentions ticks at 10⁻¹, 0, and 10⁰ but omits the labeled ticks in the negative range, -10⁻¹ and -10⁰."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The blue line starts near 10⁰ at step 0, drops sharply to around 10⁻¹ by step 7540, and then remains relatively flat and stable near 10⁻¹ for the remainder of training.",
+      "evidence": "The description of the blue line's trend is completely incorrect. The figure shows the blue line starting near 0, rising sharply to a value just below 10⁰ (which is 1), and then remaining stable at that high value. The description states the opposite trend (starts high, drops low)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The orange line begins slightly above 10⁰ at step 0, decreases slightly to around 10⁰ by step 7540, and then remains nearly constant at approximately 10⁰ throughout the rest of training.",
+      "evidence": "The description of the orange line is inaccurate. It begins exactly at 10⁰ (which is 1), not 'slightly above'. It then decreases and stabilizes at a value noticeably below 10⁰, not 'at approximately 10⁰'."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The brownish-gray line starts near -10⁰ at step 0",
+      "evidence": "The brownish-gray line starts near y=0 at step 0, not near -10⁰ (which is -1). It then drops sharply towards -10⁰."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "The plot indicates that the brownish-gray component tends to be negative for most of the training process, as noted in the caption.",
+      "evidence": "This sentence makes an inference by linking the brownish-gray line to a 'component' mentioned in the paper's caption. Since there is no legend on the chart to confirm this mapping, it violates the prompt's instruction to describe only what is shown without making inferences."
+    }
+  ],
+  "mqm_score": 77.0,
+  "total_penalty": 23.0,
+  "error_count": 6
+}

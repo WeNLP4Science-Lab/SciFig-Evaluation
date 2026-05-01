@@ -1,0 +1,36 @@
+{
+  "figure_key": "chinese_fig_025",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最左侧柱子（对应重叠率0）",
+      "evidence": "The description claims the leftmost bar corresponds to an overlap ratio of 0. However, the x-axis starts at 0, and the first bar represents a bin for a value greater than 0 (approximately the 0.05-0.1 range), not 0 itself."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "最高柱子位于重叠率0.2处",
+      "evidence": "The description states the tallest bar is located 'at' an overlap ratio of 0.2. This is a misinterpretation of a histogram's x-axis. The value 0.2 is a tick mark representing the end of a bin. The tallest bar represents the frequency for the bin interval just before 0.2 (e.g., 0.15 to 0.2), not a single point at 0.2. This error pattern is repeated for other values mentioned."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "紧随其后的是重叠率0.2处的柱子",
+      "evidence": "After identifying the tallest bar at 'overlap ratio 0.2', the description claims the next bar is also at 'overlap ratio 0.2'. A histogram cannot have two different bars at the same x-coordinate. This is a contradictory statement that incorrectly maps a bar (likely the one in the next bin) to the wrong location."
+    }
+  ],
+  "mqm_score": 85.0,
+  "total_penalty": 15.0,
+  "error_count": 3
+}

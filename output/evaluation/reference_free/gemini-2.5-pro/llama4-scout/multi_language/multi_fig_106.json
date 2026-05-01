@@ -1,0 +1,82 @@
+{
+  "figure_key": "multi_fig_106",
+  "model_name": "llama4-scout",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description for the Y-axis omits the tick intervals, which are every 0.02. The generation prompt explicitly asks for this information."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "достигайки около 0.035 при 500 стъпки",
+          "evidence": "The description states that the 'Training Loss' line ends at approximately 0.035 at 500 steps, but the figure shows this value is clearly lower, at approximately 0.025."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Загубата при валидация (Validation Loss) започва при около 0.055",
+          "evidence": "The description states that the 'Validation Loss' starts at approximately 0.055. However, the first data point for this line in the figure is visibly higher, at approximately 0.073. The value 0.055 corresponds to the second data point, not the starting one."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "като загубата при обучението е по-висока от загубата при валидация през цялото време",
+          "evidence": "The generation prompt explicitly instructs the model to avoid comparing the lines ('Избягвайте... да сравнявате линиите'). This part of the sentence directly compares the two data series, which violates this negative constraint."
+        }
+      ],
+      "mqm_score": 83.0,
+      "total_penalty": 17.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "starts at about 0.055",
+          "evidence": "The description states the validation loss starts at about 0.055, but the plot shows the line starting at a value visibly higher than 0.06, approximately at 0.073."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the training loss consistently higher than the validation loss",
+          "evidence": "The description makes a comparison between the two lines, which was explicitly forbidden by the generation prompt's instruction to \"Avoid ... making comparisons between lines.\""
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "decreases to around 0.03",
+          "evidence": "The description states the training loss decreases to around 0.03, but the final value on the plot is clearly halfway between 0.02 and the implied 0.03 line, making it closer to 0.025."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.25
+}

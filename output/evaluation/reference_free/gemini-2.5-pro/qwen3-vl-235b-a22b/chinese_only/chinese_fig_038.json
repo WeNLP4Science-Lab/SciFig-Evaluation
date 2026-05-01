@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_038",
+  "model_name": "qwen3-vl-235b-a22b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "主刻度间隔为50",
+      "evidence": "The labeled major tick marks on the y-axis are at 1000, 1150, 1300, 1450, and 1600. The interval between these labeled ticks is 150, not 50. The minor grid lines have an interval of 50, but the description refers to the '主刻度' (major tick) interval."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "单位为“个”",
+      "evidence": "The y-axis has no units labeled. The unit '个' (a generic counter) was hallucinated by the model."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在B1处（1210）出现局部低点",
+      "evidence": "For the red line representing '去除偏误', the value at A2 is 1207 and the value at B1 is 1210. The value increases from A2 to B1, so B1 is not a '局部低点' (local low point)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "整体趋势与红色线相近，但在A1、A2、B1、B2、C1各点数值均高于红色线，仅在C2处两者数值相等（均为1563）。",
+      "evidence": "The generation prompt explicitly forbids comparing the different lines. This sentence directly compares the trends and values of the red and blue lines, violating a negative constraint."
+    }
+  ],
+  "mqm_score": 83.0,
+  "total_penalty": 17.0,
+  "error_count": 4
+}

@@ -1,0 +1,68 @@
+{
+  "figure_key": "english_fig_091",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The horizontal axis, representing the categories, lists the experiment names “Ex1” and “Ex2”",
+      "evidence": "The chart is a horizontal bar chart, meaning the categories (\"Ex1\" and \"Ex2\") are on the vertical axis, and the values are on the horizontal axis. The description incorrectly swaps the axes."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "in alphabetical order",
+      "evidence": "The categories are ordered with \"Ex2\" on top and \"Ex1\" on the bottom, which is not alphabetical order."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "The vertical axis, indicating the number of trainable parameters, ranges from 0 to 100, with a linear scale and tick labels spaced every 10 units.",
+      "evidence": "The chart does not have a visible value axis with a scale, range, or tick marks. The description invents these features. The values are labeled directly on the bar segments."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "IncorrectAxisOrLegendInterpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The value axis is labeled “Trainable (%)”",
+      "evidence": "“Trainable (%)” is a label for one of the data series in the legend, not the label for the value axis. The value axis is not labeled."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The bar corresponding to “Ex1” is light purple and has a value of 3.41, while the bar for “Ex2” is light blue and has a value of 98.71.",
+      "evidence": "This statement fails to recognize that the bars are stacked. For Ex1, the value 3.41 corresponds only to the dark purple \"Trainable (%)\" segment, not the entire bar. For Ex2, the value 98.71 corresponds to the light blue \"Frozen (%)\" segment. The description incorrectly assigns segment properties to the whole bars."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The total height of the “Frozen (%)” bar is 1.29, and the total height of the “Trainable (%)” bar is 96.59.",
+      "evidence": "This statement fundamentally misunderstands the chart's structure. \"Frozen (%)\" and \"Trainable (%)\" are not separate bars; they are segments that make up the \"Ex1\" and \"Ex2\" bars. Furthermore, the values are completely mismatched: 1.29 is the value for the \"Trainable (%)\" segment in Ex2, and 96.59 is the value for the \"Frozen (%)\" segment in Ex1."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description completely omits the fact that this is a stacked bar chart. This is a critical structural feature, and its absence leads to most of the other errors in the description."
+    }
+  ],
+  "mqm_score": 71.0,
+  "total_penalty": 29.0,
+  "error_count": 7
+}

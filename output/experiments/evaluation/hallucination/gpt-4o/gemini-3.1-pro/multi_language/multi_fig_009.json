@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_009",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-18T13:19:00.742692+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml009_h1",
+      "probe_type": "inexist",
+      "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+      "model_answer": "There is no purple line or metric labeled 'mlp_output' shown in the provided chart.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the purple line and 'mlp_output' metric do not exist in the chart, correctly identifying the absence of the element without any uncertainty or hallucination."
+    },
+    {
+      "probe_id": "ml009_h2",
+      "probe_type": "contra",
+      "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+      "model_answer": "The premise of the question is incorrect because the attn_output line remains near zero around layer 10, nowhere near the ~1500 mark of the ffn_residual line. This contrast suggests that FFN residuals—not attention outputs—are overwhelmingly responsible for the massive activations in the middle layers.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies the false premise by stating that the attn_output line remains near zero around layer 10 and contrasts this with the ~1500 value of the ffn_residual line. It corrects the premise before proceeding with its explanation."
+    },
+    {
+      "probe_id": "ml009_h3",
+      "probe_type": "unanswerable",
+      "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+      "model_answer": "The chart plots maximum activation values rather than attention weight distributions, so this cannot be observed directly from the figure provided. However, if the sudden massive spikes in activation are a proxy for this phenomenon, it first begins to manifest at layer 5.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that the chart does not directly show attention weight distributions but still attempts to infer an answer based on activation spikes, which is speculative and not strictly supported by the chart."
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "figure_key": "chinese_fig_004",
+  "subfolder": "chinese_only",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "noise",
+  "figure_type": "bar_chart",
+  "language": "Chinese",
+  "num_atoms": 12,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图表包含两条数据线：一条是蓝色填充的柱状图，代表“该日全球确诊数量”",
+      "evidence": "柱状图颜色为蓝绿色而非蓝色，与atom 'bar_color'不符。",
+      "atom_id": "bar_color"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "另一条是蓝色线条，代表“有关covid-19新闻数量”，其数值范围大致在0至4000之间，线条随日期波动，最高点接近4000",
+      "evidence": "右侧y轴范围为0–6,000，最高点接近5,000而非4,000，与atom 'y_axis_right_range'不符。",
+      "atom_id": "y_axis_right_range"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "未明确说明图表展示的是全球每日新增新冠确诊病例数量与相关新闻媒体报道数量的变化趋势，与atom 'chart_purpose'不符。",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及两者在多数时间段呈现的同步波动特征，与atom 'trend_sync'不符。",
+      "atom_id": "trend_sync"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "未提及确诊高峰与报道上升的滞后效应等差异峰值时段，与atom 'trend_difference'不符。",
+      "atom_id": "trend_difference"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "横轴表示日期，从2022年7月1日延伸至2022年8月26日，刻度以日期为单位，按时间顺序排列",
+      "evidence": "x轴刻度是按每周间隔标注而非每日，与atom 'x_axis_range'不符。",
+      "atom_id": "x_axis_range"
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "该图表旨在展示每日新增患者人数与新闻媒体报道数目随时间变化的趋势",
+      "evidence": "表述过于笼统，未明确提及新冠确诊病例或全球范围，与参考描述的精确性有差距。",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Poor Sentence Structure",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "图表包含两条数据线：一条是蓝色填充的柱状图，代表“该日全球确诊数量”",
+      "evidence": "表述不准确，柱状图不是“数据线”，且“该日全球确诊数量”表述不够规范。",
+      "atom_id": null
+    }
+  ],
+  "error_count": 8,
+  "mqm_score": 65.83,
+  "total_penalty": 20.5,
+  "atom_coverage": {
+    "correct": 6,
+    "inaccurate": 3,
+    "missing": 3,
+    "total": 12,
+    "accuracy": 0.6667,
+    "completeness": 0.6667
+  }
+}

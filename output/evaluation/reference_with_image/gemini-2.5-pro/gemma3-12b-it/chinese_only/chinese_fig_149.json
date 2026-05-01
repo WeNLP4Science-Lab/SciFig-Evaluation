@@ -1,0 +1,76 @@
+{
+  "figure_key": "chinese_fig_149",
+  "model_name": "gemma3-12b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "数值范围为0-100，刻度间隔为10",
+      "evidence": "The x-axis is categorical with three labels (UAS, LAS, POS), not numerical with a range of 0-100."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "刻度间隔为10",
+      "evidence": "The y-axis tick interval is 5, not 10 (as seen by the labels 60, 65, 70, etc.)."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条红色的虚线，标记为圆形，从左下角递增至右上角，起点为(0, 60)，终点为(100, 92)，并在评估指标为24时达到峰值88。",
+      "evidence": "The description of the red line is almost entirely incorrect. It does not increase from bottom-left to top-right; it starts at (UAS, 100), drops to (LAS, 60), and rises to (POS, 80). The start/end points and the peak value are all wrong and appear to be hallucinated based on a non-existent 0-100 x-axis."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "一条蓝色的实线，标记为方形，从左下角递增至右上角，起点为(0, 80)，终点为(100, 86)，在评估指标为76时达到峰值82。",
+      "evidence": "The chart does not contain a blue solid line with square markers. This entire description is a hallucination."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "一条蓝色的破折线，标记为星形",
+      "evidence": "This incorrectly combines attributes of two different lines. The blue dashed line has a cross marker, while the line with a star marker is black."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "从左下角递增至右上角，起点为(0, 82)，终点为(100, 95)，在评估指标为24时达到最小值为78。",
+      "evidence": "This description of the line's trend is incorrect. Both the blue and black lines dip in the middle at 'LAS'; they do not simply increase. The coordinates and x-values are also incorrect, based on the hallucinated 0-100 x-axis."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description fails to correctly identify and describe the black line, which represents '长句' (Long sentence)."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention the actual data points for any of the lines (e.g., Simple sentence starts at 100 for UAS, drops to 60 for LAS, etc.), instead providing hallucinated coordinates."
+    }
+  ],
+  "mqm_score": 64.5,
+  "total_penalty": 35.5,
+  "error_count": 8
+}

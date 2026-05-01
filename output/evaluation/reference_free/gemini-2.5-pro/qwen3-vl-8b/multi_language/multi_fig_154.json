@@ -1,0 +1,90 @@
+{
+  "figure_key": "multi_fig_154",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "titled “Sensitivity”",
+          "evidence": "The chart does not have a title. \"Sensitivity\" is the label for the y-axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 10⁻⁵ to 10⁻⁴",
+          "evidence": "The y-axis range shown in the plot is wider than 10⁻⁵ to 10⁻⁴. It extends below 10⁻⁵ (down to approx. 2x10⁻⁶) and above 10⁻⁴ (up to approx. 3x10⁻⁴)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The bars are grouped by block index, with each block index having one blue and one green bar placed side-by-side.",
+          "evidence": "This is a fundamental misinterpretation of the chart's structure. For any given block index, there is only one bar, which is either green (2-Fbit) or blue (4-Fbit), but not both. The bars are not grouped."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "For block indices from 0 to 11, the green bars are generally taller than the blue bars, indicating higher sensitivity for 2-Fbit. From block index 11 onwards, the blue bars become consistently taller than the green bars, indicating higher sensitivity for 4-Fbit.",
+          "evidence": "This entire comparison is fabricated based on the incorrect assumption of grouped bars. The chart does not show blue and green bars side-by-side for comparison at each index. Blue bars do not even appear until much later in the block index sequence (around index 28)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "at block index 0, the green bar is approximately 10⁻⁵ and the blue bar is approximately 10⁻⁶;",
+          "evidence": "There is no blue bar at block index 0. The description hallucinates its presence and value."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at block index 23, the green bar is approximately 10⁻⁴",
+          "evidence": "At block index 23, the green bar has a value of approximately 2x10⁻⁵, which is significantly lower than the stated 10⁻⁴."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "and the blue bar is approximately 10⁻⁵; at block index 23, the green bar is approximately 10⁻⁴ and the blue bar is approximately 10⁻⁴; at block index 35, the green bar is approximately 10⁻⁴ and the blue bar is approximately 10⁻⁴; at block index 47, the green bar is approximately 10⁻⁴",
+          "evidence": "The description hallucinates several bars that do not exist: a blue bar at index 11, a blue bar at index 23, a green bar at index 35, and a green bar at index 47."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at block index 35, the green bar is approximately 10⁻⁴",
+          "evidence": "The bar at block index 35 is blue (4-Fbit), not green (2-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "at block index 47, the green bar is approximately 10⁻⁴ and the blue bar is approximately 10⁻⁴.",
+          "evidence": "The blue bar at block index 47 has a value of approximately 2x10⁻⁴, not 10⁻⁴. The description also hallucinates a green bar at this index."
+        }
+      ],
+      "mqm_score": 59.5,
+      "total_penalty": 40.5,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 59.5
+}

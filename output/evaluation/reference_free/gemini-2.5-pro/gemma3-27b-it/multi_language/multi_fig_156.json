@@ -1,0 +1,114 @@
+{
+  "figure_key": "multi_fig_156",
+  "model_name": "gemma3-27b-it",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The chart features grouped bars; for each block index, a blue bar represents the 4-Fbit sensitivity and a green bar represents the 2-Fbit sensitivity.",
+          "evidence": "The chart does not contain grouped bars. For each Block Index, there is a single bar which is colored either blue (for 4-Fbit) or green (for 2-Fbit)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The shortest bar is the 2-Fbit sensitivity at Block Index 0",
+          "evidence": "The bar at Block Index 0 is not the shortest; its value is approximately 1.2e-5. The actual shortest bars are green bars located around Block Index 6 or 7, with values below 3e-6."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with a value of approximately 2.8e-6",
+          "evidence": "This value is incorrectly assigned to the bar at Block Index 0, which has a value of approximately 1.2e-5. The value 2.8e-6 is a plausible estimate for the actual shortest bars on the chart (around index 6-7), but not for the bar at index 0."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "the tallest bar is the 4-Fbit sensitivity at Block Index 63",
+          "evidence": "The tallest bar in the chart appears at Block Index 62, not 63. The bar at index 63 is visibly shorter than the one at 62."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "remain consistently shorter than their corresponding 4-Fbit counterparts",
+          "evidence": "The chart does not show grouped bars with \"corresponding counterparts\". This comparison is based on a hallucinated chart structure. Furthermore, the claim is factually incorrect as some green bars are taller than some blue bars."
+        }
+      ],
+      "mqm_score": 79.5,
+      "total_penalty": 20.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from approximately 10⁻⁶ to 10⁻⁴",
+          "evidence": "The range of the y-axis extends above 10⁻⁴. The highest bar in the chart has a value of approximately 2 x 10⁻⁴."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with tick labels displayed at intervals of 10⁻⁵",
+          "evidence": "The y-axis has a logarithmic scale, and the major tick labels shown are 10⁻⁵ and 10⁻⁴. These do not represent a fixed interval of 10⁻⁵."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "a series of paired bars for each Block Index value",
+          "evidence": "The chart does not show paired bars for each Block Index value. For many indices, only a single bar (either green or blue) is present."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "with the tallest blue bar around Block Index 63 reaching a Sensitivity of approximately 9.5 x 10⁻⁵",
+          "evidence": "The tallest blue bar is at Block Index 62, not 63, and its value is approximately 2 x 10⁻⁴, not 9.5 x 10⁻⁵. The stated value is less than half of the actual value."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Hallucinated Content",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "and the corresponding green bar reaching about 7.0 x 10⁻⁵",
+          "evidence": "There is no green bar corresponding to the tallest blue bar at Block Index 62. The description invents a data point that does not exist in the figure."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "There is a visible pattern where, for most Block Indices, the blue bars are taller than the corresponding green bars.",
+          "evidence": "This statement is factually incorrect. In several instances where both a blue and green bar exist for a similar Block Index (e.g., indices 32, 34, 36, 42), the green bar is taller than the blue bar. This misrepresents the visual data."
+        }
+      ],
+      "mqm_score": 71.5,
+      "total_penalty": 28.5,
+      "error_count": 6,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 75.5
+}

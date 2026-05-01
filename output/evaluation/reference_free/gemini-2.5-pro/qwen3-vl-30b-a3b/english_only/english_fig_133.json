@@ -1,0 +1,28 @@
+{
+  "figure_key": "english_fig_133",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "at 10,584K, followed by \"Administrative\" with 6,472K, \"Non-fiction\" with 1,889K, \"Science\" with 1,626K, \"Religion\" with 652K, \"Fiction\" with 387K, \"Law\" with 354K, and \"Blogs\" with the lowest count at 32K",
+      "evidence": "The description incorrectly appends 'K' (representing thousands) to the numerical data labels from the chart. The data labels (e.g., 10,584 for News) correspond directly to the y-axis scale, indicating they are absolute token counts, not values to be multiplied by 1000. For instance, the value for News is 10,584 tokens, not 10,584,000 (10,584K) tokens."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The categories are arranged in descending order of token count from left to right, except for \"Blogs,\" which is placed last despite having the smallest value.",
+      "evidence": "The bars are not sorted in descending order. The values from left to right are 6472, 652, 1889, 387, 354, 10584, 1626, and 32, which is not a descending sequence."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 2
+}

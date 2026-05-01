@@ -1,0 +1,50 @@
+{
+  "figure_key": "multi_fig_157",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "English": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "titled “Sensitivity”",
+          "evidence": "The chart does not have a title. \"Sensitivity\" is the label for the y-axis."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "Each block index has two adjacent bars: a blue bar representing the 4-Fbit sensitivity and a green bar representing the 2-Fbit sensitivity.",
+          "evidence": "The chart is not a grouped bar chart. Each block index corresponds to a single bar, which is colored either blue (4-Fbit) or green (2-Fbit) to indicate its category. There are not two bars for each index."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The sensitivity values for the 2-Fbit configuration (green bars) are generally lower than those for the 4-Fbit configuration (blue bars) across most block indices",
+          "evidence": "The prompt explicitly states to \"not compare categories unless the comparison is explicitly labeled.\" This statement compares the two categories."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "with the 4-Fbit sensitivity values showing a more pronounced increase towards the higher block indices, particularly after block index 59, where the blue bars become significantly taller.",
+          "evidence": "The prompt instructs to \"Avoid interpreting causes or trends\". This part of the description interprets a trend (\"pronounced increase\") and uses subjective, evaluative language (\"significantly taller\")."
+        }
+      ],
+      "mqm_score": 86.0,
+      "total_penalty": 14.0,
+      "error_count": 4,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 86.0
+}

@@ -1,0 +1,66 @@
+{
+  "figure_key": "multi_fig_044",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Axis Description",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description does not mention that the y-axis has dashed horizontal grid lines marking the 25%, 50%, and 75% levels."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "The description fails to include any representative numerical values from the bars, which was explicitly requested in the prompt. For example, it could have mentioned the approximate percentage for a specific expert in a specific layer, such as Expert 1 contributing around 85% at layer 1 for the 'Text' chart."
+        },
+        {
+          "category": "Unwanted Content",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 0.0,
+          "text_span": "and potentially evolves across the layers",
+          "evidence": "The term 'evolves' is an interpretation of the data shown across the layers. The chart presents static distributions for different layers, not a dynamic process of evolution. The prompt explicitly forbids making interpretations."
+        }
+      ],
+      "mqm_score": 95.0,
+      "total_penalty": 5.0,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "sind die Balken in Gruppen zu je einem Balken pro MoE-Layer-Index gruppiert",
+          "evidence": "The description incorrectly states that the bars are grouped ('gruppiert'). The charts are stacked bar charts ('gestapelte Balkendiagramme'), where each bar is a single column divided into segments, not a group of multiple bars."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "während Expert 3 (grün) in den mittleren und späten Schichten (z.B. Index 15, 19, 23) einen dominierenden Anteil aufweist",
+          "evidence": "The description claims that in the 'Text' chart, Expert 3 (green) has a dominant share at index 19. However, the chart shows that at index 19, Expert 2 (orange) is dominant (making up approx. 85% of the bar), and Expert 3 has no share at all."
+        }
+      ],
+      "mqm_score": 90.0,
+      "total_penalty": 10.0,
+      "error_count": 2,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 92.5
+}

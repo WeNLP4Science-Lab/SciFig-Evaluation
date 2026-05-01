@@ -1,0 +1,122 @@
+{
+  "figure_key": "multi_fig_034",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "Bulgarian": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "and labeled in integer increments",
+          "evidence": "The vertical axis is labeled with major ticks at 40, 45, and 50, which represents increments of 5, not 'integer increments' (which would imply increments of 1)."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "remains nearly constant at 50.2 through epoch 1000.",
+          "evidence": "The blue line for N=1 clearly stabilizes at a value of exactly 50, not 50.2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizes around 48.7 through epoch 1000.",
+          "evidence": "The orange line for N=2 stabilizes at a value of approximately 47.5, not 48.7."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizes around 47.8 through epoch 1000.",
+          "evidence": "The green line for N=3 stabilizes at a value of approximately 46, not 47.8."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "stabilizes around 47.2 through epoch 1000.",
+          "evidence": "The red line for N=4 stabilizes at a value of approximately 44.5, not 47.2."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Structural Description",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "drops sharply to about 40.2 by epoch 20, and remains nearly constant at 40.2 through epoch 1000.",
+          "evidence": "The cyan line for N=10 does not drop sharply and then remain constant. It shows a continuous, steady decline across the entire range from epoch 0 to 1000."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": null,
+          "evidence": "This description for the green line (N=3) fails to mention the noticeable oscillations/bumps that occur after the initial drop and continue until approximately epoch 600. The same error is repeated for lines N=4 through N=9."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Major",
+          "weight": 3.5,
+          "text_span": "The effective rank (W) decreases as N increases, with N=10 showing the lowest value (around 40.2) and N=1 showing the highest value (around 50.2).",
+          "evidence": "This sentence compares the different lines to describe a trend, which is explicitly forbidden by the prompt instructions to avoid comparisons or drawing conclusions."
+        },
+        {
+          "category": "Clarity and Readability",
+          "sub_type": "Over-Generalization",
+          "severity": "Major",
+          "weight": 2.0,
+          "text_span": "All lines exhibit a sharp initial decline in effective rank (W) over the first 20 epochs, followed by stabilization at a lower value.",
+          "evidence": "This statement is an over-generalization. The cyan line (N=10) does not stabilize but declines continuously. Additionally, several other lines (N=3 to N=9) have prominent oscillations and do not simply stabilize after the initial drop."
+        }
+      ],
+      "mqm_score": 64.0,
+      "total_penalty": 36.0,
+      "error_count": 9,
+      "judge_model": "gemini-2.5-pro"
+    },
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "ranging from 40 to 50",
+          "evidence": "The y-axis range shown in the plot extends above 50, reaching approximately 53. The description incorrectly states the range ends at 50."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The line for N=2 (orange) starts near W=51.5 and stabilizes near W=48. The line for N=3 (green) starts near W=51 and stabilizes near W=46. The line for N=4 (red) starts near W=50 and stabilizes near W=45. The line for N=5 (purple) starts near W=50 and stabilizes near W=44. The line for N=6 (brown) starts near W=50 and stabilizes near W=43. The line for N=7 (pink) starts near W=50 and stabilizes near W=42. The line for N=8 (gray) starts near W=50 and stabilizes near W=41. The line for N=9 (yellow) starts near W=50 and stabilizes near W=40. The line for N=10 (cyan) starts near W=51 and decreases to stabilize near W=40.",
+          "evidence": "Multiple lines have incorrect start and/or end values reported. For example, for N=9, the description says it starts near W=50 and stabilizes near W=40, but the plot shows it starting near W=48 and stabilizing around W=43. Similarly, for N=8, it is stated to stabilize at W=41, but it clearly stabilizes around W=43. The starting values for N=4 through N=9 are all incorrectly reported as W=50."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Missing Visual Features",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": null,
+          "evidence": "The description fails to mention the prominent oscillatory behavior (peaks and troughs) for several lines (N=3 through N=9) before they stabilize. The prompt specifically asks to note peaks and drops."
+        }
+      ],
+      "mqm_score": 88.5,
+      "total_penalty": 11.5,
+      "error_count": 3,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 76.25
+}

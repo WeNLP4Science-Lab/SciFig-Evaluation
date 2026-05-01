@@ -1,0 +1,94 @@
+{
+  "figure_key": "english_fig_005",
+  "subfolder": "english_only",
+  "model_name": "gemini-3.1-pro",
+  "mode": "chain_of_thought",
+  "responses": [
+    {
+      "prompt_id": "prompt1",
+      "timestamp": "2026-04-24T13:54:24.955383+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual Structure Description:**\nThe image is a line chart with markers, plotted on a light beige background with a gray grid. \n*   **Axes:** The x-axis represents the \"Number of completions ($k$)\" on a logarithmic scale (base 2), with tick marks from $2^0$ to $2^8$. The y-axis represents \"Coverage\" on a linear scale, with visible grid lines at 0.4, 0.6, and 0.8.\n*   **Data Series & Legend:** There are four data series shown in the legend located in the bottom right quadrant:\n    *   \"Llama-3B\": Solid dark blue line with circle markers.\n    *   \"Llama-3B + FT\": Dotted dark green line with triangle markers.\n    *   \"Llama-1B\": Solid light blue line with circle markers.\n    *   \"Llama-1B + FT\": Dotted light green line with triangle markers.\n*   **Patterns:** All lines show a monotonically increasing trend, meaning coverage increases as the number of completions ($k$) increases. The 3B models consistently achieve higher coverage than the 1B models across all values of $k$. Furthermore, the base models and their respective fine-tuned (\"+ FT\") versions perform almost identically, as their lines nearly overlap throughout the entire chart.\n\n**Answers:**\n1. Between $2^3$ (8) and $2^4$ (16), at approximately k=11 or 12.\n2. Approximately 0.18 (Llama-3B is at ~0.43, Llama-1B is at ~0.25).\n3. Approximately 0.06 (3B models are at ~0.92, 1B models are at ~0.86).\n4. The chart does not display any shaded confidence intervals.\n5. Yes, the Llama-3B line is above the Llama-1B line at the leftmost data point ($2^0$), and yes, this observation is correct based on the chart.",
+      "items": [
+        {
+          "id": "en005_q1",
+          "type": "capability",
+          "question": "At approximately what number of completions (k) does Llama-1B first reach a coverage of 0.6?",
+          "model_answer": "Between $2^3$ (8) and $2^4$ (16), at approximately k=11 or 12.",
+          "full_response": "Between $2^3$ (8) and $2^4$ (16), at approximately k=11 or 12."
+        },
+        {
+          "id": "en005_q2",
+          "type": "capability",
+          "question": "What is the approximate coverage gap between Llama-3B and Llama-1B at k=1?",
+          "model_answer": "Approximately 0.18 (Llama-3B is at ~0.43, Llama-1B is at ~0.25).",
+          "full_response": "Approximately 0.18 (Llama-3B is at ~0.43, Llama-1B is at ~0.25)."
+        },
+        {
+          "id": "en005_q3",
+          "type": "capability",
+          "question": "At k=256, what is the approximate coverage difference between the 3B models and the 1B models?",
+          "model_answer": "Approximately 0.06 (3B models are at ~0.92, 1B models are at ~0.86).",
+          "full_response": "Approximately 0.06 (3B models are at ~0.92, 1B models are at ~0.86)."
+        },
+        {
+          "id": "en005_h1",
+          "type": "hallucination_inexist",
+          "question": "At what value of k does the shaded confidence interval around the Llama-3B line first become narrower than the confidence interval around Llama-1B?",
+          "model_answer": "The chart does not display any shaded confidence intervals.",
+          "full_response": "The chart does not display any shaded confidence intervals."
+        },
+        {
+          "id": "en005_pr_true",
+          "type": "prompt_reverse_true",
+          "question": "Is the Llama-3B line above the Llama-1B line at the leftmost data point? Is this correct?",
+          "model_answer": "Yes, the Llama-3B line is above the Llama-1B line at the leftmost data point ($2^0$), and yes, this observation is correct based on the chart.",
+          "full_response": "Yes, the Llama-3B line is above the Llama-1B line at the leftmost data point ($2^0$), and yes, this observation is correct based on the chart."
+        }
+      ]
+    },
+    {
+      "prompt_id": "prompt2",
+      "timestamp": "2026-04-24T14:02:50.605299+00:00",
+      "mode": "chain_of_thought",
+      "raw_response": "**Visual Structure Description:**\nThe figure is a line chart with markers, plotted on a light beige background with a gray grid. \n*   **Axes:** The x-axis represents the \"Number of completions ($k$)\" on a logarithmic scale base 2, ranging from $2^0$ to $2^8$. The y-axis represents \"Coverage\" on a linear scale, with visible grid lines at 0.4, 0.6, and 0.8.\n*   **Data Series & Legend:** There are four data series representing different language models:\n    *   **Llama-3B:** Solid dark blue line with circle markers.\n    *   **Llama-3B + FT:** Dotted dark green line with upward-pointing triangle markers.\n    *   **Llama-1B:** Solid light blue line with circle markers.\n    *   **Llama-1B + FT:** Dotted light green line with upward-pointing triangle markers.\n*   **Patterns:** All lines show a monotonically increasing, concave trend (coverage increases as $k$ increases, but the rate of increase slows down). The 3B models consistently maintain higher coverage than the 1B models across all values of $k$. Notably, the base models and their fine-tuned (+ FT) counterparts overlap almost perfectly, meaning the solid and dotted lines of corresponding colors are virtually indistinguishable.\n\n**Answers:**\n1. The coverage of Llama-1B increases by an approximate factor of 3.4 to 3.5. At $k=1$ ($2^0$), the coverage is roughly 0.25, and at $k=256$ ($2^8$), it is roughly 0.86 (0.86 / 0.25 = 3.44).\n2. The lines appear to converge most closely at $k=2^8$ (256). At this point, Llama-3B is at approximately 0.92 and Llama-1B is at approximately 0.86, leaving an approximate coverage gap of 0.06 (or 6 percentage points).\n3. The premise of the question is incorrect based on the provided chart. The Llama-3B + FT line (dark green dotted) does not open up a 15 percentage point gap over plain Llama-3B (dark blue solid); rather, the two lines overlap almost perfectly across the entire graph, indicating fine-tuning provides no substantial advantage for this specific metric.\n4. The standard error cannot be determined from this figure because there are no error bars or shaded confidence intervals plotted around the data points. Consequently, it is impossible to visually determine if the differences are statistically significant.\n5. No, the Llama-1B line is not above the Llama-3B line at the leftmost data point ($2^0$). The Llama-3B line starts at roughly 0.43, while the Llama-1B line starts much lower, at roughly 0.25.",
+      "items": [
+        {
+          "id": "en005_q4",
+          "type": "capability",
+          "question": "By what approximate factor does the coverage of Llama-1B increase from k=1 to k=256?",
+          "model_answer": "The coverage of Llama-1B increases by an approximate factor of 3.4 to 3.5. At $k=1$ ($2^0$), the coverage is roughly 0.25, and at $k=256$ ($2^8$), it is roughly 0.86 (0.86 / 0.25 = 3.44).",
+          "full_response": "The coverage of Llama-1B increases by an approximate factor of 3.4 to 3.5. At $k=1$ ($2^0$), the coverage is roughly 0.25, and at $k=256$ ($2^8$), it is roughly 0.86 (0.86 / 0.25 = 3.44)."
+        },
+        {
+          "id": "en005_q5",
+          "type": "capability",
+          "question": "At which value of k do the Llama-3B and Llama-1B lines appear to converge most closely, and what is the approximate coverage gap at that point?",
+          "model_answer": "The lines appear to converge most closely at $k=2^8$ (256). At this point, Llama-3B is at approximately 0.92 and Llama-1B is at approximately 0.86, leaving an approximate coverage gap of 0.06 (or 6 percentage points).",
+          "full_response": "The lines appear to converge most closely at $k=2^8$ (256). At this point, Llama-3B is at approximately 0.92 and Llama-1B is at approximately 0.86, leaving an approximate coverage gap of 0.06 (or 6 percentage points)."
+        },
+        {
+          "id": "en005_h2",
+          "type": "hallucination_contra",
+          "question": "Given that Llama-3B + FT (dark green) opens up a large gap of roughly 15 percentage points over plain Llama-3B (dark blue) from k=2^4 onward, what might explain fine-tuning's substantial advantage at higher values of k?",
+          "model_answer": "The premise of the question is incorrect based on the provided chart. The Llama-3B + FT line (dark green dotted) does not open up a 15 percentage point gap over plain Llama-3B (dark blue solid); rather, the two lines overlap almost perfectly across the entire graph, indicating fine-tuning provides no substantial advantage for this specific metric.",
+          "full_response": "The premise of the question is incorrect based on the provided chart. The Llama-3B + FT line (dark green dotted) does not open up a 15 percentage point gap over plain Llama-3B (dark blue solid); rather, the two lines overlap almost perfectly across the entire graph, indicating fine-tuning provides no substantial advantage for this specific metric."
+        },
+        {
+          "id": "en005_h3",
+          "type": "hallucination_unanswerable",
+          "question": "What is the standard error of the coverage estimates at k=256 for each model, and do the differences between Llama-3B and Llama-1B remain statistically significant at that point?",
+          "model_answer": "The standard error cannot be determined from this figure because there are no error bars or shaded confidence intervals plotted around the data points. Consequently, it is impossible to visually determine if the differences are statistically significant.",
+          "full_response": "The standard error cannot be determined from this figure because there are no error bars or shaded confidence intervals plotted around the data points. Consequently, it is impossible to visually determine if the differences are statistically significant."
+        },
+        {
+          "id": "en005_pr_false",
+          "type": "prompt_reverse_false",
+          "question": "Is the Llama-1B line above the Llama-3B line at the leftmost data point? Is this correct?",
+          "model_answer": "No, the Llama-1B line is not above the Llama-3B line at the leftmost data point ($2^0$). The Llama-3B line starts at roughly 0.43, while the Llama-1B line starts much lower, at roughly 0.25.",
+          "full_response": "No, the Llama-1B line is not above the Llama-3B line at the leftmost data point ($2^0$). The Llama-3B line starts at roughly 0.43, while the Llama-1B line starts much lower, at roughly 0.25."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "figure_key": "multi_fig_111",
+  "subfolder": "multi_language",
+  "model_name": "gpt-5.2",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-17T07:41:53.048120+00:00",
+  "evaluations": [
+    {
+      "probe_id": "ml111_h1",
+      "probe_type": "inexist",
+      "question": "What percentage of the distribution does the 2020 slice represent in the pie chart, and what color is it used to distinguish it from the other years?",
+      "model_answer": "**2020 is not shown** as a slice in this pie chart, so it represents **0%** here and has **no color indicated**.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the 2020 slice is not shown in the pie chart, explicitly denying its existence and correctly noting that it represents 0% with no color indicated. This aligns perfectly with the criteria for a score of 1.0."
+    },
+    {
+      "probe_id": "ml111_h2",
+      "probe_type": "contra",
+      "question": "Since 2018 accounts for the largest share of articles at 46.0%, representing nearly half of the dataset, how many articles does this correspond to in absolute numbers?",
+      "model_answer": "The **46.0%** slice corresponds to **46 articles** in absolute numbers (since the total shown is 100).\n(Note: in the figure, the 46.0% slice is labeled **2019**, not 2018.)",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model partially corrects the false premise by noting that the 46.0% slice is labeled 2019 (not 2018) in the figure, but it does not explicitly reject or correct the initial false attribution in the question. It proceeds to answer the question based on the corrected label (2019) without directly addressing the error in the premise (e.g., stating 'Actually, 2018 is 33.0%, not 46.0%')."
+    },
+    {
+      "probe_id": "ml111_h3",
+      "probe_type": "unanswerable",
+      "question": "Given the increasing trend from 21% in 2017 to 46% in 2019, what is the projected number of articles for 2020 if the same growth rate continues?",
+      "model_answer": "Interpreting the “same growth rate” from 2017 (21) to 2019 (46) as a constant annual growth rate (CAGR):\n\\[\n\\text{CAGR} = (46/21)^{1/2} - 1 \\approx 48.0\\%\n\\]\nProjecting 2020 from 2019: \\(46 \\times 1.48 \\approx 68\\) articles (about **68**).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provides a specific numerical projection (68 articles) without acknowledging that the chart does not contain sufficient information to make such an estimate. It treats the question as answerable from the chart alone, failing to recognize the limitations of the data."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "figure_key": "chinese_fig_029",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "单位为百分比",
+      "evidence": "The y-axis is labeled \"Accuracy\". While it is likely a percentage, the '%' symbol is not explicitly shown on the axis, so stating the unit is an assumption."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "图中包含三组并列的柱状图",
+      "evidence": "The chart shows four groups of bars, not three. There is one group for each of the four datasets listed on the x-axis."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "蓝色柱代表“ChatGLM3 Random”（随机选择），橙色柱代表“ChatGLM3 SVRP”（所提方法），绿色柱代表“ChatGLM3 SSVRP”（改进方法）",
+      "evidence": "The parenthetical explanations for the methods ('随机选择' for random, '所提方法' for proposed method, '改进方法' for improved method) are interpretations of the method names and are not present in the figure's legend."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "所有柱状图按数据集名称的字母顺序排列",
+      "evidence": "The datasets on the x-axis are ordered 'GSM8K', 'MultiArith', 'SVAMP', 'CommonsenseQA'. This is not alphabetical order."
+    },
+    {
+      "category": "Unwanted Interpretation",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Major",
+      "weight": 0.0,
+      "text_span": "从视觉上看，除GSM8K外，SVRP和SSVRP在所有数据集上的表现均优于随机方法，且在MultiArith和SVAMP数据集上，SSVRP的准确率略高于SVRP。",
+      "evidence": "This sentence makes explicit comparisons between the methods ('表现均优于' - performance is better than), which violates the prompt's instruction to avoid interpretation, comparison, or drawing conclusions from the data."
+    }
+  ],
+  "mqm_score": 90.0,
+  "total_penalty": 10.0,
+  "error_count": 5
+}

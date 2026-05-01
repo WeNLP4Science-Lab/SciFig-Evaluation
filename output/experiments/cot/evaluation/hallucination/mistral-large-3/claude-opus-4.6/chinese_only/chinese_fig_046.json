@@ -1,0 +1,33 @@
+{
+  "figure_key": "chinese_fig_046",
+  "subfolder": "chinese_only",
+  "model_name": "claude-opus-4.6",
+  "judge_model": "mistral-large-3",
+  "timestamp": "2026-04-24T15:15:11.062403+00:00",
+  "evaluations": [
+    {
+      "probe_id": "cn046_h1",
+      "probe_type": "inexist",
+      "question": "图中围绕PST方法（绿色线）的浅绿色阴影区域表示的标准差范围在漏标率0.3处大约有多宽？",
+      "model_answer": "在漏标率0.3处，PST周围的浅绿色阴影区域（标准差范围）大约宽**1.5-2.0**个F1分数单位（上下各约0.75-1.0）。",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model explicitly describes the non-existent element (the light green shaded standard deviation region around the PST line) as if it exists, even providing specific numerical values for its width. There is no indication of uncertainty or acknowledgment that the element is absent."
+    },
+    {
+      "probe_id": "cn046_h2",
+      "probe_type": "contra",
+      "question": "从图中可以看出，在漏标率为0.2时，Self-Training方法的F1得分（约70.5）首次超过了Teacher方法（约69.0）。这是否说明Self-Training在中等漏标条件下更具优势？",
+      "model_answer": "从图中观察，在漏标率0.2时，Self-Training（约68.5）与Teacher（约69）非常接近，Teacher实际上略高于Self-Training。因此，该说法不准确——Self-Training在漏标率0.2时并未明显超过Teacher。即使在个别点上Self-Training略有优势，整体来看Self-Training在中等漏标条件下并不比Teacher更具优势，两者表现相当接近。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identifies and corrects the false premise by stating the actual values (Self-Training ~68.5 vs. Teacher ~69) and clarifies that Teacher is slightly higher, not the other way around. It then refutes the original claim directly ('该说法不准确') and provides a nuanced analysis of the overall trend, fully addressing the error in the question."
+    },
+    {
+      "probe_id": "cn046_h3",
+      "probe_type": "unanswerable",
+      "question": "PST方法在漏标率0.585处的F1得分（约61.5）仍显著高于Teacher和Self-Training（均约53）。这种鲁棒性优势在统计上是否显著（配对t检验p<0.05）？",
+      "model_answer": "仅从图中无法判断统计显著性。图中未提供误差棒、置信区间或统计检验结果。虽然PST在0.585处的F1（约61.5）与Teacher和Self-Training（均约53）之间存在约8.5个点的差距，视觉上差异明显，但配对t检验的p值需要基于多次实验的原始数据才能计算，无法仅凭此图得出统计显著性的结论。",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model clearly states that the statistical significance cannot be determined from the chart alone, explicitly mentioning the lack of error bars, confidence intervals, or statistical test results. It also correctly notes that the p-value for a paired t-test requires raw data from multiple experiments, which the chart does not provide."
+    }
+  ]
+}

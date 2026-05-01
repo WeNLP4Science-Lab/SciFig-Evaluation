@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_160",
+  "model_name": "qwen3-vl-32b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "gemini-2.5-pro",
+  "mqm_by_language": {
+    "German": {
+      "errors": [
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "with tick marks at integer intervals",
+          "evidence": "The x-axis tick marks are at intervals of 2 (0, 2, 4, 6, 8), not at every integer."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Numerical Value",
+          "severity": "Minor",
+          "weight": 2.0,
+          "text_span": "remains relatively stable between 0.59 and 0.60 for 2 to 8 examples",
+          "evidence": "Several data points for the ST-ES method between 2 and 8 examples are slightly above 0.60 (e.g., at x=2, x=4, x=5). Therefore, stating the range is between 0.59 and 0.60 is inaccurate."
+        },
+        {
+          "category": "Over-Generalization",
+          "sub_type": null,
+          "severity": "Minor",
+          "weight": 0.0,
+          "text_span": "dips slightly to 0.63 at 2 examples",
+          "evidence": "This description omits that the 'Random' method's value first increases from x=0 to x=1 before dipping at x=2, oversimplifying the initial trend."
+        },
+        {
+          "category": "Accuracy",
+          "sub_type": "Incorrect Visual Attribute Mapping",
+          "severity": "Major",
+          "weight": 5.0,
+          "text_span": "The ST-ES method consistently achieves lower minADE₂₀ values than the Random method across all numbers of examples",
+          "evidence": "This statement is incorrect. At x=0 (zero examples), the ST-ES method has a higher minADE₂₀ value (approx. 0.66) than the Random method (0.64)."
+        },
+        {
+          "category": "Completeness",
+          "sub_type": "Unwanted Interpretation",
+          "severity": "Minor",
+          "weight": 1.5,
+          "text_span": "indicating superior performance",
+          "evidence": "While a reasonable inference from the data (where lower is better), stating 'superior performance' is an interpretation that goes beyond describing the visual content of the chart."
+        }
+      ],
+      "mqm_score": 89.5,
+      "total_penalty": 10.5,
+      "error_count": 5,
+      "judge_model": "gemini-2.5-pro"
+    }
+  },
+  "mqm_score_avg": 89.5
+}

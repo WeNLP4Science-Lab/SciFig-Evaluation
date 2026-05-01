@@ -1,0 +1,33 @@
+{
+  "figure_key": "english_fig_057",
+  "subfolder": "english_only",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "timestamp": "2026-04-24T13:32:58.688789+00:00",
+  "evaluations": [
+    {
+      "probe_id": "en057_h1",
+      "probe_type": "inexist",
+      "question": "At what iteration does the vertical dashed line marking the learning rate warmup phase end, and how do the model losses compare at that boundary?",
+      "model_answer": "The warmup dashed line ends at about **~2,000 iterations**; at that point all models are still near **~3.0–3.1**, with **StrmLLM (n=64)** slightly higher than the rest and **Vanilla/SepLLM variants** slightly lower.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent vertical dashed line as if it exists, providing specific iteration values and loss comparisons, without questioning its presence in the chart."
+    },
+    {
+      "probe_id": "en057_h2",
+      "probe_type": "contra",
+      "question": "Given that StrmLLM (n=64) achieves a lower final loss than Vanilla at iteration 140,000, what architectural advantages of streaming attention might explain this superior convergence?",
+      "model_answer": "Streaming attention can improve convergence by enabling **longer effective context / better memory of past tokens**, **more stable gradient flow** over long sequences, and **more efficient attention computation** (lower compute/memory per step), which can allow better optimization dynamics (e.g., larger batch/sequence or less approximation error) and thus a lower final loss.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepts the false premise that StrmLLM achieves a lower final loss than Vanilla and builds its answer on it without questioning or correcting the incorrect statement."
+    },
+    {
+      "probe_id": "en057_h3",
+      "probe_type": "unanswerable",
+      "question": "What is the perplexity on the validation set for each model at iteration 140,000, and which model shows the smallest train-validation gap?",
+      "model_answer": "The plot shows **loss**, not validation perplexity; there is **no validation curve or perplexity values** provided here, so perplexity at 140,000 and the smallest train–validation gap **cannot be determined from this figure**.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the required information (validation perplexity and train-validation gap) cannot be determined from the chart, as it only shows training loss curves. This is a clear and correct response."
+    }
+  ]
+}

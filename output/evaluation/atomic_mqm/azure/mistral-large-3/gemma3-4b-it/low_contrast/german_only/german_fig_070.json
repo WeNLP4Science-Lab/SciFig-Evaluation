@@ -1,0 +1,132 @@
+{
+  "figure_key": "german_fig_070",
+  "subfolder": "german_only",
+  "model_name": "gemma3-4b-it",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "atomic_mqm",
+  "transform": "low_contrast",
+  "figure_type": "bar_chart",
+  "language": "German",
+  "num_atoms": 31,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Chart Purpose",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "vergleicht die Produktionsvolumina von Aluminium, Kupfer und Nickel innerhalb der Europäischen Union (EU) für die Jahre 2021, 2022 und 2023",
+      "evidence": "The chart shows the share of Russian imports, not production volumes. The purpose is misrepresented.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Für 2021 hat der Balken für Aluminium eine Länge von 3,6 %, für Kupfer eine Länge von 2,7 % und für Nickel eine Länge von 8,3 %",
+      "evidence": "The values for 2021 are incorrectly assigned. Aluminium (3.6%) and Nickel (8.3%) are correct for Germany, but Copper (2.7%) is incorrect (should be 8.3% for Germany, 2.7% is for Aluminium in 2022).",
+      "atom_id": "de_alu_2021, de_kupfer_2021, de_alu_2022"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Für 2022 hat der Balken für Aluminium eine Länge von 4,4 %, für Kupfer eine Länge von 2,8 % und für Nickel eine Länge von 5,1 %",
+      "evidence": "The values for 2022 are incorrectly assigned. Aluminium (4.4%) and Nickel (5.1%) are EU values, not Germany. Copper (2.8%) is an EU value for Aluminium in 2022.",
+      "atom_id": "eu_alu_2021, eu_alu_2022, eu_kupfer_2022"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Für 2023 hat der Balken für Aluminium eine Länge von 5,0 %",
+      "evidence": "The value for Aluminium in 2023 is incorrect. It should be 1.0% for Germany or 1.7% for EU, not 5.0%.",
+      "atom_id": "de_alu_2023, eu_alu_2023"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "Die Balken für beide Jahre sind blau",
+      "evidence": "The bars are color-coded by year: blue (2021), violet (2022), and grey (2023). The description incorrectly states all bars are blue.",
+      "atom_id": "color_2021, color_2022, color_2023"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Chart Purpose",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the critical detail that the chart shows the share of Russian imports of selected industrial raw materials.",
+      "atom_id": "chart_purpose"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Axis Description",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description does not mention that the left diagram represents Germany and the right diagram represents the EU.",
+      "atom_id": "left_diagram, right_diagram"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": null,
+      "evidence": "The description omits the values for Germany in 2021, 2022, and 2023 for Nickel and Copper, as well as the EU values for Nickel in 2021 and 2022.",
+      "atom_id": "de_kupfer_2021, de_kupfer_2022, de_kupfer_2023, de_nickel_2021, de_nickel_2022, de_nickel_2023, eu_nickel_2021, eu_nickel_2022"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention the color coding for 2022 (violet) and 2023 (grey).",
+      "atom_id": "color_2022, color_2023"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Hallucinated Content",
+      "severity": "Major",
+      "weight": 3.5,
+      "text_span": "Jeder Balken ist von einem schattierten Bereich umrandet, der die Produktionsmenge darstellt",
+      "evidence": "The figure does not show any shaded areas around bars representing production volume. This is a hallucination.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Ambiguous Description",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "Die Balken für beide Jahre sind blau, und sie sind für jedes Material in jeder Jahreszahl angeordnet",
+      "evidence": "The description is ambiguous about which years and materials are being referred to. It incorrectly states all bars are blue.",
+      "atom_id": null
+    },
+    {
+      "category": "Clarity and Readability",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 1.0,
+      "text_span": "vergleicht die Produktionsvolumina von Aluminium, Kupfer und Nickel innerhalb der Europäischen Union (EU) für die Jahre 2021, 2022 und 2023",
+      "evidence": "The description oversimplifies and misrepresents the chart by focusing only on the EU and production volumes, ignoring Germany and the import share context.",
+      "atom_id": null
+    }
+  ],
+  "error_count": 12,
+  "mqm_score": 72.58,
+  "total_penalty": 42.5,
+  "atom_coverage": {
+    "correct": 30,
+    "inaccurate": 1,
+    "missing": 1,
+    "total": 31,
+    "accuracy": 0.9677,
+    "completeness": 0.9677
+  }
+}

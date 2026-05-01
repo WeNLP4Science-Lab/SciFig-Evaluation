@@ -1,0 +1,60 @@
+{
+  "figure_key": "chinese_fig_125",
+  "model_name": "gemma3-4b-it",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_free",
+  "judge_model": "gemini-2.5-pro",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Structural Description",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "x轴的起始值是1，结束值是7，图表显示在 k=1 时准确率达到约 68.0%，在 k=2 时准确率下降到约 67.8%，在 k=3 时准确率增至约 66.8%，在 k=4、5 和 6 时准确率保持在约 66.6%，在 k=7 时准确率降至约 67.0%。",
+      "evidence": "This sentence incorrectly interrupts the description of the x-axis to list a series of data points. These points are not attributed to a specific line and the numerical values are incorrect for both lines shown in the plot. For example, at k=2, the values are approximately 66.3 and 68.0, not 67.8."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "数值范围从 66.5 到 68.0",
+      "evidence": "The y-axis range shown in the figure is from 65.5 to 68.0, not from 66.5 to 68.0."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "y轴显示准确率",
+      "evidence": "The y-axis is labeled \"ACC\", not \"准确率\". While \"ACC\" stands for accuracy, the description should report the literal label on the axis."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "带有蓝色圆点的、实线的 Cosine Similarity 线开始于 65.5，在 k=2 处达到峰值约 68.0，随后在 k=3 处下降到约 66.8",
+      "evidence": "This description incorrectly attributes the peak of the SimCSE Similarity line (orange, k=2, ACC=68.0) to the Cosine Similarity line (blue). The blue line's value at k=2 is ~66.3, and it increases to ~67.0 at k=3, it does not decrease."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "带有橙色星号的 SimCSE Similarity 线由星号标记，以虚线显示，开始于 66.5，在 k=3 处达到一个峰值约 67.8",
+      "evidence": "The SimCSE Similarity (orange) line's main peak is at k=2 with a value of 68.0. At k=3, the line has a local minimum with a value of approximately 66.55, not a peak of 67.8. Additionally, the starting value at k=1 is approximately 66.35, not 66.5."
+    },
+    {
+      "category": "Clarity",
+      "sub_type": "Over-Generalization",
+      "severity": "Minor",
+      "weight": 0.0,
+      "text_span": "然后趋于稳定",
+      "evidence": "The description claims both lines 'stabilize' after their initial movements. This is an oversimplification, as the Cosine Similarity line fluctuates (dips then rises) and the SimCSE Similarity line trends generally upwards after k=3."
+    }
+  ],
+  "mqm_score": 78.0,
+  "total_penalty": 22.0,
+  "error_count": 6
+}

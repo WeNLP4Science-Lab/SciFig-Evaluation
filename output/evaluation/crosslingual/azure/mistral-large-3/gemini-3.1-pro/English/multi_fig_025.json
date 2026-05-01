@@ -1,0 +1,58 @@
+{
+  "figure_key": "multi_fig_025",
+  "subfolder": "multi_language",
+  "model_name": "gemini-3.1-pro",
+  "judge_model": "azure/mistral-large-3",
+  "judge_type": "crosslingual_atomic_mqm",
+  "language": "English",
+  "num_atoms": 8,
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The bottom segment of every bar represents \"G0\" and is colored blue, the middle segment represents \"G1\" in green, and the top segment represents \"G2\" in yellow. Across all 24 layers, the blue G0 component maintains a consistent value of 1",
+      "evidence": "The blue G0 component does not maintain a consistent value of 1 across all layers. For example, Layer 1 shows G0 with a value of 1, but Layer 2 shows G0 with a value of 2.",
+      "atom_id": "sent_2"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The tallest bar is located at Layer 1, reaching a total height of 9 (comprising a value of 1 for G0, 4 for G1, and 4 for G2)",
+      "evidence": "The total height of the bar at Layer 1 is approximately 9, but the breakdown is incorrect. The G1 segment is approximately 3, not 4, based on the image.",
+      "atom_id": "sent_3"
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "The shortest bars have a total height of 3 and appear at Layers 7, 11 through 15, 23, and 24, where each of the three components typically contributes a value of 1 to the total stack",
+      "evidence": "The total height of the shortest bars is approximately 3, but not all components contribute a value of 1. For example, Layer 24 shows G0 as 2, not 1.",
+      "atom_id": "sent_4"
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The description does not explicitly mention that the sum of expert numbers in Layer 2 reaches approximately 8, as noted in the atom checklist.",
+      "atom_id": "sent_4"
+    }
+  ],
+  "error_count": 4,
+  "mqm_score": 66.25,
+  "total_penalty": 13.5,
+  "atom_coverage": {
+    "correct": 5,
+    "inaccurate": 3,
+    "missing": 1,
+    "total": 8,
+    "accuracy": 0.625,
+    "completeness": 0.8333
+  }
+}
