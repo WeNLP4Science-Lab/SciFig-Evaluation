@@ -1,0 +1,611 @@
+% =============================================================================
+% Appendix B: User Manual
+% =============================================================================
+\chapter{User Manual}
+\label{app:user-manual}
+
+This appendix provides step-by-step instructions for installing, configuring, and running the SciFig-Evaluation system. All commands assume a Unix-like environment (macOS or Linux).
+
+% -----------------------------------------------------------------------------
+\section{System Requirements}
+\label{sec:system-requirements}
+
+\begin{itemize}
+  \item \textbf{Python} 3.11 or later (tested on 3.12)
+  \item \textbf{Node.js} 20+ and \texttt{npm} 10+ (for the dashboard)
+  \item \textbf{API credentials} (at least one of):
+    \begin{itemize}
+      \item OpenRouter API key (\texttt{OPENROUTER\_API\_KEY})
+      \item Azure OpenAI endpoint and key (\texttt{AZURE\_OPENAI\_ENDPOINT}, \texttt{AZURE\_OPENAI\_API\_KEY})
+      \item Google Cloud project with Vertex AI enabled (\texttt{GCP\_PROJECT})
+    \end{itemize}
+  \item \textbf{Key Python packages}: \texttt{openai}, \texttt{google-genai}, \texttt{python-dotenv}, \texttt{numpy}, \texttt{matplotlib}, \texttt{scipy}
+  \item Approximately 2\,GB disk space for the full dataset and outputs
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+\section{Installation and Setup}
+\label{sec:installation}
+
+\begin{enumerate}
+  \item \textbf{Clone the repository}:
+\begin{verbatim}
+  git clone <repo-url> SciFig-Evaluation
+  cd SciFig-Evaluation
+\end{verbatim}
+
+  \item \textbf{Create a virtual environment and install dependencies}:
+\begin{verbatim}
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install openai google-genai python-dotenv numpy
+  pip install matplotlib scipy seaborn
+\end{verbatim}
+
+  \item \textbf{Configure environment variables}. Create a \texttt{.env} file in the project root:
+{\scriptsize
+\begin{verbatim}
+  # OpenRouter (for Llama, Gemma, Qwen, Claude, Gemini)
+  OPENROUTER_API_KEY=sk-or-...
+
+  # Azure OpenAI (for GPT-5.2, Phi-4-Multimodal)
+  AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+  AZURE_OPENAI_API_KEY=...
+
+  # Google Cloud / Vertex AI (for Gemini 3.1 Pro)
+  GCP_PROJECT=your-gcp-project-id
+  GOOGLE_CLOUD_LOCATION=us-central1
+\end{verbatim}
+}
+
+  \item \textbf{Verify the dataset} is in place:
+\begin{verbatim}
+  ls Dataset/figures/english_only/   # PNG figure images
+  ls Dataset/groundtruth/english_only/ # JSON annotations
+\end{verbatim}
+\end{enumerate}
+
+% -----------------------------------------------------------------------------
+\section{Running the Evaluation Pipeline}
+\label{sec:running-pipeline}
+
+The evaluation pipeline has three stages: generation, MQM evaluation, and results computation. Figure~\ref{fig:pipeline-flow} illustrates the overall data flow.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=1.4cm,
+  box/.style={rectangle, draw, rounded corners, minimum width=3.8cm, minimum height=0.8cm, align=center, font=\small},
+  arrow/.style={-{Stealth[length=3mm]}, thick}
+]
+  \node[box, fill=blue!10] (dataset) {Dataset/\\figures + groundtruth};
+  \node[box, fill=green!10, right=2.0cm of dataset] (gen) {Stage 1:\\LLM Generation};
+  \node[box, fill=orange!10, right=2.0cm of gen] (eval) {Stage 2:\\MQM Evaluation};
+  \node[box, fill=red!10, below=1.2cm of eval] (results) {Stage 3:\\Compute Results};
+  \node[box, fill=purple!10, below=1.2cm of dataset] (dash) {Dashboard\\Visualisation};
+
+  \draw[arrow] (dataset) -- (gen);
+  \draw[arrow] (gen) -- (eval);
+  \draw[arrow] (eval) -- (results);
+  \draw[arrow] (results) -| (dash);
+  \draw[arrow, dashed] (dataset) -- (dash);
+\end{tikzpicture}
+\caption{Evaluation pipeline data flow.}
+\label{fig:pipeline-flow}
+\end{figure}
+
+\subsection{Stage 1: Generate Model Descriptions}
+
+Each model processes all 1,005 figures across five language subfolders. The runner script automatically skips figures that have already been generated.
+
+{\scriptsize
+\begin{verbatim}
+  # Generate descriptions for a single model
+  python3 scripts/llm_generation/run.py gpt-5.2 --workers 4
+
+  # Generate for a specific language subset
+  python3 scripts/llm_generation/run.py gemini-3.1-pro --subfolder english_only
+
+  # Output is written to: output/generation/<model>/<subfolder>/<fig_key>.json
+\end{verbatim}
+}
+
+Available models include: \texttt{gpt-5.2}, \texttt{phi-4-multimodal}, \texttt{gemini-3.1-pro}, \texttt{llama4-maverick}, \texttt{llama4-scout}, \texttt{claude-opus-4.6}, \texttt{qwen3-vl-8b}, \texttt{qwen3-vl-30b-a3b}, \texttt{qwen3-vl-32b}, \texttt{qwen3-vl-235b-a22b}, \texttt{gemma3-4b-it}, \texttt{gemma3-12b-it}, \texttt{gemma3-27b-it}.
+
+\subsection{Stage 2: Run MQM Evaluation}
+
+Three judge configurations are available: reference-free (Judge~A), reference-only (Judge~B), and reference-with-image (Judge~C).
+
+{\scriptsize
+\begin{verbatim}
+  # Reference-free evaluation (image + prompt, no groundtruth)
+  python3 scripts/evaluation/evaluate_reference_free.py gpt-5.2 \
+      --judge azure/gpt-4.1 --workers 4
+
+  # Reference-only evaluation (groundtruth, no image)
+  python3 scripts/evaluation/evaluate_reference_only.py gpt-5.2 \
+      --judge azure/gpt-4.1 --workers 4
+
+  # Reference-with-image evaluation (image + groundtruth)
+  python3 scripts/evaluation/evaluate_reference_with_image.py gpt-5.2 \
+      --judge azure/gpt-4.1 --workers 4
+
+  # Output: output/evaluation/<judge_type>/<judge_slug>/<model>/<subfolder>/<fig>.json
+\end{verbatim}
+}
+
+\subsection{Stage 3: Compute Results}
+
+Scripts in \texttt{scripts/evaluation-results/} compute the tables and plots for each research question:
+
+{\scriptsize
+\begin{verbatim}
+  # RQ1: Leaderboard with bootstrap CIs
+  python3 scripts/evaluation-results/rq1/compute_leaderboard.py
+
+  # RQ1: Error analysis breakdown
+  python3 scripts/evaluation-results/rq1/compute_error_analysis.py
+
+  # RQ2: Degradation under transforms
+  python3 scripts/evaluation-results/rq2/compute_degradation.py
+
+  # RQ3: Capability question accuracy
+  python3 scripts/evaluation-results/rq3/compute_capability.py
+
+  # RQ4: Agreement reliability (Krippendorff's alpha)
+  python3 scripts/evaluation-results/rq4/compute_ari.py
+\end{verbatim}
+}
+
+% -----------------------------------------------------------------------------
+\section{Running Adversarial Experiments}
+\label{sec:adversarial-experiments}
+
+The adversarial evaluation suite operates on a curated 45-figure subset stored in \texttt{adversarial\_experiments/}. Each experiment type has a dedicated runner and evaluator script.
+
+\begin{description}
+  \item[Image Transforms] Apply visual degradations (JPEG compression, noise, rotation, blur, etc.) and regenerate descriptions:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/experiments/run_transforms.py gpt-5.2 --workers 4
+  python3 scripts/experiments/run_transforms.py gpt-5.2 --transform selective_blur
+\end{verbatim}
+}
+
+  \item[Caption Bias] Test whether models resist poisoned captions or depend on caption text:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/experiments/run_caption_bias.py gpt-5.2 --condition modified_caption
+  python3 scripts/experiments/run_caption_bias.py gpt-5.2 --condition image_only
+\end{verbatim}
+}
+
+  \item[Prompt Reverse] Send true/false statements about a figure; the model must classify:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/experiments/run_prompt_reverse.py gpt-5.2 --workers 4
+\end{verbatim}
+}
+
+  \item[Capability Questions] Send 5 questions per prompt (capability, hallucination, prompt reverse):
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/experiments/run_questions.py gpt-5.2 --prompt 1 --workers 4
+  python3 scripts/experiments/run_questions.py gpt-5.2 --prompt 2 --workers 4
+\end{verbatim}
+}
+
+  \item[Inductance Probes] Deep reasoning questions on original clean images:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/experiments/run_inductance.py --model gemini-3.1-pro
+\end{verbatim}
+}
+
+  \item[Active Admittance] Reasoning questions on selectively blurred images where the answer resolves to the blurred element:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/experiments/run_active_admittance.py --model gpt-5.2 --workers 4
+\end{verbatim}
+}
+\end{description}
+
+After generation, evaluate adversarial outputs with:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/evaluation/evaluate_transforms.py gpt-5.2 --judge azure/gpt-4.1
+  python3 scripts/experiments/evaluate_caption_bias.py --model gpt-5.2
+  python3 scripts/experiments/evaluate_prompt_reverse.py --model gpt-5.2
+  python3 scripts/experiments/evaluate_capability.py --model gpt-5.2
+  python3 scripts/experiments/evaluate_admittance.py --model gpt-5.2
+\end{verbatim}
+}
+
+% -----------------------------------------------------------------------------
+\section{Launching the Dashboard}
+\label{sec:dashboard}
+
+The interactive dashboard is a React application built with Vite, Tailwind CSS~4, and Recharts.
+
+{\scriptsize
+\begin{verbatim}
+  cd dashboard/
+  npm install
+  npm run dev          # starts on http://localhost:5173
+\end{verbatim}
+}
+
+Before launching, export evaluation data into the dashboard's public folder:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/evaluation/export_dashboard_data.py --judge gpt-4o --judge gpt-4o-mini
+\end{verbatim}
+}
+
+The dashboard provides the following pages:
+\begin{itemize}
+  \item \textbf{Dataset Browser} -- browse all figures with metadata and groundtruth
+  \item \textbf{Judge Review} -- inspect MQM error annotations with highlighted text spans
+  \item \textbf{Analytics} -- aggregate statistics, score distributions, error breakdowns
+  \item \textbf{Final Results} -- leaderboard tables and cross-language heatmaps
+  \item \textbf{Adversarial Results} -- transform degradation charts and experiment outcomes
+  \item \textbf{Transform Evaluation} -- side-by-side comparison of original vs.\ transformed descriptions
+  \item \textbf{Adversarial Sample Browser} -- detailed per-figure adversarial probe results
+\end{itemize}
+
+% -----------------------------------------------------------------------------
+\section{Reproducing Thesis Results}
+\label{sec:reproducing-results}
+
+Table~\ref{tab:result-scripts} maps each thesis artefact to the script that produces it.
+
+\begin{table}[ht]
+\centering
+\caption{Mapping of thesis tables and figures to computation scripts.}
+\label{tab:result-scripts}
+{\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Artefact} & \textbf{Script path} \\
+\midrule
+Leaderboard table (RQ1) & \texttt{evaluation-results/rq1/compute\_leaderboard.py} \\
+Error analysis (RQ1) & \texttt{evaluation-results/rq1/compute\_error\_analysis.py} \\
+Cross-lingual comparison & \texttt{evaluation-results/rq1/compute\_crosslingual.py} \\
+Heatmap plot & \texttt{evaluation-results/rq1/plot\_heatmap.py} \\
+Dumbbell plot & \texttt{evaluation-results/rq1/plot\_leaderboard\_dumbbell.py} \\
+Scaling plot & \texttt{evaluation-results/rq1/plot\_scaling.py} \\
+Human--judge correlation & \texttt{evaluation-results/rq1/compute\_human\_judge\_correlation.py} \\
+Scatter plot (human vs.\ judge) & \texttt{evaluation-results/rq1/plot\_scatter\_human\_judge.py} \\
+Degradation slopes (RQ2) & \texttt{evaluation-results/rq2/compute\_degradation.py} \\
+Degradation slope plot & \texttt{evaluation-results/rq2/plot\_degradation\_slope.py} \\
+Capability accuracy (RQ3) & \texttt{evaluation-results/rq3/compute\_capability.py} \\
+Capability grouped bars & \texttt{evaluation-results/rq3/plot\_capability\_grouped\_bar.py} \\
+ARI scores (RQ4) & \texttt{evaluation-results/rq4/compute\_ari.py} \\
+ARI radar/dot-strip plots & \texttt{evaluation-results/rq4/plot\_ari\_radar.py} \\
+Admittance stacked bars & \texttt{evaluation-results/rq4/plot\_admittance\_stacked.py} \\
+Rank flow (Discussion) & \texttt{evaluation-results/discussion/plot\_rank\_flow.py} \\
+Transform gallery & \texttt{evaluation-results/plot\_transforms\_gallery.py} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+All script paths above are relative to \texttt{scripts/}. Run each with:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/evaluation-results/rq1/compute_leaderboard.py
+\end{verbatim}
+}
+
+Output artefacts (JSON tables and PDF/PNG plots) are written to \texttt{output/evaluation-results/}.
+
+
+% =============================================================================
+% Appendix C: Maintenance Manual
+% =============================================================================
+\chapter{Maintenance Manual}
+\label{app:maintenance-manual}
+
+This appendix documents the internal architecture of SciFig-Evaluation to support ongoing development and extension.
+
+% -----------------------------------------------------------------------------
+\section{Repository Structure}
+\label{sec:repo-structure}
+
+{\scriptsize
+\begin{verbatim}
+SciFig-Evaluation/
+|-- Dataset/
+|   |-- figures/                 # PNG images (5 subfolders by language)
+|   |   |-- english_only/
+|   |   |-- german_only/
+|   |   |-- bulgarian_only/
+|   |   |-- chinese_only/
+|   |   +-- multi_language/
+|   +-- groundtruth/             # Human-authored JSON annotations (same subfolders)
+|-- adversarial_experiments/
+|   |-- samples.json             # 45-figure sample manifest
+|   |-- figures/                 # Original + transformed images per figure
+|   |-- benchmarks/              # Question/probe JSONs for each experiment
+|   +-- papers/                  # Source PDFs for adversarial figures
+|-- atomic_mqm/
+|   |-- atoms/                   # 120 atomic MQM decomposition JSONs
+|   |-- atoms_crosslingual/      # Cross-lingual atom variants
+|   |-- evaluator.py             # Atomic MQM evaluation runner
+|   +-- reviews/                 # Human review annotations
+|-- scripts/
+|   |-- llm_generation/          # Model abstractions and generation runners
+|   |   |-- models.py            # FigureAnnotator classes + MODEL_REGISTRY
+|   |   |-- prompts.py           # Prompt loader (per language x figure type)
+|   |   |-- prompts/             # Prompt templates (bar_chart.txt, etc.)
+|   |   |-- run.py               # Main generation entry point
+|   |   +-- run_adversarial.py   # Adversarial generation runner
+|   |-- evaluation/              # MQM judge pipeline
+|   |   |-- mqm_evaluator.py     # Core MQM scoring + judge prompts (A/B/C)
+|   |   |-- judge_backends.py    # Backend router (OpenRouter/Azure/Vertex)
+|   |   |-- judge_backends.json  # Backend configuration
+|   |   |-- evaluate_reference_free.py
+|   |   |-- evaluate_reference_only.py
+|   |   |-- evaluate_reference_with_image.py
+|   |   +-- export_dashboard_data.py
+|   |-- experiments/             # Adversarial experiment runners
+|   |   |-- run_transforms.py
+|   |   |-- run_caption_bias.py
+|   |   |-- run_prompt_reverse.py
+|   |   |-- run_questions.py
+|   |   |-- run_inductance.py
+|   |   |-- run_active_admittance.py
+|   |   +-- evaluate_*.py        # Corresponding evaluators
+|   +-- evaluation-results/      # Result computation + plotting
+|       |-- rq1/                 # Leaderboard, error analysis, heatmaps
+|       |-- rq2/                 # Degradation under transforms
+|       |-- rq3/                 # Capability question accuracy
+|       |-- rq4/                 # Inter-judge agreement (ARI)
+|       +-- discussion/          # Rank flow, scatter plots
+|-- output/
+|   |-- generation/              # Model outputs (per model/subfolder/fig)
+|   |-- evaluation/              # Judge results (per judge_type/judge/model)
+|   |-- experiments/             # Adversarial experiment outputs
+|   +-- evaluation-results/      # Computed tables and plots
+|-- dashboard/                   # React + Vite + Tailwind interactive UI
+|   |-- src/pages/               # Page components (10 pages)
+|   +-- public/                  # Exported data + images
+|-- HumanEval/                   # Label Studio exports and human eval results
++-- thesis/                      # LaTeX thesis source
+\end{verbatim}
+}
+
+% -----------------------------------------------------------------------------
+\section{Code Architecture}
+\label{sec:code-architecture}
+
+\subsection{Model Abstraction Layer}
+
+All VLMs are accessed through the \texttt{FigureAnnotator} abstract base class defined in \texttt{scripts/llm\_generation/models.py}. The class hierarchy is:
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=0.9cm and 1.6cm,
+  class/.style={rectangle, draw, minimum width=3.2cm, minimum height=0.7cm, align=center, font=\small},
+  arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+  \node[class, fill=gray!15] (base) {\texttt{FigureAnnotator}\\\textit{(ABC)}};
+  \node[class, fill=blue!10, below left=1.2cm and 0.5cm of base] (azure) {\texttt{AzureAnnotator}};
+  \node[class, fill=green!10, below=1.2cm of base] (openrouter) {\texttt{OpenRouterAnnotator}};
+  \node[class, fill=orange!10, below right=1.2cm and 0.5cm of base] (llama) {\texttt{Llama4Maverick-}\\{\texttt{Annotator}}};
+
+  \draw[arrow] (azure) -- (base);
+  \draw[arrow] (openrouter) -- (base);
+  \draw[arrow] (llama) -- (base);
+\end{tikzpicture}
+\caption{FigureAnnotator class hierarchy.}
+\label{fig:annotator-classes}
+\end{figure}
+
+Each annotator implements \texttt{annotate\_figure(prompt, image\_path, caption, paper\_title)}, which encodes the image as Base64, constructs the API request, and returns the generated description. A shared \texttt{\_retry()} wrapper handles transient failures with exponential backoff.
+
+The \texttt{get\_annotator(model\_name)} factory function resolves a model name string to the correct annotator class using three registries:
+
+\begin{itemize}
+  \item \texttt{AZURE\_MODELS} -- maps names to Azure deployment IDs (e.g., \texttt{"gpt-5.2"} $\to$ \texttt{"gpt-5-2"})
+  \item \texttt{OPENROUTER\_MODELS} -- maps names to OpenRouter model IDs
+  \item \texttt{CUSTOM\_TOKEN\_MODELS} -- models requiring non-default \texttt{max\_tokens} (e.g., Gemini 3.1 Pro uses 16,000)
+\end{itemize}
+
+\subsection{Judge Pipeline}
+
+The MQM evaluation system in \texttt{scripts/evaluation/mqm\_evaluator.py} implements three judge configurations:
+
+\begin{enumerate}
+  \item \textbf{Judge A (Reference-free)}: image + generation prompt + caption + model output. The judge evaluates accuracy against the image and completeness against the prompt.
+  \item \textbf{Judge B (Reference-only)}: groundtruth annotation + model output, no image. Uses the reference as the sole source of truth.
+  \item \textbf{Judge C (Reference-with-image)}: image + groundtruth + model output. The image is the primary source of truth; the reference provides expert context.
+\end{enumerate}
+
+Each judge returns a structured JSON with categorised errors, which are validated and scored using the MQM weight table:
+
+{\scriptsize
+\begin{verbatim}
+  MQM_WEIGHTS = {
+      ("Accuracy", "Major"): 5.0,    ("Accuracy", "Minor"): 2.0,
+      ("Completeness", "Major"): 3.5, ("Completeness", "Minor"): 1.5,
+      ("Clarity and Readability", "Major"): 2.0,
+      ("Clarity and Readability", "Minor"): 1.0,
+  }
+  mqm_score = max(0, 100 - total_penalty)
+\end{verbatim}
+}
+
+Judge routing is configured in \texttt{judge\_backends.json}, which maps model prefixes to backends: \texttt{azure/*} routes to Azure OpenAI, \texttt{gemini-*} to Vertex AI, and all others to OpenRouter.
+
+% -----------------------------------------------------------------------------
+\section{Data Flow}
+\label{sec:data-flow}
+
+Figure~\ref{fig:full-data-flow} shows the complete data flow from raw figures through to the dashboard.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=1.0cm,
+  box/.style={rectangle, draw, rounded corners, minimum width=3.4cm, minimum height=0.7cm, align=center, font=\footnotesize},
+  data/.style={rectangle, draw, dashed, minimum width=3.0cm, minimum height=0.6cm, align=center, font=\footnotesize\itshape},
+  arrow/.style={-{Stealth[length=2.5mm]}, thick}
+]
+  % Row 1: Inputs
+  \node[data, fill=yellow!15] (figs) {Dataset/figures/\\1005 PNGs};
+  \node[data, fill=yellow!15, right=2.5cm of figs] (gt) {Dataset/groundtruth/\\JSON annotations};
+  \node[data, fill=yellow!15, right=2.5cm of gt] (prompts) {prompts/\\per language $\times$ type};
+
+  % Row 2: Generation
+  \node[box, fill=green!12, below=1.2cm of figs] (gen) {\texttt{run.py}\\LLM Generation};
+
+  % Row 3: Generation output
+  \node[data, fill=cyan!10, below=0.8cm of gen] (genout) {output/generation/\\model/subfolder/*.json};
+
+  % Row 4: Evaluation
+  \node[box, fill=orange!12, below=0.8cm of genout] (eval) {\texttt{evaluate\_*.py}\\MQM Judges A/B/C};
+
+  % Row 5: Eval output
+  \node[data, fill=cyan!10, below=0.8cm of eval] (evalout) {output/evaluation/\\judge\_type/judge/model/*.json};
+
+  % Row 6: Results + Dashboard
+  \node[box, fill=red!12, below left=0.8cm and -0.5cm of evalout] (compute) {\texttt{compute\_*.py}\\Result scripts};
+  \node[box, fill=purple!12, below right=0.8cm and -0.5cm of evalout] (dash) {\texttt{export\_dashboard}\\React Dashboard};
+
+  % Arrows
+  \draw[arrow] (figs) -- (gen);
+  \draw[arrow] (gt.south) -- ++(0,-0.35) -| (gen.north east);
+  \draw[arrow] (prompts.south) -- ++(0,-0.7) -| (gen.east);
+  \draw[arrow] (gen) -- (genout);
+  \draw[arrow] (genout) -- (eval);
+  \draw[arrow] (gt.south) -- ++(0,-0.35) -| (eval.north east);
+  \draw[arrow] (figs.south) -- ++(-0.5,-0.35) |- (eval.west);
+  \draw[arrow] (eval) -- (evalout);
+  \draw[arrow] (evalout) -| (compute);
+  \draw[arrow] (evalout) -| (dash);
+\end{tikzpicture}
+\caption{Complete data flow from raw figures to results and dashboard.}
+\label{fig:full-data-flow}
+\end{figure}
+
+% -----------------------------------------------------------------------------
+\section{Adding New Models}
+\label{sec:adding-models}
+
+To add a new VLM to the evaluation, modify \texttt{scripts/llm\_generation/models.py}:
+
+\begin{enumerate}
+  \item \textbf{For OpenRouter-hosted models}, add an entry to \texttt{OPENROUTER\_MODELS}:
+{\scriptsize
+\begin{verbatim}
+  OPENROUTER_MODELS = {
+      ...
+      "new-model-name": "provider/model-id-on-openrouter",
+  }
+\end{verbatim}
+}
+
+  \item \textbf{For Azure-deployed models}, add to \texttt{AZURE\_MODELS}:
+{\scriptsize
+\begin{verbatim}
+  AZURE_MODELS = {
+      ...
+      "new-azure-model": "deployment-name-in-azure",
+  }
+\end{verbatim}
+}
+
+  \item \textbf{For models with custom token limits}, add to \texttt{CUSTOM\_TOKEN\_MODELS}:
+{\scriptsize
+\begin{verbatim}
+  CUSTOM_TOKEN_MODELS = {
+      ...
+      "new-model": ("provider/model-id", 16000),
+  }
+\end{verbatim}
+}
+
+  \item \textbf{For models requiring a new backend} (e.g., a custom API), subclass \texttt{FigureAnnotator} and implement \texttt{annotate\_figure()} and \texttt{model\_name}. Register the class in \texttt{MODEL\_REGISTRY}.
+\end{enumerate}
+
+After adding the model, re-run the pipeline:
+{\scriptsize
+\begin{verbatim}
+  python3 scripts/llm_generation/run.py new-model-name --workers 4
+  python3 scripts/evaluation/evaluate_reference_free.py new-model-name --judge azure/gpt-4.1
+  python3 scripts/evaluation/evaluate_reference_only.py new-model-name --judge azure/gpt-4.1
+  python3 scripts/evaluation/evaluate_reference_with_image.py new-model-name --judge azure/gpt-4.1
+\end{verbatim}
+}
+
+% -----------------------------------------------------------------------------
+\section{Adding New Languages}
+\label{sec:adding-languages}
+
+The system supports English, German, Bulgarian, and Chinese. To add a new language:
+
+\begin{enumerate}
+  \item \textbf{Prepare figures}: Place PNG images in \texttt{Dataset/figures/<lang>\_only/}.
+  \item \textbf{Create groundtruth annotations}: Write JSON files in \texttt{Dataset/groundtruth/<lang>\_only/} following the existing schema (fields: \texttt{task\_id}, \texttt{arxiv\_id}, \texttt{paper\_title}, \texttt{paper\_language}, \texttt{figure\_type}, \texttt{caption}, \texttt{annotations}).
+  \item \textbf{Write generation prompts}: Add prompt templates in \texttt{scripts/llm\_generation/prompts/cross\_language/} for the new language, covering each figure type (bar chart, line plot, pie chart, default).
+  \item \textbf{Create atomic MQM decompositions}: If using the atomic evaluator, add atom JSONs in \texttt{atomic\_mqm/atoms/} for the new figures.
+  \item \textbf{Update subfolder lists}: Add the new subfolder name to the \texttt{SUBFOLDERS} list in:
+    \begin{itemize}
+      \item \texttt{scripts/llm\_generation/run.py}
+      \item \texttt{scripts/evaluation/evaluate\_reference\_free.py} (and sibling evaluators)
+      \item \texttt{scripts/evaluation/export\_dashboard\_data.py}
+    \end{itemize}
+  \item \textbf{Update language maps}: Add entries to \texttt{SUBFOLDER\_TO\_LANGUAGE} and \texttt{LANG\_MAP} dictionaries in the evaluation and results scripts.
+\end{enumerate}
+
+% -----------------------------------------------------------------------------
+\section{Configuration Reference}
+\label{sec:config-reference}
+
+Table~\ref{tab:env-vars} lists all environment variables used by the system.
+
+\begin{table}[ht]
+\centering
+\caption{Environment variable reference.}
+\label{tab:env-vars}
+{\small
+\begin{tabular}{@{}llp{5.5cm}@{}}
+\toprule
+\textbf{Variable} & \textbf{Required by} & \textbf{Description} \\
+\midrule
+\texttt{OPENROUTER\_API\_KEY} & OpenRouter models & API key for OpenRouter \\
+\texttt{AZURE\_OPENAI\_ENDPOINT} & Azure models & Azure OpenAI resource URL \\
+\texttt{AZURE\_OPENAI\_API\_KEY} & Azure models & Azure OpenAI API key \\
+\texttt{GCP\_PROJECT} & Vertex AI / Gemini & Google Cloud project ID \\
+\texttt{GOOGLE\_CLOUD\_LOCATION} & Vertex AI & GCP region (default: \texttt{us-central1}) \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+Table~\ref{tab:config-files} lists key configuration files.
+
+\begin{table}[ht]
+\centering
+\caption{Key configuration files.}
+\label{tab:config-files}
+{\small
+\begin{tabular}{@{}lp{7cm}@{}}
+\toprule
+\textbf{File} & \textbf{Purpose} \\
+\midrule
+\texttt{.env} & Environment variables (API keys, endpoints) \\
+\texttt{scripts/evaluation/judge\_backends.json} & Maps judge model prefixes to API backends (OpenRouter, Azure, Vertex AI) \\
+\texttt{scripts/llm\_generation/models.py} & Model registry: names, router IDs, backends \\
+\texttt{scripts/llm\_generation/prompts/} & Generation prompt templates per language and figure type \\
+\texttt{adversarial\_experiments/samples.json} & 45-figure adversarial sample manifest \\
+\texttt{atomic\_mqm/atoms/} & Atomic MQM decomposition files (120 atoms) \\
+\texttt{dashboard/vite.config.ts} & Vite build configuration for the dashboard \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\noindent All API calls use \texttt{temperature=0} to ensure deterministic, reproducible outputs. The retry mechanism in both generation and evaluation uses exponential backoff with a maximum of three attempts.
