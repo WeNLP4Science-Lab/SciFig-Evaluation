@@ -140,38 +140,7 @@ export default function TabLayout() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-2">
-            <NavLink
-              to="/presentation"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium"
-              style={{
-                color: 'var(--m3-on-surface-variant)',
-                backgroundColor: 'transparent',
-                border: '1px solid var(--m3-outline-variant)',
-                letterSpacing: '0.1px',
-                transition: 'all 200ms var(--m3-easing-standard)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = 'var(--m3-primary-container)'
-                e.currentTarget.style.color = 'var(--m3-primary)'
-                e.currentTarget.style.borderColor = 'var(--m3-primary)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.backgroundColor = 'transparent'
-                e.currentTarget.style.color = 'var(--m3-on-surface-variant)'
-                e.currentTarget.style.borderColor = 'var(--m3-outline-variant)'
-              }}
-              title="Open presentation"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                <line x1="8" y1="21" x2="16" y2="21" />
-                <line x1="12" y1="17" x2="12" y2="21" />
-              </svg>
-              Present
-            </NavLink>
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
         </div>
 
         {/* Sub-tab bar */}
