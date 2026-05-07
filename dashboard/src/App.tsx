@@ -9,6 +9,7 @@ import InferableBlurs from './pages/InferableBlurs'
 import AdversarialResults from './pages/AdversarialResults'
 import TransformEvaluation from './pages/TransformEvaluation'
 import FinalResults from './pages/FinalResults'
+import Presentation from './pages/Presentation'
 
 export default function App() {
   return (
@@ -17,6 +18,9 @@ export default function App() {
       <Route path="/" element={<Navigate to="/dataset/full" replace />} />
       <Route path="/analytics" element={<Navigate to="/results/analytics" replace />} />
       <Route path="/analytics/*" element={<Navigate to="/results/analytics" replace />} />
+
+      {/* Presentation — standalone full-screen, no TabLayout */}
+      <Route path="/presentation" element={<Presentation />} />
 
       {/* All tabbed routes share the TabLayout shell */}
       <Route element={<TabLayout />}>
