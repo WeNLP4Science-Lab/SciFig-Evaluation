@@ -376,7 +376,7 @@ export default function Presentation() {
               </tbody>
             </table>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16 }}>
-              <div style={{ fontSize: '1.05em', color: fgCaption, lineHeight: 1.6 }}>
+              <div style={{ fontSize: '1.4em', color: fg, lineHeight: 1.6, ...H }}>
                 Predominantly closed-form QA · single accuracy metric · English-only
               </div>
               <a href="#/extra-benchmarks" style={{ fontSize: '0.8em', color: accent, textDecoration: 'none', opacity: 0.7 }}>
@@ -385,35 +385,34 @@ export default function Presentation() {
             </div>
           </section>
 
-          {/* ---- 1.5: Behavioural reliability ---- */}
+          {/* ---- 1.5: Behavioural dynamics ---- */}
           <section data-background-color={bg}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-              <div style={{ fontSize: '3.4em', ...H, color: fg, textAlign: 'center', maxWidth: '18em', lineHeight: 1.3 }}>
-                But beyond accuracy, it is equally important to understand behavioural reliability
-              </div>
-              <div style={{ fontSize: '1.35em', color: fgMuted, marginTop: 40, textAlign: 'center', maxWidth: '32em', lineHeight: 1.6 }}>
-                When a model encounters content it cannot read, does it admit uncertainty -- or fabricate?
+              <div style={{ fontSize: '2.8em', ...H, color: fg, textAlign: 'center', maxWidth: '20em', lineHeight: 1.35 }}>
+                In addition, accuracy alone does not tell the full story. It is equally important to understand their behavioural dynamics under challenging and adversarial conditions.
               </div>
             </div>
           </section>
 
-          {/* ---- 1.6: NHTSA Tesla case ---- */}
+          {/* ---- 1.6: Tesla NHTSA case ---- */}
           <section data-background-color={bg}>
-            <h2 style={{ fontSize: '3.6em', ...H, color: fg, margin: '0 0 48px' }}>
-              Why does behaviour matter?
+            <h2 style={{ fontSize: '2.6em', ...H, color: fg, margin: '0 0 24px', textAlign: 'center' }}>
+              A system can be accurate and still fail dangerously
             </h2>
-            <blockquote style={{
-              fontSize: '1.8em', fontStyle: 'italic', color: fg, fontWeight: 400,
-              lineHeight: 1.5, maxWidth: '18em', margin: '0 0 40px',
-              borderLeft: `3px solid ${accent}`, paddingLeft: 32,
-            }}>
-              "Did not provide alerts when camera performance had deteriorated."
-            </blockquote>
-            <div style={{ fontSize: '1.25em', color: fgCaption, marginBottom: 32 }}>
-              -- NHTSA Investigation EA26002
+            <div style={{ display: 'flex', justifyContent: 'center', margin: '16px 0' }}>
+              <img src="/figures/presentation/tesla_fog.png" alt="Tesla FSD in fog" style={{
+                height: 280, borderRadius: 8, border: `1px solid ${border}`,
+                objectFit: 'cover',
+              }} onError={e => { (e.target as HTMLImageElement).style.display = 'none' }} />
             </div>
-            <div style={{ fontSize: '1.7em', color: fg, fontWeight: 600 }}>
-              9 crashes. 1 fatality. 3.2M vehicles under investigation.
+            <div style={{ fontSize: '1.15em', color: fgMuted, textAlign: 'center', maxWidth: '36em', margin: '0 auto', lineHeight: 1.6 }}>
+              Tesla claims FSD travels 5.3M miles per major crash — 8x safer than human drivers.
+              Yet when cameras were impaired by fog or glare, the system continued driving confidently
+              without alerting the driver. NHTSA found it{' '}
+              <span style={{ color: fg, fontWeight: 600 }}>
+                "did not provide alerts when camera performance had deteriorated."
+              </span>
+              {' '}Nine crashes. One fatality. 3.2M vehicles under investigation.
             </div>
           </section>
 
