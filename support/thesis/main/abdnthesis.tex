@@ -1,0 +1,298 @@
+\documentclass[MSc]{abdnthesis}
+
+%% natbib for author-year citations (colon style, rounded brackets).
+\usepackage[round,colon,authoryear]{natbib}
+\setlength{\bibsep}{0pt}
+\bibliographystyle{apalike}
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,backgrounds}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+%% Premium code box — clean, minimal, syntax-coloured
+\definecolor{codebg}{HTML}{F8F8F8}
+\definecolor{codeborder}{HTML}{D0D0D0}
+\definecolor{codekw}{HTML}{0550AE}
+\definecolor{codestr}{HTML}{0A7D3E}
+\definecolor{codecomment}{HTML}{6A737D}
+\definecolor{codetag}{HTML}{953800}
+\definecolor{codetitlebg}{HTML}{EBEBEB}
+\lstdefinestyle{idestyle}{
+  basicstyle=\ttfamily\fontsize{6}{7.5}\selectfont\color{black!80},
+  keywordstyle=\color{codekw}\bfseries,
+  stringstyle=\color{codestr},
+  commentstyle=\color{codecomment}\itshape,
+  numberstyle=\fontsize{5}{6}\selectfont\color{codecomment},
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=2,
+  numbers=left,
+  numbersep=4pt,
+  xleftmargin=10pt,
+  xrightmargin=2pt,
+  morekeywords={severity,critical,important,minor,id,value,atoms,
+    figure_key,figure_type,language,purpose,axes,bars,paragraph,
+    annotator,describe,chart,include,description,Write,Schreiben,
+    Verfassen,Beschreibung,Vermeiden,Avoid},
+  emph={critical,important,minor},
+  emphstyle=\color{codetag}\bfseries,
+  emph={[2]severity,id,value,figure_key,figure_type},
+  emphstyle={[2]\color{codekw}},
+}
+\newtcblisting{codebox}[1][]{%
+  enhanced, breakable,
+  colback=codebg, colframe=codeborder,
+  coltitle=black!70, colbacktitle=codetitlebg,
+  fonttitle=\sffamily\fontsize{6.5}{8}\selectfont\bfseries,
+  left=0pt, right=2pt, top=2pt, bottom=2pt,
+  boxrule=0.3pt, arc=1.5pt,
+  listing only,
+  listing options={style=idestyle},
+  #1
+}
+%% Inline robot icon used to mark AI responses in the boxed
+%% behavioural examples of Chapter 2. Paul dropped
+%% figures/roboicon.jpg; if absent, fall back to a small sparkle.
+\newcommand{\roboicon}{%
+  \IfFileExists{figures/roboicon.jpg}%
+    {\raisebox{-2.2pt}{\includegraphics[height=10pt]{figures/roboicon.jpg}}}%
+    {\raisebox{-0.3pt}{\tikz[baseline=(c.base), scale=0.28]{%
+      \node[inner sep=0pt] (c) at (0,0) {};
+      \fill[black!70]
+        (0,1) -- (0.22,0.22) -- (1,0) -- (0.22,-0.22) --
+        (0,-1) -- (-0.22,-0.22) -- (-1,0) -- (-0.22,0.22) -- cycle;
+    }}}%
+}
+%% Yellow research-paper example box used in \S\ref{sec:bg-behave}.
+%% Minimal probe-example box for Chapter 5 behavioural probes.
+\newtcolorbox{probebox}[1][]{%
+  enhanced, breakable,
+  boxrule=0.5pt, arc=2pt,
+  colback=white, colframe=black!55,
+  left=10pt, right=10pt, top=8pt, bottom=8pt,
+  shadow={0.5pt}{-0.5pt}{0pt}{black!10},
+  underlay={%
+    \draw[gray!12, line width=0.2pt, step=0.35cm]
+      (interior.south west) grid (interior.north east);
+  },
+  #1
+}
+\newtcolorbox{aivignette}[1][]{%
+  enhanced, breakable, sharp corners, boxrule=0.4pt,
+  colback=yellow!12, colframe=yellow!40!black!25,
+  left=9pt, right=9pt, top=7pt, bottom=7pt,
+  fonttitle=\sffamily\bfseries\small,
+  coltitle=black!75, colbacktitle=yellow!25,
+  #1
+}
+\graphicspath{{./logos/}{./figures/}{./}}
+\definecolor{logo-openai}{HTML}{10A37F}
+\definecolor{logo-anthropic}{HTML}{C97757}
+\definecolor{logo-google}{HTML}{4285F4}
+\definecolor{logo-deepmind}{HTML}{1A73E8}
+\definecolor{logo-meta}{HTML}{0467DF}
+\definecolor{logo-microsoft}{HTML}{5E5E5E}
+\definecolor{logo-alibaba}{HTML}{FF6A00}
+%% \logo{slug} renders logos/<slug>.png at a fixed row height when the
+%% file is present, and otherwise falls back to a small brand-coloured
+%% chip carrying the family's initials. \logochip{colour}{text} is the
+%% fallback primitive; callers use \logo so that once real PNGs are
+%% dropped into logos/, the table upgrades automatically.
+%% Fallback chip: a small filled circle in the brand colour. Paul can
+%% drop logos/<slug>.png files (8pt-tall) into the logos/ folder and the
+%% \logo macro will prefer them automatically.
+\newcommand{\logochip}[1]{%
+  \raisebox{-0.5pt}{\tikz\fill[#1] (0,0) circle (2.2pt);}%
+}
+\newcommand{\logo}[1]{%
+  \IfFileExists{logos/#1.png}%
+    {\raisebox{-1.8pt}{\includegraphics[height=8pt]{logos/#1.png}}}%
+    {\logochip{logo-#1}}%
+}
+%% Model icon for leaderboard tables — renders from figures/ at 8pt height.
+\newcommand{\modelicon}[1]{%
+  \raisebox{-1.8pt}{\includegraphics[height=8pt]{figures/#1}}%
+}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{rotating}
+%% Faint-grey frame around every figure that does not already have one.
+%% Call \framedfig{\includegraphics{...}} or use \adjustbox.
+\definecolor{figframe}{HTML}{A0A0A0}
+\newcommand{\framedfig}[1]{%
+  \adjustbox{cfbox=figframe 0.6pt 3pt}{#1}%
+}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor={rgb:red,0;green,0.2;blue,0.6},
+  citecolor={rgb:red,0;green,0.2;blue,0.6},
+  urlcolor={rgb:red,0;green,0.2;blue,0.6}
+}
+
+\title{SciFig-Eval: A Multilingual Benchmark and
+       Behavioural Framework for Evaluating Vision-Language
+       Models on Scientific Figures}
+\author{Paul Osemudiame Oamen}
+
+\school{Department of Computing Science}
+
+
+\date{2026}
+
+
+%% While the other chapters are still in draft, only typeset
+%% the introduction. Remove or extend this list as each chapter
+%% is completed.
+\includeonly{introduction,background,literature-review,design,implementation,evaluation,discussion,conclusion,appendix}
+
+\def\sfthing#1#2{\def#1{\mbox{{\small\normalfont\sffamily #2}}}}
+
+\sfthing{\PP}{P}
+\sfthing{\FF}{F}
+
+
+\begin{document}
+
+%%%% Create the title page and standard declaration.
+
+\maketitle
+\makedeclaration
+
+%%%% Then the abstract and acknowledgements
+
+\begin{abstract}
+  Vision-language models are rapidly becoming integral to the scientific
+  research workflow, supporting tasks from automated literature review
+  and paper evaluation to research assistance and data interpretation.
+  Central to these capabilities is the ability to comprehend scientific
+  figures, which typically encode the core quantitative arguments of
+  published research. As adoption accelerates, it becomes important to
+  investigate how well these models comprehend such visuals, and beyond
+  simple task accuracy, to distill their behavioural profiles
+  (encompassing epistemic honesty, adversarial robustness, and contextual
+  reasoning) that current benchmarks leave largely unexamined.
+
+  To address this gap, we introduce \textsc{SciFig-Eval}, a multilingual
+  evaluation corpus of 1{,}005 scientific figures drawn from over 300
+  research papers across four languages (English, Bulgarian, Chinese,
+  German) with 1{,}411 expert annotations, 630 capability questions, and
+  adversarial probes grounded in the misinformation effect, anchoring
+  bias, and sycophancy, scored using an MQM framework. We further propose
+  the Admittance-Resistance-Inductance (A-R-I) framework, which
+  decomposes figure-reading trustworthiness into three behavioural axes
+  scored through a dual-judge pipeline validated against human annotators
+  (ICC\,=\,.91).
+
+  Evaluating thirteen frontier models, spanning open-weight architectures
+  from 4B to 235B parameters alongside leading closed-source systems, we
+  find that behavioural profiles diverge sharply from accuracy rankings.
+  GPT-5.2 leads on description quality but scores only .56 on resistance
+  to false premises, the Gemma family fabricates with near-zero admittance
+  regardless of scale, numerical precision and visual counting account for
+  the majority of errors, and description and comprehension prove to be
+  partially dissociated. These findings demonstrate that trustworthy deployment requires
+  behavioural profiling in addition to accuracy measurements.
+\end{abstract}
+
+\begin{acknowledgements}
+  \textit{Soli Deo Gloria. Deo Patri, qui me nocte vocavit et ad opera
+  sua magna segregavit. Gratias tibi, Domine Iesu Christe, pro sapientia
+  tua; Spiritus Sancte, pro amore tuo. Beatae Mariae Virgini, Sedes
+  Sapientiae; Sancto Ioseph, manus artifex; Sancto Iudae Thaddaeo,
+  patrono in rebus desperatis --- gratias ago.}
+
+  \medskip
+
+  I am deeply grateful to my supervisor, Dr Wei Zhao, for his steady
+  guidance, incisive feedback, and the freedom to pursue ambitious ideas.
+  His expertise in natural language processing and evaluation methodology
+  shaped the direction of this work, and his willingness to engage with
+  an unconventional behavioural framework made this thesis possible.
+
+  I thank the annotation team whose careful work across four languages
+  produced the 1,411 expert annotations that underpin this benchmark.
+  Their diligence across hundreds of figures was indispensable, and this
+  work would not exist without their effort.
+
+  I am grateful to the Department of Computing Science at the University
+  of Aberdeen for providing a rigorous and supportive academic environment
+  throughout this programme.
+
+  To my family, thank you for your unwavering support, patience, and
+  encouragement. Your belief in me sustained me through the most demanding
+  periods of this journey.
+
+  Finally, I owe a special debt of gratitude to Oumaima Mhadbhi, whose
+  support in helping me enrol in this programme set this entire journey
+  in motion.
+\end{acknowledgements}
+
+
+
+\tableofcontents
+
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+
+%% ===================================================================
+%% LIST OF ABBREVIATIONS
+%% ===================================================================
+\chapter*{List of Abbreviations}
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\begin{tabular}{@{}ll@{}}
+A-R-I   & Admittance-Resistance-Inductance (behavioural framework) \\
+BLEU    & Bilingual Evaluation Understudy \\
+CB      & Caption Bias \\
+CCoT    & Compositional Chain-of-Thought \\
+CHAIR   & Caption Hallucination Assessment with Image Relevance \\
+CJK     & Chinese, Japanese, Korean \\
+CLIP    & Contrastive Language-Image Pre-training \\
+CoT     & Chain-of-Thought \\
+IAA     & Inter-Annotator Agreement \\
+ICC     & Intraclass Correlation Coefficient \\
+LLM     & Large Language Model \\
+LoRA    & Low-Rank Adaptation \\
+LVLM    & Large Vision-Language Model \\
+MoE     & Mixture of Experts \\
+MQM     & Multidimensional Quality Metrics \\
+OCR     & Optical Character Recognition \\
+PR      & Prompt Reversal \\
+QA      & Question Answering \\
+RAG     & Retrieval-Augmented Generation \\
+RLHF    & Reinforcement Learning from Human Feedback \\
+ROUGE   & Recall-Oriented Understudy for Gisting Evaluation \\
+RoPE    & Rotary Position Embedding \\
+RQ      & Research Question \\
+ViT     & Vision Transformer \\
+VLM     & Vision-Language Model \\
+\end{tabular}
+
+
+\include{introduction}
+\include{background}
+\include{literature-review}
+\include{design}
+\include{implementation}
+\include{evaluation}
+\include{discussion}
+\include{conclusion}
+
+\bibliography{mybib}
+
+\include{appendix}
+\input{manuals}
+
+\end{document}

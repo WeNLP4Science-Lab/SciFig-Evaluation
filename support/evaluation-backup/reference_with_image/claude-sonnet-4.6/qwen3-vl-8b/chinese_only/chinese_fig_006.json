@@ -1,0 +1,36 @@
+{
+  "figure_key": "chinese_fig_006",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_with_image",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "第十五根（对应15个同义词）高度接近0",
+      "evidence": "The machine description counts 15 bars ending at index 14 ('对应14个同义词'), then adds a 15th bar for index 15. The x-axis goes from 0 to 15, so there are 16 bars total (0 through 15). The description miscounts the bars, calling the bar at x=14 the '第十五根' and the bar at x=15 a separate '第十五根', creating confusion."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "之后从第十二根（对应11个同义词）至第十五根（对应14个同义词）高度均接近或低于10",
+      "evidence": "There are 16 bars total (x=0 to x=15). The description's numbering is off: bar 12 corresponds to x=11, but bar 16 corresponds to x=15. The description skips the bar at x=15 in its enumeration and then mentions it separately, creating an inconsistency in the count."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "柱状图按横轴类别顺序排列，从左至右，未进行降序或升序排序。",
+      "evidence": "The bars are ordered by the x-axis category (number of synonyms), which is inherently an ascending order. Stating that the bars are 'not sorted in descending or ascending order' is misleading and unnecessary."
+    }
+  ],
+  "mqm_score": 94.5,
+  "total_penalty": 5.5,
+  "error_count": 3
+}

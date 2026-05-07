@@ -1,0 +1,312 @@
+{
+  "description": "Descriptive vs Reasoning questions for testing depth of figure understanding. Descriptive questions test visual reading (directly observable). Reasoning questions require inference, comparison, or judgment.",
+  "methodology": "Each figure gets 2 descriptive + 2 reasoning questions. Answers scored as correct/incorrect. Compare descriptive-to-reasoning accuracy gap across models.",
+  "figures": [
+    {
+      "fig_key": "english_fig_003",
+      "subfolder": "english_only",
+      "figure_type": "Line Plot",
+      "ground_truth_context": "5 layer groups on x-axis, ~5 lines (LB-Avg, RULER4k variants, Baseline), y-axis is Relative Change (%), baseline at 0%",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "How many distinct lines are shown in this figure?",
+          "answer": "5 lines (LB-Avg of 2×tokens 8-bit, LB-Avg of 1×tokens 16-bit, RULER4k of 2×tokens 8-bit, RULER4k of 1×tokens 16-bit, Baseline of 4×tokens 4-bit)",
+          "type": "counting"
+        },
+        {
+          "id": "d2",
+          "question": "What is the approximate value of the lowest point across all lines?",
+          "answer": "Approximately -10% to -12%, occurring at Layer5-12 for one of the RULER4k lines",
+          "type": "value_reading"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "Which configuration shows the most stable performance across all layer groups?",
+          "answer": "The Baseline (dashed line) stays near 0% across all groups, showing the most stable/flat performance",
+          "type": "comparison"
+        },
+        {
+          "id": "r2",
+          "question": "Why do you think performance dips at Layer5-12 and then recovers? What does this pattern suggest about these layers?",
+          "answer": "This requires interpretation — the dip suggests these middle layers are most sensitive to the quantization/pruning, while early and late layers are more resilient. The recovery suggests later layers compensate.",
+          "type": "interpretation"
+        }
+      ]
+    },
+    {
+      "fig_key": "english_fig_017",
+      "subfolder": "english_only",
+      "figure_type": "Pie Chart",
+      "ground_truth_context": "6 slices: Frustration 25.1%, Neutral 23.1%, Anger 14.9%, Sadness 14.7%, Excitement 14.1%, Happiness 8.1%",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "What are the two largest categories and their percentages?",
+          "answer": "Frustration (25.1%) and Neutral (23.1%)",
+          "type": "value_reading"
+        },
+        {
+          "id": "d2",
+          "question": "What color is the smallest slice in the chart?",
+          "answer": "Light blue (Happiness at 8.1%)",
+          "type": "visual_attribute"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "Do negative emotions (Frustration, Anger, Sadness) collectively outweigh positive emotions (Happiness, Excitement)? By how much?",
+          "answer": "Negative: 25.1+14.9+14.7=54.7%. Positive: 8.1+14.1=22.2%. Negative outweighs by 32.5 percentage points.",
+          "type": "arithmetic"
+        },
+        {
+          "id": "r2",
+          "question": "If this dataset were used for emotion recognition training, which emotions would likely have the worst classification accuracy and why?",
+          "answer": "Happiness (8.1%) would likely have worst accuracy due to severe class imbalance — too few training samples compared to Frustration/Neutral.",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "fig_key": "english_fig_085",
+      "subfolder": "english_only",
+      "figure_type": "Bar Chart",
+      "ground_truth_context": "6 specialty groups (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics), 7 bars each (baseline + 6 fine-tuned), y-axis negative log probability -27 to -22",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "How many bar groups are shown on the x-axis?",
+          "answer": "6 groups (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics)",
+          "type": "counting"
+        },
+        {
+          "id": "d2",
+          "question": "Which specialty group has bars extending to the most negative values (lowest on the y-axis)?",
+          "answer": "Cardio, with the baseline bar reaching approximately -26.7",
+          "type": "value_reading"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "For which specialty does fine-tuning produce the largest improvement over the baseline?",
+          "answer": "Requires comparing the gap between the light blue baseline bar and the fine-tuned bars across all groups. The specialty where fine-tuned bars are most different from baseline shows largest improvement.",
+          "type": "comparison"
+        },
+        {
+          "id": "r2",
+          "question": "Does fine-tuning on a specialty's own data always produce the best result for that specialty, or do cross-specialty fine-tunes sometimes perform better?",
+          "answer": "Requires comparing within each group whether the same-color fine-tune bar is shortest (best). This is a nuanced cross-referencing task.",
+          "type": "cross_reference"
+        }
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_013",
+      "subfolder": "chinese_only",
+      "figure_type": "Pie Chart",
+      "ground_truth_context": "8 slices: 科学21%, 社会20%, 榜样19%, 文化14%, 环境保护14%, 政治6%, 体育4%, 经济2%",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "图中有多少个切片？最大的切片占多少百分比？",
+          "answer": "8个切片，最大的是科学(深蓝色)占21%",
+          "type": "counting"
+        },
+        {
+          "id": "d2",
+          "question": "哪两个类别的百分比相同？",
+          "answer": "文化和环境保护，都是14%",
+          "type": "value_reading"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "如果将所有与人文社科相关的类别（社会、政治、文化、经济）合并，它们的总占比是否超过科学类别？",
+          "answer": "社会20%+政治6%+文化14%+经济2%=42%，远超科学的21%",
+          "type": "arithmetic"
+        },
+        {
+          "id": "r2",
+          "question": "基于这个分布，你认为该数据集在训练AI模型时可能存在什么偏差问题？",
+          "answer": "经济(2%)和体育(4%)样本极少，模型在这些类别上的表现可能很差。科学/社会/榜样占60%，导致模型偏向这些主题。",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_035",
+      "subfolder": "chinese_only",
+      "figure_type": "Line Plot",
+      "ground_truth_context": "2 lines (中介语网络 red, 随机网络 blue), x-axis: A1-C2+母语, y-axis: 平均路径长度 3.0-5.5",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "两条线在哪个类别点上差距最大？",
+          "answer": "在'母语'类别处，蓝线(随机网络~5.2)和红线(中介语网络~3.7)差距最大",
+          "type": "value_reading"
+        },
+        {
+          "id": "d2",
+          "question": "红色线的最低点出现在哪个类别？",
+          "answer": "B1处，约3.179",
+          "type": "value_reading"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "两条线是否呈现相似的趋势？它们的变化模式有何异同？",
+          "answer": "两条线都在B1处出现低谷然后上升，趋势相似但蓝线上升幅度更大，尤其在C2和母语阶段",
+          "type": "trend_analysis"
+        },
+        {
+          "id": "r2",
+          "question": "随着语言水平从A1提升到母语，两个网络的差距是扩大还是缩小？这说明了什么？",
+          "answer": "差距在扩大——从A1的约1差距到母语的约1.5差距。说明语言水平越高，中介语网络和随机网络的结构差异越大。",
+          "type": "interpretation"
+        }
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_004",
+      "subfolder": "chinese_only",
+      "figure_type": "Bar Chart",
+      "ground_truth_context": "Daily COVID data, x-axis dates July-Aug 2022, bars for daily cases, blue line for news reports, dual y-axes",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "图表使用了几个y轴？它们分别代表什么？",
+          "answer": "两个y轴：左轴为每日新增患者人数(0-1,800,000)，右轴为新闻报道数(0-6,000)",
+          "type": "structural"
+        },
+        {
+          "id": "d2",
+          "question": "蓝色折线在什么时间达到最高峰？",
+          "answer": "大约在7月中旬至下旬期间达到峰值",
+          "type": "value_reading"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "新闻报道数量的变化是否与每日新增病例数同步？如果不同步，哪个领先？",
+          "answer": "大致同步但存在滞后——病例高峰往往略早于报道高峰，说明媒体反应存在延迟",
+          "type": "correlation"
+        },
+        {
+          "id": "r2",
+          "question": "如果你是政策制定者，基于这张图你会在什么时间点开始加强防控措施？为什么？",
+          "answer": "需要在病例上升初期(而非高峰)采取措施。图中显示7月初已开始上升趋势，那时介入最有效。这是超越描述的推理判断题。",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "fig_key": "german_fig_001",
+      "subfolder": "german_only",
+      "figure_type": "Line Plot",
+      "ground_truth_context": "3 lines: Wirtschaftspolitik insgesamt (black), Finanzpolitik (blue), Handelspolitik (purple), x-axis 2016-2024, dual y-axes",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "Welche der drei Linien zeigt den höchsten Spitzenwert im gesamten Zeitraum?",
+          "answer": "Die Handelspolitik (violett) zeigt den höchsten Spitzenwert, vermutlich um 2018-2019 oder 2020",
+          "type": "value_reading"
+        },
+        {
+          "id": "d2",
+          "question": "Wie viele y-Achsen hat das Diagramm und welche Linien gehören zu welcher Achse?",
+          "answer": "Zwei y-Achsen: links für Wirtschaftspolitik und Finanzpolitik, rechts für Handelspolitik",
+          "type": "structural"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "Welches Ereignis könnte den starken Anstieg aller drei Indizes um 2020 erklärt haben?",
+          "answer": "Die COVID-19-Pandemie — die massive wirtschaftspolitische Unsicherheit betraf alle Bereiche gleichzeitig",
+          "type": "interpretation"
+        },
+        {
+          "id": "r2",
+          "question": "Bewegen sich die drei Politikbereiche generell synchron oder gibt es Phasen, in denen sie sich unterschiedlich entwickeln?",
+          "answer": "Meist synchron (alle steigen 2020), aber Handelspolitik zeigt eigenständige Spitzen (z.B. Handelskriege 2018-2019), die in den anderen nicht so stark sichtbar sind",
+          "type": "trend_analysis"
+        }
+      ]
+    },
+    {
+      "fig_key": "german_fig_022",
+      "subfolder": "german_only",
+      "figure_type": "Bar Chart",
+      "ground_truth_context": "4 categories (Welt-BIP, Welthandel, Exporte DE, Industrieproduktion DE), 3 decades (2000er, 2010er, 2020er), values in %",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "Welche Kategorie hat den höchsten Wert in den 2000er Jahren?",
+          "answer": "Welthandel mit etwa 5.4%",
+          "type": "value_reading"
+        },
+        {
+          "id": "d2",
+          "question": "Gibt es negative Werte im Diagramm? Wenn ja, welche Kategorie und in welchem Jahrzehnt?",
+          "answer": "Ja, Industrieproduktion Deutschland in den 2020er Jahren ist negativ (ca. -1.5%)",
+          "type": "value_reading"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "Hat sich die deutsche Industrieproduktion im Vergleich zum Welthandel über die drei Jahrzehnte besser oder schlechter entwickelt?",
+          "answer": "Schlechter — der Welthandel bleibt positiv (wenn auch sinkend), während die Industrieproduktion auf negative Werte fällt. Die Schere öffnet sich.",
+          "type": "comparison"
+        },
+        {
+          "id": "r2",
+          "question": "Was könnte die Ursache dafür sein, dass die Exporte Deutschlands in den 2020er Jahren stärker gefallen sind als das Welt-BIP?",
+          "answer": "Erfordert Interpretation: Lieferkettenprobleme, Energiekrise, Chinaabhängigkeit oder Strukturwandel könnten Gründe sein. Die Frage geht über die Daten hinaus.",
+          "type": "inference"
+        }
+      ]
+    },
+    {
+      "fig_key": "german_fig_057",
+      "subfolder": "german_only",
+      "figure_type": "Pie Chart",
+      "ground_truth_context": "Donut chart with inner ring (2014) and outer ring (2021), ~10 segments including Übrige, Kultur, Sport/Erholung, Kliniken etc.",
+      "descriptive": [
+        {
+          "id": "d1",
+          "question": "Welches Segment hat den größten Anteil im äußeren Ring (2021)?",
+          "answer": "Übrige mit 38.1%",
+          "type": "value_reading"
+        },
+        {
+          "id": "d2",
+          "question": "Wie viele Segmente/Kategorien werden im Diagramm dargestellt?",
+          "answer": "Etwa 10 Kategorien (Übrige, Kultur, Sport/Erholung, Wohnungswesen, Abwasserentsorgung, Abfallwirtschaft, Stromversorgung, Gasversorgung, Wasserversorgung, Kombinierte Versorgung, Kliniken, etc.)",
+          "type": "counting"
+        }
+      ],
+      "reasoning": [
+        {
+          "id": "r1",
+          "question": "Welche Sektoren haben zwischen 2014 und 2021 am stärksten zugenommen und welche haben abgenommen?",
+          "answer": "Erfordert Vergleich zwischen innerem (2014) und äußerem (2021) Ring für jedes Segment. Übrige ist von 31.1% auf 38.1% gestiegen.",
+          "type": "comparison"
+        },
+        {
+          "id": "r2",
+          "question": "Wenn die Kategorie 'Übrige' weiter wächst, was bedeutet das für die Aussagekraft des Diagramms insgesamt?",
+          "answer": "Eine wachsende 'Übrige'-Kategorie macht das Diagramm weniger informativ, da immer mehr Daten in einer unspezifischen Sammelkategorie verschwinden. Das ist eine methodische Kritik.",
+          "type": "inference"
+        }
+      ]
+    }
+  ]
+}

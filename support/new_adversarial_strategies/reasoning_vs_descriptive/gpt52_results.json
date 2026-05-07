@@ -1,0 +1,326 @@
+[
+  {
+    "fig_key": "english_fig_003",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "counting",
+    "question": "How many distinct lines are shown in this figure?",
+    "expected": "5 lines (LB-Avg of 2×tokens 8-bit, LB-Avg of 1×tokens 16-bit, RULER4k of 2×tokens 8-bit, RULER4k of 1×tokens 16-bit, Baseline of 4×tokens 4-bit)",
+    "model_answer": "There are **5** distinct lines shown (4 colored method lines plus 1 dashed baseline)."
+  },
+  {
+    "fig_key": "english_fig_003",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "What is the approximate value of the lowest point across all lines?",
+    "expected": "Approximately -10% to -12%, occurring at Layer5-12 for one of the RULER4k lines",
+    "model_answer": "The lowest point across all lines is approximately **−15%** (around **−14.5%**)."
+  },
+  {
+    "fig_key": "english_fig_003",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "comparison",
+    "question": "Which configuration shows the most stable performance across all layer groups?",
+    "expected": "The Baseline (dashed line) stays near 0% across all groups, showing the most stable/flat performance",
+    "model_answer": "The **LB-Avg of 2×tokens, 8-bit** configuration (yellow line) shows the most stable performance across all layer groups, staying closest to 0% relative change with the smallest fluctuations."
+  },
+  {
+    "fig_key": "english_fig_003",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "interpretation",
+    "question": "Why do you think performance dips at Layer5-12 and then recovers? What does this pattern suggest about these layers?",
+    "expected": "This requires interpretation — the dip suggests these middle layers are most sensitive to the quantization/pruning, while early and late layers are more resilient. The recovery suggests later layers compensate.",
+    "model_answer": "The dip around **Layer5–12** and recovery afterward is consistent with those mid-early blocks being a **high‑leverage “feature construction / routing” stage**:\n\n- **Why the dip happens (Layer5–12):** These layers often transform token embeddings from mostly local/lexical cues into more abstract, compositional features and begin establishing attention patterns that later layers reuse. If you reduce precision / tokens or otherwise constrain computation here, you inject noise or lose information **before it’s been consolidated**, so the error propagates and shows up as a noticeable performance drop.\n\n- **Why it recovers (later layers):** Deeper layers (especially late blocks) tend to be more **redundant and corrective**—they refine, reweight, and “denoise” representations, and the model can partially compensate for earlier degradation. Also, some tasks rely heavily on late-layer readout features, so as long as the core signal survives, later layers can restore performance.\n\n**What the pattern suggests about Layer5–12:**  \nThey’re likely a **sensitive bottleneck / transition region** where representations are being reorganized and important global features are first formed. In contrast, later layers appear **more robust/overparameterized**, allowing recovery. Practically, it implies you should be more conservative with aggressive compression/approximation in **Layer5–12** than in many later blocks."
+  },
+  {
+    "fig_key": "english_fig_017",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "What are the two largest categories and their percentages?",
+    "expected": "Frustration (25.1%) and Neutral (23.1%)",
+    "model_answer": "The two largest categories are:\n\n- **Frustration:** **25.1%**\n- **Neutral:** **23.1%**"
+  },
+  {
+    "fig_key": "english_fig_017",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "visual_attribute",
+    "question": "What color is the smallest slice in the chart?",
+    "expected": "Light blue (Happiness at 8.1%)",
+    "model_answer": "The smallest slice is **light blue**."
+  },
+  {
+    "fig_key": "english_fig_017",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "arithmetic",
+    "question": "Do negative emotions (Frustration, Anger, Sadness) collectively outweigh positive emotions (Happiness, Excitement)? By how much?",
+    "expected": "Negative: 25.1+14.9+14.7=54.7%. Positive: 8.1+14.1=22.2%. Negative outweighs by 32.5 percentage points.",
+    "model_answer": "Yes.  \nNegative emotions total **54.7%** (Frustration 25.1% + Anger 14.9% + Sadness 14.7%), while positive emotions total **22.2%** (Happiness 8.1% + Excitement 14.1%).  \n\nThey outweigh positives by **32.5 percentage points**."
+  },
+  {
+    "fig_key": "english_fig_017",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "inference",
+    "question": "If this dataset were used for emotion recognition training, which emotions would likely have the worst classification accuracy and why?",
+    "expected": "Happiness (8.1%) would likely have worst accuracy due to severe class imbalance — too few training samples compared to Frustration/Neutral.",
+    "model_answer": "The emotions most likely to have the worst classification accuracy are **Happiness (8.1%)** and **Excitement (14.1%)** (and possibly **Sadness (14.7%) / Anger (14.9%)** relative to the top classes).\n\n**Why:**\n- **Class imbalance:** Happiness has far fewer training examples than Neutral (23.1%) and Frustration (25.1%), so the model will tend to underfit/ignore it and bias predictions toward the majority classes.\n- **Confusability:** **Excitement** is often hard to separate from **Happiness** (both positive/high valence), and **Anger** can be confused with **Frustration**. With fewer samples, these already-similar classes typically suffer more."
+  },
+  {
+    "fig_key": "english_fig_085",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "counting",
+    "question": "How many bar groups are shown on the x-axis?",
+    "expected": "6 groups (Cardio, Gastro, Infect, Neuro, Obstetrics, Pediatrics)",
+    "model_answer": "There are **6** bar groups on the x-axis."
+  },
+  {
+    "fig_key": "english_fig_085",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "Which specialty group has bars extending to the most negative values (lowest on the y-axis)?",
+    "expected": "Cardio, with the baseline bar reaching approximately -26.7",
+    "model_answer": "The **Cardio** specialty group has bars extending to the most negative values (lowest on the y-axis)."
+  },
+  {
+    "fig_key": "english_fig_085",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "comparison",
+    "question": "For which specialty does fine-tuning produce the largest improvement over the baseline?",
+    "expected": "Requires comparing the gap between the light blue baseline bar and the fine-tuned bars across all groups. The specialty where fine-tuned bars are most different from baseline shows largest improvement.",
+    "model_answer": "Fine-tuning produces the largest improvement over the baseline for **Cardio (Cardiology)** — its fine-tuned bars are farthest above (less negative than) the blue baseline bar."
+  },
+  {
+    "fig_key": "english_fig_085",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "cross_reference",
+    "question": "Does fine-tuning on a specialty's own data always produce the best result for that specialty, or do cross-specialty fine-tunes sometimes perform better?",
+    "expected": "Requires comparing within each group whether the same-color fine-tune bar is shortest (best). This is a nuanced cross-referencing task.",
+    "model_answer": "Cross-specialty fine-tunes sometimes perform better; fine-tuning on a specialty’s own data does **not** always yield the best result for that specialty.\n\nIn the plot, the best (highest/least-negative) log-probability for a given specialty’s terms is occasionally achieved by a model fine-tuned on a *different* specialty (e.g., Infect/Neuro/Obstetrics show cases where another fine-tune matches or slightly beats the in-specialty fine-tune)."
+  },
+  {
+    "fig_key": "chinese_fig_013",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "counting",
+    "question": "图中有多少个切片？最大的切片占多少百分比？",
+    "expected": "8个切片，最大的是科学(深蓝色)占21%",
+    "model_answer": "图中共有 **8 个切片**。  \n最大的切片占 **21%**。"
+  },
+  {
+    "fig_key": "chinese_fig_013",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "哪两个类别的百分比相同？",
+    "expected": "文化和环境保护，都是14%",
+    "model_answer": "“文化”和“环境保护”的百分比相同，都是 **14%**。"
+  },
+  {
+    "fig_key": "chinese_fig_013",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "arithmetic",
+    "question": "如果将所有与人文社科相关的类别（社会、政治、文化、经济）合并，它们的总占比是否超过科学类别？",
+    "expected": "社会20%+政治6%+文化14%+经济2%=42%，远超科学的21%",
+    "model_answer": "是，超过。\n\n从图中读数：社会 20% + 政治 6% + 文化 14% + 经济 2% = **42%**；科学为 **21%**。因此人文社科合并后（42%）明显高于科学（21%）。"
+  },
+  {
+    "fig_key": "chinese_fig_013",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "inference",
+    "question": "基于这个分布，你认为该数据集在训练AI模型时可能存在什么偏差问题？",
+    "expected": "经济(2%)和体育(4%)样本极少，模型在这些类别上的表现可能很差。科学/社会/榜样占60%，导致模型偏向这些主题。",
+    "model_answer": "从饼图看，各类新闻占比不均（如“科学”约21%、“社会”约20%、“榜样”约19%较多；“经济”约2%、“体育”约4%、“政治”约6%较少）。用于训练模型时可能带来这些偏差/风险：\n\n1. **类别不平衡偏差**  \n   模型会更擅长高占比类别（科学/社会/榜样），对低占比类别（经济/体育/政治）识别、生成与检索更差，容易把少数类误判成多数类。\n\n2. **主题覆盖不足与“盲区”**  \n   经济、体育、政治样本少会导致相关概念、术语、叙事结构学习不足，遇到这些主题时更容易出现遗漏、泛化错误或胡编。\n\n3. **输出分布偏移（先验偏差）**  \n   即使输入是中性或多主题，模型也可能更倾向输出多数类风格与话题（例如更常往“科学/社会/榜样”方向联想），造成内容推荐/生成的“偏科”。\n\n4. **评估指标被“虚高”**  \n   若用总体准确率等指标，模型在多数类上表现好就能拿到不错分数，但少数类性能可能很差而不易被发现（需要看宏平均、每类召回等）。\n\n5. **价值取向/叙事风格偏置（数据来源偏差的放大）**  \n   “榜样”“环境保护”等占比不低，可能让模型更偏向某种正向宣传或特定叙事模板；而经济/政治样本少会让相关观点与表达更单一，影响多样性与中立性。\n\n如果这是要做分类/检索/生成的训练集，通常需要：分层采样或重加权、少数类补充数据、按类报告指标与做偏差测试，来降低上述问题。"
+  },
+  {
+    "fig_key": "chinese_fig_035",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "两条线在哪个类别点上差距最大？",
+    "expected": "在'母语'类别处，蓝线(随机网络~5.2)和红线(中介语网络~3.7)差距最大",
+    "model_answer": "差距最大的是 **“母语”** 类别点：随机网络约 **5.204**，中介语网络约 **3.685**，差约 **1.519**。"
+  },
+  {
+    "fig_key": "chinese_fig_035",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "红色线的最低点出现在哪个类别？",
+    "expected": "B1处，约3.179",
+    "model_answer": "红色线（中介语网络）的最低点出现在 **B1** 类别。"
+  },
+  {
+    "fig_key": "chinese_fig_035",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "trend_analysis",
+    "question": "两条线是否呈现相似的趋势？它们的变化模式有何异同？",
+    "expected": "两条线都在B1处出现低谷然后上升，趋势相似但蓝线上升幅度更大，尤其在C2和母语阶段",
+    "model_answer": "总体上两条线呈现**相似趋势**：从 A1 到 B1 都有小幅下降，之后从 B1 起逐步上升，到“母语”达到最高。\n\n**相同点**\n- 走势方向一致：A1→A2略升，A2→B1下降，B1→母语持续上升。\n- 各阶段的拐点位置基本一致（低点都在 B1，终点都在“母语”）。\n\n**不同点**\n- **水平与幅度**：蓝线（随机网络）整体数值更高、波动更大；红线（中介语网络）更低、更平缓。\n- **后期增幅**：从 C1/C2 到“母语”，蓝线的上升更陡（增幅更明显），红线虽上升但幅度较小。"
+  },
+  {
+    "fig_key": "chinese_fig_035",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "interpretation",
+    "question": "随着语言水平从A1提升到母语，两个网络的差距是扩大还是缩小？这说明了什么？",
+    "expected": "差距在扩大——从A1的约1差距到母语的约1.5差距。说明语言水平越高，中介语网络和随机网络的结构差异越大。",
+    "model_answer": "从图中看，**差距总体是扩大的**：A1时随机网络≈4.189、中介语网络≈3.254，差≈0.94；到“母语”时随机网络≈5.204、中介语网络≈3.685，差≈1.52（中间虽有小幅波动，但整体上升）。\n\n这说明：**随着语言水平提高，随机网络指标增长更快**，而中介语网络提升较慢；学习者的网络结构/组织方式并未同步接近母语者，反而在该指标上与母语者的差异更明显。"
+  },
+  {
+    "fig_key": "chinese_fig_004",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "structural",
+    "question": "图表使用了几个y轴？它们分别代表什么？",
+    "expected": "两个y轴：左轴为每日新增患者人数(0-1,800,000)，右轴为新闻报道数(0-6,000)",
+    "model_answer": "图表使用了 **2 个 y 轴**：\n\n- **左侧 y 轴**：表示“**每日新增确诊患者人数**”（对应柱状图）。\n- **右侧 y 轴**：表示“**新闻媒体每日报道数量/相关新闻数量**”（对应折线图）。"
+  },
+  {
+    "fig_key": "chinese_fig_004",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "蓝色折线在什么时间达到最高峰？",
+    "expected": "大约在7月中旬至下旬期间达到峰值",
+    "model_answer": "蓝色折线在 **2022年7月中旬（约7月16日左右）** 达到最高峰。"
+  },
+  {
+    "fig_key": "chinese_fig_004",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "correlation",
+    "question": "新闻报道数量的变化是否与每日新增病例数同步？如果不同步，哪个领先？",
+    "expected": "大致同步但存在滞后——病例高峰往往略早于报道高峰，说明媒体反应存在延迟",
+    "model_answer": "从图中两条序列的峰谷位置看，**新闻报道数量与每日新增病例数并非严格同步**：多处出现新闻曲线（蓝线）在病例柱状（绿柱）上升或达到峰值之前就先上扬、先出现峰值的情况。整体上更像是**新闻报道数量略有领先于新增病例数**（提前一两天左右），但也存在个别时段不同步或滞后的波动。"
+  },
+  {
+    "fig_key": "chinese_fig_004",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "inference",
+    "question": "如果你是政策制定者，基于这张图你会在什么时间点开始加强防控措施？为什么？",
+    "expected": "需要在病例上升初期(而非高峰)采取措施。图中显示7月初已开始上升趋势，那时介入最有效。这是超越描述的推理判断题。",
+    "model_answer": "我会在**“新增确诊人数出现连续上升并接近/突破前一轮高点的前3–5天”**就启动加码（例如提高检测频次、限制聚集、强化口罩与通风、医疗资源预备），而不是等到峰值当天。\n\n**从图上看**（7月中旬、7月下旬、8月中旬附近都有明显波峰），每次波峰前都有一段**持续抬升**；同时蓝线（媒体报道量）往往在上升期或峰值附近同步走高，说明社会关注与信息传播加速，若不提前干预，传播链更容易扩散、医疗挤兑风险更大。\n\n**理由**  \n1) 防控措施到产生效果有滞后（感染—确诊—统计通常滞后数天），等到峰值再加码往往“追着疫情跑”。  \n2) 在上升拐点前介入，成本更低、对经济社会扰动更小，但能显著压低峰值。  \n3) 媒体报道量上升可作为“风险感知/传播加速”的辅助信号，用来触发更早的预警与资源调度。"
+  },
+  {
+    "fig_key": "german_fig_001",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "Welche der drei Linien zeigt den höchsten Spitzenwert im gesamten Zeitraum?",
+    "expected": "Die Handelspolitik (violett) zeigt den höchsten Spitzenwert, vermutlich um 2018-2019 oder 2020",
+    "model_answer": "Die **Handelspolitik**-Linie (lila, rechte Skala) zeigt den höchsten Spitzenwert im gesamten Zeitraum."
+  },
+  {
+    "fig_key": "german_fig_001",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "structural",
+    "question": "Wie viele y-Achsen hat das Diagramm und welche Linien gehören zu welcher Achse?",
+    "expected": "Zwei y-Achsen: links für Wirtschaftspolitik und Finanzpolitik, rechts für Handelspolitik",
+    "model_answer": "Das Diagramm hat **zwei y‑Achsen**:\n\n- **Linke y‑Achse:**  \n  - **Wirtschaftspolitik insgesamt** (schwarze Linie)  \n  - **Finanzpolitik** (blaue Linie)\n\n- **Rechte y‑Achse:**  \n  - **Handelspolitik** (violette Linie)"
+  },
+  {
+    "fig_key": "german_fig_001",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "interpretation",
+    "question": "Welches Ereignis könnte den starken Anstieg aller drei Indizes um 2020 erklärt haben?",
+    "expected": "Die COVID-19-Pandemie — die massive wirtschaftspolitische Unsicherheit betraf alle Bereiche gleichzeitig",
+    "model_answer": "Der starke gemeinsame Anstieg um 2020 lässt sich sehr plausibel durch den **Ausbruch der COVID‑19‑Pandemie** erklären – inklusive **Lockdowns**, **massiver fiskalischer Hilfsprogramme/Stimuluspakete** (Finanzpolitik) und **starker Eingriffe bzw. Störungen im internationalen Handel** (Handelspolitik)."
+  },
+  {
+    "fig_key": "german_fig_001",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "trend_analysis",
+    "question": "Bewegen sich die drei Politikbereiche generell synchron oder gibt es Phasen, in denen sie sich unterschiedlich entwickeln?",
+    "expected": "Meist synchron (alle steigen 2020), aber Handelspolitik zeigt eigenständige Spitzen (z.B. Handelskriege 2018-2019), die in den anderen nicht so stark sichtbar sind",
+    "model_answer": "Sie bewegen sich **nicht durchgehend synchron**:\n\n- **Wirtschaftspolitik insgesamt (schwarz)** und **Finanzpolitik (blau)** verlaufen über weite Strecken **relativ parallel** (ähnliche Ausschläge, z. B. um 2020 und in kleineren Wellen danach).\n- **Handelspolitik (lila, rechte Skala)** entwickelt sich **mehrfach deutlich anders**:  \n  - **2019/2020** gibt es einen spürbaren Ausschlag, während die anderen zwar auch steigen, aber in anderer Größenordnung/Timing.  \n  - **2021–2024** bleibt Handelspolitik **sehr niedrig/ruhig**, während Schwarz/Blau weiter moderat schwanken.  \n  - **Ende 2024/2025** kommt ein **extremer Sprung** in der Handelspolitik, viel stärker als bei den anderen (auch wenn Schwarz/Blau ebenfalls anziehen).\n\nFazit: **Schwarz und Blau meist synchron**, **Lila hat klare Sonderphasen** mit abweichender Dynamik."
+  },
+  {
+    "fig_key": "german_fig_022",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "Welche Kategorie hat den höchsten Wert in den 2000er Jahren?",
+    "expected": "Welthandel mit etwa 5.4%",
+    "model_answer": "In den **2000er Jahren** hat die Kategorie **Welthandel** den höchsten Wert (**5,4 %**)."
+  },
+  {
+    "fig_key": "german_fig_022",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "Gibt es negative Werte im Diagramm? Wenn ja, welche Kategorie und in welchem Jahrzehnt?",
+    "expected": "Ja, Industrieproduktion Deutschland in den 2020er Jahren ist negativ (ca. -1.5%)",
+    "model_answer": "Ja. Negative Werte gibt es bei **Industrieproduktion Deutschland** in den **2020er Jahren** (ca. **−1,5 %**)."
+  },
+  {
+    "fig_key": "german_fig_022",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "comparison",
+    "question": "Hat sich die deutsche Industrieproduktion im Vergleich zum Welthandel über die drei Jahrzehnte besser oder schlechter entwickelt?",
+    "expected": "Schlechter — der Welthandel bleibt positiv (wenn auch sinkend), während die Industrieproduktion auf negative Werte fällt. Die Schere öffnet sich.",
+    "model_answer": "Schlechter.  \n\n- **2000er:** Industrieproduktion DE **+1,0 %** vs. Welthandel **+5,4 %**  \n- **2010er:** **+2,2 %** vs. **+4,8 %**  \n- **2020er:** **−1,5 %** vs. **+2,3 %**  \n\nIn allen drei Jahrzehnten lag die deutsche Industrieproduktion deutlich unter dem Wachstum des Welthandels (zuletzt sogar rückläufig)."
+  },
+  {
+    "fig_key": "german_fig_022",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "inference",
+    "question": "Was könnte die Ursache dafür sein, dass die Exporte Deutschlands in den 2020er Jahren stärker gefallen sind als das Welt-BIP?",
+    "expected": "Erfordert Interpretation: Lieferkettenprobleme, Energiekrise, Chinaabhängigkeit oder Strukturwandel könnten Gründe sein. Die Frage geht über die Daten hinaus.",
+    "model_answer": "Ein plausibler Grund ist, dass Deutschlands Exportstruktur besonders stark an **zyklischen Industriegütern** hängt (Autos, Maschinen, Chemie). Diese Güter reagieren in Krisen/Unsicherheit typischerweise **überproportional**: Unternehmen und Haushalte verschieben Investitionen und langlebige Anschaffungen, während das Welt-BIP auch von weniger schwankungsanfälligen Bereichen (v. a. Dienstleistungen, Binnenkonsum) getragen wird.\n\nVerstärkend kamen in den 2020ern hinzu:\n- **Lieferkettenstörungen** (Pandemie) und **Energiepreisschock** (Ukrainekrieg) → höhere Kosten, Produktionsausfälle, geringere Wettbewerbsfähigkeit.\n- **Schwäche wichtiger Absatzmärkte** (z. B. China/Europa) und Strukturwandel in Schlüsselbranchen (Auto/Antrieb).\n- Teilweise **mehr Protektionismus/Handelshemmnisse** und geopolitische Unsicherheit, die Handel stärker dämpfen als die reine BIP-Entwicklung."
+  },
+  {
+    "fig_key": "german_fig_057",
+    "question_id": "d1",
+    "question_type": "descriptive",
+    "sub_type": "value_reading",
+    "question": "Welches Segment hat den größten Anteil im äußeren Ring (2021)?",
+    "expected": "Übrige mit 38.1%",
+    "model_answer": "Das größte Segment im äußeren Ring (2021) ist **„Übrige“** mit **38,1 %**."
+  },
+  {
+    "fig_key": "german_fig_057",
+    "question_id": "d2",
+    "question_type": "descriptive",
+    "sub_type": "counting",
+    "question": "Wie viele Segmente/Kategorien werden im Diagramm dargestellt?",
+    "expected": "Etwa 10 Kategorien (Übrige, Kultur, Sport/Erholung, Wohnungswesen, Abwasserentsorgung, Abfallwirtschaft, Stromversorgung, Gasversorgung, Wasserversorgung, Kombinierte Versorgung, Kliniken, etc.)",
+    "model_answer": "Im Diagramm sind **12 Segmente/Kategorien** dargestellt."
+  },
+  {
+    "fig_key": "german_fig_057",
+    "question_id": "r1",
+    "question_type": "reasoning",
+    "sub_type": "comparison",
+    "question": "Welche Sektoren haben zwischen 2014 und 2021 am stärksten zugenommen und welche haben abgenommen?",
+    "expected": "Erfordert Vergleich zwischen innerem (2014) und äußerem (2021) Ring für jedes Segment. Übrige ist von 31.1% auf 38.1% gestiegen.",
+    "model_answer": "Aus dem Diagramm (2014 = innerer Kreis, 2021 = äußerer Kreis) lassen sich folgende stärkste Veränderungen ablesen:\n\n## Am stärksten zugenommen (2014 → 2021)\n- **Abwasserentsorgung:** **4,1 → 7,8** (**+3,7 %-Pkt.**)\n- **Stromversorgung:** **4,2 → 8,9** (**+4,7 %-Pkt.**)\n- **Wasserversorgung:** **1,3 → 8,8** (**+7,5 %-Pkt.**, stärkster Anstieg)\n- **Wohnungswesen:** **8,4 → 7,2** (das ist *Abnahme*, siehe unten)  \n- **Sport/Erholung:** **2,4 → 3,6** (**+1,2 %-Pkt.**)\n- **Kliniken:** **3,2 → 4,5** (**+1,3 %-Pkt.**)\n\n## Am stärksten abgenommen (2014 → 2021)\n- **Übrige:** **38,1 → 31,1** (**−7,0 %-Pkt.**, stärkster Rückgang)\n- **Wohnungswesen:** **8,4 → 7,2** (**−1,2 %-Pkt.**)\n- **Kombinierte Versorgung:** **11,8 → 5,5** (**−6,3 %-Pkt.**)\n- **Übrige Versorgung:** **6,2 → 1,3** (**−4,9 %-Pkt.**)\n- **Verkehr:** **4,4 → 3,7** (**−0,7 %-Pkt.**)\n- **Kultur:** **2,2 → 2,2** (praktisch unverändert)\n\nWenn du willst, kann ich die Änderungen auch als sortierte Tabelle (größte Zu-/Abnahmen) ausgeben."
+  },
+  {
+    "fig_key": "german_fig_057",
+    "question_id": "r2",
+    "question_type": "reasoning",
+    "sub_type": "inference",
+    "question": "Wenn die Kategorie 'Übrige' weiter wächst, was bedeutet das für die Aussagekraft des Diagramms insgesamt?",
+    "expected": "Eine wachsende 'Übrige'-Kategorie macht das Diagramm weniger informativ, da immer mehr Daten in einer unspezifischen Sammelkategorie verschwinden. Das ist eine methodische Kritik.",
+    "model_answer": "Wenn die Kategorie **„Übrige“** weiter wächst, sinkt die **Aussagekraft des Diagramms** insgesamt, weil:\n\n- **Weniger Detail sichtbar wird:** Ein größerer Anteil wird in einem Sammelposten versteckt; die Entwicklung einzelner Bereiche innerhalb von „Übrige“ bleibt unklar.  \n- **Vergleiche werden schwieriger:** Veränderungen in den übrigen Kategorien wirken kleiner oder werden überdeckt, obwohl sich in „Übrige“ viel bewegen kann.  \n- **Interpretationsrisiko steigt:** Man weiß nicht, ob das Wachstum von „Übrige“ echte Verschiebungen (neue/gewachsene Teilbereiche) oder eher **Umklassifizierungen/Änderungen der Systematik** widerspiegelt.  \n- **Steuerungs-/Handlungsrelevanz nimmt ab:** Für Entscheidungen ist „Übrige“ wenig hilfreich, weil nicht erkennbar ist, *wo* genau der Zuwachs entsteht.\n\nPraktisch heißt das: Ab einem gewissen Anteil sollte „Übrige“ **aufgeschlüsselt** (Top-Unterkategorien zeigen) oder zumindest **erläutert** werden, sonst wird das Diagramm eher ein „Restposten-Anzeiger“ als eine inhaltliche Strukturübersicht."
+  }
+]

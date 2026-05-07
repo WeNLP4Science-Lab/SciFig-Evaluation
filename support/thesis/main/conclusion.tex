@@ -1,0 +1,99 @@
+\chapter{Conclusion}\label{ch:conclusion}
+
+%% ===================================================================
+\section{Practical Implications}\label{sec:implications}
+%% ===================================================================
+
+The findings of this thesis have direct consequences for several practitioner communities.
+
+\paragraph{Model selection and deployment.}
+In multi-agent systems where one model's output feeds another's input, a confident but incorrect intermediate result cascades into downstream failures.
+The A-R-I profiles provide actionable selection criteria: admittance for uncertainty-critical pipeline stages, resistance for adversarial-facing contexts, and inductance for reasoning-intensive queries.
+The rank flow analysis (Figure~\ref{fig:rank-flow}) shows that a model's description quality ranking does not predict its comprehension or behavioural ranking, reinforcing that model selection must be task-aware.
+
+\paragraph{Accessibility tool development.}
+The numerical precision bottleneck (mean 2.7 incorrect values per figure) means VLM-generated descriptions cannot yet be trusted without verification for tasks requiring exact values.
+Accessibility tools should present descriptions with appropriate confidence caveats, particularly for pie charts and when serving multilingual communities where quality variation is substantial.
+
+\paragraph{Benchmark design.}
+Single-score benchmarks systematically miss behavioural dimensions.
+Model rankings shuffle across evaluation axes, meaning a leaderboard based on description quality alone misrepresents deployment suitability.
+Future benchmarks should incorporate behavioural probes alongside accuracy metrics, and cross-lingual claims require controlled parallel figure designs.
+
+%% ===================================================================
+\section{Limitations}\label{sec:limitations}
+%% ===================================================================
+
+\paragraph{Sample coverage.}
+Human evaluation covers four models on 30 English figures (159 annotations, 39 double-annotated, ICC\,=\,.91); broader coverage across all 13 models and four languages would strengthen judge validation.
+The controlled cross-lingual comparison uses only 13 parallel figures, and only 9 inferable elements exist for passive inductance, limiting the granularity of both analyses.
+
+\paragraph{Scoring artefacts.}
+Three systematic artefacts affect scoring: colour synonym false positives (${\sim}5\%$ English penalty), dense atoms inflating pie chart penalties by ${\sim}11$ points, and a length--error trade-off where longer descriptions increase the error surface, creating tension between detail and score.
+GPT-4o assigns 78\% Major severity vs Mistral's 47\% on identical errors; while rankings are robust ($\rho_{\text{sys}}\geq.95$), absolute scores depend on judge selection and per-figure scores carry substantial uncertainty ($\rho{\approx}0.6$).
+
+\paragraph{Sampling design and statistical power.}
+Descriptions were generated for all 1\,005 figures across all 13 models, producing a complete generation corpus of 13\,065 model-figure pairs.
+From this corpus, a stratified sample of 120 figures was selected for dual-judge MQM evaluation, balanced across four languages and three chart types to preserve the population distribution (EN\,39, BG\,30, CN\,30, DE\,21).
+A further 45-figure subset, balanced at 9 per language and 3 per chart type, was selected for the adversarial experiments (RQ2--4).
+Bootstrap confidence intervals ($10\text{k}$ resamples, 95\%) and pairwise significance tests confirm that the 120-figure sample provides adequate statistical power to detect meaningful performance differences: three of twelve adjacent-rank comparisons reach significance ($p{<}.05$), with effect sizes (Cliff's $d$) ranging from .09 to .24.
+Non-significant comparisons (e.g., Qwen~235B vs 32B, $\Delta{=}0.4$, $p{=}.34$) may reflect insufficient power at $n{=}120$ rather than true equivalence, and should be interpreted as upper bounds on the true difference.
+API costs, which are detailed in Appendix~\ref{app:cost-breakdown}, were an additional factor influencing sample size; iterative methodology changes (prompt revisions, judge updates, scoring adjustments) compounded costs as each change required partial re-evaluation.
+
+%% ===================================================================
+\section{Ethical Considerations}\label{sec:ethics}
+%% ===================================================================
+
+\paragraph{Data and human annotation.}
+All 1\,005 figures are drawn from publicly available scientific papers; no personally identifiable information appears in the dataset.
+The eight annotators participated voluntarily under informed consent, and the study was conducted in accordance with the University of Aberdeen's ethical guidelines for research involving human participants.
+Full details on consent procedures, data anonymisation, participant safeguards, bias, equity, and deployment cautions are provided in Appendix~\ref{app:ethics-detail}.
+
+%% ===================================================================
+\section{Future Work}\label{sec:future-work}
+%% ===================================================================
+
+\paragraph{Dataset and evaluation extensions.}
+Splitting dense atoms into single-fact units would eliminate the pie chart granularity artefact; extending human annotation to all 13 models across four languages would enable per-language judge validation; and expanding the controlled cross-lingual set beyond 13 figures would enable per-chart-type analysis.
+Retrieval-augmented generation, where models access the source paper alongside the figure, could test whether additional context improves accuracy or introduces further bias.
+Incorporating open-weight judges would test whether scoring patterns generalise beyond the two judges used.
+
+\paragraph{Reasoning vs parametric recall.}
+GPT-5.2 correctly fabricates 9 of 35 non-inferable blurred elements whose values should not be deducible from context alone.
+Controlled experiments with synthetic figures absent from training corpora would disentangle genuine contextual reasoning from parametric recall.
+
+\paragraph{Mechanistic interpretability, temporal tracking, and user studies.}
+Our evaluation reveals \emph{what} models get wrong but not \emph{why}.
+Attention visualisation and saliency mapping on failure cases (e.g., colour misidentification, counting errors on pie charts) could reveal whether errors stem from the visual encoder, the language decoder, or their interaction.
+Longitudinal evaluation across model versions would track whether precision and behavioural reliability improve with successive releases, while complementary user studies with visually impaired researchers would reveal whether MQM-optimised descriptions actually serve accessibility needs.
+
+%% ===================================================================
+\section{Summary of Contributions}\label{sec:contributions}
+%% ===================================================================
+
+This thesis makes three contributions to the evaluation of vision-language models on scientific figures.
+
+\begin{enumerate}
+\item \textbf{The \textsc{SciFig-Eval} benchmark and Atomic MQM scoring framework.}
+  A multilingual evaluation corpus of 1\,005 scientific figures across four typologically diverse languages (English, Bulgarian, Chinese, German), drawn from native-language venues rather than translated templates, with 2\,252 atomic fact checklists, 630 capability questions spanning five reasoning categories, and a 45-figure adversarial subset with nine visual transforms.
+  The accompanying Atomic MQM framework adapts Multidimensional Quality Metrics to figure description through atom-level accuracy and completeness tracking, severity-capped error weighting, and a dual-judge pipeline (GPT-4o + Mistral Large~3) validated against human annotators (ICC\,=\,.91, system-level $\rho\geq.95$).
+
+\item \textbf{Psychology-informed adversarial probes and a 13-model empirical evaluation.}
+  Four probe families grounded in the misinformation effect, anchoring bias, and sycophancy literature stress-test VLMs across hallucination resistance, caption bias, prompt reversal, and visual degradation.
+  Applied across 13 models from 4B to 235B+ parameters (26\,364 errors across 2\,966 evaluations), these probes reveal that numerical precision is the dominant bottleneck (30.6\% of errors), description and comprehension appear to be partially dissociated, robustness is independent of clean-condition accuracy, and per-language comparisons require controlled parallel designs.
+
+\item \textbf{The Admittance--Resistance--Inductance (A-R-I) behavioural framework.}
+  A three-axis model that decomposes figure-reading trustworthiness into epistemic honesty (Admittance), adversarial robustness (Resistance), and contextual reasoning (Inductance).
+  The framework distinguishes faithful readers from silent fabricators and reveals behavioural profiles invisible to standard accuracy metrics.
+  Applied empirically, it exposes GPT-5.2's surprising resistance gap (.56), the Gemma family's silent fabrication, and an active-vs-passive inductance inversion where Gemini leads on reasoning traps (1.0) but GPT-5.2 leads on contextual inference (.89), raising the open question of whether model inferences reflect genuine reasoning or parametric recall.
+\end{enumerate}
+
+\bigskip
+\noindent
+Returning to the four research questions posed in Chapter~\ref{chap:introduction}:
+\textbf{RQ1} finds that GPT-5.2 leads (75.5 MQM) but the top four models cluster within 5 points; German's advantage is a dataset artefact.
+\textbf{RQ2} shows rotation and low contrast cause the largest degradation; robustness is distinct from baseline accuracy.
+\textbf{RQ3} reveals comprehension and description engage different capacities, with Gemini overtaking GPT-5.2 on question answering.
+\textbf{RQ4} demonstrates that A-R-I exposes behavioural patterns invisible to accuracy metrics: GPT-5.2's resistance gap, Gemma's silent fabrication, and the active-vs-passive inductance inversion.
+
+Together, these findings argue that evaluating VLMs on scientific figures requires moving beyond single-score benchmarks toward multi-dimensional assessment of accuracy, robustness, comprehension, and behavioural trustworthiness.

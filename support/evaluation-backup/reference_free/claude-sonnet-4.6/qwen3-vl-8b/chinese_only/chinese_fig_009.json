@@ -1,0 +1,44 @@
+{
+  "figure_key": "chinese_fig_009",
+  "model_name": "qwen3-vl-8b",
+  "figure_type": "Bar Chart",
+  "judge_type": "reference_free",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "在多数年份中，南京大学的发文量（蓝色块）在堆叠柱中占据最大份额",
+      "evidence": "Looking at the figure, the largest segments in the stacked bars appear to be the light blue color corresponding to 北京大学, not 南京大学 (dark blue). The description incorrectly identifies 南京大学 as having the largest share."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "其发文量在2022年约为25篇，2023年约为15篇",
+      "evidence": "The 2023 bar's total height is approximately 15, so a single institution (南京大学) cannot account for ~15 papers alone. The 2022 value of ~25 for 南京大学 alone also appears overestimated given the actual segment sizes visible."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "从视觉上看，发文总量在2010年前后增长缓慢，自2012年起显著上升，2022年达到峰值，2023年略有回落但仍保持高位",
+      "evidence": "The generation prompt explicitly states to avoid interpreting trends or reasons. This sentence describes trends and uses evaluative language like '增长缓慢' and '显著上升', which goes beyond visual and label features."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "南开大学（深棕色）在2022年发文量约为10篇",
+      "evidence": "The 南开大学 segment in 2022 appears much smaller than 10 papers based on the visible stacked bar proportions."
+    }
+  ],
+  "mqm_score": 86.5,
+  "total_penalty": 13.5,
+  "error_count": 4
+}

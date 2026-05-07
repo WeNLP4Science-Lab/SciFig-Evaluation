@@ -1,0 +1,161 @@
+{
+  "description": "Cross-panel reasoning probes: questions that require information from BOTH panels to answer. Tests whether models can integrate visual information across sub-plots.",
+  "figures": [
+    {
+      "fig_key": "multi_fig_045",
+      "subfolder": "multi_language",
+      "figure_type": "Pie Chart",
+      "panel_description": "(a) chemistry domain word co-occurrences, (b) mathematics domain word co-occurrences for the word 'reaction'",
+      "questions": [
+        {
+          "id": "cp1",
+          "question": "The word 'the' appears in both panels. In which domain does it have a higher co-occurrence percentage, and by how much?",
+          "expected": "'the' is 31% in chemistry (a) and 38% in mathematics (b). Higher in math by 7 percentage points.",
+          "requires": "Reading same category across both panels and computing difference"
+        },
+        {
+          "id": "cp2",
+          "question": "Panel (a) has 6 word categories while panel (b) has fewer. What words appear in (a) but NOT in (b)?",
+          "expected": "(a) has: the, this, for, chemical, to, in. (b) has: the, $, equilibrium, constant. Words in (a) not in (b): this, for, chemical, to, in.",
+          "requires": "Comparing category lists across panels"
+        },
+        {
+          "id": "cp3",
+          "question": "Which domain shows a more concentrated distribution — does chemistry or mathematics have a more dominant top word? Support your answer with numbers from both panels.",
+          "expected": "Mathematics is more concentrated — 'the' at 38% vs chemistry 'the' at 31%. Also math has only 4 categories vs chemistry's 6, meaning fewer words capture more of the distribution.",
+          "requires": "Comparing distribution shapes across panels with numerical evidence"
+        }
+      ]
+    },
+    {
+      "fig_key": "english_fig_171",
+      "subfolder": "english_only",
+      "figure_type": "Line Plot",
+      "panel_description": "Top: Easy Training Set rewards, Bottom: Hard Training Set rewards. Both show Llama-On-Policy vs LUFFY over 500 steps.",
+      "questions": [
+        {
+          "id": "cp1",
+          "question": "At step 500, which method (Llama-On-Policy or LUFFY) has a larger performance gap between Easy and Hard training sets?",
+          "expected": "Need to read final values for both methods on both panels. LUFFY appears to have similar final values on both Easy and Hard (~0.35-0.4), while Llama-On-Policy may differ more between Easy (~0.3) and Hard (~0.25). So Llama-On-Policy likely has the larger gap.",
+          "requires": "Reading 4 values (2 methods × 2 panels) and comparing cross-panel differences"
+        },
+        {
+          "id": "cp2",
+          "question": "Does LUFFY converge faster on the Easy set or the Hard set? At approximately what step does each reach its plateau?",
+          "expected": "Compare the convergence point of the red LUFFY line in both panels. On Easy it may plateau around step 100-150, on Hard around step 150-200.",
+          "requires": "Identifying convergence points in both panels and comparing"
+        },
+        {
+          "id": "cp3",
+          "question": "If you could only train on one dataset (Easy or Hard), which would you choose based on LUFFY's final reward, and does the choice differ for Llama-On-Policy?",
+          "expected": "Requires reading final rewards for both methods on both panels and making a judgment. This tests reasoning about which training regime is better for each method.",
+          "requires": "Cross-panel value comparison + reasoning about training implications"
+        }
+      ]
+    },
+    {
+      "fig_key": "english_fig_031",
+      "subfolder": "english_only",
+      "figure_type": "Bar Chart",
+      "panel_description": "(a) 3B models on MATH-500, (b) 1.5B models on MATH-500, (c) 67B models on MATH-500, (d-f) same groups on AIME24",
+      "questions": [
+        {
+          "id": "cp1",
+          "question": "Compare the best-performing model in panel (a) with the best in panel (c). How much does scaling from 3B to 67B improve the top score on MATH-500?",
+          "expected": "Panel (a) best is ~78.2%, panel (c) best is ~97.3%. Improvement of about 19 percentage points.",
+          "requires": "Reading max values from two different panels and computing difference"
+        },
+        {
+          "id": "cp2",
+          "question": "Is the ranking of methods (CoT vs TTS) consistent between MATH-500 panels (a-c) and AIME24 panels (d-f)?",
+          "expected": "Need to check if the same method wins across both benchmark sets. Rankings may shift between benchmarks.",
+          "requires": "Comparing method rankings across 6 panels"
+        },
+        {
+          "id": "cp3",
+          "question": "Looking at panels (d) and (e), which model size shows the biggest jump from worst to best method on AIME24?",
+          "expected": "Compare the range of bar heights in panel (d) 3B models vs panel (e) 1.5B models on AIME24. The group with larger spread shows more sensitivity to method choice.",
+          "requires": "Computing within-panel spreads and comparing across panels"
+        }
+      ]
+    },
+    {
+      "fig_key": "german_fig_070",
+      "subfolder": "german_only",
+      "figure_type": "Bar Chart",
+      "panel_description": "Left: Deutschland (Germany), Right: EU. Both show Aluminium, Kupfer, Nickel imports from Russia for 2021/2022/2023",
+      "questions": [
+        {
+          "id": "cp1",
+          "question": "Für welchen Rohstoff ist der Rückgang von 2021 zu 2023 in Deutschland stärker als in der EU? Belegen Sie dies mit konkreten Zahlen aus beiden Panels.",
+          "expected": "Nickel DE: 25.1→11.4 (drop 13.7pp). Nickel EU: 24.3→14.6 (drop 9.7pp). Germany's Nickel drop is larger. Also Aluminium DE: 3.6→1.0 (2.6pp) vs EU: 3.2→1.7 (1.5pp).",
+          "requires": "Reading 4 values (2 panels × 2 years) per metal, computing drops, comparing across panels"
+        },
+        {
+          "id": "cp2",
+          "question": "In welchem Jahr (2021, 2022 oder 2023) sind die Importanteile Deutschlands und der EU am ähnlichsten? Bei welchem Rohstoff?",
+          "expected": "Compare DE vs EU values for each metal×year combination. Aluminium 2021: DE 3.6 vs EU 3.2 (diff 0.4) is very close.",
+          "requires": "Systematic comparison of 9 pairs across both panels to find minimum difference"
+        },
+        {
+          "id": "cp3",
+          "question": "Hat Deutschland seine Abhängigkeit von russischem Nickel schneller reduziert als die EU insgesamt? Berechnen Sie die prozentuale Reduktion für beide.",
+          "expected": "DE Nickel: (25.1-11.4)/25.1 = 54.6% reduction. EU Nickel: (24.3-14.6)/24.3 = 39.9% reduction. Yes, Germany reduced faster.",
+          "requires": "Computing percentage reduction from both panels and comparing"
+        }
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_014",
+      "subfolder": "chinese_only",
+      "figure_type": "Line Plot",
+      "panel_description": "Left: BLEU vs α (knowledge distillation weight), Right: BLEU vs p (mask probability). Both on MuST-C EN-DE.",
+      "questions": [
+        {
+          "id": "cp1",
+          "question": "两个子图的最优参数值分别是多少？对应的BLEU值相同吗？",
+          "expected": "左图最优α=0.5,BLEU≈28.53。右图最优p=0.15,BLEU≈28.53。两个最优BLEU值几乎相同。",
+          "requires": "Finding peak in both panels and comparing peak values"
+        },
+        {
+          "id": "cp2",
+          "question": "哪个超参数对性能更敏感——α还是p？用两个图的值域范围来支持你的回答。",
+          "expected": "α的BLEU范围：约28.0到28.53（差0.53）。p的BLEU范围：约28.31到28.53（差0.22）。α更敏感，因为BLEU变化幅度更大。",
+          "requires": "Computing value ranges from both panels and comparing sensitivity"
+        },
+        {
+          "id": "cp3",
+          "question": "如果你必须固定一个参数为次优值，固定α=0.1和固定p=0.45哪个带来更大的性能损失？",
+          "expected": "α=0.1时BLEU≈28.0，最优28.53，损失0.53。p=0.45时BLEU≈28.43，最优28.53，损失0.10。固定α=0.1损失更大（5倍以上）。",
+          "requires": "Reading specific values from both panels and comparing performance penalties"
+        }
+      ]
+    },
+    {
+      "fig_key": "german_fig_023",
+      "subfolder": "german_only",
+      "figure_type": "Bar Chart",
+      "panel_description": "Left: Bruttoanlageinvestitionen (% des BIP), Right: Nettoanlageinvestitionen (% des BIP). Both 1991-2023 with Bund/Länder/Gemeinden stacked bars.",
+      "questions": [
+        {
+          "id": "cp1",
+          "question": "In welchem Zeitraum divergieren Brutto- und Nettoinvestitionen am stärksten? Was bedeutet eine große Differenz zwischen beiden?",
+          "expected": "When gross is high but net is low or negative, it means investments barely cover depreciation. Need to compare trends across both panels to find when they diverge most.",
+          "requires": "Comparing trend shapes across both panels and interpreting the economic meaning"
+        },
+        {
+          "id": "cp2",
+          "question": "Die Nettoinvestitionen (rechtes Panel) werden in manchen Jahren negativ. Ist der Bund, die Länder oder die Gemeinden hauptsächlich für die negativen Werte verantwortlich?",
+          "expected": "Need to identify which colored segment (Bund/Länder/Gemeinden) goes below zero in the right panel's stacked bars.",
+          "requires": "Reading component-level detail from one panel while understanding structure from the other"
+        },
+        {
+          "id": "cp3",
+          "question": "Hat die Bahnreform (markiert in beiden Panels) einen sichtbaren Effekt auf die Investitionsmuster? Vergleichen Sie die Trends vor und nach der Reform in beiden Panels.",
+          "expected": "Need to find the Bahnreform marker in both panels and compare pre/post trends for both gross and net investments.",
+          "requires": "Locating an annotation in both panels and comparing surrounding trends"
+        }
+      ]
+    }
+  ]
+}

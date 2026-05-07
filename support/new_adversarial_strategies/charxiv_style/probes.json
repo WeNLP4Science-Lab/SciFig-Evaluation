@@ -1,0 +1,133 @@
+{
+  "description": "CharXiv-style binary-scored probes adapted to our figures. Uses their 19 descriptive question templates + hard reasoning categories (counting, computing, intersection detection). Binary scoring: exact match = 1, wrong = 0.",
+  "methodology": "Adapted from CharXiv (princeton-nlp). Questions have single correct answers for binary grading.",
+  "figures": [
+    {
+      "fig_key": "english_fig_003",
+      "subfolder": "english_only",
+      "figure_type": "Line Plot",
+      "descriptive": [
+        {"qid": 2, "question": "What is the label of the x-axis?", "answer": "Not Applicable", "type": "ocr", "note": "X-axis has categorical labels but no axis title"},
+        {"qid": 10, "question": "How many lines are there?", "answer": "5", "type": "quant"},
+        {"qid": 11, "question": "Do any lines intersect?", "answer": "Yes", "type": "bool"},
+        {"qid": 12, "question": "How many discrete labels are there in the legend?", "answer": "5", "type": "quant"},
+        {"qid": 17, "question": "What is the total number of explicitly labeled ticks across all axes?", "answer": "10", "type": "quant", "note": "5 x-axis layer groups + 5 y-axis ticks approx"}
+      ],
+      "reasoning": [
+        {"question": "How many lines have a value below -5% at any layer group?", "answer": "2", "category": "NG", "note": "Counting lines that dip below -5%"},
+        {"question": "At which layer group do the most lines reach their minimum value?", "answer": "Layer5-12", "category": "TC"}
+      ]
+    },
+    {
+      "fig_key": "english_fig_017",
+      "subfolder": "english_only",
+      "figure_type": "Pie Chart",
+      "descriptive": [
+        {"qid": 1, "question": "What is the title of the plot?", "answer": "Not Applicable", "type": "title"},
+        {"qid": 19, "question": "What is the number of subplots?", "answer": "1", "type": "quant"},
+        {"qid": 12, "question": "How many discrete labels are there in the legend?", "answer": "Not Applicable", "type": "quant", "note": "No legend - labels on slices"}
+      ],
+      "reasoning": [
+        {"question": "How many slices have a percentage value greater than 14%?", "answer": "4", "category": "NG", "note": "Frustration 25.1, Neutral 23.1, Anger 14.9, Sadness 14.7"},
+        {"question": "What is the ratio of the largest slice to the smallest slice, rounded to the nearest integer?", "answer": "3", "category": "NG", "note": "25.1/8.1 ≈ 3.1 → 3"}
+      ]
+    },
+    {
+      "fig_key": "english_fig_085",
+      "subfolder": "english_only",
+      "figure_type": "Bar Chart",
+      "descriptive": [
+        {"qid": 3, "question": "What is the label of the y-axis?", "answer": "Negative log probability", "type": "ocr"},
+        {"qid": 6, "question": "What is the spatially lowest labeled tick on the y-axis?", "answer": "-27", "type": "ocr"},
+        {"qid": 7, "question": "What is the spatially highest labeled tick on the y-axis?", "answer": "-22", "type": "ocr"},
+        {"qid": 12, "question": "How many discrete labels are there in the legend?", "answer": "7", "type": "quant"}
+      ],
+      "reasoning": [
+        {"question": "In how many specialty groups does the baseline (lightest) bar have the most negative value?", "answer": "6", "category": "NG", "note": "Baseline is most negative in all 6 groups"},
+        {"question": "How many individual bars in total are visible in the entire chart?", "answer": "42", "category": "NG", "note": "6 groups × 7 bars = 42"}
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_035",
+      "subfolder": "chinese_only",
+      "figure_type": "Line Plot",
+      "descriptive": [
+        {"qid": 10, "question": "图中有几条线？", "answer": "2", "type": "quant"},
+        {"qid": 11, "question": "两条线是否有交叉？", "answer": "No", "type": "bool"},
+        {"qid": 6, "question": "y轴最低的标注刻度值是多少？", "answer": "3.0", "type": "ocr"},
+        {"qid": 7, "question": "y轴最高的标注刻度值是多少？", "answer": "5.5", "type": "ocr"}
+      ],
+      "reasoning": [
+        {"question": "在多少个类别点上，两条线的差距大于1.0？", "answer": "2", "category": "NG", "note": "C2处差约1.19, 母语处差约1.52"},
+        {"question": "红色线从最低点到最高点上升了多少？精确到小数点后两位。", "answer": "0.51", "category": "NG", "note": "3.179到3.685 = 0.506 ≈ 0.51"}
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_013",
+      "subfolder": "chinese_only",
+      "figure_type": "Pie Chart",
+      "descriptive": [
+        {"qid": 19, "question": "图中有几个子图？", "answer": "1", "type": "quant"},
+        {"qid": 12, "question": "图例中有多少个标签？", "answer": "8", "type": "quant"}
+      ],
+      "reasoning": [
+        {"question": "有多少个类别的占比低于10%？", "answer": "3", "category": "NG", "note": "政治6%, 体育4%, 经济2%"},
+        {"question": "占比为14%的类别有几个？", "answer": "2", "category": "NG", "note": "文化14%, 环境保护14%"}
+      ]
+    },
+    {
+      "fig_key": "german_fig_022",
+      "subfolder": "german_only",
+      "figure_type": "Bar Chart",
+      "descriptive": [
+        {"qid": 9, "question": "What is difference between consecutive numerical tick values on the y-axis?", "answer": "1", "type": "quant"},
+        {"qid": 12, "question": "How many discrete labels are there in the legend?", "answer": "4", "type": "quant"},
+        {"qid": 4, "question": "What is the leftmost labeled tick on the x-axis?", "answer": "2000er Jahre", "type": "ocr"}
+      ],
+      "reasoning": [
+        {"question": "How many bars in the entire chart show negative values?", "answer": "1", "category": "NG", "note": "Only Industrieproduktion in 2020er"},
+        {"question": "In how many decades does Welthandel exceed Exporte Deutschland?", "answer": "3", "category": "NG", "note": "All three decades"}
+      ]
+    },
+    {
+      "fig_key": "german_fig_070",
+      "subfolder": "german_only",
+      "figure_type": "Bar Chart",
+      "descriptive": [
+        {"qid": 18, "question": "What is the layout of the subplots?", "answer": "1 by 2", "type": "quant"},
+        {"qid": 12, "question": "How many discrete labels are there in the legend?", "answer": "3", "type": "quant"},
+        {"qid": 7, "question": "What is the spatially highest labeled tick on the y-axis?", "answer": "30", "type": "ocr"}
+      ],
+      "reasoning": [
+        {"question": "How many bars in the Deutschland panel have a value greater than 10%?", "answer": "3", "category": "NG", "note": "Kupfer 11.3, Nickel 25.1, Nickel 24.7"},
+        {"question": "For how many metal-year combinations does Deutschland have a higher percentage than the EU?", "answer": "3", "category": "NG", "note": "Al 2021 (3.6>3.2), Kupfer 2021 (8.3>4.4), Nickel 2021 (25.1>24.3)"}
+      ]
+    },
+    {
+      "fig_key": "german_fig_057",
+      "subfolder": "german_only",
+      "figure_type": "Pie Chart",
+      "descriptive": [
+        {"qid": 19, "question": "What is the number of subplots?", "answer": "1", "type": "quant"},
+        {"qid": 18, "question": "What is the layout of the subplots?", "answer": "1 by 1", "type": "quant"}
+      ],
+      "reasoning": [
+        {"question": "How many segments in the outer ring (2021) have a percentage value greater than 5%?", "answer": "5", "category": "NG", "note": "Übrige 38.1, Kultur not sure, Wohnungswesen 7.2, Abwasser 7.8, Strom 8.9, Wasser 8.8"},
+        {"question": "How many segments have a higher percentage in 2021 (outer) than in 2014 (inner)?", "answer": "Requires comparing all segments between rings", "category": "NG"}
+      ]
+    },
+    {
+      "fig_key": "chinese_fig_004",
+      "subfolder": "chinese_only",
+      "figure_type": "Bar Chart",
+      "descriptive": [
+        {"qid": 10, "question": "图中有几条折线？", "answer": "1", "type": "quant"},
+        {"qid": 9, "question": "右侧y轴相邻刻度值之间的差是多少？", "answer": "1000", "type": "quant"}
+      ],
+      "reasoning": [
+        {"question": "蓝色折线在多少个日期点上超过4000？", "answer": "Approximately 5-8", "category": "NG", "note": "Counting peaks above 4000 on the blue line"},
+        {"question": "柱状图中有多少根柱子明显低于平均高度（大约一半高度以下）？", "answer": "Approximately 5-10", "category": "NG"}
+      ]
+    }
+  ]
+}

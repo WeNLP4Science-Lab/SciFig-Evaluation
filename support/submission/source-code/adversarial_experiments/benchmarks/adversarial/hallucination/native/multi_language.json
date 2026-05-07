@@ -1,0 +1,299 @@
+{
+  "multi_fig_002": {
+    "figure_key": "multi_fig_002",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml002_h1",
+        "type": "inexist",
+        "question": "What does the error bar on the Per-Output configuration at 70% sparsity indicate about the variance across different model runs?",
+        "expected_behavior": "The model should state that there are no error bars in this chart. A hallucinating model will fabricate variance information from non-existent error bars.",
+        "false_element": "error bars on the bars",
+        "principle": "Co-occurring absent element: error bars are commonly expected on bar charts comparing experimental conditions but are absent here. Definite article 'the error bar' presupposes existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml002_h2",
+        "type": "contra",
+        "question": "Given that the Per-Output configuration consistently shows higher perplexity than the Per-Layer configuration across all sparsity rates, at which sparsity rate does this gap first become visually distinguishable?",
+        "expected_behavior": "The model should reject the false premise. In reality, Per-Layer (orange) shows higher perplexity than Per-Output (blue) from 50% onward, not the other way around. The relationship is reversed in the question.",
+        "false_premise": "Per-Output consistently shows higher perplexity than Per-Layer",
+        "principle": "Embedded false premise in subordinate clause using 'Given that'. The actual relationship is reversed: Per-Layer exceeds Per-Output from 50% sparsity onward. The question further distracts by asking about a secondary detail.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml002_h3",
+        "type": "unanswerable",
+        "question": "Based on the exponential increase pattern visible between 60% and 80% sparsity, what is the projected perplexity for the Per-Output configuration at 90% sparsity?",
+        "expected_behavior": "The model should state that the chart only shows data up to 80% sparsity and extrapolation beyond the displayed range is not supported by the figure.",
+        "why_unanswerable": "The chart only displays sparsity rates from 10% to 80%. No data exists for 90% sparsity, and extrapolation from a logarithmic-scale bar chart would be speculative.",
+        "principle": "Domain-appropriate extrapolation request. The question anchors on real visible patterns (exponential increase) to make the extrapolation seem reasonable, but the data simply does not extend to 90%.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_004": {
+    "figure_key": "multi_fig_004",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml004_h1",
+        "type": "inexist",
+        "question": "What percentage does the 'Anime Characters' subcategory occupy within the Virtual Characters segment of the outer ring?",
+        "expected_behavior": "The model should state that there is no 'Anime Characters' subcategory. The Virtual Characters subcategories are Comic Characters, Movie Characters, Teleplay Characters, Novel Characters, and Game Characters. A hallucinating model may confuse 'Anime' with 'Comic' or fabricate a percentage.",
+        "false_element": "Anime Characters subcategory",
+        "principle": "Plausible absent element: 'Anime Characters' is semantically close to 'Comic Characters' and would be a natural subcategory in a character typology. The definite article presupposes its existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml004_h2",
+        "type": "contra",
+        "question": "Given that Custom Characters occupies roughly half the inner ring and is nearly as large as Virtual Characters, what does this near-parity suggest about the balance between user-created and pre-existing character types in the dataset?",
+        "expected_behavior": "The model should correct the false premise. Custom Characters does NOT occupy roughly half the inner ring and is NOT nearly as large as Virtual Characters. Virtual Characters (blue) dominates the inner ring, taking up approximately 65-70% of the area. Custom Characters (pink) is a much smaller segment, occupying roughly 15-20%. The claim of near-parity is clearly contradicted by the chart, where Virtual Characters is visually 3-4 times larger than Custom Characters.",
+        "false_premise": "That Custom Characters occupies roughly half the inner ring and is nearly as large as Virtual Characters. In reality, Virtual Characters massively dominates at approximately 65-70% while Custom Characters is only about 15-20%. The visual size difference is unmistakable.",
+        "principle": "Grossly inflated segment size embedded in subordinate clause ('Given that...'); claims near-parity between visually disproportionate segments; the follow-up about 'balance' pressures the model to reason from the false premise rather than verify it",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml004_h3",
+        "type": "unanswerable",
+        "question": "Based on the relative sizes of the subcategory slices, what is the exact percentage that Movie Characters represent within the overall character distribution?",
+        "expected_behavior": "The model should state that no percentage labels are provided on this chart, making it impossible to determine exact percentages. Only relative visual sizes can be estimated.",
+        "why_unanswerable": "The pie chart does not include any percentage labels or numerical annotations. Only visual proportions are available, which cannot yield exact percentages.",
+        "principle": "Precision beyond available data: the chart lacks percentage labels entirely, so asking for 'exact percentage' requires information that is not encoded in the figure. The phrase 'based on the relative sizes' makes it seem like computation is possible.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_006": {
+    "figure_key": "multi_fig_006",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml006_h1",
+        "type": "inexist",
+        "question": "At which layer does the shaded confidence interval around the blue dashed line first become noticeably wider, suggesting increased uncertainty in the hidden state mean before gating?",
+        "expected_behavior": "The model should state that there is no shaded confidence interval around any of the lines. The lines are plotted without confidence bands. A hallucinating model will fabricate a layer number where widening supposedly occurs.",
+        "false_element": "shaded confidence interval around the blue dashed line",
+        "principle": "Co-occurring absent element: confidence intervals/shaded bands are extremely common in line plots showing mean values across layers, making their absence easy to overlook. Definite article 'the shaded confidence interval' presupposes existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml006_h2",
+        "type": "contra",
+        "question": "Considering that the orange dotted line (hidden state mean after gate) converges with the blue dashed line (hidden state mean before gate) around layer 20, what does this convergence suggest about the effectiveness of gating in later layers?",
+        "expected_behavior": "The model should reject the false premise. The blue dashed line spikes to ~4.5 around layer 20-24 while the orange dotted line stays near 0.05 throughout. They never converge; in fact, their divergence is maximal in the later layers.",
+        "false_premise": "orange dotted line converges with the blue dashed line around layer 20",
+        "principle": "Embedded contradiction in subordinate clause with 'Considering that'. The actual behavior is the opposite: the lines maximally diverge around layer 20. The question asks about implications, further distracting from premise verification.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml006_h3",
+        "type": "unanswerable",
+        "question": "Given the average values reported in the legend (0.71 before gate, 0.05 after gate, 0.04 baseline), what is the standard deviation of the hidden state mean before gating across all layers?",
+        "expected_behavior": "The model should state that the standard deviation is not provided in the chart. While the average is shown in the legend, no measure of dispersion is given. Computing it would require the raw numerical data points, which are not available from the figure.",
+        "why_unanswerable": "The chart shows a line plot with average values noted in the legend but provides no standard deviation, variance, or other dispersion metrics. The individual data points cannot be read with sufficient precision to compute this.",
+        "principle": "Statistical question beyond available data. The legend does report averages, which makes asking about standard deviation seem like a natural follow-up, but this information is simply not in the figure.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_007": {
+    "figure_key": "multi_fig_007",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml007_h1",
+        "type": "inexist",
+        "question": "What color are the data point markers on the blue dashed line representing the sparsity ratio before gate?",
+        "expected_behavior": "The model should state that the blue dashed line does not have data point markers. It is drawn as a dashed line without circular or other markers. A hallucinating model will describe marker shapes or colors.",
+        "false_element": "data point markers on the blue dashed line",
+        "principle": "Plausible absent element: line plots frequently use markers at data points, and the question assumes they exist by asking about their color rather than their presence. The definite article 'the data point markers' presupposes existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml007_h2",
+        "type": "contra",
+        "question": "Since the sparsity ratio before gate (blue dashed line) starts at approximately 1.0 and decreases to near 0.0, while the sparsity ratio after gate (orange dotted line) starts near 0.0 and increases, at which layer do these two lines intersect?",
+        "expected_behavior": "The model should reject the false premise about the blue line's starting value. The blue dashed line (before gate) actually starts at approximately 0.2 (not 1.0) and decreases. The orange line starts at approximately 1.0 and decreases. The starting values are swapped in the question.",
+        "false_premise": "sparsity ratio before gate starts at approximately 1.0 and the sparsity ratio after gate starts near 0.0",
+        "principle": "Swapped starting values embedded in a subordinate clause. The actual starting positions are reversed: blue starts ~0.2, orange starts ~1.0. The question asks about intersection, distracting from the false premise.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml007_h3",
+        "type": "unanswerable",
+        "question": "Based on the sparsity ratio trends shown for the 1e-2 threshold, what would the average sparsity ratio after gate be if the threshold were changed to 1e-4?",
+        "expected_behavior": "The model should state that the chart only shows data for the 1e-2 threshold and provides no information about how sparsity ratios would change at a different threshold. This would require additional experimental data not present in the figure.",
+        "why_unanswerable": "The chart displays results for a single threshold (1e-2). Predicting behavior at 1e-4 requires experimental data or model knowledge not contained in this figure. The title mentions only 1e-2.",
+        "principle": "Counterfactual parameter change. The question references the actual threshold from the chart title, making it seem answerable, but changing the threshold would fundamentally alter the results in unpredictable ways.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_009": {
+    "figure_key": "multi_fig_009",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml009_h1",
+        "type": "inexist",
+        "question": "What is the approximate max activation value of the purple line representing the 'mlp_output' at layer 10?",
+        "expected_behavior": "The model should state that there is no purple line and no 'mlp_output' series in this chart. The four lines shown are attn_output (blue), attn_residual (orange), ffn_output (green), and ffn_residual (red). A hallucinating model may confuse 'mlp_output' with 'ffn_output'.",
+        "false_element": "purple line labeled 'mlp_output'",
+        "principle": "Plausible absent element: 'mlp_output' is a common alternative name for feed-forward network output in transformer literature, making it a plausible but absent label. The definite article and specific layer number presuppose existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml009_h2",
+        "type": "contra",
+        "question": "Given that the attn_output line (blue dashed) reaches peak activation values comparable to ffn_residual (red solid) around layer 10, what does this suggest about the relative contribution of attention outputs versus FFN residuals to massive activations in middle layers?",
+        "expected_behavior": "The model should reject the false premise. The attn_output (blue) stays near zero through layer 20, only rising at the very end (~layer 22-24). At layer 10, ffn_residual is at ~1500 while attn_output is near 0. They are not comparable at layer 10.",
+        "false_premise": "attn_output reaches peak activation values comparable to ffn_residual around layer 10",
+        "principle": "Embedded false comparison in subordinate clause. The actual values differ by orders of magnitude at layer 10: attn_output is ~0 while ffn_residual is ~1500. The question asks about implications, diverting from premise checking.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml009_h3",
+        "type": "unanswerable",
+        "question": "Based on the massive activation pattern shown in the baseline, at which layer does the attention sink phenomenon first manifest in the attention weight distribution?",
+        "expected_behavior": "The model should state that this chart shows activation values, not attention weight distributions. While the caption mentions attention sinks, the actual attention weight heatmaps are not shown in this specific subplot. The chart only shows max activation values.",
+        "why_unanswerable": "The chart displays max activation values across layers but does not show the attention weight distribution or attention sink patterns directly. The caption references attention sinks in the context of a multi-row figure, but this specific plot only shows activation magnitudes.",
+        "principle": "Conflation of related concepts. The caption mentions attention sinks alongside massive activations, making this question seem answerable from this chart alone, but attention sink patterns require attention weight distribution data not shown here.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_041": {
+    "figure_key": "multi_fig_041",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml041_h1",
+        "type": "inexist",
+        "question": "What accuracy does the DAPO+Self-reflection method achieve on the MathBench benchmark shown in the chart?",
+        "expected_behavior": "The model should state that there is no 'MathBench' benchmark in this chart. The three benchmarks shown are Mathverse, MMLU, and Physics. A hallucinating model may confuse 'MathBench' with 'Mathverse' and report a value.",
+        "false_element": "MathBench benchmark category",
+        "principle": "Near-miss naming: 'MathBench' is semantically very close to 'Mathverse' and is a plausible benchmark name. This tests whether the model carefully reads the actual axis labels rather than pattern-matching on similar names.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml041_h2",
+        "type": "contra",
+        "question": "Since GRPO consistently outperforms SRPO across all three benchmarks, what architectural difference might explain GRPO's superior accuracy?",
+        "expected_behavior": "The model should reject the false premise. In the chart, SRPO (solid orange) consistently outperforms GRPO (orange with diagonal stripes) across all three benchmarks (Mathverse: ~55.8% vs ~53.5%, MMLU: ~57% vs ~56%, Physics: ~60.5% vs ~58%). The relationship is reversed.",
+        "false_premise": "GRPO consistently outperforms SRPO across all three benchmarks",
+        "principle": "Reversed comparison embedded in subordinate clause with 'Since'. The actual data shows SRPO consistently beats GRPO. The question then asks about architectural reasons, strongly encouraging the model to accept the premise and speculate.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml041_h3",
+        "type": "unanswerable",
+        "question": "Given that the self-reflection variants consistently improve accuracy, what is the average training time overhead introduced by adding self-reflection to each base RL method?",
+        "expected_behavior": "The model should state that the chart only shows accuracy percentages and provides no information about training time, computational cost, or overhead. This information is not available from the figure.",
+        "why_unanswerable": "The chart displays only accuracy values across benchmarks. No training time, computational cost, or resource utilization data is present. The question leverages a visible pattern (self-reflection helps) to ask about a related but absent metric.",
+        "principle": "Adjacent metric question: training time overhead is a natural concern when evaluating method variants, and the chart does show that self-reflection helps, but the figure contains no temporal or computational information.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_045": {
+    "figure_key": "multi_fig_045",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml045_h1",
+        "type": "inexist",
+        "question": "In chart (b), what percentage does the 'reaction' token itself occupy in the co-occurrence distribution for the mathematics domain?",
+        "expected_behavior": "The model should state that the token 'reaction' does not appear as a slice in chart (b). The slices in chart (b) are 'the' (38%), '$' (27%), 'equilibrium' (19%), and 'constant' (15%). The word 'reaction' is the seed word being analyzed, not a co-occurring token shown in the pie chart.",
+        "false_element": "'reaction' as a slice in the pie chart",
+        "principle": "Plausible absent element from context: since the figure is about tokens co-occurring with 'reaction', asking about 'reaction' itself as a slice is a natural but incorrect inference. The presupposition embedding is subtle.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml045_h2",
+        "type": "contra",
+        "question": "Considering that chart (a) for the chemistry domain contains only four token categories while chart (b) for mathematics contains six, what does this difference in granularity suggest about vocabulary diversity?",
+        "expected_behavior": "The model should reject the false premise. Chart (a) actually has six categories ('the' 31%, 'this' 21%, 'for' 17%, 'chemical' 15%, 'to' 9%, 'in' 7%), while chart (b) has four categories ('the' 38%, '$' 27%, 'equilibrium' 19%, 'constant' 15%). The counts are swapped.",
+        "false_premise": "chart (a) contains four categories while chart (b) contains six",
+        "principle": "Swapped numeric attributes between subplots. The actual counts are reversed: (a) has 6 slices, (b) has 4. The question embeds the swap in a subordinate clause and asks about implications, strongly pushing the model to accept and reason forward.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml045_h3",
+        "type": "unanswerable",
+        "question": "Based on the co-occurrence distributions shown, what is the probability that 'reaction' will be followed by a domain-specific token rather than a function word in a randomly sampled chemistry paper?",
+        "expected_behavior": "The model should state that the pie charts show co-occurrence percentages within a specific corpus analysis, not generalized probabilities for random sampling from chemistry papers. The charts do not provide enough information for such inference.",
+        "why_unanswerable": "The pie charts show co-occurrence frequencies from a specific analysis, not generalizable transition probabilities. The sampling methodology, corpus size, and document-level variation are not shown, making population-level probability inference impossible.",
+        "principle": "Overgeneralization from descriptive statistics: the charts show specific distributional data, but the question asks for a generalizable probability, which requires inference beyond what the figure supports.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_054": {
+    "figure_key": "multi_fig_054",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml054_h1",
+        "type": "inexist",
+        "question": "What is the approximate value of the convergence ratio for the 'Incorrect' category at 5 shots, as shown by the blue dotted bar at the rightmost position?",
+        "expected_behavior": "The model should state that there is no '5 shots' category in this chart. The x-axis ranges from 0 to 4 shots only. A hallucinating model will fabricate a value for a non-existent data point.",
+        "false_element": "5 shots category on the x-axis",
+        "principle": "Plausible range extension: since the x-axis goes 0-4, asking about 5 is a natural next value. The definite article and specific description ('the blue dotted bar at the rightmost position') presuppose its existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml054_h2",
+        "type": "contra",
+        "question": "Given that the convergence ratio for the 'Correct' category increases monotonically from 0 to 4 shots, reaching its peak at 4 shots, what does this trend suggest about the benefits of additional few-shot examples?",
+        "expected_behavior": "The model should reject the false premise. The 'Correct' bars actually show a decreasing trend overall: ~0.62 at 0 shots, ~0.61 at 1 shot, ~0.55 at 2 shots, ~0.53 at 3 shots, and ~0.27 at 4 shots. The trend is the opposite of what the question claims.",
+        "false_premise": "convergence ratio for Correct increases monotonically from 0 to 4 shots, peaking at 4 shots",
+        "principle": "Reversed trend embedded in subordinate clause. The actual data shows a clear decreasing trend for the Correct category, with the lowest value at 4 shots. The question pushes the model to reason about benefits of a non-existent trend.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml054_h3",
+        "type": "unanswerable",
+        "question": "Based on the convergence ratio differences between Correct and Incorrect outcomes, what is the statistical significance (p-value) of the difference at 2 shots compared to 0 shots?",
+        "expected_behavior": "The model should state that the chart shows only bar heights representing convergence ratio values, with no statistical test results, p-values, confidence intervals, or sample sizes provided. Significance testing cannot be performed from this figure alone.",
+        "why_unanswerable": "The bar chart presents convergence ratio values without error bars, sample sizes, or statistical test results. Computing p-values requires raw data or at minimum variance estimates, which are not available in this figure.",
+        "principle": "Statistical inference beyond available data: asking for p-values from a bar chart that shows only point estimates without any uncertainty information. The question references specific data points to seem grounded.",
+        "answer_type": "binary"
+      }
+    ]
+  },
+  "multi_fig_111": {
+    "figure_key": "multi_fig_111",
+    "subfolder": "multi_language",
+    "probes": [
+      {
+        "id": "ml111_h1",
+        "type": "inexist",
+        "question": "What percentage of the distribution does the 2020 slice represent in the pie chart, and what color is it used to distinguish it from the other years?",
+        "expected_behavior": "The model should state that there is no 2020 slice in this chart. The chart only shows three years: 2017 (green, 21%), 2018 (orange, 33%), and 2019 (blue, 46%). A hallucinating model will fabricate a percentage and color for a non-existent year.",
+        "false_element": "2020 year slice",
+        "principle": "Plausible absent element: the chart shows 2017-2019, so 2020 is the next natural year. The question asks about two attributes (percentage and color), increasing the chance of fabrication. Definite article 'the 2020 slice' presupposes existence.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml111_h2",
+        "type": "contra",
+        "question": "Since 2018 accounts for the largest share of articles at 46.0%, representing nearly half of the dataset, how many articles does this correspond to in absolute numbers?",
+        "expected_behavior": "The model should reject the false premise. The 2018 slice is 33.0% (33 articles), not 46.0%. The 46.0% belongs to 2019. The model should correct this attribution and provide the correct absolute number for 2018 (33 articles).",
+        "false_premise": "2018 accounts for the largest share at 46.0%",
+        "principle": "Swapped attribute between categories. The 46.0% actually belongs to 2019 (blue), not 2018 (orange). The subordinate clause with 'Since' and the reassuring parenthetical 'representing nearly half' add credibility to the false premise.",
+        "answer_type": "binary"
+      },
+      {
+        "id": "ml111_h3",
+        "type": "unanswerable",
+        "question": "Given the increasing trend from 21% in 2017 to 46% in 2019, what is the projected number of articles for 2020 if the same growth rate continues?",
+        "expected_behavior": "The model should state that the chart only covers 2017-2019 and does not provide information to reliably project future years. The apparent trend in three data points does not constitute sufficient evidence for projection, and the chart provides no indication of future data.",
+        "why_unanswerable": "The chart shows distribution across only three years. Projecting to 2020 would require assuming a specific growth model from just three data points, which is not supported by the figure. Additionally, the percentages represent proportions of a fixed dataset, not absolute growth.",
+        "principle": "Extrapolation from limited data: the visible pattern (21% -> 33% -> 46%) does show an increase, making projection seem reasonable, but these are proportions of a fixed corpus, not growth data, and three points are insufficient for reliable projection.",
+        "answer_type": "binary"
+      }
+    ]
+  }
+}

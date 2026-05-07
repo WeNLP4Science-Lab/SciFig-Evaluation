@@ -1,0 +1,566 @@
+\chapter{Implementation\label{chap:implementation}}
+
+This chapter describes the specific experiments conducted with
+the \textsc{SciFig-Eval} apparatus defined in
+Chapter~\ref{chap:design}. The register shifts from specification
+to execution: what was run, on which models, under which
+conditions, and with which controls. The experiments are organised
+by the research question each is designed to address.
+
+\section{Experimental Strategy}
+\label{sec:impl-strategy}
+
+The evaluation exercises thirteen vision-language models drawn
+from six families across the four research questions defined in
+\S\ref{sec:intro-rqs}. Every model receives the same prompts,
+the same images, and the same probe questions under the same
+decoding parameters ($T{=}0$, no sampling). Every response is
+scored independently by two LLM judges (GPT-4o and Mistral
+Large~3, both hosted on Azure) so that inter-judge agreement can
+be reported alongside the scores themselves. Where a research
+question admits an ablation (prompt language, chain-of-thought),
+both the baseline and the ablated condition are run on the same
+model--figure pairs so that the comparison is paired.
+
+The experiments were executed between February and April~2026. All
+API calls use temperature zero for reproducibility. Model
+outputs, judge scores, and aggregated results are versioned in
+the project repository and served to an interactive dashboard.
+Table~\ref{tab:environment} summarises the execution environment
+and the reproducibility controls applied throughout.
+
+\begin{table}[tbp]
+\centering
+\caption{%
+  \textbf{(a)} Execution environment and reproducibility controls.
+  \textbf{(b)} The thirteen models under test, grouped by family. All calls use $T{=}0$. MoE models report total/active parameters.
+}\label{tab:environment}\label{tab:models}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{minipage}[t]{0.42\textwidth}
+\centering
+\textbf{(a) Environment}\\[2pt]
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Component} & \textbf{Configuration} \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Execution}} \\
+OS / Python       & macOS Darwin 25.1 / 3.9+ \\
+Parallelism       & ThreadPoolExecutor, 4 workers \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Azure OpenAI (East US 2)}} \\
+Deployments       & gpt-5-2, phi-4-multimodal \\
+                  & gpt-4o, mistral-large-3 \\
+API version       & 2024-12-01-preview \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{OpenRouter}} \\
+Models            & 11 (see panel b) \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Reproducibility}} \\
+Temperature       & 0 (all calls) \\
+Output            & structured JSON \\
+Version control   & Git \\
+Judges            & GPT-4o + Mistral Large 3 \\
+Dashboard         & React/TS, Azure SWA \\
+\bottomrule
+\end{tabular}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.55\textwidth}
+\centering
+\textbf{(b) Models under test}\\[2pt]
+\begin{tabular}{@{}cllll@{}}
+\toprule
+ & \textbf{Model} & \textbf{Family} & \textbf{Params} & \textbf{Backend} \\
+\midrule
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/gptlogo.jpg}}
+  & GPT-5.2 & OpenAI & undiscl. & Azure \\
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/geminilogo.png}}
+  & Gemini 3.1 Pro & Google & undiscl. & OpenRouter \\
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/claudelogo.png}}
+  & Claude Opus 4.6 & Anthropic & undiscl. & OpenRouter \\
+\midrule
+\multirow{4}{*}{\raisebox{-8pt}{\includegraphics[height=8pt]{figures/qwenlogo.png}}}
+  & Qwen3-VL 235B & Alibaba & 235B/22B & OpenRouter \\
+  & Qwen3-VL 32B  & Alibaba & 32B      & OpenRouter \\
+  & Qwen3-VL 30B  & Alibaba & 30B/3B   & OpenRouter \\
+  & Qwen3-VL 8B   & Alibaba & 8B       & OpenRouter \\
+\midrule
+\multirow{2}{*}{\raisebox{-4pt}{\includegraphics[height=8pt]{figures/llama4logo.png}}}
+  & LLaMA-4 Mav.  & Meta & 400B/17B & OpenRouter \\
+  & LLaMA-4 Scout & Meta & 109B/17B & OpenRouter \\
+\midrule
+\multirow{3}{*}{\raisebox{-6pt}{\includegraphics[height=8pt]{figures/gemmalogo.png}}}
+  & Gemma-3 27B & Google & 27B  & OpenRouter \\
+  & Gemma-3 12B & Google & 12B  & OpenRouter \\
+  & Gemma-3 4B  & Google & 4B   & OpenRouter \\
+\midrule
+\raisebox{-2pt}{\includegraphics[height=8pt]{figures/philogo.png}}
+  & Phi-4 Multim. & Microsoft & 5.6B & Azure \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{table}
+
+\section{Models and Infrastructure}
+\label{sec:impl-models}
+
+The evaluation targets thirteen models from six families and five laboratories (Table~\ref{tab:models}b), spanning three tiers.
+The \emph{frontier closed-weight} tier comprises GPT-5.2~\citep{openai2025gpt5}, Gemini~3.1~Pro~\citep{google2026gemini3}, and Claude~Opus~4.6~\citep{anthropic2026opus46}.
+The \emph{large open-weight} tier includes four Qwen3-VL variants (8B--235B)~\citep{qwen2025qwen3vl}, two LLaMA-4 models~\citep{meta2025llama4}, and three Gemma-3 sizes~\citep{team2025gemma3}.
+Phi-4~Multimodal~\citep{microsoft2025phi4} (5.6B) represents the \emph{small open-weight} tier, testing whether A-R-I patterns hold at the lower parameter range.
+
+Two inference backends are used. Azure OpenAI hosts GPT-5.2
+and Phi-4 Multimodal as managed deployments. OpenRouter proxies
+the remaining eleven models (including Gemini~3.1~Pro) through
+a unified OpenAI-compatible endpoint. The
+\texttt{FigureAnnotator} abstraction in the codebase routes each
+model to its backend transparently, so every experiment script
+is backend-agnostic.
+
+\label{sec:impl-infra}
+The evaluation pipeline produces structured JSON outputs at
+every stage (generation, judge scoring, aggregation). A React
+and TypeScript dashboard, deployed on Azure Static Web Apps,
+consumes these outputs and provides interactive exploration of
+per-figure, per-model, per-language results. Figure images are
+served from Azure Blob Storage. The dashboard is publicly
+accessible at \url{https://victorious-glacier-00483810f.2.azurestaticapps.net}.
+The complete system, including the end-to-end pipeline and interactive dashboard, was demonstrated in a live session covering dataset browsing, model evaluation, adversarial probe execution, and results exploration.
+
+
+\section{RQ1: Faithful Figure Description across Languages}
+\label{sec:impl-rq1}
+
+The first research question asks to what extent current VLMs
+produce accurate, complete and clearly expressed descriptions
+of scientific figures across typologically diverse languages.
+
+\subsection{Experiment: Original-Image Description}
+\label{sec:impl-rq1-original}
+
+Each of the thirteen models describes all 120~sample figures
+(30~Bulgarian, 30~Chinese, 39~English and multi-language,
+21~German) under the native-language prompt condition (C1 in
+Figure~\ref{fig:prompt-engineering}). The model receives the
+clean, uncropped figure image and the figure-type-specific
+prompt in the figure's native language. No caption and no paper
+title are provided, isolating the model's capacity to read the
+image without textual scaffolding.
+
+Figure~\ref{fig:german023-example} reproduces
+\texttt{german\_fig\_023}, a stacked bar chart of public
+investment by level of government as a share of GDP, which
+serves as the running example throughout this chapter. The
+two prompt-condition extracts beneath it illustrate conditions
+C1 and C2 on the same figure. Full prompts for all
+figure types and languages are reproduced in
+Appendix~\ref{app:prompts}.
+
+\begin{figure}[!tbp]
+  \centering
+  \includegraphics[width=0.55\textwidth]{figures/german_fig_023_original.png}
+
+  \vspace{0.3em}
+
+  \noindent
+  \begin{minipage}[t]{0.32\textwidth}
+    \begin{tcolorbox}[
+      enhanced, sharp corners, boxrule=0.3pt,
+      colback=green!4, colframe=green!30!black!20,
+      fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
+      coltitle=green!40!black,
+      title={C1: Native (German)},
+      left=3pt, right=3pt, top=2pt, bottom=2pt]
+      \fontsize{6}{7.5}\selectfont\itshape
+      Sie sind ein Annotator, dessen Aufgabe es ist,
+      wissenschaftliche Balkendiagramme zu beschreiben.
+      Ihr Ziel ist es, das Dargestellte
+      objektiv zu beschreiben\,\ldots
+    \end{tcolorbox}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.32\textwidth}
+    \begin{tcolorbox}[
+      enhanced, sharp corners, boxrule=0.3pt,
+      colback=blue!4, colframe=blue!30!black!20,
+      fonttitle=\sffamily\fontsize{6}{7.5}\selectfont\bfseries,
+      coltitle=blue!40!black,
+      title={C2: EN instr.\ + native out},
+      left=3pt, right=3pt, top=2pt, bottom=2pt]
+      \fontsize{6}{7.5}\selectfont\itshape
+      You are an annotator tasked with describing scientific
+      bar charts\,\ldots\par
+      \vspace{2pt}
+      \upshape\fontseries{b}\selectfont
+      IMPORTANT: Write your response in German (Deutsch).
+    \end{tcolorbox}
+  \end{minipage}
+
+  \caption[Running example: \texttt{german\_fig\_023} with two prompt conditions.]{%
+    Running example used throughout this chapter.
+    \texttt{german\_fig\_023} is a stacked bar chart from
+    Wirtschaftsdienst showing gross and net fixed-asset
+    investment by Bund (blue), L\"{a}nder (red) and
+    Gemeinden (yellow) as a share of GDP, 1991--2023.
+    Beneath: the opening lines of the two prompt
+    conditions. C1~(green) is the native German prompt.
+    C2~(blue) uses the English prompt with an explicit
+    instruction to respond in German.}
+  \label{fig:german023-example}
+\end{figure}
+
+The resulting descriptions are evaluated under the atomic MQM
+rubric defined in \S\ref{sec:design-scoring}. The judge
+receives the original image, the atom checklist (2{,}252~atoms
+across 120~figures, each tagged with a severity of Critical,
+Important or Minor), and the model's description, and verifies
+each atom independently. The normalized scoring formula
+$\mathrm{MQM} = \max(0,\; 100 - (\sum\mathrm{penalties}\,/\,
+N_{\mathrm{atoms}} \times 5.0) \times 100)$ ensures the full
+$[0, 100]$ range is reachable regardless of figure complexity.
+Both judges (GPT-4o and Mistral Large~3) score every
+description independently, yielding two evaluations per model
+per figure.
+
+\subsection{Experiment: Prompt-Language Ablation}
+\label{sec:impl-rq1-ablation}
+
+To isolate the contribution of native-language prompting, an
+ablation condition (C2) is tested on the 45~adversarial-subset
+figures across all thirteen models. The English prompt for each
+figure type is used regardless of the figure's native language,
+appended with an explicit instruction to respond in the native
+language (e.g., ``Write your response in Bulgarian''). This
+isolates the instruction-language effect while keeping the
+output language constant.
+
+Both ablation conditions are evaluated under the same atomic
+MQM rubric and by the same judge panel as the baseline, so
+the per-language score differences are paired comparisons on
+the same model--figure pairs.
+
+
+\section{RQ2: Robustness to Visual Degradation}
+\label{sec:impl-rq2}
+
+The second research question asks how visual degradation affects
+the accuracy, completeness and clarity of VLM-generated figure
+descriptions. For this question, 45~figures are further sampled
+from the 120-figure corpus (9~per language subset, balanced at 3~per chart type within each language) and subjected
+to controlled visual perturbations. The balanced design isolates chart-type and language effects by ensuring equal representation, rather than reflecting ecological figure-type distributions; this is a deliberate methodological choice that prioritises controlled comparison over prevalence-weighted sampling.
+
+\subsection{Experiment: Image Transforms}
+\label{sec:impl-rq2-transforms}
+
+Each of the 45~adversarial figures is transformed under nine
+degradation conditions drawn from probe family~A3: JPEG
+compression ($q{=}15$), Gaussian noise ($\sigma{=}30$),
+aspect-ratio stretch (${\times}1.2$), contrast reduction
+(${\times}0.5$), thirty-degree rotation, embedding in the
+original paper page (original-in-paper), and embedding in the
+paper page with the figure region blurred (blurred-in-paper).
+Figure~\ref{fig:transforms-example} illustrates three of these
+transforms on the running example, showing noise injection,
+rotation and blurred-in-paper embedding.
+
+\begin{figure}[!tbp]
+  \centering
+  \begin{subfigure}[t]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/german_fig_023_noise.png}
+    \caption{Gaussian noise ($\sigma{=}30$)}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/german_fig_023_rotation.png}
+    \caption{Rotation ($30^{\circ}$)}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/german_fig_023_original_in_paper.jpeg}
+    \caption{Original in paper page}
+  \end{subfigure}
+  \vspace{-4pt}
+  \caption[Three visual transforms applied to \texttt{german\_fig\_023}.]{%
+    Three transforms from probe family~A3. \textbf{(a)}~Noise degrades fine detail. \textbf{(b)}~Rotation displaces axis labels. \textbf{(c)}~In-paper embeds the figure in its page context. Compare with Figure~\ref{fig:german023-example}.}
+  \label{fig:transforms-example}
+\end{figure}
+
+Every model describes every transformed figure under
+condition~C1, producing $13 \times 7 \times 45 = 4{,}095$
+descriptions in total (minus a small number of figures excluded
+from the in-paper conditions where the page snapshot was
+unavailable). Each description is evaluated under atomic MQM by
+both judges. The per-transform score is compared against the
+original-image baseline from \S\ref{sec:impl-rq1-original} to
+quantify the degradation profile of each model.
+
+\subsection{Experiment: Axis and Selective Blur}
+\label{sec:impl-rq2-blur}
+
+Two additional transforms target specific figure regions rather
+than the image as a whole. Figure~\ref{fig:blur-example}
+illustrates both on the running example.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.38\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/german_fig_023_axis_blurred.png}
+    \caption{Axis blur}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.38\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/german_fig_023_selective_blur.png}
+    \caption{Selective blur}
+  \end{subfigure}
+  \vspace{-4pt}
+  \caption[Axis blur and selective blur on \texttt{german\_fig\_023}.]{%
+    Region-targeted blur transforms. \textbf{(a)}~Axis blur obscures labels and tick marks while preserving the data region. \textbf{(b)}~Selective blur targets a single in-chart element, testing admittance behaviour.}
+  \label{fig:blur-example}
+\end{figure}
+
+Axis blur obscures axis labels and tick marks while leaving the
+data region legible. Selective blur targets a single in-chart
+element (a bar label, a pie-chart slice label, or a line-plot
+legend entry) identified from the ground-truth annotation. The
+45~figures yield 187~blurred axis elements and 68~blurred
+selective elements. These blurred descriptions feed the
+Admittance axis of the A-R-I framework and are evaluated under
+the passive-admittance rubric described in
+\S\ref{sec:design-ari-admittance}.
+
+
+\section{RQ3: Comprehension beyond Description}
+\label{sec:impl-rq3}
+
+The third research question asks whether VLMs can demonstrate
+genuine comprehension of scientific visualisations beyond
+surface description.
+
+\subsection{Experiment: Capability Questions}
+\label{sec:impl-rq3-capability}
+
+A set of 225~capability questions, distributed across the
+five language subsets, tests quantitative reading, approximate
+estimation, and open-ended interpretation of the 45~adversarial
+figures. Each figure has five questions spanning three answer
+types: exact (a specific number or label), approximate (a
+value within a tolerance range), and open-ended (a qualitative
+observation). Figure~\ref{fig:capability-questions} illustrates
+the five questions for the running example. The questions are
+delivered to each model in two batches of five, with each batch
+also containing hallucination and prompt-reverse probes (see
+\S\ref{sec:impl-rq4}). The model's answers are parsed from the
+numbered response and scored by both judges against the
+ground-truth answer key.
+
+\begin{figure}[H]
+  \centering
+  \scalebox{0.78}{%
+  \begin{tikzpicture}[
+    font=\sffamily,
+    pill/.style={rounded corners=4pt, inner xsep=5pt, inner ysep=2pt,
+      font=\sffamily\fontsize{6}{7.5}\selectfont\bfseries},
+    pillapx/.style={pill, fill=orange!25, text=orange!75!black},
+    pillext/.style={pill, fill=blue!25, text=blue!65!black},
+    pillopn/.style={pill, fill=green!30, text=green!55!black},
+  ]
+    \def\colw{2.7cm}
+    \def\totalw{13.5cm}
+
+    %% Cartesian axes with arrows
+    \draw[-{Latex[length=2mm,width=1.5mm]}, black!60, line width=0.6pt]
+      (-0.15, -5.3) -- (\totalw+0.3, -5.3);
+    \draw[-{Latex[length=2mm,width=1.5mm]}, black!60, line width=0.6pt]
+      (0, -5.5) -- (0, 1.1);
+
+    %% Axis labels
+    \node[font=\sffamily\fontsize{5}{6}\selectfont, text=black!40,
+          anchor=south] at (0, 1.15) {type};
+    \node[font=\sffamily\fontsize{5}{6}\selectfont, text=black!40,
+          anchor=west] at (\totalw+0.35, -5.3) {Q};
+
+    %% Dashed vertical partition lines
+    \foreach \i in {1,...,4} {
+      \draw[dashed, black!30, line width=0.4pt]
+        (\i*\colw, 0.9) -- (\i*\colw, -5.3);
+    }
+
+    %% === Q1 ===
+    \node[pillapx] at (0.5*\colw, 0.55) {Approximate};
+    \node[font=\sffamily\fontsize{8}{9}\selectfont\bfseries,
+          text=black] at (0.5*\colw, -0.15) {Q1};
+    \node[font=\sffamily\fontsize{6}{8}\selectfont,
+          text=black!90, text width=2.3cm, align=center]
+          at (0.5*\colw, -1.5) {\itshape
+          In welchem unge\-f\"{a}hren Jahr erreichen die Brutto\-anlage\-investitionen ihren h\"{o}chsten Wert?};
+    \node[font=\sffamily\fontsize{5}{6.5}\selectfont,
+          text=black!50, text width=2.3cm, align=center]
+          at (0.5*\colw, -3.1) {%
+          In what approximate year do gross investments reach their peak?};
+    \node[font=\sffamily\fontsize{5.5}{7}\selectfont\bfseries,
+          text=orange!70!black, text width=2.3cm, align=center]
+          at (0.5*\colw, -4.3) {$\approx$1992--93\\3.3\% GDP};
+
+    %% === Q2 ===
+    \node[pillapx] at (1.5*\colw, 0.55) {Approximate};
+    \node[font=\sffamily\fontsize{8}{9}\selectfont\bfseries,
+          text=black] at (1.5*\colw, -0.15) {Q2};
+    \node[font=\sffamily\fontsize{6}{8}\selectfont,
+          text=black!90, text width=2.3cm, align=center]
+          at (1.5*\colw, -1.5) {\itshape
+          In welchen Jahren fallen die Netto\-anlage\-investitionen unter 0\% des BIP?};
+    \node[font=\sffamily\fontsize{5}{6.5}\selectfont,
+          text=black!50, text width=2.3cm, align=center]
+          at (1.5*\colw, -3.1) {%
+          In which years do net investments fall below 0\% of GDP?};
+    \node[font=\sffamily\fontsize{5.5}{7}\selectfont\bfseries,
+          text=orange!70!black, text width=2.3cm, align=center]
+          at (1.5*\colw, -4.3) {$\approx$2003--2014};
+
+    %% === Q3 ===
+    \node[pillapx] at (2.5*\colw, 0.55) {Approximate};
+    \node[font=\sffamily\fontsize{8}{9}\selectfont\bfseries,
+          text=black] at (2.5*\colw, -0.15) {Q3};
+    \node[font=\sffamily\fontsize{6}{8}\selectfont,
+          text=black!90, text width=2.3cm, align=center]
+          at (2.5*\colw, -1.5) {\itshape
+          Wie gro\ss{} ist die Differenz zwischen Brutto- und Netto\-investitionen 2023?};
+    \node[font=\sffamily\fontsize{5}{6.5}\selectfont,
+          text=black!50, text width=2.3cm, align=center]
+          at (2.5*\colw, -3.1) {%
+          How large is the gap between gross and net investment in 2023?};
+    \node[font=\sffamily\fontsize{5.5}{7}\selectfont\bfseries,
+          text=orange!70!black, text width=2.3cm, align=center]
+          at (2.5*\colw, -4.3) {$\approx$2.6--2.75\\pct.\ points};
+
+    %% === Q4 ===
+    \node[pillext] at (3.5*\colw, 0.55) {Exact};
+    \node[font=\sffamily\fontsize{8}{9}\selectfont\bfseries,
+          text=black] at (3.5*\colw, -0.15) {Q4};
+    \node[font=\sffamily\fontsize{6}{8}\selectfont,
+          text=black!90, text width=2.3cm, align=center]
+          at (3.5*\colw, -1.5) {\itshape
+          Welche Gebietsk\"{o}rper\-schafts\-ebene hat durchgehend den gr\"{o}\ss{}ten Anteil?};
+    \node[font=\sffamily\fontsize{5}{6.5}\selectfont,
+          text=black!50, text width=2.3cm, align=center]
+          at (3.5*\colw, -3.1) {%
+          Which level of government consistently has the largest share?};
+    \node[font=\sffamily\fontsize{5.5}{7}\selectfont\bfseries,
+          text=blue!65!black, text width=2.3cm, align=center]
+          at (3.5*\colw, -4.3) {Gemeinden};
+
+    %% === Q5 ===
+    \node[pillopn] at (4.5*\colw, 0.55) {Open-ended};
+    \node[font=\sffamily\fontsize{8}{9}\selectfont\bfseries,
+          text=black] at (4.5*\colw, -0.15) {Q5};
+    \node[font=\sffamily\fontsize{6}{8}\selectfont,
+          text=black!90, text width=2.3cm, align=center]
+          at (4.5*\colw, -1.5) {\itshape
+          In welchem Jahr ist die ``Bahnreform''-Linie, und was \"{a}ndert sich danach?};
+    \node[font=\sffamily\fontsize{5}{6.5}\selectfont,
+          text=black!50, text width=2.3cm, align=center]
+          at (4.5*\colw, -3.1) {%
+          In what year is the ``Bahnreform'' line, and what changes after?};
+    \node[font=\sffamily\fontsize{5.5}{7}\selectfont\bfseries,
+          text=green!55!black, text width=2.3cm, align=center]
+          at (4.5*\colw, -4.3) {$\approx$1998--99\\Bund share drops};
+
+    %% Outer frame
+    \begin{scope}[on background layer]
+      \coordinate (bg_sw) at ($(current bounding box.south west)+(-0.1,-0.15)$);
+      \coordinate (bg_ne) at ($(current bounding box.north east)+(0.1,0.1)$);
+      \fill[white] (bg_sw) rectangle (bg_ne);
+      \draw[black!20, line width=0.3pt, rounded corners=3pt]
+            (bg_sw) rectangle (bg_ne);
+    \end{scope}
+  \end{tikzpicture}}%
+  \caption[Capability questions for \texttt{german\_fig\_023}.]{%
+    Five capability questions for the running example, on a Cartesian layout by answer type (orange = approximate, blue = exact, green = open-ended). German questions in italics with English translation. Each of the 45 adversarial figures receives five questions in its native language.}
+  \label{fig:capability-questions}
+\end{figure}
+
+\section{RQ4: Behavioural Dynamics under Stress}
+\label{sec:impl-rq4}\label{sec:impl-rq4-hallucination}\label{sec:impl-rq4-caption}\label{sec:impl-rq4-reverse}\label{sec:impl-rq4-admittance}\label{sec:impl-rq4-passive}\label{sec:impl-rq4-inductance}\label{sec:impl-rq4-cot}\label{sec:impl-summary}\label{fig:probe-examples}
+
+RQ4 executes the adversarial probes defined in \S\ref{sec:design-ari} across all three A-R-I axes on the 45-figure adversarial subset.
+Table~\ref{tab:experiment-master} is the master experiment table for the entire thesis: it details every experiment across all four research questions, showing the probe family, figure and element counts, exact scoring rubric, which behavioural axis each experiment feeds, and a representative probe example from the running example (\texttt{german\_fig\_023}, Figure~\ref{fig:german023-example}) in the original German with English translation.
+
+The hallucination probes (A1) test three forms of false premise: asking about non-existent elements, building on contra-factual values, and posing questions the figure cannot answer.
+Caption bias (A2) pairs each figure with a modified caption containing targeted false claims and checks whether the model reproduces them.
+Prompt reverse (A4) tests consistency by asking the model to confirm a true claim and then its negation.
+Active admittance asks directly about a blurred element; passive admittance classifies unprompted blur responses as admits, fabricates, or silent across 187 axis-blur and 68 selective-blur elements.
+Inductance is measured through five active reasoning traps on clean figures and nine inferable blurred elements where context supports deduction (Figure~\ref{fig:inferable-example}; full list in Appendix Table~\ref{tab:inferable}).
+All probes are re-run under CCoT (C3, \S\ref{sec:design-prompts}) to test chain-of-thought effects.
+The total judge calls across all experiments exceed 50{,}000.
+
+\begin{table}[!ht]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\caption[Master experiment table with probe examples.]{%
+  Complete experimental matrix with probe examples from the running example (\texttt{german\_fig\_023}).
+  Figs = distinct figures. Elem = blurred/probed items.
+  Axis: \textbf{A} = Admittance, \textbf{R} = Resistance, \textbf{I} = Inductance, MQM = description quality.
+  Probe examples show original German (italic) with English translation.
+  All experiments use 13 models $\times$ 2 judges.
+  Per-language splits: 120-sample = EN\,39 / BG\,30 / CN\,30 / DE\,21; 45 adversarial = 9 per language subset (EN / BG / CN / DE / Multi); 13 controlled = 13 parallel figures $\times$ 4 languages.
+}\label{tab:experiment-master}\label{tab:experiment-summary}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l l r r l l p{5.5cm}@{}}
+\toprule
+\textbf{Experiment} & \textbf{Fam.} & \textbf{Figs} & \textbf{Elem} & \textbf{Scoring} & \textbf{Axis} & \textbf{Probe example (german\_fig\_023)} \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ1: Description quality}} \\
+Original description     & ---  & 120 & 2{,}252 & Atomic MQM & MQM & --- \\
+Prompt-lang.\ ablation   & ---  & 45  & ---     & Atomic MQM & MQM & C2 vs C1 \\
+Cross-lingual controlled & ---  & 13  & ---     & Atomic MQM & MQM & 4 languages \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ2: Degradation}} \\
+Image transforms (9)    & A3   & 45  & ---     & Atomic MQM & MQM & per transform \\
+Axis blur               & A3   & 45  & 187     & admit/fab/silent & \textbf{A} & --- \\
+Selective blur           & A3   & 45  & 68      & admit/fab/silent & \textbf{A} & --- \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ3: Comprehension}} \\
+Capability questions    & ---  & 45  & 630     & correct/incorrect & MQM & 5 question categories \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{RQ4: Behavioural dynamics}} \\
+\rowcolor{red!4}
+Halluc.: Inexist        & A1   & 45  & 45      & 1.0/0.5/0.0 & \textbf{R} & \textit{Der EU-Durchschnitt als horizontale Referenzlinie\ldots} {\scriptsize The EU average reference line\ldots} \\
+\rowcolor{red!4}
+Halluc.: Contra         & A1   & 45  & 45      & 1.0/0.5/0.0 & \textbf{R} & \textit{Nachdem die Bruttoanlageinvestitionen seit 2015 durchgehend gestiegen sind\ldots} {\scriptsize Given that gross investments have risen continuously\ldots} \\
+\rowcolor{red!4}
+Halluc.: Unanswerable   & A1   & 45  & 45      & 1.0/0.5/0.0 & \textbf{R} & \textit{Wie hoch ist der Anteil der Investitionen in digitale Infrastruktur?} {\scriptsize What share goes to digital infrastructure?} \\
+\rowcolor{orange!6}
+Caption bias            & A2   & 45  & ---     & targeted claims & \textbf{R} & \textit{Die Gemeinden tragen durchgehend den \underline{kleinsten} Anteil bei.} {\scriptsize Municipalities contribute the \underline{smallest} share. \textbf{Actually largest.}} \\
+\rowcolor{green!5}
+Prompt reverse          & A4   & 45  & 45 pr   & 1.0/0.5/0.0 & \textbf{R} & \textit{Verwendet das linke Diagramm gestapelte Balken?} {\scriptsize Stacked bars? \textbf{Yes}} / \textit{Einzelne Linien?} {\scriptsize Lines? \textbf{No}} \\
+\rowcolor{blue!4}
+Active admittance       & A3   & 44  & 44      & 1.0/0.5/0.0 & \textbf{A} & \textit{Welche Regierungsebene bildet den unteren Teil\ldots?} {\scriptsize Which gov.\ level forms the bottom? \textbf{``Bund'' blurred.}} \\
+Passive admittance      & A3   & 45  & 255     & admit/fab/silent & \textbf{A} & (scored from blur descriptions in RQ2) \\
+\rowcolor{green!5}
+Active inductance       & A1   & 5   & 5       & 1.0/0.5/0.0 & \textbf{I} & (reasoning traps on clean figures; see \S\ref{sec:design-ari-inductance}) \\
+Passive inductance      & A3   & 9   & 9       & correct inference & \textbf{I} & (inferable blur elements; see Appendix Table~\ref{tab:inferable}) \\
+\midrule
+CCoT ablation           & ---  & 45  & ---     & all tracks & All & C3 vs C1 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/english_fig_171_original.png}
+    \caption{Original}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.30\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/english_fig_171_selective_blur.png}
+    \caption{Selective blur}
+  \end{subfigure}
+  \caption[Inferable blur element on \texttt{english\_fig\_171}.]{%
+    Inferable element. In (a) ``Llama-On-Policy-Hard'' is legible. In (b) it is blurred, but colour, position and naming pattern allow inference by elimination.}
+  \label{fig:inferable-example}
+\end{figure}

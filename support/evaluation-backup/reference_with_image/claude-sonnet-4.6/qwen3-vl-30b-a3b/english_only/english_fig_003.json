@@ -1,0 +1,60 @@
+{
+  "figure_key": "english_fig_003",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Line Plot",
+  "judge_type": "reference_with_image",
+  "judge_model": "anthropic/claude-sonnet-4.6",
+  "errors": [
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The LB-Avg of 2×tokens,8-bit configuration shows a slight increase in relative change from approximately -1% to around 1%.",
+      "evidence": "The yellow line (LB-Avg of 2×tokens,8-bit) starts near 0% at Layer1-4, dips slightly, and stays consistently close to 0% throughout, ending around 0-1%. It doesn't show a clear increase from -1% to 1% as described."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "The RULER4k of 2×tokens,8-bit configuration starts at around -1%, decreases to approximately -7% at Layer13-20, and then increases back to around 0%.",
+      "evidence": "The light blue line (RULER4k of 2×tokens,8-bit) shows its lowest point around -6% at Layer13-20, which is reasonable, but it appears to drop more notably at Layer13-20 to around -6% and at Layer21-28 to about -4%, before returning near 0%. However, the description misses that the light blue line is at about -3% at Layer5-12 and -4% at Layer21-28 without returning to 0% at Layer29-32."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Numerical Value",
+      "severity": "Major",
+      "weight": 5.0,
+      "text_span": "further decreases to around -12% at Layer21-28",
+      "evidence": "The dark blue line (RULER4k of 1×tokens,16-bit) at Layer21-28 shows approximately -11% to -12%, which appears close but the description says it 'further decreases' when in fact it increases from -15% at Layer13-20 to about -11% at Layer21-28 — the trend direction is correct but the framing 'further decreases' is wrong since it's recovering upward."
+    },
+    {
+      "category": "Accuracy",
+      "sub_type": "Incorrect Visual Attribute Mapping",
+      "severity": "Minor",
+      "weight": 2.0,
+      "text_span": "further decreases to around -12% at Layer21-28",
+      "evidence": "The word 'further decreases' is incorrect — from Layer13-20 to Layer21-28, the RULER4k of 1×tokens,16-bit line is increasing (becoming less negative), not decreasing further."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Missing Visual Features",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": null,
+      "evidence": "The reference description notes that the light blue RULER4k line moves 'to around 5% at Layer13-20' — actually it goes to around -6%, but the reference says it starts at 0% and dips. The machine description misses mentioning the exact trend of the LB-Avg lines at each layer point, particularly that LB-Avg of 2×tokens,8-bit maintains a very consistent near-0% trend."
+    },
+    {
+      "category": "Completeness",
+      "sub_type": "Unwanted Interpretation",
+      "severity": "Minor",
+      "weight": 1.5,
+      "text_span": "indicating that configurations are modified every 4 layers for the initial and final layers and every 8 layers for the intermediate ones",
+      "evidence": "This is contextual information from the caption being interpreted within the axis description rather than being presented as a caption note. While not strictly wrong, it adds interpretive context not directly visible in the figure itself."
+    }
+  ],
+  "mqm_score": 80.0,
+  "total_penalty": 20.0,
+  "error_count": 6
+}

@@ -1,0 +1,148 @@
+digraph probe_pipeline {
+    rankdir=LR;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.4;
+    ranksep=0.6;
+
+    // Global node defaults
+    node [fontname="Times New Roman", fontsize=9, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#888888",
+          arrowsize=0.5, penwidth=0.7];
+
+    // --- Input datastores ---
+    corpus [
+        shape=cylinder, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«datastore»</FONT></TD></TR>
+            <TR><TD><B>Figure Corpus</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">1,005 figures</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">EN · DE · ZH · BG</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    templates [
+        shape=note, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«input»</FONT></TD></TR>
+            <TR><TD><B>Prompt Templates</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">contra · inexist</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">unanswerable</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Processing ---
+    seeder [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«component»</FONT></TD></TR>
+            <TR><TD><B>LLM Seeder</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">candidate generation</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    candidates [
+        shape=folder, style=filled, fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><B>Candidate Probes</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">per figure, per family</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Expert review ---
+    subgraph cluster_review {
+        label=<<B>Three-Expert Review</B>>;
+        labeljust=c;
+        fontname="Times New Roman";
+        fontsize=9;
+        style="dashed,rounded";
+        color="#EE6677";
+        penwidth=0.8;
+        bgcolor="#FFF5F5";
+
+        researcher [
+            shape=box, style="filled,rounded", fillcolor="#FCE4EC",
+            color="#EE6677", penwidth=0.6,
+            label=<<TABLE BORDER="0" CELLPADDING="0">
+                <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«actor»</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="8">Researcher</FONT></TD></TR>
+            </TABLE>>
+        ];
+        consultant [
+            shape=box, style="filled,rounded", fillcolor="#FCE4EC",
+            color="#EE6677", penwidth=0.6,
+            label=<<TABLE BORDER="0" CELLPADDING="0">
+                <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«actor»</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="8">Consultant</FONT></TD></TR>
+            </TABLE>>
+        ];
+        phd [
+            shape=box, style="filled,rounded", fillcolor="#FCE4EC",
+            color="#EE6677", penwidth=0.6,
+            label=<<TABLE BORDER="0" CELLPADDING="0">
+                <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«actor»</FONT></TD></TR>
+                <TR><TD><FONT POINT-SIZE="8">ML Student</FONT></TD></TR>
+            </TABLE>>
+        ];
+
+        decision [
+            shape=diamond, style=filled, fillcolor="#FCE4EC",
+            color="#EE6677", penwidth=0.8,
+            label=<<FONT POINT-SIZE="7">accept / revise<BR/>reject</FONT>>,
+            width=1.0, height=0.6
+        ];
+    }
+
+    // --- Validated output ---
+    validated [
+        shape=cylinder, style=filled, fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#AA3377">«datastore»</FONT></TD></TR>
+            <TR><TD><B>Validated Probes</B></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Probe families ---
+    A1 [shape=component, style=filled, fillcolor="#F3E5F5", color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>A1</B> Hallucination</TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">contra · inexist · unans.</FONT></TD></TR>
+        </TABLE>>];
+    A2 [shape=component, style=filled, fillcolor="#F3E5F5", color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>A2</B> Caption Bias</TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">caption · mismatch</FONT></TD></TR>
+        </TABLE>>];
+    A3 [shape=component, style=filled, fillcolor="#F3E5F5", color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>A3</B> Visual Degradation</TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">axis-blur · selective · transforms</FONT></TD></TR>
+        </TABLE>>];
+    A4 [shape=component, style=filled, fillcolor="#F3E5F5", color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>A4</B> Prompt Reverse</TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">confirm · deny</FONT></TD></TR>
+        </TABLE>>];
+
+    // --- Edges ---
+    corpus -> seeder [label="figures"];
+    templates -> seeder [label="spec", style=dashed];
+    seeder -> candidates;
+    candidates -> researcher;
+    candidates -> consultant;
+    candidates -> phd;
+    researcher -> decision;
+    consultant -> decision;
+    phd -> decision;
+    decision -> validated [label="accepted", color="#228833"];
+    validated -> A1;
+    validated -> A2;
+    validated -> A3;
+    validated -> A4;
+}

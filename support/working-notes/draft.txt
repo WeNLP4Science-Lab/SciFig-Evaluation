@@ -1,0 +1,14 @@
+Hi team,
+
+Thanks for the updated weights. Agreed that completeness should carry equal weight to accuracy.
+
+For my thesis, I've taken a slightly different approach to address the scoring gap. Rather than scaling the weights, what I'm doing is creating a checklist of all the components that a complete description must cover for each figure, based on the groundtruth we already have. Things like axis labels, data values, chart type, colors, structural elements and so on. This checklist sits alongside the general description we already use.
+
+The judge then checks each item in the checklist systematically, and the score is normalized as a ratio of the total checklist items. The reasoning is that even with higher weights, the absolute penalty still doesn't guarantee the full range. For example, if accuracy carries a weight of 10 and a figure only has 6 checkable items, even if the model gets all 6 wrong, that's 6 × 10 = 60 points of penalty, which still leaves the model at 40/100 for a completely wrong description.
+
+By normalizing against the checklist size, a model that gets everything wrong always scores 0, and a model that gets everything right always scores 100, regardless of how simple or complex the figure is. The existing error categories, sub-types and severity levels all stay the same.
+
+This is working well so far for the thesis. For the publication, we'll obviously need to align on the best approach together, but wanted to flag what I'm doing in the meantime so we're all aware.
+
+Best,
+Paul

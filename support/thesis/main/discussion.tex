@@ -1,0 +1,159 @@
+\chapter{Discussion}\label{ch:discussion}
+
+This chapter interprets the evaluation results, identifies cross-cutting patterns, and examines their implications for scientific figure accessibility.
+Figure~\ref{fig:rank-flow} traces how model rankings shift across the four research questions, revealing that no single benchmark captures the full picture.
+Figure~\ref{fig:ari-scatter-disc} maps models onto the theoretical A-R-I behavioural space defined in Chapter~\ref{chap:design}, populating the archetype quadrants with empirical data.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.70\textwidth]{figures/discussion/rank_flow.pdf}
+  \caption{\textbf{Rank flow across research questions.} Each line traces a model's rank from description quality (RQ1) through comprehension (RQ3) to behavioural dynamics (RQ4). GPT-5.2 leads on description but drops to 3rd on behaviour. Claude rises from 5th to 2nd. Gemini is the only model that maintains a top-2 rank across all three evaluations.}
+  \label{fig:rank-flow}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.65\textwidth]{figures/discussion/ari_scatter.pdf}
+  \caption{\textbf{Empirical A-R-I behavioural space.} Each model is positioned by its Admittance (x) and Resistance (y) scores; dot size encodes Inductance (parenthesised). Quadrant labels correspond to the archetypes defined in Figure~\ref{fig:ari-space}. Gemini occupies the ``faithful reader'' target zone. The Gemma/Phi cluster falls in the ``silent fabricator'' region. GPT-5.2's moderate Admittance but low Resistance places it between quadrants.}
+  \label{fig:ari-scatter-disc}
+\end{figure}
+
+%% ===================================================================
+\section{Description Quality and the Proprietary--Open Frontier}\label{sec:disc-gap}
+%% ===================================================================
+
+The proprietary--open gap is narrowing at the top but widening at the bottom.
+Qwen3-VL 235B trails GPT-5.2 by only 4.7 points (70.8 vs 75.5), and the difference between Qwen3-VL 32B (70.4) and Gemini 3.1 Pro (72.7) is not statistically significant.
+This convergence contrasts with earlier benchmarks such as MMMU~\citep{yue2024mmmu}, where proprietary models held commanding leads.
+However, the convergence is architecture-dependent rather than scale-dependent: Qwen3-VL 32B outperforms Gemma-3 27B by 11.6 points despite similar parameter counts, suggesting that the visual encoder and training data composition matter more than raw model size.
+
+The scaling analysis reinforces this point.
+Within the Qwen family, performance plateaus between 32B and 235B ($\Delta{=}0.4$, $p{=}.34$), while Gemma shows steeper per-parameter gains ($\Delta{=}5$ per step, $p{<}.001$).
+This indicates that scientific figure understanding saturates earlier in architectures with dedicated visual encoders (Qwen-VL) than in general-purpose multimodal architectures (Gemma).
+
+%% ===================================================================
+\section{Numerical Precision as the Fundamental Bottleneck}\label{sec:disc-numerical}
+%% ===================================================================
+
+Incorrect Numerical Value accounts for 30.6\% of all errors, making it the dominant failure mode across all 13 models.
+This is not simply an OCR problem.
+Models frequently recognise that a value exists but report it imprecisely (e.g., ``approximately 45\%'' when the figure shows 42.3\%), and our MQM judge instructions already accept $\pm$3 percentage points as correct.
+The mean of 2.7 incorrect numerical values per figure has direct implications for accessibility: a blind researcher relying on VLM descriptions would encounter nearly three wrong numbers per figure.
+
+This finding aligns with ChartQA~\citep{masry2022chartqa} and CharXiv~\citep{wang2024charxiv}, where value extraction remains the hardest subtask.
+Our contribution extends this to open-ended description, where models must narrate \emph{all} visible values rather than answering targeted questions.
+Interestingly, the RQ3 capability results show that models perform better on computation questions (.51 mean accuracy) than on value reading (.47), suggesting that approximate values suffice for computation but not for faithful reporting.
+
+%% ===================================================================
+\section{The Verbosity--Accuracy Trade-off}\label{sec:disc-verbosity}
+%% ===================================================================
+
+Claude Opus produces the longest descriptions (mean 224 words vs 164--195 for other proprietary models) but ranks 5th on MQM (68.6).
+The additional words create more verifiable claims, each of which can generate errors under Atomic MQM.
+Claude's atom accuracy (.75) trails GPT-5.2 and Gemini (.80), and it receives the highest Incorrect Numerical Value rate from Mistral (3.3/fig vs 2.5--2.7 for peers).
+Yet Claude ranks 3rd on comprehension (RQ3, .66) and 2nd on behavioural dynamics (RQ4), with the second-highest active admittance (.27) and lowest hallucination rate from GPT-4o (.09/fig).
+
+Longer descriptions contain more verifiable claims, each of which can generate errors under Atomic MQM.
+This creates a practical trade-off: the additional detail that accessibility users need also increases the error surface, meaning that a model optimised for MQM would produce conservative, terse descriptions.
+
+%% ===================================================================
+\section{The Language Paradox and Cross-Lingual Confounds}\label{sec:disc-language}
+%% ===================================================================
+
+German scores highest in the uncontrolled comparison (mean 72.5), surpassing English (62.8).
+Our controlled cross-lingual experiment reverses this entirely: on the same 13 figures evaluated in all four languages, English scores highest (GPT-5.2: EN 66.2 $>$ CN 60.8 $>$ BG 56.4 $>$ DE 55.3).
+The German advantage is a dataset composition artefact: German figures in our corpus have fewer atoms (15.8 vs 19.4 for English), contain more bar charts, and fewer pie charts.
+
+Chinese proves the most resilient non-English language (EN--CN gap 4--17\%), likely reflecting strong CJK support in recent VLM training data.
+Smaller models degrade disproportionately on non-English content: Gemma-3 4B shows a 42\% EN--DE gap compared to Claude's 2\%, indicating that multilingual robustness is a property of scale and alignment rather than architecture alone.
+
+This finding carries a methodological warning: per-language performance comparisons are unreliable without controlling for figure complexity.
+Future multilingual benchmarks should adopt parallel figure designs to isolate language effects from content effects.
+
+%% ===================================================================
+\section{On the Reliability of LLM-as-Judge}\label{sec:disc-judge}
+%% ===================================================================
+
+Our dual-judge framework reveals a \emph{ranking--scoring dissociation}: system-level Spearman $\rho \geq .95$ across all evaluator pairs, yet per-figure scores diverge by 10--25 points.
+This mirrors the segment-vs-system distinction in machine translation evaluation~\citep{freitag2021experts}, where segment-level metrics correlate weakly with human judgement but system-level rankings are robust.
+
+The two judges differ primarily in severity assignment: GPT-4o marks 78\% of errors as Major vs Mistral's 47\%, inflating GPT-4o's penalties.
+The asymmetric harshness is noteworthy: GPT-5.2 loses 25.6 points from GPT-4o relative to humans, while Gemma-27B loses only 9.4.
+This compression of the performance range means that LLM judges understate the true gap between strong and weak models.
+
+We also document colour synonym false positives as a systematic limitation: despite explicit tolerance instructions, judges penalise semantically equivalent descriptions like ``cyan'' vs ``blue'', affecting English figures disproportionately (${\sim}5\%$ penalty vs ${\sim}2\%$ for Chinese).
+Multiple mitigation attempts (compound rules, few-shot examples, self-reflection prompts) failed or worsened results, suggesting a fundamental constraint of current LLM-based evaluation.
+
+%% ===================================================================
+\section{Robustness, Comprehension, and the Limits of Clean Benchmarks}\label{sec:disc-robustness}
+%% ===================================================================
+
+The RQ2 degradation results expose a critical gap in standard benchmarking practice.
+LLaMA Scout ranks 3rd on clean figures (71.0) but 12th on robustness ($|\bar{\Delta}|{=}6.2$), with a $-$10.6 point drop under low contrast alone.
+Conversely, Qwen3-VL 235B (1st on robustness, $|\bar{\Delta}|{=}1.6$), Gemini, and Claude maintain stable scores across all transforms.
+This demonstrates that clean-condition benchmarks can overestimate real-world utility, particularly for accessibility applications where figures are frequently degraded through scanning, photocopying, or PDF re-encoding.
+
+Rotation ($\Delta{=}{-}4.7$) damages performance far more than noise ($\Delta{=}{-}0.4$) or JPEG compression ($\Delta{=}{+}0.2$).
+This aligns with the hypothesis that VLMs process spatial layout globally rather than reading individual pixels: rotation disrupts the spatial relationships between axes, labels, and data elements, while pixel-level noise leaves these relationships intact.
+
+The page-context results reveal a separate dimension of model design.
+Gemini ($+$5.7) and Phi-4 ($+$18.9) extract useful cues from surrounding paper text, while LLaMA Scout ($-$16.9) and Gemma-27B ($-$14.7) treat page context as noise.
+For accessibility tools processing papers, context-aware models offer genuine advantages, but this same sensitivity creates vulnerability to context pollution.
+
+The RQ3 comprehension results further reinforce that description and comprehension appear to be partially dissociated.
+Gemini ranks 2nd on description but 1st on comprehension (.81); Claude ranks 5th on description but 3rd on comprehension.
+Computation (.51) is easier than comparison (.42) and counting (.44), inverting the intuition that numerical reasoning would be hardest.
+Caption bias provides a practical test of visual grounding: models with strong grounding (Gemini .82) resist caption distortion, while weakly grounded models (Qwen-235B drops .58$\to$.36) defer to textual signals over visual evidence.
+
+%% ===================================================================
+\section{Behavioural Dynamics and the A-R-I Framework}\label{sec:disc-ari}
+%% ===================================================================
+
+The A-R-I framework exposes behavioural patterns invisible to standard accuracy metrics.
+
+\paragraph{The admittance--inductance tension.}
+The two axes reward complementary behaviours.
+A model that admits every blurred element without attempting inference scores high on Admittance but misses Inductance opportunities.
+A model that fabricates for every blurred element, whether inferable or not, may score on Inductance but at the cost of Admittance on non-inferable elements.
+The strongest models do both: admitting what is genuinely unrecoverable while inferring what context supports.
+Gemini exemplifies this on active inductance, scoring 1.0 on reasoning traps while maintaining .70 admittance.
+However, on passive inductance (inferable blur elements), Gemini scores only .39 (judge-averaged) because it admits rather than infers, while GPT-5.2 leads at .89 by attempting inference aggressively.
+GPT-5.2's strategy comes at a cost: it also correctly fabricates 9 of 35 non-inferable elements, raising the question of whether its inferences are genuine reasoning or parametric recall from training data.
+
+\paragraph{The silent fabricator problem.}
+The Gemma family and Phi-4 occupy the ``silent fabricator'' quadrant of Figure~\ref{fig:ari-scatter-disc}: near-zero admittance ($<$.04), low resistance ($<$.24), and low inductance ($<$.40).
+These models neither acknowledge uncertainty nor resist false premises.
+They fabricate plausible-sounding but incorrect descriptions regardless of whether the content is visually recoverable.
+This represents the most dangerous deployment scenario, as confidence without reliability erodes user trust.
+
+\paragraph{GPT-5.2's resistance gap.}
+Despite leading on description quality (RQ1), GPT-5.2 scores only .56 on hallucination resistance, engaging with contra-factual premises (.50) rather than rejecting them.
+This finding challenges the assumption that the best-performing model is also the most trustworthy.
+For scientific applications, resistance to misleading context is as important as baseline accuracy, as models may encounter incorrect captions, outdated metadata, or adversarial user queries.
+
+\paragraph{Behavioural profiles as model fingerprints.}
+Each model exhibits a distinctive A-R-I signature (Figure~\ref{fig:ari-scatter-disc}).
+Claude's profile (strong admittance, moderate resistance, high inductance) reveals a model tuned for epistemic honesty and reasoning.
+Qwen-32B shows a striking inductance spike (.95) despite modest admittance (.26), indicating strong contextual reasoning without corresponding epistemic calibration.
+These profiles cannot be predicted from RQ1 scores alone, reinforcing that behavioural evaluation under stress is a necessary complement to clean-condition benchmarks.
+
+%% ===================================================================
+\section{Implications for Scientific Figure Accessibility}\label{sec:disc-accessibility}
+%% ===================================================================
+
+Taken together, these findings paint a nuanced picture for deploying VLMs as accessibility tools for scientific figures.
+The best available model (GPT-5.2) still produces 2.7 incorrect numerical values per figure and hallucinates at 0.14 per figure.
+Pie charts receive the least reliable descriptions, yet they are ubiquitous in scientific publications.
+Under degraded conditions typical of scanned PDFs, performance drops further, with some models losing 10+ MQM points.
+
+Gemini emerges as the safest all-round choice: it leads or co-leads across all four RQs, achieves near-highest robustness, and occupies the ``faithful reader'' region of the A-R-I space.
+However, even Gemini's scores indicate room for improvement before VLM-generated descriptions can be considered reliable without human verification.
+Some MQM errors may also share a root cause with comprehension failures; for instance, Claude consistently misidentifies orange slices as blue (Table~\ref{tab:error-examples}), a perceptual weakness that would likely affect comprehension questions about colour.
+Establishing this correlation formally requires per-figure paired analysis that we leave to future work.
+
+The framework limitations we identify (colour tolerance, atom granularity artefact, judge severity disagreement, dataset composition confounds) should inform future benchmark design.
+In particular, longer descriptions increase the number of verifiable claims and thus the error surface, creating a practical tension between the detail accessibility users need and the score models receive.
+
+\section{Other Design Considerations}\label{sec:disc-design}
+
+Additional design considerations, including comparison to existing benchmarks, justification for the dual-judge design, data contamination risks, and probe seeding confounds, are provided in Appendix~\ref{app:benchmark-comparison}.
