@@ -339,13 +339,12 @@ export default function Presentation() {
               </thead>
               <tbody>
                 {[
-                  { cells: ['ChartQA (2022)', 'Short-answer QA', 'EN', 'Relaxed Acc.', 'VL-T5, VisionTaPas'], score: 52, color: '#4285F4' },
-                  { cells: ['CharXiv (2024)', 'Descriptive + Reasoning', 'EN', 'Accuracy', 'Claude 3.5 Sonnet, GPT-4o'], score: 60, color: '#34A853' },
-                  { cells: ['MMMU (2024)', 'Multiple-choice', 'EN', 'Accuracy', 'Gemini Ultra, GPT-4V'], score: 59, color: '#6366F1' },
-                  { cells: ['PlotQA (2020)', 'Short-answer QA', 'EN', 'Accuracy', 'SAN-VQA, BAN, LoRRA'], score: 23, color: '#EA4335' },
-                  { cells: ['SciFIBench (2024)', 'Fig-caption match', 'EN', 'Accuracy', 'GPT-4o, Gemini 1.5 Pro'], score: 75, color: '#D97706' },
-                  { cells: ['PolyChartQA (2025)', 'Short-answer QA', '10', 'Accuracy', 'Gemini-2.5-Pro, GPT-4o'], score: 69, color: '#7B6FA0' },
-                  { cells: ['ChartMuseum (2025)', 'Visual + Textual', 'EN', 'Accuracy', 'Gemini-2.5-Pro, Claude-3.7'], score: 63, color: '#10A37F' },
+                  { cells: ['ChartQA', 'Short-answer QA', 'EN', 'Relaxed Acc.', 'Claude 3.5 Sonnet'], score: 91, color: '#4285F4' },
+                  { cells: ['CharXiv', 'Descriptive + Reasoning', 'EN', 'Accuracy', 'Claude 3.5 Sonnet'], score: 60, color: '#34A853' },
+                  { cells: ['MMMU', 'Multiple-choice', 'EN', 'Accuracy', 'Qwen3.6 Plus'], score: 86, color: '#6366F1' },
+                  { cells: ['SciFIBench', 'Fig-caption match', 'EN', 'Accuracy', 'GPT-4o'], score: 75, color: '#D97706' },
+                  { cells: ['PolyChartQA', 'Short-answer QA', '10', 'Accuracy', 'Gemini-2.5-Pro'], score: 69, color: '#7B6FA0' },
+                  { cells: ['ChartMuseum', 'Visual + Textual', 'EN', 'Accuracy', 'Gemini-2.5-Pro'], score: 63, color: '#10A37F' },
                 ].map((row, i, arr) => (
                   <tr key={i}>
                     {row.cells.map((cell, j) => (
@@ -376,8 +375,13 @@ export default function Presentation() {
                 ))}
               </tbody>
             </table>
-            <div style={{ fontSize: '1.05em', color: fgCaption, marginTop: 16, lineHeight: 1.6 }}>
-              Predominantly closed-form QA · single accuracy metric · English-only
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16 }}>
+              <div style={{ fontSize: '1.05em', color: fgCaption, lineHeight: 1.6 }}>
+                Predominantly closed-form QA · single accuracy metric · English-only
+              </div>
+              <a href="#/extra-benchmarks" style={{ fontSize: '0.8em', color: accent, textDecoration: 'none', opacity: 0.7 }}>
+                Original paper scores →
+              </a>
             </div>
           </section>
 
@@ -714,6 +718,53 @@ export default function Presentation() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* ======== EXTRA: Original paper benchmark scores ======== */}
+          <section id="extra-benchmarks" data-background-color={bg}>
+            <h2 style={{ fontSize: '2.4em', ...H, color: fg, margin: '0 0 24px' }}>
+              Original paper benchmark scores
+            </h2>
+            <table style={{ borderCollapse: 'collapse', fontSize: '0.78em', lineHeight: 1.7, width: '100%', maxWidth: '1050px' }}>
+              <thead>
+                <tr>
+                  {['Benchmark', 'Year', 'Best model in paper', 'Score', 'Other models tested'].map((h, i) => (
+                    <th key={i} style={{
+                      borderTop: `2px solid ${fg}`, borderBottom: `1px solid ${fg}`,
+                      padding: '4px 10px 4px 0', textAlign: 'left', fontWeight: 700, color: fg,
+                    }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['ChartQA', '2022', 'VL-T5 (pretrained)', '51.8%', 'VisionTaPas (45.5%), T5, TaPas'],
+                  ['CharXiv', '2024', 'Claude 3.5 Sonnet', '60.2%', 'GPT-4o (47.1%), Gemini 1.5 Pro (43.3%)'],
+                  ['MMMU', '2024', 'Gemini Ultra', '59.4%', 'GPT-4V (56.8%), LLaVA-1.5-13B (36.4%)'],
+                  ['PlotQA', '2020', "Authors' hybrid", '22.5%', 'SAN-VQA (7.8%), BAN (<1%)'],
+                  ['SciFIBench', '2024', 'GPT-4o', '75.4%', 'Gemini 1.5 Pro (74.0%), Claude 3 Opus (59.8%)'],
+                  ['PolyChartQA', '2025', 'Gemini-2.5-Pro', '68.5%', 'Qwen2.5-VL-7B (53.8%), GPT-4o (50.9%)'],
+                  ['ChartMuseum', '2025', 'Gemini-2.5-Pro', '63.0%', 'Claude-3.7 (61.7%), Human: 93.0%'],
+                ].map((row, i, arr) => (
+                  <tr key={i}>
+                    {row.map((cell, j) => (
+                      <td key={j} style={{
+                        padding: '4px 10px 4px 0',
+                        color: j <= 2 ? fg : fgMuted,
+                        fontWeight: j === 0 || j === 3 ? 600 : 400,
+                        fontSize: j === 4 ? '0.85em' : '1em',
+                        borderBottom: i === arr.length - 1 ? `2px solid ${fg}` : `1px solid ${border}`,
+                      }}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div style={{ marginTop: 20, textAlign: 'center' }}>
+              <a href="#" onClick={(e) => { e.preventDefault(); window.history.back() }} style={{ fontSize: '0.85em', color: accent, textDecoration: 'none' }}>
+                ← Back to main slides
+              </a>
             </div>
           </section>
 
