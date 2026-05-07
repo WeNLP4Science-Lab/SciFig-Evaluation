@@ -339,13 +339,13 @@ export default function Presentation() {
               </thead>
               <tbody>
                 {[
-                  { cells: ['ChartQA', 'Short-answer QA', 'EN', 'Relaxed Acc.', 'GPT-4V, Gemini, Claude'], score: 91, color: '#4285F4' },
-                  { cells: ['CharXiv', 'Descriptive + Reasoning', 'EN', 'Accuracy', 'GPT-4o, Claude Mythos'], score: 93, color: '#34A853' },
-                  { cells: ['MMMU', 'Multiple-choice', 'EN', 'Accuracy', 'Qwen3.6+, GPT-4V, Gemini'], score: 86, color: '#6366F1' },
-                  { cells: ['PlotQA', 'Short-answer QA', 'EN', 'Accuracy', 'SAN-VQA, BAN'], score: 23, color: '#EA4335' },
-                  { cells: ['SciFIBench', 'Fig-caption match', 'EN', 'Accuracy', 'GPT-4o, Gemini 1.5 Flash'], score: 74, color: '#D97706' },
-                  { cells: ['PolyChartQA', 'Short-answer QA', '10', 'Accuracy', 'Gemini-2.5, Qwen2.5-VL'], score: 69, color: '#7B6FA0' },
-                  { cells: ['ChartMuseum', 'Visual + Textual', 'EN', 'Accuracy', 'Gemini-2.5, GPT-4o, o3'], score: 63, color: '#10A37F' },
+                  { cells: ['ChartQA (2022)', 'Short-answer QA', 'EN', 'Relaxed Acc.', 'VL-T5, VisionTaPas'], score: 52, color: '#4285F4' },
+                  { cells: ['CharXiv (2024)', 'Descriptive + Reasoning', 'EN', 'Accuracy', 'Claude 3.5 Sonnet, GPT-4o'], score: 60, color: '#34A853' },
+                  { cells: ['MMMU (2024)', 'Multiple-choice', 'EN', 'Accuracy', 'Gemini Ultra, GPT-4V'], score: 59, color: '#6366F1' },
+                  { cells: ['PlotQA (2020)', 'Short-answer QA', 'EN', 'Accuracy', 'SAN-VQA, BAN, LoRRA'], score: 23, color: '#EA4335' },
+                  { cells: ['SciFIBench (2024)', 'Fig-caption match', 'EN', 'Accuracy', 'GPT-4o, Gemini 1.5 Pro'], score: 75, color: '#D97706' },
+                  { cells: ['PolyChartQA (2025)', 'Short-answer QA', '10', 'Accuracy', 'Gemini-2.5-Pro, GPT-4o'], score: 69, color: '#7B6FA0' },
+                  { cells: ['ChartMuseum (2025)', 'Visual + Textual', 'EN', 'Accuracy', 'Gemini-2.5-Pro, Claude-3.7'], score: 63, color: '#10A37F' },
                 ].map((row, i, arr) => (
                   <tr key={i}>
                     {row.cells.map((cell, j) => (
