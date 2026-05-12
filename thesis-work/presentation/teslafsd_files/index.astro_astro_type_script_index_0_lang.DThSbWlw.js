@@ -1,0 +1,1 @@
+import{B as i}from"./index.BgHw5rG6.js";import{$ as r}from"./index.fuMi7Ioa.js";import{g as c,a as e}from"./env.Dd_8VyUV.js";r.subscribe(t=>{const o=document.querySelector("link[rel*='icon']"),n=c(e(window.location.host)),a=i[t.brand]??n;o&&(o.href=`https://www.bloomberg.com${a}`)});
