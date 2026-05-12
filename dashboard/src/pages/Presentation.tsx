@@ -1642,7 +1642,7 @@ export default function Presentation() {
                   fontSize: '0.8em', color: fg, backgroundColor: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.025)',
                   padding: '8px 12px', borderRadius: 6, fontStyle: 'italic', lineHeight: 1.5, marginBottom: 10,
                 }}>
-                  "Given that Llama-3B + FT (dark green) opens up a <span style={{ color: '#EA4335', fontWeight: 600 }}>large gap of roughly 15 percentage points</span> over plain Llama-3B from k=2⁴ onward, what might explain fine-tuning{"'"}s substantial advantage?"
+                  "Given that Llama-3B + FT (dark green) opens up a <span style={{ color: '#EA4335', fontWeight: 600 }}>large gap of roughly 15 percentage points</span> over plain Llama-3B from k=2⁴ onward, what might explain fine-tuning's substantial advantage?"
                 </div>
                 <div style={{ fontSize: '0.8em', color: fgCaption, lineHeight: 1.5 }}>
                   False premise — the lines actually overlap almost perfectly. 12/13 models accepted it.
@@ -1829,7 +1829,7 @@ export default function Presentation() {
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '3em', fontWeight: 800, color: accent, lineHeight: 1 }}>.56</div>
                 <div style={{ fontSize: '0.8em', color: fgCaption, marginTop: 4 }}>GPT-5.2 resistance</div>
-                <div style={{ fontSize: '0.7em', color: '#EA4335' }}>Best describer, worst proprietary at resistance</div>
+                <div style={{ fontSize: '0.7em', color: '#EA4335' }}>Best describer, surprisingly weak proprietary resistance</div>
               </div>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '3em', fontWeight: 800, color: MODEL.gemma, lineHeight: 1 }}>≈0</div>
@@ -1886,36 +1886,82 @@ export default function Presentation() {
             </div>
           </section>
 
-          {/* ---- 6.2: LLM-as-Judge reliability ---- */}
+          {/* ---- 6.2: Key discussion points continued ---- */}
+          <section data-background-color={bg}>
+            <h2 style={{ fontSize: '2.4em', ...H, color: fg, margin: '0 0 20px', textAlign: 'center' }}>
+              Key Discussion Points (cont.)
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '950px' }}>
+              {[
+                { title: 'The silent fabricator problem', detail: 'Gemma and Phi have near-zero admittance AND low resistance — they fabricate plausible but incorrect descriptions without ever signalling uncertainty. A user has no way to know the output is wrong. The most dangerous deployment scenario.' },
+                { title: 'Scaling might not improve honesty', detail: 'Gemma 4B → 12B → 27B: accuracy improves but admittance stays ≈0 at all three scales. Bigger models are not necessarily more trustworthy. Challenges the assumption that scale solves alignment.' },
+                { title: 'Comprehension is not description', detail: 'Gemini ranks 2nd on description but 1st on comprehension. Claude ranks 5th on description but 3rd on comprehension. These are genuinely different capabilities — rankings shuffle across evaluation dimensions.' },
+                { title: 'Practical deployment implications', detail: 'Even the best models produce 2.7 incorrect numerical values per figure and hallucinate at 0.14/fig. VLM-generated descriptions cannot be trusted without human verification for exact-value tasks. A-R-I profiles provide task-aware model selection criteria.' },
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
+                  <span style={{ fontSize: '1.1em', color: accent, fontWeight: 800, flexShrink: 0 }}>{i + 6}</span>
+                  <div>
+                    <span style={{ fontSize: '1.05em', fontWeight: 700, color: fg }}>{item.title}</span>
+                    <span style={{ fontSize: '0.9em', color: fgMuted }}>{' — '}{item.detail}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ---- 6.3: LLM-as-Judge reliability ---- */}
           <section data-background-color={bg}>
             <h2 style={{ fontSize: '2.4em', ...H, color: fg, margin: '0 0 20px', textAlign: 'center' }}>
               On the Reliability of LLM-as-Judge
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '900px' }}>
-              <div style={{ fontSize: '1.05em', color: fg, lineHeight: 1.6 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: '900px' }}>
+              <div style={{ fontSize: '1.0em', color: fg, lineHeight: 1.6 }}>
                 System-level rankings are robust (ρ ≥ .95) — but per-figure scores diverge by 10–25 points between judges.
               </div>
-              <div style={{ fontSize: '1.05em', color: fgMuted, lineHeight: 1.6 }}>
-                GPT-4o marks <span style={{ fontWeight: 600, color: fg }}>78% of errors as Major</span> vs Mistral{"'"}s <span style={{ fontWeight: 600, color: fg }}>47%</span>. This asymmetric harshness compresses the performance range, understating the true gap between strong and weak models.
+              <div style={{ fontSize: '1.0em', color: fgMuted, lineHeight: 1.6 }}>
+                Human correlation: Pearson r = .68 (GPT-4o), r = .80 (Mistral). Both judges are harsher than humans — GPT-5.2 loses 25.6 points from GPT-4o judge relative to human scores. Mistral is closer to human but still systematically lower.
               </div>
-              <div style={{ fontSize: '1.05em', color: fgMuted, lineHeight: 1.6 }}>
+              <div style={{ fontSize: '1.0em', color: fgMuted, lineHeight: 1.6 }}>
+                GPT-4o marks <span style={{ fontWeight: 600, color: fg }}>78% of errors as Major</span> vs {"Mistral's"} <span style={{ fontWeight: 600, color: fg }}>47%</span>. This asymmetric harshness compresses the performance range, understating the true gap between strong and weak models.
+              </div>
+              <div style={{ fontSize: '1.0em', color: fgMuted, lineHeight: 1.6 }}>
                 Colour synonym false positives: judges penalise semantically equivalent descriptions like "cyan" vs "blue", affecting ~5% of English scores.
               </div>
             </div>
           </section>
 
-          {/* ---- 6.3: Limitations ---- */}
+          {/* ---- 6.3: Ethics ---- */}
+          <section data-background-color={bg}>
+            <h2 style={{ fontSize: '2.4em', ...H, color: fg, margin: '0 0 24px', textAlign: 'center' }}>
+              Ethical Considerations
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 18, maxWidth: '900px' }}>
+              <div style={{ fontSize: '1.1em', color: fg, lineHeight: 1.6 }}>
+                All 1,005 figures are drawn from <span style={{ fontWeight: 600 }}>publicly available scientific papers</span>. No personally identifiable information appears in the dataset.
+              </div>
+              <div style={{ fontSize: '1.1em', color: fgMuted, lineHeight: 1.6 }}>
+                Eight annotators participated voluntarily under <span style={{ fontWeight: 600, color: fg }}>informed consent</span>.
+              </div>
+              <div style={{ fontSize: '1.1em', color: fgMuted, lineHeight: 1.6 }}>
+                The study was conducted in accordance with the <span style={{ fontWeight: 600, color: fg }}>University of {"Aberdeen's"} ethical guidelines</span> for research involving human participants.
+              </div>
+              <div style={{ fontSize: '0.9em', color: fgCaption, lineHeight: 1.6 }}>
+                Full details on consent procedures, data anonymisation, participant safeguards, bias, equity, and deployment cautions are provided in the thesis appendix.
+              </div>
+            </div>
+          </section>
+
+          {/* ---- 6.4: Limitations ---- */}
           <section data-background-color={bg}>
             <h2 style={{ fontSize: '2.4em', ...H, color: fg, margin: '0 0 20px', textAlign: 'center' }}>
               Limitations
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: '900px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: '950px' }}>
               {[
-                { title: 'Sample coverage', detail: 'Human evaluation covers 4 models on 30 figures (159 annotations, ICC=.91). Controlled cross-lingual comparison uses only 13 parallel figures.' },
-                { title: 'Scoring artefacts', detail: 'Colour synonym false positives (~5% English penalty). Dense atoms inflate pie chart penalties by ~11 points. Longer descriptions increase error surface.' },
-                { title: 'Judge severity disagreement', detail: 'GPT-4o 78% Major vs Mistral 47%. System-level rankings robust (ρ≥.95) but per-figure scores carry substantial uncertainty (ρ≈0.6).' },
-                { title: 'Statistical power', detail: 'API costs and iterative methodology changes influenced sample size. 3 of 12 adjacent-rank comparisons reach significance.' },
-                { title: 'Inductance sample size', detail: 'Only 9 inferable elements exist for passive inductance — limits generalisability of inferable blur findings.' },
+                { title: 'Sample coverage', detail: 'Human evaluation covers 4 models on 30 English figures (159 annotations, ICC=.91). Controlled cross-lingual comparison uses only 13 parallel figures. Only 9 inferable elements for passive inductance.' },
+                { title: 'Scoring artefacts', detail: 'Colour synonym false positives (~5% English penalty). Dense atoms inflate pie chart penalties by ~11 points. Length-error trade-off — longer descriptions increase the error surface, creating tension between detail and score.' },
+                { title: 'Judge severity disagreement', detail: 'GPT-4o assigns 78% Major vs Mistral 47% on identical errors. Rankings are robust (ρ≥.95) but absolute scores depend on judge selection, and per-figure scores carry substantial uncertainty (ρ≈0.6).' },
+                { title: 'Sampling design and statistical power', detail: 'Descriptions generated for all 1,005 × 13 models (13,065 pairs), but MQM evaluation on stratified 120-figure sample. 3 of 12 adjacent-rank comparisons reach significance (p<.05). API costs and iterative methodology changes (prompt revisions, judge updates) compounded costs.' },
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
                   <span style={{ fontSize: '0.9em', color: '#EA4335', fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
@@ -1936,11 +1982,13 @@ export default function Presentation() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: '900px' }}>
               {[
                 'Split dense atoms into single-fact units to eliminate pie chart granularity artefact',
-                'Extend human annotation to all 13 models across four languages',
-                'Controlled experiments with synthetic figures to disentangle reasoning from parametric recall',
-                'Attention visualisation and saliency mapping on failure cases',
-                'Longitudinal evaluation across model versions to track improvements over time',
-                'User studies with visually impaired researchers to validate accessibility value',
+                'Extend human annotation to all 13 models across four languages for per-language judge validation',
+                'Expand controlled cross-lingual set beyond 13 figures to enable per-chart-type analysis',
+                'Reasoning vs parametric recall — controlled experiments with synthetic figures absent from training corpora to disentangle genuine reasoning from memorisation',
+                'Retrieval-augmented generation — test whether access to the source paper alongside the figure improves accuracy or introduces further bias',
+                'Attention visualisation and saliency mapping on failure cases (colour misidentification, counting errors)',
+                'Longitudinal evaluation across model versions to track precision and behavioural reliability improvements',
+                'User studies with visually impaired researchers to validate whether MQM-optimised descriptions serve accessibility needs',
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'baseline' }}>
                   <span style={{ fontSize: '0.9em', color: accent, fontWeight: 700, flexShrink: 0 }}>{i + 1}</span>
@@ -1958,20 +2006,33 @@ export default function Presentation() {
             </div>
           </section>
 
-          {/* ---- 7.1: Conclusion ---- */}
+          {/* ---- 7.1: Conclusion — RQ answers ---- */}
           <section data-background-color={bg}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: '900px' }}>
-              <div style={{ fontSize: '1.5em', color: fg, lineHeight: 1.6 }}>
-                SciFig-Eval fills the multilingual behavioural evaluation gap that no existing benchmark addresses — <span style={{ fontWeight: 700, color: accent }}>1,005 figures, 4 languages, 13 models, open-ended evaluation</span>.
-              </div>
-              <div style={{ fontSize: '1.5em', color: fg, lineHeight: 1.6 }}>
-                A-R-I reveals failure modes invisible to accuracy metrics — GPT-5.2{"'"}s <span style={{ color: '#EA4335', fontWeight: 600 }}>resistance gap (.56)</span>, Gemma{"'"}s <span style={{ color: '#EA4335', fontWeight: 600 }}>silent fabrication (≈0 admittance)</span>, and the <span style={{ color: '#34A853', fontWeight: 600 }}>active-vs-passive inductance inversion</span>.
-              </div>
-              <div style={{ fontSize: '1.5em', color: fg, lineHeight: 1.6 }}>
-                Model selection must be <span style={{ fontWeight: 700, color: fg }}>task-aware</span> — description quality ranking does not predict comprehension or behavioural ranking.
-              </div>
-              <div style={{ fontSize: '1.5em', color: fg, lineHeight: 1.6 }}>
-                Trustworthy deployment requires <span style={{ fontWeight: 700, color: accent }}>behavioural profiling</span>, not just accuracy measurement.
+            <h2 style={{ fontSize: '2.2em', ...H, color: fg, margin: '0 0 20px', textAlign: 'center' }}>
+              Returning to Our Research Questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: '950px' }}>
+              {[
+                { rq: 'RQ1', answer: "GPT-5.2 leads (75.5 MQM) but the top four models cluster within 5 points. German's advantage is a dataset artefact." },
+                { rq: 'RQ2', answer: 'Rotation and low contrast cause the largest degradation. Robustness is distinct from baseline accuracy.' },
+                { rq: 'RQ3', answer: 'Comprehension and description engage different capacities — Gemini overtakes GPT-5.2 on question answering.' },
+                { rq: 'RQ4', answer: "A-R-I exposes behavioural patterns invisible to accuracy metrics: GPT-5.2's resistance gap and Gemma's silent fabrication." },
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
+                  <span style={{ fontSize: '1.4em', ...H, color: accent, flexShrink: 0, width: '2em' }}>{item.rq}</span>
+                  <span style={{ fontSize: '1.05em', color: fgMuted, lineHeight: 1.5 }}>{item.answer}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ---- 7.2: Conclusion — takeaway ---- */}
+          <section data-background-color={bg}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+              <div style={{ fontSize: '2.4em', ...H, color: fg, textAlign: 'center', maxWidth: '20em', lineHeight: 1.45 }}>
+                Evaluating VLMs on scientific figures requires moving beyond single-score benchmarks toward{' '}
+                <span style={{ color: accent }}>multi-dimensional assessment</span>{' '}
+                of accuracy, robustness, comprehension, and behavioural trustworthiness.
               </div>
             </div>
           </section>
