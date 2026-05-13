@@ -1,0 +1,82 @@
+%% SciFig-Eval Capability Question Generation Pipeline
+%% Render with: https://mermaid.live or any Mermaid renderer
+
+flowchart TB
+    subgraph INPUT["1. Input Preparation"]
+        direction LR
+        FIG[("250 Figures<br/>(PNG)")]
+        GT[("Ground-Truth<br/>Descriptions")]
+        META[("Metadata<br/>chart_type, caption,<br/>paper_title, arxiv_id")]
+        MANIFEST["manifest.json"]
+        FIG --> MANIFEST
+        GT --> MANIFEST
+        META --> MANIFEST
+    end
+
+    subgraph PROMPTS["2. Prompt Assembly"]
+        direction TB
+        SYS["System Prompt<br/>(role, constraints, schema)"]
+        FEW["Few-Shot Examples<br/>(2-3 per category)"]
+        CAT_P["Category-Specific Prompt"]
+        CTX["Context Package<br/>(description + metadata)"]
+        SYS --> ASSEMBLED["Assembled Prompt"]
+        FEW --> ASSEMBLED
+        CAT_P --> ASSEMBLED
+        CTX --> ASSEMBLED
+    end
+
+    subgraph GENERATE["3. Question Generation — GPT-4o (Azure, temp=0)"]
+        direction TB
+        ASSEMBLED --> |"×250 figures<br/>×4 categories\n(counting, computation,\ncomparison, pattern_analysis)"| GPT4O["GPT-4o<br/>JSON mode + function calling"]
+        GPT4O --> RAW["Raw Questions<br/>(1,000 Q&A pairs)"]
+    end
+
+    subgraph SELFCHECK["4. Self-Consistency — GPT-4o (fresh session)"]
+        direction TB
+        RAW --> |"re-ask each question<br/>(no original context)"| GPT4O_V2["GPT-4o<br/>(temp=0, no description)"]
+        GPT4O_V2 --> SC_RESULT{"Answers<br/>match?"}
+        SC_RESULT --> |"Yes"| PASS1["Passed<br/>Self-Consistency"]
+        SC_RESULT --> |"No"| FLAG1["Flagged<br/>for review"]
+    end
+
+    subgraph VALIDATE["5. Cross-Model Validation — Mistral Large 3"]
+        direction TB
+        PASS1 --> |"question +<br/>figure image only"| MISTRAL["Mistral Large 3<br/>(temp=0, image input)"]
+        MISTRAL --> XV_RESULT{"Answer agrees<br/>with GPT-4o?"}
+        XV_RESULT --> |"Yes"| PASS2["Validated<br/>Questions"]
+        XV_RESULT --> |"No"| FLAG2["Flagged<br/>for review"]
+    end
+
+    subgraph FILTER["6. Quality Filter"]
+        direction TB
+        PASS2 --> FINAL["Final Dataset<br/>(~800-900 questions)"]
+        FLAG1 --> REVIEW["Manual Review<br/>Queue"]
+        FLAG2 --> REVIEW
+        REVIEW --> |"accept"| FINAL
+        REVIEW --> |"reject"| DISCARD["Discarded"]
+    end
+
+    subgraph OUTPUT["7. Output"]
+        direction LR
+        FINAL --> JSON_OUT[("capability_questions.json<br/>{question, answer,<br/>answer_type, category,<br/>reasoning, acceptable_range,<br/>visual_elements}")]
+        FINAL --> STATS["Generation Report<br/>(pass rates, agreement,<br/>category distribution)"]
+    end
+
+    INPUT --> PROMPTS
+    PROMPTS --> GENERATE
+    GENERATE --> SELFCHECK
+    SELFCHECK --> VALIDATE
+    VALIDATE --> FILTER
+    FILTER --> OUTPUT
+
+    classDef input fill:#1e3a5f,stroke:#3b82f6,color:#fff
+    classDef process fill:#1a1a2e,stroke:#8b5cf6,color:#fff
+    classDef decision fill:#1a1a2e,stroke:#f59e0b,color:#fff
+    classDef output fill:#1a3a2e,stroke:#22c55e,color:#fff
+    classDef flag fill:#3a1a1a,stroke:#ef4444,color:#fff
+
+    class FIG,GT,META,MANIFEST input
+    class SYS,FEW,CAT_P,CTX,ASSEMBLED,GPT4O,GPT4O_V2,MISTRAL,REVIEW process
+    class SC_RESULT,XV_RESULT decision
+    class RAW,PASS1,PASS2,FINAL,JSON_OUT,STATS output
+    class FLAG1,FLAG2,DISCARD flag

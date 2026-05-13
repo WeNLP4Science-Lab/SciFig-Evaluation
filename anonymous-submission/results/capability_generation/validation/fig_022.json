@@ -1,0 +1,463 @@
+{
+  "figure_id": "fig_022",
+  "figure_type": "Bar Chart",
+  "generator_model": "gpt-4o",
+  "validator_model": "mistralai/mistral-large-2512",
+  "categories": {
+    "counting": [
+      {
+        "question": "How many bars across all three charts have a perplexity value greater than 25?",
+        "answer": 8,
+        "answer_type": "exact",
+        "category": "counting",
+        "reasoning": "Step 1: Examine each chart and identify bars with perplexity values greater than 25. Step 2: In the WikiText chart, the 'Uniform' bars for quantization bits 3, 4, 8, and 16 exceed 25 (4 bars). Step 3: In the PTB chart, no bars exceed 25 due to the higher scale. Step 4: In the C4 chart, the 'Uniform' bars for quantization bits 3, 4, 8, and 16 exceed 25 (4 bars). Step 5: Sum the counts: 4 (WikiText) + 0 (PTB) + 4 (C4) = 8.",
+        "visual_elements": [
+          "WikiText Uniform bars",
+          "C4 Uniform bars"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the heights of the bars in the figure relative to the perplexity axis."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer based on the visible bar heights."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires careful counting and comparison of bar heights across all three charts."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves counting bars that meet a specific criterion, matching the 'counting' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific bar heights in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "How many orange bars ('Ours') across all three charts have a perplexity value less than 20?",
+        "answer": 8,
+        "answer_type": "exact",
+        "category": "counting",
+        "reasoning": "Step 1: Examine each chart and identify orange bars ('Ours') with perplexity values less than 20. Step 2: In the WikiText chart, the 'Ours' bars for quantization bits 3, 4, 8, and 16 are all less than 20 (4 bars). Step 3: In the PTB chart, the 'Ours' bars for quantization bits 3, 4, 8, and 16 are all less than 20 (4 bars). Step 4: In the C4 chart, the 'Ours' bars for quantization bits 3, 4, 8, and 16 are all less than 20 (4 bars). Step 5: Sum the counts: 4 (WikiText) + 4 (PTB) + 4 (C4) = 8.",
+        "visual_elements": [
+          "WikiText Ours bars",
+          "PTB Ours bars",
+          "C4 Ours bars"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the heights of the orange bars in the figure relative to the perplexity axis."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer based on the visible bar heights."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires careful counting and comparison of specific orange bars across all three charts."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves counting bars that meet a specific criterion, matching the 'counting' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific visual elements (orange bars) in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "How many bars across all three charts have a perplexity value exactly equal to the maximum value in their respective chart?",
+        "answer": 3,
+        "answer_type": "exact",
+        "category": "counting",
+        "reasoning": "Step 1: Identify the maximum perplexity value in each chart. WikiText: 30, PTB: 400, C4: 30. Step 2: Count bars with perplexity values equal to these maximums. Step 3: In the WikiText chart, the 'Uniform' bar for quantization bit 3 has a perplexity of 30 (1 bar). Step 4: In the PTB chart, the 'Uniform' bar for quantization bit 3 has a perplexity of 400 (1 bar). Step 5: In the C4 chart, the 'Uniform' bar for quantization bit 3 has a perplexity of 30 (1 bar). Step 6: Sum the counts: 1 (WikiText) + 1 (PTB) + 1 (C4) = 3.",
+        "visual_elements": [
+          "WikiText Uniform bar for quantization bit 3",
+          "PTB Uniform bar for quantization bit 3",
+          "C4 Uniform bar for quantization bit 3"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by identifying the maximum perplexity value in each chart and counting bars that match this value."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer based on the visible bar heights and maximum values."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires identifying maximum values and comparing each bar to these values, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves counting bars that meet a specific criterion, matching the 'counting' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific bar heights and their relation to the maximum values in each chart."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "very_hard"
+        }
+      }
+    ],
+    "computation": [
+      {
+        "question": "What is the percentage reduction in perplexity for the PTB dataset when comparing 'Uniform' to 'Ours' at 3 quantization bits?",
+        "answer": 62.5,
+        "answer_type": "approximate",
+        "acceptable_range": [
+          60,
+          65
+        ],
+        "category": "computation",
+        "reasoning": "Step 1: Read the 'Uniform' perplexity value for PTB at 3 quantization bits: approximately 400. Step 2: Read the 'Ours' perplexity value for PTB at 3 quantization bits: approximately 150. Step 3: Compute the reduction: 400 - 150 = 250. Step 4: Compute the percentage reduction: (250 / 400) * 100 = 62.5%.",
+        "visual_elements": [
+          "PTB chart",
+          "bars for 3 quantization bits",
+          "blue bar (Uniform)",
+          "orange bar (Ours)"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the PTB dataset subplot and reading the perplexity values for 'Uniform' and 'Ours' at 3 quantization bits."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer, as the percentage reduction is a precise calculation based on visible values."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires calculating a percentage reduction, which involves multiple steps and careful reading of values."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves arithmetic computation (percentage reduction) on values from the figure."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights in the PTB subplot to extract exact perplexity values."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "What is the average perplexity for the 'Ours' method across all quantization bits in the WikiText dataset?",
+        "answer": 18.5,
+        "answer_type": "approximate",
+        "acceptable_range": [
+          18,
+          19
+        ],
+        "category": "computation",
+        "reasoning": "Step 1: Read the 'Ours' perplexity values for WikiText: approximately 18 (3 bits), 17 (4 bits), 20 (8 bits), and 19 (16 bits). Step 2: Compute the sum: 18 + 17 + 20 + 19 = 74. Step 3: Compute the average: 74 / 4 = 18.5.",
+        "visual_elements": [
+          "WikiText chart",
+          "orange bars for all quantization bits"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by reading the perplexity values for the 'Ours' method across all quantization bits in the WikiText subplot."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer, as the average is a precise calculation based on visible values."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires summing multiple values and dividing by the count, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves arithmetic computation (averaging) on values from the figure."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights in the WikiText subplot to extract exact perplexity values."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "What is the total perplexity difference between 'Uniform' and 'Ours' across all quantization bits in the C4 dataset?",
+        "answer": 28,
+        "answer_type": "approximate",
+        "acceptable_range": [
+          27,
+          29
+        ],
+        "category": "computation",
+        "reasoning": "Step 1: Read the 'Uniform' and 'Ours' perplexity values for C4: 30 and 20 (3 bits), 28 and 18 (4 bits), 26 and 19 (8 bits), 25 and 17 (16 bits). Step 2: Compute the differences for each quantization bit: (30 - 20) + (28 - 18) + (26 - 19) + (25 - 17) = 10 + 10 + 7 + 8 = 28.",
+        "visual_elements": [
+          "C4 chart",
+          "blue bars (Uniform)",
+          "orange bars (Ours)",
+          "all quantization bits"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by reading the perplexity values for 'Uniform' and 'Ours' across all quantization bits in the C4 subplot and computing the differences."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer, as the total difference is a precise sum of individual differences."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires calculating differences for multiple quantization bits and summing them, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves arithmetic computation (summing differences) on values from the figure."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights in the C4 subplot to extract exact perplexity values."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "very_hard"
+        }
+      }
+    ],
+    "comparison": [
+      {
+        "question": "In the PTB dataset, is the perplexity of 'Uniform' at 3 quantization bits more than twice the perplexity of 'Ours' at 16 quantization bits?",
+        "answer": "Yes",
+        "answer_type": "exact",
+        "category": "comparison",
+        "reasoning": "Step 1: Identify the 'Uniform' bar at 3 quantization bits in the PTB chart, which has a perplexity of approximately 400. Step 2: Identify the 'Ours' bar at 16 quantization bits in the PTB chart, which has a perplexity of approximately 240. Step 3: Compare whether 400 is more than twice 240. Since 400 > 480/2, the answer is 'Yes'.",
+        "visual_elements": [
+          "PTB Uniform bar at 3 quantization bits",
+          "PTB Ours bar at 16 quantization bits"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the bar heights for 'Uniform' at 3 bits and 'Ours' at 16 bits in the PTB dataset subplot."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has exactly one correct answer based on the exact values of the bars."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires comparing two specific bars and performing a multiplication check, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves a relative comparison between two values, matching the 'comparison' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "Rank the perplexity values of 'Ours' across all datasets at 4 quantization bits from highest to lowest.",
+        "answer": "PTB > WikiText > C4",
+        "answer_type": "exact",
+        "category": "comparison",
+        "reasoning": "Step 1: Identify the 'Ours' bar at 4 quantization bits in each dataset. PTB has a perplexity of approximately 240, WikiText has a perplexity of approximately 20, and C4 has a perplexity of approximately 18. Step 2: Rank these values from highest to lowest: PTB > WikiText > C4.",
+        "visual_elements": [
+          "PTB Ours bar at 4 quantization bits",
+          "WikiText Ours bar at 4 quantization bits",
+          "C4 Ours bar at 4 quantization bits"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the 'Ours' bars at 4 quantization bits across all datasets."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has a single correct ranking based on the exact bar heights."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires comparing multiple values across datasets, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "FAIL",
+            "reason": "The question involves ranking, which is closer to 'counting' or 'computation' rather than a direct 'comparison'."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights in the figure."
+          },
+          "overall": "REJECT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "In the WikiText dataset, which pair of bars (Uniform and Ours) has the smallest gap in perplexity across all quantization bits?",
+        "answer": "The pair at 16 quantization bits",
+        "answer_type": "exact",
+        "category": "comparison",
+        "reasoning": "Step 1: Calculate the gap between 'Uniform' and 'Ours' bars for each quantization bit in the WikiText dataset. At 3 bits, the gap is approximately 31 - 21 = 10. At 4 bits, the gap is approximately 28 - 20 = 8. At 8 bits, the gap is approximately 27 - 19 = 8. At 16 bits, the gap is approximately 25 - 16 = 9. Step 2: Compare these gaps and identify the smallest one. The smallest gap is 8, occurring at both 4 and 8 quantization bits. Step 3: Since the question asks for the smallest gap across all quantization bits, the answer is the pair at 4 quantization bits.",
+        "visual_elements": [
+          "WikiText Uniform bar at 3 quantization bits",
+          "WikiText Ours bar at 3 quantization bits",
+          "WikiText Uniform bar at 4 quantization bits",
+          "WikiText Ours bar at 4 quantization bits",
+          "WikiText Uniform bar at 8 quantization bits",
+          "WikiText Ours bar at 8 quantization bits",
+          "WikiText Uniform bar at 16 quantization bits",
+          "WikiText Ours bar at 16 quantization bits"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the gap between 'Uniform' and 'Ours' bars across all quantization bits in the WikiText dataset."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question has one correct answer based on the smallest gap between pairs of bars."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires calculating and comparing gaps between multiple pairs of bars, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves a relative comparison of gaps, matching the 'comparison' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights and their differences in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "very_hard"
+        }
+      }
+    ],
+    "pattern_analysis": [
+      {
+        "question": "Across all three datasets, does the 'Ours' series consistently show a decreasing trend in perplexity as quantization bits increase?",
+        "answer": "Yes, the 'Ours' series consistently shows a decreasing trend in perplexity as quantization bits increase across all datasets.",
+        "answer_type": "categorical",
+        "category": "pattern_analysis",
+        "reasoning": "Step 1: Examine the orange bars labeled 'Ours' in each chart. Step 2: Observe the heights of the bars for quantization bits 3, 4, 8, and 16. Step 3: Confirm that the heights decrease consistently in all three datasets (WikiText, PTB, and C4).",
+        "visual_elements": [
+          "orange bars in all three charts"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the 'Ours' series bars across all three datasets for each quantization bit value."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question asks for a clear trend (decreasing) in perplexity values, which is either present or not."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "It requires careful observation of the trend across multiple datasets and quantization bits, not immediately obvious."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question focuses on identifying a structural trend, fitting the 'pattern_analysis' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights for the 'Ours' series across all datasets."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "In the PTB dataset, does the difference between 'Uniform' and 'Ours' perplexity values increase or decrease as quantization bits increase?",
+        "answer": "The difference decreases as quantization bits increase.",
+        "answer_type": "categorical",
+        "category": "pattern_analysis",
+        "reasoning": "Step 1: Compare the heights of the blue ('Uniform') and orange ('Ours') bars for each quantization bit in the PTB chart. Step 2: Calculate the difference in heights for quantization bits 3, 4, 8, and 16. Step 3: Observe that the difference is largest at 3 bits and decreases progressively as quantization bits increase.",
+        "visual_elements": [
+          "blue and orange bars in the PTB chart"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by comparing the difference in bar heights between 'Uniform' and 'Ours' in the PTB dataset."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question asks for a clear directional change (increase or decrease) in the difference, which is unambiguous."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "It requires calculating or estimating differences across multiple quantization bits, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves analyzing a trend in differences, fitting the 'pattern_analysis' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific bar heights and their differences in the PTB dataset."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "Do the 'Uniform' bars exhibit a consistent ordering pattern across all datasets for each quantization bit category?",
+        "answer": "Yes, the 'Uniform' bars consistently have higher perplexity values than the 'Ours' bars across all datasets for each quantization bit category.",
+        "answer_type": "categorical",
+        "category": "pattern_analysis",
+        "reasoning": "Step 1: Examine the blue ('Uniform') and orange ('Ours') bars for each quantization bit category in all three charts. Step 2: Compare the heights of the bars within each pair. Step 3: Confirm that the blue bars are consistently taller than the orange bars across all datasets and quantization bit categories.",
+        "visual_elements": [
+          "blue and orange bars in all three charts"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by observing the ordering of 'Uniform' bars across all datasets and quantization bit categories."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question asks for a consistent ordering pattern, which is either present or not."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "It requires careful comparison of bar heights across multiple datasets and quantization bits."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question focuses on identifying a structural pattern, fitting the 'pattern_analysis' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining the relative heights of 'Uniform' bars across all datasets."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "very_hard"
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_candidates": 12,
+    "accepted": 11,
+    "rejected": 1
+  }
+}
