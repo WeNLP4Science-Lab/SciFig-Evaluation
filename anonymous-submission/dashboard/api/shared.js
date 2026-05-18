@@ -17,7 +17,7 @@ async function ensureTables() {
   initialized = true;
 }
 
-const ANNOTATORS = ["Admin", "Wei", "Bana", "Ananya", "Paul"];
+const ANNOTATORS = ["Admin", "Wei", "Bana", "Ananya", "Paul", "John", "Benedict", "Anthony", "Dan"];
 
 module.exports = {
   ensureTables,

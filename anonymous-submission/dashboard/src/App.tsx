@@ -16,7 +16,29 @@ const sectionMeta: Record<Section, { label: string; ready: boolean }> = {
 export default function App() {
   const [active, setActive] = useState<Section>('dataset')
   const [open, setOpen] = useState(false)
-  const [selectedFigure, setSelectedFigure] = useState<string | null>(null)
+
+  // Read figure ID from hash on load
+  const getHashFigure = () => {
+    const hash = window.location.hash.replace('#', '')
+    return hash.startsWith('fig_') ? hash : null
+  }
+  const [selectedFigure, setSelectedFigure] = useState<string | null>(getHashFigure)
+
+  // Sync hash ↔ state
+  const selectFigure = (id: string | null) => {
+    setSelectedFigure(id)
+    if (id) {
+      window.location.hash = id
+    } else {
+      history.replaceState(null, '', window.location.pathname + window.location.search)
+    }
+  }
+
+  useEffect(() => {
+    const onHash = () => setSelectedFigure(getHashFigure())
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
 
   const annotateMode = isAnnotationMode()
   const [auth, setAuth] = useState<AuthState | null>(null)
@@ -89,7 +111,7 @@ export default function App() {
             return (
               <button
                 key={id}
-                onClick={() => { if (ready) { setActive(id); setSelectedFigure(null) } }}
+                onClick={() => { if (ready) { setActive(id); selectFigure(null) } }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 10,
                   width: '100%', height: 34, padding: '0 8px', borderRadius: 6,
@@ -169,12 +191,12 @@ export default function App() {
         {selectedFigure ? (
           <FigureDetail
             figureId={selectedFigure}
-            onBack={() => setSelectedFigure(null)}
+            onBack={() => selectFigure(null)}
             auth={auth}
           />
         ) : (
           <>
-            {active === 'dataset' && <Dataset onSelectFigure={setSelectedFigure} />}
+            {active === 'dataset' && <Dataset onSelectFigure={selectFigure} />}
             {active === 'evaluation' && <PlaceholderPage label="Evaluation" />}
             {active === 'analytics' && <PlaceholderPage label="Result Analytics" />}
           </>
