@@ -31,6 +31,23 @@ interface CapabilityData {
   questions: CapabilityQuestion[]
 }
 
+interface ProbeTarget {
+  blurred_text: string
+  question: string
+  why_unrecoverable?: string
+  reasoning_path?: string
+  why_inferable?: string
+  expected_behavior: string
+}
+
+interface ProbeData {
+  figure_id: string
+  selective_blur: {
+    admittance?: ProbeTarget
+    inductance?: ProbeTarget
+  }
+}
+
 const c = {
   bg: '#09090b',
   surface: '#131316',
@@ -79,7 +96,8 @@ export default function FigureDetail({ figureId, onBack, auth }: {
 }) {
   const [figure, setFigure] = useState<FigureEntry | null>(null)
   const [capability, setCapability] = useState<CapabilityData | null>(null)
-  const [activeTab, setActiveTab] = useState<'info' | 'questions'>('info')
+  const [probe, setProbe] = useState<ProbeData | null>(null)
+  const [activeTab, setActiveTab] = useState<'info' | 'questions' | 'adversarial'>('info')
   const [annIdx, setAnnIdx] = useState(0)
   const [expandedQ, setExpandedQ] = useState<number | null>(null)
   const [annotations, setAnnotations] = useState<AnnotationEntry[]>([])
@@ -100,6 +118,10 @@ export default function FigureDetail({ figureId, onBack, auth }: {
     fetch(`/capability_questions/${figureId}.json`)
       .then(r => { if (r.ok) return r.json(); return null })
       .then(d => { if (d) setCapability(d) })
+      .catch(() => {})
+    fetch(`/probes/${figureId}.json`)
+      .then(r => { if (r.ok) return r.json(); return null })
+      .then(d => { if (d) setProbe(d) })
       .catch(() => {})
     loadAnnotations()
   }, [figureId])
@@ -217,6 +239,11 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                 onClick={() => setActiveTab('questions')}
                 badge={capability ? capability.questions.length : undefined}
               />
+              <TabButton
+                label="Adversarial"
+                active={activeTab === 'adversarial'}
+                onClick={() => setActiveTab('adversarial')}
+              />
             </div>
 
             {/* Tab Content */}
@@ -273,6 +300,9 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                     <MetaItem label="Annotations" value={String(figure.annotation_count)} />
                     <MetaItem label="Figure ID" value={figureId} />
                     <MetaItem label="arXiv" value={figure.arxiv_id || '—'} />
+                    {(figure as FigureEntry & { pdf_page?: number }).pdf_page && (
+                      <MetaItem label="PDF Page" value={String((figure as FigureEntry & { pdf_page?: number }).pdf_page)} />
+                    )}
                   </div>
                 </Section>
               </div>
@@ -306,8 +336,206 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                 )}
               </div>
             )}
+
+            {activeTab === 'adversarial' && (
+              <div style={{ animation: 'fadeIn 0.2s ease-out both' }}>
+                {probe && probe.selective_blur ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                    {/* Admittance */}
+                    {probe.selective_blur.admittance && (
+                      <BlurCard
+                        type="admittance"
+                        label="Admittance Test"
+                        description="Model should honestly admit it cannot determine the blurred information"
+                        figureId={figureId}
+                        target={probe.selective_blur.admittance}
+                        accentColor="#ef4444"
+                        accentBg="rgba(239,68,68,0.08)"
+                      />
+                    )}
+
+                    {/* Inductance */}
+                    {probe.selective_blur.inductance && (
+                      <BlurCard
+                        type="inductance"
+                        label="Inductance Test"
+                        description="Model should attempt to infer from remaining visual context"
+                        figureId={figureId}
+                        target={probe.selective_blur.inductance}
+                        accentColor="#22c55e"
+                        accentBg="rgba(34,197,94,0.08)"
+                      />
+                    )}
+
+                    {!probe.selective_blur.admittance && !probe.selective_blur.inductance && (
+                      <div style={{ textAlign: 'center', padding: '48px 0', color: c.dim, fontSize: 13 }}>
+                        No adversarial probes generated for this figure
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div style={{ textAlign: 'center', padding: '48px 0', color: c.dim, fontSize: 13 }}>
+                    No adversarial data available
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── Blur Card ── */
+
+function BlurCard({ type, label, description, figureId, target, accentColor, accentBg }: {
+  type: 'admittance' | 'inductance'
+  label: string
+  description: string
+  figureId: string
+  target: ProbeTarget
+  accentColor: string
+  accentBg: string
+}) {
+  const [showBlurred, setShowBlurred] = useState(false)
+  const imgSrc = type === 'admittance'
+    ? `/adversarial_admittance/${figureId}.png`
+    : `/adversarial_inductance/${figureId}.png`
+
+  return (
+    <div style={{
+      borderRadius: 10, border: `1px solid ${c.border}`,
+      background: c.surface, overflow: 'hidden',
+    }}>
+      {/* Header */}
+      <div style={{
+        padding: '14px 16px',
+        borderBottom: `1px solid ${c.border}`,
+        display: 'flex', alignItems: 'center', gap: 10,
+      }}>
+        <span style={{
+          width: 8, height: 8, borderRadius: '50%',
+          background: accentColor, flexShrink: 0,
+        }} />
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: 13, fontWeight: 600, color: c.fg, margin: 0 }}>{label}</p>
+          <p style={{ fontSize: 11, color: c.dim, margin: '2px 0 0' }}>{description}</p>
+        </div>
+      </div>
+
+      {/* Blurred image toggle */}
+      <div style={{ padding: '16px', borderBottom: `1px solid ${c.border}` }}>
+        <div style={{
+          display: 'flex', gap: 4, marginBottom: 12,
+        }}>
+          <button
+            onClick={() => setShowBlurred(false)}
+            style={{
+              padding: '5px 12px', borderRadius: 5, fontSize: 11, fontWeight: 500,
+              fontFamily: 'inherit', cursor: 'pointer',
+              background: !showBlurred ? c.surfaceActive : c.surfaceRaised,
+              color: !showBlurred ? c.fg : c.dim,
+              border: `1px solid ${!showBlurred ? c.borderStrong : c.border}`,
+              transition: 'all 0.15s',
+            }}
+          >
+            Original
+          </button>
+          <button
+            onClick={() => setShowBlurred(true)}
+            style={{
+              padding: '5px 12px', borderRadius: 5, fontSize: 11, fontWeight: 500,
+              fontFamily: 'inherit', cursor: 'pointer',
+              background: showBlurred ? accentBg : c.surfaceRaised,
+              color: showBlurred ? accentColor : c.dim,
+              border: `1px solid ${showBlurred ? accentColor + '40' : c.border}`,
+              transition: 'all 0.15s',
+            }}
+          >
+            Blurred
+          </button>
+        </div>
+        <div style={{
+          borderRadius: 8, background: c.bg, border: `1px solid ${c.border}`,
+          padding: 12, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          minHeight: 160,
+        }}>
+          <img
+            src={showBlurred ? imgSrc : `/figures/${figureId}.png`}
+            alt={showBlurred ? `${type} blur` : 'original'}
+            style={{ maxWidth: '100%', maxHeight: '40vh', objectFit: 'contain' }}
+          />
+        </div>
+      </div>
+
+      {/* Details */}
+      <div style={{ padding: '14px 16px' }}>
+        {/* Blurred text */}
+        <div style={{ marginBottom: 14 }}>
+          <p style={{
+            fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+            letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+          }}>
+            Blurred Element
+          </p>
+          <span style={{
+            display: 'inline-block', padding: '4px 10px', borderRadius: 5,
+            background: accentBg, border: `1px solid ${accentColor}30`,
+            fontSize: 12, fontWeight: 600, color: accentColor,
+            fontFamily: 'JetBrains Mono, monospace',
+          }}>
+            {target.blurred_text}
+          </span>
+        </div>
+
+        {/* Question */}
+        <div style={{ marginBottom: 14 }}>
+          <p style={{
+            fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+            letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+          }}>
+            Evaluation Question
+          </p>
+          <div style={{
+            borderRadius: 8, background: c.surfaceRaised,
+            border: `1px solid ${c.border}`, padding: 12,
+          }}>
+            <p style={{ fontSize: 13, color: c.fg, lineHeight: 1.6, margin: 0 }}>
+              {target.question}
+            </p>
+          </div>
+        </div>
+
+        {/* Reasoning (inductance only) */}
+        {target.reasoning_path && (
+          <div>
+            <p style={{
+              fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+            }}>
+              Reasoning Path
+            </p>
+            <p style={{ fontSize: 12, color: c.muted, lineHeight: 1.6, margin: 0 }}>
+              {target.reasoning_path}
+            </p>
+          </div>
+        )}
+
+        {/* Why (admittance) */}
+        {target.why_unrecoverable && (
+          <div>
+            <p style={{
+              fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+            }}>
+              Why Unrecoverable
+            </p>
+            <p style={{ fontSize: 12, color: c.muted, lineHeight: 1.6, margin: 0 }}>
+              {target.why_unrecoverable}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )
