@@ -1,28 +1,32 @@
 import { useState, useEffect } from 'react'
 import Dataset from './pages/Dataset'
 import FigureDetail from './pages/FigureDetail'
+import Tasks from './pages/Tasks'
 import Login from './components/Login'
 import { isAnnotationMode, getSavedAuth, loginAPI, clearAuth as clearStoredAuth, type AuthState } from './auth'
 
-const sections = ['dataset', 'evaluation', 'analytics'] as const
+const sections = ['dataset', 'tasks', 'evaluation', 'analytics'] as const
 type Section = typeof sections[number]
 
 const sectionMeta: Record<Section, { label: string; ready: boolean }> = {
   dataset:    { label: 'Dataset',    ready: true },
+  tasks:      { label: 'Tasks',      ready: true },
   evaluation: { label: 'Evaluation', ready: false },
   analytics:  { label: 'Analytics',  ready: false },
 }
 
 export default function App() {
-  const [active, setActive] = useState<Section>('dataset')
-  const [open, setOpen] = useState(false)
-
-  // Read figure ID from hash on load
-  const getHashFigure = () => {
+  // Read section from hash on load
+  const getHashState = () => {
     const hash = window.location.hash.replace('#', '')
-    return hash.startsWith('fig_') ? hash : null
+    if (hash.startsWith('fig_')) return { section: 'dataset' as Section, figure: hash }
+    if (sections.includes(hash as Section)) return { section: hash as Section, figure: null }
+    return { section: 'dataset' as Section, figure: null }
   }
-  const [selectedFigure, setSelectedFigure] = useState<string | null>(getHashFigure)
+  const initial = getHashState()
+  const [active, setActive] = useState<Section>(initial.section)
+  const [open, setOpen] = useState(false)
+  const [selectedFigure, setSelectedFigure] = useState<string | null>(initial.figure)
 
   // Sync hash ↔ state
   const selectFigure = (id: string | null) => {
@@ -30,12 +34,22 @@ export default function App() {
     if (id) {
       window.location.hash = id
     } else {
-      history.replaceState(null, '', window.location.pathname + window.location.search)
+      window.location.hash = active
     }
   }
 
+  const switchSection = (section: Section) => {
+    setActive(section)
+    setSelectedFigure(null)
+    window.location.hash = section
+  }
+
   useEffect(() => {
-    const onHash = () => setSelectedFigure(getHashFigure())
+    const onHash = () => {
+      const state = getHashState()
+      setActive(state.section)
+      setSelectedFigure(state.figure)
+    }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
@@ -111,7 +125,7 @@ export default function App() {
             return (
               <button
                 key={id}
-                onClick={() => { if (ready) { setActive(id); selectFigure(null) } }}
+                onClick={() => { if (ready) switchSection(id) }}
                 style={{
                   display: 'flex', alignItems: 'center', gap: 10,
                   width: '100%', height: 34, padding: '0 8px', borderRadius: 6,
@@ -197,6 +211,7 @@ export default function App() {
         ) : (
           <>
             {active === 'dataset' && <Dataset onSelectFigure={selectFigure} />}
+            {active === 'tasks' && <Tasks />}
             {active === 'evaluation' && <PlaceholderPage label="Evaluation" />}
             {active === 'analytics' && <PlaceholderPage label="Result Analytics" />}
           </>
@@ -219,6 +234,11 @@ function PlaceholderPage({ label }: { label: string }) {
 
 function NavIcon({ id }: { id: string }) {
   const s = { width: 18, height: 18, flexShrink: 0 } as const
+  if (id === 'tasks') return (
+    <svg style={s} viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 9l3 3 7-7" /><rect x="2" y="2" width="14" height="14" rx="2" />
+    </svg>
+  )
   if (id === 'dataset') return (
     <svg style={s} viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="2" width="5.5" height="5.5" rx="1.2" /><rect x="10.5" y="2" width="5.5" height="5.5" rx="1.2" />

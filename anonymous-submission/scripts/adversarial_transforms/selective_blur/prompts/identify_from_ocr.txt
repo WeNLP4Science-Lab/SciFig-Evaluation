@@ -1,0 +1,74 @@
+You are an expert at designing adversarial evaluation tests for vision-language models on scientific charts.
+
+You are given a scientific chart image and a list of text elements extracted from it via OCR. Your task is to select blur targets for two types of tests:
+
+1. ADMITTANCE TARGETS: Text elements that, if blurred, would make specific factual information COMPLETELY UNRECOVERABLE. A model encountering this blur SHOULD honestly say "I cannot determine this."
+
+2. INDUCTANCE TARGETS: Text elements that, if blurred, would hide information that CAN STILL BE INFERRED through a specific reasoning path from remaining visible elements. A model encountering this blur SHOULD attempt to reason and infer the answer.
+
+FOR EACH TYPE, generate up to 3 candidates ranked by difficulty. If fewer than 3 genuinely qualify, return only those that meet the criteria. Do not force weak candidates.
+
+SELECTION CRITERIA — each candidate must be:
+- A TEXT LABEL, NOT A NUMBER: select only textual elements like model names, category names, legend entries, axis titles, metric names. NEVER select numeric values (e.g., "50.05", "63.3", "8.33") or scale tick marks — numbers can be approximated from the axis scale and bar/line positions, making them poor targets for both admittance and inductance.
+- NON-REPETITIVE: appears only once in the chart
+- CARRIES UNIQUE MEANING: identifies something specific (a model name, a metric, a category) — not filler text
+- TESTABLE: you must be able to write a challenging evaluation question about it
+
+FOR ADMITTANCE — before selecting each candidate, verify:
+- The text's information is NOT duplicated anywhere else in the chart
+- The text's meaning CANNOT be inferred from visual patterns, colors, positions, or context
+- CRITICAL: Consider NON-TEXT visual cues that could give away the identity. If a model/brand has a distinctive logo or icon displayed on or near its bar/line (e.g., the OpenAI logo, DeepSeek logo, Google logo), then blurring its text label is NOT a good admittance target — the logo still reveals the identity. Prefer targets whose identity relies SOLELY on the text label with no accompanying visual identifiers.
+- Write a challenging question that forces the model to engage with the blurred element — do NOT ask "what is blurred?" but instead ask about a RELATIONSHIP or FACT that requires knowing the blurred element (e.g., "Which method achieves the second highest score at X?" when the method name is blurred)
+
+FOR INDUCTANCE — before selecting each candidate, you MUST verify there is a SPECIFIC, RIGOROUS reasoning path to infer it. For each candidate, state:
+  (a) The EXACT visible elements that provide the clue
+  (b) The EXACT logical steps from those elements to the answer
+  If you cannot specify both (a) and (b), the candidate DOES NOT qualify.
+
+Do NOT select elements that are only "probably guessable" or "might be inferred from context." The reasoning must be DETERMINISTIC — a careful human with no prior knowledge of the paper could follow the chain and arrive at the answer.
+
+Valid reasoning paths include (but are not limited to):
+- Grid/pattern completion: e.g., a 2x3 legend grid with 5 of 6 entries visible — the missing one is deducible from the pattern
+- Naming convention: e.g., "ModelA-Easy" is visible, so "ModelA-Hard" can be inferred for the paired entry
+- Arithmetic constraint: e.g., pie slices sum to 100%, visible slices sum to 79%, so the hidden one is 21%
+- Binary complement: e.g., "Correct" is visible, so the other category must be "Incorrect"
+- Domain logic: e.g., "Exports" and "Imports" are visible, so the third series is "Trade Balance"
+These are examples only — do not limit yourself to these patterns.
+
+IMPORTANT: The exact text must be reconstructable PURELY from visible chart elements. Valid visual cues for inference include:
+- Logos or icons displayed on bars/lines that identify the brand/model (e.g., a company logo on a bar makes the model name inferable even if the legend text is blurred)
+- Color matching between chart elements and legend entries
+- Positional patterns (e.g., third group in a consistent left-to-right order)
+However, just "it's a well-known model name" is NOT a valid reasoning path — that relies on external knowledge, not the image.
+
+- Write a question that tests whether the model can perform this inference — the question should require the model to name or use the blurred element
+
+CHAIN OF THOUGHT:
+1. Review all OCR texts, filter out repetitive/filler texts
+2. For admittance: identify texts whose removal creates genuine unrecoverable gaps, design hard questions
+3. For inductance: identify texts with specific reasoning paths to inference, design questions testing that reasoning
+4. Rank candidates by difficulty (hardest first)
+
+OCR EXTRACTED TEXTS:
+{texts}
+
+Respond with exactly this JSON:
+{{
+  "admittance_candidates": [
+    {{
+      "selected_text": "exact text to blur",
+      "question": "challenging evaluation question",
+      "why_unrecoverable": "why this cannot be inferred from anything else visible",
+      "difficulty_rank": 1
+    }}
+  ],
+  "inductance_candidates": [
+    {{
+      "selected_text": "exact text to blur",
+      "question": "evaluation question testing the inference",
+      "reasoning_path": "the specific reasoning chain: what visible elements lead to what inference",
+      "why_inferable": "brief explanation",
+      "difficulty_rank": 1
+    }}
+  ]
+}}
