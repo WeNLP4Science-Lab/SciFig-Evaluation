@@ -26,19 +26,56 @@ from config import (
 )
 
 
+def _normalize(s: str) -> str:
+    """Normalize text for fuzzy matching: lowercase, common OCR substitutions."""
+    s = s.lower().strip()
+    s = s.replace('l', '1').replace('o', '0')  # common OCR confusions
+    s = ''.join(c for c in s if c.isalnum())    # strip punctuation/spaces
+    return s
+
+
+def _similarity(a: str, b: str) -> float:
+    """Simple character-level similarity ratio."""
+    if not a or not b:
+        return 0.0
+    a_norm, b_norm = _normalize(a), _normalize(b)
+    if a_norm == b_norm:
+        return 1.0
+    # Check substring
+    if a_norm in b_norm or b_norm in a_norm:
+        return min(len(a_norm), len(b_norm)) / max(len(a_norm), len(b_norm))
+    # Character overlap
+    common = sum(1 for c in a_norm if c in b_norm)
+    return common / max(len(a_norm), len(b_norm))
+
+
 def find_bbox(ocr_texts: list[dict], target_text: str) -> dict | None:
-    """Find the OCR bounding box for a target text string."""
+    """Find the OCR bounding box for a target text string. Handles OCR errors."""
     target_lower = target_text.lower().strip()
+    target_norm = _normalize(target_text)
 
     # Exact match first
     for t in ocr_texts:
         if t["text"].lower().strip() == target_lower:
             return t["bbox"]
 
-    # Substring match
+    # Normalized exact match (handles l/1, o/0 confusion)
     for t in ocr_texts:
-        if target_lower in t["text"].lower().strip() or t["text"].lower().strip() in target_lower:
+        if _normalize(t["text"]) == target_norm:
             return t["bbox"]
+
+    # Fuzzy match — score all, pick best with minimum threshold
+    scored = []
+    for t in ocr_texts:
+        sim = _similarity(target_text, t["text"])
+        if sim >= 0.6:  # at least 60% similar
+            scored.append((t, sim))
+
+    if scored:
+        # Pick highest similarity, break ties by closest length to target
+        target_len = len(target_text)
+        scored.sort(key=lambda x: (x[1], -abs(len(x[0]["text"]) - target_len)), reverse=True)
+        return scored[0][0]["bbox"]
 
     return None
 

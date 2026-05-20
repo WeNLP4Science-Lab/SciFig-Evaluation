@@ -46,6 +46,7 @@ interface ProbeData {
     admittance?: ProbeTarget
     inductance?: ProbeTarget
   }
+  ocr_texts?: string[]
 }
 
 const c = {
@@ -251,15 +252,6 @@ export default function FigureDetail({ figureId, onBack, auth }: {
             {/* Tab Content */}
             {activeTab === 'info' && (
               <div style={{ animation: 'fadeIn 0.2s ease-out both' }}>
-                {/* Caption */}
-                {figure.caption && (
-                  <Section label="Caption">
-                    <p style={{ fontSize: 13, color: c.muted, lineHeight: 1.65, fontStyle: 'italic', margin: 0 }}>
-                      {figure.caption}
-                    </p>
-                  </Section>
-                )}
-
                 {/* Annotations */}
                 {figure.annotations.length > 0 && (
                   <Section label={`Annotations (${figure.annotations.length})`}>
@@ -295,17 +287,58 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                   </Section>
                 )}
 
+                {/* Paper & Caption */}
+                {figure.paper_title && (
+                  <Section label="Paper">
+                    <p style={{ fontSize: 13, color: c.fg, lineHeight: 1.6, margin: 0 }}>
+                      {figure.paper_title}
+                    </p>
+                  </Section>
+                )}
+
+                {figure.caption && (
+                  <Section label="Caption">
+                    <div style={{
+                      borderRadius: 8, background: c.surfaceRaised,
+                      border: `1px solid ${c.border}`, padding: 12,
+                    }}>
+                      <p style={{ fontSize: 12, color: c.muted, lineHeight: 1.7, margin: 0, fontStyle: 'italic' }}>
+                        {figure.caption}
+                      </p>
+                    </div>
+                  </Section>
+                )}
+
                 {/* Metadata */}
                 <Section label="Metadata">
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     <MetaItem label="Chart Type" value={figure.figure_type} />
                     <MetaItem label="Figure Number" value={(figure as FigureEntry & { figure_number?: string }).figure_number || '—'} />
-                    <MetaItem label="Figure ID" value={figureId} />
-                    <MetaItem label="arXiv" value={figure.arxiv_id || '—'} />
+                    {figure.arxiv_id ? (
+                      <div style={{
+                        borderRadius: 6, border: `1px solid ${c.border}`,
+                        background: c.surfaceRaised, padding: '8px 12px',
+                      }}>
+                        <p style={{ fontSize: 9, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: c.dim, margin: '0 0 3px' }}>
+                          arXiv
+                        </p>
+                        <a
+                          href={`https://arxiv.org/pdf/${figure.arxiv_id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ fontSize: 12, color: c.accent, fontFamily: 'JetBrains Mono, monospace', textDecoration: 'none' }}
+                          onMouseEnter={e => (e.currentTarget.style.textDecoration = 'underline')}
+                          onMouseLeave={e => (e.currentTarget.style.textDecoration = 'none')}
+                        >
+                          {figure.arxiv_id}
+                        </a>
+                      </div>
+                    ) : (
+                      <MetaItem label="arXiv" value="—" />
+                    )}
                     {(figure as FigureEntry & { pdf_page?: number }).pdf_page && (
                       <MetaItem label="PDF Page" value={String((figure as FigureEntry & { pdf_page?: number }).pdf_page)} />
                     )}
-                    <MetaItem label="Annotations" value={String(figure.annotation_count)} />
                   </div>
                 </Section>
 
@@ -369,6 +402,7 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                         auth={auth}
                         reviews={reviews}
                         onSaved={loadAnnotations}
+                        ocrTexts={probe.ocr_texts || []}
                       />
                     )}
 
@@ -385,6 +419,7 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                         auth={auth}
                         reviews={reviews}
                         onSaved={loadAnnotations}
+                        ocrTexts={probe.ocr_texts || []}
                       />
                     )}
 
@@ -410,7 +445,7 @@ export default function FigureDetail({ figureId, onBack, auth }: {
 
 /* ── Blur Card ── */
 
-function BlurCard({ type, label, description, figureId, target, accentColor, accentBg, auth, reviews, onSaved }: {
+function BlurCard({ type, label, description, figureId, target, accentColor, accentBg, auth, reviews, onSaved, ocrTexts }: {
   type: 'admittance' | 'inductance'
   label: string
   description: string
@@ -421,6 +456,7 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
   auth: AuthState | null
   reviews: ReviewEntry[]
   onSaved: () => void
+  ocrTexts: string[]
 }) {
   const [showBlurred, setShowBlurred] = useState(false)
   const [showReview, setShowReview] = useState(false)
@@ -639,26 +675,61 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
                 </div>
                 {status === 'rejected' && (
                   <>
-                    <input
-                      value={newTarget}
-                      onChange={e => setNewTarget(e.target.value)}
-                      placeholder="Suggest new blur target text..."
-                      style={{
-                        width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
-                        fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
-                        color: c.fg, outline: 'none',
-                      }}
-                    />
-                    <input
-                      value={newQuestion}
-                      onChange={e => setNewQuestion(e.target.value)}
-                      placeholder="Suggest new evaluation question..."
-                      style={{
-                        width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
-                        fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
-                        color: c.fg, outline: 'none',
-                      }}
-                    />
+                    <div>
+                      <p style={{
+                        fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+                        letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+                      }}>
+                        Select New Target
+                      </p>
+                      <div style={{
+                        maxHeight: 140, overflowY: 'auto', borderRadius: 6,
+                        border: `1px solid ${c.border}`, background: c.bg,
+                      }}>
+                        {ocrTexts.map((text, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setNewTarget(text)}
+                            style={{
+                              display: 'block', width: '100%', textAlign: 'left',
+                              padding: '6px 10px', border: 'none', cursor: 'pointer',
+                              fontFamily: 'inherit', fontSize: 11,
+                              background: newTarget === text ? accentBg : 'transparent',
+                              color: newTarget === text ? accentColor : c.muted,
+                              borderBottom: i < ocrTexts.length - 1 ? `1px solid ${c.border}` : 'none',
+                              transition: 'background 0.1s',
+                            }}
+                            onMouseEnter={e => { if (newTarget !== text) e.currentTarget.style.background = c.surfaceHover }}
+                            onMouseLeave={e => { if (newTarget !== text) e.currentTarget.style.background = 'transparent' }}
+                          >
+                            {text}
+                          </button>
+                        ))}
+                      </div>
+                      {newTarget && (
+                        <p style={{ fontSize: 11, color: accentColor, margin: '6px 0 0' }}>
+                          Selected: <strong>{newTarget}</strong>
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <p style={{
+                        fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+                        letterSpacing: '0.06em', color: c.dim, margin: '0 0 4px',
+                      }}>
+                        New Question
+                      </p>
+                      <input
+                        value={newQuestion}
+                        onChange={e => setNewQuestion(e.target.value)}
+                        placeholder="Write evaluation question for the new target..."
+                        style={{
+                          width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
+                          fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
+                          color: c.fg, outline: 'none',
+                        }}
+                      />
+                    </div>
                   </>
                 )}
                 <input
