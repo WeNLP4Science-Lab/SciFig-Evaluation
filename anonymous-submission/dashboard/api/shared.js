@@ -14,6 +14,7 @@ async function ensureTables() {
   if (initialized) return;
   try { await getTableClient("passwords").createTable(); } catch (e) { if (e.statusCode !== 409) throw e; }
   try { await getTableClient("annotations").createTable(); } catch (e) { if (e.statusCode !== 409) throw e; }
+  try { await getTableClient("reviews").createTable(); } catch (e) { if (e.statusCode !== 409) throw e; }
   initialized = true;
 }
 
@@ -23,5 +24,6 @@ module.exports = {
   ensureTables,
   passwordsTable: () => getTableClient("passwords"),
   annotationsTable: () => getTableClient("annotations"),
+  reviewsTable: () => getTableClient("reviews"),
   ANNOTATORS,
 };

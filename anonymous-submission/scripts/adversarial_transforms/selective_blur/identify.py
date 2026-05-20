@@ -25,7 +25,10 @@ from openai import AzureOpenAI
 from config import (
     AZURE_ENDPOINT, AZURE_API_KEY, AZURE_API_VERSION,
     MODEL, TEMPERATURE, OCR_DIR, IDENTIFICATIONS_DIR, FIGURES_DIR, PROMPTS_DIR,
+    DATASET_DIR,
 )
+
+GROUNDTRUTH_DIR = DATASET_DIR / "groundtruth"
 
 
 def load_prompt() -> str:
@@ -40,8 +43,24 @@ def encode_image(fig_id: str) -> str | None:
         return base64.b64encode(f.read()).decode("utf-8")
 
 
-def identify_targets(client: AzureOpenAI, prompt_template: str, fig_id: str) -> dict | None:
-    out_path = IDENTIFICATIONS_DIR / f"{fig_id}.json"
+def get_description(fig_id: str) -> str:
+    """Get the longest English annotation as ground-truth description."""
+    gt_path = GROUNDTRUTH_DIR / f"{fig_id}.json"
+    if not gt_path.exists():
+        return ""
+    with open(gt_path) as f:
+        data = json.load(f)
+    annotations = data.get("annotations", [])
+    english = [a["annotation"] for a in annotations if a.get("annotation_language") == "English"]
+    if not english:
+        english = [a["annotation"] for a in annotations if "annotation" in a]
+    return max(english, key=len) if english else ""
+
+
+def identify_targets(client: AzureOpenAI, prompt_template: str, fig_id: str,
+                     output_dir: Path = None) -> dict | None:
+    out_dir = output_dir or IDENTIFICATIONS_DIR
+    out_path = out_dir / f"{fig_id}.json"
     if out_path.exists():
         return None  # skip existing
 
@@ -56,13 +75,15 @@ def identify_targets(client: AzureOpenAI, prompt_template: str, fig_id: str) -> 
     if not img_b64:
         return None
 
+    description = get_description(fig_id)
+
     # Format texts for the prompt
     text_list = "\n".join(
         f'  - "{t["text"]}" (confidence: {t["confidence"]})'
         for t in ocr_data["texts"]
     )
 
-    prompt = prompt_template.format(texts=text_list)
+    prompt = prompt_template.format(texts=text_list, description=description)
 
     try:
         response = client.chat.completions.create(
@@ -83,8 +104,7 @@ def identify_targets(client: AzureOpenAI, prompt_template: str, fig_id: str) -> 
         result["figure_id"] = fig_id
         result["model"] = MODEL
 
-        out_path = IDENTIFICATIONS_DIR / f"{fig_id}.json"
-        with open(out_path, "w") as f:
+        with open(out_dir / f"{fig_id}.json", "w") as f:
             json.dump(result, f, indent=2)
 
         return result
@@ -105,9 +125,12 @@ def main():
     parser.add_argument("--limit", type=int)
     parser.add_argument("--figures", nargs="+")
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--v2", action="store_true", help="Use v2 output folder (with ground-truth description)")
     args = parser.parse_args()
 
-    IDENTIFICATIONS_DIR.mkdir(parents=True, exist_ok=True)
+    output_dir = IDENTIFICATIONS_DIR.parent / "identifications_v2" if args.v2 else IDENTIFICATIONS_DIR
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     client = AzureOpenAI(
         azure_endpoint=AZURE_ENDPOINT, api_key=AZURE_API_KEY,
         api_version=AZURE_API_VERSION,
@@ -115,15 +138,17 @@ def main():
     prompt_template = load_prompt()
     fig_ids = get_figure_ids(args.limit, args.figures)
 
-    print(f"Identifying blur targets for {len(fig_ids)} figures")
+    version = "v2 (with ground-truth)" if args.v2 else "v1"
+    print(f"Identifying blur targets for {len(fig_ids)} figures ({version})")
     print(f"Model: {MODEL} | temp={TEMPERATURE} | workers={args.workers}")
+    print(f"Output: {output_dir}")
     print("-" * 60)
 
     done, failed = 0, 0
 
     with ThreadPoolExecutor(max_workers=args.workers) as pool:
         futures = {
-            pool.submit(identify_targets, client, prompt_template, fid): fid
+            pool.submit(identify_targets, client, prompt_template, fid, output_dir): fid
             for fid in fig_ids
         }
         for future in as_completed(futures):

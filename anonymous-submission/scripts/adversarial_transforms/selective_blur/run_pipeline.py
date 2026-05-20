@@ -42,6 +42,7 @@ def main():
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--skip-ocr", action="store_true")
     parser.add_argument("--skip-identify", action="store_true")
+    parser.add_argument("--v2", action="store_true", help="Use v2 (with ground-truth description)")
     args = parser.parse_args()
 
     shared = []
@@ -50,9 +51,12 @@ def main():
     if args.figures:
         shared += ["--figures"] + args.figures
 
+    v2_flag = ["--v2"] if args.v2 else []
+    version = "V2 (with ground-truth)" if args.v2 else "V1"
+
     start = time.time()
     print("=" * 60)
-    print("  SciFig-Eval: Selective Blur Pipeline (OCR-based)")
+    print(f"  SciFig-Eval: Selective Blur Pipeline ({version})")
     print("=" * 60)
 
     # Stage 1: OCR
@@ -63,13 +67,13 @@ def main():
 
     # Stage 2: Identify
     if not args.skip_identify:
-        identify_args = shared + ["--workers", str(args.workers)]
+        identify_args = shared + ["--workers", str(args.workers)] + v2_flag
         if not run_stage("Stage 2: Identify Blur Targets (GPT-4o)", ["identify.py"] + identify_args):
             print("\nAborted: identification failed.")
             sys.exit(1)
 
     # Stage 3: Blur
-    run_stage("Stage 3: Apply Selective Blur", ["blur.py"] + shared)
+    run_stage("Stage 3: Apply Selective Blur", ["blur.py"] + shared + v2_flag)
 
     print(f"\n{'=' * 60}")
     print(f"  Pipeline complete ({time.time() - start:.1f}s)")

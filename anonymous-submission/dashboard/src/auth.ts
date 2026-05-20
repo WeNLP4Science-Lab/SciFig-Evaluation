@@ -92,3 +92,38 @@ export async function saveAnnotation(data: {
   })
   return res.json()
 }
+
+export interface ReviewEntry {
+  figure_id: string
+  review_type: string
+  annotator: string
+  pdf_page: string | null
+  figure_number: string | null
+  caption: string | null
+  probe_type: string | null
+  status: string | null
+  new_blur_target: string | null
+  new_question: string | null
+  notes: string | null
+  timestamp: string
+}
+
+export async function getReviews(figureId: string): Promise<ReviewEntry[]> {
+  const res = await fetch(`/api/reviews?figure_id=${figureId}`)
+  return res.json()
+}
+
+export async function saveReview(data: {
+  figure_id: string
+  annotator: string
+  password: string
+  review_type: string
+  [key: string]: string | undefined
+}): Promise<{ ok: boolean; error?: string }> {
+  const res = await fetch("/api/reviews", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+  return res.json()
+}

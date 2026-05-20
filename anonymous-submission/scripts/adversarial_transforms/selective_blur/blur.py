@@ -88,12 +88,13 @@ def find_best_candidate(candidates: list[dict], ocr_texts: list[dict]) -> tuple[
     return None, None
 
 
-def process_figure(fig_id: str) -> dict | None:
+def process_figure(fig_id: str, id_dir: Path = None) -> dict | None:
     """Generate admittance and inductance blurred versions using top-ranked candidates."""
     # Skip if both outputs exist
     if (ADMITTANCE_DIR / f"{fig_id}.png").exists() and (INDUCTANCE_DIR / f"{fig_id}.png").exists():
         return None
-    id_path = IDENTIFICATIONS_DIR / f"{fig_id}.json"
+    source_dir = id_dir or IDENTIFICATIONS_DIR
+    id_path = source_dir / f"{fig_id}.json"
     ocr_path = OCR_DIR / f"{fig_id}.json"
     fig_path = FIGURES_DIR / f"{fig_id}.png"
 
@@ -146,10 +147,11 @@ def process_figure(fig_id: str) -> dict | None:
     return result
 
 
-def get_figure_ids(limit: int | None = None, figures: list[str] | None = None) -> list[str]:
+def get_figure_ids(limit: int | None = None, figures: list[str] | None = None, id_dir: Path = None) -> list[str]:
     if figures:
         return figures
-    all_ids = sorted(p.stem for p in IDENTIFICATIONS_DIR.glob("*.json"))
+    source = id_dir or IDENTIFICATIONS_DIR
+    all_ids = sorted(p.stem for p in source.glob("*.json"))
     return all_ids[:limit] if limit else all_ids
 
 
@@ -157,15 +159,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int)
     parser.add_argument("--figures", nargs="+")
+    parser.add_argument("--v2", action="store_true", help="Read from identifications_v2")
     args = parser.parse_args()
 
     ADMITTANCE_DIR.mkdir(parents=True, exist_ok=True)
     INDUCTANCE_DIR.mkdir(parents=True, exist_ok=True)
 
-    fig_ids = get_figure_ids(args.limit, args.figures)
+    id_dir = IDENTIFICATIONS_DIR.parent / "identifications_v2" if args.v2 else IDENTIFICATIONS_DIR
+    fig_ids = get_figure_ids(args.limit, args.figures, id_dir)
 
-    print(f"Applying selective blur to {len(fig_ids)} figures")
+    version = "v2" if args.v2 else "v1"
+    print(f"Applying selective blur to {len(fig_ids)} figures ({version})")
     print(f"Blur kernel: {BLUR_KERNEL} | Gray blend: {BLUR_GRAY_BLEND}")
+    print(f"Reading from: {id_dir}")
     print("-" * 60)
 
     # Load existing regions to preserve previous runs
@@ -182,7 +188,7 @@ def main():
     done, skipped, errors = 0, 0, 0
 
     for i, fig_id in enumerate(fig_ids, 1):
-        result = process_figure(fig_id)
+        result = process_figure(fig_id, id_dir)
         if result is None:
             skipped += 1
             continue

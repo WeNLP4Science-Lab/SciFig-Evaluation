@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { getAnnotations, saveAnnotation, type AuthState, type AnnotationEntry } from '../auth'
+import { getAnnotations, saveAnnotation, getReviews, saveReview, type AuthState, type AnnotationEntry, type ReviewEntry } from '../auth'
 
 /* ── Types ── */
 
@@ -101,10 +101,12 @@ export default function FigureDetail({ figureId, onBack, auth }: {
   const [annIdx, setAnnIdx] = useState(0)
   const [expandedQ, setExpandedQ] = useState<number | null>(null)
   const [annotations, setAnnotations] = useState<AnnotationEntry[]>([])
+  const [reviews, setReviews] = useState<ReviewEntry[]>([])
 
   const loadAnnotations = useCallback(() => {
     if (auth) {
       getAnnotations(figureId).then(setAnnotations).catch(() => {})
+      getReviews(figureId).then(setReviews).catch(() => {})
     }
   }, [figureId, auth])
 
@@ -297,14 +299,27 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                 <Section label="Metadata">
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     <MetaItem label="Chart Type" value={figure.figure_type} />
-                    <MetaItem label="Annotations" value={String(figure.annotation_count)} />
+                    <MetaItem label="Figure Number" value={(figure as FigureEntry & { figure_number?: string }).figure_number || '—'} />
                     <MetaItem label="Figure ID" value={figureId} />
                     <MetaItem label="arXiv" value={figure.arxiv_id || '—'} />
                     {(figure as FigureEntry & { pdf_page?: number }).pdf_page && (
                       <MetaItem label="PDF Page" value={String((figure as FigureEntry & { pdf_page?: number }).pdf_page)} />
                     )}
+                    <MetaItem label="Annotations" value={String(figure.annotation_count)} />
                   </div>
                 </Section>
+
+                {/* Editable metadata — annotation mode only */}
+                {auth && (
+                  <MetadataEditor
+                    figureId={figureId}
+                    auth={auth}
+                    currentPage={(figure as FigureEntry & { pdf_page?: number }).pdf_page}
+                    currentCaption={figure.caption}
+                    reviews={reviews}
+                    onSaved={loadAnnotations}
+                  />
+                )}
               </div>
             )}
 
@@ -351,6 +366,9 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                         target={probe.selective_blur.admittance}
                         accentColor="#ef4444"
                         accentBg="rgba(239,68,68,0.08)"
+                        auth={auth}
+                        reviews={reviews}
+                        onSaved={loadAnnotations}
                       />
                     )}
 
@@ -364,6 +382,9 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                         target={probe.selective_blur.inductance}
                         accentColor="#22c55e"
                         accentBg="rgba(34,197,94,0.08)"
+                        auth={auth}
+                        reviews={reviews}
+                        onSaved={loadAnnotations}
                       />
                     )}
 
@@ -389,7 +410,7 @@ export default function FigureDetail({ figureId, onBack, auth }: {
 
 /* ── Blur Card ── */
 
-function BlurCard({ type, label, description, figureId, target, accentColor, accentBg }: {
+function BlurCard({ type, label, description, figureId, target, accentColor, accentBg, auth, reviews, onSaved }: {
   type: 'admittance' | 'inductance'
   label: string
   description: string
@@ -397,8 +418,52 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
   target: ProbeTarget
   accentColor: string
   accentBg: string
+  auth: AuthState | null
+  reviews: ReviewEntry[]
+  onSaved: () => void
 }) {
   const [showBlurred, setShowBlurred] = useState(false)
+  const [showReview, setShowReview] = useState(false)
+  const [status, setStatus] = useState('')
+  const [newTarget, setNewTarget] = useState('')
+  const [newQuestion, setNewQuestion] = useState('')
+  const [notes, setNotes] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  const reviewKey = `blur_${type}`
+  const existingReview = reviews.find(r => r.review_type === reviewKey && r.annotator === auth?.name)
+
+  // Load existing review
+  useEffect(() => {
+    if (existingReview) {
+      setStatus(existingReview.status || '')
+      setNewTarget(existingReview.new_blur_target || '')
+      setNewQuestion(existingReview.new_question || '')
+      setNotes(existingReview.notes || '')
+    }
+  }, [existingReview?.timestamp])
+
+  const handleSaveReview = async () => {
+    if (!auth || !status) return
+    setSaving(true)
+    await saveReview({
+      figure_id: figureId,
+      annotator: auth.name,
+      password: auth.password,
+      review_type: reviewKey,
+      probe_type: type,
+      status,
+      new_blur_target: newTarget || undefined,
+      new_question: newQuestion || undefined,
+      notes: notes || undefined,
+    })
+    setSaving(false)
+    setSaved(true)
+    onSaved()
+    setTimeout(() => setSaved(false), 2000)
+  }
+
   const imgSrc = type === 'admittance'
     ? `/adversarial_admittance/${figureId}.png`
     : `/adversarial_inductance/${figureId}.png`
@@ -534,6 +599,104 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
             <p style={{ fontSize: 12, color: c.muted, lineHeight: 1.6, margin: 0 }}>
               {target.why_unrecoverable}
             </p>
+          </div>
+        )}
+
+        {/* Review controls — annotation mode */}
+        {auth && (
+          <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${c.border}` }}>
+            {!showReview ? (
+              <button
+                onClick={() => setShowReview(true)}
+                style={{
+                  padding: '6px 14px', borderRadius: 6, fontSize: 11, fontWeight: 500,
+                  fontFamily: 'inherit', cursor: 'pointer',
+                  background: existingReview ? (existingReview.status === 'approved' ? 'rgba(34,197,94,0.1)' : 'rgba(239,68,68,0.1)') : c.surfaceRaised,
+                  color: existingReview ? (existingReview.status === 'approved' ? '#22c55e' : '#ef4444') : c.muted,
+                  border: `1px solid ${c.border}`,
+                }}
+              >
+                {existingReview ? (existingReview.status === 'approved' ? 'Approved' : 'Rejected — Edit') : 'Review This'}
+              </button>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  {['approved', 'rejected'].map(s => (
+                    <button
+                      key={s}
+                      onClick={() => setStatus(s)}
+                      style={{
+                        padding: '5px 14px', borderRadius: 6, fontSize: 11, fontWeight: 500,
+                        fontFamily: 'inherit', cursor: 'pointer',
+                        background: status === s ? (s === 'approved' ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.15)') : c.surfaceRaised,
+                        color: status === s ? (s === 'approved' ? '#22c55e' : '#ef4444') : c.dim,
+                        border: `1px solid ${status === s ? (s === 'approved' ? '#22c55e40' : '#ef444440') : c.border}`,
+                      }}
+                    >
+                      {s === 'approved' ? 'Approve' : 'Reject'}
+                    </button>
+                  ))}
+                </div>
+                {status === 'rejected' && (
+                  <>
+                    <input
+                      value={newTarget}
+                      onChange={e => setNewTarget(e.target.value)}
+                      placeholder="Suggest new blur target text..."
+                      style={{
+                        width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
+                        fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
+                        color: c.fg, outline: 'none',
+                      }}
+                    />
+                    <input
+                      value={newQuestion}
+                      onChange={e => setNewQuestion(e.target.value)}
+                      placeholder="Suggest new evaluation question..."
+                      style={{
+                        width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
+                        fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
+                        color: c.fg, outline: 'none',
+                      }}
+                    />
+                  </>
+                )}
+                <input
+                  value={notes}
+                  onChange={e => setNotes(e.target.value)}
+                  placeholder="Notes (optional)..."
+                  style={{
+                    width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
+                    fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
+                    color: c.fg, outline: 'none',
+                  }}
+                />
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <button
+                    onClick={handleSaveReview}
+                    disabled={!status || saving}
+                    style={{
+                      padding: '6px 16px', borderRadius: 6, border: 'none',
+                      background: saved ? '#22c55e' : status ? c.accent : c.dim,
+                      color: '#fff', fontSize: 11, fontWeight: 500, fontFamily: 'inherit',
+                      cursor: status ? 'pointer' : 'default',
+                    }}
+                  >
+                    {saving ? 'Saving...' : saved ? 'Saved' : 'Save Review'}
+                  </button>
+                  <button
+                    onClick={() => setShowReview(false)}
+                    style={{
+                      padding: '6px 12px', borderRadius: 6, border: `1px solid ${c.border}`,
+                      background: 'none', color: c.dim, fontSize: 11, fontFamily: 'inherit',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -848,5 +1011,128 @@ function AnnotationForm({ auth, figureId, category, annotations, onSaved }: {
         </div>
       )}
     </div>
+  )
+}
+
+/* ── Metadata Editor ── */
+
+function MetadataEditor({ figureId, auth, currentPage, currentCaption, reviews, onSaved }: {
+  figureId: string
+  auth: AuthState
+  currentPage?: number
+  currentCaption?: string
+  reviews: ReviewEntry[]
+  onSaved: () => void
+}) {
+  const existing = reviews.find(r => r.review_type === 'metadata' && r.annotator === auth.name)
+
+  const [pdfPage, setPdfPage] = useState(existing?.pdf_page || String(currentPage || ''))
+  const [figNumber, setFigNumber] = useState(existing?.figure_number || '')
+  const [caption, setCaption] = useState(existing?.caption || '')
+  const [notes, setNotes] = useState(existing?.notes || '')
+  const [saving, setSaving] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    if (existing) {
+      setPdfPage(existing.pdf_page || String(currentPage || ''))
+      setFigNumber(existing.figure_number || '')
+      setCaption(existing.caption || '')
+      setNotes(existing.notes || '')
+    }
+  }, [existing?.timestamp])
+
+  const hasChanges = pdfPage !== String(currentPage || '') || figNumber || caption || notes
+
+  const handleSave = async () => {
+    setSaving(true)
+    await saveReview({
+      figure_id: figureId,
+      annotator: auth.name,
+      password: auth.password,
+      review_type: 'metadata',
+      pdf_page: pdfPage || undefined,
+      figure_number: figNumber || undefined,
+      caption: caption || undefined,
+      notes: notes || undefined,
+    })
+    setSaving(false)
+    setSaved(true)
+    onSaved()
+    setTimeout(() => setSaved(false), 2000)
+  }
+
+  const inputStyle = {
+    width: '100%', padding: '7px 10px', borderRadius: 6, fontSize: 12,
+    fontFamily: 'inherit', background: c.bg, border: `1px solid ${c.border}`,
+    color: c.fg, outline: 'none',
+  }
+  const labelStyle = {
+    fontSize: 10, fontWeight: 600 as const, textTransform: 'uppercase' as const,
+    letterSpacing: '0.06em', color: c.dim, marginBottom: 4,
+  }
+
+  return (
+    <Section label="Review & Corrections">
+      <div style={{
+        borderRadius: 8, border: `1px solid ${c.border}`,
+        background: c.surface, padding: 14,
+        display: 'flex', flexDirection: 'column', gap: 10,
+      }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          <div>
+            <p style={labelStyle}>PDF Page {currentPage ? `(current: ${currentPage})` : ''}</p>
+            <input
+              value={pdfPage}
+              onChange={e => setPdfPage(e.target.value)}
+              placeholder="Page number..."
+              type="number"
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <p style={labelStyle}>Figure Number (e.g., Figure 4)</p>
+            <input
+              value={figNumber}
+              onChange={e => setFigNumber(e.target.value)}
+              placeholder="e.g., Figure 4"
+              style={inputStyle}
+            />
+          </div>
+        </div>
+        <div>
+          <p style={labelStyle}>Caption Correction (if wrong)</p>
+          <textarea
+            value={caption}
+            onChange={e => setCaption(e.target.value)}
+            placeholder={currentCaption ? `Current: ${currentCaption.substring(0, 80)}...` : 'Enter corrected caption...'}
+            rows={2}
+            style={{ ...inputStyle, resize: 'none' as const }}
+          />
+        </div>
+        <div>
+          <p style={labelStyle}>Notes</p>
+          <input
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+            placeholder="Any notes..."
+            style={inputStyle}
+          />
+        </div>
+        <button
+          onClick={handleSave}
+          disabled={saving || (!hasChanges && !existing)}
+          style={{
+            alignSelf: 'flex-start',
+            padding: '6px 16px', borderRadius: 6, border: 'none',
+            background: saved ? '#22c55e' : hasChanges ? c.accent : c.dim,
+            color: '#fff', fontSize: 11, fontWeight: 500, fontFamily: 'inherit',
+            cursor: hasChanges ? 'pointer' : 'default',
+          }}
+        >
+          {saving ? 'Saving...' : saved ? 'Saved' : existing ? 'Update' : 'Save'}
+        </button>
+      </div>
+    </Section>
   )
 }
