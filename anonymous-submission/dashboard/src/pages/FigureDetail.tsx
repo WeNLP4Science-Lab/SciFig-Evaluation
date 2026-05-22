@@ -458,7 +458,7 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
   onSaved: () => void
   ocrTexts: string[]
 }) {
-  const [showBlurred, setShowBlurred] = useState(false)
+  const [showBlurred, setShowBlurred] = useState(true)
   const [showReview, setShowReview] = useState(false)
   const [status, setStatus] = useState('')
   const [newTarget, setNewTarget] = useState('')
