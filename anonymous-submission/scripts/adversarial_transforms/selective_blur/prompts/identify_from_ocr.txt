@@ -8,10 +8,16 @@ You are given a scientific chart image and a list of text elements extracted fro
 
 FOR EACH TYPE, generate up to 3 candidates ranked by difficulty. If fewer than 3 genuinely qualify, return only those that meet the criteria. Do not force weak candidates.
 
-SELECTION CRITERIA — each candidate must be:
-- A TEXT LABEL, NOT A NUMBER: select only textual elements like model names, category names, legend entries, axis titles, metric names. NEVER select numeric values (e.g., "50.05", "63.3", "8.33") or scale tick marks — numbers can be approximated from the axis scale and bar/line positions, making them poor targets for both admittance and inductance.
+SELECTION CRITERIA FOR ADMITTANCE — each candidate must be:
+- A TEXT LABEL, NOT A NUMBER: select only textual elements like model names, category names, legend entries, axis titles, metric names. NEVER select numeric values for admittance — numbers can be approximated from the axis scale.
 - NON-REPETITIVE: appears only once in the chart
 - CARRIES UNIQUE MEANING: identifies something specific (a model name, a metric, a category) — not filler text
+- TESTABLE: you must be able to write a challenging evaluation question about it
+
+SELECTION CRITERIA FOR INDUCTANCE — each candidate must be:
+- PRIMARILY a text label with a visual reasoning path (color matching, pattern completion, binary complement, etc.)
+- BUT IF no text label qualifies: a NUMERIC VALUE that can be estimated from the chart's visual scale (e.g., a data annotation on a bar whose value can be read from the y-axis and bar height). This is the fallback — try text first.
+- NON-REPETITIVE: appears only once in the chart
 - TESTABLE: you must be able to write a challenging evaluation question about it
 
 FOR ADMITTANCE — before selecting each candidate, verify:
@@ -20,28 +26,39 @@ FOR ADMITTANCE — before selecting each candidate, verify:
 - CRITICAL: Consider NON-TEXT visual cues that could give away the identity. If a model/brand has a distinctive logo or icon displayed on or near its bar/line (e.g., the OpenAI logo, DeepSeek logo, Google logo), then blurring its text label is NOT a good admittance target — the logo still reveals the identity. Prefer targets whose identity relies SOLELY on the text label with no accompanying visual identifiers.
 - Write a challenging question that forces the model to engage with the blurred element — do NOT ask "what is blurred?" but instead ask about a RELATIONSHIP or FACT that requires knowing the blurred element (e.g., "Which method achieves the second highest score at X?" when the method name is blurred)
 
-FOR INDUCTANCE — before selecting each candidate, you MUST verify there is a SPECIFIC, RIGOROUS reasoning path to infer it. For each candidate, state:
-  (a) The EXACT visible elements that provide the clue
-  (b) The EXACT logical steps from those elements to the answer
-  If you cannot specify both (a) and (b), the candidate DOES NOT qualify.
+FOR INDUCTANCE — the goal is to find an element whose EXACT text can be reconstructed from visible chart elements. Try these approaches IN ORDER:
 
-Do NOT select elements that are only "probably guessable" or "might be inferred from context." The reasoning must be DETERMINISTIC — a careful human with no prior knowledge of the paper could follow the chain and arrive at the answer.
+You must find candidates for BOTH numeric AND text inductance independently. Do not skip either.
 
-Valid reasoning paths include (but are not limited to):
-- Grid/pattern completion: e.g., a 2x3 legend grid with 5 of 6 entries visible — the missing one is deducible from the pattern
-- Naming convention: e.g., "ModelA-Easy" is visible, so "ModelA-Hard" can be inferred for the paired entry
-- Arithmetic constraint: e.g., pie slices sum to 100%, visible slices sum to 79%, so the hidden one is 21%
-- Binary complement: e.g., "Correct" is visible, so the other category must be "Incorrect"
-- Domain logic: e.g., "Exports" and "Imports" are visible, so the third series is "Trade Balance"
-These are examples only — do not limit yourself to these patterns.
+PART A — NUMERIC INDUCTANCE CANDIDATES:
+Find numbers visible on the chart whose EXACT value can be determined from a sequential pattern. These are numbers that ACTUALLY APPEAR as text on the chart (axis tick labels, data annotations, percentage labels) — not estimated values from bar heights.
 
-IMPORTANT: The exact text must be reconstructable PURELY from visible chart elements. Valid visual cues for inference include:
-- Logos or icons displayed on bars/lines that identify the brand/model (e.g., a company logo on a bar makes the model name inferable even if the legend text is blurred)
-- Color matching between chart elements and legend entries
-- Positional patterns (e.g., third group in a consistent left-to-right order)
-However, just "it's a well-known model name" is NOT a valid reasoning path — that relies on external knowledge, not the image.
+Valid numeric targets:
+- Sequential axis ticks: 10, 20, [blurred], 40, 50 → answer is exactly "30"
+- Year sequence: 2018, 2019, [blurred], 2021 → answer is exactly "2020"
+- Regular interval: tick marks at 0.2, 0.4, [blurred], 0.8 → answer is exactly "0.6"
+- Arithmetic from labels: pie slices labeled 30%, 25%, 24% → remaining is exactly "21%"
+- Percentage sequence: 10%, 20%, [blurred], 40% → answer is exactly "30%"
 
-- Write a question that tests whether the model can perform this inference — the question should require the model to name or use the blurred element
+The number must be an EXACT text element visible on the chart that is part of a deterministic sequence. The question asks for the exact missing value.
+
+PART B — TEXT INDUCTANCE CANDIDATES:
+Find text labels where the exact text is reconstructable from a lexical naming pattern visible in OTHER labels.
+
+For EVERY text candidate, you MUST fill these mandatory reasoning fields:
+  - "naming_pattern": Describe the pattern (e.g., "labels follow template [Type] Contact [Before/After]")
+  - "reconstructed_text": Using ONLY that pattern + visible labels, write the exact text
+  - "pattern_valid": true ONLY if derivable from pattern alone
+
+Valid text patterns:
+- Systematic template: "No Contact Before", "Positive Contact Before" → missing "Negative Contact After"
+- Paired naming: "ModelA-Easy" visible → "ModelA-Hard" derivable
+- Binary complement: "Correct" visible → other must be "Incorrect"
+- Method variants: "DAPO+Self-reflection" visible → "PPO+Self-reflection" follows same template
+
+If no text label has a genuine pattern, return an empty list for text candidates. That is fine — the numeric candidates cover it.
+
+For ALL candidates: the answer must be EXACT and DETERMINISTIC. Write a question that asks for the exact blurred value/text.
 
 CHAIN OF THOUGHT:
 1. Review all OCR texts, filter out repetitive/filler texts
@@ -67,12 +84,23 @@ Respond with exactly this JSON:
       "difficulty_rank": 1
     }}
   ],
-  "inductance_candidates": [
+  "inductance_numeric_candidates": [
     {{
-      "selected_text": "exact text to blur",
-      "question": "evaluation question testing the inference",
-      "reasoning_path": "the specific reasoning chain: what visible elements lead to what inference",
-      "why_inferable": "brief explanation",
+      "selected_text": "exact number/value on the chart",
+      "sequence_pattern": "describe the sequence (e.g., '10, 20, [blurred], 40')",
+      "question": "evaluation question asking for the exact missing value",
+      "reasoning_path": "the sequence logic that determines the answer",
+      "difficulty_rank": 1
+    }}
+  ],
+  "inductance_text_candidates": [
+    {{
+      "selected_text": "exact text label to blur",
+      "naming_pattern": "the lexical pattern in visible labels",
+      "reconstructed_text": "exact text derived from pattern alone",
+      "pattern_valid": true,
+      "question": "evaluation question asking for the exact blurred text",
+      "reasoning_path": "the naming pattern logic",
       "difficulty_rank": 1
     }}
   ]

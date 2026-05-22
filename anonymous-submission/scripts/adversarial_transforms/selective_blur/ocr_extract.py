@@ -16,7 +16,11 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import easyocr
 
+from PIL import Image
+
 from config import FIGURES_DIR, OCR_DIR
+
+MIN_SHORT_SIDE = 2000  # upscale all images for better axis tick detection
 
 
 # Initialize reader once (heavy model load)
@@ -38,15 +42,32 @@ def extract_texts(fig_id: str) -> dict | None:
     if not fig_path.exists():
         return None
 
+    # Upscale small images for better OCR
+    img = Image.open(fig_path)
+    w, h = img.size
+    scale = 1.0
+    if min(w, h) < MIN_SHORT_SIDE:
+        scale = MIN_SHORT_SIDE / min(w, h)
+        img_up = img.resize((int(w * scale), int(h * scale)), Image.LANCZOS)
+        upscaled_path = OCR_DIR / f"_tmp_{fig_id}.png"
+        img_up.save(upscaled_path)
+        ocr_input = str(upscaled_path)
+    else:
+        ocr_input = str(fig_path)
+
     r = get_reader()
-    ocr_results = r.readtext(str(fig_path))
+    ocr_results = r.readtext(ocr_input)
+
+    # Clean up temp file
+    if scale > 1.0:
+        (OCR_DIR / f"_tmp_{fig_id}.png").unlink(missing_ok=True)
 
     texts = []
     for bbox, text, confidence in ocr_results:
-        x_min = int(min(p[0] for p in bbox))
-        x_max = int(max(p[0] for p in bbox))
-        y_min = int(min(p[1] for p in bbox))
-        y_max = int(max(p[1] for p in bbox))
+        x_min = int(min(p[0] for p in bbox) / scale)
+        x_max = int(max(p[0] for p in bbox) / scale)
+        y_min = int(min(p[1] for p in bbox) / scale)
+        y_max = int(max(p[1] for p in bbox) / scale)
 
         texts.append({
             "text": text,
