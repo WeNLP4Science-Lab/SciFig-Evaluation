@@ -3,11 +3,24 @@
   "model_name": "gpt-5.2",
   "figure_type": "Pie Chart",
   "judge_model": "gpt-4o",
-  "num_items": 12,
-  "num_penalties": 3,
-  "total_penalty": 6.0,
-  "mqm_score": 90.0,
-  "penalties": [
+  "num_items": 11,
+  "num_penalties_raw": 5,
+  "num_penalties_deduped": 4,
+  "total_penalty_raw": 16.0,
+  "total_penalty_deduped": 11.0,
+  "mqm_raw": 56.76,
+  "mqm_deduped": 70.27,
+  "penalties_raw": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "global_hallucination",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model introduces an interpretation not present in the reference or image.",
+      "text_span": "provided by journalists to LLMs"
+    },
     {
       "id": "pie_05",
       "category": "Accuracy",
@@ -15,34 +28,156 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The Social Media Post slice is light yellow, not orange.",
-      "text_span": "Social Media Post in a small orange sliver"
+      "detail": "Binding verification: 1/10 elements mismatched. Social Media Post: model=small orange sliver ref=light yellow",
+      "text_span": ""
     },
     {
       "id": "pie_07",
       "category": "Accuracy",
       "severity": "Minor",
-      "sub_type": "Incorrect Label Mapping",
+      "sub_type": "Incorrect Trend Interpretation",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The Social Media Post slice is light yellow, not orange.",
-      "text_span": "Social Media Post in a small orange sliver"
+      "detail": "The slices are arranged in descending order of size, contrary to the model's claim.",
+      "text_span": "arranged around the circle in varying sizes rather than an explicitly uniform or strictly descending sequence"
     },
     {
-      "id": "pie_08",
+      "id": "pie_10",
       "category": "Completeness",
       "severity": "Minor",
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The ordering of slices in descending size is not explicitly mentioned."
+      "detail": "Model does not mention label placement."
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The model introduces an interpretation not present in the reference or image.",
+      "text_span": "provided by journalists to LLMs"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "global_hallucination",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model introduces an interpretation not present in the reference or image.",
+      "text_span": "provided by journalists to LLMs"
+    },
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/10 elements mismatched. Social Media Post: model=small orange sliver ref=light yellow",
+      "text_span": ""
+    },
+    {
+      "id": "pie_07",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The slices are arranged in descending order of size, contrary to the model's claim.",
+      "text_span": "arranged around the circle in varying sizes rather than an explicitly uniform or strictly descending sequence"
+    },
+    {
+      "id": "pie_10",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Model does not mention label placement."
     }
   ],
   "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "donut-style pie chart"
+      },
+      "pie_02": {
+        "expected": "The chart represents the distribution of various stimulus types."
+      },
+      "pie_03": {
+        "expected": "10 slices"
+      },
+      "pie_04": {
+        "expected": [
+          "Draft/Other",
+          "Press Release",
+          "External News Article",
+          "Interview",
+          "Organizational Report",
+          "Event Posting",
+          "Organizational Website",
+          "Intra-agency news article",
+          "Email",
+          "Social Media Post"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "Draft/Other": "dark red",
+          "Press Release": "yellow",
+          "External News Article": "dark green",
+          "Interview": "dark blue",
+          "Organizational Report": "pink",
+          "Event Posting": "red",
+          "Organizational Website": "purple",
+          "Intra-agency news article": "blue",
+          "Email": "light green",
+          "Social Media Post": "light yellow"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "Draft/Other": "26.4%",
+          "Press Release": "18.7%",
+          "External News Article": "18.1%",
+          "Interview": "8.8%",
+          "Organizational Report": "7.7%",
+          "Event Posting": "6.6%",
+          "Organizational Website": "4.9%",
+          "Intra-agency news article": "4.9%",
+          "Email": "2.7%",
+          "Social Media Post": "1.1%"
+        }
+      },
+      "pie_07": {
+        "expected": "Slices are arranged in descending order of size."
+      },
+      "pie_08": {
+        "expected": "No legend is present."
+      },
+      "pie_09": {
+        "expected": "No slice is visually emphasized or separated."
+      },
+      "pie_10": {
+        "expected": "Labels are placed externally next to each slice."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "Draft/Other",
+          "smallest": "Social Media Post"
+        }
+      }
+    },
     "checklist": [
       {
         "id": "pie_01",
-        "reasoning": "The model correctly identifies the chart as a donut-style pie chart, which matches the image.",
+        "reasoning": "Expected: donut-style pie chart. Model correctly identifies the chart as a donut-style pie chart.",
         "coverage": {
           "status": "complete"
         },
@@ -52,17 +187,20 @@
       },
       {
         "id": "pie_02",
-        "reasoning": "The model describes the chart's purpose as showing the distribution of input stimulus material types, which aligns with the title 'Stimulus Type' in the image.",
+        "reasoning": "Expected: The chart represents the distribution of various stimulus types. Model states: 'shows the distribution of input stimulus material types provided by journalists to LLMs.' The model adds 'provided by journalists to LLMs,' which is not in the reference.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "wrong",
+          "sub_type": "global_hallucination",
+          "text_span": "provided by journalists to LLMs",
+          "detail": "The model introduces an interpretation not present in the reference or image."
         }
       },
       {
         "id": "pie_03",
-        "reasoning": "The model states that there are 10 labeled slices, which matches the image.",
+        "reasoning": "Expected: 10 slices. Model correctly states there are 10 labeled slices.",
         "coverage": {
           "status": "complete"
         },
@@ -72,7 +210,7 @@
       },
       {
         "id": "pie_04",
-        "reasoning": "The model lists all slice labels: Draft/Other, Press Release, External News Article, Interview, Organizational Report, Event Posting, Organizational Website, Intra-agency news article, Email, and Social Media Post. This matches the image.",
+        "reasoning": "Expected: 10 categories. Model lists all 10 categories correctly.",
         "coverage": {
           "status": "complete"
         },
@@ -82,20 +220,17 @@
       },
       {
         "id": "pie_05",
-        "reasoning": "The model describes the slice colors, but there is an error in the description of the Social Media Post slice as 'orange' instead of 'light yellow'. Color family mapping: 'orange' (model) vs 'yellow' (image). These are different families.",
+        "reasoning": "Expected colors match the model's description after applying the color family mapping.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Label Mapping",
-          "text_span": "Social Media Post in a small orange sliver",
-          "detail": "The Social Media Post slice is light yellow, not orange."
+          "status": "correct"
         }
       },
       {
         "id": "pie_06",
-        "reasoning": "The model provides accurate percentages for all slices, matching the image.",
+        "reasoning": "Expected percentages match the model's description within the allowed tolerance.",
         "coverage": {
           "status": "complete"
         },
@@ -105,23 +240,22 @@
       },
       {
         "id": "pie_07",
-        "reasoning": "The model correctly maps colors to labels, except for the Social Media Post slice, which is described as orange instead of light yellow.",
+        "reasoning": "Expected: Slices are arranged in descending order of size. Model states: 'arranged around the circle in varying sizes rather than an explicitly uniform or strictly descending sequence,' which is incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "partial",
-          "sub_type": "Incorrect Label Mapping",
-          "text_span": "Social Media Post in a small orange sliver",
-          "detail": "The Social Media Post slice is light yellow, not orange."
+          "status": "wrong",
+          "sub_type": "Incorrect Trend Interpretation",
+          "text_span": "arranged around the circle in varying sizes rather than an explicitly uniform or strictly descending sequence",
+          "detail": "The slices are arranged in descending order of size, contrary to the model's claim."
         }
       },
       {
         "id": "pie_08",
-        "reasoning": "The model notes that the slices are arranged in varying sizes but does not explicitly state that they are ordered in descending size. This is partially addressed.",
+        "reasoning": "Expected: No legend is present. Model correctly states that no legend is shown.",
         "coverage": {
-          "status": "partial",
-          "detail": "The ordering of slices in descending size is not explicitly mentioned."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -129,7 +263,7 @@
       },
       {
         "id": "pie_09",
-        "reasoning": "The model correctly states that there is no separate legend in the chart.",
+        "reasoning": "Expected: No slice is visually emphasized or separated. Model correctly states that no slice is visually exploded or offset.",
         "coverage": {
           "status": "complete"
         },
@@ -139,27 +273,18 @@
       },
       {
         "id": "pie_10",
-        "reasoning": "The model correctly notes that no slice is visually emphasized or separated from the rest.",
+        "reasoning": "Expected: Labels are placed externally next to each slice. Model does not explicitly mention this.",
         "coverage": {
-          "status": "complete"
+          "status": "missing",
+          "detail": "Model does not mention label placement."
         },
         "correctness": {
-          "status": "correct"
+          "status": "n/a"
         }
       },
       {
         "id": "pie_11",
-        "reasoning": "The model mentions that percentages and category labels are printed alongside each slice, which matches the image.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "pie_12",
-        "reasoning": "The model identifies the largest slice (Draft/Other) and the smallest slice (Social Media Post), which matches the image.",
+        "reasoning": "Expected: Largest slice is 'Draft/Other,' smallest is 'Social Media Post.' Model correctly identifies these.",
         "coverage": {
           "status": "complete"
         },
@@ -171,7 +296,12 @@
     "global": [
       {
         "id": "global_hallucination",
-        "violations": []
+        "violations": [
+          {
+            "text_span": "provided by journalists to LLMs",
+            "explanation": "The model introduces an interpretation not present in the reference or image."
+          }
+        ]
       },
       {
         "id": "global_interpretation",
@@ -196,6 +326,138 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "Draft/Other",
+            "reference_value": "26.4%",
+            "model_value": "26.4%",
+            "match": true
+          },
+          {
+            "label": "Press Release",
+            "reference_value": "18.7%",
+            "model_value": "18.7%",
+            "match": true
+          },
+          {
+            "label": "External News Article",
+            "reference_value": "18.1%",
+            "model_value": "18.1%",
+            "match": true
+          },
+          {
+            "label": "Interview",
+            "reference_value": "8.8%",
+            "model_value": "8.8%",
+            "match": true
+          },
+          {
+            "label": "Organizational Report",
+            "reference_value": "7.7%",
+            "model_value": "7.7%",
+            "match": true
+          },
+          {
+            "label": "Event Posting",
+            "reference_value": "6.6%",
+            "model_value": "6.6%",
+            "match": true
+          },
+          {
+            "label": "Organizational Website",
+            "reference_value": "4.9%",
+            "model_value": "4.9%",
+            "match": true
+          },
+          {
+            "label": "Intra-agency news article",
+            "reference_value": "4.9%",
+            "model_value": "4.9%",
+            "match": true
+          },
+          {
+            "label": "Email",
+            "reference_value": "2.7%",
+            "model_value": "2.7%",
+            "match": true
+          },
+          {
+            "label": "Social Media Post",
+            "reference_value": "1.1%",
+            "model_value": "1.1%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "Draft/Other",
+            "reference_value": "dark red",
+            "model_value": "dark red",
+            "match": true
+          },
+          {
+            "label": "Press Release",
+            "reference_value": "yellow",
+            "model_value": "mustard/yellow",
+            "match": true
+          },
+          {
+            "label": "External News Article",
+            "reference_value": "dark green",
+            "model_value": "dark green",
+            "match": true
+          },
+          {
+            "label": "Interview",
+            "reference_value": "dark blue",
+            "model_value": "dark navy",
+            "match": true
+          },
+          {
+            "label": "Organizational Report",
+            "reference_value": "pink",
+            "model_value": "medium purple",
+            "match": true
+          },
+          {
+            "label": "Event Posting",
+            "reference_value": "red",
+            "model_value": "deep maroon",
+            "match": true
+          },
+          {
+            "label": "Organizational Website",
+            "reference_value": "purple",
+            "model_value": "light purple",
+            "match": true
+          },
+          {
+            "label": "Intra-agency news article",
+            "reference_value": "blue",
+            "model_value": "medium blue",
+            "match": true
+          },
+          {
+            "label": "Email",
+            "reference_value": "light green",
+            "model_value": "light green",
+            "match": true
+          },
+          {
+            "label": "Social Media Post",
+            "reference_value": "light yellow",
+            "model_value": "small orange sliver",
+            "match": false
+          }
+        ]
       }
     ]
   }

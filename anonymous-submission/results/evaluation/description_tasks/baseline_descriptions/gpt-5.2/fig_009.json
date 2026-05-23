@@ -4,26 +4,123 @@
   "figure_type": "Bar Chart",
   "judge_model": "gpt-4o",
   "num_items": 14,
-  "num_penalties": 1,
-  "total_penalty": 2.0,
-  "mqm_score": 97.14,
-  "penalties": [
+  "num_penalties_raw": 1,
+  "num_penalties_deduped": 1,
+  "total_penalty_raw": 5.0,
+  "total_penalty_deduped": 5.0,
+  "mqm_raw": 90.91,
+  "mqm_deduped": 90.91,
+  "penalties_raw": [
     {
       "id": "bar_11",
       "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The value is overstated; the image shows approximately 82%.",
-      "text_span": "'+ SFT on D₀, D₁' (light purple with diagonal hatch) is about 85% for 13B"
+      "detail": "Binding verification: 2/12 elements mismatched. LLaMA-2-13B, + SFT on D₀: model=74 ref=72; LLaMA-2-70B, + SFT on D₀: model=82 ref=81",
+      "text_span": ""
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "bar_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/12 elements mismatched. LLaMA-2-13B, + SFT on D₀: model=74 ref=72; LLaMA-2-70B, + SFT on D₀: model=82 ref=81",
+      "text_span": ""
     }
   ],
   "judge_output": {
+    "populated": {
+      "bar_01": {
+        "expected": "Bar Chart"
+      },
+      "bar_02": {
+        "expected": "Vertical"
+      },
+      "bar_03": {
+        "expected": "Grouped"
+      },
+      "bar_04": {
+        "expected": "LLaMA-2-7B, LLaMA-2-13B, LLaMA-2-70B"
+      },
+      "bar_05": {
+        "expected": "Linear scale, range 0-80, tick marks at intervals of 10"
+      },
+      "bar_06": {
+        "expected": "CoLeG-R (%)"
+      },
+      "bar_07": {
+        "expected": "Linear scale, range 0-80, tick marks at intervals of 10"
+      },
+      "bar_08": {
+        "expected": [
+          "LLaMA-2-7B",
+          "LLaMA-2-13B",
+          "LLaMA-2-70B"
+        ]
+      },
+      "bar_09": {
+        "expected": [
+          "no SFT",
+          "+ SFT on D₀",
+          "+ SFT on D₀, D₁",
+          "+ SFT on D₀, D₁, D₂"
+        ]
+      },
+      "bar_10": {
+        "expected": {
+          "no SFT": "blue with white diagonal stripes",
+          "+ SFT on D₀": "yellow with white horizontal stripes",
+          "+ SFT on D₀, D₁": "purple with slanted stripes",
+          "+ SFT on D₀, D₁, D₂": "peach with solid fill"
+        }
+      },
+      "bar_11": {
+        "expected": {
+          "LLaMA-2-7B": {
+            "no SFT": 66,
+            "+ SFT on D₀": 66,
+            "+ SFT on D₀, D₁": 80,
+            "+ SFT on D₀, D₁, D₂": 82
+          },
+          "LLaMA-2-13B": {
+            "no SFT": 70,
+            "+ SFT on D₀": 72,
+            "+ SFT on D₀, D₁": 82,
+            "+ SFT on D₀, D₁, D₂": 80
+          },
+          "LLaMA-2-70B": {
+            "no SFT": 80,
+            "+ SFT on D₀": 81,
+            "+ SFT on D₀, D₁": 82,
+            "+ SFT on D₀, D₁, D₂": 80
+          }
+        }
+      },
+      "bar_12": {
+        "expected": {
+          "no SFT": "blue",
+          "+ SFT on D₀": "yellow",
+          "+ SFT on D₀, D₁": "purple",
+          "+ SFT on D₀, D₁, D₂": "peach"
+        }
+      },
+      "bar_13": {
+        "expected": "No annotations"
+      },
+      "bar_14": {
+        "expected": "CoLeG-R performances for different models under varying conditions"
+      }
+    },
     "checklist": [
       {
         "id": "bar_01",
-        "reasoning": "The model correctly identifies the chart as a bar chart, which matches the image.",
+        "reasoning": "Expected: Bar Chart. Model: Bar Chart. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -33,7 +130,7 @@
       },
       {
         "id": "bar_02",
-        "reasoning": "The model correctly states that the bars are vertical, which matches the image.",
+        "reasoning": "Expected: Vertical. Model: Vertical. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -43,7 +140,7 @@
       },
       {
         "id": "bar_03",
-        "reasoning": "The model correctly identifies the bars as grouped, which matches the image.",
+        "reasoning": "Expected: Grouped. Model: Grouped. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -53,7 +150,7 @@
       },
       {
         "id": "bar_04",
-        "reasoning": "The model correctly describes the x-axis as containing the categories 'LLaMA-2-7B,' 'LLaMA-2-13B,' and 'LLaMA-2-70B.'",
+        "reasoning": "Expected: LLaMA-2-7B, LLaMA-2-13B, LLaMA-2-70B. Model: LLaMA-2-7B, LLaMA-2-13B, LLaMA-2-70B. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -63,7 +160,7 @@
       },
       {
         "id": "bar_05",
-        "reasoning": "The model correctly identifies the x-axis as categorical and describes the range as covering the three model categories.",
+        "reasoning": "Expected: Linear scale, range 0-80, tick marks at intervals of 10. Model: Linear scale, range 0 to mid-80s, tick marks every 10. Match within tolerance.",
         "coverage": {
           "status": "complete"
         },
@@ -73,7 +170,7 @@
       },
       {
         "id": "bar_06",
-        "reasoning": "The model correctly describes the y-axis label as 'CoLeG-R (%)' and includes the units.",
+        "reasoning": "Expected: CoLeG-R (%). Model: CoLeG-R (%). Match.",
         "coverage": {
           "status": "complete"
         },
@@ -83,7 +180,7 @@
       },
       {
         "id": "bar_07",
-        "reasoning": "The model correctly identifies the y-axis scale as linear and describes the range as 0 to the mid-80s, with tick marks at intervals of 10.",
+        "reasoning": "Expected: Linear scale, range 0-80, tick marks at intervals of 10. Model: Linear scale, range 0 to mid-80s, tick marks every 10. Match within tolerance.",
         "coverage": {
           "status": "complete"
         },
@@ -93,7 +190,7 @@
       },
       {
         "id": "bar_08",
-        "reasoning": "The model mentions all categories on the x-axis: 'LLaMA-2-7B,' 'LLaMA-2-13B,' and 'LLaMA-2-70B.'",
+        "reasoning": "Expected: LLaMA-2-7B, LLaMA-2-13B, LLaMA-2-70B. Model: LLaMA-2-7B, LLaMA-2-13B, LLaMA-2-70B. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -103,7 +200,7 @@
       },
       {
         "id": "bar_09",
-        "reasoning": "The model identifies all four data series: 'no SFT,' '+ SFT on D₀,' '+ SFT on D₀, D₁,' and '+ SFT on D₀, D₁, D₂.'",
+        "reasoning": "Expected: no SFT, + SFT on D₀, + SFT on D₀, D₁, + SFT on D₀, D₁, D₂. Model: no SFT, + SFT on D₀, + SFT on D₀, D₁, + SFT on D₀, D₁, D₂. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -113,7 +210,7 @@
       },
       {
         "id": "bar_10",
-        "reasoning": "The model correctly describes the legend, mapping colors and patterns to the four conditions.",
+        "reasoning": "Expected: no SFT (blue with white diagonal stripes), + SFT on D₀ (yellow with white horizontal stripes), + SFT on D₀, D₁ (purple with slanted stripes), + SFT on D₀, D₁, D₂ (peach with solid fill). Model: no SFT (light blue with diagonal hatch), + SFT on D₀ (light orange with horizontal hatch), + SFT on D₀, D₁ (light purple with diagonal hatch), + SFT on D₀, D₁, D₂ (solid light pink). Match within colour family.",
         "coverage": {
           "status": "complete"
         },
@@ -123,20 +220,20 @@
       },
       {
         "id": "bar_11",
-        "reasoning": "The model provides numerical values for the bars, but some are incorrect. For example, it states '+ SFT on D₀, D₁' for LLaMA-2-13B is about 85%, but the image shows approximately 82%.",
+        "reasoning": "Values for some bars differ between the reference and the model.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "partial",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "'+ SFT on D₀, D₁' (light purple with diagonal hatch) is about 85% for 13B",
-          "detail": "The value is overstated; the image shows approximately 82%."
+          "text_span": "“+ SFT on D₀” (light orange with horizontal hatch) is approximately 66% for 7B, about 74% for 13B, and about 82% for 70B",
+          "detail": "Model states 74% for LLaMA-2-13B + SFT on D₀, but reference states 72%. Model states 82% for LLaMA-2-70B + SFT on D₀, but reference states 81%."
         }
       },
       {
         "id": "bar_12",
-        "reasoning": "The model describes the colors accurately, mapping them to the correct series. For example, blue (no SFT), yellow (SFT on D₀), purple (SFT on D₀, D₁), and pink (SFT on D₀, D₁, D₂) match the image. Color families: blue, orange, purple, pink.",
+        "reasoning": "Expected: no SFT (blue), + SFT on D₀ (yellow), + SFT on D₀, D₁ (purple), + SFT on D₀, D₁, D₂ (peach). Model: no SFT (blue), + SFT on D₀ (yellow), + SFT on D₀, D₁ (purple), + SFT on D₀, D₁, D₂ (peach). Match.",
         "coverage": {
           "status": "complete"
         },
@@ -146,7 +243,7 @@
       },
       {
         "id": "bar_13",
-        "reasoning": "There are no annotations such as error bars or reference lines in the image, and the model does not mention any.",
+        "reasoning": "Expected: No annotations. Model: No annotations. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -156,7 +253,7 @@
       },
       {
         "id": "bar_14",
-        "reasoning": "The model describes the chart's purpose as illustrating CoLeG-R performance for different models under varying conditions, which aligns with the image.",
+        "reasoning": "Expected: CoLeG-R performances for different models under varying conditions. Model: CoLeG-R performance (in percent) for three LLaMA-2 model scales under four supervised fine-tuning (SFT) dataset conditions. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -193,6 +290,114 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "bar_11",
+        "comparisons": [
+          {
+            "label": "LLaMA-2-7B, no SFT",
+            "reference_value": 66,
+            "model_value": 66,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-7B, + SFT on D₀",
+            "reference_value": 66,
+            "model_value": 66,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-7B, + SFT on D₀, D₁",
+            "reference_value": 80,
+            "model_value": 81,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-7B, + SFT on D₀, D₁, D₂",
+            "reference_value": 82,
+            "model_value": 84,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-13B, no SFT",
+            "reference_value": 70,
+            "model_value": 70,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-13B, + SFT on D₀",
+            "reference_value": 72,
+            "model_value": 74,
+            "match": false
+          },
+          {
+            "label": "LLaMA-2-13B, + SFT on D₀, D₁",
+            "reference_value": 82,
+            "model_value": 85,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-13B, + SFT on D₀, D₁, D₂",
+            "reference_value": 80,
+            "model_value": 80,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-70B, no SFT",
+            "reference_value": 80,
+            "model_value": 81,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-70B, + SFT on D₀",
+            "reference_value": 81,
+            "model_value": 82,
+            "match": false
+          },
+          {
+            "label": "LLaMA-2-70B, + SFT on D₀, D₁",
+            "reference_value": 82,
+            "model_value": 85,
+            "match": true
+          },
+          {
+            "label": "LLaMA-2-70B, + SFT on D₀, D₁, D₂",
+            "reference_value": 80,
+            "model_value": 84,
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "bar_12",
+        "comparisons": [
+          {
+            "label": "no SFT",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "+ SFT on D₀",
+            "reference_value": "yellow",
+            "model_value": "yellow",
+            "match": true
+          },
+          {
+            "label": "+ SFT on D₀, D₁",
+            "reference_value": "purple",
+            "model_value": "purple",
+            "match": true
+          },
+          {
+            "label": "+ SFT on D₀, D₁, D₂",
+            "reference_value": "peach",
+            "model_value": "peach",
+            "match": true
+          }
+        ]
       }
     ]
   }

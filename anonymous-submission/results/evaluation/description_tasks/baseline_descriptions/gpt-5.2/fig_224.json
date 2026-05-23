@@ -3,11 +3,14 @@
   "model_name": "gpt-5.2",
   "figure_type": "Pie Chart",
   "judge_model": "gpt-4o",
-  "num_items": 12,
-  "num_penalties": 2,
-  "total_penalty": 7.0,
-  "mqm_score": 88.33,
-  "penalties": [
+  "num_items": 11,
+  "num_penalties_raw": 2,
+  "num_penalties_deduped": 2,
+  "total_penalty_raw": 7.0,
+  "total_penalty_deduped": 7.0,
+  "mqm_raw": 81.08,
+  "mqm_deduped": 81.08,
+  "penalties_raw": [
     {
       "id": "pie_03",
       "category": "Accuracy",
@@ -16,24 +19,115 @@
       "weight": 5.0,
       "source": "checklist_correctness",
       "detail": "The chart has 9 slices, not 10.",
-      "text_span": "is divided into 10 slices"
+      "text_span": "divided into 10 slices"
     },
     {
-      "id": "pie_08",
-      "category": "Accuracy",
+      "id": "pie_11",
+      "category": "Completeness",
       "severity": "Minor",
-      "sub_type": "Incorrect Trend Interpretation",
+      "sub_type": "Missing Key Information",
       "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Largest and smallest slices are not identified."
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_03",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "'Other' is not in descending order.",
-      "text_span": "segments appear arranged roughly from the largest shares to smaller ones"
+      "detail": "The chart has 9 slices, not 10.",
+      "text_span": "divided into 10 slices"
+    },
+    {
+      "id": "pie_11",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Largest and smallest slices are not identified."
     }
   ],
   "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "pie chart"
+      },
+      "pie_02": {
+        "expected": "The pie chart illustrates the distribution of various languages."
+      },
+      "pie_03": {
+        "expected": "9 slices"
+      },
+      "pie_04": {
+        "expected": [
+          "English",
+          "Spanish",
+          "Russian",
+          "German",
+          "French",
+          "Chinese",
+          "Thai",
+          "Portuguese (Brazil)",
+          "Catalan",
+          "Other"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "English": "dark blue",
+          "Spanish": "medium blue",
+          "Russian": "slightly lighter blue",
+          "German": "lighter blue",
+          "French": "light blue",
+          "Chinese": "light blue",
+          "Thai": "very light blue",
+          "Portuguese (Brazil)": "very light blue",
+          "Catalan": "very light blue",
+          "Other": "dark to lighter white shades"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "English": "42.8%",
+          "Spanish": "31.4%",
+          "Russian": "5.7%",
+          "German": "3.6%",
+          "French": "2.9%",
+          "Chinese": "2.5%",
+          "Thai": "1.9%",
+          "Portuguese (Brazil)": "1.7%",
+          "Catalan": "1.6%",
+          "Other": "5.8%"
+        }
+      },
+      "pie_07": {
+        "expected": "Slices are arranged in descending order based on size in an anticlockwise direction, except for 'Other'."
+      },
+      "pie_08": {
+        "expected": "No separate legend is present."
+      },
+      "pie_09": {
+        "expected": "No visual emphasis is present (e.g., no exploded slices)."
+      },
+      "pie_10": {
+        "expected": "Percentage labels are present inside each slice."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "English",
+          "smallest": "Catalan"
+        }
+      }
+    },
     "checklist": [
       {
         "id": "pie_01",
-        "reasoning": "The model correctly identifies the chart as a pie chart.",
+        "reasoning": "Expected: pie chart. Model states: 'The pie chart depicts...'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -43,7 +137,7 @@
       },
       {
         "id": "pie_02",
-        "reasoning": "The model describes the chart's purpose as depicting the relative share of the most frequent languages in a dataset, which aligns with the image.",
+        "reasoning": "Expected: 'The pie chart illustrates the distribution of various languages.' Model states: 'The pie chart depicts the relative share of the most frequent languages in a dataset.' Match in meaning.",
         "coverage": {
           "status": "complete"
         },
@@ -53,20 +147,20 @@
       },
       {
         "id": "pie_03",
-        "reasoning": "The model states there are 10 slices, but the image shows 9 slices.",
+        "reasoning": "Expected: 9 slices. Model states: 'divided into 10 slices.' Mismatch.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "is divided into 10 slices",
+          "text_span": "divided into 10 slices",
           "detail": "The chart has 9 slices, not 10."
         }
       },
       {
         "id": "pie_04",
-        "reasoning": "The model mentions all slice labels, including 'English,' 'Spanish,' 'Russian,' 'German,' 'French,' 'Chinese,' 'Thai,' 'Portuguese (Brazil),' 'Catalan,' and 'Other.'",
+        "reasoning": "Expected: 9 labels (English, Spanish, Russian, German, French, Chinese, Thai, Portuguese (Brazil), Catalan, Other). Model lists all correctly.",
         "coverage": {
           "status": "complete"
         },
@@ -76,7 +170,7 @@
       },
       {
         "id": "pie_05",
-        "reasoning": "The model describes slice colors using terms like 'dark blue,' 'medium blue,' 'lighter blue,' and 'very light blue.' These align with the image. Color family mapping: all colors fall under the 'blue' family.",
+        "reasoning": "Expected colours match model colours after applying family mapping.",
         "coverage": {
           "status": "complete"
         },
@@ -86,7 +180,7 @@
       },
       {
         "id": "pie_06",
-        "reasoning": "The model provides accurate percentages for all slices, matching the image.",
+        "reasoning": "Expected percentages match model percentages within tolerance.",
         "coverage": {
           "status": "complete"
         },
@@ -96,7 +190,7 @@
       },
       {
         "id": "pie_07",
-        "reasoning": "The model correctly maps colors to labels, with no mismatches.",
+        "reasoning": "Expected: 'Slices are arranged in descending order based on size in an anticlockwise direction, except for 'Other'.' Model states: 'segments appear arranged roughly from the largest shares to smaller ones around the circle.' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -106,20 +200,17 @@
       },
       {
         "id": "pie_08",
-        "reasoning": "The model states that the slices are arranged roughly from largest to smallest, which is accurate for all slices except 'Other,' which is not in descending order.",
+        "reasoning": "Expected: 'No separate legend is present.' Model states: 'there is no separate legend.' Match.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "partial",
-          "sub_type": "Incorrect Trend Interpretation",
-          "text_span": "segments appear arranged roughly from the largest shares to smaller ones",
-          "detail": "'Other' is not in descending order."
+          "status": "correct"
         }
       },
       {
         "id": "pie_09",
-        "reasoning": "The model correctly notes that there is no separate legend.",
+        "reasoning": "Expected: 'No visual emphasis is present (e.g., no exploded slices).' Model states: 'no slice appears exploded or otherwise emphasized.' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -129,7 +220,7 @@
       },
       {
         "id": "pie_10",
-        "reasoning": "The model states that no slice is exploded or emphasized, which is accurate.",
+        "reasoning": "Expected: 'Percentage labels are present inside each slice.' Model states: 'Percentage labels are printed inside the slices.' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -139,22 +230,13 @@
       },
       {
         "id": "pie_11",
-        "reasoning": "The model mentions that percentage labels are printed inside the slices, which is accurate.",
+        "reasoning": "Expected: largest=English, smallest=Catalan. Model does not explicitly identify these.",
         "coverage": {
-          "status": "complete"
+          "status": "missing",
+          "detail": "Largest and smallest slices are not identified."
         },
         "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "pie_12",
-        "reasoning": "The model identifies the largest slice as 'English' and the smallest as 'Catalan,' which is correct.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
+          "status": "n/a"
         }
       }
     ],
@@ -186,6 +268,138 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "English",
+            "reference_value": "42.8%",
+            "model_value": "42.8%",
+            "match": true
+          },
+          {
+            "label": "Spanish",
+            "reference_value": "31.4%",
+            "model_value": "31.4%",
+            "match": true
+          },
+          {
+            "label": "Russian",
+            "reference_value": "5.7%",
+            "model_value": "5.7%",
+            "match": true
+          },
+          {
+            "label": "German",
+            "reference_value": "3.6%",
+            "model_value": "3.6%",
+            "match": true
+          },
+          {
+            "label": "French",
+            "reference_value": "2.9%",
+            "model_value": "2.9%",
+            "match": true
+          },
+          {
+            "label": "Chinese",
+            "reference_value": "2.5%",
+            "model_value": "2.5%",
+            "match": true
+          },
+          {
+            "label": "Thai",
+            "reference_value": "1.9%",
+            "model_value": "1.9%",
+            "match": true
+          },
+          {
+            "label": "Portuguese (Brazil)",
+            "reference_value": "1.7%",
+            "model_value": "1.7%",
+            "match": true
+          },
+          {
+            "label": "Catalan",
+            "reference_value": "1.6%",
+            "model_value": "1.6%",
+            "match": true
+          },
+          {
+            "label": "Other",
+            "reference_value": "5.8%",
+            "model_value": "5.8%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "English",
+            "reference_value": "dark blue",
+            "model_value": "dark blue",
+            "match": true
+          },
+          {
+            "label": "Spanish",
+            "reference_value": "medium blue",
+            "model_value": "medium blue",
+            "match": true
+          },
+          {
+            "label": "Russian",
+            "reference_value": "slightly lighter blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "German",
+            "reference_value": "lighter blue",
+            "model_value": "lighter blue",
+            "match": true
+          },
+          {
+            "label": "French",
+            "reference_value": "light blue",
+            "model_value": "light blue",
+            "match": true
+          },
+          {
+            "label": "Chinese",
+            "reference_value": "light blue",
+            "model_value": "light blue",
+            "match": true
+          },
+          {
+            "label": "Thai",
+            "reference_value": "very light blue",
+            "model_value": "very light blue",
+            "match": true
+          },
+          {
+            "label": "Portuguese (Brazil)",
+            "reference_value": "very light blue",
+            "model_value": "very light blue",
+            "match": true
+          },
+          {
+            "label": "Catalan",
+            "reference_value": "very light blue",
+            "model_value": "very light blue",
+            "match": true
+          },
+          {
+            "label": "Other",
+            "reference_value": "dark to lighter white shades",
+            "model_value": "pale blue",
+            "match": true
+          }
+        ]
       }
     ]
   }

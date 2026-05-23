@@ -4,32 +4,42 @@
   "figure_type": "Line Plot",
   "judge_model": "gpt-4o",
   "num_items": 15,
-  "num_penalties_raw": 3,
-  "num_penalties_deduped": 2,
-  "total_penalty_raw": 6.0,
-  "total_penalty_deduped": 4.0,
-  "mqm_raw": 92.0,
-  "mqm_deduped": 94.67,
+  "num_penalties_raw": 4,
+  "num_penalties_deduped": 4,
+  "total_penalty_raw": 14.0,
+  "total_penalty_deduped": 14.0,
+  "mqm_raw": 72.55,
+  "mqm_deduped": 72.55,
   "penalties_raw": [
+    {
+      "id": "line_08",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/4 elements mismatched. Llama-On-Policy-Easy: model=blue ref=teal; Llama-On-Policy-Hard: model=blue ref=teal",
+      "text_span": ""
+    },
     {
       "id": "line_11",
       "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The line starts near 0.03 and decreases to 0.0 between steps 100 and 200, not remaining near 0.0 throughout.",
-      "text_span": "the Llama-On-Policy-Hard (blue line) starts at a reward of approximately 0.0 and remains near 0.0 across all steps"
+      "detail": "Binding verification: 1/4 elements mismatched. Llama-On-Policy-Hard: model={'start': 0.0, 'end': 0.0} ref={'start': 0.03, 'end': 0.0}",
+      "text_span": ""
     },
     {
       "id": "line_12",
       "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Trend Interpretation",
-      "weight": 2.0,
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The line starts near 0.03 and decreases to 0.0 between steps 100 and 200, showing a downward trend.",
-      "text_span": "the Llama-On-Policy-Hard (blue line) starts at a reward of approximately 0.0 and remains near 0.0 across all steps"
+      "detail": "Binding verification: 1/4 elements mismatched. Llama-On-Policy-Hard: model=stable ref=decreasing",
+      "text_span": ""
     },
     {
       "id": "line_14",
@@ -38,19 +48,39 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Shaded areas indicating variation or confidence intervals are visible but not mentioned."
+      "detail": "Shaded areas are visible in the image but not mentioned in the model description."
     }
   ],
   "penalties_deduped": [
     {
-      "id": "line_11",
+      "id": "line_08",
       "category": "Accuracy",
       "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
+      "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The line starts near 0.03 and decreases to 0.0 between steps 100 and 200, not remaining near 0.0 throughout.",
-      "text_span": "the Llama-On-Policy-Hard (blue line) starts at a reward of approximately 0.0 and remains near 0.0 across all steps"
+      "detail": "Binding verification: 2/4 elements mismatched. Llama-On-Policy-Easy: model=blue ref=teal; Llama-On-Policy-Hard: model=blue ref=teal",
+      "text_span": ""
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/4 elements mismatched. Llama-On-Policy-Hard: model={'start': 0.0, 'end': 0.0} ref={'start': 0.03, 'end': 0.0}",
+      "text_span": ""
+    },
+    {
+      "id": "line_12",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/4 elements mismatched. Llama-On-Policy-Hard: model=stable ref=decreasing",
+      "text_span": ""
     },
     {
       "id": "line_14",
@@ -59,14 +89,110 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Shaded areas indicating variation or confidence intervals are visible but not mentioned."
+      "detail": "Shaded areas are visible in the image but not mentioned in the model description."
     }
   ],
   "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "Line Plot"
+      },
+      "line_02": {
+        "expected": "X-axis labeled 'Steps' with units of steps"
+      },
+      "line_03": {
+        "expected": "Linear scale, range 0 to 500, tick labels at intervals of 100"
+      },
+      "line_04": {
+        "expected": "Y-axis labeled 'Training Rewards' with units of rewards"
+      },
+      "line_05": {
+        "expected": {
+          "Easy Training Set": "Linear scale, range 0.0 to 0.4, tick labels at intervals of 0.2",
+          "Hard Training Set": "Linear scale, range 0.0 to 0.2, tick labels at intervals of 0.1"
+        }
+      },
+      "line_06": {
+        "expected": [
+          "Llama-On-Policy-Easy",
+          "Llama-LUFFY-Easy",
+          "Llama-On-Policy-Hard",
+          "Llama-LUFFY-Hard"
+        ]
+      },
+      "line_07": {
+        "expected": {
+          "Easy Training Set": {
+            "Llama-On-Policy-Easy": "teal, solid",
+            "Llama-LUFFY-Easy": "red, solid"
+          },
+          "Hard Training Set": {
+            "Llama-On-Policy-Hard": "teal, solid",
+            "Llama-LUFFY-Hard": "red, solid"
+          }
+        }
+      },
+      "line_08": {
+        "expected": {
+          "Llama-On-Policy-Easy": "teal",
+          "Llama-LUFFY-Easy": "red",
+          "Llama-On-Policy-Hard": "teal",
+          "Llama-LUFFY-Hard": "red"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "Llama-On-Policy-Easy": "solid",
+          "Llama-LUFFY-Easy": "solid",
+          "Llama-On-Policy-Hard": "solid",
+          "Llama-LUFFY-Hard": "solid"
+        }
+      },
+      "line_10": {
+        "expected": "No markers present"
+      },
+      "line_11": {
+        "expected": {
+          "Llama-On-Policy-Easy": {
+            "start": 0.0,
+            "end": 0.35
+          },
+          "Llama-LUFFY-Easy": {
+            "start": 0.0,
+            "end": 0.4
+          },
+          "Llama-On-Policy-Hard": {
+            "start": 0.03,
+            "end": 0.0
+          },
+          "Llama-LUFFY-Hard": {
+            "start": 0.0,
+            "end": 0.2
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "Llama-On-Policy-Easy": "increasing",
+          "Llama-LUFFY-Easy": "increasing",
+          "Llama-On-Policy-Hard": "decreasing",
+          "Llama-LUFFY-Hard": "increasing"
+        }
+      },
+      "line_13": {
+        "expected": "No crossovers or intersections mentioned"
+      },
+      "line_14": {
+        "expected": "Shaded areas around lines indicating variation or confidence intervals"
+      },
+      "line_15": {
+        "expected": "No dual y-axes present"
+      }
+    },
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "The model correctly identifies the chart type as line plots, which matches the image.",
+        "reasoning": "Expected chart type is 'Line Plot'. Model correctly identifies it as 'Line Plot'.",
         "coverage": {
           "status": "complete"
         },
@@ -76,7 +202,7 @@
       },
       {
         "id": "line_02",
-        "reasoning": "The x-axis label 'Steps' is correctly described, and the units are implied as steps.",
+        "reasoning": "Expected x-axis label is 'Steps' with units of steps. Model correctly describes the x-axis as 'Steps' representing the number of training steps.",
         "coverage": {
           "status": "complete"
         },
@@ -86,7 +212,7 @@
       },
       {
         "id": "line_03",
-        "reasoning": "The x-axis scale is correctly described as linear, ranging from 0 to 500 with tick intervals of 100.",
+        "reasoning": "Expected x-axis scale is linear, ranging from 0 to 500, with tick labels at intervals of 100. Model correctly describes this.",
         "coverage": {
           "status": "complete"
         },
@@ -96,7 +222,7 @@
       },
       {
         "id": "line_04",
-        "reasoning": "The y-axis label 'Training Rewards' is correctly described for both plots, and the units are implied as rewards.",
+        "reasoning": "Expected y-axis label is 'Training Rewards' with units of rewards. Model correctly describes the y-axis as representing training rewards.",
         "coverage": {
           "status": "complete"
         },
@@ -106,7 +232,7 @@
       },
       {
         "id": "line_05",
-        "reasoning": "The y-axis scale is correctly described for both plots: 0.0 to 0.4 for the top plot and 0.0 to 0.2 for the bottom plot.",
+        "reasoning": "Expected y-axis scale for Easy Training Set is linear, ranging from 0.0 to 0.4, with tick labels at intervals of 0.2. For Hard Training Set, it is linear, ranging from 0.0 to 0.2, with tick labels at intervals of 0.1. Model correctly describes these scales.",
         "coverage": {
           "status": "complete"
         },
@@ -116,7 +242,7 @@
       },
       {
         "id": "line_06",
-        "reasoning": "All lines/series are mentioned: 'Llama-On-Policy-Easy,' 'Llama-LUFFY-Easy,' 'Llama-On-Policy-Hard,' and 'Llama-LUFFY-Hard.'",
+        "reasoning": "Expected series are 'Llama-On-Policy-Easy', 'Llama-LUFFY-Easy', 'Llama-On-Policy-Hard', and 'Llama-LUFFY-Hard'. Model mentions all these series.",
         "coverage": {
           "status": "complete"
         },
@@ -126,7 +252,7 @@
       },
       {
         "id": "line_07",
-        "reasoning": "The legend is correctly described, mapping teal to 'Llama-On-Policy' and red to 'Llama-LUFFY' for both plots.",
+        "reasoning": "Expected legend mappings are teal solid for 'Llama-On-Policy-Easy' and 'Llama-On-Policy-Hard', and red solid for 'Llama-LUFFY-Easy' and 'Llama-LUFFY-Hard'. Model correctly describes these mappings.",
         "coverage": {
           "status": "complete"
         },
@@ -136,17 +262,20 @@
       },
       {
         "id": "line_08",
-        "reasoning": "The model describes the line colors as blue and red. The image shows teal (blue family) and red, which matches the description.",
+        "reasoning": "Expected colours are teal for 'Llama-On-Policy-Easy' and 'Llama-On-Policy-Hard', and red for 'Llama-LUFFY-Easy' and 'Llama-LUFFY-Hard'. Model describes 'Llama-On-Policy' lines as blue instead of teal, which is incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "Llama-On-Policy-Easy (blue line)",
+          "detail": "Model incorrectly describes the colour as blue instead of teal."
         }
       },
       {
         "id": "line_09",
-        "reasoning": "The line styles are correctly described as solid for all lines.",
+        "reasoning": "Expected line styles are solid for all series. Model correctly describes all lines as solid.",
         "coverage": {
           "status": "complete"
         },
@@ -156,7 +285,7 @@
       },
       {
         "id": "line_10",
-        "reasoning": "No marker shapes are present in the image, and the model does not mention any.",
+        "reasoning": "Expected no markers present. Model does not mention markers.",
         "coverage": {
           "status": "complete"
         },
@@ -166,33 +295,33 @@
       },
       {
         "id": "line_11",
-        "reasoning": "The numerical values for start, end, and trends are mostly accurate, but the model incorrectly states that 'Llama-On-Policy-Hard' remains near 0.0 across all steps. In reality, it starts near 0.03 and decreases to 0.0 between steps 100 and 200.",
+        "reasoning": "Expected start and end values for each series are provided. Model incorrectly describes the start and end values for 'Llama-On-Policy-Hard'.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "partial",
+          "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
           "text_span": "the Llama-On-Policy-Hard (blue line) starts at a reward of approximately 0.0 and remains near 0.0 across all steps",
-          "detail": "The line starts near 0.03 and decreases to 0.0 between steps 100 and 200, not remaining near 0.0 throughout."
+          "detail": "Model states that 'Llama-On-Policy-Hard' starts at 0.0 and remains near 0.0, but the reference and image show it starts at 0.03 and decreases to 0.0."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "The trends are mostly described correctly, but the model incorrectly states that 'Llama-On-Policy-Hard' remains near 0.0 across all steps, which is inaccurate.",
+        "reasoning": "Expected trends are increasing for 'Llama-On-Policy-Easy' and 'Llama-LUFFY-Easy', decreasing for 'Llama-On-Policy-Hard', and increasing for 'Llama-LUFFY-Hard'. Model incorrectly describes the trend for 'Llama-On-Policy-Hard'.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "partial",
+          "status": "wrong",
           "sub_type": "Incorrect Trend Interpretation",
           "text_span": "the Llama-On-Policy-Hard (blue line) starts at a reward of approximately 0.0 and remains near 0.0 across all steps",
-          "detail": "The line starts near 0.03 and decreases to 0.0 between steps 100 and 200, showing a downward trend."
+          "detail": "Model states that 'Llama-On-Policy-Hard' remains near 0.0, but the reference and image show it decreases."
         }
       },
       {
         "id": "line_13",
-        "reasoning": "No crossover or intersection points are present in the image, and the model does not mention any.",
+        "reasoning": "Expected no crossovers or intersections. Model does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -202,10 +331,10 @@
       },
       {
         "id": "line_14",
-        "reasoning": "The model does not mention the shaded areas around the lines, which represent variation or confidence intervals.",
+        "reasoning": "Expected shaded areas around lines indicating variation or confidence intervals. Model does not mention these.",
         "coverage": {
           "status": "missing",
-          "detail": "Shaded areas indicating variation or confidence intervals are visible but not mentioned."
+          "detail": "Shaded areas are visible in the image but not mentioned in the model description."
         },
         "correctness": {
           "status": "n/a"
@@ -213,7 +342,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "There are no dual y-axes in the image, and the model does not mention any.",
+        "reasoning": "Expected no dual y-axes. Model does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -250,6 +379,119 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "Llama-On-Policy-Easy",
+            "reference_value": {
+              "start": 0.0,
+              "end": 0.35
+            },
+            "model_value": {
+              "start": 0.0,
+              "end": 0.35
+            },
+            "match": true
+          },
+          {
+            "label": "Llama-LUFFY-Easy",
+            "reference_value": {
+              "start": 0.0,
+              "end": 0.4
+            },
+            "model_value": {
+              "start": 0.0,
+              "end": 0.4
+            },
+            "match": true
+          },
+          {
+            "label": "Llama-On-Policy-Hard",
+            "reference_value": {
+              "start": 0.03,
+              "end": 0.0
+            },
+            "model_value": {
+              "start": 0.0,
+              "end": 0.0
+            },
+            "match": false
+          },
+          {
+            "label": "Llama-LUFFY-Hard",
+            "reference_value": {
+              "start": 0.0,
+              "end": 0.2
+            },
+            "model_value": {
+              "start": 0.0,
+              "end": 0.2
+            },
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "Llama-On-Policy-Easy",
+            "reference_value": "teal",
+            "model_value": "blue",
+            "match": false
+          },
+          {
+            "label": "Llama-LUFFY-Easy",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "Llama-On-Policy-Hard",
+            "reference_value": "teal",
+            "model_value": "blue",
+            "match": false
+          },
+          {
+            "label": "Llama-LUFFY-Hard",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Llama-On-Policy-Easy",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "Llama-LUFFY-Easy",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "Llama-On-Policy-Hard",
+            "reference_value": "decreasing",
+            "model_value": "stable",
+            "match": false
+          },
+          {
+            "label": "Llama-LUFFY-Hard",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          }
+        ]
       }
     ]
   }

@@ -5,27 +5,28 @@
   "judge_model": "gpt-4o",
   "num_items": 15,
   "num_penalties_raw": 8,
-  "num_penalties_deduped": 5,
-  "total_penalty_raw": 25.0,
-  "total_penalty_deduped": 16.0,
-  "mqm_raw": 66.67,
-  "mqm_deduped": 78.67,
+  "num_penalties_deduped": 6,
+  "total_penalty_raw": 22.0,
+  "total_penalty_deduped": 15.0,
+  "mqm_raw": 56.86,
+  "mqm_deduped": 70.59,
   "penalties_raw": [
     {
-      "id": "line_02",
-      "category": "Completeness",
+      "id": "line_03",
+      "category": "Accuracy",
       "severity": "Minor",
-      "sub_type": "Missing Key Information",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
       "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "Units ('k') not explicitly mentioned."
+      "source": "checklist_correctness",
+      "detail": "The x-axis is exponential, not logarithmic.",
+      "text_span": "with the x-axis representing the number of completions on a logarithmic scale ranging from $2^0$ to $2^8$"
     },
     {
-      "id": "line_04",
+      "id": "line_05",
       "category": "Accuracy",
-      "severity": "Major",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 5.0,
+      "severity": "Minor",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 2.0,
       "source": "checklist_correctness",
       "detail": "The y-axis range is 0.4 to 1, not 0.3 to 0.9.",
       "text_span": "the y-axis showing coverage values from 0.3 to 0.9"
@@ -33,11 +34,11 @@
     {
       "id": "line_07",
       "category": "Accuracy",
-      "severity": "Major",
+      "severity": "Minor",
       "sub_type": "Incorrect Label Mapping",
-      "weight": 5.0,
+      "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Llama-1B uses circular markers, and Llama-1B + FT uses triangular markers, not diamonds or inverted triangles.",
+      "detail": "Markers for Llama-1B and Llama-1B + FT are circular and triangular, not diamonds and inverted triangles.",
       "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)"
     },
     {
@@ -47,8 +48,17 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The color is light green, not light purple.",
-      "text_span": "Llama-1B + FT (light purple inverted triangles)"
+      "detail": "Binding verification: 1/4 elements mismatched. Llama-1B + FT: model=light purple ref=light green",
+      "text_span": ""
+    },
+    {
+      "id": "line_09",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Line styles are not mentioned."
     },
     {
       "id": "line_10",
@@ -57,27 +67,18 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Llama-1B uses circular markers, and Llama-1B + FT uses triangular markers.",
+      "detail": "Markers for Llama-1B and Llama-1B + FT are circular and triangular, not diamonds and inverted triangles.",
       "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)"
     },
     {
       "id": "line_11",
       "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The starting values for Llama-1B and Llama-1B + FT are approximately 0.25, not 0.32 and 0.33.",
-      "text_span": "Llama-1B starts at roughly 0.32 and increases to about 0.86, and Llama-1B + FT begins at approximately 0.33 and reaches a maximum coverage of around 0.88."
-    },
-    {
-      "id": "line_13",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "Overlap between Llama-1B and Llama-1B + FT is not mentioned."
+      "detail": "Binding verification: 4/4 elements mismatched. Llama-3B: model={'start': '(1, 0.43)', 'end': '(256, 0.9)'} ref={'start': '(1, 0.42)', 'end': '(256, 0.9)'}; Llama-3B + FT: model={'start': '(1, 0.45)', 'end': '(256, 0.91)'} ref={'start': '(1, 0.42)', 'end': '(256, 0.9)'}; Llama-1B: model={'start': '(1, 0.32)', 'end': '(256, 0.86)'} ref={'start': '(1, 0.25)', 'end': '(256, 0.85)'}; Llama-1B + FT: model={'start': '(1, 0.33)', 'end': '(256, 0.88)'} ref={'start': '(1, 0.25)', 'end': '(256, 0.85)'}",
+      "text_span": ""
     },
     {
       "id": "global_hallucination",
@@ -86,26 +87,27 @@
       "sub_type": "Hallucinated Content",
       "weight": 5.0,
       "source": "global",
-      "detail": "The marker shapes and colors for Llama-1B and Llama-1B + FT are fabricated; they do not match the image.",
+      "detail": "The model fabricated marker shapes (diamonds and inverted triangles) and a colour (light purple) that are not present in the image.",
       "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)"
     }
   ],
   "penalties_deduped": [
     {
-      "id": "line_02",
-      "category": "Completeness",
+      "id": "line_03",
+      "category": "Accuracy",
       "severity": "Minor",
-      "sub_type": "Missing Key Information",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
       "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "Units ('k') not explicitly mentioned."
+      "source": "checklist_correctness",
+      "detail": "The x-axis is exponential, not logarithmic.",
+      "text_span": "with the x-axis representing the number of completions on a logarithmic scale ranging from $2^0$ to $2^8$"
     },
     {
-      "id": "line_04",
+      "id": "line_05",
       "category": "Accuracy",
-      "severity": "Major",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 5.0,
+      "severity": "Minor",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 2.0,
       "source": "checklist_correctness",
       "detail": "The y-axis range is 0.4 to 1, not 0.3 to 0.9.",
       "text_span": "the y-axis showing coverage values from 0.3 to 0.9"
@@ -113,38 +115,142 @@
     {
       "id": "line_07",
       "category": "Accuracy",
-      "severity": "Major",
+      "severity": "Minor",
       "sub_type": "Incorrect Label Mapping",
-      "weight": 5.0,
+      "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Llama-1B uses circular markers, and Llama-1B + FT uses triangular markers, not diamonds or inverted triangles.",
+      "detail": "Markers for Llama-1B and Llama-1B + FT are circular and triangular, not diamonds and inverted triangles.",
       "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)"
     },
     {
-      "id": "line_11",
+      "id": "line_08",
       "category": "Accuracy",
       "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
+      "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The starting values for Llama-1B and Llama-1B + FT are approximately 0.25, not 0.32 and 0.33.",
-      "text_span": "Llama-1B starts at roughly 0.32 and increases to about 0.86, and Llama-1B + FT begins at approximately 0.33 and reaches a maximum coverage of around 0.88."
+      "detail": "Binding verification: 1/4 elements mismatched. Llama-1B + FT: model=light purple ref=light green",
+      "text_span": ""
     },
     {
-      "id": "line_13",
+      "id": "line_09",
       "category": "Completeness",
       "severity": "Minor",
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Overlap between Llama-1B and Llama-1B + FT is not mentioned."
+      "detail": "Line styles are not mentioned."
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 4/4 elements mismatched. Llama-3B: model={'start': '(1, 0.43)', 'end': '(256, 0.9)'} ref={'start': '(1, 0.42)', 'end': '(256, 0.9)'}; Llama-3B + FT: model={'start': '(1, 0.45)', 'end': '(256, 0.91)'} ref={'start': '(1, 0.42)', 'end': '(256, 0.9)'}; Llama-1B: model={'start': '(1, 0.32)', 'end': '(256, 0.86)'} ref={'start': '(1, 0.25)', 'end': '(256, 0.85)'}; Llama-1B + FT: model={'start': '(1, 0.33)', 'end': '(256, 0.88)'} ref={'start': '(1, 0.25)', 'end': '(256, 0.85)'}",
+      "text_span": ""
     }
   ],
   "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "Line Plot"
+      },
+      "line_02": {
+        "expected": "Number of completions (k)"
+      },
+      "line_03": {
+        "expected": "Exponential scale, range 2^0 to 2^8"
+      },
+      "line_04": {
+        "expected": "Coverage"
+      },
+      "line_05": {
+        "expected": "Linear scale, range 0.4 to 1"
+      },
+      "line_06": {
+        "expected": [
+          "Llama-3B",
+          "Llama-3B + FT",
+          "Llama-1B",
+          "Llama-1B + FT"
+        ]
+      },
+      "line_07": {
+        "expected": {
+          "Llama-3B": "dark blue, solid line, circular markers",
+          "Llama-3B + FT": "green, dashed line, triangular markers",
+          "Llama-1B": "light blue, solid line, circular markers",
+          "Llama-1B + FT": "light green, dashed line, triangular markers"
+        }
+      },
+      "line_08": {
+        "expected": {
+          "Llama-3B": "dark blue",
+          "Llama-3B + FT": "green",
+          "Llama-1B": "light blue",
+          "Llama-1B + FT": "light green"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "Llama-3B": "solid",
+          "Llama-3B + FT": "dashed",
+          "Llama-1B": "solid",
+          "Llama-1B + FT": "dashed"
+        }
+      },
+      "line_10": {
+        "expected": {
+          "Llama-3B": "circular markers",
+          "Llama-3B + FT": "triangular markers",
+          "Llama-1B": "circular markers",
+          "Llama-1B + FT": "triangular markers"
+        }
+      },
+      "line_11": {
+        "expected": {
+          "Llama-3B": {
+            "start": "(1, 0.42)",
+            "end": "(256, 0.9)"
+          },
+          "Llama-3B + FT": {
+            "start": "(1, 0.42)",
+            "end": "(256, 0.9)"
+          },
+          "Llama-1B": {
+            "start": "(1, 0.25)",
+            "end": "(256, 0.85)"
+          },
+          "Llama-1B + FT": {
+            "start": "(1, 0.25)",
+            "end": "(256, 0.85)"
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "Llama-3B": "increasing",
+          "Llama-3B + FT": "increasing",
+          "Llama-1B": "increasing",
+          "Llama-1B + FT": "increasing"
+        }
+      },
+      "line_13": {
+        "expected": "No crossover points mentioned"
+      },
+      "line_14": {
+        "expected": "No annotations present"
+      },
+      "line_15": {
+        "expected": "No dual y-axes"
+      }
+    },
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "The model correctly identifies the chart as a line plot, which matches the image.",
+        "reasoning": "Expected chart type: Line Plot. Model correctly identifies it as a line plot.",
         "coverage": {
           "status": "complete"
         },
@@ -154,10 +260,9 @@
       },
       {
         "id": "line_02",
-        "reasoning": "The x-axis label 'Number of completions (k)' is correctly described, but the units are not explicitly mentioned.",
+        "reasoning": "Expected x-axis label: 'Number of completions (k)'. Model correctly states this.",
         "coverage": {
-          "status": "partial",
-          "detail": "Units ('k') not explicitly mentioned."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -165,30 +270,20 @@
       },
       {
         "id": "line_03",
-        "reasoning": "The x-axis scale is described as logarithmic, ranging from $2^0$ to $2^8$, which matches the image.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "line_04",
-        "reasoning": "The y-axis label 'Coverage' is correctly described, but the range is inaccurately stated as 0.3 to 0.9 instead of 0.4 to 1.",
+        "reasoning": "Expected x-axis scale: Exponential, range 2^0 to 2^8. Model describes it as logarithmic, which is incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
-          "sub_type": "Incorrect Numerical Value",
-          "text_span": "the y-axis showing coverage values from 0.3 to 0.9",
-          "detail": "The y-axis range is 0.4 to 1, not 0.3 to 0.9."
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "text_span": "with the x-axis representing the number of completions on a logarithmic scale ranging from $2^0$ to $2^8$",
+          "detail": "The x-axis is exponential, not logarithmic."
         }
       },
       {
-        "id": "line_05",
-        "reasoning": "The y-axis scale is linear, which is correctly implied in the model description.",
+        "id": "line_04",
+        "reasoning": "Expected y-axis label: 'Coverage'. Model correctly states this.",
         "coverage": {
           "status": "complete"
         },
@@ -197,8 +292,21 @@
         }
       },
       {
+        "id": "line_05",
+        "reasoning": "Expected y-axis scale: Linear, range 0.4 to 1. Model states range as 0.3 to 0.9, which is incorrect.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "text_span": "the y-axis showing coverage values from 0.3 to 0.9",
+          "detail": "The y-axis range is 0.4 to 1, not 0.3 to 0.9."
+        }
+      },
+      {
         "id": "line_06",
-        "reasoning": "All four lines are mentioned: Llama-3B, Llama-3B + FT, Llama-1B, and Llama-1B + FT.",
+        "reasoning": "Expected series: Llama-3B, Llama-3B + FT, Llama-1B, Llama-1B + FT. Model mentions all four series.",
         "coverage": {
           "status": "complete"
         },
@@ -208,69 +316,70 @@
       },
       {
         "id": "line_07",
-        "reasoning": "The legend is partially described. The model correctly maps the series to their labels but incorrectly describes the marker shapes for Llama-1B and Llama-1B + FT.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Label Mapping",
-          "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)",
-          "detail": "Llama-1B uses circular markers, and Llama-1B + FT uses triangular markers, not diamonds or inverted triangles."
-        }
-      },
-      {
-        "id": "line_08",
-        "reasoning": "The model's color descriptions are mostly accurate. However, it incorrectly describes Llama-1B + FT as 'light purple' instead of 'light green.' Color family mapping: 'light purple' -> purple, 'light green' -> green.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Label Mapping",
-          "text_span": "Llama-1B + FT (light purple inverted triangles)",
-          "detail": "The color is light green, not light purple."
-        }
-      },
-      {
-        "id": "line_09",
-        "reasoning": "The line styles are correctly described as solid for Llama-3B and Llama-1B, and dashed for Llama-3B + FT and Llama-1B + FT.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "line_10",
-        "reasoning": "The marker shapes are incorrectly described for Llama-1B and Llama-1B + FT. They are circular and triangular, respectively, not diamonds or inverted triangles.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Label Mapping",
-          "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)",
-          "detail": "Llama-1B uses circular markers, and Llama-1B + FT uses triangular markers."
-        }
-      },
-      {
-        "id": "line_11",
-        "reasoning": "The numerical values for the start and end points of the lines are mostly accurate, but the starting values for Llama-1B and Llama-1B + FT are slightly off. The model states 0.32 and 0.33, but the image shows approximately 0.25 for both.",
+        "reasoning": "Expected legend mappings: Llama-3B (dark blue, solid, circular markers), Llama-3B + FT (green, dashed, triangular markers), Llama-1B (light blue, solid, circular markers), Llama-1B + FT (light green, dashed, triangular markers). Model incorrectly describes Llama-1B and Llama-1B + FT markers.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)",
+          "detail": "Markers for Llama-1B and Llama-1B + FT are circular and triangular, not diamonds and inverted triangles."
+        }
+      },
+      {
+        "id": "line_08",
+        "reasoning": "Expected colours: Llama-3B (dark blue), Llama-3B + FT (green), Llama-1B (light blue), Llama-1B + FT (light green). Model incorrectly describes Llama-1B + FT as light purple.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "Llama-1B + FT (light purple inverted triangles)",
+          "detail": "Llama-1B + FT is light green, not light purple."
+        }
+      },
+      {
+        "id": "line_09",
+        "reasoning": "Expected line styles: Llama-3B (solid), Llama-3B + FT (dashed), Llama-1B (solid), Llama-1B + FT (dashed). Model does not explicitly mention line styles.",
+        "coverage": {
+          "status": "missing",
+          "detail": "Line styles are not mentioned."
+        },
+        "correctness": {
+          "status": "n/a"
+        }
+      },
+      {
+        "id": "line_10",
+        "reasoning": "Expected marker shapes: Llama-3B (circular), Llama-3B + FT (triangular), Llama-1B (circular), Llama-1B + FT (triangular). Model incorrectly describes Llama-1B and Llama-1B + FT markers.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)",
+          "detail": "Markers for Llama-1B and Llama-1B + FT are circular and triangular, not diamonds and inverted triangles."
+        }
+      },
+      {
+        "id": "line_11",
+        "reasoning": "Expected numerical values: Llama-3B (start: (1, 0.42), end: (256, 0.9)), Llama-3B + FT (start: (1, 0.42), end: (256, 0.9)), Llama-1B (start: (1, 0.25), end: (256, 0.85)), Llama-1B + FT (start: (1, 0.25), end: (256, 0.85)). Model values for start and end points are incorrect for all series.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "Llama-1B starts at roughly 0.32 and increases to about 0.86, and Llama-1B + FT begins at approximately 0.33 and reaches a maximum coverage of around 0.88.",
-          "detail": "The starting values for Llama-1B and Llama-1B + FT are approximately 0.25, not 0.32 and 0.33."
+          "text_span": "Llama-3B starts at a coverage of approximately 0.43 and rises to about 0.9, while Llama-3B + FT begins slightly higher at around 0.45 and reaches a peak of approximately 0.91. Llama-1B starts at roughly 0.32 and increases to about 0.86, and Llama-1B + FT begins at approximately 0.33 and reaches a maximum coverage of around 0.88.",
+          "detail": "Start and end values for all series do not match the reference."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "The trends for all lines are correctly described as increasing.",
+        "reasoning": "Expected trends: All series are increasing. Model correctly states this.",
         "coverage": {
           "status": "complete"
         },
@@ -280,10 +389,9 @@
       },
       {
         "id": "line_13",
-        "reasoning": "The model does not mention the overlap between Llama-1B and Llama-1B + FT, which is visible in the image.",
+        "reasoning": "Expected crossover points: None mentioned. Model does not mention any crossover points.",
         "coverage": {
-          "status": "partial",
-          "detail": "Overlap between Llama-1B and Llama-1B + FT is not mentioned."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -291,7 +399,7 @@
       },
       {
         "id": "line_14",
-        "reasoning": "No annotations such as confidence intervals or shaded regions are present in the image, and none are mentioned in the description.",
+        "reasoning": "Expected annotations: None present. Model does not mention any annotations.",
         "coverage": {
           "status": "complete"
         },
@@ -301,7 +409,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "There is no dual y-axis in the image, and none is mentioned in the description.",
+        "reasoning": "Expected dual y-axes: None present. Model does not mention any dual y-axes.",
         "coverage": {
           "status": "complete"
         },
@@ -316,7 +424,7 @@
         "violations": [
           {
             "text_span": "Llama-1B (light blue diamonds), and Llama-1B + FT (light purple inverted triangles)",
-            "explanation": "The marker shapes and colors for Llama-1B and Llama-1B + FT are fabricated; they do not match the image."
+            "explanation": "The model fabricated marker shapes (diamonds and inverted triangles) and a colour (light purple) that are not present in the image."
           }
         ]
       },
@@ -343,6 +451,119 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "Llama-3B",
+            "reference_value": {
+              "start": "(1, 0.42)",
+              "end": "(256, 0.9)"
+            },
+            "model_value": {
+              "start": "(1, 0.43)",
+              "end": "(256, 0.9)"
+            },
+            "match": false
+          },
+          {
+            "label": "Llama-3B + FT",
+            "reference_value": {
+              "start": "(1, 0.42)",
+              "end": "(256, 0.9)"
+            },
+            "model_value": {
+              "start": "(1, 0.45)",
+              "end": "(256, 0.91)"
+            },
+            "match": false
+          },
+          {
+            "label": "Llama-1B",
+            "reference_value": {
+              "start": "(1, 0.25)",
+              "end": "(256, 0.85)"
+            },
+            "model_value": {
+              "start": "(1, 0.32)",
+              "end": "(256, 0.86)"
+            },
+            "match": false
+          },
+          {
+            "label": "Llama-1B + FT",
+            "reference_value": {
+              "start": "(1, 0.25)",
+              "end": "(256, 0.85)"
+            },
+            "model_value": {
+              "start": "(1, 0.33)",
+              "end": "(256, 0.88)"
+            },
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "Llama-3B",
+            "reference_value": "dark blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "Llama-3B + FT",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "Llama-1B",
+            "reference_value": "light blue",
+            "model_value": "light blue",
+            "match": true
+          },
+          {
+            "label": "Llama-1B + FT",
+            "reference_value": "light green",
+            "model_value": "light purple",
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Llama-3B",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "Llama-3B + FT",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "Llama-1B",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "Llama-1B + FT",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          }
+        ]
       }
     ]
   }

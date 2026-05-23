@@ -3,26 +3,97 @@
   "model_name": "gpt-5.2",
   "figure_type": "Pie Chart",
   "judge_model": "gpt-4o",
-  "num_items": 12,
-  "num_penalties": 1,
-  "total_penalty": 5.0,
-  "mqm_score": 91.67,
-  "penalties": [
+  "num_items": 11,
+  "num_penalties_raw": 1,
+  "num_penalties_deduped": 1,
+  "total_penalty_raw": 2.0,
+  "total_penalty_deduped": 2.0,
+  "mqm_raw": 94.59,
+  "mqm_deduped": 94.59,
+  "penalties_raw": [
     {
       "id": "pie_03",
       "category": "Completeness",
-      "severity": "Major",
+      "severity": "Minor",
       "sub_type": "Missing Key Information",
-      "weight": 5.0,
+      "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The total number of slices is not mentioned."
+      "detail": "Exact slice count not mentioned."
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_03",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Exact slice count not mentioned."
     }
   ],
   "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "nested pie chart"
+      },
+      "pie_02": {
+        "expected": "The chart categorizes language around 'TiALD' into abusive and not-abusive segments, with further subdivisions by type and sentiment."
+      },
+      "pie_03": {
+        "expected": "Multiple slices across three layers (exact count not specified)."
+      },
+      "pie_04": {
+        "expected": [
+          "Abusive",
+          "Not Abusive",
+          "Religious",
+          "Sexist",
+          "Racial",
+          "Political",
+          "Other",
+          "Negative",
+          "Positive",
+          "Neutral",
+          "Mixed"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "Abusive": "blue family",
+          "Not Abusive": "yellow family",
+          "Negative": "blue family",
+          "Positive": "yellow family",
+          "Neutral": "yellow family",
+          "Mixed": "blue family"
+        }
+      },
+      "pie_06": {
+        "expected": "No specific percentages provided in the reference."
+      },
+      "pie_07": {
+        "expected": "Slices are arranged hierarchically, not by size or clockwise order."
+      },
+      "pie_08": {
+        "expected": "No legend; labels are directly on slices."
+      },
+      "pie_09": {
+        "expected": "No visual emphasis like exploded slices."
+      },
+      "pie_10": {
+        "expected": "Labels are directly on slices."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "Abusive Other",
+          "smallest": "Abusive Religious"
+        }
+      }
+    },
     "checklist": [
       {
         "id": "pie_01",
-        "reasoning": "The model correctly identifies the chart as a multi-level donut (sunburst) chart, which matches the image.",
+        "reasoning": "Expected: nested pie chart. Model correctly identifies it as a multi-level donut (sunburst) chart.",
         "coverage": {
           "status": "complete"
         },
@@ -32,7 +103,7 @@
       },
       {
         "id": "pie_02",
-        "reasoning": "The model describes the chart's purpose as summarizing the task-wise class distribution for the TiALD dataset, which aligns with the image's content.",
+        "reasoning": "Expected: description of chart purpose. Model provides a detailed explanation of the chart's purpose, matching the reference.",
         "coverage": {
           "status": "complete"
         },
@@ -42,18 +113,18 @@
       },
       {
         "id": "pie_03",
-        "reasoning": "The model does not explicitly state the total number of slices in the chart, which is a key detail.",
+        "reasoning": "Expected: multiple slices across three layers. Model does not specify the exact count but acknowledges the hierarchical structure.",
         "coverage": {
-          "status": "missing",
-          "detail": "The total number of slices is not mentioned."
+          "status": "partial",
+          "detail": "Exact slice count not mentioned."
         },
         "correctness": {
-          "status": "n/a"
+          "status": "correct"
         }
       },
       {
         "id": "pie_04",
-        "reasoning": "The model mentions all slice labels, including 'Abusive,' 'Not Abusive,' and their subcategories and sentiments.",
+        "reasoning": "Expected: all slice labels mentioned. Model mentions all labels, including 'Abusive,' 'Not Abusive,' and subcategories like 'Religious,' 'Sexist,' etc.",
         "coverage": {
           "status": "complete"
         },
@@ -63,7 +134,7 @@
       },
       {
         "id": "pie_05",
-        "reasoning": "The model describes the slice colors as teal for 'Abusive' and yellow for 'Not Abusive,' which matches the image. Teal and yellow fall into the blue and yellow families, respectively.",
+        "reasoning": "Expected: color families for slices. Model correctly identifies 'Abusive' as teal (blue family) and 'Not Abusive' as light yellow (yellow family).",
         "coverage": {
           "status": "complete"
         },
@@ -73,7 +144,7 @@
       },
       {
         "id": "pie_06",
-        "reasoning": "The model provides approximate percentages for the top-level slices ('Abusive' ~55–60% and 'Not Abusive' ~40–45%), which are visually accurate within tolerance.",
+        "reasoning": "Expected: no specific percentages provided. Model provides approximate percentages for top-level slices, which are reasonable estimates.",
         "coverage": {
           "status": "complete"
         },
@@ -83,7 +154,7 @@
       },
       {
         "id": "pie_07",
-        "reasoning": "The model correctly maps colors to labels, such as teal for 'Abusive' and yellow for 'Not Abusive,' and their subcategories.",
+        "reasoning": "Expected: hierarchical arrangement of slices. Model correctly notes that slices are arranged by hierarchy, not size or clockwise order.",
         "coverage": {
           "status": "complete"
         },
@@ -93,7 +164,7 @@
       },
       {
         "id": "pie_08",
-        "reasoning": "The model states that slices are arranged hierarchically rather than by size, which matches the image.",
+        "reasoning": "Expected: no legend, labels directly on slices. Model correctly states that there is no legend and labels are on slices.",
         "coverage": {
           "status": "complete"
         },
@@ -103,7 +174,7 @@
       },
       {
         "id": "pie_09",
-        "reasoning": "The model notes that there is no separate legend and that labels are written directly on the slices, which is accurate.",
+        "reasoning": "Expected: no visual emphasis like exploded slices. Model correctly states that no slices are visually emphasized.",
         "coverage": {
           "status": "complete"
         },
@@ -113,7 +184,7 @@
       },
       {
         "id": "pie_10",
-        "reasoning": "The model states that no slices are visually emphasized, such as being exploded or offset, which is correct.",
+        "reasoning": "Expected: labels directly on slices. Model correctly notes that labels are directly on slices.",
         "coverage": {
           "status": "complete"
         },
@@ -123,17 +194,7 @@
       },
       {
         "id": "pie_11",
-        "reasoning": "The model mentions that labels are written directly on the slices, which matches the image.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "pie_12",
-        "reasoning": "The model identifies the largest and smallest slices at each level, such as 'Abusive Other' being the largest and 'Religious' being the smallest, which is accurate.",
+        "reasoning": "Expected: largest slice is 'Abusive Other,' smallest is 'Abusive Religious.' Model correctly identifies these.",
         "coverage": {
           "status": "complete"
         },
@@ -170,6 +231,49 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "Abusive",
+            "reference_value": "blue family",
+            "model_value": "blue family",
+            "match": true
+          },
+          {
+            "label": "Not Abusive",
+            "reference_value": "yellow family",
+            "model_value": "yellow family",
+            "match": true
+          },
+          {
+            "label": "Negative",
+            "reference_value": "blue family",
+            "model_value": "blue family",
+            "match": true
+          },
+          {
+            "label": "Positive",
+            "reference_value": "yellow family",
+            "model_value": "yellow family",
+            "match": true
+          },
+          {
+            "label": "Neutral",
+            "reference_value": "yellow family",
+            "model_value": "yellow family",
+            "match": true
+          },
+          {
+            "label": "Mixed",
+            "reference_value": "blue family",
+            "model_value": "blue family",
+            "match": true
+          }
+        ]
       }
     ]
   }

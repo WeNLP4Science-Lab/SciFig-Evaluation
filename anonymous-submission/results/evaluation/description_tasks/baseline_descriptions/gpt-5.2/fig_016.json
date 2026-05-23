@@ -4,15 +4,239 @@
   "figure_type": "Bar Chart",
   "judge_model": "gpt-4o",
   "num_items": 14,
-  "num_penalties": 0,
-  "total_penalty": 0,
-  "mqm_score": 100.0,
-  "penalties": [],
+  "num_penalties_raw": 4,
+  "num_penalties_deduped": 3,
+  "total_penalty_raw": 11.0,
+  "total_penalty_deduped": 9.0,
+  "mqm_raw": 80.0,
+  "mqm_deduped": 83.64,
+  "penalties_raw": [
+    {
+      "id": "bar_07",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model underestimates the range, which is 0 to 40.",
+      "text_span": "values extend slightly below 0 and up to the mid-30s"
+    },
+    {
+      "id": "bar_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/4 elements mismatched. IE-Indic, mBERT-L₂: model=~1 ref=~17; Semitic, mBERT-R₂: model=-2 ref=-8",
+      "text_span": ""
+    },
+    {
+      "id": "bar_14",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model adds 'context masking on case-related tasks,' which is not explicitly stated in the reference.",
+      "text_span": "The chart illustrates the effect of context masking on case-related tasks"
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "Adds 'context masking on case-related tasks,' which is not explicitly stated in the reference or visible in the chart.",
+      "text_span": "The chart illustrates the effect of context masking on case-related tasks"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "bar_07",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model underestimates the range, which is 0 to 40.",
+      "text_span": "values extend slightly below 0 and up to the mid-30s"
+    },
+    {
+      "id": "bar_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/4 elements mismatched. IE-Indic, mBERT-L₂: model=~1 ref=~17; Semitic, mBERT-R₂: model=-2 ref=-8",
+      "text_span": ""
+    },
+    {
+      "id": "bar_14",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model adds 'context masking on case-related tasks,' which is not explicitly stated in the reference.",
+      "text_span": "The chart illustrates the effect of context masking on case-related tasks"
+    }
+  ],
   "judge_output": {
+    "populated": {
+      "bar_01": {
+        "expected": "Bar Chart"
+      },
+      "bar_02": {
+        "expected": "Vertical"
+      },
+      "bar_03": {
+        "expected": "Grouped"
+      },
+      "bar_04": {
+        "expected": "Language families (IE-Baltic, IE-Germanic, IE-Indic, IE-Romance, IE-Slavic, IE-other, Isolate, Semitic, Uralic)"
+      },
+      "bar_05": {
+        "expected": "Nominal scale, no specific range"
+      },
+      "bar_06": {
+        "expected": "Effect"
+      },
+      "bar_07": {
+        "expected": "Linear scale, range 0 to 40, intervals of 5"
+      },
+      "bar_08": {
+        "expected": [
+          "IE-Baltic",
+          "IE-Germanic",
+          "IE-Indic",
+          "IE-Romance",
+          "IE-Slavic",
+          "IE-other",
+          "Isolate",
+          "Semitic",
+          "Uralic"
+        ]
+      },
+      "bar_09": {
+        "expected": [
+          "mBERT-L₂",
+          "XLM-L₂",
+          "mBERT-R₂",
+          "XLM-R₂",
+          "mBERT-B₂",
+          "XLM-B₂"
+        ]
+      },
+      "bar_10": {
+        "expected": {
+          "mBERT-L₂": "light blue",
+          "XLM-L₂": "dark blue",
+          "mBERT-R₂": "light green",
+          "XLM-R₂": "dark green",
+          "mBERT-B₂": "pink",
+          "XLM-B₂": "red"
+        }
+      },
+      "bar_11": {
+        "expected": {
+          "IE-Baltic": {
+            "mBERT-L₂": "~2",
+            "XLM-L₂": "~1",
+            "mBERT-R₂": "~3",
+            "XLM-R₂": "~3",
+            "mBERT-B₂": "~6",
+            "XLM-B₂": "~5"
+          },
+          "IE-Germanic": {
+            "mBERT-L₂": "~10",
+            "XLM-L₂": "~10",
+            "mBERT-R₂": "~0",
+            "XLM-R₂": "~0",
+            "mBERT-B₂": "~15",
+            "XLM-B₂": "~15"
+          },
+          "IE-Indic": {
+            "mBERT-L₂": "~17",
+            "XLM-L₂": "~18",
+            "mBERT-R₂": "~20",
+            "XLM-R₂": "~18",
+            "mBERT-B₂": "~23",
+            "XLM-B₂": "~21"
+          },
+          "IE-Romance": {
+            "mBERT-L₂": "~6",
+            "XLM-L₂": "~4",
+            "mBERT-R₂": "~5",
+            "XLM-R₂": "~1",
+            "mBERT-B₂": "~12",
+            "XLM-B₂": "~6"
+          },
+          "IE-Slavic": {
+            "mBERT-L₂": "~10",
+            "XLM-L₂": "~9",
+            "mBERT-R₂": "~1",
+            "XLM-R₂": "~0",
+            "mBERT-B₂": "~17",
+            "XLM-B₂": "~15"
+          },
+          "IE-other": {
+            "mBERT-L₂": "~6",
+            "XLM-L₂": "~6",
+            "mBERT-R₂": "~0",
+            "XLM-R₂": "~1",
+            "mBERT-B₂": "~8",
+            "XLM-B₂": "~8"
+          },
+          "Isolate": {
+            "mBERT-L₂": "~0",
+            "XLM-L₂": "~0",
+            "mBERT-R₂": "~1",
+            "XLM-R₂": "~1",
+            "mBERT-B₂": "~2",
+            "XLM-B₂": "~2"
+          },
+          "Semitic": {
+            "mBERT-L₂": "~11",
+            "XLM-L₂": "~16",
+            "mBERT-R₂": "-8",
+            "XLM-R₂": "-8",
+            "mBERT-B₂": "~15",
+            "XLM-B₂": "~19"
+          },
+          "Uralic": {
+            "mBERT-L₂": "~1",
+            "XLM-L₂": "~1",
+            "mBERT-R₂": "~1",
+            "XLM-R₂": "~1",
+            "mBERT-B₂": "~2",
+            "XLM-B₂": "~1"
+          }
+        }
+      },
+      "bar_12": {
+        "expected": {
+          "mBERT-L₂": "light blue",
+          "XLM-L₂": "dark blue",
+          "mBERT-R₂": "light green",
+          "XLM-R₂": "dark green",
+          "mBERT-B₂": "pink",
+          "XLM-B₂": "red"
+        }
+      },
+      "bar_13": {
+        "expected": "Error bars indicating variability"
+      },
+      "bar_14": {
+        "expected": "Effect of different models on language families"
+      }
+    },
     "checklist": [
       {
         "id": "bar_01",
-        "reasoning": "The model correctly identifies the chart type as a bar chart, which matches the image.",
+        "reasoning": "Expected: Bar Chart. Model: Bar Chart. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -22,7 +246,7 @@
       },
       {
         "id": "bar_02",
-        "reasoning": "The model correctly identifies the bar orientation as vertical, which matches the image.",
+        "reasoning": "Expected: Vertical. Model: Vertical. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -32,7 +256,7 @@
       },
       {
         "id": "bar_03",
-        "reasoning": "The model correctly identifies the grouping structure as grouped bars, which matches the image.",
+        "reasoning": "Expected: Grouped. Model: Grouped. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -42,7 +266,7 @@
       },
       {
         "id": "bar_04",
-        "reasoning": "The model correctly describes the x-axis as containing language-family categories, listing all categories in the correct order.",
+        "reasoning": "Expected: Language families (IE-Baltic, IE-Germanic, IE-Indic, IE-Romance, IE-Slavic, IE-other, Isolate, Semitic, Uralic). Model: Same. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -52,7 +276,7 @@
       },
       {
         "id": "bar_05",
-        "reasoning": "The model correctly identifies the x-axis scale as nominal, which matches the image.",
+        "reasoning": "Expected: Nominal scale, no specific range. Model: Nominal scale, no specific range. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -62,7 +286,7 @@
       },
       {
         "id": "bar_06",
-        "reasoning": "The model correctly describes the y-axis label as 'effect' but does not mention units, which are not explicitly shown in the image.",
+        "reasoning": "Expected: Effect. Model: Effect. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -72,17 +296,20 @@
       },
       {
         "id": "bar_07",
-        "reasoning": "The model correctly identifies the y-axis scale as linear and describes the range as extending slightly below 0 to the mid-30s, which matches the image.",
+        "reasoning": "Expected: Linear scale, range 0 to 40, intervals of 5. Model: Linear scale, range 0 to mid-30s, intervals of 10. Partial match.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "values extend slightly below 0 and up to the mid-30s",
+          "detail": "Model underestimates the range, which is 0 to 40."
         }
       },
       {
         "id": "bar_08",
-        "reasoning": "The model lists all categories on the x-axis: IE-Baltic, IE-Germanic, IE-Indic, IE-Romance, IE-Slavic, IE-other, Isolate, Semitic, and Uralic, in the correct order.",
+        "reasoning": "Expected: All categories (IE-Baltic, IE-Germanic, IE-Indic, IE-Romance, IE-Slavic, IE-other, Isolate, Semitic, Uralic). Model: Same. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -92,7 +319,7 @@
       },
       {
         "id": "bar_09",
-        "reasoning": "The model identifies all six data series (mBERT-L₂, XLM-L₂, mBERT-R₂, XLM-R₂, mBERT-B₂, XLM-B₂) and their grouping structure within each category.",
+        "reasoning": "Expected: mBERT-L₂, XLM-L₂, mBERT-R₂, XLM-R₂, mBERT-B₂, XLM-B₂. Model: Same. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -102,7 +329,7 @@
       },
       {
         "id": "bar_10",
-        "reasoning": "The model correctly describes the legend, mapping each color to the corresponding series. The color families are accurately identified: light blue (mBERT-L₂), dark blue (XLM-L₂), light green (mBERT-R₂), dark green (XLM-R₂), pink (mBERT-B₂), and red (XLM-B₂).",
+        "reasoning": "Expected: mBERT-L₂=light blue, XLM-L₂=dark blue, mBERT-R₂=light green, XLM-R₂=dark green, mBERT-B₂=pink, XLM-B₂=red. Model: Same. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -112,17 +339,20 @@
       },
       {
         "id": "bar_11",
-        "reasoning": "The model provides approximate numerical values for bar heights across categories. These values are accurate within the tolerance range.",
+        "reasoning": "Model values mostly match reference values within tolerance, except for IE-Indic and Semitic where some values deviate.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "Approximate bar heights by family are: IE-Indic shows ~1 (mBERT-L₂) and ~0 (XLM-L₂), larger R₂ values around ~20 (mBERT-R₂) and ~18 (XLM-R₂), and B₂ values around ~24 (mBERT-B₂) and ~21 (XLM-B₂)",
+          "detail": "IE-Indic mBERT-L₂ and XLM-L₂ values are underestimated; Semitic R₂ values are slightly off."
         }
       },
       {
         "id": "bar_12",
-        "reasoning": "The model accurately describes the colors of the bars, mapping them to the correct series. The color families are correctly identified.",
+        "reasoning": "Expected: mBERT-L₂=light blue, XLM-L₂=dark blue, mBERT-R₂=light green, XLM-R₂=dark green, mBERT-B₂=pink, XLM-B₂=red. Model: Same. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -132,7 +362,7 @@
       },
       {
         "id": "bar_13",
-        "reasoning": "The model mentions the presence of error bars and describes their role in indicating variability, which matches the image.",
+        "reasoning": "Expected: Error bars indicating variability. Model: Error bars indicating standard deviation. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -142,12 +372,15 @@
       },
       {
         "id": "bar_14",
-        "reasoning": "The model describes the chart's purpose as illustrating the effect of context masking on case-related tasks, aggregated by language family. This aligns with the image.",
+        "reasoning": "Expected: Effect of different models on language families. Model: Effect of context masking on case-related tasks aggregated by language family. Partial match.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "partial",
+          "sub_type": "Incorrect Trend Interpretation",
+          "text_span": "The chart illustrates the effect of context masking on case-related tasks",
+          "detail": "Model adds 'context masking on case-related tasks,' which is not explicitly stated in the reference."
         }
       }
     ],
@@ -158,7 +391,12 @@
       },
       {
         "id": "global_interpretation",
-        "violations": []
+        "violations": [
+          {
+            "text_span": "The chart illustrates the effect of context masking on case-related tasks",
+            "explanation": "Adds 'context masking on case-related tasks,' which is not explicitly stated in the reference or visible in the chart."
+          }
+        ]
       },
       {
         "id": "global_ambiguity",
@@ -179,6 +417,54 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "bar_11",
+        "comparisons": [
+          {
+            "label": "IE-Baltic, mBERT-L₂",
+            "reference_value": "~2",
+            "model_value": "~2",
+            "match": true
+          },
+          {
+            "label": "IE-Baltic, XLM-L₂",
+            "reference_value": "~1",
+            "model_value": "~1",
+            "match": true
+          },
+          {
+            "label": "IE-Indic, mBERT-L₂",
+            "reference_value": "~17",
+            "model_value": "~1",
+            "match": false
+          },
+          {
+            "label": "Semitic, mBERT-R₂",
+            "reference_value": "-8",
+            "model_value": "-2",
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "bar_12",
+        "comparisons": [
+          {
+            "label": "mBERT-L₂",
+            "reference_value": "light blue",
+            "model_value": "light blue",
+            "match": true
+          },
+          {
+            "label": "XLM-B₂",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          }
+        ]
       }
     ]
   }

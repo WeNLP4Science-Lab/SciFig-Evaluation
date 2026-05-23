@@ -4,12 +4,12 @@
   "figure_type": "Bar Chart",
   "judge_model": "gpt-4o",
   "num_items": 14,
-  "num_penalties_raw": 3,
-  "num_penalties_deduped": 3,
-  "total_penalty_raw": 6.0,
-  "total_penalty_deduped": 6.0,
-  "mqm_raw": 91.43,
-  "mqm_deduped": 91.43,
+  "num_penalties_raw": 6,
+  "num_penalties_deduped": 5,
+  "total_penalty_raw": 15.0,
+  "total_penalty_deduped": 13.0,
+  "mqm_raw": 72.73,
+  "mqm_deduped": 76.36,
   "penalties_raw": [
     {
       "id": "bar_04",
@@ -18,25 +18,56 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The x-axis label 'Configurations' is not mentioned."
+      "detail": "Model groups categories and omits specific labels like 'random layers +B2'."
     },
     {
-      "id": "bar_05",
+      "id": "bar_04",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model groups categories instead of listing them individually.",
+      "text_span": "categorized into three groups: embedding and first layer probes (blue bars), random models with pre-trained embedding layers (green bars), and random models with random embedding layers (red bars)"
+    },
+    {
+      "id": "bar_08",
       "category": "Completeness",
       "severity": "Minor",
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The x-axis scale type and range are not mentioned."
+      "detail": "Model groups categories and omits specific labels."
     },
     {
-      "id": "bar_06",
+      "id": "bar_08",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model groups categories instead of listing them individually.",
+      "text_span": "categorized into three groups: embedding and first layer probes (blue bars), random models with pre-trained embedding layers (green bars), and random models with random embedding layers (red bars)"
+    },
+    {
+      "id": "bar_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 7/13 elements mismatched. embedding: model=81 ref=80; 1st layer: model=83 ref=80; random: model=73 ref=70; random +B2: model=73 ref=70; random +L2: model=73 ref=70; random +R2: model=73 ref=70; random +permute: model=73 ref=70",
+      "text_span": ""
+    },
+    {
+      "id": "global_interpretation",
       "category": "Completeness",
       "severity": "Minor",
-      "sub_type": "Missing Key Information",
+      "sub_type": "Unwanted Interpretation",
       "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The unit (percentage) is not mentioned."
+      "source": "global",
+      "detail": "The model makes an interpretive claim about the impact of perturbation types, which is not explicitly shown in the chart.",
+      "text_span": "The chart highlights that the accuracy decreases significantly when both the embedding and subsequent layers are randomly initialized, and that the perturbation type has a minor impact on performance within each category."
     }
   ],
   "penalties_deduped": [
@@ -47,32 +78,125 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The x-axis label 'Configurations' is not mentioned."
+      "detail": "Model groups categories and omits specific labels like 'random layers +B2'."
     },
     {
-      "id": "bar_05",
+      "id": "bar_04",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model groups categories instead of listing them individually.",
+      "text_span": "categorized into three groups: embedding and first layer probes (blue bars), random models with pre-trained embedding layers (green bars), and random models with random embedding layers (red bars)"
+    },
+    {
+      "id": "bar_08",
       "category": "Completeness",
       "severity": "Minor",
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The x-axis scale type and range are not mentioned."
+      "detail": "Model groups categories and omits specific labels."
     },
     {
-      "id": "bar_06",
+      "id": "bar_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 7/13 elements mismatched. embedding: model=81 ref=80; 1st layer: model=83 ref=80; random: model=73 ref=70; random +B2: model=73 ref=70; random +L2: model=73 ref=70; random +R2: model=73 ref=70; random +permute: model=73 ref=70",
+      "text_span": ""
+    },
+    {
+      "id": "global_interpretation",
       "category": "Completeness",
       "severity": "Minor",
-      "sub_type": "Missing Key Information",
+      "sub_type": "Unwanted Interpretation",
       "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The unit (percentage) is not mentioned."
+      "source": "global",
+      "detail": "The model makes an interpretive claim about the impact of perturbation types, which is not explicitly shown in the chart.",
+      "text_span": "The chart highlights that the accuracy decreases significantly when both the embedding and subsequent layers are randomly initialized, and that the perturbation type has a minor impact on performance within each category."
     }
   ],
   "judge_output": {
+    "populated": {
+      "bar_01": {
+        "expected": "Bar Chart"
+      },
+      "bar_02": {
+        "expected": "Vertical"
+      },
+      "bar_03": {
+        "expected": "Simple"
+      },
+      "bar_04": {
+        "expected": "Categories: embedding, 1st layer, random layers, random layers +B2, random layers +L2, random layers +R2, random layers +permute, random, random +B2, random +L2, random +R2, random +permute, unperturbed"
+      },
+      "bar_05": {
+        "expected": "Linear scale, range 70 to 95, intervals of 5"
+      },
+      "bar_06": {
+        "expected": "Accuracy"
+      },
+      "bar_07": {
+        "expected": "Linear scale, range 70 to 95, intervals of 5"
+      },
+      "bar_08": {
+        "expected": "All categories mentioned: embedding, 1st layer, random layers, random layers +B2, random layers +L2, random layers +R2, random layers +permute, random, random +B2, random +L2, random +R2, random +permute, unperturbed"
+      },
+      "bar_09": {
+        "expected": "Not applicable (simple bar chart)"
+      },
+      "bar_10": {
+        "expected": "Blue: embedding, 1st layer; Green: random layers and subcategories; Red: random and subcategories; Orange: unperturbed"
+      },
+      "bar_11": {
+        "expected": {
+          "embedding": "80",
+          "1st layer": "80",
+          "random layers": "80",
+          "random layers +B2": "80",
+          "random layers +L2": "80",
+          "random layers +R2": "80",
+          "random layers +permute": "80",
+          "random": "70",
+          "random +B2": "70",
+          "random +L2": "70",
+          "random +R2": "70",
+          "random +permute": "70",
+          "unperturbed": "92"
+        }
+      },
+      "bar_12": {
+        "expected": {
+          "embedding": "blue",
+          "1st layer": "blue",
+          "random layers": "green",
+          "random layers +B2": "green",
+          "random layers +L2": "green",
+          "random layers +R2": "green",
+          "random layers +permute": "green",
+          "random": "red",
+          "random +B2": "red",
+          "random +L2": "red",
+          "random +R2": "red",
+          "random +permute": "red",
+          "unperturbed": "orange"
+        }
+      },
+      "bar_13": {
+        "expected": "No annotations present"
+      },
+      "bar_14": {
+        "expected": "Accuracy of various configurations"
+      }
+    },
     "checklist": [
       {
         "id": "bar_01",
-        "reasoning": "The model correctly identifies the chart type as a bar chart, which matches the image.",
+        "reasoning": "Expected: Bar Chart. Model states: 'The bar chart illustrates'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -82,7 +206,7 @@
       },
       {
         "id": "bar_02",
-        "reasoning": "The model correctly identifies the bar orientation as vertical, which matches the image.",
+        "reasoning": "Expected: Vertical. Model does not explicitly state orientation but describes vertical axis. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -92,7 +216,7 @@
       },
       {
         "id": "bar_03",
-        "reasoning": "The model correctly identifies the structure as simple (not grouped or stacked).",
+        "reasoning": "Expected: Simple. Model does not mention grouping or stacking. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -102,32 +226,33 @@
       },
       {
         "id": "bar_04",
-        "reasoning": "The model describes the x-axis categories but does not explicitly mention the label 'Configurations' or units.",
+        "reasoning": "Expected: All categories listed. Model lists categories but groups them into three groups, omitting some specific labels.",
         "coverage": {
           "status": "partial",
-          "detail": "The x-axis label 'Configurations' is not mentioned."
+          "detail": "Model groups categories and omits specific labels like 'random layers +B2'."
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "categorized into three groups: embedding and first layer probes (blue bars), random models with pre-trained embedding layers (green bars), and random models with random embedding layers (red bars)",
+          "detail": "Model groups categories instead of listing them individually."
+        }
+      },
+      {
+        "id": "bar_05",
+        "reasoning": "Expected: Linear scale, range 70 to 95, intervals of 5. Model states: 'The vertical axis represents accuracy, ranging from 70 to 95'. Match.",
+        "coverage": {
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
         }
       },
       {
-        "id": "bar_05",
-        "reasoning": "The model does not explicitly describe the x-axis scale type or range, but this is not applicable as the x-axis is categorical.",
-        "coverage": {
-          "status": "missing",
-          "detail": "The x-axis scale type and range are not mentioned."
-        },
-        "correctness": {
-          "status": "n/a"
-        }
-      },
-      {
         "id": "bar_06",
-        "reasoning": "The model correctly identifies the y-axis label as 'Accuracy' but does not mention the unit (percentage).",
+        "reasoning": "Expected: Accuracy. Model states: 'The vertical axis represents accuracy'. Match.",
         "coverage": {
-          "status": "partial",
-          "detail": "The unit (percentage) is not mentioned."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -135,7 +260,7 @@
       },
       {
         "id": "bar_07",
-        "reasoning": "The model correctly identifies the y-axis scale as linear and the range as 70 to 95.",
+        "reasoning": "Expected: Linear scale, range 70 to 95, intervals of 5. Model states: 'The vertical axis represents accuracy, ranging from 70 to 95'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -145,7 +270,21 @@
       },
       {
         "id": "bar_08",
-        "reasoning": "The model mentions all categories on the x-axis, including 'embedding', '1st layer', 'random layers' and its variations, 'random' and its variations, and 'unperturbed'.",
+        "reasoning": "Expected: All categories mentioned. Model groups categories and omits specific labels like 'random layers +B2'.",
+        "coverage": {
+          "status": "partial",
+          "detail": "Model groups categories and omits specific labels."
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "categorized into three groups: embedding and first layer probes (blue bars), random models with pre-trained embedding layers (green bars), and random models with random embedding layers (red bars)",
+          "detail": "Model groups categories instead of listing them individually."
+        }
+      },
+      {
+        "id": "bar_09",
+        "reasoning": "Expected: Not applicable (simple bar chart). Model does not mention grouped/stacked structure. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -154,18 +293,8 @@
         }
       },
       {
-        "id": "bar_09",
-        "reasoning": "The chart is simple, not grouped or stacked, so this item is not applicable.",
-        "coverage": {
-          "status": "n/a"
-        },
-        "correctness": {
-          "status": "n/a"
-        }
-      },
-      {
         "id": "bar_10",
-        "reasoning": "The model describes the color coding for the bars (blue, green, red, orange) and their corresponding categories accurately.",
+        "reasoning": "Expected: Blue for embedding and 1st layer, green for random layers and subcategories, red for random and subcategories, orange for unperturbed. Model matches this description.",
         "coverage": {
           "status": "complete"
         },
@@ -175,17 +304,20 @@
       },
       {
         "id": "bar_11",
-        "reasoning": "The model provides approximate numerical values for the bars, which align with the image. For example, 'embedding' and '1st layer' are around 80-83, and 'unperturbed' is around 91-92.",
+        "reasoning": "Expected: embedding=80, 1st layer=80, random layers=80, random layers +B2=80, random layers +L2=80, random layers +R2=80, random layers +permute=80, random=70, random +B2=70, random +L2=70, random +R2=70, random +permute=70, unperturbed=92. Model values are slightly off for embedding and 1st layer (81 and 83 instead of 80).",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "The blue bars, representing the embedding and first layer probes, show accuracies around 81 and 83, respectively.",
+          "detail": "Model overestimates embedding and 1st layer values."
         }
       },
       {
         "id": "bar_12",
-        "reasoning": "The model accurately describes the colors of the bars: blue (embedding and 1st layer), green (random layers), red (random), and orange (unperturbed). The color families match.",
+        "reasoning": "Expected: Blue for embedding and 1st layer, green for random layers and subcategories, red for random and subcategories, orange for unperturbed. Model matches this description.",
         "coverage": {
           "status": "complete"
         },
@@ -195,7 +327,7 @@
       },
       {
         "id": "bar_13",
-        "reasoning": "The model does not mention any annotations, and none are present in the image.",
+        "reasoning": "Expected: No annotations present. Model does not mention annotations. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -205,7 +337,7 @@
       },
       {
         "id": "bar_14",
-        "reasoning": "The model describes the chart's purpose as comparing the accuracy of different model configurations, which aligns with the image.",
+        "reasoning": "Expected: Accuracy of various configurations. Model describes the chart purpose as comparing accuracy of model variants. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -221,7 +353,12 @@
       },
       {
         "id": "global_interpretation",
-        "violations": []
+        "violations": [
+          {
+            "text_span": "The chart highlights that the accuracy decreases significantly when both the embedding and subsequent layers are randomly initialized, and that the perturbation type has a minor impact on performance within each category.",
+            "explanation": "The model makes an interpretive claim about the impact of perturbation types, which is not explicitly shown in the chart."
+          }
+        ]
       },
       {
         "id": "global_ambiguity",
@@ -242,6 +379,174 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "bar_11",
+        "comparisons": [
+          {
+            "label": "embedding",
+            "reference_value": "80",
+            "model_value": "81",
+            "match": false
+          },
+          {
+            "label": "1st layer",
+            "reference_value": "80",
+            "model_value": "83",
+            "match": false
+          },
+          {
+            "label": "random layers",
+            "reference_value": "80",
+            "model_value": "80",
+            "match": true
+          },
+          {
+            "label": "random layers +B2",
+            "reference_value": "80",
+            "model_value": "80",
+            "match": true
+          },
+          {
+            "label": "random layers +L2",
+            "reference_value": "80",
+            "model_value": "80",
+            "match": true
+          },
+          {
+            "label": "random layers +R2",
+            "reference_value": "80",
+            "model_value": "80",
+            "match": true
+          },
+          {
+            "label": "random layers +permute",
+            "reference_value": "80",
+            "model_value": "80",
+            "match": true
+          },
+          {
+            "label": "random",
+            "reference_value": "70",
+            "model_value": "73",
+            "match": false
+          },
+          {
+            "label": "random +B2",
+            "reference_value": "70",
+            "model_value": "73",
+            "match": false
+          },
+          {
+            "label": "random +L2",
+            "reference_value": "70",
+            "model_value": "73",
+            "match": false
+          },
+          {
+            "label": "random +R2",
+            "reference_value": "70",
+            "model_value": "73",
+            "match": false
+          },
+          {
+            "label": "random +permute",
+            "reference_value": "70",
+            "model_value": "73",
+            "match": false
+          },
+          {
+            "label": "unperturbed",
+            "reference_value": "92",
+            "model_value": "92",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "bar_12",
+        "comparisons": [
+          {
+            "label": "embedding",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "1st layer",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "random layers",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "random layers +B2",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "random layers +L2",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "random layers +R2",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "random layers +permute",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "random",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "random +B2",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "random +L2",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "random +R2",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "random +permute",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "unperturbed",
+            "reference_value": "orange",
+            "model_value": "orange",
+            "match": true
+          }
+        ]
       }
     ]
   }

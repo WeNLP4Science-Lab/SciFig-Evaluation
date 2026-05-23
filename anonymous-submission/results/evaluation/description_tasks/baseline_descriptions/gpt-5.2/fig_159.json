@@ -4,15 +4,125 @@
   "figure_type": "Line Plot",
   "judge_model": "gpt-4o",
   "num_items": 15,
-  "num_penalties": 0,
-  "total_penalty": 0,
-  "mqm_score": 100.0,
-  "penalties": [],
+  "num_penalties_raw": 1,
+  "num_penalties_deduped": 1,
+  "total_penalty_raw": 2.0,
+  "total_penalty_deduped": 2.0,
+  "mqm_raw": 96.08,
+  "mqm_deduped": 96.08,
+  "penalties_raw": [
+    {
+      "id": "line_13",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Crossover point absence not explicitly mentioned."
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "line_13",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Crossover point absence not explicitly mentioned."
+    }
+  ],
   "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "line plot"
+      },
+      "line_02": {
+        "expected": "x-axis labeled 'TFLOPs' with units in billions (1e9)"
+      },
+      "line_03": {
+        "expected": "linear scale, range 0.00 to 1.25, tick marks at intervals of 0.25"
+      },
+      "line_04": {
+        "expected": "y-axis labeled 'Loss'"
+      },
+      "line_05": {
+        "expected": "linear scale, range 2.40 to 2.75, tick marks at intervals of 0.05"
+      },
+      "line_06": {
+        "expected": [
+          "Vanilla",
+          "SepLLM"
+        ]
+      },
+      "line_07": {
+        "expected": {
+          "Vanilla": "purple solid line with triangle markers",
+          "SepLLM": "red solid line with circle markers"
+        }
+      },
+      "line_08": {
+        "expected": {
+          "Vanilla": "purple",
+          "SepLLM": "red"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "Vanilla": "solid",
+          "SepLLM": "solid"
+        }
+      },
+      "line_10": {
+        "expected": {
+          "Vanilla": "triangle markers",
+          "SepLLM": "circle markers"
+        }
+      },
+      "line_11": {
+        "expected": {
+          "Vanilla": {
+            "start": {
+              "x": 0.1,
+              "y": 2.75
+            },
+            "end": {
+              "x": 1.2,
+              "y": 2.5
+            }
+          },
+          "SepLLM": {
+            "start": {
+              "x": 0.1,
+              "y": 2.7
+            },
+            "end": {
+              "x": 1.2,
+              "y": 2.48
+            }
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "Vanilla": "decreasing",
+          "SepLLM": "decreasing"
+        }
+      },
+      "line_13": {
+        "expected": "no crossover points, red line consistently below purple line"
+      },
+      "line_14": {
+        "expected": "green dashed horizontal line at y=2.50, green dashed vertical lines at x≈0.95 and x≈1.23, green double-headed arrow labeled '1.28×'"
+      },
+      "line_15": {
+        "expected": "no dual y-axes"
+      }
+    },
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "The model correctly identifies the chart as a line plot, which matches the image.",
+        "reasoning": "Expected: line plot. Model correctly identifies the chart type as a line plot.",
         "coverage": {
           "status": "complete"
         },
@@ -22,7 +132,7 @@
       },
       {
         "id": "line_02",
-        "reasoning": "The x-axis is labeled 'TFLOPs,' and the model mentions this correctly, including the axis multiplier (1e9).",
+        "reasoning": "Expected: x-axis labeled 'TFLOPs' with units in billions (1e9). Model states: 'x-axis is labeled “TFLOPs,” uses a linear scale, and runs from 0.00 to 1.25 with an axis multiplier of 1e9 indicated.' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -32,7 +142,7 @@
       },
       {
         "id": "line_03",
-        "reasoning": "The x-axis scale is linear and ranges from 0.00 to 1.25 with tick marks at intervals of 0.25. The model describes this accurately.",
+        "reasoning": "Expected: linear scale, range 0.00 to 1.25, tick marks at intervals of 0.25. Model states: 'linear scale, and runs from 0.00 to 1.25 with regularly spaced tick labels every 0.25.' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -42,7 +152,7 @@
       },
       {
         "id": "line_04",
-        "reasoning": "The y-axis is labeled 'Loss,' and the model correctly identifies this.",
+        "reasoning": "Expected: y-axis labeled 'Loss'. Model states: 'The y-axis is labeled “Loss.”' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -52,7 +162,7 @@
       },
       {
         "id": "line_05",
-        "reasoning": "The y-axis scale is linear and ranges from 2.40 to 2.75 with tick marks at intervals of 0.05. The model describes this accurately.",
+        "reasoning": "Expected: linear scale, range 2.40 to 2.75, tick marks at intervals of 0.05. Model states: 'uses a linear scale, and spans approximately 2.40 to 2.75 with tick labels at about 0.05 intervals.' Match.",
         "coverage": {
           "status": "complete"
         },
@@ -62,7 +172,7 @@
       },
       {
         "id": "line_06",
-        "reasoning": "The model mentions both lines ('Vanilla' and 'SepLLM'), which are present in the image.",
+        "reasoning": "Expected: two series, 'Vanilla' and 'SepLLM'. Model mentions both series. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -72,7 +182,7 @@
       },
       {
         "id": "line_07",
-        "reasoning": "The legend is correctly described, with the purple line representing 'Vanilla' and the red line representing 'SepLLM.'",
+        "reasoning": "Expected: 'Vanilla' as purple solid line with triangle markers, 'SepLLM' as red solid line with circle markers. Model matches this description.",
         "coverage": {
           "status": "complete"
         },
@@ -82,7 +192,7 @@
       },
       {
         "id": "line_08",
-        "reasoning": "The model correctly identifies the purple and red lines. Purple and red map to the same families in the image and description.",
+        "reasoning": "Expected: 'Vanilla' is purple, 'SepLLM' is red. Model matches these colours.",
         "coverage": {
           "status": "complete"
         },
@@ -92,7 +202,7 @@
       },
       {
         "id": "line_09",
-        "reasoning": "The model correctly identifies both lines as solid.",
+        "reasoning": "Expected: both lines are solid. Model matches this description.",
         "coverage": {
           "status": "complete"
         },
@@ -102,7 +212,7 @@
       },
       {
         "id": "line_10",
-        "reasoning": "The model correctly identifies the marker shapes: triangle markers for 'Vanilla' and circular markers for 'SepLLM.'",
+        "reasoning": "Expected: 'Vanilla' has triangle markers, 'SepLLM' has circle markers. Model matches this description.",
         "coverage": {
           "status": "complete"
         },
@@ -112,7 +222,7 @@
       },
       {
         "id": "line_11",
-        "reasoning": "The numerical values for the start, end, and intermediate points of both lines are accurately described within tolerance.",
+        "reasoning": "Expected: 'Vanilla' starts at (0.10, 2.75) and ends at (1.20, 2.50); 'SepLLM' starts at (0.10, 2.70) and ends at (1.20, 2.48). Model provides slightly different start values for both series but within tolerance. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -122,7 +232,7 @@
       },
       {
         "id": "line_12",
-        "reasoning": "The model correctly describes the trends for both lines as decreasing.",
+        "reasoning": "Expected: both series show a decreasing trend. Model correctly describes both trends as decreasing.",
         "coverage": {
           "status": "complete"
         },
@@ -132,9 +242,10 @@
       },
       {
         "id": "line_13",
-        "reasoning": "The model does not mention any crossover or intersection points, which is correct as none are present in the image.",
+        "reasoning": "Expected: no crossover points, red line consistently below purple line. Model does not explicitly mention this but implies it by describing the trends and positions. Partial coverage but correct.",
         "coverage": {
-          "status": "complete"
+          "status": "partial",
+          "detail": "Crossover point absence not explicitly mentioned."
         },
         "correctness": {
           "status": "correct"
@@ -142,7 +253,7 @@
       },
       {
         "id": "line_14",
-        "reasoning": "The model describes the green dashed lines, the horizontal reference line at loss = 2.50, the vertical dashed lines, and the annotation '1.28×' accurately.",
+        "reasoning": "Expected: green dashed horizontal line at y=2.50, green dashed vertical lines at x≈0.95 and x≈1.23, green double-headed arrow labeled '1.28×'. Model matches this description.",
         "coverage": {
           "status": "complete"
         },
@@ -152,7 +263,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "There is no dual y-axis in the image, and the model does not mention one.",
+        "reasoning": "Expected: no dual y-axes. Model does not mention dual y-axes. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -189,6 +300,95 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": {
+              "start": {
+                "x": 0.1,
+                "y": 2.75
+              },
+              "end": {
+                "x": 1.2,
+                "y": 2.5
+              }
+            },
+            "model_value": {
+              "start": {
+                "x": 0.05,
+                "y": 2.75
+              },
+              "end": {
+                "x": 1.2,
+                "y": 2.5
+              }
+            },
+            "match": true
+          },
+          {
+            "label": "SepLLM",
+            "reference_value": {
+              "start": {
+                "x": 0.1,
+                "y": 2.7
+              },
+              "end": {
+                "x": 1.2,
+                "y": 2.48
+              }
+            },
+            "model_value": {
+              "start": {
+                "x": 0.05,
+                "y": 2.74
+              },
+              "end": {
+                "x": 1.2,
+                "y": 2.47
+              }
+            },
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "purple",
+            "model_value": "purple",
+            "match": true
+          },
+          {
+            "label": "SepLLM",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          }
+        ]
       }
     ]
   }

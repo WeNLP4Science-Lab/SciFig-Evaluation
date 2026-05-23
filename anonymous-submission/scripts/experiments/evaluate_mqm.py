@@ -59,8 +59,8 @@ COLOUR DECISION PROCEDURE (apply BEFORE any colour-related assessment):
    red (crimson, scarlet, maroon, dark red, wine, burgundy, rose)
    orange (amber, rust, burnt orange)
    yellow (gold, golden, mustard, lemon)
-   green (lime, dark green, olive, forest green, emerald, teal)
-   blue (light blue, dark blue, navy, cyan, sky blue, azure, cobalt, turquoise, steel blue)
+   green (lime, dark green, olive, forest green, emerald)
+   blue (light blue, dark blue, navy, cyan, sky blue, azure, cobalt, turquoise, teal, steel blue)
    purple (violet, indigo, magenta, lavender, lilac, plum, mauve)
    pink (hot pink, salmon, coral, fuchsia, rosa)
    brown (tan, beige, chocolate, coffee, khaki)
@@ -77,8 +77,17 @@ NUMERICAL TOLERANCE:
 - Two equally valid approximations: NOT an error
 
 WORDING TOLERANCE:
-- Accept semantic equivalence: "increases"/"rises"/"grows", "x-axis"/"horizontal axis"
+- Accept semantic equivalence for descriptive language: "increases"/"rises"/"grows", "x-axis"/"horizontal axis"
 - Accept different valid specificity: "the blue line" vs "the line representing Method A"
+
+LABEL MATCHING (STRICT):
+- Data labels, category names, series names, and legend entries from the chart must match
+  the reference EXACTLY. These are proper names, not descriptive language.
+- "AvgObj" and "Avg" are DIFFERENT labels — this is NOT a naming variation, it is an error.
+- "Base AvgObj" and "Base Avg_6by" are DIFFERENT labels — this is an error.
+- If the model uses a different name than what appears in the reference/chart for any
+  category, series, or legend entry, flag it as Incorrect Label Mapping.
+- Partial matches (e.g., "Avg" is a substring of "AvgObj") do NOT count as correct.
 </CRITICAL_RULES>
 
 <ACCURACY_SUB_TYPES>
@@ -262,13 +271,19 @@ def _format_constraints(constraints: list[dict]) -> str:
 def _format_bindings(bindings: list[dict]) -> str:
     if not bindings:
         return "No binding verification needed for this chart type."
-    lines = ["For each binding below, extract per-element values from BOTH the reference and the model description, match by label, and compare:"]
+    lines = [
+        "For each binding below, extract per-element values from BOTH the reference and the model description, match by label, and compare:",
+        "",
+        "IMPORTANT: Apply ALL tolerance rules before deciding match:",
+        "- Numerical: values within +/-3 percentage points or +/-10% are a MATCH",
+        "- Colour: same colour family = MATCH (use the 11 families from CRITICAL_RULES)",
+        "- Approximate values ('approximately', 'roughly', '~'): accept any reasonable reading",
+    ]
     for b in bindings:
         lines.append(f"")
         lines.append(f"[{b['checklist_id']}] {b['attribute']} binding:")
         lines.append(f"  {b['instruction']}")
         lines.append(f"  Report each element as: label, reference_value, model_value, match (true/false)")
-        lines.append(f"  Apply tolerance rules (numerical tolerance, colour family mapping) before deciding match.")
     return "\n".join(lines)
 
 

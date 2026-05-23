@@ -3,20 +3,14 @@
   "model_name": "gpt-5.2",
   "figure_type": "Pie Chart",
   "judge_model": "gpt-4o",
-  "num_items": 12,
-  "num_penalties": 4,
-  "total_penalty": 14.0,
-  "mqm_score": 76.67,
-  "penalties": [
-    {
-      "id": "pie_02",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The purpose of the chart is not fully described as representing analytical layers in content analysis."
-    },
+  "num_items": 11,
+  "num_penalties_raw": 1,
+  "num_penalties_deduped": 1,
+  "total_penalty_raw": 5.0,
+  "total_penalty_deduped": 5.0,
+  "mqm_raw": 86.49,
+  "mqm_deduped": 86.49,
+  "penalties_raw": [
     {
       "id": "pie_03",
       "category": "Accuracy",
@@ -24,34 +18,112 @@
       "sub_type": "Incorrect Numerical Value",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The outer ring contains 15 slices, not 16.",
-      "text_span": "and an outer ring subdividing each layer into specific task categories; the chart contains 4 slices in the inner ring and 16 slices in the outer ring."
-    },
+      "detail": "The model incorrectly states 16 slices in the outer ring instead of 15.",
+      "text_span": "the chart contains 4 slices in the inner ring and 16 slices in the outer ring"
+    }
+  ],
+  "penalties_deduped": [
     {
-      "id": "pie_08",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The ordering of the outer-ring slices is not described."
-    },
-    {
-      "id": "global_hallucination",
-      "category": "Completeness",
+      "id": "pie_03",
+      "category": "Accuracy",
       "severity": "Major",
-      "sub_type": "Hallucinated Content",
+      "sub_type": "Incorrect Numerical Value",
       "weight": 5.0,
-      "source": "global",
-      "detail": "The model fabricates the presence of 16 slices in the outer ring, while the image shows 15.",
-      "text_span": "and an outer ring subdividing each layer into specific task categories; the chart contains 4 slices in the inner ring and 16 slices in the outer ring."
+      "source": "checklist_correctness",
+      "detail": "The model incorrectly states 16 slices in the outer ring instead of 15.",
+      "text_span": "the chart contains 4 slices in the inner ring and 16 slices in the outer ring"
     }
   ],
   "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "donut chart"
+      },
+      "pie_02": {
+        "expected": "The pie chart represents different analytical layers in a study of content analysis, breaking them into categories and subcategories."
+      },
+      "pie_03": {
+        "expected": "4 slices in the inner pie and 15 slices in the outer pie."
+      },
+      "pie_04": {
+        "expected": [
+          "Perception Layer",
+          "Semantic Layer",
+          "Cultural Layer",
+          "Signal Layer",
+          "Environmental Perception & Reasoning",
+          "Counting & Statistics",
+          "Music Theory",
+          "Correlation Analysis",
+          "Temporal Analysis",
+          "Spatial Analysis",
+          "Content Analysis",
+          "Emotion & Intention",
+          "Speaker Analysis",
+          "Professional Knowl & Reasoning",
+          "Culture of Speaker",
+          "Imagination",
+          "Aesthetic Analysis",
+          "Anomaly Detection",
+          "Acoustic Quality Analysis",
+          "Audio Difference Analysis"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "Perception Layer": "dark blue",
+          "Semantic Layer": "light blue",
+          "Cultural Layer": "gray",
+          "Signal Layer": "light blue",
+          "Environmental Perception & Reasoning": "dark blue",
+          "Counting & Statistics": "dark blue",
+          "Music Theory": "dark blue",
+          "Correlation Analysis": "dark blue",
+          "Temporal Analysis": "dark blue",
+          "Spatial Analysis": "dark blue",
+          "Content Analysis": "light blue",
+          "Emotion & Intention": "light blue",
+          "Speaker Analysis": "light blue",
+          "Professional Knowl & Reasoning": "gray",
+          "Culture of Speaker": "gray",
+          "Imagination": "gray",
+          "Aesthetic Analysis": "gray",
+          "Anomaly Detection": "light blue",
+          "Acoustic Quality Analysis": "light blue",
+          "Audio Difference Analysis": "light blue"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "Perception Layer": "40.4%",
+          "Semantic Layer": "41.2%",
+          "Cultural Layer": "14.1%",
+          "Signal Layer": "4.3%"
+        }
+      },
+      "pie_07": {
+        "expected": "Inner pie slices are arranged in descending order clockwise, starting from Semantic Layer. Outer pie slices follow the arc positions of their corresponding inner-layer segments."
+      },
+      "pie_08": {
+        "expected": "No legend is present."
+      },
+      "pie_09": {
+        "expected": "No slices are exploded or offset."
+      },
+      "pie_10": {
+        "expected": "Inner pie slices have percentage labels within the slices. Outer pie slices are labeled externally."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "Semantic Layer",
+          "smallest": "Signal Layer"
+        }
+      }
+    },
     "checklist": [
       {
         "id": "pie_01",
-        "reasoning": "The model correctly identifies the chart as a two-level donut (sunburst) chart, which matches the image.",
+        "reasoning": "Expected: donut chart. Model: two-level donut (sunburst) chart. Match confirmed by image.",
         "coverage": {
           "status": "complete"
         },
@@ -61,10 +133,9 @@
       },
       {
         "id": "pie_02",
-        "reasoning": "The model describes the chart as presenting a task taxonomy, but it does not explicitly mention the purpose or title of the chart as representing analytical layers in content analysis.",
+        "reasoning": "Expected: The pie chart represents different analytical layers in a study of content analysis, breaking them into categories and subcategories. Model: The figure is a two-level donut (sunburst) chart presenting a task taxonomy, with an inner ring summarizing four high-level layers and an outer ring subdividing each layer into specific task categories. Match confirmed.",
         "coverage": {
-          "status": "partial",
-          "detail": "The purpose of the chart is not fully described as representing analytical layers in content analysis."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -72,20 +143,20 @@
       },
       {
         "id": "pie_03",
-        "reasoning": "The model states there are 4 slices in the inner ring and 16 slices in the outer ring. The image shows 4 inner slices and 15 outer slices, so the count is incorrect.",
+        "reasoning": "Expected: 4 slices in the inner pie and 15 slices in the outer pie. Model: 4 slices in the inner ring and 16 slices in the outer ring. Image confirms 15 slices in the outer ring, so the model is incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "and an outer ring subdividing each layer into specific task categories; the chart contains 4 slices in the inner ring and 16 slices in the outer ring.",
-          "detail": "The outer ring contains 15 slices, not 16."
+          "text_span": "the chart contains 4 slices in the inner ring and 16 slices in the outer ring",
+          "detail": "The model incorrectly states 16 slices in the outer ring instead of 15."
         }
       },
       {
         "id": "pie_04",
-        "reasoning": "The model mentions all slice labels, including both inner and outer ring categories, matching the image.",
+        "reasoning": "Expected: All slice labels mentioned. Model: All slice labels are mentioned. Match confirmed.",
         "coverage": {
           "status": "complete"
         },
@@ -95,7 +166,7 @@
       },
       {
         "id": "pie_05",
-        "reasoning": "The model describes the slice colours, mapping them to families: dark blue (Perception Layer), light blue (Semantic Layer), light gray (Cultural Layer), and medium blue (Signal Layer). These mappings align with the image.",
+        "reasoning": "Expected: Slice colours as specified. Model: Slice colours match the expected values after applying the colour family mapping.",
         "coverage": {
           "status": "complete"
         },
@@ -105,7 +176,7 @@
       },
       {
         "id": "pie_06",
-        "reasoning": "The model provides accurate percentages for the inner slices: 41.2%, 40.4%, 14.1%, and 4.3%, which match the image.",
+        "reasoning": "Expected: Perception Layer=40.4%, Semantic Layer=41.2%, Cultural Layer=14.1%, Signal Layer=4.3%. Model: Percentages match the expected values.",
         "coverage": {
           "status": "complete"
         },
@@ -115,7 +186,7 @@
       },
       {
         "id": "pie_07",
-        "reasoning": "The model correctly maps colours to labels for both inner and outer slices, matching the image.",
+        "reasoning": "Expected: Inner pie slices are arranged in descending order clockwise, starting from Semantic Layer. Outer pie slices follow the arc positions of their corresponding inner-layer segments. Model: Matches the expected arrangement.",
         "coverage": {
           "status": "complete"
         },
@@ -125,10 +196,9 @@
       },
       {
         "id": "pie_08",
-        "reasoning": "The model states that the inner-ring layers are arranged roughly by decreasing size in a clockwise direction, which matches the image. However, it does not describe the ordering of the outer-ring slices.",
+        "reasoning": "Expected: No legend is present. Model: No legend is mentioned. Match confirmed.",
         "coverage": {
-          "status": "partial",
-          "detail": "The ordering of the outer-ring slices is not described."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -136,7 +206,7 @@
       },
       {
         "id": "pie_09",
-        "reasoning": "The model correctly notes that there is no legend in the chart.",
+        "reasoning": "Expected: No slices are exploded or offset. Model: No slices are exploded or offset. Match confirmed.",
         "coverage": {
           "status": "complete"
         },
@@ -146,7 +216,7 @@
       },
       {
         "id": "pie_10",
-        "reasoning": "The model states that no slices are exploded or offset, which matches the image.",
+        "reasoning": "Expected: Inner pie slices have percentage labels within the slices. Outer pie slices are labeled externally. Model: Matches the expected labeling.",
         "coverage": {
           "status": "complete"
         },
@@ -156,17 +226,7 @@
       },
       {
         "id": "pie_11",
-        "reasoning": "The model notes that the inner-ring slices have percentage labels printed on them, which matches the image.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "pie_12",
-        "reasoning": "The model identifies the largest slice as the Semantic Layer (41.2%) and the smallest as the Signal Layer (4.3%), which is correct based on the image.",
+        "reasoning": "Expected: Largest=Semantic Layer, Smallest=Signal Layer. Model: Matches the expected largest and smallest slices.",
         "coverage": {
           "status": "complete"
         },
@@ -178,12 +238,7 @@
     "global": [
       {
         "id": "global_hallucination",
-        "violations": [
-          {
-            "text_span": "and an outer ring subdividing each layer into specific task categories; the chart contains 4 slices in the inner ring and 16 slices in the outer ring.",
-            "explanation": "The model fabricates the presence of 16 slices in the outer ring, while the image shows 15."
-          }
-        ]
+        "violations": []
       },
       {
         "id": "global_interpretation",
@@ -208,6 +263,66 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "Perception Layer",
+            "reference_value": "40.4%",
+            "model_value": "40.4%",
+            "match": true
+          },
+          {
+            "label": "Semantic Layer",
+            "reference_value": "41.2%",
+            "model_value": "41.2%",
+            "match": true
+          },
+          {
+            "label": "Cultural Layer",
+            "reference_value": "14.1%",
+            "model_value": "14.1%",
+            "match": true
+          },
+          {
+            "label": "Signal Layer",
+            "reference_value": "4.3%",
+            "model_value": "4.3%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "Perception Layer",
+            "reference_value": "dark blue",
+            "model_value": "dark blue",
+            "match": true
+          },
+          {
+            "label": "Semantic Layer",
+            "reference_value": "light blue",
+            "model_value": "light bluish-gray",
+            "match": true
+          },
+          {
+            "label": "Cultural Layer",
+            "reference_value": "gray",
+            "model_value": "light gray",
+            "match": true
+          },
+          {
+            "label": "Signal Layer",
+            "reference_value": "light blue",
+            "model_value": "medium blue",
+            "match": true
+          }
+        ]
       }
     ]
   }

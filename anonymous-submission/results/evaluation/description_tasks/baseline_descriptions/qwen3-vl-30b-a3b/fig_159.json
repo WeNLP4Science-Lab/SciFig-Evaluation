@@ -4,19 +4,124 @@
   "figure_type": "Line Plot",
   "judge_model": "gpt-4o",
   "num_items": 15,
-  "num_penalties_raw": 0,
-  "num_penalties_deduped": 0,
-  "total_penalty_raw": 0,
-  "total_penalty_deduped": 0,
-  "mqm_raw": 100.0,
-  "mqm_deduped": 100.0,
-  "penalties_raw": [],
-  "penalties_deduped": [],
+  "num_penalties_raw": 1,
+  "num_penalties_deduped": 1,
+  "total_penalty_raw": 5.0,
+  "total_penalty_deduped": 5.0,
+  "mqm_raw": 90.2,
+  "mqm_deduped": 90.2,
+  "penalties_raw": [
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/2 elements mismatched. Vanilla: model={'start': [0.0, 2.75], 'end': [1.25, 2.5]} ref={'start': [0.1, 2.75], 'end': [1.2, 2.5]}; SepLLM: model={'start': [0.0, 2.73], 'end': [1.25, 2.48]} ref={'start': [0.1, 2.7], 'end': [1.2, 2.48]}",
+      "text_span": ""
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/2 elements mismatched. Vanilla: model={'start': [0.0, 2.75], 'end': [1.25, 2.5]} ref={'start': [0.1, 2.75], 'end': [1.2, 2.5]}; SepLLM: model={'start': [0.0, 2.73], 'end': [1.25, 2.48]} ref={'start': [0.1, 2.7], 'end': [1.2, 2.48]}",
+      "text_span": ""
+    }
+  ],
   "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "line plot"
+      },
+      "line_02": {
+        "expected": "x-axis labeled 'TFLOPs' with units in 1e9, linear scale, range 0.00 to 1.25, tick marks at intervals of 0.25"
+      },
+      "line_03": {
+        "expected": "linear scale, range 0.00 to 1.25, tick marks at intervals of 0.25"
+      },
+      "line_04": {
+        "expected": "y-axis labeled 'Loss', linear scale, range 2.40 to 2.75, tick marks at intervals of 0.05"
+      },
+      "line_05": {
+        "expected": "linear scale, range 2.40 to 2.75, tick marks at intervals of 0.05"
+      },
+      "line_06": {
+        "expected": [
+          "Vanilla (purple, triangle markers, solid line)",
+          "SepLLM (red, circle markers, solid line)"
+        ]
+      },
+      "line_07": {
+        "expected": "Legend maps 'Vanilla' to purple line with triangle markers and 'SepLLM' to red line with circle markers"
+      },
+      "line_08": {
+        "expected": {
+          "Vanilla": "purple",
+          "SepLLM": "red"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "Vanilla": "solid",
+          "SepLLM": "solid"
+        }
+      },
+      "line_10": {
+        "expected": {
+          "Vanilla": "triangle markers",
+          "SepLLM": "circle markers"
+        }
+      },
+      "line_11": {
+        "expected": {
+          "Vanilla": {
+            "start": [
+              0.1,
+              2.75
+            ],
+            "end": [
+              1.2,
+              2.5
+            ]
+          },
+          "SepLLM": {
+            "start": [
+              0.1,
+              2.7
+            ],
+            "end": [
+              1.2,
+              2.48
+            ]
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "Vanilla": "decreasing",
+          "SepLLM": "decreasing"
+        }
+      },
+      "line_13": {
+        "expected": "No crossover points; SepLLM consistently below Vanilla"
+      },
+      "line_14": {
+        "expected": "Green dashed horizontal line at y=2.50, green dashed vertical lines at x=0.9 and x=1.25, green horizontal line at top with '1.28x' annotation"
+      },
+      "line_15": {
+        "expected": "No dual y-axes"
+      }
+    },
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "The model correctly identifies the chart as a line plot, which matches the image.",
+        "reasoning": "Expected: line plot. Model: line plot. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -26,7 +131,7 @@
       },
       {
         "id": "line_02",
-        "reasoning": "The x-axis is labeled 'TFLOPs' in the image, and the model correctly describes this label and its units.",
+        "reasoning": "Expected: x-axis labeled 'TFLOPs' with units in 1e9, linear scale, range 0.00 to 1.25, tick marks at intervals of 0.25. Model: 'TFLOPs on a linear scale ranging from 0.00 to 1.25×10⁹'. Units and range match.",
         "coverage": {
           "status": "complete"
         },
@@ -36,7 +141,7 @@
       },
       {
         "id": "line_03",
-        "reasoning": "The x-axis scale is linear and ranges from 0.00 to 1.25×10⁹, which the model correctly describes.",
+        "reasoning": "Expected: linear scale, range 0.00 to 1.25, tick marks at intervals of 0.25. Model: 'linear scale ranging from 0.00 to 1.25×10⁹'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -46,7 +151,7 @@
       },
       {
         "id": "line_04",
-        "reasoning": "The y-axis is labeled 'Loss' in the image, and the model correctly describes this label and its units.",
+        "reasoning": "Expected: y-axis labeled 'Loss', linear scale, range 2.40 to 2.75, tick marks at intervals of 0.05. Model: 'y-axis showing loss values from 2.40 to 2.75'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -56,7 +161,7 @@
       },
       {
         "id": "line_05",
-        "reasoning": "The y-axis scale is linear and ranges from 2.40 to 2.75, which the model correctly describes.",
+        "reasoning": "Expected: linear scale, range 2.40 to 2.75, tick marks at intervals of 0.05. Model: 'y-axis showing loss values from 2.40 to 2.75'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -66,7 +171,7 @@
       },
       {
         "id": "line_06",
-        "reasoning": "The model mentions both lines ('Vanilla' and 'SepLLM'), which are present in the image.",
+        "reasoning": "Expected: Vanilla (purple, triangle markers, solid line), SepLLM (red, circle markers, solid line). Model mentions both lines with correct labels and descriptions.",
         "coverage": {
           "status": "complete"
         },
@@ -76,7 +181,7 @@
       },
       {
         "id": "line_07",
-        "reasoning": "The legend correctly maps the purple line with triangle markers to 'Vanilla' and the red line with circular markers to 'SepLLM'.",
+        "reasoning": "Expected: Legend maps 'Vanilla' to purple line with triangle markers and 'SepLLM' to red line with circle markers. Model: 'Vanilla Transformer is represented by a purple line with triangle markers' and 'SepLLM is depicted by a red line with circular markers'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -86,7 +191,7 @@
       },
       {
         "id": "line_08",
-        "reasoning": "The model correctly identifies the purple and red lines. Purple and red both map to their respective colour families.",
+        "reasoning": "Expected: Vanilla=purple, SepLLM=red. Model: Vanilla=purple, SepLLM=red. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -96,7 +201,7 @@
       },
       {
         "id": "line_09",
-        "reasoning": "The model correctly identifies both lines as solid, which matches the image.",
+        "reasoning": "Expected: Vanilla=solid, SepLLM=solid. Model: Both lines described as solid. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -106,7 +211,7 @@
       },
       {
         "id": "line_10",
-        "reasoning": "The model correctly identifies the triangle markers for the purple line and circular markers for the red line.",
+        "reasoning": "Expected: Vanilla=triangle markers, SepLLM=circle markers. Model: Vanilla=triangle markers, SepLLM=circle markers. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -116,17 +221,20 @@
       },
       {
         "id": "line_11",
-        "reasoning": "The model provides approximate start and end values for both lines, which are accurate within tolerance.",
+        "reasoning": "Expected: Vanilla starts at (0.10, 2.75) and ends at (1.20, 2.50); SepLLM starts at (0.10, 2.70) and ends at (1.20, 2.48). Model: Vanilla starts at (0.00, 2.75) and ends at (1.25, 2.50); SepLLM starts at (0.00, 2.73) and ends at (1.25, 2.48). Start points are incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "Vanilla Transformer is represented by a purple line with triangle markers, which starts at a loss of approximately 2.75 at 0.00 TFLOPs",
+          "detail": "Model incorrectly states start points for both lines."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "The model correctly describes the decreasing trends of both lines.",
+        "reasoning": "Expected: Vanilla=decreasing, SepLLM=decreasing. Model: Both lines described as decreasing. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -136,7 +244,7 @@
       },
       {
         "id": "line_13",
-        "reasoning": "The model does not mention any crossover or intersection points, which is correct as none are present in the image.",
+        "reasoning": "Expected: No crossover points; SepLLM consistently below Vanilla. Model: 'SepLLM consistently achieves lower loss values than the vanilla Transformer across the entire range'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -146,7 +254,7 @@
       },
       {
         "id": "line_14",
-        "reasoning": "The model mentions the green dashed horizontal line at a loss of 2.50, the vertical dashed lines, and the annotation '1.28x', all of which are present in the image.",
+        "reasoning": "Expected: Green dashed horizontal line at y=2.50, green dashed vertical lines at x=0.9 and x=1.25, green horizontal line at top with '1.28x' annotation. Model: 'A green dashed horizontal line at a loss of 2.50 indicates a threshold, and a green vertical dashed box highlights the region between 0.9 and 1.25×10⁹ TFLOPs, where the SepLLM's loss is noted to be 1.28 times lower'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -156,7 +264,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "The chart does not have dual y-axes, and the model does not mention any, which is correct.",
+        "reasoning": "Expected: No dual y-axes. Model: No mention of dual y-axes. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -193,6 +301,95 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": {
+              "start": [
+                0.1,
+                2.75
+              ],
+              "end": [
+                1.2,
+                2.5
+              ]
+            },
+            "model_value": {
+              "start": [
+                0.0,
+                2.75
+              ],
+              "end": [
+                1.25,
+                2.5
+              ]
+            },
+            "match": false
+          },
+          {
+            "label": "SepLLM",
+            "reference_value": {
+              "start": [
+                0.1,
+                2.7
+              ],
+              "end": [
+                1.2,
+                2.48
+              ]
+            },
+            "model_value": {
+              "start": [
+                0.0,
+                2.73
+              ],
+              "end": [
+                1.25,
+                2.48
+              ]
+            },
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "purple",
+            "model_value": "purple",
+            "match": true
+          },
+          {
+            "label": "SepLLM",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          }
+        ]
       }
     ]
   }

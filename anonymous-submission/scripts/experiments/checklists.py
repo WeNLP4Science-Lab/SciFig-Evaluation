@@ -119,8 +119,35 @@ BINDINGS = {
             "instruction": "For each slice label in the reference, extract its colour. Then find the same label in the model description and extract its stated colour. Apply the colour family mapping rule before comparing. List each slice with its reference colour and model colour.",
         },
     ],
-    "Bar Chart": [],   # TODO: define when we work on bar charts
-    "Line Plot": [],   # TODO: define when we work on line plots
+    "Bar Chart": [
+        {
+            "checklist_id": "bar_11",
+            "attribute": "value",
+            "instruction": "For each bar (or bar segment in grouped/stacked charts) in the reference, extract its category/series label and value. Then find the same bar in the model description and extract its stated value. Compare them.",
+        },
+        {
+            "checklist_id": "bar_12",
+            "attribute": "colour",
+            "instruction": "For each bar (or bar segment in grouped/stacked charts) in the reference, extract its category/series label and colour. Then find the same bar in the model description and extract its stated colour. Apply the colour family mapping rule before comparing.",
+        },
+    ],
+    "Line Plot": [
+        {
+            "checklist_id": "line_11",
+            "attribute": "value",
+            "instruction": "For each data series in the reference, extract its name and key numerical values (start, end, peaks, troughs). Then find the same series in the model description and extract its stated values. Compare them.",
+        },
+        {
+            "checklist_id": "line_08",
+            "attribute": "colour",
+            "instruction": "For each data series in the reference, extract its name and colour. Then find the same series in the model description and extract its stated colour. Apply the colour family mapping rule before comparing.",
+        },
+        {
+            "checklist_id": "line_12",
+            "attribute": "trend",
+            "instruction": "For each data series in the reference, extract its name and trend direction (increasing, decreasing, stable, non-monotonic). Then find the same series in the model description and extract its stated trend. Compare them.",
+        },
+    ],
 }
 
 

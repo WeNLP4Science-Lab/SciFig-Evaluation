@@ -4,30 +4,32 @@
   "figure_type": "Bar Chart",
   "judge_model": "gpt-4o",
   "num_items": 14,
-  "num_penalties_raw": 4,
+  "num_penalties_raw": 5,
   "num_penalties_deduped": 4,
-  "total_penalty_raw": 11.0,
-  "total_penalty_deduped": 11.0,
-  "mqm_raw": 84.29,
-  "mqm_deduped": 84.29,
+  "total_penalty_raw": 16.0,
+  "total_penalty_deduped": 14.0,
+  "mqm_raw": 70.91,
+  "mqm_deduped": 74.55,
   "penalties_raw": [
     {
-      "id": "bar_04",
-      "category": "Completeness",
+      "id": "bar_05",
+      "category": "Accuracy",
       "severity": "Minor",
-      "sub_type": "Missing Key Information",
+      "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The x-axis label 'Models' is not explicitly mentioned."
+      "source": "checklist_correctness",
+      "detail": "The model incorrectly states the range as 0 to 0.8 instead of 0 to 1.",
+      "text_span": "The vertical axis represents the metric values, ranging from 0 to 0.8."
     },
     {
       "id": "bar_06",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The y-axis label 'Accuracy / Correlation' is not explicitly mentioned."
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model does not explicitly state the label 'Accuracy / Correlation'.",
+      "text_span": "The vertical axis represents the metric values."
     },
     {
       "id": "bar_07",
@@ -36,65 +38,165 @@
       "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The y-axis range is 0 to 1 in the image, not 0 to 0.8.",
+      "detail": "The model incorrectly states the range as 0 to 0.8 instead of 0 to 1.",
       "text_span": "The vertical axis represents the metric values, ranging from 0 to 0.8."
     },
     {
       "id": "bar_11",
       "category": "Accuracy",
       "severity": "Major",
-      "sub_type": "Incorrect Numerical Value",
+      "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The STS Corr. value for the highest bar is slightly above 0.9, not 0.81.",
-      "text_span": "with its STS Corr. bar reaching approximately 0.81"
+      "detail": "Binding verification: 2/5 elements mismatched. 2-Tier SimCSE, STS Corr.: model=0.81 ref=0.91; 2-Tier SimCSE, Paraphrase Acc.: model=0.79 ref=0.89",
+      "text_span": ""
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The model makes an evaluative claim about the highest performance, which is not explicitly stated in the reference.",
+      "text_span": "The chart shows that the 2-Tier SimCSE model achieves the highest performance in all three metrics."
     }
   ],
   "penalties_deduped": [
     {
-      "id": "bar_04",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The x-axis label 'Models' is not explicitly mentioned."
-    },
-    {
-      "id": "bar_06",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "The y-axis label 'Accuracy / Correlation' is not explicitly mentioned."
-    },
-    {
-      "id": "bar_07",
+      "id": "bar_05",
       "category": "Accuracy",
       "severity": "Minor",
       "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The y-axis range is 0 to 1 in the image, not 0 to 0.8.",
+      "detail": "The model incorrectly states the range as 0 to 0.8 instead of 0 to 1.",
       "text_span": "The vertical axis represents the metric values, ranging from 0 to 0.8."
+    },
+    {
+      "id": "bar_06",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model does not explicitly state the label 'Accuracy / Correlation'.",
+      "text_span": "The vertical axis represents the metric values."
     },
     {
       "id": "bar_11",
       "category": "Accuracy",
       "severity": "Major",
-      "sub_type": "Incorrect Numerical Value",
+      "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The STS Corr. value for the highest bar is slightly above 0.9, not 0.81.",
-      "text_span": "with its STS Corr. bar reaching approximately 0.81"
+      "detail": "Binding verification: 2/5 elements mismatched. 2-Tier SimCSE, STS Corr.: model=0.81 ref=0.91; 2-Tier SimCSE, Paraphrase Acc.: model=0.79 ref=0.89",
+      "text_span": ""
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The model makes an evaluative claim about the highest performance, which is not explicitly stated in the reference.",
+      "text_span": "The chart shows that the 2-Tier SimCSE model achieves the highest performance in all three metrics."
     }
   ],
   "judge_output": {
+    "populated": {
+      "bar_01": {
+        "expected": "Bar Chart"
+      },
+      "bar_02": {
+        "expected": "Vertical"
+      },
+      "bar_03": {
+        "expected": "Grouped"
+      },
+      "bar_04": {
+        "expected": "Models (Single-task_baseline, Baseline_with_Adaptive_Dropout, Unsupervised_SimCSE, Supervised_SimCSE, 2-Tier SimCSE)"
+      },
+      "bar_05": {
+        "expected": "Linear scale, range 0 to 1, tick intervals of 0.2"
+      },
+      "bar_06": {
+        "expected": "Accuracy / Correlation"
+      },
+      "bar_07": {
+        "expected": "Linear scale, range 0 to 1, tick intervals of 0.2"
+      },
+      "bar_08": {
+        "expected": [
+          "Single-task_baseline",
+          "Baseline_with_Adaptive_Dropout",
+          "Unsupervised_SimCSE",
+          "Supervised_SimCSE",
+          "2-Tier SimCSE"
+        ]
+      },
+      "bar_09": {
+        "expected": [
+          "Sentiment Acc.",
+          "STS Corr.",
+          "Paraphrase Acc."
+        ]
+      },
+      "bar_10": {
+        "expected": {
+          "Sentiment Acc.": "light yellow",
+          "STS Corr.": "pink",
+          "Paraphrase Acc.": "blue"
+        }
+      },
+      "bar_11": {
+        "expected": {
+          "Single-task_baseline": {
+            "Sentiment Acc.": 0.53,
+            "STS Corr.": 0.5,
+            "Paraphrase Acc.": 0.79
+          },
+          "Baseline_with_Adaptive_Dropout": {
+            "Sentiment Acc.": 0.55,
+            "STS Corr.": 0.65,
+            "Paraphrase Acc.": 0.81
+          },
+          "Unsupervised_SimCSE": {
+            "Sentiment Acc.": 0.58,
+            "STS Corr.": 0.75,
+            "Paraphrase Acc.": 0.83
+          },
+          "Supervised_SimCSE": {
+            "Sentiment Acc.": 0.5,
+            "STS Corr.": 0.91,
+            "Paraphrase Acc.": 0.89
+          },
+          "2-Tier SimCSE": {
+            "Sentiment Acc.": 0.5,
+            "STS Corr.": 0.91,
+            "Paraphrase Acc.": 0.89
+          }
+        }
+      },
+      "bar_12": {
+        "expected": {
+          "Sentiment Acc.": "light yellow",
+          "STS Corr.": "pink",
+          "Paraphrase Acc.": "blue"
+        }
+      },
+      "bar_13": {
+        "expected": "No annotations present"
+      },
+      "bar_14": {
+        "expected": "Comparison of accuracy and correlation performance of models across three metrics"
+      }
+    },
     "checklist": [
       {
         "id": "bar_01",
-        "reasoning": "The model correctly identifies the chart type as a bar chart, which matches the image.",
+        "reasoning": "Expected: Bar Chart. Model states: Bar Chart.",
         "coverage": {
           "status": "complete"
         },
@@ -104,7 +206,7 @@
       },
       {
         "id": "bar_02",
-        "reasoning": "The model correctly identifies the bar orientation as vertical, which matches the image.",
+        "reasoning": "Expected: Vertical. Model states: Vertical.",
         "coverage": {
           "status": "complete"
         },
@@ -114,7 +216,7 @@
       },
       {
         "id": "bar_03",
-        "reasoning": "The model correctly identifies the grouping structure as grouped bars, which matches the image.",
+        "reasoning": "Expected: Grouped. Model states: Grouped.",
         "coverage": {
           "status": "complete"
         },
@@ -124,10 +226,9 @@
       },
       {
         "id": "bar_04",
-        "reasoning": "The model mentions the x-axis categories as the five models, which matches the image. However, it does not explicitly mention the x-axis label.",
+        "reasoning": "Expected: Models (Single-task_baseline, Baseline_with_Adaptive_Dropout, Unsupervised_SimCSE, Supervised_SimCSE, 2-Tier SimCSE). Model states: Models (Single-task_baseline, Baseline_with_Adaptive_Dropout, Unsupervised_SimCSE, Supervised_SimCSE, 2-Tier SimCSE).",
         "coverage": {
-          "status": "partial",
-          "detail": "The x-axis label 'Models' is not explicitly mentioned."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -135,28 +236,7 @@
       },
       {
         "id": "bar_05",
-        "reasoning": "The model describes the x-axis scale type as categorical and lists the categories correctly. This matches the image.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "bar_06",
-        "reasoning": "The model mentions the y-axis as representing metric values but does not explicitly state the label 'Accuracy / Correlation'.",
-        "coverage": {
-          "status": "partial",
-          "detail": "The y-axis label 'Accuracy / Correlation' is not explicitly mentioned."
-        },
-        "correctness": {
-          "status": "correct"
-        }
-      },
-      {
-        "id": "bar_07",
-        "reasoning": "The model describes the y-axis range as 0 to 0.8, but the image shows the range as 0 to 1. This is incorrect.",
+        "reasoning": "Expected: Linear scale, range 0 to 1, tick intervals of 0.2. Model states: Linear scale, range 0 to 0.8.",
         "coverage": {
           "status": "complete"
         },
@@ -164,12 +244,38 @@
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
           "text_span": "The vertical axis represents the metric values, ranging from 0 to 0.8.",
-          "detail": "The y-axis range is 0 to 1 in the image, not 0 to 0.8."
+          "detail": "The model incorrectly states the range as 0 to 0.8 instead of 0 to 1."
+        }
+      },
+      {
+        "id": "bar_06",
+        "reasoning": "Expected: Accuracy / Correlation. Model states: Metric values.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "text_span": "The vertical axis represents the metric values.",
+          "detail": "The model does not explicitly state the label 'Accuracy / Correlation'."
+        }
+      },
+      {
+        "id": "bar_07",
+        "reasoning": "Expected: Linear scale, range 0 to 1, tick intervals of 0.2. Model states: Linear scale, range 0 to 0.8.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "The vertical axis represents the metric values, ranging from 0 to 0.8.",
+          "detail": "The model incorrectly states the range as 0 to 0.8 instead of 0 to 1."
         }
       },
       {
         "id": "bar_08",
-        "reasoning": "The model lists all five categories on the x-axis, which matches the image.",
+        "reasoning": "Expected: Single-task_baseline, Baseline_with_Adaptive_Dropout, Unsupervised_SimCSE, Supervised_SimCSE, 2-Tier SimCSE. Model states: Single-task_baseline, Baseline_with_Adaptive_Dropout, Unsupervised_SimCSE, Supervised_SimCSE, 2-Tier SimCSE.",
         "coverage": {
           "status": "complete"
         },
@@ -179,7 +285,7 @@
       },
       {
         "id": "bar_09",
-        "reasoning": "The model identifies all three data series (Sentiment Acc., STS Corr., Paraphrase Acc.) correctly, which matches the image.",
+        "reasoning": "Expected: Sentiment Acc., STS Corr., Paraphrase Acc. Model states: Sentiment Acc., STS Corr., Paraphrase Acc.",
         "coverage": {
           "status": "complete"
         },
@@ -189,7 +295,7 @@
       },
       {
         "id": "bar_10",
-        "reasoning": "The model describes the legend correctly, mapping the colors to the metrics accurately. The color family mappings are: light yellow (yellow), light pink (pink), and light blue (blue).",
+        "reasoning": "Expected: Sentiment Acc. = light yellow, STS Corr. = pink, Paraphrase Acc. = blue. Model states: Sentiment Acc. = light yellow, STS Corr. = light pink, Paraphrase Acc. = light blue.",
         "coverage": {
           "status": "complete"
         },
@@ -199,20 +305,20 @@
       },
       {
         "id": "bar_11",
-        "reasoning": "The model provides numerical values for the bars, but some values are incorrect. For example, it states the highest STS Corr. value as 0.81, but the image shows it as slightly above 0.9.",
+        "reasoning": "The model provides numerical values for the bars, but some are incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "wrong",
+          "status": "partial",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "with its STS Corr. bar reaching approximately 0.81",
-          "detail": "The STS Corr. value for the highest bar is slightly above 0.9, not 0.81."
+          "text_span": "with its STS Corr. bar reaching approximately 0.81, its Paraphrase Acc. bar at about 0.79, and its Sentiment Acc. bar at around 0.49.",
+          "detail": "The model underestimates the values for STS Corr. and Paraphrase Acc. for 2-Tier SimCSE, which are closer to 0.91 and 0.89, respectively."
         }
       },
       {
         "id": "bar_12",
-        "reasoning": "The model describes the bar colors accurately, mapping them to the correct metrics. The color family mappings are correct: light yellow (yellow), light pink (pink), and light blue (blue).",
+        "reasoning": "Expected: Sentiment Acc. = light yellow, STS Corr. = pink, Paraphrase Acc. = blue. Model states: Sentiment Acc. = light yellow, STS Corr. = light pink, Paraphrase Acc. = light blue.",
         "coverage": {
           "status": "complete"
         },
@@ -222,7 +328,7 @@
       },
       {
         "id": "bar_13",
-        "reasoning": "There are no annotations such as error bars, reference lines, or data labels in the image, and the model does not mention any.",
+        "reasoning": "Expected: No annotations present. Model does not mention annotations.",
         "coverage": {
           "status": "complete"
         },
@@ -232,7 +338,7 @@
       },
       {
         "id": "bar_14",
-        "reasoning": "The model describes the chart's purpose as comparing the performance of models across metrics, which matches the image.",
+        "reasoning": "Expected: Comparison of accuracy and correlation performance of models across three metrics. Model states: Comparison of accuracy and correlation performance of models across three metrics.",
         "coverage": {
           "status": "complete"
         },
@@ -248,7 +354,12 @@
       },
       {
         "id": "global_interpretation",
-        "violations": []
+        "violations": [
+          {
+            "text_span": "The chart shows that the 2-Tier SimCSE model achieves the highest performance in all three metrics.",
+            "explanation": "The model makes an evaluative claim about the highest performance, which is not explicitly stated in the reference."
+          }
+        ]
       },
       {
         "id": "global_ambiguity",
@@ -269,6 +380,66 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "bar_11",
+        "comparisons": [
+          {
+            "label": "Single-task_baseline, Sentiment Acc.",
+            "reference_value": 0.53,
+            "model_value": 0.53,
+            "match": true
+          },
+          {
+            "label": "Single-task_baseline, STS Corr.",
+            "reference_value": 0.5,
+            "model_value": 0.5,
+            "match": true
+          },
+          {
+            "label": "Single-task_baseline, Paraphrase Acc.",
+            "reference_value": 0.79,
+            "model_value": 0.79,
+            "match": true
+          },
+          {
+            "label": "2-Tier SimCSE, STS Corr.",
+            "reference_value": 0.91,
+            "model_value": 0.81,
+            "match": false
+          },
+          {
+            "label": "2-Tier SimCSE, Paraphrase Acc.",
+            "reference_value": 0.89,
+            "model_value": 0.79,
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "bar_12",
+        "comparisons": [
+          {
+            "label": "Sentiment Acc.",
+            "reference_value": "light yellow",
+            "model_value": "light yellow",
+            "match": true
+          },
+          {
+            "label": "STS Corr.",
+            "reference_value": "pink",
+            "model_value": "light pink",
+            "match": true
+          },
+          {
+            "label": "Paraphrase Acc.",
+            "reference_value": "blue",
+            "model_value": "light blue",
+            "match": true
+          }
+        ]
       }
     ]
   }

@@ -4,41 +4,167 @@
   "figure_type": "Line Plot",
   "judge_model": "gpt-4o",
   "num_items": 15,
-  "num_penalties_raw": 1,
-  "num_penalties_deduped": 1,
-  "total_penalty_raw": 2.0,
-  "total_penalty_deduped": 2.0,
-  "mqm_raw": 97.33,
-  "mqm_deduped": 97.33,
+  "num_penalties_raw": 3,
+  "num_penalties_deduped": 2,
+  "total_penalty_raw": 12.0,
+  "total_penalty_deduped": 10.0,
+  "mqm_raw": 76.47,
+  "mqm_deduped": 80.39,
   "penalties_raw": [
     {
-      "id": "line_11",
+      "id": "line_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The x-axis range is stated as 10 to 65, but the reference and image show it as 10 to 60.",
+      "text_span": "ranging from 10 to 65"
+    },
+    {
+      "id": "line_03",
       "category": "Accuracy",
       "severity": "Minor",
       "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The starting value is closer to 46%, and the ending value is closer to 40%.",
-      "text_span": "'PLLaVA (DP 8)' model starts at approximately 45.2% and steadily declines to about 39.5%"
+      "detail": "The x-axis range is stated as 10 to 65, but the reference and image show it as 10 to 60.",
+      "text_span": "ranging from 10 to 65"
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/4 elements mismatched. PLLaVA (DP 8): model={'start': 45.2, 'end': 39.5} ref={'start': 46, 'end': 39}; PLLaVA (DP 16): model={'start': 45.8, 'end': 42.2} ref={'start': 45, 'end': 42}",
+      "text_span": ""
     }
   ],
   "penalties_deduped": [
     {
+      "id": "line_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The x-axis range is stated as 10 to 65, but the reference and image show it as 10 to 60.",
+      "text_span": "ranging from 10 to 65"
+    },
+    {
       "id": "line_11",
       "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The starting value is closer to 46%, and the ending value is closer to 40%.",
-      "text_span": "'PLLaVA (DP 8)' model starts at approximately 45.2% and steadily declines to about 39.5%"
+      "detail": "Binding verification: 2/4 elements mismatched. PLLaVA (DP 8): model={'start': 45.2, 'end': 39.5} ref={'start': 46, 'end': 39}; PLLaVA (DP 16): model={'start': 45.8, 'end': 42.2} ref={'start': 45, 'end': 42}",
+      "text_span": ""
     }
   ],
   "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "line plot"
+      },
+      "line_02": {
+        "expected": "x-axis labeled 'Number of Frames' with a linear scale ranging from 10 to 60, tick marks at intervals of 10"
+      },
+      "line_03": {
+        "expected": "linear scale, range 10 to 60, tick marks at intervals of 10"
+      },
+      "line_04": {
+        "expected": "y-axis labeled 'Accuracy (%)' with a linear scale ranging from 40 to 54, tick marks at intervals of 2"
+      },
+      "line_05": {
+        "expected": "linear scale, range 40 to 54, tick marks at intervals of 2"
+      },
+      "line_06": {
+        "expected": [
+          "Ours (Dynamic Seg)",
+          "Ours (Static 4-Seg)",
+          "PLLaVA (DP 8)",
+          "PLLaVA (DP 16)"
+        ]
+      },
+      "line_07": {
+        "expected": {
+          "Ours (Dynamic Seg)": "blue, circular markers",
+          "Ours (Static 4-Seg)": "green, circular markers",
+          "PLLaVA (DP 8)": "orange, square markers",
+          "PLLaVA (DP 16)": "red, square markers"
+        }
+      },
+      "line_08": {
+        "expected": {
+          "Ours (Dynamic Seg)": "blue",
+          "Ours (Static 4-Seg)": "green",
+          "PLLaVA (DP 8)": "orange",
+          "PLLaVA (DP 16)": "red"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "Ours (Dynamic Seg)": "solid",
+          "Ours (Static 4-Seg)": "solid",
+          "PLLaVA (DP 8)": "solid",
+          "PLLaVA (DP 16)": "solid"
+        }
+      },
+      "line_10": {
+        "expected": {
+          "Ours (Dynamic Seg)": "circular markers",
+          "Ours (Static 4-Seg)": "circular markers",
+          "PLLaVA (DP 8)": "square markers",
+          "PLLaVA (DP 16)": "square markers"
+        }
+      },
+      "line_11": {
+        "expected": {
+          "Ours (Dynamic Seg)": {
+            "start": 53,
+            "peak": 54,
+            "end": 54
+          },
+          "Ours (Static 4-Seg)": {
+            "start": 52.8,
+            "peak": 54,
+            "end": 54
+          },
+          "PLLaVA (DP 8)": {
+            "start": 46,
+            "end": 39
+          },
+          "PLLaVA (DP 16)": {
+            "start": 45,
+            "end": 42
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "Ours (Dynamic Seg)": "non-monotonic (increases then stable)",
+          "Ours (Static 4-Seg)": "non-monotonic (increases then stable)",
+          "PLLaVA (DP 8)": "decreasing",
+          "PLLaVA (DP 16)": "decreasing"
+        }
+      },
+      "line_13": {
+        "expected": "No crossover/intersection points"
+      },
+      "line_14": {
+        "expected": "No annotations"
+      },
+      "line_15": {
+        "expected": "No dual y-axes"
+      }
+    },
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "The model correctly identifies the chart type as a line plot, which matches the image.",
+        "reasoning": "Expected chart type is 'line plot'. Model correctly identifies it as a line plot.",
         "coverage": {
           "status": "complete"
         },
@@ -48,27 +174,33 @@
       },
       {
         "id": "line_02",
-        "reasoning": "The x-axis label 'Number of Frames' is correctly described, and the units are implicit in the label.",
+        "reasoning": "Expected x-axis label is 'Number of Frames' with a linear scale ranging from 10 to 60, tick marks at intervals of 10. Model states 'x-axis represents the number of frames, ranging from 10 to 65, with tick marks at intervals of 10'. The range is incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "ranging from 10 to 65",
+          "detail": "The x-axis range is stated as 10 to 65, but the reference and image show it as 10 to 60."
         }
       },
       {
         "id": "line_03",
-        "reasoning": "The x-axis scale is linear and ranges from 10 to 60, with tick marks at intervals of 10. The model describes this accurately.",
+        "reasoning": "Expected x-axis scale is linear, range 10 to 60, tick marks at intervals of 10. Model states 'ranging from 10 to 65, with tick marks at intervals of 10'. The range is incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "ranging from 10 to 65",
+          "detail": "The x-axis range is stated as 10 to 65, but the reference and image show it as 10 to 60."
         }
       },
       {
         "id": "line_04",
-        "reasoning": "The y-axis label 'Accuracy (%)' is correctly described, and the units are included.",
+        "reasoning": "Expected y-axis label is 'Accuracy (%)' with a linear scale ranging from 40 to 54, tick marks at intervals of 2. Model correctly describes this.",
         "coverage": {
           "status": "complete"
         },
@@ -78,7 +210,7 @@
       },
       {
         "id": "line_05",
-        "reasoning": "The y-axis scale is linear, ranging from 40% to 54%, with gridlines at 2% intervals. The model describes this accurately.",
+        "reasoning": "Expected y-axis scale is linear, range 40 to 54, tick marks at intervals of 2. Model correctly describes this.",
         "coverage": {
           "status": "complete"
         },
@@ -88,7 +220,7 @@
       },
       {
         "id": "line_06",
-        "reasoning": "All four lines ('Ours (Dynamic Seg)', 'Ours (Static 4-Seg)', 'PLLaVA (DP 8)', and 'PLLaVA (DP 16)') are mentioned in the model description.",
+        "reasoning": "Expected series are 'Ours (Dynamic Seg)', 'Ours (Static 4-Seg)', 'PLLaVA (DP 8)', and 'PLLaVA (DP 16)'. Model mentions all four.",
         "coverage": {
           "status": "complete"
         },
@@ -98,7 +230,7 @@
       },
       {
         "id": "line_07",
-        "reasoning": "The legend is correctly described, with accurate mappings of colors and line styles to the respective series.",
+        "reasoning": "Expected legend mappings are 'Ours (Dynamic Seg)'=blue with circular markers, 'Ours (Static 4-Seg)'=green with circular markers, 'PLLaVA (DP 8)'=orange with square markers, 'PLLaVA (DP 16)'=red with square markers. Model correctly describes these.",
         "coverage": {
           "status": "complete"
         },
@@ -108,7 +240,7 @@
       },
       {
         "id": "line_08",
-        "reasoning": "The colors of the lines are accurately described: blue for 'Ours (Dynamic Seg)', green for 'Ours (Static 4-Seg)', orange for 'PLLaVA (DP 8)', and red for 'PLLaVA (DP 16)'. All colors map to the correct family.",
+        "reasoning": "Expected colours are 'Ours (Dynamic Seg)'=blue, 'Ours (Static 4-Seg)'=green, 'PLLaVA (DP 8)'=orange, 'PLLaVA (DP 16)'=red. Model correctly describes these.",
         "coverage": {
           "status": "complete"
         },
@@ -118,7 +250,7 @@
       },
       {
         "id": "line_09",
-        "reasoning": "The line styles are correctly described as solid for all lines.",
+        "reasoning": "Expected line styles are all solid. Model correctly describes this.",
         "coverage": {
           "status": "complete"
         },
@@ -128,7 +260,7 @@
       },
       {
         "id": "line_10",
-        "reasoning": "The marker shapes are correctly described: circular markers for 'Ours' lines and square markers for 'PLLaVA' lines.",
+        "reasoning": "Expected marker shapes are 'Ours (Dynamic Seg)'=circular, 'Ours (Static 4-Seg)'=circular, 'PLLaVA (DP 8)'=square, 'PLLaVA (DP 16)'=square. Model correctly describes these.",
         "coverage": {
           "status": "complete"
         },
@@ -138,20 +270,20 @@
       },
       {
         "id": "line_11",
-        "reasoning": "The numerical values for the start, end, and trends of the lines are mostly accurate. However, the model incorrectly states that 'PLLaVA (DP 8)' starts at 45.2% and ends at 39.5%, while the image shows it starts at approximately 46% and ends at 40%.",
+        "reasoning": "Expected numerical values for 'Ours (Dynamic Seg)' are start=53, peak=54, end=54; for 'Ours (Static 4-Seg)' are start=52.8, peak=54, end=54; for 'PLLaVA (DP 8)' are start=46, end=39; for 'PLLaVA (DP 16)' are start=45, end=42. Model values for 'Ours (Dynamic Seg)' and 'Ours (Static 4-Seg)' are slightly off but within tolerance. However, 'PLLaVA (DP 8)' and 'PLLaVA (DP 16)' values are incorrect.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "partial",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "'PLLaVA (DP 8)' model starts at approximately 45.2% and steadily declines to about 39.5%",
-          "detail": "The starting value is closer to 46%, and the ending value is closer to 40%."
+          "text_span": "starts at approximately 45.2% and steadily declines to about 39.5% at 65 frames",
+          "detail": "Model states 'PLLaVA (DP 8)' starts at 45.2% and ends at 39.5%, but reference and image show start=46 and end=39."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "The trends for all lines are correctly described: 'Ours' lines plateau, while 'PLLaVA' lines decrease.",
+        "reasoning": "Expected trends are 'Ours (Dynamic Seg)'=non-monotonic (increases then stable), 'Ours (Static 4-Seg)'=non-monotonic (increases then stable), 'PLLaVA (DP 8)'=decreasing, 'PLLaVA (DP 16)'=decreasing. Model correctly describes these.",
         "coverage": {
           "status": "complete"
         },
@@ -161,7 +293,7 @@
       },
       {
         "id": "line_13",
-        "reasoning": "No crossover or intersection points are present in the image, and the model does not mention any.",
+        "reasoning": "No crossover/intersection points are expected. Model does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -171,7 +303,7 @@
       },
       {
         "id": "line_14",
-        "reasoning": "No annotations, such as confidence intervals or reference lines, are present in the image, and the model does not mention any.",
+        "reasoning": "No annotations are expected. Model does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -181,7 +313,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "The chart does not have dual y-axes, and the model does not mention any.",
+        "reasoning": "No dual y-axes are expected. Model does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -218,6 +350,123 @@
       {
         "id": "global_missing_takeaway",
         "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "Ours (Dynamic Seg)",
+            "reference_value": {
+              "start": 53,
+              "peak": 54,
+              "end": 54
+            },
+            "model_value": {
+              "start": 53,
+              "peak": 54,
+              "end": 54
+            },
+            "match": true
+          },
+          {
+            "label": "Ours (Static 4-Seg)",
+            "reference_value": {
+              "start": 52.8,
+              "peak": 54,
+              "end": 54
+            },
+            "model_value": {
+              "start": 52.8,
+              "peak": 54,
+              "end": 54
+            },
+            "match": true
+          },
+          {
+            "label": "PLLaVA (DP 8)",
+            "reference_value": {
+              "start": 46,
+              "end": 39
+            },
+            "model_value": {
+              "start": 45.2,
+              "end": 39.5
+            },
+            "match": false
+          },
+          {
+            "label": "PLLaVA (DP 16)",
+            "reference_value": {
+              "start": 45,
+              "end": 42
+            },
+            "model_value": {
+              "start": 45.8,
+              "end": 42.2
+            },
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "Ours (Dynamic Seg)",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "Ours (Static 4-Seg)",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "PLLaVA (DP 8)",
+            "reference_value": "orange",
+            "model_value": "orange",
+            "match": true
+          },
+          {
+            "label": "PLLaVA (DP 16)",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Ours (Dynamic Seg)",
+            "reference_value": "non-monotonic (increases then stable)",
+            "model_value": "non-monotonic (increases then stable)",
+            "match": true
+          },
+          {
+            "label": "Ours (Static 4-Seg)",
+            "reference_value": "non-monotonic (increases then stable)",
+            "model_value": "non-monotonic (increases then stable)",
+            "match": true
+          },
+          {
+            "label": "PLLaVA (DP 8)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "PLLaVA (DP 16)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          }
+        ]
       }
     ]
   }
