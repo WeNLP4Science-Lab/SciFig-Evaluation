@@ -1,0 +1,476 @@
+{
+  "figure_id": "fig_195",
+  "figure_type": "Line Plot",
+  "generator_model": "gpt-4o",
+  "validator_model": "mistralai/mistral-large-2512",
+  "categories": {
+    "counting": [
+      {
+        "question": "How many data points across all lines have a PPL value greater than 13.0?",
+        "answer": 3,
+        "answer_type": "exact",
+        "category": "counting",
+        "reasoning": "Step 1: Identify all data points across the four lines. Step 2: Check the y-axis values for each data point to determine if the PPL is greater than 13.0. Step 3: Count the qualifying points: one on 'Only MoHD ATTN' (at 25%), and two on 'MoHD ATTN + MLP' (at 50% and 25%).",
+        "visual_elements": [
+          "data points on 'Only MoHD ATTN'",
+          "data points on 'MoHD ATTN + MLP'"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by counting the data points above the PPL value of 13.0 on the y-axis in the figure."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "There is exactly one correct count of data points with PPL greater than 13.0."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires careful inspection of each line and data point to verify PPL values."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves counting data points, which fits the 'counting' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific visual elements (data point positions relative to the y-axis)."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "How many intersections occur between the red dashed line (Transformer) and the other three lines?",
+        "answer": 3,
+        "answer_type": "exact",
+        "category": "counting",
+        "reasoning": "Step 1: Locate the red dashed line at PPL = 11.6. Step 2: Identify where each of the other three lines crosses this horizontal line. Step 3: Count the intersections: 'Only MoHD FFN' intersects at 100%, 'Only MoHD ATTN' intersects at 100%, and 'MoHD ATTN + MLP' intersects at 100%.",
+        "visual_elements": [
+          "intersection points of 'Transformer' with 'Only MoHD FFN'",
+          "intersection points of 'Transformer' with 'Only MoHD ATTN'",
+          "intersection points of 'Transformer' with 'MoHD ATTN + MLP'"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by visually identifying intersections between the red dashed line and the other lines."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The number of intersections is clearly defined and countable."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires close examination of the lines to identify intersections, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves counting intersections, which fits the 'counting' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific visual elements (line crossings)."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "How many data points are located at the boundary of the x-axis (25% and 100%) across all lines?",
+        "answer": 8,
+        "answer_type": "exact",
+        "category": "counting",
+        "reasoning": "Step 1: Identify the x-axis boundaries at 25% and 100%. Step 2: Count the data points at these positions for each line. Step 3: Each line has two data points at these boundaries (one at 25% and one at 100%), resulting in a total of 8 points.",
+        "visual_elements": [
+          "data points at 25% and 100% for 'Transformer'",
+          "data points at 25% and 100% for 'Only MoHD FFN'",
+          "data points at 25% and 100% for 'Only MoHD ATTN'",
+          "data points at 25% and 100% for 'MoHD ATTN + MLP'"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by counting data points at the x-axis boundaries (25% and 100%) across all lines."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "There is exactly one correct count of data points at the specified boundaries."
+          },
+          "challenging": {
+            "verdict": "FAIL",
+            "reason": "The answer is immediately obvious at a glance since boundary points are easy to identify."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves counting data points, which fits the 'counting' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific visual elements (data points at x-axis boundaries)."
+          },
+          "overall": "REJECT",
+          "difficulty": "hard"
+        }
+      }
+    ],
+    "computation": [
+      {
+        "question": "What is the percentage increase in Eval PPL for the 'Only MoHD ATTN' method when the activated parameters ratio decreases from 100% to 25%?",
+        "answer": 26.1,
+        "answer_type": "approximate",
+        "acceptable_range": [
+          25.5,
+          26.5
+        ],
+        "category": "computation",
+        "reasoning": "Step 1: Read the Eval PPL for 'Only MoHD ATTN' at 100% activated parameters ratio, which is approximately 11.5. Step 2: Read the Eval PPL for 'Only MoHD ATTN' at 25% activated parameters ratio, which is approximately 14.5. Step 3: Compute the percentage increase using the formula [(14.5 - 11.5) / 11.5] * 100 = 26.1%.",
+        "visual_elements": [
+          "purple line with circle markers",
+          "x-axis values 100% and 25%",
+          "y-axis values 11.5 and 14.5"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The figure provides Eval PPL values for 'Only MoHD ATTN' at 100% and 25% activated parameters ratios, allowing calculation of percentage increase."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question specifies a single method and two exact data points, leaving no room for multiple interpretations."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires extracting two values and performing a percentage increase calculation, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves arithmetic computation on values from the figure."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific data points (Eval PPL values) for the 'Only MoHD ATTN' method."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "What is the average Eval PPL for the 'MoHD ATTN + MLP' method across all activated parameters ratios shown?",
+        "answer": 12.43,
+        "answer_type": "approximate",
+        "acceptable_range": [
+          12.4,
+          12.5
+        ],
+        "category": "computation",
+        "reasoning": "Step 1: Read the Eval PPL values for 'MoHD ATTN + MLP' at 100%, 75%, 50%, and 25% activated parameters ratios, which are approximately 11.5, 12.0, 12.9, and 13.3, respectively. Step 2: Compute the average using the formula (11.5 + 12.0 + 12.9 + 13.3) / 4 = 12.43.",
+        "visual_elements": [
+          "blue line with cross markers",
+          "x-axis values 100%, 75%, 50%, and 25%",
+          "y-axis values 11.5, 12.0, 12.9, and 13.3"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The figure shows Eval PPL values for 'MoHD ATTN + MLP' at multiple activated parameters ratios, allowing calculation of the average."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question specifies a single method and requires averaging across all visible data points, leaving no ambiguity."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "The question requires extracting multiple values and computing their average, which is non-trivial."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves arithmetic computation (averaging) on values from the figure."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific data points (Eval PPL values) for the 'MoHD ATTN + MLP' method."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "What is the difference in Eval PPL between the 'Transformer' and 'Only MoHD FFN' methods at 50% activated parameters ratio?",
+        "answer": 0.3,
+        "answer_type": "approximate",
+        "acceptable_range": [
+          0.25,
+          0.35
+        ],
+        "category": "computation",
+        "reasoning": "Step 1: Read the Eval PPL for the 'Transformer' method, which is constant at approximately 11.6. Step 2: Read the Eval PPL for 'Only MoHD FFN' at 50% activated parameters ratio, which is approximately 11.3. Step 3: Compute the difference using the formula 11.6 - 11.3 = 0.3.",
+        "visual_elements": [
+          "red dashed line",
+          "gray line with square markers",
+          "x-axis value 50%",
+          "y-axis values 11.6 and 11.3"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The figure provides Eval PPL values for both 'Transformer' and 'Only MoHD FFN' at 50% activated parameters ratio, allowing calculation of the difference."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question specifies two methods and a single data point, leaving no room for multiple interpretations."
+          },
+          "challenging": {
+            "verdict": "FAIL",
+            "reason": "The question requires only a simple subtraction of two values, which is immediately obvious at a glance."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves arithmetic computation (difference) on values from the figure."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific data points (Eval PPL values) for two methods at 50% activated parameters ratio."
+          },
+          "overall": "REJECT",
+          "difficulty": "hard"
+        }
+      }
+    ],
+    "comparison": [
+      {
+        "question": "At 50% activated parameters ratio, which method has the smallest gap in Eval PPL compared to the Transformer baseline?",
+        "answer": "Only MoHD FFN",
+        "answer_type": "exact",
+        "category": "comparison",
+        "reasoning": "Step 1: At 50% activated parameters ratio, the Transformer baseline has a PPL of approximately 11.6. Step 2: The PPL values for the other methods at this ratio are: 'Only MoHD FFN' (11.3), 'Only MoHD ATTN' (12.8), and 'MoHD ATTN + MLP' (12.0). Step 3: The absolute differences from the Transformer baseline are: 'Only MoHD FFN' (0.3), 'Only MoHD ATTN' (1.2), and 'MoHD ATTN + MLP' (0.4). Step 4: The smallest gap is for 'Only MoHD FFN' with a difference of 0.3.",
+        "visual_elements": [
+          "Transformer baseline line",
+          "Only MoHD FFN line",
+          "Only MoHD ATTN line",
+          "MoHD ATTN + MLP line",
+          "50% x-axis marker"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the Eval PPL values of each method at 50% activated parameters ratio and comparing them to the Transformer baseline."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question asks for a single method with the smallest gap, which can be clearly determined from the figure."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires careful comparison of multiple values and calculation of gaps, not immediately obvious."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves a relative comparison of gaps, fitting the 'comparison' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific line positions and values in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "Rank the methods by their Eval PPL at 25% activated parameters ratio, from lowest to highest.",
+        "answer": "Transformer, Only MoHD FFN, MoHD ATTN + MLP, Only MoHD ATTN",
+        "answer_type": "exact",
+        "category": "comparison",
+        "reasoning": "Step 1: At 25% activated parameters ratio, the PPL values for the methods are: Transformer (11.6), 'Only MoHD FFN' (11.75), 'MoHD ATTN + MLP' (13.3), and 'Only MoHD ATTN' (14.5). Step 2: Sorting these values from lowest to highest gives the order: Transformer, Only MoHD FFN, MoHD ATTN + MLP, Only MoHD ATTN.",
+        "visual_elements": [
+          "Transformer baseline line",
+          "Only MoHD FFN line",
+          "Only MoHD ATTN line",
+          "MoHD ATTN + MLP line",
+          "25% x-axis marker"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the Eval PPL values of each method at 25% activated parameters ratio."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The ranking is a single, clearly defined order based on visible values."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires careful reading and ordering of multiple values, not immediately obvious."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves ranking methods by their values, fitting the 'comparison' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific data points and their relative positions."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "Between 100% and 25% activated parameters ratio, which method shows the largest increase in Eval PPL?",
+        "answer": "Only MoHD ATTN",
+        "answer_type": "exact",
+        "category": "comparison",
+        "reasoning": "Step 1: The PPL values at 100% and 25% activated parameters ratio are: 'Only MoHD ATTN' (11.5 to 14.5), 'MoHD ATTN + MLP' (11.5 to 13.3), 'Only MoHD FFN' (11.5 to 11.75), and Transformer (11.6, constant). Step 2: The increases are: 'Only MoHD ATTN' (3.0), 'MoHD ATTN + MLP' (1.8), 'Only MoHD FFN' (0.25), and Transformer (0). Step 3: The largest increase is for 'Only MoHD ATTN' with a rise of 3.0.",
+        "visual_elements": [
+          "Only MoHD ATTN line",
+          "MoHD ATTN + MLP line",
+          "Only MoHD FFN line",
+          "Transformer baseline line",
+          "100% x-axis marker",
+          "25% x-axis marker"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the change in Eval PPL for each method between 100% and 25% activated parameters ratio."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The question asks for a single method with the largest increase, which can be clearly determined."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Requires calculating differences across a range and comparing them, not immediately obvious."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves comparing relative changes, fitting the 'comparison' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "Requires examining specific line segments and their changes in value."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "very_hard"
+        }
+      }
+    ],
+    "pattern_analysis": [
+      {
+        "question": "Which method exhibits a non-monotonic trend in evaluation perplexity as the activated parameters ratio decreases?",
+        "answer": "Only MoHD FFN",
+        "answer_type": "categorical",
+        "category": "pattern_analysis",
+        "reasoning": "Step 1: Observe the gray line labeled 'Only MoHD FFN'. Step 2: Note that it starts at a PPL of 11.5 at 100%, decreases to 11.3 at 50%, and then increases to 11.75 at 25%. Step 3: This indicates a non-monotonic trend (decrease followed by an increase).",
+        "visual_elements": [
+          "gray line with square markers",
+          "x-axis labels",
+          "y-axis labels"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the trends of each method's line in the figure."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "There is exactly one method that exhibits a non-monotonic trend, which can be clearly identified."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Identifying a non-monotonic trend requires careful analysis of the line patterns, not just a glance."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question focuses on structural trends/patterns, matching the 'pattern_analysis' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining the specific line trends and positions in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "Which method shows the fastest rate of increase in evaluation perplexity between 50% and 25% activated parameters ratio?",
+        "answer": "Only MoHD ATTN",
+        "answer_type": "categorical",
+        "category": "pattern_analysis",
+        "reasoning": "Step 1: Compare the slopes of the lines between 50% and 25% activated parameters ratio. Step 2: The purple line labeled 'Only MoHD ATTN' rises from approximately 12.5 to 14.5, a change of 2.0 PPL. Step 3: The blue line labeled 'MoHD ATTN + MLP' rises from approximately 12.0 to 13.3, a change of 1.3 PPL. Step 4: The gray line labeled 'Only MoHD FFN' rises from approximately 11.3 to 11.75, a change of 0.45 PPL. Step 5: The purple line exhibits the fastest rate of increase.",
+        "visual_elements": [
+          "purple line with circle markers",
+          "blue line with cross markers",
+          "gray line with square markers",
+          "x-axis labels",
+          "y-axis labels"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by comparing the slopes of the lines between 50% and 25% activated parameters ratio."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The fastest rate of increase can be determined by comparing the steepness of the lines in the specified range."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Estimating the rate of increase requires careful comparison of line slopes, not just a glance."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves analyzing trends/patterns, matching the 'pattern_analysis' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific line segments and their steepness in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "hard"
+        }
+      },
+      {
+        "question": "At which activated parameters ratio do the 'Only MoHD ATTN' and 'MoHD ATTN + MLP' methods diverge most significantly in evaluation perplexity?",
+        "answer": "25%",
+        "answer_type": "categorical",
+        "category": "pattern_analysis",
+        "reasoning": "Step 1: Compare the difference in PPL values between the purple line ('Only MoHD ATTN') and the blue line ('MoHD ATTN + MLP') at each activated parameters ratio. Step 2: At 100%, both lines start at approximately 11.5, showing no divergence. Step 3: At 75%, the purple line is slightly higher than the blue line, but the difference is small. Step 4: At 50%, the purple line is at approximately 12.5, while the blue line is at 12.0, showing a difference of 0.5. Step 5: At 25%, the purple line is at approximately 14.5, while the blue line is at 13.3, showing a difference of 1.2. Step 6: The divergence is most significant at 25%.",
+        "visual_elements": [
+          "purple line with circle markers",
+          "blue line with cross markers",
+          "x-axis labels",
+          "y-axis labels"
+        ],
+        "validation": {
+          "answerable": {
+            "verdict": "PASS",
+            "reason": "The question can be answered by examining the vertical distance between the two methods' lines at each activated parameters ratio."
+          },
+          "unambiguous": {
+            "verdict": "PASS",
+            "reason": "The point of maximum divergence can be clearly identified by comparing the gaps between the two lines."
+          },
+          "challenging": {
+            "verdict": "PASS",
+            "reason": "Identifying the exact point of maximum divergence requires careful analysis of the figure."
+          },
+          "correct_category": {
+            "verdict": "PASS",
+            "reason": "The question involves analyzing structural patterns/trends, matching the 'pattern_analysis' category."
+          },
+          "visual_grounding": {
+            "verdict": "PASS",
+            "reason": "The question requires examining specific visual gaps between lines in the figure."
+          },
+          "overall": "ACCEPT",
+          "difficulty": "very_hard"
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_candidates": 12,
+    "accepted": 10,
+    "rejected": 2
+  }
+}
