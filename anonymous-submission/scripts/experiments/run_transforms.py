@@ -42,8 +42,8 @@ logger = logging.getLogger(__name__)
 TRANSFORMS_DIR = RESULTS_DIR / "generation" / "description_tasks" / "transforms"
 ADMITTANCE_DIR = ADVERSARIAL_DIR / "admittance"
 INDUCTANCE_DIR = ADVERSARIAL_DIR / "inductance"
-IN_PAPER_DIR = DATASET_DIR / "in_paper"
-IN_PAPER_BLUR_DIR = DATASET_DIR / "in_paper_blur"
+IN_PAPER_DIR = DATASET_DIR / "transforms" / "in_paper"
+IN_PAPER_BLUR_DIR = DATASET_DIR / "transforms" / "in_paper_blur"
 
 ALL_TRANSFORMS = [
     "original",
