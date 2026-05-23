@@ -33,7 +33,7 @@ import numpy as np
 
 import sys
 sys.path.insert(0, str(Path(__file__).parent))
-from config import MODELS, FIGURES_DIR, GROUNDTRUTH_DIR, RESULTS_DIR, PROMPTS_DIR, ADVERSARIAL_DIR
+from config import MODELS, FIGURES_DIR, GROUNDTRUTH_DIR, RESULTS_DIR, PROMPTS_DIR, ADVERSARIAL_DIR, DATASET_DIR
 from models import call_vlm
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt="%H:%M:%S")
@@ -93,8 +93,10 @@ def apply_transform(img_path: str, transform: str, out_path: str) -> bool:
     return True
 
 
+DATASET_TRANSFORMS_DIR = DATASET_DIR / "transforms"
+
 def get_image_path(fig_id: str, transform: str, tmp_dir: Path):
-    """Return the image path for a given transform. Creates temp files for on-the-fly transforms."""
+    """Return the image path for a given transform. Pre-generated images used where available."""
     if transform == "original":
         return FIGURES_DIR / f"{fig_id}.png", False
     elif transform == "admittance_blur":
@@ -106,11 +108,8 @@ def get_image_path(fig_id: str, transform: str, tmp_dir: Path):
     elif transform == "in_paper_blur":
         return IN_PAPER_BLUR_DIR / f"{fig_id}.png", False
     elif transform in ("noise", "low_contrast", "rotation"):
-        src = FIGURES_DIR / f"{fig_id}.png"
-        tmp_path = tmp_dir / f"{fig_id}_{transform}.png"
-        if apply_transform(str(src), transform, str(tmp_path)):
-            return tmp_path, True
-        return None, False
+        # Use pre-generated transform images from dataset/transforms/
+        return DATASET_TRANSFORMS_DIR / transform / f"{fig_id}.png", False
     return None, False
 
 

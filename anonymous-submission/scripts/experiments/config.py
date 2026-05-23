@@ -88,10 +88,10 @@ MODELS = {
         "model_id": "google/gemma-3-27b-it",
         "thesis_name": "gemma3-27b-it",
     },
-    "phi-5": {
+    "phi-4-multimodal": {
         "backend": "azure",
-        "model_id": "Phi-5",
-        "thesis_name": None,  # no thesis outputs
+        "model_id": "phi-4-multimodal",
+        "thesis_name": None,  # no prior outputs
     },
 }
 

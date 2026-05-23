@@ -1,0 +1,34 @@
+{
+  "modified_caption": "Comparison of different query selection strategies. During training, we first expand the document with a query selected from the generated queries using a specific strategy, and then train DPR with the expanded document. During inference, we evaluate the well-trained DPR retrievers with corpus expansion (solid lines) and the typical representation (dotted lines) on the dev set of MS-Marco, where the solid and dotted lines with the same color are results for the same DPR. Notably, the 'DPR w/ bottom-1' strategy demonstrates a consistent increase in MRR@10, reaching approximately 35.2 at S=10, surpassing the 'DPR w/ random' strategy. Additionally, the 'DPR w/ gold' strategy shows a slower rate of improvement compared to 'DPR w/ top-1', stabilizing at around 34.8 by S=10. The 'DPR w/ curriculum' strategy consistently exceeds the performance of 'DPR w/ random' across all query counts, with a peak MRR@10 of approximately 36.0 at S=10.",
+  "modifications": [
+    {
+      "claim": "The 'DPR w/ bottom-1' strategy demonstrates a consistent increase in MRR@10, reaching approximately 35.2 at S=10, surpassing the 'DPR w/ random' strategy.",
+      "reality": "The 'DPR w/ bottom-1' strategy decreases slightly and stabilizes at approximately 34.6 at S=10, and does not surpass the 'DPR w/ random' strategy, which ends at 35.3.",
+      "type": "comparison_swap",
+      "principle": "peripheral_misinformation"
+    },
+    {
+      "claim": "The 'DPR w/ gold' strategy shows a slower rate of improvement compared to 'DPR w/ top-1', stabilizing at around 34.8 by S=10.",
+      "reality": "The 'DPR w/ gold' strategy increases sharply and ends at approximately 35.0 at S=10, not stabilizing at 34.8.",
+      "type": "rate_mischaracterization",
+      "principle": "loaded_verb"
+    },
+    {
+      "claim": "The 'DPR w/ curriculum' strategy consistently exceeds the performance of 'DPR w/ random' across all query counts, with a peak MRR@10 of approximately 36.0 at S=10.",
+      "reality": "The 'DPR w/ curriculum' strategy does not consistently exceed 'DPR w/ random' across all query counts, and its peak MRR@10 is approximately 35.8, not 36.0.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    }
+  ],
+  "correct_elements": [
+    "Chart type is a line plot.",
+    "The x-axis represents the number of queries used during inference (S).",
+    "The y-axis represents MRR@10.",
+    "The legend correctly identifies the query selection strategies.",
+    "Solid lines represent corpus expansion, and dotted lines represent typical representation."
+  ],
+  "figure_id": "fig_103",
+  "figure_type": "Line Plot",
+  "original_caption": "Comparison of different query selection strategies. During training, we first expand the document with a query selected from the generated queries using a specific strategy, and then train DPR with the expanded document. During inference, we evaluate the well-trained DPR retrievers with corpus expansion (solid lines) and the typical representation (dotted lines) on the dev set of MS-Marco, where the solid and dotted lines with the same color are results for the same DPR.",
+  "num_modifications": 3
+}

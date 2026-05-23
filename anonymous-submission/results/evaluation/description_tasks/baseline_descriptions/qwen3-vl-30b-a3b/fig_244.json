@@ -1,0 +1,326 @@
+{
+  "figure_id": "fig_244",
+  "model_name": "qwen3-vl-30b-a3b",
+  "figure_type": "Pie Chart",
+  "judge_model": "gpt-4o",
+  "num_items": 11,
+  "num_penalties_raw": 3,
+  "num_penalties_deduped": 3,
+  "total_penalty_raw": 6.0,
+  "total_penalty_deduped": 6.0,
+  "mqm_raw": 83.78,
+  "mqm_deduped": 83.78,
+  "penalties_raw": [
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/3 elements mismatched. Null: model=red ref=pink",
+      "text_span": ""
+    },
+    {
+      "id": "pie_07",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "The model does not explicitly state the ordering of slices."
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The model claims that the chart visually emphasizes the proportions, but there is no visual emphasis (e.g., explosion or offsetting) in the chart.",
+      "text_span": "The chart visually emphasizes the relative proportions of these categories, with the red and blue slices being the most prominent and nearly equal in size, while the green slice is noticeably smaller."
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/3 elements mismatched. Null: model=red ref=pink",
+      "text_span": ""
+    },
+    {
+      "id": "pie_07",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "The model does not explicitly state the ordering of slices."
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The model claims that the chart visually emphasizes the proportions, but there is no visual emphasis (e.g., explosion or offsetting) in the chart.",
+      "text_span": "The chart visually emphasizes the relative proportions of these categories, with the red and blue slices being the most prominent and nearly equal in size, while the green slice is noticeably smaller."
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "pie chart"
+      },
+      "pie_02": {
+        "expected": "The pie chart represents the distribution of categories concerning reference answers and test cases."
+      },
+      "pie_03": {
+        "expected": 3
+      },
+      "pie_04": {
+        "expected": [
+          "Null",
+          "Have reference answer",
+          "Have test case"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "Null": "pink",
+          "Have reference answer": "blue",
+          "Have test case": "green"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "Null": "39.2%",
+          "Have reference answer": "38.9%",
+          "Have test case": "21.9%"
+        }
+      },
+      "pie_07": {
+        "expected": "not ordered in a particular sequence beyond their proportions"
+      },
+      "pie_08": {
+        "expected": "Legend located at the top left corner, detailing each category with corresponding colors and numerical values."
+      },
+      "pie_09": {
+        "expected": "No visual emphasis such as explosion or offsetting."
+      },
+      "pie_10": {
+        "expected": "Percentages labeled outside the respective slices."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "Null",
+          "smallest": "Have test case"
+        }
+      }
+    },
+    "checklist": [
+      {
+        "id": "pie_01",
+        "reasoning": "Expected: pie chart. Model: pie chart. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_02",
+        "reasoning": "Expected: The chart represents the distribution of categories concerning reference answers and test cases. Model: The chart illustrates the distribution of reference answers and test cases within a dataset. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_03",
+        "reasoning": "Expected: 3 slices. Model: 3 slices implied by description of three categories. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_04",
+        "reasoning": "Expected: Null, Have reference answer, Have test case. Model: Null, Have reference answer, Have test case. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_05",
+        "reasoning": "Expected: Null=pink, Have reference answer=blue, Have test case=green. Model: Null=red, Have reference answer=blue, Have test case=green. Null's color is mismatched (pink vs red).",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "The largest segment, colored red, represents entries with no reference answer or test case.",
+          "detail": "The model describes the color of 'Null' as red, but the reference and image show it as pink."
+        }
+      },
+      {
+        "id": "pie_06",
+        "reasoning": "Expected: Null=39.2%, Have reference answer=38.9%, Have test case=21.9%. Model: Null=39.2%, Have reference answer=38.9%, Have test case=21.9%. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_07",
+        "reasoning": "Expected: Not ordered in a particular sequence beyond their proportions. Model: Not explicitly mentioned but implied by the description of proportions. Match.",
+        "coverage": {
+          "status": "partial",
+          "detail": "The model does not explicitly state the ordering of slices."
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_08",
+        "reasoning": "Expected: Legend located at the top left corner, detailing each category with corresponding colors and numerical values. Model: Legend in the top-left corner with categories and values. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_09",
+        "reasoning": "Expected: No visual emphasis such as explosion or offsetting. Model: No mention of visual emphasis. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_10",
+        "reasoning": "Expected: Percentages labeled outside the respective slices. Model: Percentages displayed directly on the chart. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_11",
+        "reasoning": "Expected: Largest=Null, Smallest=Have test case. Model: Largest=Null, Smallest=Have test case. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": [
+          {
+            "text_span": "The chart visually emphasizes the relative proportions of these categories, with the red and blue slices being the most prominent and nearly equal in size, while the green slice is noticeably smaller.",
+            "explanation": "The model claims that the chart visually emphasizes the proportions, but there is no visual emphasis (e.g., explosion or offsetting) in the chart."
+          }
+        ]
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "Null",
+            "reference_value": "39.2%",
+            "model_value": "39.2%",
+            "match": true
+          },
+          {
+            "label": "Have reference answer",
+            "reference_value": "38.9%",
+            "model_value": "38.9%",
+            "match": true
+          },
+          {
+            "label": "Have test case",
+            "reference_value": "21.9%",
+            "model_value": "21.9%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "Null",
+            "reference_value": "pink",
+            "model_value": "red",
+            "match": false
+          },
+          {
+            "label": "Have reference answer",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "Have test case",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}
