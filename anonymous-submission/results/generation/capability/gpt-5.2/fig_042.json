@@ -1,0 +1,61 @@
+{
+  "figure_id": "fig_042",
+  "model_name": "gpt-5.2",
+  "questions": [
+    {
+      "question": "How many bars have a height greater than 20 across all categories?",
+      "answer": 6,
+      "answer_type": "exact",
+      "category": "counting",
+      "reasoning": "Step 1: Examine the heights of all bars in the chart. Step 2: Identify bars with heights greater than 20. Step 3: Count these bars: 'NoR QA' for 2WikiMQA (29), 'OneR QA' for 2WikiMQA (23), 'NoR QA' for MuSiQue (28), 'OneR QA' for MuSiQue (27), 'IRCoT QA' for MuSiQue (23), and 'NoR QA' for HotpotQA (15). Total = 6.",
+      "visual_elements": [
+        "Bars for NoR QA, OneR QA, and IRCoT QA across all categories"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "What is the percentage difference in factual errors between 'OneR QA' and 'IRCoT QA' for the 'MuSiQue' dataset?",
+      "answer": 17.39,
+      "answer_type": "approximate",
+      "acceptable_range": [
+        17,
+        18
+      ],
+      "category": "computation",
+      "reasoning": "Step 1: Read the values for 'OneR QA' and 'IRCoT QA' in the 'MuSiQue' dataset: OneR QA = 27, IRCoT QA = 23. Step 2: Compute the absolute difference: 27 - 23 = 4. Step 3: Compute the percentage difference relative to 'IRCoT QA': (4 / 23) * 100 ≈ 17.39%.",
+      "visual_elements": [
+        "MuSiQue OneR QA bar",
+        "MuSiQue IRCoT QA bar"
+      ],
+      "difficulty": "very_hard"
+    },
+    {
+      "question": "Which dataset has the smallest difference in factual errors between 'NoR QA' and 'OneR QA'?",
+      "answer": "MuSiQue",
+      "answer_type": "exact",
+      "category": "comparison",
+      "reasoning": "Step 1: Identify the factual error values for 'NoR QA' and 'OneR QA' for each dataset. Step 2: Calculate the differences: HotpotQA (15 - 10 = 5), 2WikiMQA (29 - 23 = 6), MuSiQue (28 - 27 = 1), IIRC (15 - 14 = 1). Step 3: Compare the differences and find the smallest one. MuSiQue and IIRC both have a difference of 1, but MuSiQue is the first dataset with this difference.",
+      "visual_elements": [
+        "NoR QA bars",
+        "OneR QA bars"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "Does the ordering of factual error counts for the three QA methods (NoR QA, OneR QA, IRCoT QA) remain consistent across all datasets?",
+      "answer": "No, the ordering is not consistent. For example, in 'HotpotQA,' the order is NoR QA > OneR QA > IRCoT QA, while in 'MuSiQue,' the order is NoR QA > OneR QA > IRCoT QA, but the differences in values are smaller.",
+      "answer_type": "categorical",
+      "category": "pattern_analysis",
+      "reasoning": "Step 1: Examine the bar heights for each dataset. Step 2: Compare the relative ordering of the three bars (yellow, red, blue) within each dataset. Step 3: Identify that the ordering changes slightly in terms of magnitude differences, especially between 'HotpotQA' and 'MuSiQue.'",
+      "visual_elements": [
+        "HotpotQA bars",
+        "2WikiMQA bars",
+        "MuSiQue bars",
+        "IIRC bars"
+      ],
+      "difficulty": "hard"
+    }
+  ],
+  "raw_response": "1. 5 bars exceed a height of 20 (2 in 2WikiMQA and 3 in MuSiQue).  \n2. For MuSiQue, OneR QA is 27 vs IRCoT QA 23, a difference of 4; relative to IRCoT QA that’s about 17.4% (4/23).  \n3. IIRC has the smallest NoR QA vs OneR QA gap (15 vs 14, difference of 1).  \n4. Yes. In every dataset, NoR QA has the most errors, OneR QA is next, and IRCoT QA has the fewest.",
+  "timestamp": "2026-05-23T21:24:13.938047+00:00"
+}

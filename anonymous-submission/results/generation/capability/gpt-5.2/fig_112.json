@@ -1,0 +1,60 @@
+{
+  "figure_id": "fig_112",
+  "model_name": "gpt-5.2",
+  "questions": [
+    {
+      "question": "How many lines in the plot have a final loss value (at 140,000 iterations) below 2.5?",
+      "answer": 2,
+      "answer_type": "exact",
+      "category": "counting",
+      "reasoning": "Step 1: Identify the final loss values for all lines at 140,000 iterations. Step 2: Compare these values to the threshold of 2.5. Step 3: Count the lines that have final loss values below 2.5. The red line ('SepLLM (n=64, H/T)') and the dark blue line ('SepLLM (n=128)') meet this criterion.",
+      "visual_elements": [
+        "red line",
+        "dark blue line"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "What is the percentage decrease in loss for the 'Vanilla' model from 0 iterations to 140,000 iterations?",
+      "answer": 28.26,
+      "answer_type": "approximate",
+      "acceptable_range": [
+        28.0,
+        28.5
+      ],
+      "category": "computation",
+      "reasoning": "Step 1: Read the initial loss value for 'Vanilla' at 0 iterations, which is approximately 3.42. Step 2: Read the final loss value for 'Vanilla' at 140,000 iterations, which is approximately 2.45. Step 3: Compute the absolute decrease: 3.42 - 2.45 = 0.97. Step 4: Compute the percentage decrease: (0.97 / 3.42) * 100 ≈ 28.26%.",
+      "visual_elements": [
+        "Vanilla line",
+        "y-axis values at 0 and 140,000 iterations"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "At 80,000 iterations, is the loss value of 'StrmLLM (n=64)' more than twice the loss value of 'SepLLM (n=64, H/T)'?",
+      "answer": "No, the loss value of 'StrmLLM (n=64)' is not more than twice the loss value of 'SepLLM (n=64, H/T)'.",
+      "answer_type": "exact",
+      "category": "comparison",
+      "reasoning": "Step 1: Locate the blue line ('StrmLLM (n=64)') and red line ('SepLLM (n=64, H/T)') at 80,000 iterations. Step 2: Estimate the loss values for both lines. The blue line is around 2.7, and the red line is around 2.5. Step 3: Calculate twice the red line's value (2.5 * 2 = 5.0) and compare it to the blue line's value. The blue line's value is not more than twice the red line's value.",
+      "visual_elements": [
+        "blue line at 80,000",
+        "red line at 80,000"
+      ],
+      "difficulty": "very_hard"
+    },
+    {
+      "question": "Which model's loss curve shows the fastest initial rate of decrease within the first 20,000 iterations?",
+      "answer": "StrmLLM (n=64)",
+      "answer_type": "categorical",
+      "category": "pattern_analysis",
+      "reasoning": "Step 1: Observe the steepness of the curves in the first 20,000 iterations. Step 2: The blue line representing 'StrmLLM (n=64)' has the steepest slope, indicating the fastest initial rate of decrease. Step 3: Other models, while decreasing, show less steep slopes in this interval.",
+      "visual_elements": [
+        "blue line for StrmLLM (n=64)",
+        "x-axis interval 0-20,000"
+      ],
+      "difficulty": "hard"
+    }
+  ],
+  "raw_response": "1. 2 lines (Vanilla and SepLLM (n=64, H/T)) finish below 2.5 at 140,000 iterations.  \n2. About a 27% decrease (from roughly 3.4 at 0 iterations to about 2.48 at 140,000).  \n3. No; at ~80,000 iterations StrmLLM (n=64) is around 2.65–2.7 while SepLLM (n=64, H/T) is around 2.55, so it’s nowhere near 2×.  \n4. Vanilla shows the fastest initial drop within the first 20,000 iterations (it descends most steeply early on).",
+  "timestamp": "2026-05-23T21:24:55.414952+00:00"
+}

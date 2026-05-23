@@ -1,0 +1,66 @@
+{
+  "figure_id": "fig_104",
+  "model_name": "gpt-5.2",
+  "questions": [
+    {
+      "question": "How many lines dip below -10% at any layer grouping?",
+      "answer": 2,
+      "answer_type": "exact",
+      "category": "counting",
+      "reasoning": "Step 1: Identify all lines in the plot. Step 2: Examine the y-axis values for each line across all layer groupings. Step 3: Count the lines that dip below -10% at any point. The light blue line ('RULER4k of 2×tokens,8-bit') dips to around -12% at 'Layer13-20', and the dark blue line ('RULER4k of 1×tokens,16-bit') dips to -25% at 'Layer13-20'. No other lines meet this criterion.",
+      "visual_elements": [
+        "light blue line",
+        "dark blue line"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "What is the average relative change across all layers for the 'RULER4k of 1×tokens,16-bit' series?",
+      "answer": -12.0,
+      "answer_type": "approximate",
+      "acceptable_range": [
+        -13.0,
+        -11.0
+      ],
+      "category": "computation",
+      "reasoning": "Step 1: Read values for 'RULER4k of 1×tokens,16-bit' across all layers: -4% (Layer1-4), -25% (Layer13-20), -4% (Layer29-32). Step 2: Compute the average: (-4 + -25 + -4) / 3 = -33 / 3 = -12%.",
+      "visual_elements": [
+        "dark blue line",
+        "square markers",
+        "Layer1-4",
+        "Layer13-20",
+        "Layer29-32"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "Between 'RULER4k of 1×tokens,16-bit' and 'RULER4k of 2×tokens,8-bit', which line shows a larger recovery in relative change from 'Layer13-20' to 'Layer29-32'?",
+      "answer": "'RULER4k of 1×tokens,16-bit' shows a larger recovery, increasing by approximately 21% (from -25% to -4%), while 'RULER4k of 2×tokens,8-bit' increases by approximately 10% (from -12% to -2%).",
+      "answer_type": "exact",
+      "category": "comparison",
+      "reasoning": "Step 1: Identify the values of both lines at 'Layer13-20' and 'Layer29-32'. 'RULER4k of 1×tokens,16-bit' is at -25% at 'Layer13-20' and -4% at 'Layer29-32'. 'RULER4k of 2×tokens,8-bit' is at -12% at 'Layer13-20' and -2% at 'Layer29-32'. Step 2: Calculate the recovery (difference) for both lines. Step 3: Compare the recovery values to determine which is larger.",
+      "visual_elements": [
+        "dark blue line with square markers",
+        "light blue line with circle markers",
+        "Layer13-20",
+        "Layer29-32"
+      ],
+      "difficulty": "very_hard"
+    },
+    {
+      "question": "Which line exhibits the most pronounced non-monotonic trend, and what is the nature of this trend?",
+      "answer": "The dark blue line ('RULER4k of 1×tokens,16-bit') exhibits the most pronounced non-monotonic trend, with a sharp decrease to -25% at 'Layer13-20' followed by a recovery to near -4% at 'Layer29-32'.",
+      "answer_type": "categorical",
+      "category": "pattern_analysis",
+      "reasoning": "Step 1: Identify the lines with non-monotonic trends by observing changes in direction. Step 2: Compare the magnitude of the dips and recoveries. Step 3: The dark blue line shows the largest dip (-25%) and recovery, making it the most pronounced non-monotonic trend.",
+      "visual_elements": [
+        "dark blue line",
+        "Layer13-20",
+        "Layer29-32"
+      ],
+      "difficulty": "very_hard"
+    }
+  ],
+  "raw_response": "1. 2 lines (both RULER4k series) dip below -10% at least once, around Layer13–20.  \n2. Approximately **-8.2%** on average (about -3%, -4%, -25%, -6%, -3% across the five layer groups).  \n3. **RULER4k of 1×tokens,16-bit** shows the larger recovery (roughly -25% to about -3%, ~+22 points) versus the 2×tokens,8-bit line (about -13% to ~-1%, ~+12 points).  \n4. **RULER4k of 1×tokens,16-bit** is most non-monotonic: it declines to a deep trough at Layer13–20, then rebounds sharply toward Layer29–32 (a pronounced V-shape).",
+  "timestamp": "2026-05-23T21:24:50.768211+00:00"
+}

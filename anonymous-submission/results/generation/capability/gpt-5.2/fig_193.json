@@ -1,0 +1,61 @@
+{
+  "figure_id": "fig_193",
+  "model_name": "gpt-5.2",
+  "questions": [
+    {
+      "question": "How many data points across all lines have a WER value greater than 35.0?",
+      "answer": 6,
+      "answer_type": "exact",
+      "category": "counting",
+      "reasoning": "Step 1: Identify all data points across the four lines. Step 2: Check the WER value of each data point to see if it exceeds 35.0. Step 3: Count the data points that meet this condition. The 'small AdaLoRA_int4' line has 2 points above 35.0, the 'small int4' line has 3 points above 35.0, and the 'small int8' line has 1 point above 35.0. Total = 6.",
+      "visual_elements": [
+        "WER values",
+        "data points on all lines"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "What is the difference in the total WER reduction from epoch 0 to epoch 6 between 'small AdaLoRA_int4' and 'small int8' configurations?",
+      "answer": 1.0,
+      "answer_type": "approximate",
+      "acceptable_range": [
+        0.9,
+        1.1
+      ],
+      "category": "computation",
+      "reasoning": "Step 1: Read WER at epoch 0 and epoch 6 for 'small AdaLoRA_int4': 36.0 and 31.0. Compute reduction: 36.0 - 31.0 = 5.0. Step 2: Read WER at epoch 0 and epoch 6 for 'small int8': 30.0 and 26.0. Compute reduction: 30.0 - 26.0 = 4.0. Step 3: Compute the difference in reductions: 5.0 - 4.0 = 1.0.",
+      "visual_elements": [
+        "solid orange line with circle markers",
+        "dashed orange line with square markers",
+        "WER values at epochs 0 and 6"
+      ],
+      "difficulty": "very_hard"
+    },
+    {
+      "question": "Is the WER of 'small int8' at epoch 6 less than half the WER of 'small int4' at epoch 2?",
+      "answer": "No",
+      "answer_type": "exact",
+      "category": "comparison",
+      "reasoning": "Step 1: Identify the WER of 'small int8' at epoch 6, which is approximately 26.0. Step 2: Identify the WER of 'small int4' at epoch 2, which is approximately 42.0. Step 3: Calculate half of 42.0, which is 21.0. Step 4: Compare 26.0 (WER of 'small int8' at epoch 6) with 21.0. Since 26.0 is greater than 21.0, the answer is 'No.'",
+      "visual_elements": [
+        "WER of 'small int8' at epoch 6",
+        "WER of 'small int4' at epoch 2"
+      ],
+      "difficulty": "very_hard"
+    },
+    {
+      "question": "Which configuration exhibits a non-monotonic trend in WER across epochs, and at which epoch does the peak occur?",
+      "answer": "The 'small int4' configuration exhibits a non-monotonic trend, with a peak at epoch 2.",
+      "answer_type": "categorical",
+      "category": "pattern_analysis",
+      "reasoning": "Step 1: Examine the trends of all configurations. Step 2: Identify configurations where WER increases and then decreases (non-monotonic). Step 3: Observe that 'small int4' starts at 36.0, peaks at 42.0 at epoch 2, and then decreases steadily. Step 4: Confirm the peak occurs at epoch 2.",
+      "visual_elements": [
+        "orange dashed line with circle markers",
+        "epoch 2"
+      ],
+      "difficulty": "hard"
+    }
+  ],
+  "raw_response": "1. 5 data points have WER > 35.0 (2 from **small AdaLoRA_int4** and 3 from **small int4**).  \n2. **small AdaLoRA_int4** drops 35.6→30.5 (−5.1) and **small int8** drops 30.1→26.0 (−4.1), so the difference in total reduction is **1.0 WER**.  \n3. No; **small int8** at epoch 6 is 26.0, which is not less than half of **small int4** at epoch 2 (42.2/2 = 21.1).  \n4. **small int4** is non-monotonic, peaking at **epoch 2** (WER ≈ 42.2).",
+  "timestamp": "2026-05-23T21:25:32.569593+00:00"
+}

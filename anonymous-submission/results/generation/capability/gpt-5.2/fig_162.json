@@ -1,0 +1,68 @@
+{
+  "figure_id": "fig_162",
+  "model_name": "gpt-5.2",
+  "questions": [
+    {
+      "question": "How many data points across all lines have a 'Harmful with Refusal Ratio' greater than 0.4?",
+      "answer": 4,
+      "answer_type": "exact",
+      "category": "counting",
+      "reasoning": "Step 1: Examine each line and its data points. Step 2: Identify data points where the y-axis value exceeds 0.4. Step 3: Count these points: the red line has 2 points (512 and 1024), the orange line has 1 point (512), and the green line has 1 point (512). Total = 4.",
+      "visual_elements": [
+        "red line at 512",
+        "red line at 1024",
+        "orange line at 512",
+        "green line at 512"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "What is the average 'Harmful with Refusal Ratio' for the Qwen2-VL-7B model across all sample sizes on the MMSafetyBench?",
+      "answer": 0.4025,
+      "answer_type": "approximate",
+      "acceptable_range": [
+        0.4,
+        0.405
+      ],
+      "category": "computation",
+      "reasoning": "Step 1: Read values for Qwen2-VL-7B on MMSafetyBench at sample sizes 128, 256, 512, and 1024: 0.25, 0.42, 0.42, and 0.52. Step 2: Compute the sum of these values: 0.25 + 0.42 + 0.42 + 0.52 = 1.61. Step 3: Divide the sum by the number of sample sizes (4): 1.61 / 4 = 0.4025.",
+      "visual_elements": [
+        "red line",
+        "diamond markers",
+        "y-axis values at 128, 256, 512, 1024"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "question": "At 1024, is the 'Harmful with Refusal Ratio' for the red line ('Qwen2-VL-7B on MMSafetyBench') more than 1.5 times the value for the green line ('LlaVA-1.5-7B on MMSafetyBench')?",
+      "answer": "Yes, the red line's value is more than 1.5 times the green line's value.",
+      "answer_type": "exact",
+      "category": "comparison",
+      "reasoning": "Step 1: At 1024, the red line is at approximately 0.52, and the green line is at approximately 0.37. Step 2: Calculate 1.5 times the green line's value: 1.5 * 0.37 = 0.555. Step 3: Compare the red line's value (0.52) to 0.555. Since 0.52 < 0.555, the red line's value is not more than 1.5 times the green line's value.",
+      "visual_elements": [
+        "red line",
+        "green line",
+        "points at 1024"
+      ],
+      "difficulty": "very_hard"
+    },
+    {
+      "question": "Which line shows the fastest rate of increase between sample sizes 128 and 256, and how does this compare to the other lines?",
+      "answer": "The green line shows the fastest rate of increase between 128 and 256, rising from approximately 0.08 to 0.25, which is a larger increase than any other line in this interval.",
+      "answer_type": "categorical",
+      "category": "pattern_analysis",
+      "reasoning": "Step 1: Calculate the change in value for each line between 128 and 256. Step 2: The green line increases by ~0.17, while the blue, orange, and red lines increase by smaller amounts (~0.1, ~0.1, and ~0.05, respectively). Step 3: Conclude that the green line has the fastest rate of increase in this interval.",
+      "visual_elements": [
+        "green line",
+        "blue line",
+        "orange line",
+        "red line",
+        "x-axis at 128",
+        "x-axis at 256"
+      ],
+      "difficulty": "very_hard"
+    }
+  ],
+  "raw_response": "1. 5 data points exceed 0.4 (both Qwen2 lines at 512 and 1024, plus the red line at 256).  \n2. Approximately 0.36 (mean of about 0.24, 0.265, 0.425, 0.515).  \n3. No; at 1024 it’s ~0.515 vs ~0.38, so the ratio is ~1.36 (< 1.5).  \n4. The green line (LlaVA-1.5-7B on MMSafetyBench) increases fastest from 128 to 256 (~+0.15), larger than the orange (~+0.08), blue (~+0.05), and red (~+0.03) increases.",
+  "timestamp": "2026-05-23T21:25:22.487315+00:00"
+}
