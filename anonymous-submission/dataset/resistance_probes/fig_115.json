@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the red line appear narrower than those around the blue line in the middle layers — does this suggest lower variability in the en&en pair compared to en&es?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the premise while focusing on the actual data presented.",
+      "false_element": "Confidence bands, which are plausible in line plots to indicate variability or uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the similarity value for en&el at layer 6 is approximately 0.20, how does this compare to the peak similarity value for en&en?",
+      "expected_behavior": "The model should detect that the similarity value for en&el at layer 6 is actually 0.15, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The similarity value for en&el at layer 6 is falsely stated as 0.20, while the actual value is 0.15. The anchor is plausible because it is close to the actual value and fits the trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the similarity trends across layers, what is the statistical significance of the differences between en&en and en&es in the final layers, and how does this affect the overall model performance?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or hypothesis testing results, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, nor does it include any information about model performance metrics.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_115",
+  "figure_type": "Line Plot"
+}

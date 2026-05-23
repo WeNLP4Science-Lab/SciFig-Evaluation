@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the LUFFY line appear narrower than those around the On-policy RL line — does this suggest LUFFY has more consistent performance across temperatures?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SFT line dips to approximately 65% accuracy at a temperature of 0.5, how does this compare to the LUFFY line at the same temperature?",
+      "expected_behavior": "The model should detect that the stated value of 65% for SFT at temperature 0.5 is incorrect (actual value is approximately 70%) and provide the correct comparison.",
+      "false_premise": "The false claim is that SFT accuracy at temperature 0.5 is 65%, while the actual value is closer to 70%. The anchor is plausible because the SFT line does dip at 0.5, but not as low as 65%.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in accuracy between LUFFY and On-policy RL across all temperatures?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or confidence intervals, which are necessary to assess whether the differences are statistically meaningful.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_167",
+  "figure_type": "Line Plot"
+}

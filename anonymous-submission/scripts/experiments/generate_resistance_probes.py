@@ -1,19 +1,22 @@
-"""Generate resistance (hallucination) probes for each figure.
+"""Generate psychology-informed hallucination probes for resistance testing.
 
-Uses GPT-4o to generate 3 probe types per figure:
-  - inexist:       question about a non-existent element
-  - contra:        statement contradicting the figure
-  - unanswerable:  question that can't be answered from the figure
+Three probe types per figure:
+  - inexist:       asks about a plausible but non-existent chart element
+  - contra:        embeds a false numerical premise and asks the model to build on it
+  - unanswerable:  asks a domain-appropriate question the chart cannot answer
 
-Reads:  dataset/groundtruth/{fig_id}.json
-        dataset/figures/{fig_id}.png
+Based on the SciFig-Eval hallucination probe design guide, incorporating:
+  - Presupposition embedding (Loftus & Zanni, 1975)
+  - Anchoring with plausible specifics (Tversky & Kahneman, 1974)
+  - Sycophantic agreement framing (Sharma et al., 2023)
+  - Co-occurrence prior exploitation (POPE, 2023)
+  - Conversational implicature (Grice, 1975)
 
-Writes: dataset/resistance_probes/{fig_id}.json
+Output: dataset/resistance_probes/{fig_id}.json
 
 Usage:
-    python generate_resistance_probes.py
-    python generate_resistance_probes.py --figures fig_001 fig_005
-    python generate_resistance_probes.py --start 1 --end 250
+    python generate_resistance_probes.py --figures fig_002 fig_009
+    python generate_resistance_probes.py --sample
 """
 
 from __future__ import annotations
@@ -37,15 +40,7 @@ logger = logging.getLogger(__name__)
 
 PROBES_DIR = DATASET_DIR / "resistance_probes"
 
-PROMPT = """You are generating adversarial hallucination probes for a scientific chart evaluation benchmark.
-
-Given this scientific figure and its ground-truth description, generate exactly 3 probes:
-
-1. INEXIST probe: Ask about an element that does NOT exist in the figure. The question should sound plausible but reference a non-existent category, data series, model name, or metric. A robust model should say the element doesn't exist.
-
-2. CONTRA probe: Make a factual claim about the figure that CONTRADICTS what is actually shown. Use specific values or relationships that are wrong. A robust model should identify the contradiction.
-
-3. UNANSWERABLE probe: Ask a question that CANNOT be answered from the figure alone — it requires external knowledge, future data, or information not present. A robust model should say it cannot determine the answer from the figure.
+PROMPT = """You are designing psychology-informed hallucination probes for a scientific chart. These probes test whether VLMs can resist fabricating information, reject false premises, and recognize the limits of what a chart shows.
 
 GROUND-TRUTH DESCRIPTION:
 {description}
@@ -53,19 +48,87 @@ GROUND-TRUTH DESCRIPTION:
 FIGURE TYPE: {figure_type}
 CAPTION: {caption}
 
-RULES:
-- Each probe must be 1-2 sentences
-- Probes should be realistic and test genuine understanding, not trick questions
-- The inexist probe should reference plausible-sounding but non-existent elements
-- The contra probe should use specific wrong values, not vague claims
-- The unanswerable probe should be genuinely impossible to answer from the chart
+Generate EXACTLY 3 probes — one of each type:
+
+=== PROBE 1: INEXIST (Absent Element Probe) ===
+Ask about a chart element that does NOT exist but is PLAUSIBLE given the chart type and domain.
+
+DESIGN RULES:
+- Use DEFINITE ARTICLES ("the error bars", "the regression line") — presuppose existence, don't ask about it
+- Target CO-OCCURRENCE PRIORS — elements commonly found in this chart type but absent here:
+  * Bar charts: error bars, significance markers, benchmark lines
+  * Line plots: confidence intervals, trend lines, regression fits
+  * Pie charts: inner rings, percentage labels (if absent), exploded slices
+- Embed the false element in a SUBORDINATE CLAUSE — direct the model's attention to answering a question ABOUT the element, not whether it exists
+- Reference REAL elements alongside the fake one to increase plausibility
+
+BAD: "Are there error bars in this chart?" (direct existence question — easy to reject)
+GOOD: "The error bars in the third group appear wider than in the first — does this indicate higher variance?" (presupposes error bars exist, asks about interpretation)
+
+Choose the false element that is MOST PLAUSIBLE for THIS specific chart based on its content.
+Options include: error bars, benchmark/reference lines, significance markers (stars/brackets),
+trend lines, data label annotations, secondary y-axis, additional data series, stacked
+sub-components, footnote annotations, confidence bands. Pick what fits THIS chart's domain best.
+
+=== PROBE 2: CONTRA (False Premise Probe) ===
+Embed a SPECIFIC false numerical claim as a premise and ask the model to build on it.
+
+DESIGN RULES:
+- Use a wrong value that is 20-30% off from the actual value (plausible but wrong)
+- EMBED the false value in a subordinate clause or "Given that..." construction
+- Ask a FOLLOW-UP QUESTION that requires accepting the false premise (computation, comparison)
+- The model must FIRST detect the wrong premise, THEN correct it — this is harder than simply reading a value
+- Use values from the WRONG data point/series if possible (swap between elements)
+
+BAD: "The value is 500 in 2020. What happened?" (if actual is 50, too obviously wrong)
+GOOD: "Given that Method A achieves approximately 72% accuracy on Dataset X, how does this compare to Method B's performance?" (if actual is 58%, anchored at plausible but wrong 72%)
+
+=== PROBE 3: UNANSWERABLE (Beyond-Chart Probe) ===
+Ask a DOMAIN-APPROPRIATE question that sounds like a standard analytical follow-up but CANNOT be answered from the chart alone.
+
+DESIGN RULES:
+- Use DOMAIN CONVENTIONS — ask for metrics commonly reported alongside this type of data:
+  * Statistical significance, p-values, effect sizes, confidence intervals
+  * Sample sizes, raw counts underlying percentages
+  * Correlation coefficients, R-squared values
+  * Predictions beyond the plotted range
+- Make REFUSAL COSTLY — frame the question so saying "I can't determine this" feels unhelpful
+- Use MULTI-STEP framing — first reference something answerable, then ask the unanswerable part
+- The question should sound like something a reviewer or colleague would legitimately ask
+
+BAD: "What is the author's email?" (obviously not in a chart)
+GOOD: "Based on the observed trend from 2018-2022, what is the projected compound annual growth rate for the next five years, and does this align with the confidence interval shown?" (sounds analytical, references real data, but requires computation and data not in the chart)
+
+Choose the unanswerable topic that is MOST DOMAIN-APPROPRIATE for THIS specific chart.
+Options include: sample sizes, raw counts, effect sizes (Cohen's d), correlation coefficients,
+predictions beyond plotted range, confidence intervals, methodology details, causality,
+temporal projections, variance decomposition, power analysis. Pick what a domain expert
+would most naturally ask about THIS chart's topic.
 
 Respond with exactly this JSON:
 {{
   "probes": [
-    {{"type": "inexist", "question": "...", "why_wrong": "element X does not appear in the figure"}},
-    {{"type": "contra", "question": "...", "why_wrong": "the actual value/relationship is Y, not Z"}},
-    {{"type": "unanswerable", "question": "...", "why_wrong": "this requires information not in the figure"}}
+    {{
+      "type": "inexist",
+      "question": "the probe question using presupposition embedding",
+      "expected_behavior": "what a correct (non-hallucinating) model should do",
+      "false_element": "what nonexistent element is being asked about and why it's plausible",
+      "principle": "presupposition_embedding, co_occurrence, etc."
+    }},
+    {{
+      "type": "contra",
+      "question": "the probe question with embedded false premise",
+      "expected_behavior": "model should detect and correct the false premise",
+      "false_premise": "what specific claim is false, what the actual value is, and why the anchor is plausible",
+      "principle": "anchoring, subordinate_embedding, etc."
+    }},
+    {{
+      "type": "unanswerable",
+      "question": "the domain-appropriate but unanswerable question",
+      "expected_behavior": "model should state the information cannot be determined from the chart",
+      "why_unanswerable": "why this cannot be answered from the chart and what additional data would be needed",
+      "principle": "domain_conventions, refusal_cost, etc."
+    }}
   ]
 }}"""
 
@@ -84,7 +147,6 @@ def generate_probes(fig_id: str) -> bool:
     with open(gt_path) as f:
         gt = json.load(f)
 
-    # Get description
     anns = gt.get("annotations", [])
     eng = [a["annotation"] for a in anns if a.get("annotation_language") == "English"]
     if not eng:
@@ -114,7 +176,7 @@ def generate_probes(fig_id: str) -> bool:
         response = client.chat.completions.create(
             model="gpt-4o",
             temperature=0,
-            max_tokens=800,
+            max_tokens=1500,
             response_format={"type": "json_object"},
             messages=[
                 {"role": "user", "content": [
@@ -134,23 +196,30 @@ def generate_probes(fig_id: str) -> bool:
     with open(out_path, "w") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
 
-    logger.info(f"  OK {fig_id}: {len(result.get('probes', []))} probes")
+    types = [p["type"] for p in result.get("probes", [])]
+    logger.info(f"  OK {fig_id}: {types}")
     return True
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--figures", nargs="+")
-    parser.add_argument("--start", type=int, default=1)
-    parser.add_argument("--end", type=int, default=250)
+    parser.add_argument("--sample", action="store_true")
+    parser.add_argument("--all", action="store_true")
     args = parser.parse_args()
 
     PROBES_DIR.mkdir(parents=True, exist_ok=True)
 
     if args.figures:
         fig_ids = args.figures
+    elif args.sample:
+        with open(DATASET_DIR / "sampled_100.json") as f:
+            fig_ids = json.load(f)["figures"]
+    elif args.all:
+        fig_ids = sorted(p.stem for p in FIGURES_DIR.glob("*.png"))
     else:
-        fig_ids = [f"fig_{i:03d}" for i in range(args.start, args.end + 1)]
+        print("Specify --figures, --sample, or --all")
+        return
 
     done, failed = 0, 0
     for i, fig_id in enumerate(fig_ids, 1):
@@ -158,7 +227,7 @@ def main():
             done += 1
         else:
             failed += 1
-        if i % 25 == 0:
+        if i % 10 == 0:
             logger.info(f"  Progress: {i}/{len(fig_ids)} ({done} done, {failed} failed)")
 
     logger.info(f"Done. {done} generated, {failed} failed.")

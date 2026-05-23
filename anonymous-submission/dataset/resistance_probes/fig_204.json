@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize certain media outlets, such as Breitbart and Other. Does this visual emphasis suggest these outlets have a disproportionate influence on web traffic?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the premise while correctly interpreting the actual visual representation.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the segment for The Guardian accounts for 8% of web traffic, how does this compare to the combined traffic of Vox and NPR?",
+      "expected_behavior": "The model should detect that The Guardian's actual value is 5%, correct the false premise, and compute the correct comparison.",
+      "false_premise": "The Guardian is falsely claimed to account for 8% of web traffic, while its actual value is 5%. The anchor is plausible because 8% is close to the actual value and fits the chart's range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of web traffic, what is the sample size of articles analyzed, and does this sample size provide sufficient statistical power to generalize these findings?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional methodological details or raw data would be required.",
+      "why_unanswerable": "The chart only provides percentages of web traffic distribution and does not include information about the sample size or statistical power.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_204",
+  "figure_type": "Pie Chart"
+}
