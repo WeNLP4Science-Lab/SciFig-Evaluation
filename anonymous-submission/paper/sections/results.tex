@@ -1,0 +1,54 @@
+%!TEX root = ../main.tex
+\section{Experiments and Results}
+\label{sec:results}
+
+Model rankings under behavioral evaluation diverge substantially from quality rankings, revealing that description quality and behavioral reliability are distinct dimensions of VLM competence. We evaluated eight vision-language models across 250 scientific figures and over 14 experimental conditions, yielding more than 11,000 individual evaluation instances.
+
+\subsection{Models}
+\label{sec:models}
+
+We select eight models spanning commercial and open-weight families, dense and mixture-of-experts (MoE) architectures, and a range of effective parameter counts.
+\textbf{Commercial models}: GPT-5.2 (Azure, closed-weight), Gemini 3.1 Pro (closed-weight), and Phi-4-Multimodal (small, closed-weight).
+\textbf{Open-weight MoE models}: Llama 4 Maverick (17B params, 128 experts), Qwen3-VL-235B-A22B (235B total, 22B active), and Qwen3-VL-30B-A3B (30B total, 3B active).
+\textbf{Open-weight dense models}: Qwen3-VL-8B and Gemma3-27B-IT.
+This selection enables controlled comparisons along three axes: commercial vs.\ open-weight deployment, MoE vs.\ dense architecture at similar active parameter counts (Qwen-235B at 22B active vs.\ Gemma at 27B dense), and scaling within a single family (the three Qwen variants from 3B to 22B active parameters). All models received identical prompts and were evaluated at temperature~0 with GPT-4o as the automated judge.
+
+\subsection{Description Quality}
+\label{sec:quality-results}
+
+GPT-5.2 and Gemini produce the highest-quality scientific figure descriptions, but the gap between them is modest and a clear tier structure emerges across all eight models (Table~\ref{tab:mqm-results}). GPT-5.2 leads with a baseline MQM of 91.6 (95\% CI: 90.4--92.8), followed by Gemini at 90.2 (88.9--91.4). The 1.4-point difference is statistically significant ($p < 0.01$) but practically small. A second tier clusters Llama~4, Qwen-235B, and Qwen-8B between 78.9 and 81.4, with overlapping confidence intervals. Qwen-30B (74.4) and Gemma (69.1) form a third tier, while Phi-4 trails at 62.2 (59.3--64.9), nearly 30 points behind the leaders. Accuracy penalties dominate across all models; completeness penalties become the primary differentiator for weaker models, with Phi-4 accumulating 8.8 completeness penalty points compared to GPT-5.2's 0.7.
+
+\paragraph{Transform robustness.}
+Rotation is the most damaging transform, causing an average MQM drop of 19.4 points across models, while noise has negligible impact (Table~\ref{tab:mqm-results}, Noise column). Low contrast reduces scores by a moderate 4--7 points for top-tier models. The most striking result involves in-paper-blur, where the figure is embedded in a PDF page and the surrounding page content is blurred. This condition collapses all models below 31 MQM points, with Gemini dropping from 90.2 to 8.4 and GPT-5.2 from 91.6 to 13.3. We attribute this catastrophic failure to the models attempting to describe the blurred page context rather than focusing on the embedded figure, a finding with practical implications for document-level figure understanding pipelines.
+
+\paragraph{Selective blur and caption bias MQM.}
+Selectively blurring unrecoverable elements (admittance blur) reduces MQM by roughly 8--10 points for top models, while blurring inferable elements (inductance blur) produces smaller drops of 1--3 points (Table~\ref{tab:mqm-results}, AdmB and IndB columns). This difference validates the admittance-inductance distinction at the description quality level. Caption bias has no measurable effect on MQM for resistant models. GPT-5.2 and Gemini both score 91.3 under poisoned captions, matching their baseline, because they ignore the false claims. Phi-4, already caption-dependent, scores 61.7 under the same condition, consistent with its near-zero resistance.
+
+\subsection{Behavioral Reliability}
+\label{sec:behavioral-results}
+
+Model rankings under behavioral evaluation diverge substantially from quality rankings. GPT-5.2 ranks first on description quality but falls to fourth on active admittance, while Gemini leads on nearly every behavioral dimension despite placing second on quality (Table~\ref{tab:behavioral}).
+
+\paragraph{Resistance to hallucination probes.}
+Gemini achieves the highest overall resistance at 0.91 (0.89--0.93), followed by GPT-5.2 at 0.81 (0.79--0.84), with Phi-4 at the bottom at 0.21 (0.18--0.24). Probe type difficulty follows a clear gradient. Unanswerable probes are easiest to resist, with six of eight models scoring above 0.88, because the question format permits straightforward refusal. Inexist probes, grounded in presupposition embedding \citep{loftus1975leading}, are hardest, with scores ranging from 0.04 (Phi-4) to 0.88 (Gemini). This 22$\times$ gap reflects the power of definite articles to bypass model vigilance; models that can refuse an explicitly unanswerable question still accept the existence of chart elements that were never there. Contra probes fall between these extremes, with anchoring bias \citep{tversky1974judgment} proving moderately effective at suppressing model pushback. The resistance gap between Gemini and GPT-5.2 is statistically significant ($p < 0.001$, $n = 250$ figures), confirming that resistance is not simply a correlate of overall model capability.
+
+\paragraph{Caption bias resistance.}
+Models fall along a caption dependency spectrum from near-total visual independence to near-total textual dependency (Table~\ref{tab:behavioral}, Cap.\ Bias~R). Gemini and GPT-5.2 both achieve 0.89 (0.85--0.93), with overlapping CIs and a non-significant difference ($p = 0.44$). Llama~4 provides moderate resistance at 0.74, while Qwen-235B drops to 0.54, indicating partial susceptibility to authoritative-sounding false claims. Phi-4 exhibits near-zero resistance at 0.05 (0.02--0.09), echoing poisoned caption content over its own visual evidence in 95\% of cases. This gradient tracks model scale within the Qwen family: 0.43 (8B) $\rightarrow$ 0.30 (30B, 3B active) $\rightarrow$ 0.54 (235B, 22B active), suggesting that active parameter count, rather than total parameter count, predicts caption independence for MoE architectures.
+
+\paragraph{Active admittance and inductance.}
+Gemini is the only model that consistently acknowledges visual limitations, admitting uncertainty 90\% of the time (82--98\%) when asked about selectively blurred elements (Table~\ref{tab:behavioral}, Active Adm.). All other models fabricate answers for elements they cannot see, with admittance rates of 22\% (Llama~4), 12\% (Qwen-235B), and 2--6\% for all remaining models. GPT-5.2, the top-ranked model on description quality, admits visual limitations only 6\% of the time while fabricating 98\% of the time. This ``confident fabricator'' profile, where high descriptive fluency coexists with near-total unwillingness to acknowledge uncertainty, represents a concrete safety risk for scientific deployment.
+
+The inductance dimension validates the A-R-I framework by demonstrating that fabrication correctness differs sharply between inferable and non-inferable elements. When models fabricate answers for \emph{inferable} elements (inductance probes), correctness ranges from 21\% to 80\% across models (Table~\ref{tab:behavioral}, Active Ind.\textsuperscript{C}). When they fabricate for \emph{unrecoverable} elements (admittance probes), correctness drops to 0--14\%, consistent with lucky guessing. GPT-5.2 achieves 74\% inductance correctness ($n = 47$ fabrications) versus 14\% admittance correctness ($n = 49$), a gap of 60 percentage points that confirms models are performing genuine contextual reasoning when context permits, rather than generating plausible-sounding noise.
+
+\paragraph{Passive admittance.}
+Models are more willing to acknowledge visual limitations in open-ended descriptions than when asked directly. GPT-5.2 mentions blur or illegibility for 26\% of admittance-blurred elements in its descriptions but admits uncertainty for only 6\% when asked a targeted question (Table~\ref{tab:behavioral}, Passive vs.\ Active Adm.). Gemini shows the same pattern at a higher baseline, with 74\% passive admittance versus 90\% active. This discrepancy suggests that the open-ended description format provides more natural opportunities for hedging, while targeted questions create social pressure to provide a definitive answer, consistent with Grice's cooperative principle \citep{grice1975logic}.
+
+\subsection{Capability Questions}
+\label{sec:capability-results}
+
+Capability questions evaluate targeted reasoning through four categories: counting, computation, comparison, and pattern analysis. Each category tests whether a model can extract specific quantitative or relational information from a figure under standard (non-adversarial) conditions. Full results appear in Table~\ref{tab:capability}.\footnote{Capability evaluation is currently being finalized across all eight models; we report preliminary results in the appendix and will include the complete table in the final version.}
+
+\subsection{Ablation: Probe Designer Independence}
+\label{sec:ablation}
+
+A potential concern with LLM-generated probes is circularity: if the same model family designs the probes and evaluates the responses, results may reflect shared biases rather than genuine model behavior. We address this by comparing probes designed by GPT-4o (our default) against probes designed by Mistral Large, evaluating both on the same 50-figure subset with GPT-5.2 as the target model. GPT-4o-designed resistance probes yield a mean score of 0.80 (0.74--0.86) while Mistral-designed probes yield 0.86 (0.79--0.91), a difference with a small effect size ($\delta = -0.16$) and a 95\% CI that includes zero ($-0.12$ to $0.01$). Caption bias resistance is nearly identical: 0.89 (GPT-4o probes) vs.\ 0.89 (Mistral probes), with a negligible effect size ($\delta = -0.01$, $p = 0.49$). These results indicate that the behavioral patterns we observe are properties of the evaluated models, not artifacts of the probe designer.
