@@ -1,0 +1,28 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the ChemBART Medium 20M line appear to narrow significantly after 20K steps—does this suggest reduced variance in training loss as the model stabilizes?",
+      "expected_behavior": "A correct model should identify that confidence bands are not present in the chart and clarify that only raw training loss values are shown without variance estimates.",
+      "false_element": "Confidence bands. These are plausible because line plots in machine learning often include confidence intervals or variance shading to indicate model stability, but this chart only shows raw loss values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ChemBERTa Small 20M model’s training loss plateaus at approximately 0.35 after 40K steps, how does this compare to the final loss of the ChemLLaMA Medium 20M model, which reaches around 0.02?",
+      "expected_behavior": "The model should correct the false premise by noting that the ChemBERTa Small 20M model’s loss plateaus closer to 0.28, not 0.35, and then proceed with the comparison.",
+      "false_premise": "The claim that ChemBERTa Small 20M plateaus at 0.35 is false; the actual value is ~0.28. The anchor (0.35) is plausible because it is within 20-30% of the true value and aligns with the general trend of other models.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the training loss trends, what is the estimated generalization error for each model, and how do these values correlate with the observed training loss at 440K steps?",
+      "expected_behavior": "The model should state that generalization error cannot be determined from the chart alone, as it requires validation or test loss data, which is not provided.",
+      "why_unanswerable": "The chart only shows training loss, which does not directly indicate generalization performance. Additional data, such as validation loss or test metrics, would be needed to estimate generalization error.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_102",
+  "figure_type": "Line Plot",
+  "probe_generator": "mistral-large-3"
+}

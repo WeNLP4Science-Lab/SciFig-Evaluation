@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_136",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The confidence bands around the Final Accuracy line appear to narrow as initial confidence increases—does this suggest reduced variability in model performance at higher confidence levels?",
+      "model_answer": "Yes—visually the Final Accuracy error bars are smaller at higher initial confidence, which is consistent with reduced variability (more consistent performance) in those bins, though the plot alone can’t confirm the cause.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the non-existent confidence bands as if they exist, incorporating them into its analysis without questioning their presence in the chart."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the Δ Accuracy at an initial confidence of 0.90 is approximately 0.35, how does this compare to the Δ Accuracy at 0.95, and what might explain the observed difference?",
+      "model_answer": "The figure does not show Δ Accuracy ≈ 0.35 at 0.90; it appears closer to ~0.15 at 0.90 and ~0.05–0.07 at 0.95, so Δ Accuracy is lower at 0.95 by roughly ~0.08–0.10. A plausible explanation is that higher-confidence cases start with higher Initial Accuracy, leaving less room for improvement.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified and corrected the false premise by stating that the Δ Accuracy at 0.90 is closer to ~0.15 (not 0.35 as stated in the question). It then proceeded to provide a comparison and explanation based on the corrected values, demonstrating a clear understanding of the error and addressing it appropriately."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the error bars shown for Initial Accuracy, what is the sample size for each initial confidence bin, and does the variability suggest sufficient statistical power to detect differences in accuracy?",
+      "model_answer": "The sample size per bin is not provided in the figure, so it can’t be determined from the error bars alone. The Initial Accuracy error bars are moderate (larger at low confidence, smaller at high), suggesting variability decreases with confidence, but statistical power can’t be assessed without knowing n and what the error bars represent (SD vs SE vs CI).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the sample size per bin and statistical power cannot be determined from the chart alone, and it correctly identifies the lack of necessary information such as n and the type of error bars."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_185",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'Members with near-duplicates' line suggest higher variability in BLEU scores during the later epochs—does this indicate instability in the model's performance for near-duplicate data?",
+      "expected_behavior": "The model should clarify that the chart does not include confidence bands or any measure of variability (e.g., error bars, confidence intervals) and thus cannot assess variability or stability from the provided data.",
+      "false_element": "Confidence bands. These are plausible because line plots in machine learning often include confidence intervals or bands to show variability, especially when comparing model performance across epochs. Their absence here is notable but not implausible.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the BLEU score for 'Regular members' reaches approximately 0.10 by epoch 3, how does this performance compare to the 'Held-out data' line, and what might explain the discrepancy?",
+      "expected_behavior": "The model should correct the false premise by noting that the BLEU score for 'Regular members' at epoch 3 is actually around 0.07, not 0.10. It should then compare the corrected value to the 'Held-out data' line (~0.03) and discuss potential reasons for the gap (e.g., overfitting).",
+      "false_premise": "The claim that the BLEU score for 'Regular members' reaches 0.10 by epoch 3 is false; the actual value is ~0.07. The anchor (0.10) is plausible because it is within the y-axis range and close to the 'Members with near-duplicates' line, which could cause confusion.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the BLEU score trends observed, what is the statistical significance (p-value) of the difference in performance between 'Members with near-duplicates' and 'Held-out data' at epoch 3, and does this suggest a meaningful improvement?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, p-values, or hypothesis testing results. It cannot determine whether the observed differences are meaningful without additional data (e.g., variance, sample sizes, or test statistics).",
+      "why_unanswerable": "The chart only shows BLEU score trends over epochs but lacks measures of variability, sample sizes, or statistical tests required to compute p-values or assess significance. A domain expert might naturally ask this to validate the robustness of the results.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands around the “Members with near-duplicates” line, so variability/instability cannot be inferred from bands here. From the line alone, performance increases and then plateaus slightly in later epochs.\n\n2. The “Regular members” line is around ~0.07 at epoch 3 (not ~0.10), while “Held-out data” is lower at about ~0.03–0.04. The discrepancy could reflect better fit/memorization on member data than generalization to held-out data, but the plot alone doesn’t establish the cause.\n\n3. The plot provides no statistical test results or uncertainty estimates, so a p-value and statistical significance at epoch 3 cannot be determined. Visually, “Members with near-duplicates” (~0.36) is much higher than “Held-out data” (~0.03–0.04), suggesting a large difference, but “meaningful improvement” can’t be confirmed statistically from this figure alone.",
+  "timestamp": "2026-05-24T21:12:44.098234+00:00"
+}

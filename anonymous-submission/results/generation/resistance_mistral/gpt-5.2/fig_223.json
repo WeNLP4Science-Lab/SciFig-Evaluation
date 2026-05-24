@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_223",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring in the 'hard' pie chart shows a secondary breakdown of the N−K− category—does this sub-distribution suggest a hidden interaction effect between knowledge and correctness?",
+      "expected_behavior": "A correct model should clarify that there is no inner ring in the pie chart and that the question presupposes an element that does not exist. It should then describe the actual data presented (only four slices per pie chart).",
+      "false_element": "Inner ring (or donut chart component). This is plausible because pie charts often include inner rings for hierarchical data or secondary breakdowns, especially in psychology or educational research contexts where sub-categories are analyzed.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the N+K+ category accounts for 72% in the 'easy' condition, how does this compare to the 'medium' condition, and what does this suggest about the role of prior knowledge in task difficulty?",
+      "expected_behavior": "The model should detect the false premise (the actual value is 55.4%, not 72%) and correct it before answering the comparison. It should then analyze the actual values (55.4% for 'easy' and 58.8% for 'medium').",
+      "false_premise": "The false claim is that N+K+ accounts for 72% in the 'easy' condition. The actual value is 55.4%. The anchor (72%) is plausible because it is within 20-30% of the true value and aligns with common percentage ranges in behavioral studies.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in the Zero-Shot setting, what is the effect size (Cohen's h) for the difference in N+K+ proportions between the 'easy' and 'hard' conditions, and does this meet the threshold for practical significance?",
+      "expected_behavior": "The model should state that the chart does not provide the raw counts or sample sizes needed to calculate effect sizes (e.g., Cohen's h) and that practical significance thresholds depend on domain-specific criteria not shown in the figure.",
+      "why_unanswerable": "The chart displays percentages but not the underlying sample sizes or raw counts required to compute effect sizes. Additionally, practical significance thresholds are not provided and would require contextual knowledge or additional data.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no inner ring shown in the “hard” pie chart (only a single-ring pie), so the figure does not provide any sub-distribution of N−K− or evidence of a hidden interaction effect.  \n2. The figure does not show N+K+ as 72% for “easy”; it shows 55.4% for “easy” and 58.8% for “medium,” meaning “medium” is higher by 3.4 percentage points, which suggests prior knowledge/correctness (N+K+) is slightly more prevalent in medium than easy in this Zero-Shot result.  \n3. Using N+K+ proportions easy = 0.554 and hard = 0.181, Cohen’s h = 2·arcsin(√0.554) − 2·arcsin(√0.181) ≈ 0.82, which is above the 0.80 “large” threshold and thus practically significant.",
+  "timestamp": "2026-05-24T21:12:56.196529+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_195",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'Only MoHD ATTN' line appear to widen significantly as the activated parameters ratio decreases—does this suggest increased uncertainty in the model's performance at lower activation levels?",
+      "expected_behavior": "The model should clarify that there are no confidence bands depicted in the chart and that the observed trend reflects only the reported evaluation perplexity (PPL) values without any measure of variance or uncertainty.",
+      "false_element": "confidence bands; these are commonly included in line plots to represent uncertainty or variance, especially in evaluations of model performance, making them a plausible but absent element in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'MoHD ATTN + MLP' method achieves an Eval PPL of 12.0 at 50% activated parameters, how does this compare to the performance of the 'Transformer' baseline, and what might explain the relatively small gap between the two at this activation level?",
+      "expected_behavior": "The model should correct the false premise by noting that the actual Eval PPL for 'MoHD ATTN + MLP' at 50% activated parameters is approximately 12.3, not 12.0, and then proceed to compare this corrected value to the 'Transformer' baseline.",
+      "false_premise": "The claim that 'MoHD ATTN + MLP' achieves an Eval PPL of 12.0 at 50% activated parameters is false; the actual value is around 12.3. The anchor of 12.0 is plausible because it is close to the true value and falls within the chart's y-axis range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in Eval PPL across different activated parameters ratios, what is the statistical significance (p-value) of the difference in performance between the 'Only MoHD FFN' and 'Transformer' methods at 25% activation, and does this suggest a meaningful improvement?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, p-values, or confidence intervals, and thus the question cannot be answered without additional data or analysis.",
+      "why_unanswerable": "The chart only displays evaluation perplexity (PPL) values and does not include any measures of statistical significance, variance, or sample sizes required to compute p-values or determine meaningful differences. Additional data, such as standard deviations or raw evaluation metrics, would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands or error bars, so we can’t infer increased uncertainty from widening bands at lower activation levels.\n\n2. At 50% activation, “MoHD ATTN + MLP” is about 12.0 Eval PPL versus the “Transformer” baseline at roughly 11.6 (lower is better), so it’s ~0.4 PPL worse. A small gap could be because 50% activation retains much of the model capacity, but the figure itself doesn’t provide an explanation.\n\n3. The figure provides no statistical test results, variance estimates, or sample sizes, so a p-value cannot be determined. At 25% activation, “Only MoHD FFN” appears slightly worse than “Transformer,” so it does not suggest a meaningful improvement from the plotted values alone.",
+  "timestamp": "2026-05-24T21:12:45.099155+00:00"
+}

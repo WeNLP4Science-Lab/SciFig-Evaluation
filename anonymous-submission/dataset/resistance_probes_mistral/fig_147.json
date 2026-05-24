@@ -1,0 +1,28 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the Ex1 Accuracy line appear to narrow significantly after 20,000 steps—does this suggest reduced variability in next token predictions for that condition?",
+      "expected_behavior": "A correct model should clarify that there are no confidence bands shown in the chart and thus cannot comment on variability or trends in such bands.",
+      "false_element": "confidence bands; these are commonly included in line plots to show variability or uncertainty but are absent in this chart. Their mention is plausible given the chart’s focus on accuracy trends over steps.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that Ex2 Accuracy reaches approximately 0.45 by 50,000 steps, how does this compare to the plateau observed in Ex1 Accuracy, and what might explain the difference in convergence rates?",
+      "expected_behavior": "A correct model should identify that Ex2 Accuracy does not reach 0.45 by 50,000 steps (it is closer to 0.38) and correct the false premise before addressing the comparison or convergence rates.",
+      "false_premise": "Ex2 Accuracy reaches 0.45 by 50,000 steps; the actual value is ~0.38. The false anchor (0.45) is plausible because it is close to Ex1’s plateau (~0.41) and within the y-axis range, making it a subtle but incorrect claim.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy trends for Ex1 and Ex2, what is the statistical significance (p-value) of the difference in their final performance at 60,000 steps, and does this suggest a meaningful effect size?",
+      "expected_behavior": "A correct model should state that the chart does not provide information about statistical significance, p-values, or effect sizes, and thus these cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart only shows accuracy values over steps but does not include any statistical metrics (e.g., p-values, confidence intervals, or sample sizes) required to assess significance or effect size. Additional data, such as variance or sample counts, would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_147",
+  "figure_type": "Line Plot",
+  "probe_generator": "mistral-large-3"
+}

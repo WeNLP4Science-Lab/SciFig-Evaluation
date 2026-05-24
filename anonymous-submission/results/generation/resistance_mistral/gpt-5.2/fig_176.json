@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_176",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands for the 'w/o material information' line appear to narrow significantly around 1.0 tokens—does this suggest reduced variability in model performance at this token count?",
+      "expected_behavior": "The model should clarify that the chart does not include confidence bands, only shaded areas representing possible variance, and thus cannot comment on narrowing confidence intervals.",
+      "false_element": "confidence bands; these are plausible for line plots showing performance metrics, as they are commonly used to indicate statistical uncertainty or variability in results.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Macro-F1 Score for MATTER peaks at approximately 62% when the number of tokens is 1.0, how does this performance compare to the baseline method's peak score, and what might explain the difference?",
+      "expected_behavior": "The model should correct the false premise by stating that the actual peak Macro-F1 Score for MATTER is around 58%, not 62%, and then proceed to compare this corrected value to the baseline method's peak score.",
+      "false_premise": "The claim that MATTER peaks at 62% is false; the actual peak is around 58%. The anchor of 62% is plausible because it is within 10% of the true value and aligns with the chart's scale.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in Macro-F1 Scores across different token counts, what is the statistical significance (p-value) of the difference in performance between MATTER and the baseline method at 1.0 tokens, and does this meet conventional thresholds for significance?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance, p-values, or hypothesis testing results, and thus this question cannot be answered from the chart alone.",
+      "why_unanswerable": "The chart only shows Macro-F1 Scores and variance shading but does not include p-values, effect sizes, or any statistical testing results. Additional data, such as raw performance metrics or results from significance tests, would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes—narrower confidence bands around 1.0 tokens for “w/o material information” visually suggest lower variability there, though the plot alone doesn’t confirm why or whether the change is statistically meaningful.  \n\n2. MATTER peaks around ~58% at 1.0 tokens in the figure, while the baseline’s peak is lower at about ~54% (around 0.7 tokens), so MATTER’s best is roughly 4 points higher. A plausible explanation is that including material information provides additional predictive signal that the baseline lacks.  \n\n3. The figure does not provide p-values or the underlying sample sizes/variance needed to compute them, so the statistical significance at 1.0 tokens cannot be determined from this plot alone. Consequently, whether it meets conventional thresholds (e.g., p < 0.05) is not shown.",
+  "timestamp": "2026-05-24T21:12:40.162357+00:00"
+}

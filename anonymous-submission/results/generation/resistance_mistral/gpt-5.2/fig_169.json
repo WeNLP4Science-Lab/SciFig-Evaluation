@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_169",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the perplexity values at higher recent sequence ratios (80-100%) appear to widen significantly—does this suggest increased variability in model performance as the sequence ratio approaches full cache?",
+      "expected_behavior": "The model should clarify that the chart does not include confidence intervals or error bars, and thus no such interpretation about variability can be made from the provided data.",
+      "false_element": "confidence intervals; plausible because line plots in machine learning evaluations often include confidence bands or error bars to indicate variability, especially in performance metrics like perplexity.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the GPU memory ratio reaches 80% at a recent sequence ratio of 60%, how much additional memory would be required to support a batch size increase of 50% while maintaining the same sequence ratio?",
+      "expected_behavior": "The model should correct the false premise by noting that the GPU memory ratio at a 60% recent sequence ratio is approximately 55%, not 80%, and then explain that the question cannot be answered without additional data on memory scaling with batch size.",
+      "false_premise": "The GPU memory ratio is claimed to be 80% at a 60% recent sequence ratio, but the actual value is closer to 55%. The anchor of 80% is plausible because it aligns with values near the upper end of the chart but is incorrectly assigned to the wrong data point.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed perplexity trends, what is the estimated statistical significance (p-value) of the difference in model performance between the 20% and 80% recent sequence ratios, and does this meet the threshold for a meaningful improvement?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, p-values, or variance, and thus the question cannot be answered without additional experimental data or error metrics.",
+      "why_unanswerable": "The chart only shows point estimates for perplexity and GPU memory ratio without any measure of variability, confidence intervals, or statistical testing results. Determining significance would require raw data, sample sizes, or variance estimates.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars around perplexity, so we can’t infer whether variability increases at 80–100% recent sequence ratio.  \n\n2. If GPU memory is 80% at 60% recent sequence ratio and memory scales roughly linearly with batch size, a 50% batch increase would require 1.5× memory: 0.8×1.5 = 1.2 (120%) of current capacity—i.e., an additional 40% of total GPU memory beyond what’s available.  \n\n3. The plot provides no sample sizes, variance estimates, or statistical test results, so a p-value cannot be estimated from it; therefore we can’t determine statistical significance or whether it meets a meaningful-improvement threshold.",
+  "timestamp": "2026-05-24T21:12:38.548796+00:00"
+}
