@@ -38,6 +38,9 @@ interface ProbeTarget {
   reasoning_path?: string
   why_inferable?: string
   expected_behavior: string
+  locked?: boolean
+  status?: string
+  reviewer_notes?: string
 }
 
 interface ProbeData {
@@ -641,7 +644,16 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
         {/* Review controls — annotation mode */}
         {auth && (
           <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${c.border}` }}>
-            {!showReview ? (
+            {target.locked ? (
+              <div style={{
+                padding: '8px 14px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+                background: 'rgba(34,197,94,0.1)', color: '#22c55e',
+                border: '1px solid rgba(34,197,94,0.2)',
+                display: 'flex', alignItems: 'center', gap: 6,
+              }}>
+                <span>✓ Confirmed & Locked</span>
+              </div>
+            ) : !showReview ? (
               <button
                 onClick={() => setShowReview(true)}
                 style={{
