@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_199",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the 'Health & Medicine' category seem to emphasize the importance of diseases over nutrition. How does this visual emphasis align with the percentages shown?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual percentages provided.",
+      "false_element": "Exploded slices, which are a common feature in pie charts to emphasize specific segments, are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Education' category in the AttentionInfluence chart accounts for 35% of the total, how does this compare to the 'Education' category in the FineWeb-Edu Classifier chart?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'Education' in the AttentionInfluence chart is 25%) and provide the correct comparison based on the actual values.",
+      "false_premise": "The claim that 'Education' accounts for 35% in the AttentionInfluence chart is false; the actual value is 25%. The false value is plausible because it is close to the actual value and aligns with the largest category in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the 'Health & Medicine' category, and how does it compare to the sample size for the 'Education' category?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information, such as the methodology or raw data, would be required.",
+      "why_unanswerable": "The chart does not provide any information about the sample size or the raw data underlying the percentages, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. It aligns: in AttentionInfluence, Diseases is 11 vs Nutrition 5 (within Health & Medicine 22), and in FineWeb-Edu, Diseases is 10 vs Nutrition 7 (within Health & Medicine 19), so Diseases is the larger share in both charts.\n\n2. The figure does not show Education as 35% in AttentionInfluence; it shows Education 25 there versus Education 38 in the FineWeb-Edu Classifier chart (so FineWeb-Edu has a larger Education share).\n\n3. The sample sizes are the parent-category totals shown in the inner ring: Health & Medicine is 22 (AttentionInfluence) and 19 (FineWeb-Edu), while Education is 25 (AttentionInfluence) and 38 (FineWeb-Edu).",
+  "timestamp": "2026-05-24T11:37:03.017452+00:00"
+}

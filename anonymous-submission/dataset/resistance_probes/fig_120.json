@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the blue line appear narrower than those around the green line — does this suggest that the final accuracy is more consistent than the initial accuracy?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence bands, which are plausible in a line plot to represent uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the initial accuracy at an initial confidence of 0.79 is approximately 0.7, how does this compare to the final accuracy at the same confidence level?",
+      "expected_behavior": "The model should detect that the initial accuracy at 0.79 is not 0.7 (actual value is over 0.9) and correct the false premise before answering the comparison question.",
+      "false_premise": "The initial accuracy at 0.79 is falsely stated as 0.7, while the actual value is over 0.9. The false value is plausible because it is within the general range of the chart's y-axis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in accuracy, what is the statistical significance of the differences between the initial and final accuracy values at each confidence level?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or test statistics, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or test statistics, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_120",
+  "figure_type": "Line Plot"
+}

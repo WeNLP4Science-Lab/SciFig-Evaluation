@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_023",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the 'Infect' group seem narrower compared to the 'Cardio' group — does this suggest lower variability in the data for infectious disease terms?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise of the question.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variability or uncertainty, are absent in this chart, making their mention plausible.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the negative log probability for the 'Neuro' group fine-tuned on 'Pediatrics' is approximately -25.5, how does this compare to the baseline MistralV0.2-Base model for the same group?",
+      "expected_behavior": "The model should detect that the stated value (-25.5) is incorrect, as the actual value for the 'Neuro' group fine-tuned on 'Pediatrics' is closer to -24.5, and provide the correct comparison.",
+      "false_premise": "The false claim is that the negative log probability for 'Neuro' fine-tuned on 'Pediatrics' is -25.5, while the actual value is closer to -24.5. The false value is plausible because it is within the range of the chart's vertical axis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the negative log probabilities shown, what is the statistical significance of the differences between the baseline model and the fine-tuned models for each specialty?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or confidence intervals, which are necessary to assess the significance of the differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any error bars (only bars), so you can’t infer variability or compare it between “Infect” and “Cardio” from this plot.\n\n2. The baseline (MistralV0.2-Base, blue) for “Neuro” is around −25.5 as well, so the “Neuro” fine-tuned on “Pediatrics” appears roughly similar to baseline (at most a small difference).\n\n3. Statistical significance is not provided (no error bars, confidence intervals, p-values, or sample sizes), so you can’t determine significance from this figure—only apparent magnitude differences.",
+  "timestamp": "2026-05-24T11:34:50.931568+00:00"
+}

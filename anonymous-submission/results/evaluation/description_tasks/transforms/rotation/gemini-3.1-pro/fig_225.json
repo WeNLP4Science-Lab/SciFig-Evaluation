@@ -1,0 +1,404 @@
+{
+  "figure_id": "fig_225",
+  "model_name": "gemini-3.1-pro",
+  "transform": "rotation",
+  "figure_type": "Pie Chart",
+  "judge_model": "gpt-4o",
+  "num_items": 11,
+  "num_penalties_raw": 3,
+  "num_penalties_deduped": 2,
+  "total_penalty_raw": 9.0,
+  "total_penalty_deduped": 7.0,
+  "mqm_raw": 75.68,
+  "mqm_deduped": 81.08,
+  "penalties_raw": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The label 'hard' is fully visible in the image.",
+      "text_span": "a third chart with a partially visible label at the top right"
+    },
+    {
+      "id": "pie_11",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Largest and smallest slices are not identified."
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The label 'hard' is fully visible in the image, so this interpretation is incorrect.",
+      "text_span": "a third chart with a partially visible label at the top right"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The label 'hard' is fully visible in the image.",
+      "text_span": "a third chart with a partially visible label at the top right"
+    },
+    {
+      "id": "pie_11",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Largest and smallest slices are not identified."
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "pie chart"
+      },
+      "pie_02": {
+        "expected": "Three pie charts labeled 'easy,' 'medium,' and 'hard,' representing different categorizations based on the label 'CoT'."
+      },
+      "pie_03": {
+        "expected": 4
+      },
+      "pie_04": {
+        "expected": [
+          "N+K+",
+          "N−K+",
+          "N−K−",
+          "N+K−"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "N+K+": "teal",
+          "N−K+": "yellow",
+          "N−K−": "peach",
+          "N+K−": "red"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "easy": {
+            "N+K+": "40.6%",
+            "N−K+": "45.9%",
+            "N−K−": "10.1%",
+            "N+K−": "3.3%"
+          },
+          "medium": {
+            "N+K+": "44.6%",
+            "N−K+": "44.3%",
+            "N−K−": "7.2%",
+            "N+K−": "3.9%"
+          },
+          "hard": {
+            "N+K+": "20.1%",
+            "N−K+": "36.2%",
+            "N−K−": "7.0%",
+            "N+K−": "36.8%"
+          }
+        }
+      },
+      "pie_07": {
+        "expected": "Slices are not ordered by size or any specific pattern."
+      },
+      "pie_08": {
+        "expected": "Legend on the right identifies categories and their colors: N+K+ (teal), N−K+ (yellow), N−K− (peach), N+K− (red)."
+      },
+      "pie_09": {
+        "expected": "No visual emphasis (e.g., exploded slices or bold labels)."
+      },
+      "pie_10": {
+        "expected": "Percentages are labeled directly on the slices."
+      },
+      "pie_11": {
+        "expected": {
+          "easy": {
+            "largest": "N−K+",
+            "smallest": "N+K−"
+          },
+          "medium": {
+            "largest": "N+K+",
+            "smallest": "N+K−"
+          },
+          "hard": {
+            "largest": "N+K−",
+            "smallest": "N−K−"
+          }
+        }
+      }
+    },
+    "checklist": [
+      {
+        "id": "pie_01",
+        "reasoning": "Expected: pie chart. Model correctly identifies the chart type as a set of pie charts.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_02",
+        "reasoning": "Expected: description of three pie charts labeled 'easy,' 'medium,' and 'hard,' representing categorizations based on 'CoT.' Model partially addresses this but incorrectly states the third chart's label is partially visible.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "a third chart with a partially visible label at the top right",
+          "detail": "The label 'hard' is fully visible in the image."
+        }
+      },
+      {
+        "id": "pie_03",
+        "reasoning": "Expected: 4 slices per chart. Model correctly states that each chart contains four slices.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_04",
+        "reasoning": "Expected: all slice labels ('N+K+', 'N−K+', 'N−K−', 'N+K−'). Model mentions all slice labels correctly.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_05",
+        "reasoning": "Expected: slice colors (N+K+: teal, N−K+: yellow, N−K−: peach, N+K−: red). Model describes colors as teal, yellow-tan, light orange, and dark orange. These map to the same color families.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_06",
+        "reasoning": "Expected: percentages for each slice in all three charts. Model matches all values correctly.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_07",
+        "reasoning": "Expected: slices are not ordered by size or any specific pattern. Model states slices are arranged in a consistent clockwise categorical order, which is correct.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_08",
+        "reasoning": "Expected: legend on the right identifies categories and their colors. Model correctly describes the legend and its position.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_09",
+        "reasoning": "Expected: no visual emphasis (e.g., exploded slices or bold labels). Model correctly states that no slices are visually emphasized.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_10",
+        "reasoning": "Expected: percentages labeled directly on the slices. Model correctly notes this.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_11",
+        "reasoning": "Expected: largest and smallest slices for each chart. Model does not explicitly identify these.",
+        "coverage": {
+          "status": "missing",
+          "detail": "Largest and smallest slices are not identified."
+        },
+        "correctness": {
+          "status": "n/a"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": [
+          {
+            "text_span": "a third chart with a partially visible label at the top right",
+            "explanation": "The label 'hard' is fully visible in the image, so this interpretation is incorrect."
+          }
+        ]
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "N+K+",
+            "reference_value": "40.6%",
+            "model_value": "40.6%",
+            "match": true
+          },
+          {
+            "label": "N−K+",
+            "reference_value": "45.9%",
+            "model_value": "45.9%",
+            "match": true
+          },
+          {
+            "label": "N−K−",
+            "reference_value": "10.1%",
+            "model_value": "10.1%",
+            "match": true
+          },
+          {
+            "label": "N+K−",
+            "reference_value": "3.3%",
+            "model_value": "3.3%",
+            "match": true
+          },
+          {
+            "label": "N+K+",
+            "reference_value": "44.6%",
+            "model_value": "44.6%",
+            "match": true
+          },
+          {
+            "label": "N−K+",
+            "reference_value": "44.3%",
+            "model_value": "44.3%",
+            "match": true
+          },
+          {
+            "label": "N−K−",
+            "reference_value": "7.2%",
+            "model_value": "7.2%",
+            "match": true
+          },
+          {
+            "label": "N+K−",
+            "reference_value": "3.9%",
+            "model_value": "3.9%",
+            "match": true
+          },
+          {
+            "label": "N+K+",
+            "reference_value": "20.1%",
+            "model_value": "20.1%",
+            "match": true
+          },
+          {
+            "label": "N−K+",
+            "reference_value": "36.2%",
+            "model_value": "36.2%",
+            "match": true
+          },
+          {
+            "label": "N−K−",
+            "reference_value": "7.0%",
+            "model_value": "7.0%",
+            "match": true
+          },
+          {
+            "label": "N+K−",
+            "reference_value": "36.8%",
+            "model_value": "36.8%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "N+K+",
+            "reference_value": "teal",
+            "model_value": "teal",
+            "match": true
+          },
+          {
+            "label": "N−K+",
+            "reference_value": "yellow",
+            "model_value": "yellow-tan",
+            "match": true
+          },
+          {
+            "label": "N−K−",
+            "reference_value": "peach",
+            "model_value": "light orange",
+            "match": true
+          },
+          {
+            "label": "N+K−",
+            "reference_value": "red",
+            "model_value": "dark orange",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}

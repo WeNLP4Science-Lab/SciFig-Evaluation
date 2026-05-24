@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_071",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the expected accuracy appears to be set at 90%. How does the performance of the two models compare to this benchmark?",
+      "expected_behavior": "A correct model should recognize that there is no benchmark line in the chart and reject the presupposition, stating that the comparison cannot be made.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are often used in bar charts to indicate a target or expected value for comparison.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Incorrect' responses for EEVE-Korean-10.8B-v1.0 are reported as 6%, how does this compare to the 'Incorrect' responses for RedWhale?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'Incorrect' responses for EEVE-Korean is 4.3%) and correct the comparison based on the correct values.",
+      "false_premise": "The false claim is that the 'Incorrect' responses for EEVE-Korean are 6%, while the actual value is 4.3%. The anchor is plausible because it is only slightly higher than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of correctness, what is the statistical significance of the difference in performance between the two models?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide information about sample sizes, p-values, or confidence intervals.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, sample sizes, or confidence intervals, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Both models exceed a 90% benchmark on “Correct” responses: EEVE-Korean-10.8B-v1.0 is 92.9% and RedWhale is 95.7%, with RedWhale higher by 2.8 percentage points.  \n2. The figure shows EEVE-Korean-10.8B-v1.0 “Incorrect” as 4.3% (not 6%); RedWhale “Incorrect” is 2.9%, which is 1.4 percentage points lower than EEVE.  \n3. The figure does not provide sample sizes, variance, confidence intervals, or p-values, so the statistical significance of the performance difference cannot be determined from this plot alone.",
+  "timestamp": "2026-05-24T11:35:26.692411+00:00"
+}

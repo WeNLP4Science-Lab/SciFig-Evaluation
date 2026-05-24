@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_056",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the tallest bar seem to be missing — does this suggest that the variance in the data for Pass@1 values near 1.0 is negligible?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that the chart does not provide information about variance or error margins.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variance or uncertainty, are plausible but absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the mean Pass@1 value is 0.65, how does this compare to the percentage of data in the 0.8–1.0 bin?",
+      "expected_behavior": "The model should detect that the mean value of 0.65 is incorrect (actual mean is 0.82), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The mean value is falsely stated as 0.65, while the actual mean is 0.82. The false value is plausible because it is within 20-30% of the actual mean.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of Pass@1 values, what is the statistical significance of the difference between the 0.0–0.2 bin and the 0.8–1.0 bin, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance or p-values and explain that additional data, such as sample sizes and variance measures, would be required to calculate these metrics.",
+      "why_unanswerable": "The chart does not include information about sample sizes, variance, or statistical tests, which are necessary to determine statistical significance and p-values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Not necessarily; the figure doesn’t provide enough information to conclude negligible variance. The error bar may be too small to see, omitted, or not computed/shown for that bin.\n\n2. The mean Pass@1 is 0.65, while the 0.8–1.0 bin contains 76.2% of the data. This indicates most values are high even though the average is pulled down by the remaining lower bins.\n\n3. The figure alone doesn’t provide the sample size or underlying counts needed to run a significance test, so statistical significance and a p-value cannot be determined from what’s shown. You’d need the raw data (or at least counts per bin and total N) to compute this.",
+  "timestamp": "2026-05-24T11:35:11.971294+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_241",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line indicating the average win rate across all models appears to be positioned near 50%. How does this compare to GPT-4o's performance in the outer ring?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while focusing on the actual win rate percentages provided.",
+      "false_element": "Benchmark line — plausible because average or reference lines are often included in charts to contextualize percentages.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that LLaMA achieves a win rate of 4.2% in the outer ring, how does this compare to Mistral's performance in the inner ring?",
+      "expected_behavior": "The model should detect that the win rate for LLaMA is actually 3.2%, correct the false premise, and provide the correct comparison.",
+      "false_premise": "LLaMA's win rate is falsely stated as 4.2% instead of the actual 3.2%. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the win rates shown, what is the sample size of evaluations conducted for each model, and how does this impact the statistical significance of the results?",
+      "expected_behavior": "The model should state that the sample size and statistical significance cannot be determined from the chart and explain that additional methodological details are required.",
+      "why_unanswerable": "The chart does not provide information about the sample size or statistical significance, which are necessary to assess the reliability of the win rates.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show a benchmark/average win-rate line near 50%. GPT-4o’s outer-ring win rate is labeled 96.8%, which is far above 50%.\n\n2. The outer ring labels LLaMA at 3.2% (not 4.2%). Mistral’s inner-ring win rate is 1.2%, so LLaMA’s outer-ring win rate is higher by 2.0 percentage points.\n\n3. The sample size of evaluations is not provided in the figure, so statistical significance cannot be assessed from this chart alone. Without counts or confidence intervals, it’s unclear how reliable the differences are.",
+  "timestamp": "2026-05-24T11:37:35.868908+00:00"
+}

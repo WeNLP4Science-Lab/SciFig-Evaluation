@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_222",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart seems to indicate the distribution of error types across different demographic groups. How does the proportion of perceptual errors compare between the inner and outer rings?",
+      "expected_behavior": "The model should recognize that the chart does not contain an inner ring and reject the premise, stating that the comparison cannot be made.",
+      "false_element": "Inner ring representing demographic distribution, which is plausible in pie charts with hierarchical or multi-layered data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Reasoning Error' category accounts for 30% of the total errors, how does this compare to the 'Perceptual Error' category in terms of relative proportion?",
+      "expected_behavior": "The model should detect that the stated percentage for 'Reasoning Error' is incorrect (actual value is 20%) and correct the premise before answering the comparison.",
+      "false_premise": "'Reasoning Error' is stated as 30%, while the actual value is 20%. The anchor is plausible because it is close to the actual value and fits the context of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error distribution shown, what is the sample size of the data collected, and how does the margin of error for each category affect the reliability of the percentages?",
+      "expected_behavior": "The model should state that the sample size and margin of error cannot be determined from the chart and explain that additional data or methodology details are required.",
+      "why_unanswerable": "The chart does not provide information about the sample size, raw counts, or statistical measures like margin of error. These details are necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no inner ring shown—only a single-ring pie chart—so a comparison of perceptual errors between inner and outer rings isn’t possible. The chart shows “Perceptual Error” as 37% of the total.\n\n2. The figure shows “Reasoning Error” at 20%, not 30%. Compared to “Perceptual Error” at 37%, reasoning errors are 17 percentage points lower (about 0.54× as large).\n\n3. The sample size is not provided in the figure, so it can’t be determined. The chart also provides no margins of error or uncertainty information, so the reliability of the percentages can’t be assessed from this figure alone.",
+  "timestamp": "2026-05-24T11:37:19.894285+00:00"
+}

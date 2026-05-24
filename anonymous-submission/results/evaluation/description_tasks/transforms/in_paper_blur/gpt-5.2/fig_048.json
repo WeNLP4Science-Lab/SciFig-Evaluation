@@ -6,21 +6,20 @@
   "judge_model": "gpt-4o",
   "num_items": 14,
   "num_penalties_raw": 15,
-  "num_penalties_deduped": 14,
+  "num_penalties_deduped": 15,
   "total_penalty_raw": 60.0,
-  "total_penalty_deduped": 55.0,
+  "total_penalty_deduped": 60.0,
   "mqm_raw": 0.0,
   "mqm_deduped": 0.0,
   "penalties_raw": [
     {
       "id": "bar_01",
-      "category": "Accuracy",
+      "category": "Completeness",
       "severity": "Major",
-      "sub_type": "Incorrect Trend Interpretation",
+      "sub_type": "Missing Key Information",
       "weight": 5.0,
-      "source": "checklist_correctness",
-      "detail": "The model incorrectly states that the chart is not visible, but the image clearly shows a bar chart.",
-      "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder without any visible plotted bars..."
+      "source": "checklist_coverage",
+      "detail": "Chart type not identified."
     },
     {
       "id": "bar_02",
@@ -56,7 +55,7 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "X-axis scale not mentioned."
+      "detail": "X-axis scale type and range not mentioned."
     },
     {
       "id": "bar_06",
@@ -74,7 +73,7 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Y-axis scale not mentioned."
+      "detail": "Y-axis scale type and range not mentioned."
     },
     {
       "id": "bar_08",
@@ -132,13 +131,12 @@
     },
     {
       "id": "bar_14",
-      "category": "Accuracy",
+      "category": "Completeness",
       "severity": "Minor",
-      "sub_type": "Incorrect Trend Interpretation",
+      "sub_type": "Missing Key Information",
       "weight": 2.0,
-      "source": "checklist_correctness",
-      "detail": "Model incorrectly states the chart is not visible, but the image clearly shows the chart.",
-      "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder..."
+      "source": "checklist_coverage",
+      "detail": "Chart purpose or title not mentioned."
     },
     {
       "id": "global_hallucination",
@@ -147,20 +145,19 @@
       "sub_type": "Hallucinated Content",
       "weight": 5.0,
       "source": "global",
-      "detail": "The model fabricates the claim that the chart is not visible, despite the image clearly showing a bar chart.",
-      "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder..."
+      "detail": "The model fabricates the claim that the chart is a placeholder with no visible elements, which contradicts the image.",
+      "text_span": "the panel itself appears as a uniform light-gray rectangular placeholder without any visible plotted bars, category labels, legend, or numeric annotations."
     }
   ],
   "penalties_deduped": [
     {
       "id": "bar_01",
-      "category": "Accuracy",
+      "category": "Completeness",
       "severity": "Major",
-      "sub_type": "Incorrect Trend Interpretation",
+      "sub_type": "Missing Key Information",
       "weight": 5.0,
-      "source": "checklist_correctness",
-      "detail": "The model incorrectly states that the chart is not visible, but the image clearly shows a bar chart.",
-      "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder without any visible plotted bars..."
+      "source": "checklist_coverage",
+      "detail": "Chart type not identified."
     },
     {
       "id": "bar_02",
@@ -196,7 +193,7 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "X-axis scale not mentioned."
+      "detail": "X-axis scale type and range not mentioned."
     },
     {
       "id": "bar_06",
@@ -214,7 +211,7 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Y-axis scale not mentioned."
+      "detail": "Y-axis scale type and range not mentioned."
     },
     {
       "id": "bar_08",
@@ -272,13 +269,22 @@
     },
     {
       "id": "bar_14",
-      "category": "Accuracy",
+      "category": "Completeness",
       "severity": "Minor",
-      "sub_type": "Incorrect Trend Interpretation",
+      "sub_type": "Missing Key Information",
       "weight": 2.0,
-      "source": "checklist_correctness",
-      "detail": "Model incorrectly states the chart is not visible, but the image clearly shows the chart.",
-      "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder..."
+      "source": "checklist_coverage",
+      "detail": "Chart purpose or title not mentioned."
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The model fabricates the claim that the chart is a placeholder with no visible elements, which contradicts the image.",
+      "text_span": "the panel itself appears as a uniform light-gray rectangular placeholder without any visible plotted bars, category labels, legend, or numeric annotations."
     }
   ],
   "judge_output": {
@@ -290,19 +296,19 @@
         "expected": "Vertical"
       },
       "bar_03": {
-        "expected": "Simple (not grouped or stacked)"
+        "expected": "Simple"
       },
       "bar_04": {
         "expected": "Categories: Mathematical Reasoning, General Reasoning, Natural Scene Reasoning, Physical Reasoning, Logical Puzzle Reasoning, Chemical Reasoning"
       },
       "bar_05": {
-        "expected": "Logarithmic scale, range 10² to 10⁴, ticks at 10², 10³, 10⁴"
+        "expected": "Logarithmic scale, range 10² to 10⁴"
       },
       "bar_06": {
         "expected": "Number of Samples"
       },
       "bar_07": {
-        "expected": "Logarithmic scale, range 10² to 10⁴, ticks at 10², 10³, 10⁴"
+        "expected": "Logarithmic scale, range 10² to 10⁴"
       },
       "bar_08": {
         "expected": [
@@ -315,10 +321,10 @@
         ]
       },
       "bar_09": {
-        "expected": "N/A (no grouped/stacked structure)"
+        "expected": "N/A (no grouped/stacked bars)"
       },
       "bar_10": {
-        "expected": "N/A (no legend present)"
+        "expected": "No legend present"
       },
       "bar_11": {
         "expected": {
@@ -344,26 +350,24 @@
         "expected": "Data labels present on bars"
       },
       "bar_14": {
-        "expected": "Number of samples across reasoning categories"
+        "expected": "The chart illustrates the number of samples across various categories of reasoning, presented in descending order."
       }
     },
     "checklist": [
       {
         "id": "bar_01",
-        "reasoning": "Expected: Bar Chart. Model: Mentions a placeholder with no visible chart. Mismatch.",
+        "reasoning": "Expected from reference: Bar Chart. Model says: 'the panel itself appears as a uniform light-gray rectangular placeholder without any visible plotted bars.' The model does not identify the chart type.",
         "coverage": {
-          "status": "complete"
+          "status": "missing",
+          "detail": "Chart type not identified."
         },
         "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Trend Interpretation",
-          "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder without any visible plotted bars...",
-          "detail": "The model incorrectly states that the chart is not visible, but the image clearly shows a bar chart."
+          "status": "n/a"
         }
       },
       {
         "id": "bar_02",
-        "reasoning": "Expected: Vertical bars. Model: Does not mention bar orientation. Mismatch.",
+        "reasoning": "Expected from reference: Vertical. Model does not mention bar orientation.",
         "coverage": {
           "status": "missing",
           "detail": "Bar orientation not mentioned."
@@ -374,7 +378,7 @@
       },
       {
         "id": "bar_03",
-        "reasoning": "Expected: Simple (not grouped or stacked). Model: Does not mention grouping/stacking. Mismatch.",
+        "reasoning": "Expected from reference: Simple. Model does not mention grouping/stacking structure.",
         "coverage": {
           "status": "missing",
           "detail": "Grouping/stacking structure not mentioned."
@@ -385,7 +389,7 @@
       },
       {
         "id": "bar_04",
-        "reasoning": "Expected: Categories on x-axis. Model: Does not mention categories. Mismatch.",
+        "reasoning": "Expected from reference: Categories labeled as Mathematical Reasoning, General Reasoning, Natural Scene Reasoning, Physical Reasoning, Logical Puzzle Reasoning, and Chemical Reasoning. Model does not mention any categories.",
         "coverage": {
           "status": "missing",
           "detail": "Categories not mentioned."
@@ -396,10 +400,10 @@
       },
       {
         "id": "bar_05",
-        "reasoning": "Expected: Logarithmic scale, range 10² to 10⁴, ticks at 10², 10³, 10⁴. Model: Does not mention x-axis scale. Mismatch.",
+        "reasoning": "Expected from reference: Logarithmic scale, range 10² to 10⁴. Model does not mention the x-axis scale type or range.",
         "coverage": {
           "status": "missing",
-          "detail": "X-axis scale not mentioned."
+          "detail": "X-axis scale type and range not mentioned."
         },
         "correctness": {
           "status": "n/a"
@@ -407,7 +411,7 @@
       },
       {
         "id": "bar_06",
-        "reasoning": "Expected: Y-axis labeled 'Number of Samples'. Model: Does not mention y-axis label. Mismatch.",
+        "reasoning": "Expected from reference: Y-axis labeled as 'Number of Samples'. Model does not mention the y-axis label.",
         "coverage": {
           "status": "missing",
           "detail": "Y-axis label not mentioned."
@@ -418,10 +422,10 @@
       },
       {
         "id": "bar_07",
-        "reasoning": "Expected: Logarithmic scale, range 10² to 10⁴, ticks at 10², 10³, 10⁴. Model: Does not mention y-axis scale. Mismatch.",
+        "reasoning": "Expected from reference: Logarithmic scale, range 10² to 10⁴. Model does not mention the y-axis scale type or range.",
         "coverage": {
           "status": "missing",
-          "detail": "Y-axis scale not mentioned."
+          "detail": "Y-axis scale type and range not mentioned."
         },
         "correctness": {
           "status": "n/a"
@@ -429,7 +433,7 @@
       },
       {
         "id": "bar_08",
-        "reasoning": "Expected: Categories listed. Model: Does not mention categories. Mismatch.",
+        "reasoning": "Expected from reference: Categories are Mathematical Reasoning, General Reasoning, Natural Scene Reasoning, Physical Reasoning, Logical Puzzle Reasoning, and Chemical Reasoning. Model does not mention any categories.",
         "coverage": {
           "status": "missing",
           "detail": "Categories not mentioned."
@@ -440,7 +444,7 @@
       },
       {
         "id": "bar_09",
-        "reasoning": "Expected: No grouped/stacked structure. Model: Does not mention grouping/stacking. Mismatch.",
+        "reasoning": "Expected from reference: No grouped/stacked bars. Model does not mention grouping/stacking structure.",
         "coverage": {
           "status": "missing",
           "detail": "Grouping/stacking structure not mentioned."
@@ -451,7 +455,7 @@
       },
       {
         "id": "bar_10",
-        "reasoning": "Expected: No legend present. Model: Does not mention legend. Match.",
+        "reasoning": "Expected from reference: No legend present. Model does not mention the presence or absence of a legend.",
         "coverage": {
           "status": "missing",
           "detail": "Legend not mentioned."
@@ -462,7 +466,7 @@
       },
       {
         "id": "bar_11",
-        "reasoning": "Expected: Values for each category. Model: Does not mention values. Mismatch.",
+        "reasoning": "Expected from reference: Values for each category. Model does not mention any values.",
         "coverage": {
           "status": "missing",
           "detail": "Values not mentioned."
@@ -473,7 +477,7 @@
       },
       {
         "id": "bar_12",
-        "reasoning": "Expected: Bars colored light blue. Model: Does not mention bar colors. Mismatch.",
+        "reasoning": "Expected from reference: All bars are light blue. Model does not mention bar colors.",
         "coverage": {
           "status": "missing",
           "detail": "Bar colors not mentioned."
@@ -484,7 +488,7 @@
       },
       {
         "id": "bar_13",
-        "reasoning": "Expected: Data labels present. Model: Does not mention data labels. Mismatch.",
+        "reasoning": "Expected from reference: Data labels present on bars. Model does not mention data labels.",
         "coverage": {
           "status": "missing",
           "detail": "Data labels not mentioned."
@@ -495,15 +499,13 @@
       },
       {
         "id": "bar_14",
-        "reasoning": "Expected: Chart purpose is to show number of samples across reasoning categories. Model: Incorrectly states chart is not visible. Mismatch.",
+        "reasoning": "Expected from reference: The chart illustrates the number of samples across various categories of reasoning, presented in descending order. Model does not describe the chart's purpose or title.",
         "coverage": {
-          "status": "complete"
+          "status": "missing",
+          "detail": "Chart purpose or title not mentioned."
         },
         "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Trend Interpretation",
-          "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder...",
-          "detail": "Model incorrectly states the chart is not visible, but the image clearly shows the chart."
+          "status": "n/a"
         }
       }
     ],
@@ -512,8 +514,8 @@
         "id": "global_hallucination",
         "violations": [
           {
-            "text_span": "Figure 7(a) is intended to show the distribution of reasoning-type data statistics for the self-reflection SFT stage, but in the provided page image the left-side panel appears as a uniform light-gray rectangular placeholder...",
-            "explanation": "The model fabricates the claim that the chart is not visible, despite the image clearly showing a bar chart."
+            "text_span": "the panel itself appears as a uniform light-gray rectangular placeholder without any visible plotted bars, category labels, legend, or numeric annotations.",
+            "explanation": "The model fabricates the claim that the chart is a placeholder with no visible elements, which contradicts the image."
           }
         ]
       },

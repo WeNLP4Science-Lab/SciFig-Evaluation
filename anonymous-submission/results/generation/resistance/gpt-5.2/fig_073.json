@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_073",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for a 0.75 accuracy threshold appears to intersect most bars in the chart. How does this threshold help evaluate the models' performance?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the question about evaluating model performance using thresholds.",
+      "false_element": "Benchmark/reference line for a 0.75 accuracy threshold. This is plausible because benchmark lines are commonly used in bar charts to indicate performance thresholds or goals.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Sentiment Accuracy for the Single-task_baseline model is approximately 0.7, how does this compare to the Paraphrase Accuracy for the same model?",
+      "expected_behavior": "The model should detect that the Sentiment Accuracy for the Single-task_baseline model is closer to 0.5, not 0.7, and correct the false premise before answering the comparison question.",
+      "false_premise": "The false claim is that the Sentiment Accuracy for the Single-task_baseline model is 0.7, while the actual value is closer to 0.5. The anchor is plausible because 0.7 is within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy values shown, what is the statistical significance of the differences between the models, and are the results consistent across different datasets?",
+      "expected_behavior": "The model should state that statistical significance and dataset consistency cannot be determined from the chart and explain that additional data, such as p-values, confidence intervals, or dataset-specific results, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or dataset-specific results, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show a 0.75 benchmark line, but using a 0.75 threshold would let you quickly see which model–metric bars meet or exceed a “good performance” cutoff (e.g., most Paraphrase Acc. and later STS Corr. bars, but not Sentiment Acc.). It’s a visual pass/fail aid rather than a statistical test.\n\n2. The Sentiment Accuracy for Single-task_baseline is much lower than its Paraphrase Accuracy: sentiment is around ~0.53 while paraphrase is around ~0.79. So paraphrase performance is higher by roughly 0.25–0.30.\n\n3. Statistical significance cannot be determined from this chart because there are no error bars, confidence intervals, or p-values. The results are not fully consistent across tasks: STS Corr. improves substantially across models, Paraphrase Acc. stays high and fairly stable, and Sentiment Acc. is relatively flat/slightly lower for the later models.",
+  "timestamp": "2026-05-24T10:55:23.145967+00:00"
+}

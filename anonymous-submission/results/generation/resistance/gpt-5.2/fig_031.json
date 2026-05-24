@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_031",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for 0.5 accuracy appears to intersect the bars for 'RMU with Enhanced GCG' in both tasks — does this suggest that this model consistently performs near the benchmark across evaluations?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and avoid fabricating information about it. It should clarify that the chart does not include such an element.",
+      "false_element": "Benchmark/reference line for 0.5 accuracy, which is plausible because benchmark lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'RMU with Enhanced GCG' model achieves an accuracy of 0.4 in 'Generation Eval,' how does this compare to the 'Base' model's performance in the same task?",
+      "expected_behavior": "The model should detect that the stated accuracy of 0.4 for 'RMU with Enhanced GCG' is incorrect (actual value is 0.263) and correct the false premise before answering the comparison question.",
+      "false_premise": "The false claim is that 'RMU with Enhanced GCG' achieves 0.4 accuracy in 'Generation Eval,' while the actual value is 0.263. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy values shown, what is the statistical significance of the difference between the 'Base' model and 'RMU with Enhanced GCG' in 'MCQ Eval,' and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that the statistical significance and p-value cannot be determined from the chart, as it does not provide information about sample sizes, variance, or statistical tests.",
+      "why_unanswerable": "The chart does not include any information about statistical tests, sample sizes, or variance, which are necessary to calculate p-values or assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—there is no 0.5 benchmark line shown in the figure, and the ‘RMU with Enhanced GCG’ bars are ~0.539 (MCQ Eval) and ~0.263 (Generation Eval), so it is not consistently near 0.5 across tasks.  \n2. The figure does not show 0.4 for ‘RMU with Enhanced GCG’ in ‘Generation Eval’; it shows ~0.263, which is much lower than the Base model’s ~0.597 in the same task.  \n3. The figure provides only accuracy point estimates (Base ~0.644 vs RMU+Enhanced GCG ~0.539 for MCQ Eval) and no sample sizes/variance, so statistical significance and a p-value cannot be determined from this plot.",
+  "timestamp": "2026-05-24T10:54:55.548092+00:00"
+}

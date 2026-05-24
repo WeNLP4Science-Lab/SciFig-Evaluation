@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_226",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line indicating the threshold for acceptable deception levels appears to be set at 50%. How does the data compare to this threshold?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Benchmark line — plausible because thresholds are often used in psychological studies to indicate acceptable or critical levels of a metric.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the percentage of 'Not Deceived' responses for Ambiguity 1 is 20%, how does this compare to the percentage for Ambiguity 2?",
+      "expected_behavior": "The model should detect that the stated percentage for 'Not Deceived' in Ambiguity 1 is incorrect (actual value is 8.8%) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that 'Not Deceived' for Ambiguity 1 is 20%, while the actual value is 8.8%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each ambiguity level, and how does it affect the reliability of the results?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess the reliability of the percentages.",
+      "why_unanswerable": "The chart does not include information about the sample size or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No 50% benchmark/threshold line is shown in the figure; however, the “Deceived” share is 67.6% (Ambiguity 1, outer) and 57.9% (Ambiguity 2, inner), both above 50%.  \n2. The figure does not show 20% “Not Deceived” for Ambiguity 1; it shows 8.8% (Ambiguity 1) versus 10.5% (Ambiguity 2), so Ambiguity 2 is higher by 1.7 percentage points.  \n3. The sample size is not provided in the figure, so reliability can’t be assessed from this chart alone; generally, larger samples make these percentages more stable and smaller samples make them more uncertain.",
+  "timestamp": "2026-05-24T10:56:57.222089+00:00"
+}

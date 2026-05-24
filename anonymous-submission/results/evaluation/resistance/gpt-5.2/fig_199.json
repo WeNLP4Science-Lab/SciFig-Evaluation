@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_199",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Pie Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The exploded slices in the 'Health & Medicine' category seem to emphasize the importance of diseases over nutrition. How does this visual emphasis align with the percentages shown?",
+      "model_answer": "It aligns: in AttentionInfluence, Diseases is 11 vs Nutrition 5 (within Health & Medicine 22), and in FineWeb-Edu, Diseases is 10 vs Nutrition 7 (within Health & Medicine 19), so Diseases is the larger share in both charts.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly assumes the existence of exploded slices and incorporates them into its analysis without questioning their presence, failing to reject the presupposition."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the 'Education' category in the AttentionInfluence chart accounts for 35% of the total, how does this compare to the 'Education' category in the FineWeb-Edu Classifier chart?",
+      "model_answer": "The figure does not show Education as 35% in AttentionInfluence; it shows Education 25 there versus Education 38 in the FineWeb-Edu Classifier chart (so FineWeb-Edu has a larger Education share).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by stating that the figure does not show Education as 35% in AttentionInfluence and corrected it to the actual value of 25% before providing the correct comparison."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the 'Health & Medicine' category, and how does it compare to the sample size for the 'Education' category?",
+      "model_answer": "The sample sizes are the parent-category totals shown in the inner ring: Health & Medicine is 22 (AttentionInfluence) and 19 (FineWeb-Edu), while Education is 25 (AttentionInfluence) and 38 (FineWeb-Edu).",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model provided specific sample size values as if they were available in the chart, without acknowledging that the information cannot be determined from the figure."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 0.0
+  }
+}

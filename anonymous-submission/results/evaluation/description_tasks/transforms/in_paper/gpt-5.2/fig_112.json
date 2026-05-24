@@ -5,22 +5,22 @@
   "figure_type": "Line Plot",
   "judge_model": "gpt-4o",
   "num_items": 15,
-  "num_penalties_raw": 10,
-  "num_penalties_deduped": 8,
-  "total_penalty_raw": 35.0,
-  "total_penalty_deduped": 25.0,
-  "mqm_raw": 31.37,
-  "mqm_deduped": 50.98,
+  "num_penalties_raw": 8,
+  "num_penalties_deduped": 6,
+  "total_penalty_raw": 31.0,
+  "total_penalty_deduped": 24.0,
+  "mqm_raw": 39.22,
+  "mqm_deduped": 52.94,
   "penalties_raw": [
     {
       "id": "line_02",
       "category": "Accuracy",
       "severity": "Major",
-      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "sub_type": "Incorrect Numerical Value",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The x-axis is labeled '#Iteration' in the image, not 'steps'.",
-      "text_span": "The x-axis is labeled “steps”"
+      "detail": "Model incorrectly states the x-axis range and tick intervals.",
+      "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels at 0, 10,000, 20,000, 30,000, and 40,000"
     },
     {
       "id": "line_03",
@@ -29,18 +29,8 @@
       "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The x-axis range is 0–140,000, not 0–40,000, and tick intervals are 20,000, not 10,000.",
-      "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels every 10,000 steps"
-    },
-    {
-      "id": "line_05",
-      "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
-      "source": "checklist_correctness",
-      "detail": "Tick intervals are 0.1 in the image, not 0.2.",
-      "text_span": "ranging approximately from 2.4 to 3.4 with tick labels at about 0.2 intervals"
+      "detail": "Model incorrectly states the x-axis range and tick intervals.",
+      "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels at 0, 10,000, 20,000, 30,000, and 40,000"
     },
     {
       "id": "line_06",
@@ -49,8 +39,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model mislabels the series. For example, 'Vanilla' is purple, not blue, and 'StrmLLM (n=64)' is blue, not orange.",
-      "text_span": "a blue line for “Vanilla,” an orange line for “StrmLLM (n=64),” a green line for “SepLLM (n=64),” a red line for “SepLLM (n=128),” a purple line for “SepLLM (n=64,H/T),” and a brown line for “SepLLM (n=128,H/T).”"
+      "detail": "Model mislabels the series and introduces non-existent labels like 'SepLLM (n=256)' and 'SepLLM (n=256, H/T)'.",
+      "text_span": "a blue “Vanilla” curve, an orange “StrmLLM (n=64)” curve, a green “SepLLM (n=64)” curve, a red “SepLLM (n=128)” curve, a purple “SepLLM (n=256)” curve, a brown “SepLLM (n=256, H/T)” curve"
     },
     {
       "id": "line_07",
@@ -59,8 +49,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model assigns incorrect colors to the series, e.g., 'Vanilla' is purple, not blue.",
-      "text_span": "a blue line for “Vanilla,” an orange line for “StrmLLM (n=64),” a green line for “SepLLM (n=64),” a red line for “SepLLM (n=128),” a purple line for “SepLLM (n=64,H/T),” and a brown line for “SepLLM (n=128,H/T).”"
+      "detail": "Model assigns incorrect colors to labels and introduces fabricated labels.",
+      "text_span": "a blue “Vanilla” curve, an orange “StrmLLM (n=64)” curve, a green “SepLLM (n=64)” curve, a red “SepLLM (n=128)” curve, a purple “SepLLM (n=256)” curve, a brown “SepLLM (n=256, H/T)” curve"
     },
     {
       "id": "line_08",
@@ -69,17 +59,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model=blue ref=purple; StrmLLM (n=64): model=orange ref=blue; SepLLM (n=64): model=green ref=orange; SepLLM (n=64, H): model=red ref=green; SepLLM (n=64, H/T): model=purple ref=red; SepLLM (n=128): model=brown ref=dark blue",
+      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model=blue ref=purple; StrmLLM (n=64): model=orange ref=blue; SepLLM (n=64): model=green ref=orange; SepLLM (n=64, H): model=red ref=green; SepLLM (n=64, H/T): model=brown ref=red; SepLLM (n=128): model=purple ref=dark blue",
       "text_span": ""
-    },
-    {
-      "id": "line_09",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "Line styles not explicitly mentioned."
     },
     {
       "id": "line_11",
@@ -88,7 +69,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.45}; StrmLLM (n=64): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.6}; SepLLM (n=64): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.52}; SepLLM (n=64, H): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.5}; SepLLM (n=64, H/T): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.48}; SepLLM (n=128): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.5}",
+      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model={'start': '3.4', 'end': '2.5'} ref={'start': '>3.4', 'end': '2.45'}; StrmLLM (n=64): model={'start': '3.4', 'end': '2.48'} ref={'start': '3.4', 'end': '2.6'}; SepLLM (n=64): model={'start': '3.4', 'end': '2.46'} ref={'start': '3.4', 'end': '2.52'}; SepLLM (n=64, H): model={'start': '3.4', 'end': '2.46'} ref={'start': '3.4', 'end': '2.5'}; SepLLM (n=64, H/T): model={'start': '3.4', 'end': '2.43'} ref={'start': '3.4', 'end': '2.48'}; SepLLM (n=128): model={'start': '3.4', 'end': '2.45'} ref={'start': '3.4', 'end': '2.5'}",
       "text_span": ""
     },
     {
@@ -98,7 +79,7 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Variance bands are visible but not mentioned."
+      "detail": "Variance in light color not mentioned."
     },
     {
       "id": "global_hallucination",
@@ -107,8 +88,8 @@
       "sub_type": "Hallucinated Content",
       "weight": 5.0,
       "source": "global",
-      "detail": "The model fabricates a 'brown line' and a 'SepLLM (n=128,H/T)' series, which do not exist in the image.",
-      "text_span": "a brown line for “SepLLM (n=128,H/T).”"
+      "detail": "The model introduces fabricated labels 'SepLLM (n=256)' and 'SepLLM (n=256, H/T)' which are not present in the reference or the image.",
+      "text_span": "a purple “SepLLM (n=256)” curve that starts near ~3.4 and declines to about ~2.44 by 40,000; and a brown “SepLLM (n=256, H/T)” curve that starts near ~3.4 and decreases to approximately ~2.43 by 40,000"
     }
   ],
   "penalties_deduped": [
@@ -116,31 +97,11 @@
       "id": "line_02",
       "category": "Accuracy",
       "severity": "Major",
-      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "sub_type": "Incorrect Numerical Value",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The x-axis is labeled '#Iteration' in the image, not 'steps'.",
-      "text_span": "The x-axis is labeled “steps”"
-    },
-    {
-      "id": "line_03",
-      "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
-      "source": "checklist_correctness",
-      "detail": "The x-axis range is 0–140,000, not 0–40,000, and tick intervals are 20,000, not 10,000.",
-      "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels every 10,000 steps"
-    },
-    {
-      "id": "line_05",
-      "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Numerical Value",
-      "weight": 2.0,
-      "source": "checklist_correctness",
-      "detail": "Tick intervals are 0.1 in the image, not 0.2.",
-      "text_span": "ranging approximately from 2.4 to 3.4 with tick labels at about 0.2 intervals"
+      "detail": "Model incorrectly states the x-axis range and tick intervals.",
+      "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels at 0, 10,000, 20,000, 30,000, and 40,000"
     },
     {
       "id": "line_06",
@@ -149,8 +110,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model mislabels the series. For example, 'Vanilla' is purple, not blue, and 'StrmLLM (n=64)' is blue, not orange.",
-      "text_span": "a blue line for “Vanilla,” an orange line for “StrmLLM (n=64),” a green line for “SepLLM (n=64),” a red line for “SepLLM (n=128),” a purple line for “SepLLM (n=64,H/T),” and a brown line for “SepLLM (n=128,H/T).”"
+      "detail": "Model mislabels the series and introduces non-existent labels like 'SepLLM (n=256)' and 'SepLLM (n=256, H/T)'.",
+      "text_span": "a blue “Vanilla” curve, an orange “StrmLLM (n=64)” curve, a green “SepLLM (n=64)” curve, a red “SepLLM (n=128)” curve, a purple “SepLLM (n=256)” curve, a brown “SepLLM (n=256, H/T)” curve"
     },
     {
       "id": "line_08",
@@ -159,17 +120,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model=blue ref=purple; StrmLLM (n=64): model=orange ref=blue; SepLLM (n=64): model=green ref=orange; SepLLM (n=64, H): model=red ref=green; SepLLM (n=64, H/T): model=purple ref=red; SepLLM (n=128): model=brown ref=dark blue",
+      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model=blue ref=purple; StrmLLM (n=64): model=orange ref=blue; SepLLM (n=64): model=green ref=orange; SepLLM (n=64, H): model=red ref=green; SepLLM (n=64, H/T): model=brown ref=red; SepLLM (n=128): model=purple ref=dark blue",
       "text_span": ""
-    },
-    {
-      "id": "line_09",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "Line styles not explicitly mentioned."
     },
     {
       "id": "line_11",
@@ -178,7 +130,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.45}; StrmLLM (n=64): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.6}; SepLLM (n=64): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.52}; SepLLM (n=64, H): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.5}; SepLLM (n=64, H/T): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.48}; SepLLM (n=128): model={'start': 3.4, 'end': 2.55} ref={'start': 3.4, 'end': 2.5}",
+      "detail": "Binding verification: 6/6 elements mismatched. Vanilla: model={'start': '3.4', 'end': '2.5'} ref={'start': '>3.4', 'end': '2.45'}; StrmLLM (n=64): model={'start': '3.4', 'end': '2.48'} ref={'start': '3.4', 'end': '2.6'}; SepLLM (n=64): model={'start': '3.4', 'end': '2.46'} ref={'start': '3.4', 'end': '2.52'}; SepLLM (n=64, H): model={'start': '3.4', 'end': '2.46'} ref={'start': '3.4', 'end': '2.5'}; SepLLM (n=64, H/T): model={'start': '3.4', 'end': '2.43'} ref={'start': '3.4', 'end': '2.48'}; SepLLM (n=128): model={'start': '3.4', 'end': '2.45'} ref={'start': '3.4', 'end': '2.5'}",
       "text_span": ""
     },
     {
@@ -188,7 +140,17 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "Variance bands are visible but not mentioned."
+      "detail": "Variance in light color not mentioned."
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The model introduces fabricated labels 'SepLLM (n=256)' and 'SepLLM (n=256, H/T)' which are not present in the reference or the image.",
+      "text_span": "a purple “SepLLM (n=256)” curve that starts near ~3.4 and declines to about ~2.44 by 40,000; and a brown “SepLLM (n=256, H/T)” curve that starts near ~3.4 and decreases to approximately ~2.43 by 40,000"
     }
   ],
   "judge_output": {
@@ -197,60 +159,25 @@
         "expected": "Line Plot"
       },
       "line_02": {
-        "expected": "#Iteration (no units)"
+        "expected": "#Iteration (linear scale, range: 0 to 140,000, ticks: 20,000 intervals)"
       },
       "line_03": {
-        "expected": {
-          "scale": "linear",
-          "range": [
-            0,
-            140000
-          ],
-          "ticks": [
-            0,
-            20000,
-            40000,
-            60000,
-            80000,
-            100000,
-            120000,
-            140000
-          ]
-        }
+        "expected": "Linear scale, range: 0 to 140,000, ticks: 20,000 intervals"
       },
       "line_04": {
-        "expected": "Loss (no units)"
+        "expected": "Loss (linear scale, range: 2.4 to 3.4, ticks: 0.1 intervals)"
       },
       "line_05": {
-        "expected": {
-          "scale": "linear",
-          "range": [
-            2.4,
-            3.4
-          ],
-          "ticks": [
-            2.4,
-            2.5,
-            2.6,
-            2.7,
-            2.8,
-            2.9,
-            3.0,
-            3.1,
-            3.2,
-            3.3,
-            3.4
-          ]
-        }
+        "expected": "Linear scale, range: 2.4 to 3.4, ticks: 0.1 intervals"
       },
       "line_06": {
         "expected": [
-          "Vanilla",
-          "StrmLLM (n=64)",
-          "SepLLM (n=64)",
-          "SepLLM (n=64, H)",
-          "SepLLM (n=64, H/T)",
-          "SepLLM (n=128)"
+          "Vanilla (purple)",
+          "StrmLLM (n=64) (blue)",
+          "SepLLM (n=64) (orange)",
+          "SepLLM (n=64, H) (green)",
+          "SepLLM (n=64, H/T) (red)",
+          "SepLLM (n=128) (dark blue)"
         ]
       },
       "line_07": {
@@ -282,28 +209,28 @@
       "line_11": {
         "expected": {
           "Vanilla": {
-            "start": 3.4,
-            "end": 2.45
+            "start": ">3.4",
+            "end": "2.45"
           },
           "StrmLLM (n=64)": {
-            "start": 3.4,
-            "end": 2.6
+            "start": "3.4",
+            "end": "2.6"
           },
           "SepLLM (n=64)": {
-            "start": 3.4,
-            "end": 2.52
+            "start": "3.4",
+            "end": "2.52"
           },
           "SepLLM (n=64, H)": {
-            "start": 3.4,
-            "end": 2.5
+            "start": "3.4",
+            "end": "2.5"
           },
           "SepLLM (n=64, H/T)": {
-            "start": 3.4,
-            "end": 2.48
+            "start": "3.4",
+            "end": "2.48"
           },
           "SepLLM (n=128)": {
-            "start": 3.4,
-            "end": 2.5
+            "start": "3.4",
+            "end": "2.5"
           }
         }
       },
@@ -321,7 +248,7 @@
         "expected": "No crossover points mentioned"
       },
       "line_14": {
-        "expected": "Variance bands visible around each line"
+        "expected": "Variance in light color around each line"
       },
       "line_15": {
         "expected": "No dual y-axes present"
@@ -330,7 +257,7 @@
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "Expected: Line Plot. Model correctly identifies the chart type as a line plot.",
+        "reasoning": "Expected: Line Plot. Model: Line Plot. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -340,33 +267,33 @@
       },
       {
         "id": "line_02",
-        "reasoning": "Expected: x-axis labeled '#Iteration' with no units. Model incorrectly labels it as 'steps'.",
-        "coverage": {
-          "status": "complete"
-        },
-        "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Axis or Legend Interpretation",
-          "text_span": "The x-axis is labeled “steps”",
-          "detail": "The x-axis is labeled '#Iteration' in the image, not 'steps'."
-        }
-      },
-      {
-        "id": "line_03",
-        "reasoning": "Expected: Linear scale, range 0–140,000, ticks every 20,000. Model states range as 0–40,000 with ticks every 10,000.",
+        "reasoning": "Expected: #Iteration (linear scale, range: 0 to 140,000, ticks: 20,000 intervals). Model: steps (linear scale, range: 0 to 40,000, ticks: 10,000 intervals). Mismatch.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels every 10,000 steps",
-          "detail": "The x-axis range is 0–140,000, not 0–40,000, and tick intervals are 20,000, not 10,000."
+          "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels at 0, 10,000, 20,000, 30,000, and 40,000",
+          "detail": "Model incorrectly states the x-axis range and tick intervals."
+        }
+      },
+      {
+        "id": "line_03",
+        "reasoning": "Expected: Linear scale, range: 0 to 140,000, ticks: 20,000 intervals. Model: Linear scale, range: 0 to 40,000, ticks: 10,000 intervals. Mismatch.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "spanning from 0 to 40,000 with regularly spaced tick labels at 0, 10,000, 20,000, 30,000, and 40,000",
+          "detail": "Model incorrectly states the x-axis range and tick intervals."
         }
       },
       {
         "id": "line_04",
-        "reasoning": "Expected: y-axis labeled 'Loss' with no units. Model correctly identifies the y-axis label as 'Loss'.",
+        "reasoning": "Expected: Loss (linear scale, range: 2.4 to 3.4, ticks: 0.1 intervals). Model: Loss (linear scale, range: 2.4 to 3.4, ticks: 0.1 intervals). Match.",
         "coverage": {
           "status": "complete"
         },
@@ -376,62 +303,58 @@
       },
       {
         "id": "line_05",
-        "reasoning": "Expected: Linear scale, range 2.4–3.4, ticks every 0.1. Model states range as approximately 2.4–3.4 with tick intervals of 0.2.",
+        "reasoning": "Expected: Linear scale, range: 2.4 to 3.4, ticks: 0.1 intervals. Model: Linear scale, range: 2.4 to 3.4, ticks: 0.1 intervals. Match.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Numerical Value",
-          "text_span": "ranging approximately from 2.4 to 3.4 with tick labels at about 0.2 intervals",
-          "detail": "Tick intervals are 0.1 in the image, not 0.2."
+          "status": "correct"
         }
       },
       {
         "id": "line_06",
-        "reasoning": "Expected: Six series with specific labels. Model lists six series but mislabels some.",
+        "reasoning": "Expected: 6 lines with specific labels and colors. Model: 6 lines with different labels and colors. Mismatch in labels.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "a blue line for “Vanilla,” an orange line for “StrmLLM (n=64),” a green line for “SepLLM (n=64),” a red line for “SepLLM (n=128),” a purple line for “SepLLM (n=64,H/T),” and a brown line for “SepLLM (n=128,H/T).”",
-          "detail": "The model mislabels the series. For example, 'Vanilla' is purple, not blue, and 'StrmLLM (n=64)' is blue, not orange."
+          "text_span": "a blue “Vanilla” curve, an orange “StrmLLM (n=64)” curve, a green “SepLLM (n=64)” curve, a red “SepLLM (n=128)” curve, a purple “SepLLM (n=256)” curve, a brown “SepLLM (n=256, H/T)” curve",
+          "detail": "Model mislabels the series and introduces non-existent labels like 'SepLLM (n=256)' and 'SepLLM (n=256, H/T)'."
         }
       },
       {
         "id": "line_07",
-        "reasoning": "Expected: Correct color-to-series mapping. Model misassigns colors to series.",
+        "reasoning": "Expected: Correct color-to-label mapping. Model: Incorrect mapping with fabricated labels and colors.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "a blue line for “Vanilla,” an orange line for “StrmLLM (n=64),” a green line for “SepLLM (n=64),” a red line for “SepLLM (n=128),” a purple line for “SepLLM (n=64,H/T),” and a brown line for “SepLLM (n=128,H/T).”",
-          "detail": "The model assigns incorrect colors to the series, e.g., 'Vanilla' is purple, not blue."
+          "text_span": "a blue “Vanilla” curve, an orange “StrmLLM (n=64)” curve, a green “SepLLM (n=64)” curve, a red “SepLLM (n=128)” curve, a purple “SepLLM (n=256)” curve, a brown “SepLLM (n=256, H/T)” curve",
+          "detail": "Model assigns incorrect colors to labels and introduces fabricated labels."
         }
       },
       {
         "id": "line_08",
-        "reasoning": "Expected: Correct color descriptions for each line. Model misdescribes colors.",
+        "reasoning": "Expected: Correct color descriptions for each line. Model: Incorrect color descriptions for multiple lines.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "a blue line for “Vanilla,” an orange line for “StrmLLM (n=64),” a green line for “SepLLM (n=64),” a red line for “SepLLM (n=128),” a purple line for “SepLLM (n=64,H/T),” and a brown line for “SepLLM (n=128,H/T).”",
-          "detail": "The model assigns incorrect colors to the series, e.g., 'Vanilla' is purple, not blue."
+          "text_span": "a blue “Vanilla” curve, an orange “StrmLLM (n=64)” curve, a green “SepLLM (n=64)” curve, a red “SepLLM (n=128)” curve, a purple “SepLLM (n=256)” curve, a brown “SepLLM (n=256, H/T)” curve",
+          "detail": "Model assigns incorrect colors to labels and introduces fabricated labels."
         }
       },
       {
         "id": "line_09",
-        "reasoning": "Expected: All lines are solid. Model does not explicitly mention line styles but implies solid lines.",
+        "reasoning": "Expected: All lines are solid. Model: All lines are solid. Match.",
         "coverage": {
-          "status": "partial",
-          "detail": "Line styles not explicitly mentioned."
+          "status": "complete"
         },
         "correctness": {
           "status": "correct"
@@ -439,7 +362,7 @@
       },
       {
         "id": "line_10",
-        "reasoning": "Expected: No markers present. Model does not mention markers.",
+        "reasoning": "Expected: No markers present. Model: No markers present. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -449,20 +372,20 @@
       },
       {
         "id": "line_11",
-        "reasoning": "Expected: Specific start and end values for each series. Model provides incorrect values for start and end points.",
+        "reasoning": "Expected: Specific start and end values for each series. Model: Incorrect start and end values for all series.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "start near the top of the axis around loss ≈3.4 at step 0, drop steeply within the first few thousand steps, and then decrease more gradually toward the right edge; by 40,000 steps, the lines cluster near the lower end of the axis around loss ≈2.45–2.55",
-          "detail": "The model incorrectly states the end values as 2.45–2.55, while the reference specifies different end values for each series."
+          "text_span": "a blue “Vanilla” curve that starts near the top of the axis (around 3.4 at step 0) and decreases steeply early on before flattening toward roughly 2.5 by 40,000 steps",
+          "detail": "Model provides incorrect numerical values for start and end points of all series."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "Expected: All lines show a decreasing trend. Model correctly identifies the trend as decreasing for all lines.",
+        "reasoning": "Expected: All lines show a decreasing trend. Model: All lines show a decreasing trend. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -472,7 +395,7 @@
       },
       {
         "id": "line_13",
-        "reasoning": "Expected: No crossover points mentioned. Model does not mention crossover points.",
+        "reasoning": "Expected: No crossover points mentioned. Model: No crossover points mentioned. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -482,10 +405,10 @@
       },
       {
         "id": "line_14",
-        "reasoning": "Expected: Variance bands visible around each line. Model does not mention variance bands.",
+        "reasoning": "Expected: Variance in light color around each line. Model: No mention of variance. Mismatch.",
         "coverage": {
           "status": "missing",
-          "detail": "Variance bands are visible but not mentioned."
+          "detail": "Variance in light color not mentioned."
         },
         "correctness": {
           "status": "n/a"
@@ -493,7 +416,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "Expected: No dual y-axes present. Model does not mention dual y-axes.",
+        "reasoning": "Expected: No dual y-axes present. Model: No dual y-axes mentioned. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -507,8 +430,8 @@
         "id": "global_hallucination",
         "violations": [
           {
-            "text_span": "a brown line for “SepLLM (n=128,H/T).”",
-            "explanation": "The model fabricates a 'brown line' and a 'SepLLM (n=128,H/T)' series, which do not exist in the image."
+            "text_span": "a purple “SepLLM (n=256)” curve that starts near ~3.4 and declines to about ~2.44 by 40,000; and a brown “SepLLM (n=256, H/T)” curve that starts near ~3.4 and decreases to approximately ~2.43 by 40,000",
+            "explanation": "The model introduces fabricated labels 'SepLLM (n=256)' and 'SepLLM (n=256, H/T)' which are not present in the reference or the image."
           }
         ]
       },
@@ -544,72 +467,72 @@
           {
             "label": "Vanilla",
             "reference_value": {
-              "start": 3.4,
-              "end": 2.45
+              "start": ">3.4",
+              "end": "2.45"
             },
             "model_value": {
-              "start": 3.4,
-              "end": 2.55
+              "start": "3.4",
+              "end": "2.5"
             },
             "match": false
           },
           {
             "label": "StrmLLM (n=64)",
             "reference_value": {
-              "start": 3.4,
-              "end": 2.6
+              "start": "3.4",
+              "end": "2.6"
             },
             "model_value": {
-              "start": 3.4,
-              "end": 2.55
+              "start": "3.4",
+              "end": "2.48"
             },
             "match": false
           },
           {
             "label": "SepLLM (n=64)",
             "reference_value": {
-              "start": 3.4,
-              "end": 2.52
+              "start": "3.4",
+              "end": "2.52"
             },
             "model_value": {
-              "start": 3.4,
-              "end": 2.55
+              "start": "3.4",
+              "end": "2.46"
             },
             "match": false
           },
           {
             "label": "SepLLM (n=64, H)",
             "reference_value": {
-              "start": 3.4,
-              "end": 2.5
+              "start": "3.4",
+              "end": "2.5"
             },
             "model_value": {
-              "start": 3.4,
-              "end": 2.55
+              "start": "3.4",
+              "end": "2.46"
             },
             "match": false
           },
           {
             "label": "SepLLM (n=64, H/T)",
             "reference_value": {
-              "start": 3.4,
-              "end": 2.48
+              "start": "3.4",
+              "end": "2.48"
             },
             "model_value": {
-              "start": 3.4,
-              "end": 2.55
+              "start": "3.4",
+              "end": "2.43"
             },
             "match": false
           },
           {
             "label": "SepLLM (n=128)",
             "reference_value": {
-              "start": 3.4,
-              "end": 2.5
+              "start": "3.4",
+              "end": "2.5"
             },
             "model_value": {
-              "start": 3.4,
-              "end": 2.55
+              "start": "3.4",
+              "end": "2.45"
             },
             "match": false
           }
@@ -645,14 +568,55 @@
           {
             "label": "SepLLM (n=64, H/T)",
             "reference_value": "red",
-            "model_value": "purple",
+            "model_value": "brown",
             "match": false
           },
           {
             "label": "SepLLM (n=128)",
             "reference_value": "dark blue",
-            "model_value": "brown",
+            "model_value": "purple",
             "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "StrmLLM (n=64)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64, H)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64, H/T)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=128)",
+            "reference_value": "decreasing",
+            "model_value": "decreasing",
+            "match": true
           }
         ]
       }

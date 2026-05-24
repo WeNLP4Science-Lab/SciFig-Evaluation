@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_136",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the green line appear narrower than those around the blue line—does this suggest lower variability in Initial Accuracy compared to Final Accuracy?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing accuracy metrics but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Initial Accuracy at an Initial Confidence of 0.95 is approximately 0.75, how does this compare to the Final Accuracy at the same confidence level?",
+      "expected_behavior": "The model should detect that the Initial Accuracy at 0.95 is closer to 0.9, not 0.75, and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that Initial Accuracy at 0.95 is 0.75, when the actual value is closer to 0.9. The anchor is plausible because it is within the range of values shown for Initial Accuracy.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the correlation coefficient between Initial Confidence and ∆ Accuracy, and does this relationship achieve statistical significance?",
+      "expected_behavior": "The model should state that the correlation coefficient and statistical significance cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart does not provide raw data points, correlation metrics, or statistical significance tests, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—the green (Initial Accuracy) error bars are generally wider than the blue (Final Accuracy) ones, so the figure suggests *higher* variability for Initial Accuracy than for Final Accuracy.\n\n2. The figure shows Initial Accuracy at 0.95 closer to ~0.92–0.94 (not ~0.75), while Final Accuracy at 0.95 is ~0.98–0.99; Final Accuracy is higher by roughly ~0.05–0.07.\n\n3. The correlation coefficient and statistical significance are not provided and can’t be determined from this plot alone (it shows means with error bars but no underlying data or correlation/statistical test results).",
+  "timestamp": "2026-05-24T10:56:01.750417+00:00"
+}

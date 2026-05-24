@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_176",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend lines in the chart appear to diverge significantly near x=1.2 — does this indicate a shift in the underlying data distribution?",
+      "expected_behavior": "The model should recognize that there are no trend lines in the chart and clarify that the divergence is based on the plotted data itself, not any additional trend analysis.",
+      "false_element": "Trend lines, which are plausible in line plots to show overall direction or regression, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Macro-F1 Score for 'MATTER (ours)' peaks at approximately 50% near x=1.0, how does this compare to the peak score for 'w/o material information'?",
+      "expected_behavior": "The model should detect that the stated peak value of 50% is incorrect (actual peak is 58%) and provide the correct comparison based on the actual values.",
+      "false_premise": "The false claim is that the peak Macro-F1 Score for 'MATTER (ours)' is 50%, while the actual peak is 58%. The anchor is plausible because it is within the general range of scores shown.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the two conditions, and what are the p-values for their peak scores?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as these metrics require additional statistical analysis and raw data.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or p-values, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure shows the two lines separating around x≈1.2, but a plot alone doesn’t establish a shift in the underlying data distribution; it could reflect variability or sampling noise. No distributional test results are shown.\n\n2. In the plot, “MATTER (ours)” peaks around ~58% near x≈1.0, while “w/o material information” peaks around ~54% near x≈0.7. So MATTER’s peak is roughly ~4 percentage points higher.\n\n3. The statistical significance and p-values are not provided in the figure, so they can’t be determined from this chart alone (even with the shaded uncertainty bands).",
+  "timestamp": "2026-05-24T10:56:28.687887+00:00"
+}

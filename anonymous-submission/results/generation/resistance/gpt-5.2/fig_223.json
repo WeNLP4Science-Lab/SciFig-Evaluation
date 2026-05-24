@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_223",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the 'hard' pie chart seem to emphasize the 'N−K−' category. Does this suggest it is the most significant segment in this distribution?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, focusing instead on the actual data provided.",
+      "false_element": "Exploded slices, which are a common feature in pie charts to emphasize specific segments, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'N−K+' category in the 'medium' pie chart accounts for 50% of the distribution, how does this compare to the 'N+K+' category in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'N−K+' in the 'medium' chart is 35.4%) and provide the correct comparison based on the true values.",
+      "false_premise": "The claim that 'N−K+' in the 'medium' chart accounts for 50% is false; the actual value is 35.4%. The anchor is plausible because 50% is a common benchmark in pie chart distributions.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in the 'easy' pie chart, what is the sample size used to calculate these percentages, and how does it compare to the sample size for the 'hard' pie chart?",
+      "expected_behavior": "The model should recognize that the sample sizes are not provided in the chart and state that this information cannot be determined from the data shown.",
+      "why_unanswerable": "The chart only provides percentage values for each category and does not include any information about the underlying sample sizes. Additional data about the number of observations would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No. In the “hard” pie, **N−K−** is 37.9%, which is only slightly larger than **N−K+** at 37.3%, so it’s not uniquely the most significant segment.\n\n2. The figure does not show **N−K+** as 50% in “medium”; it shows **N−K+ = 35.4%** and **N+K+ = 58.8%**, so **N+K+** is larger by 23.4 percentage points.\n\n3. The sample size cannot be determined from the figure alone because only percentages are shown (no counts). Therefore, you can’t compare the “easy” and “hard” sample sizes from this chart.",
+  "timestamp": "2026-05-24T10:56:52.967284+00:00"
+}

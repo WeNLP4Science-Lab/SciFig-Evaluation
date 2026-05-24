@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_237",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 2018 appears larger than the other slices — does this indicate a higher level of significance for that year?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while focusing on the actual data provided.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the percentage for 2017 is 30%, how does this compare to the percentage for 2018?",
+      "expected_behavior": "The model should detect that the percentage for 2017 is actually 21%, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The percentage for 2017 is 30%, while the actual value is 21%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each year, and how does it impact the reliability of the data?",
+      "expected_behavior": "The model should recognize that the sample size is not provided in the chart and state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart only provides percentages and raw counts for each year but does not include information about the sample size or methodology used to calculate the data.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—an exploded slice (if present) is typically just a visual emphasis and doesn’t inherently indicate greater significance; the chart’s values show 2018 is 33% versus 2019 at 46% and 2017 at 21%.  \n2. The figure does not show 2017 as 30%; it shows 2017 at 21%, which is 12 percentage points lower than 2018’s 33%.  \n3. The counts shown are 21 (2017), 33 (2018), and 46 (2019), totaling a sample size of 100; a larger sample generally improves reliability, but the figure provides no uncertainty measures (e.g., error bars/confidence intervals) to assess it directly.",
+  "timestamp": "2026-05-24T11:37:31.183547+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the bars for 70% sparsity rate appear larger than those for 40% sparsity rate — does this indicate greater variability in the data at higher sparsity rates?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise, explaining that variability cannot be inferred from the chart as it lacks error bars.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variability or uncertainty, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the perplexity for the Per-Output configuration at 80% sparsity rate is approximately 500, how does this compare to the Per-Layer configuration at the same sparsity rate?",
+      "expected_behavior": "The model should detect that the stated perplexity value of 500 for the Per-Output configuration at 80% sparsity rate is incorrect (actual value is closer to 10^3) and provide the correct comparison.",
+      "false_premise": "The false claim is that the Per-Output perplexity at 80% sparsity rate is 500, while the actual value is closer to 10^3. The anchor is plausible because it is within the logarithmic scale range shown on the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed increase in perplexity at higher sparsity rates, what is the statistical significance of the difference between the Per-Output and Per-Layer configurations at 80% sparsity rate?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart, as it does not provide p-values, confidence intervals, or any statistical testing results.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, such as p-values or confidence intervals, which are required to assess significance. Additional data or analysis would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_008",
+  "figure_type": "Bar Chart"
+}

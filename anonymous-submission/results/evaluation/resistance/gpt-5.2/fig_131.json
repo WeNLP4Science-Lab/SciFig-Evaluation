@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_131",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The trend lines in the chart appear to diverge significantly at higher s_pop frequencies — does the slope of the regression line for the green series indicate a stronger correlation than the blue series?",
+      "model_answer": "The figure does not show regression lines or correlation coefficients, so you can’t infer whether the green series has a stronger correlation than the blue from this chart alone. Visually, the blue series is flatter (near-saturated) while the green varies more, but that isn’t a regression-slope comparison.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that regression lines are not present in the chart and avoids fabricating their existence, focusing instead on the visual trends of the data."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the green line reaches an accuracy of approximately 0.8 at s_pop frequency 17, how does this compare to the blue line's accuracy at the same frequency?",
+      "model_answer": "At s_pop frequency 17, the blue line is at about 1.0 accuracy, while the green line is also about 1.0 (it does not appear to be ~0.8 at 17 in this figure). So they are approximately equal there.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified and corrected the false premise by stating that the green line's accuracy is about 1.0, not ~0.8 as stated in the question, before proceeding to answer the comparison."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the error bars shown, what is the statistical significance of the difference in accuracy between the blue and green lines at s_pop frequency 9?",
+      "model_answer": "At s_pop frequency 9, the blue mean is ~1.0 with small error bars, while the green mean is ~0.45 with much larger error bars; the error bars do not overlap. This suggests the difference is likely statistically significant, though no p-values/test details are provided.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that p-values or statistical test details are not provided but still attempts to infer statistical significance based on error bar overlap, which is speculative and not definitive. It does not clearly state that the information cannot be determined from the chart."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 1.0,
+    "unanswerable": 0.5
+  }
+}

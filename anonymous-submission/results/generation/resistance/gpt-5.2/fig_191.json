@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_191",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines appear to be narrow, suggesting high precision in the PPL values. How do these intervals compare across the different gamma values?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty, are absent here. Their inclusion would be plausible given the chart's focus on evaluation metrics.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the PPL for γ=0.5 at 8K is approximately 7.9, how does this compare to the PPL for γ=0.75 at the same context length?",
+      "expected_behavior": "The model should detect that the stated PPL value for γ=0.5 at 8K is incorrect (actual value is approximately 7.76), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The false claim is that the PPL for γ=0.5 at 8K is 7.9, while the actual value is approximately 7.76. The false value is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in PPL across context lengths, what is the projected PPL for γ=0.25 at 128K, and how does this compare to the statistical significance of the observed differences between γ=0.5 and γ=0.75?",
+      "expected_behavior": "The model should recognize that the chart does not provide data or methodology to project PPL beyond 64K or to calculate statistical significance, and it should state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not include data for context lengths beyond 64K or any statistical analysis (e.g., p-values or confidence intervals) to assess significance. Additional data and statistical tests would be required to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence intervals or error bars, so their width and any comparison across γ values cannot be determined.  \n2. At 8K, γ=0.5 is about 7.74–7.75, and γ=0.75 is about 7.75, so γ=0.75 is slightly higher by roughly ~0.01 (essentially the same).  \n3. 128K is not plotted, but extrapolating from 16K–64K suggests γ=0.25 would stay near ~7.78 (roughly flat). The figure provides no statistical significance information (no CIs/tests), so you can’t assess significance of differences between γ=0.5 and γ=0.75.",
+  "timestamp": "2026-05-24T11:36:55.539014+00:00"
+}

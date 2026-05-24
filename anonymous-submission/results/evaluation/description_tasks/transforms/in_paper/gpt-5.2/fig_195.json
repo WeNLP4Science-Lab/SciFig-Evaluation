@@ -6,11 +6,11 @@
   "judge_model": "gpt-4o",
   "num_items": 15,
   "num_penalties_raw": 4,
-  "num_penalties_deduped": 4,
+  "num_penalties_deduped": 3,
   "total_penalty_raw": 11.0,
-  "total_penalty_deduped": 11.0,
+  "total_penalty_deduped": 9.0,
   "mqm_raw": 78.43,
-  "mqm_deduped": 78.43,
+  "mqm_deduped": 82.35,
   "penalties_raw": [
     {
       "id": "line_07",
@@ -19,8 +19,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Incorrect colour and marker shape descriptions for 'Only MoHD ATTN' and 'MoHD ATTN + MLP'.",
-      "text_span": "The dark blue line with circular markers (Only MoHD ATTN)... The light blue line with “x” markers (MoHD ATTN + MLP)..."
+      "detail": "Model incorrectly describes Transformer as having circular markers instead of no markers. Also, 'Only MoHD ATTN' is described as dark blue instead of purple, and 'MoHD ATTN + MLP' is described as light blue instead of blue.",
+      "text_span": "a red dashed line with circular markers labeled 'Transformer,'"
     },
     {
       "id": "line_08",
@@ -39,8 +39,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Incorrect marker shapes for 'Transformer', 'Only MoHD FFN', and 'Only MoHD ATTN'.",
-      "text_span": "The red line with circular markers (Transformer)... The gray line with circular markers (Only MoHD FFN)..."
+      "detail": "Model incorrectly describes Transformer as having circular markers instead of no markers.",
+      "text_span": "a red dashed line with circular markers labeled 'Transformer,'"
     },
     {
       "id": "line_11",
@@ -49,7 +49,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 1/4 elements mismatched. Only MoHD ATTN: model={'start': 11.5, 'end': 14.0} ref={'start': 11.5, 'end': 14.5}",
+      "detail": "Binding verification: 4/4 elements mismatched. Transformer: model={'start': 11.5, 'end': 11.6} ref={'start': 11.6, 'end': 11.6}; Only MoHD FFN: model={'start': 11.5, 'end': 11.8, 'trough': 11.3} ref={'start': 11.5, 'end': 11.75, 'trough': 11.3}; Only MoHD ATTN: model={'start': 11.5, 'end': 14.0} ref={'start': 11.5, 'end': 14.5}; MoHD ATTN + MLP: model={'start': 11.5, 'end': 13.2} ref={'start': 11.5, 'end': 13.3}",
       "text_span": ""
     }
   ],
@@ -61,8 +61,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Incorrect colour and marker shape descriptions for 'Only MoHD ATTN' and 'MoHD ATTN + MLP'.",
-      "text_span": "The dark blue line with circular markers (Only MoHD ATTN)... The light blue line with “x” markers (MoHD ATTN + MLP)..."
+      "detail": "Model incorrectly describes Transformer as having circular markers instead of no markers. Also, 'Only MoHD ATTN' is described as dark blue instead of purple, and 'MoHD ATTN + MLP' is described as light blue instead of blue.",
+      "text_span": "a red dashed line with circular markers labeled 'Transformer,'"
     },
     {
       "id": "line_08",
@@ -75,23 +75,13 @@
       "text_span": ""
     },
     {
-      "id": "line_10",
-      "category": "Accuracy",
-      "severity": "Minor",
-      "sub_type": "Incorrect Label Mapping",
-      "weight": 2.0,
-      "source": "checklist_correctness",
-      "detail": "Incorrect marker shapes for 'Transformer', 'Only MoHD FFN', and 'Only MoHD ATTN'.",
-      "text_span": "The red line with circular markers (Transformer)... The gray line with circular markers (Only MoHD FFN)..."
-    },
-    {
       "id": "line_11",
       "category": "Accuracy",
       "severity": "Major",
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 1/4 elements mismatched. Only MoHD ATTN: model={'start': 11.5, 'end': 14.0} ref={'start': 11.5, 'end': 14.5}",
+      "detail": "Binding verification: 4/4 elements mismatched. Transformer: model={'start': 11.5, 'end': 11.6} ref={'start': 11.6, 'end': 11.6}; Only MoHD FFN: model={'start': 11.5, 'end': 11.8, 'trough': 11.3} ref={'start': 11.5, 'end': 11.75, 'trough': 11.3}; Only MoHD ATTN: model={'start': 11.5, 'end': 14.0} ref={'start': 11.5, 'end': 14.5}; MoHD ATTN + MLP: model={'start': 11.5, 'end': 13.2} ref={'start': 11.5, 'end': 13.3}",
       "text_span": ""
     }
   ],
@@ -101,16 +91,16 @@
         "expected": "Line Plot"
       },
       "line_02": {
-        "expected": "X-axis label: Activated Parameters Ratio (%), Units: %"
+        "expected": "X-axis labeled as 'Activated Parameters Ratio (%)' with units in percentage"
       },
       "line_03": {
-        "expected": "Linear scale, range: 25 to 100, tick labels: 25, 50, 75, 100"
+        "expected": "Linear scale, range from 25 to 100 in reverse order, tick labels at intervals of 25"
       },
       "line_04": {
-        "expected": "Y-axis label: Eval PPL, Units: None"
+        "expected": "Y-axis labeled as 'Eval PPL' with units in perplexity"
       },
       "line_05": {
-        "expected": "Linear scale, range: 11.5 to 14.0, tick labels: 11.5, 12.0, 12.5, 13.0, 13.5, 14.0"
+        "expected": "Linear scale, range from 11.5 to 14.0, tick labels at intervals of 0.5"
       },
       "line_06": {
         "expected": [
@@ -122,10 +112,10 @@
       },
       "line_07": {
         "expected": {
-          "Transformer": "red dashed",
-          "Only MoHD FFN": "gray solid with square markers",
-          "Only MoHD ATTN": "purple solid with circle markers",
-          "MoHD ATTN + MLP": "blue solid with cross markers"
+          "Transformer": "red dashed line",
+          "Only MoHD FFN": "gray line with square markers",
+          "Only MoHD ATTN": "purple line with circle markers",
+          "MoHD ATTN + MLP": "blue line with cross markers"
         }
       },
       "line_08": {
@@ -146,45 +136,30 @@
       },
       "line_10": {
         "expected": {
-          "Transformer": "none",
-          "Only MoHD FFN": "square",
-          "Only MoHD ATTN": "circle",
-          "MoHD ATTN + MLP": "cross"
+          "Transformer": "circular markers",
+          "Only MoHD FFN": "square markers",
+          "Only MoHD ATTN": "circle markers",
+          "MoHD ATTN + MLP": "x markers"
         }
       },
       "line_11": {
         "expected": {
           "Transformer": {
             "start": 11.6,
-            "end": 11.6,
-            "peaks": [],
-            "troughs": []
+            "end": 11.6
           },
           "Only MoHD FFN": {
             "start": 11.5,
             "end": 11.75,
-            "peaks": [
-              11.75
-            ],
-            "troughs": [
-              11.3
-            ]
+            "trough": 11.3
           },
           "Only MoHD ATTN": {
             "start": 11.5,
-            "end": 14.5,
-            "peaks": [
-              14.5
-            ],
-            "troughs": []
+            "end": 14.5
           },
           "MoHD ATTN + MLP": {
             "start": 11.5,
-            "end": 13.3,
-            "peaks": [
-              13.3
-            ],
-            "troughs": []
+            "end": 13.3
           }
         }
       },
@@ -197,7 +172,7 @@
         }
       },
       "line_13": {
-        "expected": "No crossover/intersection points"
+        "expected": "No crossovers or intersections"
       },
       "line_14": {
         "expected": "No annotations"
@@ -219,7 +194,7 @@
       },
       {
         "id": "line_02",
-        "reasoning": "Expected: X-axis label 'Activated Parameters Ratio (%)' with units '%'. Model: X-axis label 'Activated Parameters Ratio(%)' with units '%'. Match.",
+        "reasoning": "Expected: X-axis labeled as 'Activated Parameters Ratio (%)' with units in percentage. Model: X-axis labeled 'Activated Parameters Ratio(%)'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -229,7 +204,7 @@
       },
       {
         "id": "line_03",
-        "reasoning": "Expected: Linear scale, range 25 to 100, tick labels 25, 50, 75, 100. Model: Linear scale, range 25 to 100, tick labels 25, 50, 75, 100. Match.",
+        "reasoning": "Expected: Linear scale, range from 25 to 100 in reverse order, tick labels at intervals of 25. Model: Linear scale, range from 100 down to 25, tick labels at 100, 75, 50, and 25. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -239,7 +214,7 @@
       },
       {
         "id": "line_04",
-        "reasoning": "Expected: Y-axis label 'Eval PPL', no units. Model: Y-axis label 'Eval PPL', no units. Match.",
+        "reasoning": "Expected: Y-axis labeled 'Eval PPL' with units in perplexity. Model: Y-axis labeled 'Eval PPL'. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -249,7 +224,7 @@
       },
       {
         "id": "line_05",
-        "reasoning": "Expected: Linear scale, range 11.5 to 14.0, tick labels 11.5, 12.0, 12.5, 13.0, 13.5, 14.0. Model: Linear scale, range 11.5 to 14.0, tick labels 11.5, 12.0, 12.5, 13.0, 13.5, 14.0. Match.",
+        "reasoning": "Expected: Linear scale, range from 11.5 to 14.0, tick labels at intervals of 0.5. Model: Linear scale, range from about 11.5 to 14.0, tick marks at 11.5, 12.0, 12.5, 13.0, 13.5, and 14.0. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -259,7 +234,7 @@
       },
       {
         "id": "line_06",
-        "reasoning": "Expected: 4 lines (Transformer, Only MoHD FFN, Only MoHD ATTN, MoHD ATTN + MLP). Model: 4 lines with same names. Match.",
+        "reasoning": "Expected: Four lines (Transformer, Only MoHD FFN, Only MoHD ATTN, MoHD ATTN + MLP). Model: Four lines with the same labels. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -269,15 +244,15 @@
       },
       {
         "id": "line_07",
-        "reasoning": "Expected: Transformer=red dashed, Only MoHD FFN=gray solid with square markers, Only MoHD ATTN=purple solid with circle markers, MoHD ATTN + MLP=blue solid with cross markers. Model: Transformer=red dashed, Only MoHD FFN=gray solid with square markers, Only MoHD ATTN=dark blue solid with circular markers, MoHD ATTN + MLP=light blue solid with 'x' markers. Mismatch in colours and marker shapes for 'Only MoHD ATTN' and 'MoHD ATTN + MLP'.",
+        "reasoning": "Expected: Transformer=red dashed line, Only MoHD FFN=gray line with square markers, Only MoHD ATTN=purple line with circle markers, MoHD ATTN + MLP=blue line with cross markers. Model: Transformer=red dashed line with circular markers, Only MoHD FFN=gray solid line with square markers, Only MoHD ATTN=dark blue solid line with circular markers, MoHD ATTN + MLP=light blue solid line with x markers. Mismatch in line styles and colours for some series.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "partial",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "The dark blue line with circular markers (Only MoHD ATTN)... The light blue line with “x” markers (MoHD ATTN + MLP)...",
-          "detail": "Incorrect colour and marker shape descriptions for 'Only MoHD ATTN' and 'MoHD ATTN + MLP'."
+          "text_span": "a red dashed line with circular markers labeled 'Transformer,'",
+          "detail": "Model incorrectly describes Transformer as having circular markers instead of no markers. Also, 'Only MoHD ATTN' is described as dark blue instead of purple, and 'MoHD ATTN + MLP' is described as light blue instead of blue."
         }
       },
       {
@@ -289,8 +264,8 @@
         "correctness": {
           "status": "partial",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "The dark blue line with circular markers (Only MoHD ATTN)... The light blue line with “x” markers (MoHD ATTN + MLP)...",
-          "detail": "Incorrect colour descriptions for 'Only MoHD ATTN' and 'MoHD ATTN + MLP'."
+          "text_span": "a dark blue solid line with circular markers labeled 'Only MoHD ATTN,'",
+          "detail": "Model describes 'Only MoHD ATTN' as dark blue instead of purple and 'MoHD ATTN + MLP' as light blue instead of blue."
         }
       },
       {
@@ -305,33 +280,33 @@
       },
       {
         "id": "line_10",
-        "reasoning": "Expected: Transformer=none, Only MoHD FFN=square, Only MoHD ATTN=circle, MoHD ATTN + MLP=cross. Model: Transformer=circular, Only MoHD FFN=circular, Only MoHD ATTN=circular, MoHD ATTN + MLP='x'. Mismatch in marker shapes for all lines except 'MoHD ATTN + MLP'.",
+        "reasoning": "Expected: Transformer=no markers, Only MoHD FFN=square markers, Only MoHD ATTN=circle markers, MoHD ATTN + MLP=x markers. Model: Transformer=circular markers, Only MoHD FFN=square markers, Only MoHD ATTN=circular markers, MoHD ATTN + MLP=x markers. Mismatch for Transformer.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "partial",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "The red line with circular markers (Transformer)... The gray line with circular markers (Only MoHD FFN)...",
-          "detail": "Incorrect marker shapes for 'Transformer', 'Only MoHD FFN', and 'Only MoHD ATTN'."
+          "text_span": "a red dashed line with circular markers labeled 'Transformer,'",
+          "detail": "Model incorrectly describes Transformer as having circular markers instead of no markers."
         }
       },
       {
         "id": "line_11",
-        "reasoning": "Expected values for each series match the model's stated values within tolerance for all except 'Only MoHD ATTN', where the peak value is understated.",
+        "reasoning": "Expected: Transformer (start=11.6, end=11.6), Only MoHD FFN (start=11.5, end=11.75, trough=11.3), Only MoHD ATTN (start=11.5, end=14.5), MoHD ATTN + MLP (start=11.5, end=13.3). Model: Transformer (start=11.5, end=11.6), Only MoHD FFN (start=11.5, end=11.8, trough=11.3), Only MoHD ATTN (start=11.5, end=14.0), MoHD ATTN + MLP (start=11.5, end=13.2). Mismatches in numerical values for Transformer, Only MoHD FFN, Only MoHD ATTN, and MoHD ATTN + MLP.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "partial",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "increases to about 12.2 at 50%, and rises further to about 14.0 at 25%.",
-          "detail": "Model states '14.0' as the peak for 'Only MoHD ATTN', but the reference and image show '14.5'."
+          "text_span": "which stays near 11.5 across the axis, starting around 11.5 at 100 and ending around 11.6 at 25",
+          "detail": "Model incorrectly states Transformer starts at 11.5 instead of 11.6."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "Expected trends match the model's stated trends for all series.",
+        "reasoning": "Expected: Transformer=stable, Only MoHD FFN=non-monotonic, Only MoHD ATTN=increasing, MoHD ATTN + MLP=increasing. Model: Transformer=stable, Only MoHD FFN=non-monotonic, Only MoHD ATTN=increasing, MoHD ATTN + MLP=increasing. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -341,7 +316,7 @@
       },
       {
         "id": "line_13",
-        "reasoning": "Expected: No crossover/intersection points. Model: No crossover/intersection points mentioned. Match.",
+        "reasoning": "Expected: No crossovers or intersections. Model: No crossovers or intersections. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -351,7 +326,7 @@
       },
       {
         "id": "line_14",
-        "reasoning": "Expected: No annotations. Model: No annotations mentioned. Match.",
+        "reasoning": "Expected: No annotations. Model: No annotations. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -361,7 +336,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "Expected: No dual y-axes. Model: No dual y-axes mentioned. Match.",
+        "reasoning": "Expected: No dual y-axes. Model: No dual y-axes. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -414,19 +389,21 @@
               "start": 11.5,
               "end": 11.6
             },
-            "match": true
+            "match": false
           },
           {
             "label": "Only MoHD FFN",
             "reference_value": {
               "start": 11.5,
-              "end": 11.75
+              "end": 11.75,
+              "trough": 11.3
             },
             "model_value": {
               "start": 11.5,
-              "end": 11.7
+              "end": 11.8,
+              "trough": 11.3
             },
-            "match": true
+            "match": false
           },
           {
             "label": "Only MoHD ATTN",
@@ -450,7 +427,7 @@
               "start": 11.5,
               "end": 13.2
             },
-            "match": true
+            "match": false
           }
         ]
       },

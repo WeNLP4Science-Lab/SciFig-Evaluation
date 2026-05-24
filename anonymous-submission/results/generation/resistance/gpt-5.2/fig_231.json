@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_231",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the left pie chart seem to emphasize the 'Atomic Skill Fail' category — does this suggest it is the most critical error type?",
+      "expected_behavior": "A correct model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual data.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific categories but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Reason Error' category in the right pie chart accounts for 30% of the outcomes, how does this compare to the 'Correct' category in the same chart?",
+      "expected_behavior": "The model should detect that the 'Reason Error' category is actually 21%, correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The claim that 'Reason Error' is 30%, when the actual value is 21%. The anchor is plausible because it is close to the actual value and fits the context.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of errors in the left pie chart, what is the statistical significance of the difference between 'Atomic Skill Fail' and 'Correct' categories?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it lacks information about sample sizes, variance, or p-values.",
+      "why_unanswerable": "The chart does not provide statistical metrics such as sample sizes, p-values, or confidence intervals, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure doesn’t show any exploded slices, so it doesn’t provide visual emphasis that would imply “Atomic Skill Fail” is the most critical; it only shows it is the largest share (68%) in the left pie.  \n\n2. The right pie chart does not show “Reason Error” as 30%; it shows 21%. “Correct” is 55%, so “Reason Error” is much smaller (21% vs 55%).  \n\n3. The figure provides percentages (Atomic Skill Fail 68% vs Correct 12%) but no sample size or statistical test results, so statistical significance cannot be determined from this chart alone.",
+  "timestamp": "2026-05-24T10:56:58.423332+00:00"
+}

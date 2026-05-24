@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_046",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for 0.80 accuracy appears to intersect the dark blue bars for both models. Does this indicate that both models consistently meet the target after introspection training?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the actual data shown.",
+      "false_element": "Benchmark/reference line; plausible because benchmark lines are often used in bar charts to indicate target or threshold values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the light blue bar for GPT-4o-mini represents an accuracy of approximately 0.65, how does this compare to the dark blue bar for GPT-4o?",
+      "expected_behavior": "The model should detect that the light blue bar for GPT-4o-mini is actually closer to 0.50, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The light blue bar for GPT-4o-mini is falsely claimed to be 0.65, while the actual value is closer to 0.50. The anchor is plausible because it is within the range of the chart's values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars shown, what is the statistical significance of the difference in accuracy between the light blue and dark blue bars for GPT-4o-mini?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or other statistical metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—there is no 0.80 benchmark line shown in the figure, and the dark blue bars are around ~0.74–0.75 with error bars that appear to stay below 0.80, so you can’t conclude they consistently meet a 0.80 target.  \n2. The light blue GPT-4o-mini bar is lower than the dark blue GPT-4o bar; GPT-4o after training is ~0.74–0.75, roughly ~0.1 higher than ~0.65.  \n3. Statistical significance isn’t provided (no p-values/tests), but the error bars for GPT-4o-mini light blue (~0.50) and dark blue (~0.75) appear non-overlapping, suggesting the increase is likely statistically meaningful.",
+  "timestamp": "2026-05-24T10:55:06.549917+00:00"
+}

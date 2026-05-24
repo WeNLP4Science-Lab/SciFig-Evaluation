@@ -1,0 +1,496 @@
+{
+  "figure_id": "fig_142",
+  "model_name": "qwen3-vl-30b-a3b",
+  "transform": "noise",
+  "figure_type": "Line Plot",
+  "judge_model": "gpt-4o",
+  "num_items": 15,
+  "num_penalties_raw": 5,
+  "num_penalties_deduped": 4,
+  "total_penalty_raw": 19.0,
+  "total_penalty_deduped": 17.0,
+  "mqm_raw": 62.75,
+  "mqm_deduped": 66.67,
+  "penalties_raw": [
+    {
+      "id": "line_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Model incorrectly states the x-axis range as 0 to 22 instead of 0 to 20.",
+      "text_span": "spans from 0 to 22 in integer increments"
+    },
+    {
+      "id": "line_03",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model incorrectly states the x-axis range as 0 to 22 instead of 0 to 20.",
+      "text_span": "spans from 0 to 22 in integer increments"
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/3 elements mismatched. hidden state mean before gate: model={'start': 0.1, 'end': 4.3, 'peak': 4.3, 'trough': 0.1} ref={'start': 0.05, 'end': 4.8, 'peak': 4.8, 'trough': 0.05}; hidden state mean of baseline: model={'start': 0, 'end': 0, 'peak': 0, 'trough': 0} ref={'start': 0.04, 'end': 0.04, 'peak': 0.04, 'trough': 0.04}",
+      "text_span": ""
+    },
+    {
+      "id": "line_12",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/3 elements mismatched. hidden state mean before gate: model=relatively stable until layer 18, after which it exhibits a sharp increase ref=steady, then sharp increase",
+      "text_span": ""
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The model makes an interpretive claim about the gating mechanism's effect, which is not directly supported by the chart.",
+      "text_span": "This indicates that the gating mechanism significantly suppresses the hidden state mean after the gate, while the baseline model maintains a minimal mean throughout the layers."
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "line_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Model incorrectly states the x-axis range as 0 to 22 instead of 0 to 20.",
+      "text_span": "spans from 0 to 22 in integer increments"
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/3 elements mismatched. hidden state mean before gate: model={'start': 0.1, 'end': 4.3, 'peak': 4.3, 'trough': 0.1} ref={'start': 0.05, 'end': 4.8, 'peak': 4.8, 'trough': 0.05}; hidden state mean of baseline: model={'start': 0, 'end': 0, 'peak': 0, 'trough': 0} ref={'start': 0.04, 'end': 0.04, 'peak': 0.04, 'trough': 0.04}",
+      "text_span": ""
+    },
+    {
+      "id": "line_12",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/3 elements mismatched. hidden state mean before gate: model=relatively stable until layer 18, after which it exhibits a sharp increase ref=steady, then sharp increase",
+      "text_span": ""
+    },
+    {
+      "id": "global_interpretation",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Unwanted Interpretation",
+      "weight": 2.0,
+      "source": "global",
+      "detail": "The model makes an interpretive claim about the gating mechanism's effect, which is not directly supported by the chart.",
+      "text_span": "This indicates that the gating mechanism significantly suppresses the hidden state mean after the gate, while the baseline model maintains a minimal mean throughout the layers."
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "Line Plot"
+      },
+      "line_02": {
+        "expected": "X-axis labeled 'Layer' with a linear scale, range 0 to 20, tick intervals of 5"
+      },
+      "line_03": {
+        "expected": "Linear scale, range 0 to 20"
+      },
+      "line_04": {
+        "expected": "Y-axis labeled 'Abs Mean' with a linear scale, range 0 to 4, tick intervals of 1"
+      },
+      "line_05": {
+        "expected": "Linear scale, range 0 to 4"
+      },
+      "line_06": {
+        "expected": [
+          "hidden state mean before gate",
+          "hidden state mean after gate",
+          "hidden state mean of baseline"
+        ]
+      },
+      "line_07": {
+        "expected": {
+          "blue dashed": "hidden state mean before gate",
+          "orange dotted": "hidden state mean after gate",
+          "green solid": "hidden state mean of baseline"
+        }
+      },
+      "line_08": {
+        "expected": {
+          "hidden state mean before gate": "blue",
+          "hidden state mean after gate": "orange",
+          "hidden state mean of baseline": "green"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "hidden state mean before gate": "dashed",
+          "hidden state mean after gate": "dotted",
+          "hidden state mean of baseline": "solid"
+        }
+      },
+      "line_10": {
+        "expected": "No markers present"
+      },
+      "line_11": {
+        "expected": {
+          "hidden state mean before gate": {
+            "start": 0.05,
+            "end": 4.8,
+            "peak": 4.8,
+            "trough": 0.05
+          },
+          "hidden state mean after gate": {
+            "start": 0,
+            "end": 0.1,
+            "peak": 0.1,
+            "trough": 0
+          },
+          "hidden state mean of baseline": {
+            "start": 0.04,
+            "end": 0.04,
+            "peak": 0.04,
+            "trough": 0.04
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "hidden state mean before gate": "steady, then sharp increase",
+          "hidden state mean after gate": "stable",
+          "hidden state mean of baseline": "stable"
+        }
+      },
+      "line_13": {
+        "expected": "No crossover or intersection points"
+      },
+      "line_14": {
+        "expected": "No annotations present"
+      },
+      "line_15": {
+        "expected": "No dual y-axes"
+      }
+    },
+    "checklist": [
+      {
+        "id": "line_01",
+        "reasoning": "Expected: Line Plot. Model: Line Plot.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_02",
+        "reasoning": "Expected: X-axis labeled 'Layer' with a linear scale, range 0 to 20, tick intervals of 5. Model: X-axis labeled 'Layer,' range 0 to 22 in integer increments.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "spans from 0 to 22 in integer increments",
+          "detail": "Model incorrectly states the x-axis range as 0 to 22 instead of 0 to 20."
+        }
+      },
+      {
+        "id": "line_03",
+        "reasoning": "Expected: Linear scale, range 0 to 20. Model: Linear scale, range 0 to 22.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "spans from 0 to 22 in integer increments",
+          "detail": "Model incorrectly states the x-axis range as 0 to 22 instead of 0 to 20."
+        }
+      },
+      {
+        "id": "line_04",
+        "reasoning": "Expected: Y-axis labeled 'Abs Mean' with a linear scale, range 0 to 4, tick intervals of 1. Model: Y-axis labeled 'Abs Mean,' range 0 to 4.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_05",
+        "reasoning": "Expected: Linear scale, range 0 to 4. Model: Linear scale, range 0 to 4.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_06",
+        "reasoning": "Expected: 3 lines (hidden state mean before gate, hidden state mean after gate, hidden state mean of baseline). Model: 3 lines mentioned.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_07",
+        "reasoning": "Expected: blue dashed = hidden state mean before gate, orange dotted = hidden state mean after gate, green solid = hidden state mean of baseline. Model: Correctly described.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_08",
+        "reasoning": "Expected: blue = hidden state mean before gate, orange = hidden state mean after gate, green = hidden state mean of baseline. Model: Correctly described.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_09",
+        "reasoning": "Expected: dashed = hidden state mean before gate, dotted = hidden state mean after gate, solid = hidden state mean of baseline. Model: Correctly described.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_10",
+        "reasoning": "Expected: No markers present. Model: No markers mentioned.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_11",
+        "reasoning": "Expected: Numerical values for start, end, peak, and trough for each line. Model: Some values are incorrect.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "starts at approximately 0.1 and remains relatively stable until layer 18, after which it exhibits a sharp increase, reaching a value of approximately 4.3 at layer 22",
+          "detail": "Model incorrectly states the start value of the blue line as 0.1 instead of 0.05 and the end value as 4.3 instead of 4.8."
+        }
+      },
+      {
+        "id": "line_12",
+        "reasoning": "Expected: Trends for each line. Model: Trends described, but blue line trend is oversimplified.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Trend Interpretation",
+          "text_span": "starts at approximately 0.1 and remains relatively stable until layer 18, after which it exhibits a sharp increase",
+          "detail": "Model oversimplifies the blue line's trend, omitting the steady increase before layer 17."
+        }
+      },
+      {
+        "id": "line_13",
+        "reasoning": "Expected: No crossover or intersection points. Model: No crossover or intersection points mentioned.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_14",
+        "reasoning": "Expected: No annotations present. Model: No annotations mentioned.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_15",
+        "reasoning": "Expected: No dual y-axes. Model: No dual y-axes mentioned.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": [
+          {
+            "text_span": "This indicates that the gating mechanism significantly suppresses the hidden state mean after the gate, while the baseline model maintains a minimal mean throughout the layers.",
+            "explanation": "The model makes an interpretive claim about the gating mechanism's effect, which is not directly supported by the chart."
+          }
+        ]
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "hidden state mean before gate",
+            "reference_value": {
+              "start": 0.05,
+              "end": 4.8,
+              "peak": 4.8,
+              "trough": 0.05
+            },
+            "model_value": {
+              "start": 0.1,
+              "end": 4.3,
+              "peak": 4.3,
+              "trough": 0.1
+            },
+            "match": false
+          },
+          {
+            "label": "hidden state mean after gate",
+            "reference_value": {
+              "start": 0,
+              "end": 0.1,
+              "peak": 0.1,
+              "trough": 0
+            },
+            "model_value": {
+              "start": 0,
+              "end": 0.1,
+              "peak": 0.1,
+              "trough": 0
+            },
+            "match": true
+          },
+          {
+            "label": "hidden state mean of baseline",
+            "reference_value": {
+              "start": 0.04,
+              "end": 0.04,
+              "peak": 0.04,
+              "trough": 0.04
+            },
+            "model_value": {
+              "start": 0,
+              "end": 0,
+              "peak": 0,
+              "trough": 0
+            },
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "hidden state mean before gate",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "hidden state mean after gate",
+            "reference_value": "orange",
+            "model_value": "orange",
+            "match": true
+          },
+          {
+            "label": "hidden state mean of baseline",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "hidden state mean before gate",
+            "reference_value": "steady, then sharp increase",
+            "model_value": "relatively stable until layer 18, after which it exhibits a sharp increase",
+            "match": false
+          },
+          {
+            "label": "hidden state mean after gate",
+            "reference_value": "stable",
+            "model_value": "remains consistently low and flat",
+            "match": true
+          },
+          {
+            "label": "hidden state mean of baseline",
+            "reference_value": "stable",
+            "model_value": "nearly flat",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}

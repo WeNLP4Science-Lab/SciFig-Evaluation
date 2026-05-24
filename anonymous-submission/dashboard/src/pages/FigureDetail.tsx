@@ -680,13 +680,13 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
                         fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
                         letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
                       }}>
-                        Select New Target
+                        Select Target
                       </p>
                       <div style={{
                         maxHeight: 140, overflowY: 'auto', borderRadius: 6,
                         border: `1px solid ${c.border}`, background: c.bg,
                       }}>
-                        {ocrTexts.map((text, i) => (
+                        {[target.blurred_text, ...ocrTexts.filter(t => t !== target.blurred_text)].map((text, i, arr) => (
                           <button
                             key={i}
                             onClick={() => setNewTarget(text)}
@@ -695,20 +695,21 @@ function BlurCard({ type, label, description, figureId, target, accentColor, acc
                               padding: '6px 10px', border: 'none', cursor: 'pointer',
                               fontFamily: 'inherit', fontSize: 11,
                               background: newTarget === text ? accentBg : 'transparent',
-                              color: newTarget === text ? accentColor : c.muted,
-                              borderBottom: i < ocrTexts.length - 1 ? `1px solid ${c.border}` : 'none',
+                              color: newTarget === text ? accentColor : text === target.blurred_text ? c.fg : c.muted,
+                              fontWeight: text === target.blurred_text ? 600 : 400,
+                              borderBottom: i < arr.length - 1 ? `1px solid ${c.border}` : 'none',
                               transition: 'background 0.1s',
                             }}
                             onMouseEnter={e => { if (newTarget !== text) e.currentTarget.style.background = c.surfaceHover }}
                             onMouseLeave={e => { if (newTarget !== text) e.currentTarget.style.background = 'transparent' }}
                           >
-                            {text}
+                            {text === target.blurred_text ? `${text} (current)` : text}
                           </button>
                         ))}
                       </div>
                       {newTarget && (
                         <p style={{ fontSize: 11, color: accentColor, margin: '6px 0 0' }}>
-                          Selected: <strong>{newTarget}</strong>
+                          Selected: <strong>{newTarget}</strong>{newTarget === target.blurred_text ? ' (current target)' : ''}
                         </p>
                       )}
                     </div>

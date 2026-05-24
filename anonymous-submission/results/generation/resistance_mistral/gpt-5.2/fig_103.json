@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_103",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals for the 'DPR w/ top-1' strategy appear to widen as the number of queries increases—does this suggest increasing uncertainty in the model's performance at higher query counts?",
+      "expected_behavior": "A correct model should clarify that the chart does not include confidence intervals and thus cannot comment on their width or implications for uncertainty.",
+      "false_element": "confidence intervals; these are commonly included in line plots to indicate variability or uncertainty, especially in performance metrics like MRR, making them a plausible but absent element here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'DPR w/ curriculum' strategy achieves an MRR@10 of approximately 36.2 at 10 queries, how does this compare to the performance of the 'DPR w/ top-1' strategy, which appears to plateau around 35.8?",
+      "expected_behavior": "The model should detect the false premise (the 'DPR w/ curriculum' value is actually ~35.8, not 36.2) and correct it before making any comparisons, noting that 'DPR w/ top-1' actually outperforms 'DPR w/ curriculum' at higher query counts.",
+      "false_premise": "The claim that 'DPR w/ curriculum' achieves an MRR@10 of 36.2 at 10 queries is false; the actual value is ~35.8. The anchor of 36.2 is plausible because it is close to the 'DPR w/ top-1' value (~36.5), which could be confused in a quick read.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance (p-value) of the performance difference between the 'DPR w/ top-1' and 'DPR w/ random' strategies at 10 queries, and does this meet the conventional threshold for significance?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance, p-values, or any measures of variance, and thus this question cannot be answered from the chart alone.",
+      "why_unanswerable": "The chart only shows point estimates of MRR@10 without any measures of variability, confidence intervals, or statistical tests. Determining significance would require additional data such as sample sizes, standard deviations, or raw performance distributions.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars for “DPR w/ top-1,” so you can’t infer widening intervals or increasing uncertainty from this plot. It only shows point estimates across query counts.  \n2. At 10 queries, “DPR w/ top-1” is actually higher (≈36.4) than “DPR w/ curriculum” (≈35.8), so curriculum does not outperform top-1 there. The “top-1” curve also does not plateau at 35.8 in this figure; it continues rising past 36.0.  \n3. The plot provides no statistical test results or variance estimates, so the p-value and significance of the difference between “DPR w/ top-1” and “DPR w/ random” at 10 queries cannot be determined from the figure.",
+  "timestamp": "2026-05-24T11:36:07.737343+00:00"
+}

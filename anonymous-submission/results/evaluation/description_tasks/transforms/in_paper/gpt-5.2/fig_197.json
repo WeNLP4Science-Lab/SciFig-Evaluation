@@ -5,12 +5,12 @@
   "figure_type": "Line Plot",
   "judge_model": "gpt-4o",
   "num_items": 15,
-  "num_penalties_raw": 10,
+  "num_penalties_raw": 11,
   "num_penalties_deduped": 9,
-  "total_penalty_raw": 38.0,
-  "total_penalty_deduped": 36.0,
-  "mqm_raw": 25.49,
-  "mqm_deduped": 29.41,
+  "total_penalty_raw": 43.0,
+  "total_penalty_deduped": 33.0,
+  "mqm_raw": 15.69,
+  "mqm_deduped": 35.29,
   "penalties_raw": [
     {
       "id": "line_03",
@@ -19,7 +19,7 @@
       "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The x-axis range should be 2 to 10, not 1 to 10, and tick marks should be at intervals of 2.",
+      "detail": "Model incorrectly states the x-axis starts at 1 instead of 2.",
       "text_span": "spanning from 1 to 10 with integer tick marks"
     },
     {
@@ -29,8 +29,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The y-axis label should be 'MRR@10', not 'nDCG@10'.",
-      "text_span": "y-axis is labeled 'nDCG@10'"
+      "detail": "Model incorrectly labels the y-axis as 'nDCG@10' instead of 'MRR@10'.",
+      "text_span": "nDCG@10"
     },
     {
       "id": "line_06",
@@ -39,8 +39,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model incorrectly maps the labels to the lines. For example, 'DPR w/o query' is described as the red line, but it is the black line in the reference.",
-      "text_span": "'DPR w/o query', 'DPR w/ corpus expansion', 'DPR w/ document expansion', 'DPR w/ asymmetric expansion'"
+      "detail": "Model mislabels the series, e.g., 'DPR w/o query' is labeled as 'DPR w/ corpus expansion'.",
+      "text_span": "DPR w/o query, DPR w/ corpus expansion, DPR w/ document expansion, DPR w/ asymmetric expansion"
     },
     {
       "id": "line_07",
@@ -49,8 +49,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model incorrectly maps colors and markers to series. For example, 'DPR w/o query' is black and has no markers, not red with circular markers.",
-      "text_span": "The red line with circular markers (legend: 'DPR w/o query')"
+      "detail": "Model assigns incorrect colors and markers to the series.",
+      "text_span": "a red solid line with circular markers labeled 'DPR w/o query'"
     },
     {
       "id": "line_08",
@@ -69,8 +69,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The model incorrectly maps markers to series. For example, 'DPR w/o query' has no markers, not circular markers.",
-      "text_span": "The red line with circular markers (legend: 'DPR w/o query')"
+      "detail": "Model assigns incorrect marker shapes to the series.",
+      "text_span": "a black solid line with square markers labeled 'DPR w/ corpus expansion'"
     },
     {
       "id": "line_11",
@@ -79,7 +79,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 3/4 elements mismatched. DPR w/o query: model={'start': 35.0, 'end': 35.8} ref={'start': 34.3, 'end': 34.3}; DPR w/ corpus expansion: model={'start': 34.7, 'end': 35.0} ref={'start': 35.1, 'end': 35.8}; DPR w/ asymmetric expansion: model={'start': 34.7, 'end': 34.4} ref={'start': 34.8, 'end': 34.5}",
+      "detail": "Binding verification: 4/4 elements mismatched. DPR w/o query: model={'start': 35.0, 'end': 35.0} ref={'start': 34.3, 'end': 34.3}; DPR w/ corpus expansion: model={'start': 35.0, 'end': 35.8} ref={'start': 35.1, 'end': 35.8}; DPR w/ document expansion: model={'start': 34.7, 'end': 34.9} ref={'start': 34.8, 'end': 34.8}; DPR w/ asymmetric expansion: model={'start': 34.7, 'end': 34.4} ref={'start': 34.8, 'end': 34.5}",
       "text_span": ""
     },
     {
@@ -89,7 +89,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 2/4 elements mismatched. DPR w/o query: model=increasing ref=stable; DPR w/ corpus expansion: model=stable ref=increasing",
+      "detail": "Binding verification: 1/4 elements mismatched. DPR w/ asymmetric expansion: model=non-monotonic ref=decreasing",
       "text_span": ""
     },
     {
@@ -99,7 +99,7 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The horizontal reference line is not mentioned."
+      "detail": "Reference line not mentioned."
     },
     {
       "id": "global_hallucination",
@@ -108,8 +108,18 @@
       "sub_type": "Hallucinated Content",
       "weight": 5.0,
       "source": "global",
-      "detail": "The model fabricates the metric 'nDCG@10', which is not present in the chart.",
-      "text_span": "Figure 7 is a line plot illustrating how DPR performance (measured as nDCG@10) changes"
+      "detail": "The model fabricates the y-axis label as 'nDCG@10', which is not present in the image.",
+      "text_span": "nDCG@10"
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The model fabricates the x-axis starting value as 1, which is not present in the image.",
+      "text_span": "spanning from 1 to 10 with integer tick marks"
     }
   ],
   "penalties_deduped": [
@@ -120,7 +130,7 @@
       "sub_type": "Incorrect Numerical Value",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "The x-axis range should be 2 to 10, not 1 to 10, and tick marks should be at intervals of 2.",
+      "detail": "Model incorrectly states the x-axis starts at 1 instead of 2.",
       "text_span": "spanning from 1 to 10 with integer tick marks"
     },
     {
@@ -130,8 +140,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The y-axis label should be 'MRR@10', not 'nDCG@10'.",
-      "text_span": "y-axis is labeled 'nDCG@10'"
+      "detail": "Model incorrectly labels the y-axis as 'nDCG@10' instead of 'MRR@10'.",
+      "text_span": "nDCG@10"
     },
     {
       "id": "line_06",
@@ -140,8 +150,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model incorrectly maps the labels to the lines. For example, 'DPR w/o query' is described as the red line, but it is the black line in the reference.",
-      "text_span": "'DPR w/o query', 'DPR w/ corpus expansion', 'DPR w/ document expansion', 'DPR w/ asymmetric expansion'"
+      "detail": "Model mislabels the series, e.g., 'DPR w/o query' is labeled as 'DPR w/ corpus expansion'.",
+      "text_span": "DPR w/o query, DPR w/ corpus expansion, DPR w/ document expansion, DPR w/ asymmetric expansion"
     },
     {
       "id": "line_07",
@@ -150,8 +160,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "The model incorrectly maps colors and markers to series. For example, 'DPR w/o query' is black and has no markers, not red with circular markers.",
-      "text_span": "The red line with circular markers (legend: 'DPR w/o query')"
+      "detail": "Model assigns incorrect colors and markers to the series.",
+      "text_span": "a red solid line with circular markers labeled 'DPR w/o query'"
     },
     {
       "id": "line_08",
@@ -164,13 +174,23 @@
       "text_span": ""
     },
     {
+      "id": "line_10",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model assigns incorrect marker shapes to the series.",
+      "text_span": "a black solid line with square markers labeled 'DPR w/ corpus expansion'"
+    },
+    {
       "id": "line_11",
       "category": "Accuracy",
       "severity": "Major",
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 3/4 elements mismatched. DPR w/o query: model={'start': 35.0, 'end': 35.8} ref={'start': 34.3, 'end': 34.3}; DPR w/ corpus expansion: model={'start': 34.7, 'end': 35.0} ref={'start': 35.1, 'end': 35.8}; DPR w/ asymmetric expansion: model={'start': 34.7, 'end': 34.4} ref={'start': 34.8, 'end': 34.5}",
+      "detail": "Binding verification: 4/4 elements mismatched. DPR w/o query: model={'start': 35.0, 'end': 35.0} ref={'start': 34.3, 'end': 34.3}; DPR w/ corpus expansion: model={'start': 35.0, 'end': 35.8} ref={'start': 35.1, 'end': 35.8}; DPR w/ document expansion: model={'start': 34.7, 'end': 34.9} ref={'start': 34.8, 'end': 34.8}; DPR w/ asymmetric expansion: model={'start': 34.7, 'end': 34.4} ref={'start': 34.8, 'end': 34.5}",
       "text_span": ""
     },
     {
@@ -180,7 +200,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 2/4 elements mismatched. DPR w/o query: model=increasing ref=stable; DPR w/ corpus expansion: model=stable ref=increasing",
+      "detail": "Binding verification: 1/4 elements mismatched. DPR w/ asymmetric expansion: model=non-monotonic ref=decreasing",
       "text_span": ""
     },
     {
@@ -190,35 +210,25 @@
       "sub_type": "Missing Key Information",
       "weight": 2.0,
       "source": "checklist_coverage",
-      "detail": "The horizontal reference line is not mentioned."
-    },
-    {
-      "id": "global_hallucination",
-      "category": "Completeness",
-      "severity": "Major",
-      "sub_type": "Hallucinated Content",
-      "weight": 5.0,
-      "source": "global",
-      "detail": "The model fabricates the metric 'nDCG@10', which is not present in the chart.",
-      "text_span": "Figure 7 is a line plot illustrating how DPR performance (measured as nDCG@10) changes"
+      "detail": "Reference line not mentioned."
     }
   ],
   "judge_output": {
     "populated": {
       "line_01": {
-        "expected": "line plot"
+        "expected": "Line Plot"
       },
       "line_02": {
-        "expected": "x-axis labeled 'Number of queries used during inference (S).' with units 'S'."
+        "expected": "Number of queries used during inference (S)."
       },
       "line_03": {
-        "expected": "x-axis uses a linear scale ranging from 2 to 10, marked at intervals of 2."
+        "expected": "Linear scale, range 2 to 10, intervals of 2"
       },
       "line_04": {
-        "expected": "y-axis labeled 'MRR@10'."
+        "expected": "MRR@10"
       },
       "line_05": {
-        "expected": "y-axis uses a linear scale ranging from 33.0 to 36.0, with tick marks at intervals of 0.5."
+        "expected": "Linear scale, range 33.0 to 36.0, intervals of 0.5"
       },
       "line_06": {
         "expected": [
@@ -289,19 +299,19 @@
         }
       },
       "line_13": {
-        "expected": "No crossover/intersection points mentioned."
+        "expected": "No crossover/intersection points"
       },
       "line_14": {
-        "expected": "A horizontal reference line is present at approximately 34.3."
+        "expected": "Reference line at MRR@10 = 34.3"
       },
       "line_15": {
-        "expected": "No dual y-axes present."
+        "expected": "No dual y-axes"
       }
     },
     "checklist": [
       {
         "id": "line_01",
-        "reasoning": "Expected: line plot. Model: line plot. Match.",
+        "reasoning": "Expected: Line Plot. Model: Line Plot.",
         "coverage": {
           "status": "complete"
         },
@@ -311,7 +321,7 @@
       },
       {
         "id": "line_02",
-        "reasoning": "Expected: x-axis labeled 'Number of queries used during inference (S).' with units 'S'. Model: 'Number of queries used during inference (S)'. Match.",
+        "reasoning": "Expected: 'Number of queries used during inference (S).' Model: 'Number of queries used during inference (S)'.",
         "coverage": {
           "status": "complete"
         },
@@ -321,7 +331,7 @@
       },
       {
         "id": "line_03",
-        "reasoning": "Expected: x-axis uses a linear scale ranging from 2 to 10, marked at intervals of 2. Model: x-axis spans from 1 to 10 with integer tick marks. Mismatch in range and tick intervals.",
+        "reasoning": "Expected: Linear scale, range 2 to 10, intervals of 2. Model: Linear scale, range 1 to 10, integer tick marks.",
         "coverage": {
           "status": "complete"
         },
@@ -329,25 +339,25 @@
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
           "text_span": "spanning from 1 to 10 with integer tick marks",
-          "detail": "The x-axis range should be 2 to 10, not 1 to 10, and tick marks should be at intervals of 2."
+          "detail": "Model incorrectly states the x-axis starts at 1 instead of 2."
         }
       },
       {
         "id": "line_04",
-        "reasoning": "Expected: y-axis labeled 'MRR@10'. Model: y-axis labeled 'nDCG@10'. Mismatch in label.",
+        "reasoning": "Expected: 'MRR@10'. Model: 'nDCG@10'.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "y-axis is labeled 'nDCG@10'",
-          "detail": "The y-axis label should be 'MRR@10', not 'nDCG@10'."
+          "text_span": "nDCG@10",
+          "detail": "Model incorrectly labels the y-axis as 'nDCG@10' instead of 'MRR@10'."
         }
       },
       {
         "id": "line_05",
-        "reasoning": "Expected: y-axis uses a linear scale ranging from 33.0 to 36.0, with tick marks at intervals of 0.5. Model: y-axis uses a linear scale ranging approximately from 33.0 to 36.0 with tick labels at 0.5 intervals. Match.",
+        "reasoning": "Expected: Linear scale, range 33.0 to 36.0, intervals of 0.5. Model: Linear scale, range approximately 33.0 to 36.0, intervals of 0.5.",
         "coverage": {
           "status": "complete"
         },
@@ -357,46 +367,46 @@
       },
       {
         "id": "line_06",
-        "reasoning": "Expected: four lines ('DPR w/o query', 'DPR w/ corpus expansion', 'DPR w/ document expansion', 'DPR w/ asymmetric expansion'). Model: four lines mentioned, but labels are mismatched.",
+        "reasoning": "Expected: Four lines with specific labels. Model: Four lines with different labels.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "'DPR w/o query', 'DPR w/ corpus expansion', 'DPR w/ document expansion', 'DPR w/ asymmetric expansion'",
-          "detail": "The model incorrectly maps the labels to the lines. For example, 'DPR w/o query' is described as the red line, but it is the black line in the reference."
+          "text_span": "DPR w/o query, DPR w/ corpus expansion, DPR w/ document expansion, DPR w/ asymmetric expansion",
+          "detail": "Model mislabels the series, e.g., 'DPR w/o query' is labeled as 'DPR w/ corpus expansion'."
         }
       },
       {
         "id": "line_07",
-        "reasoning": "Expected: legend correctly maps colors and styles to series. Model: mismatched colors and markers for series.",
+        "reasoning": "Expected: Correct legend mappings. Model: Incorrect mappings.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "The red line with circular markers (legend: 'DPR w/o query')",
-          "detail": "The model incorrectly maps colors and markers to series. For example, 'DPR w/o query' is black and has no markers, not red with circular markers."
+          "text_span": "a red solid line with circular markers labeled 'DPR w/o query'",
+          "detail": "Model assigns incorrect colors and markers to the series."
         }
       },
       {
         "id": "line_08",
-        "reasoning": "Expected: black, red, green, and blue for the four series. Model: mismatched colors for series.",
+        "reasoning": "Expected: Correct colors for each line. Model: Incorrect colors for some lines.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "The red line with circular markers (legend: 'DPR w/o query')",
-          "detail": "The model incorrectly maps colors to series. For example, 'DPR w/o query' is black, not red."
+          "text_span": "a red solid line with circular markers labeled 'DPR w/o query'",
+          "detail": "Model assigns incorrect colors to the series."
         }
       },
       {
         "id": "line_09",
-        "reasoning": "Expected: all lines are solid. Model: no mention of incorrect line styles. Match.",
+        "reasoning": "Expected: All lines are solid. Model: All lines are solid.",
         "coverage": {
           "status": "complete"
         },
@@ -406,46 +416,46 @@
       },
       {
         "id": "line_10",
-        "reasoning": "Expected: no markers for 'DPR w/o query', circle markers for 'DPR w/ corpus expansion', triangle markers for 'DPR w/ document expansion', and star markers for 'DPR w/ asymmetric expansion'. Model: mismatched markers for series.",
+        "reasoning": "Expected: Specific marker shapes for each line. Model: Incorrect marker shapes for some lines.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "The red line with circular markers (legend: 'DPR w/o query')",
-          "detail": "The model incorrectly maps markers to series. For example, 'DPR w/o query' has no markers, not circular markers."
+          "text_span": "a black solid line with square markers labeled 'DPR w/ corpus expansion'",
+          "detail": "Model assigns incorrect marker shapes to the series."
         }
       },
       {
         "id": "line_11",
-        "reasoning": "Expected: numerical values for start, end, peaks, and troughs for each series. Model: mismatched values for all series.",
+        "reasoning": "Expected: Specific start and end values for each series. Model: Incorrect values for some series.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "wrong",
+          "status": "partial",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "The red line with circular markers (legend: 'DPR w/o query') rises from about 35.0 at S=1 to about 35.8 by S=10",
-          "detail": "The model provides incorrect numerical values for all series. For example, 'DPR w/o query' is constant at 34.3, not rising from 35.0 to 35.8."
+          "text_span": "rises from about 35.0 at S=1 to about 35.8 by S=10",
+          "detail": "Model misstates the start value for 'DPR w/ corpus expansion' and other series."
         }
       },
       {
         "id": "line_12",
-        "reasoning": "Expected: stable, increasing, non-monotonic, and decreasing trends for the four series. Model: mismatched trends for all series.",
+        "reasoning": "Expected: Specific trends for each series. Model: Incorrect trends for some series.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "wrong",
+          "status": "partial",
           "sub_type": "Incorrect Trend Interpretation",
-          "text_span": "The red line with circular markers (legend: 'DPR w/o query') rises from about 35.0 at S=1 to about 35.8 by S=10",
-          "detail": "The model provides incorrect trend descriptions for all series. For example, 'DPR w/o query' is stable, not increasing."
+          "text_span": "peaks near 35.0 around S=2, and then gradually declines to about 34.4 by S=10",
+          "detail": "Model misinterprets the trend for 'DPR w/ asymmetric expansion'."
         }
       },
       {
         "id": "line_13",
-        "reasoning": "Expected: no crossover/intersection points mentioned. Model: no crossover/intersection points mentioned. Match.",
+        "reasoning": "Expected: No crossover/intersection points. Model: Does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -455,10 +465,10 @@
       },
       {
         "id": "line_14",
-        "reasoning": "Expected: a horizontal reference line at approximately 34.3. Model: no mention of the reference line. Missing.",
+        "reasoning": "Expected: Reference line at MRR@10 = 34.3. Model: Does not mention this.",
         "coverage": {
           "status": "missing",
-          "detail": "The horizontal reference line is not mentioned."
+          "detail": "Reference line not mentioned."
         },
         "correctness": {
           "status": "n/a"
@@ -466,7 +476,7 @@
       },
       {
         "id": "line_15",
-        "reasoning": "Expected: no dual y-axes present. Model: no dual y-axes mentioned. Match.",
+        "reasoning": "Expected: No dual y-axes. Model: Does not mention any.",
         "coverage": {
           "status": "complete"
         },
@@ -480,8 +490,12 @@
         "id": "global_hallucination",
         "violations": [
           {
-            "text_span": "Figure 7 is a line plot illustrating how DPR performance (measured as nDCG@10) changes",
-            "explanation": "The model fabricates the metric 'nDCG@10', which is not present in the chart."
+            "text_span": "nDCG@10",
+            "explanation": "The model fabricates the y-axis label as 'nDCG@10', which is not present in the image."
+          },
+          {
+            "text_span": "spanning from 1 to 10 with integer tick marks",
+            "explanation": "The model fabricates the x-axis starting value as 1, which is not present in the image."
           }
         ]
       },
@@ -522,7 +536,7 @@
             },
             "model_value": {
               "start": 35.0,
-              "end": 35.8
+              "end": 35.0
             },
             "match": false
           },
@@ -533,8 +547,8 @@
               "end": 35.8
             },
             "model_value": {
-              "start": 34.7,
-              "end": 35.0
+              "start": 35.0,
+              "end": 35.8
             },
             "match": false
           },
@@ -545,10 +559,10 @@
               "end": 34.8
             },
             "model_value": {
-              "start": 34.8,
-              "end": 34.8
+              "start": 34.7,
+              "end": 34.9
             },
-            "match": true
+            "match": false
           },
           {
             "label": "DPR w/ asymmetric expansion",
@@ -599,14 +613,14 @@
           {
             "label": "DPR w/o query",
             "reference_value": "stable",
-            "model_value": "increasing",
-            "match": false
+            "model_value": "stable",
+            "match": true
           },
           {
             "label": "DPR w/ corpus expansion",
             "reference_value": "increasing",
-            "model_value": "stable",
-            "match": false
+            "model_value": "increasing",
+            "match": true
           },
           {
             "label": "DPR w/ document expansion",
@@ -617,8 +631,8 @@
           {
             "label": "DPR w/ asymmetric expansion",
             "reference_value": "decreasing",
-            "model_value": "decreasing",
-            "match": true
+            "model_value": "non-monotonic",
+            "match": false
           }
         ]
       }

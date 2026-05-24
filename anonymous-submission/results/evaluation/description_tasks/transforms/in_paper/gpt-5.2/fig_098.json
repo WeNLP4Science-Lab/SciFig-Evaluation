@@ -5,13 +5,33 @@
   "figure_type": "Bar Chart",
   "judge_model": "gpt-4o",
   "num_items": 14,
-  "num_penalties_raw": 1,
-  "num_penalties_deduped": 1,
-  "total_penalty_raw": 5.0,
-  "total_penalty_deduped": 5.0,
-  "mqm_raw": 90.91,
-  "mqm_deduped": 90.91,
+  "num_penalties_raw": 4,
+  "num_penalties_deduped": 3,
+  "total_penalty_raw": 20.0,
+  "total_penalty_deduped": 15.0,
+  "mqm_raw": 63.64,
+  "mqm_deduped": 72.73,
   "penalties_raw": [
+    {
+      "id": "bar_04",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model incorrectly includes an extra category (450,540], which is not present in the reference or the image.",
+      "text_span": "The horizontal axis contains six categorical bins labeled with season-pair ranges (shown as parenthesized intervals), ordered left to right as (0,90], (90,180], (180,270], (270,360], (360,450], and (450,540]."
+    },
+    {
+      "id": "bar_08",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model incorrectly includes an extra category (450,540], which is not present in the reference or the image.",
+      "text_span": "The horizontal axis contains six categorical bins labeled with season-pair ranges (shown as parenthesized intervals), ordered left to right as (0,90], (90,180], (180,270], (270,360], (360,450], and (450,540]."
+    },
     {
       "id": "bar_11",
       "category": "Accuracy",
@@ -19,20 +39,50 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 5/5 elements mismatched. (0,90]: model=Near about 590 ref=Slightly above 550; (90,180]: model=Around 570 ref=Slightly above 550; (180,270]: model=Around 575 ref=Slightly above 550; (270,360]: model=Around 585 ref=Slightly above 550; (360,450]: model=Near about 590 ref=Slightly above 550",
+      "detail": "Binding verification: 5/5 elements mismatched. (0,90]: model=590 ref=Slightly above 550; (90,180]: model=570 ref=Slightly above 550; (180,270]: model=575 ref=Slightly above 550; (270,360]: model=585 ref=Slightly above 550; (360,450]: model=590 ref=Slightly above 550",
       "text_span": ""
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The category (450,540] is fabricated and not present in the reference or image.",
+      "text_span": "and about 590–595 for (450,540]"
     }
   ],
   "penalties_deduped": [
     {
+      "id": "bar_04",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model incorrectly includes an extra category (450,540], which is not present in the reference or the image.",
+      "text_span": "The horizontal axis contains six categorical bins labeled with season-pair ranges (shown as parenthesized intervals), ordered left to right as (0,90], (90,180], (180,270], (270,360], (360,450], and (450,540]."
+    },
+    {
       "id": "bar_11",
       "category": "Accuracy",
       "severity": "Major",
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 5/5 elements mismatched. (0,90]: model=Near about 590 ref=Slightly above 550; (90,180]: model=Around 570 ref=Slightly above 550; (180,270]: model=Around 575 ref=Slightly above 550; (270,360]: model=Around 585 ref=Slightly above 550; (360,450]: model=Near about 590 ref=Slightly above 550",
+      "detail": "Binding verification: 5/5 elements mismatched. (0,90]: model=590 ref=Slightly above 550; (90,180]: model=570 ref=Slightly above 550; (180,270]: model=575 ref=Slightly above 550; (270,360]: model=585 ref=Slightly above 550; (360,450]: model=590 ref=Slightly above 550",
       "text_span": ""
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The category (450,540] is fabricated and not present in the reference or image.",
+      "text_span": "and about 590–595 for (450,540]"
     }
   ],
   "judge_output": {
@@ -44,19 +94,19 @@
         "expected": "Vertical"
       },
       "bar_03": {
-        "expected": "Simple (not grouped or stacked)"
+        "expected": "Simple"
       },
       "bar_04": {
         "expected": "Most similar group of posts (categories: (0,90], (90,180], (180,270], (270,360], (360,450])"
       },
       "bar_05": {
-        "expected": "Linear scale, categorical axis with ranges (0,90], (90,180], (180,270], (270,360], (360,450]"
+        "expected": "Linear scale, range: 400 to 600, increments of 50"
       },
       "bar_06": {
         "expected": "Avg. Like #"
       },
       "bar_07": {
-        "expected": "Linear scale, range 400 to 600, increments of 50"
+        "expected": "Linear scale, range: 400 to 600, increments of 50"
       },
       "bar_08": {
         "expected": [
@@ -68,10 +118,10 @@
         ]
       },
       "bar_09": {
-        "expected": "Single series (no grouping or stacking)"
+        "expected": "N/A (not grouped/stacked)"
       },
       "bar_10": {
-        "expected": "No legend present"
+        "expected": "N/A (no legend present)"
       },
       "bar_11": {
         "expected": {
@@ -84,11 +134,11 @@
       },
       "bar_12": {
         "expected": {
-          "all bars": "Light blue"
+          "All bars": "Light blue"
         }
       },
       "bar_13": {
-        "expected": "Error bars present on all bars"
+        "expected": "Error bars present"
       },
       "bar_14": {
         "expected": "Average number of likes for different post groups"
@@ -97,7 +147,7 @@
     "checklist": [
       {
         "id": "bar_01",
-        "reasoning": "Expected: Bar Chart. Model: Bar Chart. Match.",
+        "reasoning": "Expected from reference: Bar Chart. Model says: vertical bar chart. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -107,7 +157,7 @@
       },
       {
         "id": "bar_02",
-        "reasoning": "Expected: Vertical. Model: Vertical. Match.",
+        "reasoning": "Expected from reference: Vertical. Model says: vertical. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -117,7 +167,7 @@
       },
       {
         "id": "bar_03",
-        "reasoning": "Expected: Simple (not grouped or stacked). Model: Single series, not grouped or stacked. Match.",
+        "reasoning": "Expected from reference: Simple. Model says: single bars. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -127,17 +177,20 @@
       },
       {
         "id": "bar_04",
-        "reasoning": "Expected: X-axis labeled 'Most similar group of posts' with categories (0,90], (90,180], (180,270], (270,360], (360,450]. Model: Matches this description. Match.",
+        "reasoning": "Expected from reference: Most similar group of posts (categories: (0,90], (90,180], (180,270], (270,360], (360,450]). Model says: Most similar group of posts (categories: (0,90], (90,180], (180,270], (270,360], (360,450], (450,540]). Mismatch due to extra category (450,540).",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "The horizontal axis contains six categorical bins labeled with season-pair ranges (shown as parenthesized intervals), ordered left to right as (0,90], (90,180], (180,270], (270,360], (360,450], and (450,540].",
+          "detail": "The model incorrectly includes an extra category (450,540], which is not present in the reference or the image."
         }
       },
       {
         "id": "bar_05",
-        "reasoning": "Expected: Linear scale, categorical axis with ranges (0,90], (90,180], (180,270], (270,360], (360,450]. Model: Matches this description. Match.",
+        "reasoning": "Expected from reference: Linear scale, range: 400 to 600, increments of 50. Model says: Linear numeric scale spanning roughly from 400 to 600, with tick marks at regular 50-like intervals. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -147,7 +200,7 @@
       },
       {
         "id": "bar_06",
-        "reasoning": "Expected: Y-axis labeled 'Avg. Like #'. Model: Y-axis labeled 'Avg Likes'. Match (semantic equivalence).",
+        "reasoning": "Expected from reference: Avg. Like #. Model says: Avg Likes. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -157,7 +210,7 @@
       },
       {
         "id": "bar_07",
-        "reasoning": "Expected: Linear scale, range 400 to 600, increments of 50. Model: Linear scale, range roughly 400 to 600, tick marks at 400, 450, 500, 550, 600. Match.",
+        "reasoning": "Expected from reference: Linear scale, range: 400 to 600, increments of 50. Model says: Linear numeric scale spanning roughly from 400 to 600, with tick marks at regular 50-like intervals. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -167,17 +220,20 @@
       },
       {
         "id": "bar_08",
-        "reasoning": "Expected: Categories (0,90], (90,180], (180,270], (270,360], (360,450]. Model: Matches this description. Match.",
+        "reasoning": "Expected from reference: (0,90], (90,180], (180,270], (270,360], (360,450]. Model says: (0,90], (90,180], (180,270], (270,360], (360,450], (450,540]. Mismatch due to extra category (450,540).",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "correct"
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "The horizontal axis contains six categorical bins labeled with season-pair ranges (shown as parenthesized intervals), ordered left to right as (0,90], (90,180], (180,270], (270,360], (360,450], and (450,540].",
+          "detail": "The model incorrectly includes an extra category (450,540], which is not present in the reference or the image."
         }
       },
       {
         "id": "bar_09",
-        "reasoning": "Expected: Single series (no grouping or stacking). Model: Single series, no grouping or stacking. Match.",
+        "reasoning": "Expected from reference: N/A (not grouped/stacked). Model says: single bars. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -187,7 +243,7 @@
       },
       {
         "id": "bar_10",
-        "reasoning": "Expected: No legend present. Model: No legend present. Match.",
+        "reasoning": "Expected from reference: N/A (no legend present). Model does not mention a legend. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -197,20 +253,20 @@
       },
       {
         "id": "bar_11",
-        "reasoning": "Expected: All bars slightly above 550. Model: First bar near 590, second around 570, third around 575, fourth around 585, fifth around 590. Model overestimates values.",
+        "reasoning": "Expected from reference: All bars slightly above 550. Model gives specific values (e.g., 590, 570, etc.) that are inconsistent with the reference and image.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "the first bin’s bar is near about 590 likes, the second around 570, the third around 575, the fourth around 585, and the fifth around 590",
-          "detail": "Model overestimates bar heights compared to the reference and image."
+          "text_span": "the bar heights are approximately around 590 for (0,90], about 570 for (90,180], about 575 for (180,270], about 585 for (270,360], about 590 for (360,450], and about 590–595 for (450,540].",
+          "detail": "The model provides specific values that are inconsistent with the reference and the image, which show all bars slightly above 550."
         }
       },
       {
         "id": "bar_12",
-        "reasoning": "Expected: All bars light blue. Model: All bars light blue. Match.",
+        "reasoning": "Expected from reference: All bars are light blue. Model says: light blue. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -220,7 +276,7 @@
       },
       {
         "id": "bar_13",
-        "reasoning": "Expected: Error bars present on all bars. Model: Error bars with caps mentioned for all bars. Match.",
+        "reasoning": "Expected from reference: Error bars present. Model says: thin vertical error bar (gray/black) extending above and below the bar top. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -230,7 +286,7 @@
       },
       {
         "id": "bar_14",
-        "reasoning": "Expected: Average number of likes for different post groups. Model: Matches this description. Match.",
+        "reasoning": "Expected from reference: Average number of likes for different post groups. Model says: average “likes” for headlines across several “Most similar group of posts” season-group categories. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -242,7 +298,12 @@
     "global": [
       {
         "id": "global_hallucination",
-        "violations": []
+        "violations": [
+          {
+            "text_span": "and about 590–595 for (450,540]",
+            "explanation": "The category (450,540] is fabricated and not present in the reference or image."
+          }
+        ]
       },
       {
         "id": "global_interpretation",
@@ -276,31 +337,31 @@
           {
             "label": "(0,90]",
             "reference_value": "Slightly above 550",
-            "model_value": "Near about 590",
+            "model_value": "590",
             "match": false
           },
           {
             "label": "(90,180]",
             "reference_value": "Slightly above 550",
-            "model_value": "Around 570",
+            "model_value": "570",
             "match": false
           },
           {
             "label": "(180,270]",
             "reference_value": "Slightly above 550",
-            "model_value": "Around 575",
+            "model_value": "575",
             "match": false
           },
           {
             "label": "(270,360]",
             "reference_value": "Slightly above 550",
-            "model_value": "Around 585",
+            "model_value": "585",
             "match": false
           },
           {
             "label": "(360,450]",
             "reference_value": "Slightly above 550",
-            "model_value": "Near about 590",
+            "model_value": "590",
             "match": false
           }
         ]
@@ -309,7 +370,7 @@
         "checklist_id": "bar_12",
         "comparisons": [
           {
-            "label": "all bars",
+            "label": "All bars",
             "reference_value": "Light blue",
             "model_value": "Light blue",
             "match": true

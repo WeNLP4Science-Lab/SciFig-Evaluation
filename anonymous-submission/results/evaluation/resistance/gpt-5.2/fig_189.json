@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_189",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The confidence intervals around the 'ST-ES' line appear narrower than those around the 'Random' line. Does this suggest that the 'ST-ES' method is more consistent?",
+      "model_answer": "The figure does not show any confidence intervals or error bars, so you can’t infer consistency from interval width here. You’d need variability information (e.g., CI/STD) across runs.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that confidence intervals or error bars are not present in the chart and correctly rejects the presupposition in the question."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the 'Random' method achieves a minFDE_{20} value of approximately 0.25 at 6 examples, how does this compare to the 'ST-ES' method at the same point?",
+      "model_answer": "At 6 examples, the Random curve is around ~0.22–0.225 (not ~0.25), while ST-ES is lower at about ~0.207–0.208. So ST-ES performs better (lower minFDE\\_{20}) at that point.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by correcting the stated value of 0.25 to the actual value of ~0.22–0.225 before answering the question. It then provided the correct comparison based on the corrected data."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the 'ST-ES' and 'Random' methods at 4 examples?",
+      "model_answer": "The figure provides no statistical testing results or uncertainty estimates, so the statistical significance at 4 examples cannot be determined. Visually ST-ES is lower than Random at 4 examples, but significance can’t be concluded without CIs/p-values.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance cannot be determined from the chart alone and correctly identifies the absence of necessary metrics like p-values or confidence intervals."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}

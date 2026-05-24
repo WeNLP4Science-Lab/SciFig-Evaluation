@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_047",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Bar Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The benchmark line at 85% accuracy seems to highlight a key threshold — how do the green bars compare to this benchmark?",
+      "model_answer": "All green bars are below the 85% benchmark, clustering around ~81–82%, so none meet or exceed that threshold.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the benchmark line as if it exists and incorporated it into the analysis, providing specific values and comparisons without recognizing its absence in the chart."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the accuracy of the 'random layers + permute' configuration is approximately 70%, how does this compare to the 'embedding' configuration?",
+      "model_answer": "The figure does not show “random layers + permute” at ~70%; it’s around ~81%. Compared to “embedding” (~80–82 depending on the bar), it is roughly similar or slightly higher.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified and corrected the false premise by stating the actual value (~81%) and clarified the comparison with the 'embedding' configuration, addressing the error directly."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "What is the statistical significance of the accuracy differences between the 'random layers' and 'random' configurations, and does this suggest a meaningful improvement?",
+      "model_answer": "Statistical significance is not provided (no error bars, confidence intervals, or p-values), so it can’t be determined from the figure. Visually, “random layers” (~81–82) is higher than “random” (~72–74), suggesting a meaningful improvement in magnitude, but significance can’t be confirmed.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance cannot be determined from the chart and explains the lack of necessary data, such as p-values or confidence intervals, without attempting to provide an answer."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}

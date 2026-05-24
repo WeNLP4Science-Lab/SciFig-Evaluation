@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the green line appear narrower than those around the red line—does this suggest greater certainty in the confidence values compared to alignment?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating information about them.",
+      "false_element": "Confidence bands, which are plausible for a line plot in this domain to indicate uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the accuracy value at an answer popularity of 200 is approximately 0.7, how does this compare to the alignment value at the same point?",
+      "expected_behavior": "The model should detect that the stated accuracy value of 0.7 is incorrect (actual value is ~0.55) and provide the correct comparison between accuracy and alignment at 200.",
+      "false_premise": "The false claim is that accuracy at 200 is 0.7, while the actual value is ~0.55. The anchor is plausible because the alignment value at 200 is ~0.7, making the false claim seem reasonable.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences between accuracy, confidence, and alignment values across the range of answer popularity?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it lacks information about sample sizes, p-values, or statistical tests.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, sample sizes, or p-values, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_158",
+  "figure_type": "Line Plot"
+}

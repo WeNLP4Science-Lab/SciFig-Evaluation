@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_233",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize the larger data sources like NQ and FEVER. How does this visual choice impact the interpretation of the chart?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, focusing instead on the actual visual elements present.",
+      "false_element": "Exploded slices, which are plausible for pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SNLI data source accounts for approximately 20% of the training set, how does its contribution compare to that of FEVER?",
+      "expected_behavior": "The model should detect that the premise is false (SNLI is actually 15.4%) and correct the value before answering the comparison question.",
+      "false_premise": "The claim that SNLI accounts for 20% of the training set, when the actual value is 15.4%. The false value is plausible because it is only slightly higher than the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used for each data source, and how does the distribution of raw counts compare across the training set?",
+      "expected_behavior": "The model should state that the sample sizes and raw counts cannot be determined from the chart, as it only provides percentage values without any information on absolute numbers.",
+      "why_unanswerable": "The chart only shows percentage distributions, not raw counts or sample sizes, which would require additional data or documentation.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slices draw extra attention to those categories, making them feel more dominant than their percentages alone indicate and potentially biasing the viewer toward focusing on NQ/FEVER over mid-sized sources. It’s a stylistic emphasis rather than additional data.\n\n2. SNLI is not ~20% in this figure; it’s labeled 15.4%, while FEVER is 16.1%. So FEVER contributes slightly more than SNLI by about 0.7 percentage points.\n\n3. The figure does not show sample sizes (raw counts) for each data source—only percentages—so the distribution of raw counts across the training set cannot be determined from this chart alone.",
+  "timestamp": "2026-05-24T10:57:00.058265+00:00"
+}

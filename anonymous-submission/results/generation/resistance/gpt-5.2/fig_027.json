@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_027",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for 100 datasets appears to align with the peak in 2020 — does this suggest a significant milestone in dataset collection?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while focusing on the actual data trends.",
+      "false_element": "Benchmark line — plausible because benchmark/reference lines are often used in bar charts to highlight milestones or thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the total number of datasets in 2020 was approximately 100, how does this compare to the number in 2021?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 2020 is 130) and correct it before comparing it to the 2021 value (160).",
+      "false_premise": "The total number of datasets in 2020 is stated as 100, but the actual value is 130. The anchor is plausible because it is close to the actual value and within the range of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the increase in targeted datasets from 2019 to 2021, and how does this compare to the untargeted datasets?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart and explain that additional statistical analysis and raw data would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or raw data necessary to calculate significance. This requires data beyond what is presented.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure shows a horizontal gridline at 100, but the 2020 stacked bar is clearly above it (around 130), so it doesn’t align with a 100-dataset “benchmark” peak. The plot alone doesn’t indicate whether any milestone was intended or “significant.”\n\n2. 2020 is about 130 total datasets, while 2021 is about 160, so 2021 is higher by roughly 30 datasets.\n\n3. The figure provides counts only and no uncertainty, sample sizes, or statistical test results, so statistical significance cannot be determined from it. Visually, targeted datasets rise from ~53 (2019) to ~93 (2021), while untargeted rise from ~12 (2019) to ~67 (2021), meaning untargeted increases more in absolute terms over that span.",
+  "timestamp": "2026-05-24T10:54:49.411310+00:00"
+}

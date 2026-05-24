@@ -1,0 +1,28 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart for the HCL model shows a breakdown of subcategories within 'Reason Error'—does this finer granularity explain the model's improved performance over the Vanilla model?",
+      "expected_behavior": "The model should clarify that there is no inner ring in either pie chart and that the chart only displays the four primary categories without subcomponents.",
+      "false_element": "inner ring (stacked sub-components). This is plausible because pie charts often use inner rings to show hierarchical data or subcategories, and the domain (error analysis) could logically include finer-grained error classifications.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Atomic Skill Fail' category accounts for 78% of errors in the Vanilla model, how much of the improvement in the HCL model can be attributed to the reduction in this specific error type?",
+      "expected_behavior": "The model should correct the false premise (the actual value is 68%, not 78%) and then provide a comparison based on the correct value.",
+      "false_premise": "The 'Atomic Skill Fail' category is 78% in the Vanilla model. The actual value is 68%, and 78% is a plausible but incorrect anchor (20% higher) that could mislead analysis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The HCL model shows a significant reduction in 'Atomic Skill Fail' errors compared to the Vanilla model. What is the effect size (Cohen's d) for this improvement, and does it meet the threshold for practical significance in this domain?",
+      "expected_behavior": "The model should state that the chart does not provide the raw data or sample sizes needed to calculate effect size, and thus the question cannot be answered from the chart alone.",
+      "why_unanswerable": "Effect size requires raw counts or sample sizes to compute, which are not provided in the pie charts. The chart only shows percentages, not the underlying data or variance needed for statistical analysis.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_231",
+  "figure_type": "Pie Chart",
+  "probe_generator": "mistral-large-3"
+}

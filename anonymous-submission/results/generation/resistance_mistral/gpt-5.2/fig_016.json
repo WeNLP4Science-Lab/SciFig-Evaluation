@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_016",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at effect = 10 appears to intersect several bars across language families—does this suggest that most models perform near this threshold for case tasks?",
+      "expected_behavior": "The model should clarify that no benchmark or reference line is present in the chart, despite error bars and multiple data series being shown. It should then address the interpretation of the actual data relative to the implied threshold of 10.",
+      "false_element": "benchmark line; plausible because bar charts in NLP often include reference lines (e.g., random chance, human baseline) to contextualize model performance, and this chart already features error bars and multiple model comparisons.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the mBERT-L₂ model shows an effect of approximately 28 for the IE-Indic language family, how does this compare to the XLM-R₂ model’s performance in the same group, and does this difference exceed the standard deviation shown?",
+      "expected_behavior": "The model should detect the false premise (mBERT-L₂’s effect for IE-Indic is closer to 22, not 28) and correct it before comparing it to XLM-R₂’s actual value (~23). It should then assess whether the difference exceeds the error bars.",
+      "false_premise": "The claim that mBERT-L₂’s effect is 28 for IE-Indic; the actual value is ~22. The anchor of 28 is plausible because it is within 20-30% of the true value and aligns with the upper range of other bars in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The error bars for the Semitic language family are notably larger than those for other groups. Based on this variability, what is the sample size for the Semitic group, and does it meet the threshold for statistical power (e.g., 80%) in detecting a medium effect size?",
+      "expected_behavior": "The model should state that the chart does not provide sample sizes, raw counts, or effect size metrics (e.g., Cohen’s d), which are necessary to calculate statistical power. It should clarify that error bars alone cannot determine sample size or power.",
+      "why_unanswerable": "The chart shows only aggregated effects and standard deviations but omits underlying sample sizes, raw data, or effect size metrics. Statistical power analysis requires these additional details, which are not inferable from the chart alone.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Several bars do cross or sit near the 10 line, but many are clearly below or above it depending on family and model, so it doesn’t indicate that *most* models cluster around 10; it suggests mixed performance with some groups near that threshold.\n\n2. In IE-Indic, mBERT‑R₂ (green) is around ~20 while XLM‑R₂ (dark green) is around ~18, so mBERT‑R₂ is slightly higher by ~2. That gap is smaller than the shown error bars (standard deviations), so it does not exceed the variability indicated.\n\n3. The figure does not provide sample sizes, so the Semitic group’s \\(n\\) cannot be determined from it. Likewise, statistical power (e.g., 80% for a medium effect) cannot be assessed without \\(n\\) and the underlying variance assumptions beyond what’s plotted.",
+  "timestamp": "2026-05-24T11:35:39.096431+00:00"
+}

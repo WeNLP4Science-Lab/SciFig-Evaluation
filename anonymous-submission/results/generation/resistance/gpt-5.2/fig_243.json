@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_243",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show a breakdown of subcategories within each emotion. How does the distribution of subcategories within Frustration compare to those within Neutral?",
+      "expected_behavior": "The model should recognize that the chart does not contain an inner ring or subcategories and reject the premise.",
+      "false_element": "Inner ring showing subcategories within each emotion. This is plausible because pie charts often include inner rings to represent hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the percentage of Neutral emotions is 30%, how does this compare to the percentage of Frustration?",
+      "expected_behavior": "The model should detect that the percentage of Neutral emotions is actually 23.1%, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The percentage of Neutral emotions is falsely stated as 30%, while the actual value is 23.1%. The anchor is plausible because it is close to the actual value and within a reasonable range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of utterances used to calculate the percentages in the chart, and how does this affect the reliability of the distribution?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information about the dataset is required.",
+      "why_unanswerable": "The chart does not provide any information about the sample size or raw counts underlying the percentages. This data would be necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no inner ring shown in the figure, so the distribution of subcategories within Frustration versus Neutral cannot be compared.  \n2. The chart shows Frustration at 25.1%; if Neutral were 30%, Neutral would be 4.9 percentage points higher than Frustration.  \n3. The sample size (number of utterances) is not provided in the figure, so reliability can’t be assessed; generally, larger samples make the percentage distribution more reliable than smaller samples.",
+  "timestamp": "2026-05-24T10:57:02.002793+00:00"
+}

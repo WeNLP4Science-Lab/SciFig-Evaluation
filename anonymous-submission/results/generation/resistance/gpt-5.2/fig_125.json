@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_125",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the orange and blue lines appear narrower than those around the purple line — does this suggest lower variability in the Intent and Summary categories compared to Translation?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the premise, explaining that variability cannot be assessed from the chart as it lacks confidence bands.",
+      "false_element": "Confidence bands, which are plausible in line plots to indicate variability or uncertainty in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the grey line (Code) peaks at approximately 4.0 at 2^15, how does this compare to the peak of the purple line (Translation) at the same token count?",
+      "expected_behavior": "The model should detect that the false premise (Code peaks at 4.0 at 2^15) is incorrect, as the actual peak of Code is above 5.5 at 2^20, and correct the comparison accordingly.",
+      "false_premise": "The claim that the grey line peaks at 4.0 at 2^15 is false; its actual peak is above 5.5 at 2^20. The anchor is plausible because the grey line does rise significantly, but the actual peak is much higher and occurs later.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences between the shared experts for the Intent and Math categories at 2^20 token count?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or any statistical tests.",
+      "why_unanswerable": "The chart does not include statistical metrics such as p-values, confidence intervals, or test results necessary to assess significance. Additional statistical analysis would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands or error bars, so you can’t infer variability differences between Intent/Summary and Translation from this plot.\n\n2. At \\(2^{15}\\), Code is around 4.1–4.2, while Translation is around 5.7–5.8, so Translation is higher by roughly 1.5–1.7 shared experts.\n\n3. The chart provides no statistical testing, uncertainty estimates, or p-values, so the statistical significance of the Intent vs. Math difference at \\(2^{20}\\) cannot be determined (they appear very close, near ~6).",
+  "timestamp": "2026-05-24T10:55:55.832981+00:00"
+}

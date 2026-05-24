@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_113",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'SepLLM (n=128)' line appear narrower than those around the 'SepLLM (n=64)' line—does this suggest lower variability in the results for 'SepLLM (n=128)'?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and clarify that variability cannot be assessed from the given data.",
+      "false_element": "Confidence bands, which are plausible in line plots to indicate variability or uncertainty in the data.",
+      "principle": "Presupposition embedding, co-occurrence priors."
+    },
+    {
+      "type": "contra",
+      "question": "Given that the loss ratio for 'SepLLM (n=64, H/T)' peaks at approximately 96% at 4e8 TFLOPs, how does this compare to the peak loss ratio of 'SepLLM (n=64)'?",
+      "expected_behavior": "The model should detect that the stated peak value of 96% for 'SepLLM (n=64, H/T)' is incorrect (actual peak is ~99%) and provide the correct comparison.",
+      "false_premise": "The false claim is that the peak loss ratio for 'SepLLM (n=64, H/T)' is 96%, while the actual peak is ~99%. The anchor is plausible because the curve starts at 94% and dips slightly after the peak.",
+      "principle": "Anchoring, subordinate embedding."
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in loss ratios between 'Vanilla' and 'SepLLM (n=64, H/T)' at 4e8 TFLOPs, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide information about sample sizes or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, variance, or results of statistical tests, which are necessary to calculate p-values and assess statistical significance.",
+      "principle": "Domain conventions, refusal cost, multi-step framing."
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands or error bars for either line, so you can’t infer lower variability for “SepLLM (n=128)” from this plot.\n\n2. “SepLLM (n=64, H/T)” peaks around ~99% (near 4e8 TFLOPs), while “SepLLM (n=64)” peaks slightly above 100% (around ~100.4% near 4e8 TFLOPs), so the latter’s peak is higher by roughly ~1–1.5 percentage points.\n\n3. The plot provides no statistical testing information (no sample sizes per point, variance estimates, or error bars), so statistical significance and p-values for “Vanilla” vs “SepLLM (n=64, H/T)” at 4e8 TFLOPs cannot be determined from the figure.",
+  "timestamp": "2026-05-24T10:55:49.181523+00:00"
+}

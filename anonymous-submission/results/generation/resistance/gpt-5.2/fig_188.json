@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_188",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the Recall@50 (Ours) line appear narrower at x=5 compared to x=1. Does this suggest increased certainty in the model's performance at higher depths of search?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and clarify that it cannot assess certainty based on the provided data.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that Recall@50 (ReFICR) starts at 0.40 at x=1 and increases to 0.50 at x=5, how does this trend compare to Recall@50 (Ours)?",
+      "expected_behavior": "The model should detect that the premise is false (Recall@50 (ReFICR) is constant at approximately 0.46) and correct the value before addressing the comparison.",
+      "false_premise": "Recall@50 (ReFICR) starts at 0.40 and increases to 0.50, whereas the actual value is constant at approximately 0.46. The false premise is plausible because the other series (Recall@50 (Ours)) shows an increasing trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in Recall@50 and NDCG@50, what is the statistical significance of the difference between the 'Ours' and 'ReFICR' methods, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone and explain that additional data, such as raw scores and statistical tests, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or raw data necessary to calculate p-values or assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence intervals or error bars around Recall@50 (Ours), so you can’t infer increased certainty at x=5 versus x=1 from this plot.\n\n2. The plot shows Recall@50 (ReFICR) as a flat dotted line around ~0.47 across x=1–5, while Recall@50 (Ours) increases from ~0.35 at x=1 to ~0.49 at x=5, eventually surpassing ReFICR after about x=3.\n\n3. Statistical significance and p-values are not provided and cannot be determined from this figure alone (no variance estimates, sample sizes, or test results are shown).",
+  "timestamp": "2026-05-24T11:36:51.339396+00:00"
+}

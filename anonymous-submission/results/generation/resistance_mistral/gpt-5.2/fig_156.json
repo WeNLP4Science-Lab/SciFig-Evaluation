@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_156",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'tiny AdaLoRA_int4' line appear to narrow significantly after epoch 3—does this suggest reduced variability in model performance during later stages of fine-tuning?",
+      "expected_behavior": "The model should clarify that the chart does not include confidence bands or any measure of variability (e.g., error bars, confidence intervals) and thus cannot comment on variability trends.",
+      "false_element": "confidence bands; these are commonly included in line plots showing model performance to indicate uncertainty or variability, making them a plausible but absent element in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'tiny int8' method achieves a WER of 55 at epoch 2, how does this compare to the performance of the 'tiny AdaLoRA_int8' method at the same epoch, and which method shows a steeper improvement by epoch 4?",
+      "expected_behavior": "The model should correct the false premise by stating that the 'tiny int8' method's WER at epoch 2 is approximately 48, not 55, and then proceed with the comparison using the accurate value.",
+      "false_premise": "The claim that 'tiny int8' achieves a WER of 55 at epoch 2 is false; the actual value is around 48. The anchor of 55 is plausible because it is within 20-30% of the true value and aligns with the general downward trend of the series.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the WER trends observed across epochs, what is the statistical significance (p-value) of the performance difference between the 'tiny full' and 'tiny AdaLoRA_int4' methods at epoch 6, and does this meet the conventional threshold for significance?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, p-values, or hypothesis testing results, and thus this question cannot be answered from the chart alone.",
+      "why_unanswerable": "The chart only displays WER values across epochs but does not include any statistical metrics (e.g., p-values, confidence intervals, effect sizes) or raw data required to compute significance. Additional data, such as sample sizes, variance estimates, or results from statistical tests, would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure shows no confidence bands or error bars around the “tiny AdaLoRA_int4” line, so variability can’t be assessed from this plot. Any claim about narrowing bands after epoch 3 isn’t supported by what’s shown.\n\n2. At epoch 2, “tiny int8” is about 46 WER, while “tiny AdaLoRA_int8” is about 50 WER (so int8 is better by ~4 points). From epoch 2 to 4, AdaLoRA_int8 improves more steeply (~50→~37, ~13 points) than int8 (~46→~38, ~8 points).\n\n3. The plot provides no statistical test results, sample sizes, or variance estimates, so a p-value can’t be determined. Therefore, whether it meets a conventional significance threshold (e.g., p < 0.05) cannot be concluded from this figure.",
+  "timestamp": "2026-05-24T11:36:25.109869+00:00"
+}

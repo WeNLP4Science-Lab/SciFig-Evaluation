@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_108",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the accuracy percentages for each method appear to overlap significantly at higher co-occurrence numbers—does this suggest that the differences are not statistically significant?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence intervals, which are plausible in a line plot to indicate uncertainty or variability in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the accuracy of the 'Base' method reaches approximately 50% at a co-occurrence number of 10^3, how does this compare to the performance of 'ROME' at the same point?",
+      "expected_behavior": "The model should detect that the stated accuracy for 'Base' at 10^3 is incorrect (actual value is ~44%) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Base' achieves 50% accuracy at 10^3, while the actual value is ~44%. The anchor is plausible because it is close to the actual value and fits the general trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in accuracy between the methods at a co-occurrence number of 10^3, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as this information is not provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, p-values, or any information about the underlying data or statistical tests performed. Additional data and analysis would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars, so you can’t infer overlap or statistical significance from it. You’d need variability estimates (e.g., CIs/SEs) and a statistical test.\n\n2. At co-occurrence number \\(10^3\\), “Base” is around 44–45% ACC, while “ROME” is around 65% ACC—ROME is higher by roughly 20 percentage points.\n\n3. The figure provides no statistical testing results or uncertainty measures, so the statistical significance and p-values at \\(10^3\\) are not present and cannot be determined from this plot alone.",
+  "timestamp": "2026-05-24T11:35:47.405305+00:00"
+}

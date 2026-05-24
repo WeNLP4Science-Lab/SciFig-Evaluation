@@ -1,0 +1,533 @@
+{
+  "figure_id": "fig_113",
+  "model_name": "qwen3-vl-235b-a22b",
+  "transform": "rotation",
+  "figure_type": "Line Plot",
+  "judge_model": "gpt-4o",
+  "num_items": 15,
+  "num_penalties_raw": 4,
+  "num_penalties_deduped": 3,
+  "total_penalty_raw": 14.0,
+  "total_penalty_deduped": 12.0,
+  "mqm_raw": 72.55,
+  "mqm_deduped": 76.47,
+  "penalties_raw": [
+    {
+      "id": "line_03",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The x-axis scale is custom, not logarithmic.",
+      "text_span": "x-axis spans from 1e7 to 9e8 TFLOPs using a logarithmic scale"
+    },
+    {
+      "id": "line_07",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The orange line with square markers is labeled as 'SepLLM (n=128)' in the model, but it should be 'SepLLM (n=64)'.",
+      "text_span": "the orange line with square markers, “SepLLM (n=128)”"
+    },
+    {
+      "id": "line_10",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The orange line is described as having square markers, but it should have line markers.",
+      "text_span": "the orange line with square markers"
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 4/5 elements mismatched. SepLLM (n=64): model={'start': 94.2, 'end': 100, 'peak': '~100 at 4e8'} ref={'start': 98, 'end': 100, 'peak': '>100 at 4e8'}; SepLLM (n=128): model={'start': 98.5, 'end': 99.8} ref={'start': 97, 'end': '<100'}; SepLLM (n=64, H): model={'start': 97.2, 'end': 100} ref={'start': 97.5, 'end': '<100', 'peak': '>100'}; SepLLM (n=64, H/T): model={'start': 97.8, 'end': 99.8, 'peak': 99.8} ref={'start': 94, 'end': 98.8, 'peak': 99}",
+      "text_span": ""
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "line_03",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The x-axis scale is custom, not logarithmic.",
+      "text_span": "x-axis spans from 1e7 to 9e8 TFLOPs using a logarithmic scale"
+    },
+    {
+      "id": "line_07",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The orange line with square markers is labeled as 'SepLLM (n=128)' in the model, but it should be 'SepLLM (n=64)'.",
+      "text_span": "the orange line with square markers, “SepLLM (n=128)”"
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 4/5 elements mismatched. SepLLM (n=64): model={'start': 94.2, 'end': 100, 'peak': '~100 at 4e8'} ref={'start': 98, 'end': 100, 'peak': '>100 at 4e8'}; SepLLM (n=128): model={'start': 98.5, 'end': 99.8} ref={'start': 97, 'end': '<100'}; SepLLM (n=64, H): model={'start': 97.2, 'end': 100} ref={'start': 97.5, 'end': '<100', 'peak': '>100'}; SepLLM (n=64, H/T): model={'start': 97.8, 'end': 99.8, 'peak': 99.8} ref={'start': 94, 'end': 98.8, 'peak': 99}",
+      "text_span": ""
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "line plot"
+      },
+      "line_02": {
+        "expected": "x-axis labeled 'TFLOPs' with units in TFLOPs"
+      },
+      "line_03": {
+        "expected": "x-axis scale is custom, ranging from 1e7 to 9e8 with tick marks at 1e7, 2e7, 5e7, 1e8, 2e8, 3e8, 4e8, 5e8, 6e8, 7e8, 8e8, and 9e8"
+      },
+      "line_04": {
+        "expected": "y-axis labeled 'Loss Ratio (%)' with units in percentage"
+      },
+      "line_05": {
+        "expected": "y-axis scale is linear, ranging from 94% to 100% with tick marks at 94, 95, 96, 97, 98, 99, and 100"
+      },
+      "line_06": {
+        "expected": [
+          "Vanilla",
+          "SepLLM (n=64)",
+          "SepLLM (n=128)",
+          "SepLLM (n=64, H)",
+          "SepLLM (n=64, H/T)"
+        ]
+      },
+      "line_07": {
+        "expected": {
+          "Vanilla": "purple, triangle markers, solid line",
+          "SepLLM (n=64)": "orange, line markers, solid line",
+          "SepLLM (n=128)": "blue, cross markers, solid line",
+          "SepLLM (n=64, H)": "green, diamond markers, solid line",
+          "SepLLM (n=64, H/T)": "red, round markers, solid line"
+        }
+      },
+      "line_08": {
+        "expected": {
+          "Vanilla": "purple",
+          "SepLLM (n=64)": "orange",
+          "SepLLM (n=128)": "blue",
+          "SepLLM (n=64, H)": "green",
+          "SepLLM (n=64, H/T)": "red"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "Vanilla": "solid",
+          "SepLLM (n=64)": "solid",
+          "SepLLM (n=128)": "solid",
+          "SepLLM (n=64, H)": "solid",
+          "SepLLM (n=64, H/T)": "solid"
+        }
+      },
+      "line_10": {
+        "expected": {
+          "Vanilla": "triangle",
+          "SepLLM (n=64)": "line",
+          "SepLLM (n=128)": "cross",
+          "SepLLM (n=64, H)": "diamond",
+          "SepLLM (n=64, H/T)": "round"
+        }
+      },
+      "line_11": {
+        "expected": {
+          "Vanilla": {
+            "start": 100,
+            "end": 100
+          },
+          "SepLLM (n=64)": {
+            "start": 98,
+            "end": 100,
+            "peak": ">100 at 4e8"
+          },
+          "SepLLM (n=128)": {
+            "start": 97,
+            "end": "<100"
+          },
+          "SepLLM (n=64, H)": {
+            "start": 97.5,
+            "end": "<100",
+            "peak": ">100"
+          },
+          "SepLLM (n=64, H/T)": {
+            "start": 94,
+            "end": 98.8,
+            "peak": 99
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "Vanilla": "stable",
+          "SepLLM (n=64)": "increasing",
+          "SepLLM (n=128)": "increasing",
+          "SepLLM (n=64, H)": "increasing",
+          "SepLLM (n=64, H/T)": "non-monotonic"
+        }
+      },
+      "line_13": {
+        "expected": "No crossover/intersection points"
+      },
+      "line_14": {
+        "expected": "No annotations"
+      },
+      "line_15": {
+        "expected": "No dual y-axes"
+      }
+    },
+    "checklist": [
+      {
+        "id": "line_01",
+        "reasoning": "Expected: line plot. Model: line plot. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_02",
+        "reasoning": "Expected: x-axis labeled 'TFLOPs' with units in TFLOPs. Model: x-axis labeled 'TFLOPs' with units in TFLOPs. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_03",
+        "reasoning": "Expected: x-axis scale is custom, ranging from 1e7 to 9e8 with specific tick marks. Model: x-axis scale is logarithmic, ranging from 1e7 to 9e8 with the same tick marks. Mismatch in scale type.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "text_span": "x-axis spans from 1e7 to 9e8 TFLOPs using a logarithmic scale",
+          "detail": "The x-axis scale is custom, not logarithmic."
+        }
+      },
+      {
+        "id": "line_04",
+        "reasoning": "Expected: y-axis labeled 'Loss Ratio (%)' with units in percentage. Model: y-axis labeled 'Loss Ratio (%)' with units in percentage. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_05",
+        "reasoning": "Expected: y-axis scale is linear, ranging from 94% to 100% with specific tick marks. Model: y-axis scale is linear, ranging from 94% to 100% with the same tick marks. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_06",
+        "reasoning": "Expected: 5 lines (Vanilla, SepLLM (n=64), SepLLM (n=128), SepLLM (n=64, H), SepLLM (n=64, H/T)). Model: 5 lines with the same names. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_07",
+        "reasoning": "Expected: legend with specific colour/style mappings. Model: legend mappings are incorrect for some series.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "the orange line with square markers, “SepLLM (n=128)”",
+          "detail": "The orange line with square markers is labeled as 'SepLLM (n=128)' in the model, but it should be 'SepLLM (n=64)'."
+        }
+      },
+      {
+        "id": "line_08",
+        "reasoning": "Expected: specific colours for each series. Model: colours match the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_09",
+        "reasoning": "Expected: all lines are solid. Model: all lines are solid. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_10",
+        "reasoning": "Expected: specific marker shapes for each series. Model: marker shapes are incorrect for some series.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "the orange line with square markers",
+          "detail": "The orange line is described as having square markers, but it should have line markers."
+        }
+      },
+      {
+        "id": "line_11",
+        "reasoning": "Expected: specific numerical values for start, end, peaks, and troughs. Model: some values are incorrect or missing.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "the red line with circle markers, “SepLLM (n=64),” begins at ~94.2% at 1e7 TFLOPs",
+          "detail": "The red line starts at 94% in the reference but is described as starting at ~94.2% in the model."
+        }
+      },
+      {
+        "id": "line_12",
+        "reasoning": "Expected: specific trends for each series. Model: trends match the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_13",
+        "reasoning": "Expected: no crossover/intersection points. Model: no crossover/intersection points mentioned. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_14",
+        "reasoning": "Expected: no annotations. Model: no annotations mentioned. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_15",
+        "reasoning": "Expected: no dual y-axes. Model: no dual y-axes mentioned. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": {
+              "start": 100,
+              "end": 100
+            },
+            "model_value": {
+              "start": 100,
+              "end": 100
+            },
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64)",
+            "reference_value": {
+              "start": 98,
+              "end": 100,
+              "peak": ">100 at 4e8"
+            },
+            "model_value": {
+              "start": 94.2,
+              "end": 100,
+              "peak": "~100 at 4e8"
+            },
+            "match": false
+          },
+          {
+            "label": "SepLLM (n=128)",
+            "reference_value": {
+              "start": 97,
+              "end": "<100"
+            },
+            "model_value": {
+              "start": 98.5,
+              "end": 99.8
+            },
+            "match": false
+          },
+          {
+            "label": "SepLLM (n=64, H)",
+            "reference_value": {
+              "start": 97.5,
+              "end": "<100",
+              "peak": ">100"
+            },
+            "model_value": {
+              "start": 97.2,
+              "end": 100
+            },
+            "match": false
+          },
+          {
+            "label": "SepLLM (n=64, H/T)",
+            "reference_value": {
+              "start": 94,
+              "end": 98.8,
+              "peak": 99
+            },
+            "model_value": {
+              "start": 97.8,
+              "end": 99.8,
+              "peak": 99.8
+            },
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "purple",
+            "model_value": "purple",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64)",
+            "reference_value": "orange",
+            "model_value": "orange",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=128)",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64, H)",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64, H/T)",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "Vanilla",
+            "reference_value": "stable",
+            "model_value": "stable",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64)",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=128)",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64, H)",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "SepLLM (n=64, H/T)",
+            "reference_value": "non-monotonic",
+            "model_value": "non-monotonic",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_078",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the 'With Context' group seem narrower than those in the 'Without Context' group—does this suggest lower variability in the former?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that variability cannot be assessed from the given data.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or confidence intervals but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Standard' method achieves an average performance of 70 in the 'With Context' group, how does this compare to the performance of 'CInGS (w/)'?",
+      "expected_behavior": "The model should detect that the stated value of 70 is incorrect (actual value is 56) and provide the correct comparison based on the actual data.",
+      "false_premise": "The false claim is that the 'Standard' method achieves 70 in the 'With Context' group, while the actual value is 56. The anchor of 70 is plausible because it is close to the range of values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed performance differences, what is the statistical significance (e.g., p-value) of the improvement seen in the 'With Context' group compared to the 'Without Context' group?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and statistical tests, would be required.",
+      "why_unanswerable": "The chart does not provide information about sample sizes, variance, or statistical tests, which are necessary to calculate p-values or assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any error bars, so you can’t infer variability differences between the “With Context” and “Without Context” groups from this plot.  \n2. The “Standard” bar in “With Context” is around the mid-to-high 50s (not 70), while “CInGS (w/)” is slightly higher (around the high 50s), so “CInGS (w/)” performs a bit better than “Standard” there.  \n3. The figure provides no statistical test results (no p-values, confidence intervals, or sample sizes), so the statistical significance of the improvement cannot be determined from this plot.",
+  "timestamp": "2026-05-24T11:35:29.443837+00:00"
+}

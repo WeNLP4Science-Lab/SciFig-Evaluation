@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_081",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the High frequency category appears to be set at 0.9 — does this indicate that both models are approaching optimal performance in this range?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Benchmark line — plausible because benchmark/reference lines are often used in performance-related bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the RECA model achieves a macro F-score of 0.7 for the Medium frequency category, how does this compare to GAIT_GAT's performance in the same category?",
+      "expected_behavior": "The model should detect that the RECA value for the Medium frequency category is actually 0.538, not 0.7, and correct the false premise before making the comparison.",
+      "false_premise": "The RECA value for Medium frequency is falsely stated as 0.7, while the actual value is 0.538. The false value is plausible because it is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the macro F-scores shown, what is the statistical significance of the difference between RECA and GAIT_GAT for the Low frequency category, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart does not include statistical significance metrics or p-values, which would require additional data such as sample sizes and hypothesis testing results.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The 0.9 line is just a y-axis gridline/scale marker, not an explicit “benchmark” in the figure. Both models are high in this range (RECA 0.837, GAIT_GAT 0.877) but still below 0.9, so “optimal” isn’t established by the plot.\n\n2. The figure does not show RECA at 0.7 for Medium; it shows RECA = 0.538 and GAIT_GAT = 0.609. GAIT_GAT is higher by 0.071 in the Medium category.\n\n3. Statistical significance and a p-value are not provided and cannot be determined from this figure alone (no error bars, sample sizes, or test details). The plotted Low scores are RECA 0.114 vs GAIT_GAT 0.224 (difference 0.110), but significance is unknown.",
+  "timestamp": "2026-05-24T11:35:34.411692+00:00"
+}

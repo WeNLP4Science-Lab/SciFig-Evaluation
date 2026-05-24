@@ -1,0 +1,28 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart shows a breakdown of the LOCAL token category by device type—does this suggest that mobile devices contribute more to the 94.5% than desktop devices?",
+      "expected_behavior": "The model should clarify that there is no inner ring or secondary breakdown in the chart, and thus no information about device types is available.",
+      "false_element": "inner ring (stacked or secondary pie chart layer). This is plausible because pie charts often include inner rings for sub-categories, especially in token distribution or resource allocation contexts.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the LLM token slice accounts for 5.2% of the total distribution, how does this compare to the combined proportion of EDGE_P2P and LOCAL tokens, and what might explain the discrepancy?",
+      "expected_behavior": "The model should correct the false premise (LLM is actually 3.9%, not 5.2%) and then provide an accurate comparison based on the true values.",
+      "false_premise": "The LLM token slice is 5.2% (actual: 3.9%). This anchor is plausible because it is within 20-30% of the true value and aligns with common rounding or estimation errors in pie charts.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The LOCAL token distribution appears dominant at 94.5%. What is the sample size underlying this percentage, and does the margin of error suggest this proportion is statistically significant at the p < 0.05 level?",
+      "expected_behavior": "The model should state that the chart does not provide the sample size, raw counts, or margin of error, and thus statistical significance cannot be determined.",
+      "why_unanswerable": "The chart only shows percentages without raw counts, sample sizes, or confidence intervals. Determining statistical significance requires additional data not present in the figure.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_245",
+  "figure_type": "Pie Chart",
+  "probe_generator": "mistral-large-3"
+}

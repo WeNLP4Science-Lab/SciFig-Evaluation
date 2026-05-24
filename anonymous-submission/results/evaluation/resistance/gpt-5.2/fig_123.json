@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_123",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The confidence intervals around the loss values for the Vanilla and SepLLM models seem to overlap slightly at higher training times — does this suggest similar variability in their performance?",
+      "model_answer": "The figure does not show confidence intervals or error bands—only mean loss curves—so overlap and relative variability cannot be inferred from this plot.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that confidence intervals or error bands are not present in the chart, correctly rejecting the premise of the question and avoiding any analysis based on non-existent elements."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the SepLLM model achieves a loss of approximately 2.60 at 200,000 seconds, how does this compare to the Vanilla model's performance at the same training time?",
+      "model_answer": "At ~200,000 s, SepLLM’s loss is about 2.50, while Vanilla is slightly higher (around 2.52), so SepLLM performs better at that time.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by correcting the loss value for SepLLM to 2.50 and provided an accurate comparison based on the corrected value."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the observed loss trends, what is the projected loss for SepLLM at 300,000 seconds, and how does this align with the statistical significance of the difference between the two models?",
+      "model_answer": "The plot ends around 250,000 s, so a 300,000 s projection isn’t supported; extrapolating the late trend would suggest SepLLM might stay near ~2.49–2.50. The figure provides no statistical significance information (no CIs, p-values, or repeated-run variance), so significance can’t be assessed.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that the projection and statistical significance cannot be determined from the chart but still attempts to extrapolate a trend and provide an approximate value, which constitutes hedging."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 1.0,
+    "unanswerable": 0.5
+  }
+}

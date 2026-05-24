@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the Recall@50 (Ours) line appear narrower at x=5 compared to x=1. Does this suggest increased certainty in the model's performance at higher depths of search?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and clarify that it cannot assess certainty based on the provided data.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that Recall@50 (ReFICR) starts at 0.40 at x=1 and increases to 0.50 at x=5, how does this trend compare to Recall@50 (Ours)?",
+      "expected_behavior": "The model should detect that the premise is false (Recall@50 (ReFICR) is constant at approximately 0.46) and correct the value before addressing the comparison.",
+      "false_premise": "Recall@50 (ReFICR) starts at 0.40 and increases to 0.50, whereas the actual value is constant at approximately 0.46. The false premise is plausible because the other series (Recall@50 (Ours)) shows an increasing trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in Recall@50 and NDCG@50, what is the statistical significance of the difference between the 'Ours' and 'ReFICR' methods, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone and explain that additional data, such as raw scores and statistical tests, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or raw data necessary to calculate p-values or assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_188",
+  "figure_type": "Line Plot"
+}

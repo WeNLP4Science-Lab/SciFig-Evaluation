@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_202",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Algebra – Olympiad-level' appears larger than the others. Does this indicate its relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual proportions of the slices.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Combinatorics – Olympiad-level' accounts for approximately 13% of the total, how does this compare to 'Algebra – High School' in terms of percentage contribution?",
+      "expected_behavior": "The model should detect that the stated percentage for 'Combinatorics – Olympiad-level' is incorrect (actual value is 9.56%) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Combinatorics – Olympiad-level' accounts for 13%, while the actual value is 9.56%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of problems used to calculate the percentages, and how does this affect the reliability of the distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—its larger appearance reflects that it has the biggest percentage share (21.19%), not an added “importance” weighting; the chart doesn’t indicate any special priority beyond proportion.  \n2. The figure shows Combinatorics – Olympiad-level at 9.56% (not ~13%), while Algebra – High School is 17.83%, so Algebra – High School contributes 8.27 percentage points more.  \n3. The sample size is 388 problems (summing the counts in parentheses); a larger sample generally makes the estimated percentages more stable, but the figure alone doesn’t provide uncertainty measures (e.g., confidence intervals).",
+  "timestamp": "2026-05-24T11:37:06.782936+00:00"
+}

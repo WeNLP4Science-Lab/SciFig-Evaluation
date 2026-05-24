@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_107",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the ROUGE-G scores for the PELMS model appear narrower than those for the Pegasus-X model. Does this suggest that PELMS is more consistent across benchmarks?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating an answer. It should clarify that the chart does not provide information about confidence intervals or consistency.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ROUGE-G score for the Pegasus-X model at 64 training examples is approximately 15.0, how does this compare to the PELMS model at the same point?",
+      "expected_behavior": "The model should detect that the stated ROUGE-G score for Pegasus-X at 64 training examples is incorrect (actual value is 18.0) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that the ROUGE-G score for Pegasus-X at 64 training examples is 15.0, while the actual value is 18.0. The false value is plausible because it is close to the range of scores shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences in ROUGE-G scores between the PELMS and Pegasus-X models at 64 training examples?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance or p-values and state that this cannot be determined from the data presented.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, such as p-values or confidence intervals, which are required to assess the significance of differences between models.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars, so you can’t infer consistency across benchmarks from this chart alone. It only shows point estimates/lines.\n\n2. At 64 training examples, PELMS is higher (roughly ~18.8–19.0) than Pegasus-X (about ~18.0 for the solid Pegasus-X line; the dashed 5% variant is lower). So PELMS outperforms Pegasus-X at that point.\n\n3. The chart provides no statistical testing results (e.g., p-values) and no uncertainty estimates, so the statistical significance of the differences at 64 training examples cannot be determined from the figure.",
+  "timestamp": "2026-05-24T11:35:46.596083+00:00"
+}

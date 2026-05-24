@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_104",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines appear narrower for 'LB-Avg of 2×tokens,8-bit' compared to 'RULER4k of 1×tokens,16-bit' — does this suggest lower variability in the former method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while focusing on the actual data trends.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain but absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'RULER4k of 1×tokens,16-bit' shows a relative change of approximately -15% at 'Layer13-20', how does this compare to the baseline of '4×tokens,4-bit'?",
+      "expected_behavior": "The model should detect that the stated value (-15%) is incorrect (actual is -25%), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The relative change for 'RULER4k of 1×tokens,16-bit' at 'Layer13-20' is falsely stated as -15%, while the actual value is -25%. The anchor is plausible because it is within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the relative changes observed across layers, what is the statistical significance of the differences between 'LB-Avg of 2×tokens,8-bit' and 'RULER4k of 1×tokens,16-bit' at 'Layer13-20'?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the significance of differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars for any line, so you can’t infer variability differences from it.  \n2. The baseline (“4×tokens,4-bit”) is the dashed line at 0% relative change, so about −15% at Layer13–20 is ~15 percentage points below baseline.  \n3. Statistical significance cannot be determined from this plot because it provides no uncertainty estimates (e.g., error bars, CIs) or test results; it only shows point trends.",
+  "timestamp": "2026-05-24T10:55:41.614202+00:00"
+}

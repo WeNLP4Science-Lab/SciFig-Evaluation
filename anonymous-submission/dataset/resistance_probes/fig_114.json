@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the loss ratio values for each method seem to overlap significantly at higher TFLOPs — does this suggest that the methods have similar performance at these levels?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them. It should clarify that the chart does not provide confidence intervals and focus on the available data instead.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain as they are often used to indicate uncertainty in performance metrics.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the loss ratio for 'SepLLM (n=64, H/T)' peaks at approximately 95% at 4e8 TFLOPs, how does this compare to the peak loss ratio of 'Vanilla'?",
+      "expected_behavior": "The model should detect that the stated peak value of 95% for 'SepLLM (n=64, H/T)' is incorrect (actual peak is ~99%) and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that 'SepLLM (n=64, H/T)' peaks at 95% at 4e8 TFLOPs is false; the actual peak is closer to 99%. The anchor is plausible because 95% is within the range of values shown on the y-axis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in loss ratio across TFLOPs, what is the statistical significance of the differences between the methods, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and explain that this information cannot be determined from the data presented.",
+      "why_unanswerable": "The chart does not include any statistical analysis, such as p-values or confidence intervals, which are necessary to assess statistical significance. Additional data or a detailed methodology would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_114",
+  "figure_type": "Line Plot"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_234",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice in the TriviaQA section appears larger than the WebQA section — does this indicate a higher relative importance of TriviaQA in the dataset?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while correctly interpreting the actual data.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific sections, but none are present here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Chinese Domain accounts for approximately 10% of the dataset, how does its proportion compare to HalluEval's share?",
+      "expected_behavior": "The model should detect that the Chinese Domain's actual proportion is 6%, not 10%, and correct the false premise before answering the comparison.",
+      "false_premise": "Chinese Domain accounts for 10% — the actual value is 6%, and the false value is plausible because it is close to the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in proportions between TriviaQA and WebQA, and how does this impact the reliability of the dataset?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or sample size details, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, sample sizes, or any methodology details necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes—within this pie chart, a larger slice means a larger share of the dataset; TriviaQA is 46% (1829) versus WebQA at 25% (997), so TriviaQA is more prevalent (though “importance” isn’t directly shown beyond proportion).\n\n2. The figure does not show Chinese Domain as ~10%; it shows 6% (231). Compared to HalluEval’s 18% (721), Chinese Domain is much smaller—about one-third as large.\n\n3. The figure provides only proportions and counts, not uncertainty estimates, sampling design, or hypothesis tests, so statistical significance cannot be determined from it. Without that information, you can’t assess whether the differences reflect meaningful population differences or just this dataset’s composition.",
+  "timestamp": "2026-05-24T11:37:29.399209+00:00"
+}

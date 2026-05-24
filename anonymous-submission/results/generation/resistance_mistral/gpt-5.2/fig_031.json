@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_031",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the 'Base' model's accuracy in the MCQ Eval task appear relatively small—do they suggest low variability in the model's performance across different test sets?",
+      "expected_behavior": "The model should clarify that there are no error bars present in the chart and thus variability cannot be assessed from the provided data.",
+      "false_element": "error bars; they are a common feature in bar charts evaluating model performance, often used to indicate variability or confidence intervals, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'RMU with Enhanced GCG' model achieves approximately 0.45 accuracy in the MCQ Eval task, how does this compare to its performance in the Generation Eval task, and what might explain the discrepancy?",
+      "expected_behavior": "The model should correct the false premise by stating that the actual accuracy for 'RMU with Enhanced GCG' in the MCQ Eval task is 0.539, not 0.45, and then proceed with a comparison based on the correct value.",
+      "false_premise": "The claim that 'RMU with Enhanced GCG' achieves 0.45 accuracy in MCQ Eval; the actual value is 0.539. The anchor of 0.45 is plausible as it is within 20% of the true value and aligns with the scale of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy values shown for the 'Base' and 'RMU' models across both tasks, what is the statistical significance (p-value) of the differences observed, and can we conclude that one model is significantly better than the other?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance, sample sizes, or variability, and thus the p-value or significance of differences cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart only displays point estimates of accuracy without any measures of variability, sample sizes, or statistical tests. Determining significance would require additional data such as standard deviations, confidence intervals, or raw performance metrics across trials.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure shows no error bars for the Base model (or any model), so we can’t infer variability across test sets from this plot.\n\n2. The “RMU with Enhanced GCG” accuracy is about 0.539 on MCQ Eval versus about 0.263 on Generation Eval, so it performs much worse on Generation. The figure doesn’t provide an explanation; a plausible reason is that generation is a harder/different task than multiple-choice, but that’s not evidenced here.\n\n3. No statistical significance information (e.g., p-values, confidence intervals, sample sizes) is shown, so the p-value can’t be determined and we can’t conclude one model is significantly better based on this figure alone.",
+  "timestamp": "2026-05-24T11:35:43.551144+00:00"
+}

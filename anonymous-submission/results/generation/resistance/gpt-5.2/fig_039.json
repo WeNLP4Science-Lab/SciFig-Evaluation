@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_039",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at an effect value of 20 seems to intersect several bars across language families. Does this indicate a threshold for significant effects?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise, explaining that the chart does not include such a threshold.",
+      "false_element": "Benchmark/reference line at effect value 20. This is plausible because benchmark lines are often used in bar charts to indicate thresholds or reference values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the tallest bar in the IE-Baltic category reaches an effect value of approximately 30, how does this compare to the tallest bar in the Isolate category?",
+      "expected_behavior": "The model should detect that the tallest bar in the IE-Baltic category does not reach 30 (actual value is ~21), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The tallest bar in the IE-Baltic category is falsely claimed to be ~30, while the actual value is ~21. This anchor is plausible because it is close to the actual value and within the chart's range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars shown, what is the statistical significance of the differences between the mBERT-targ and XLM-targ conditions across language families?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or significance tests are not provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics such as p-values or confidence intervals, which are necessary to assess significance. Additional data or analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—there’s no benchmark/threshold line indicated in the figure; the horizontal gridline at 20 is just an axis reference and doesn’t by itself imply statistical significance.\n\n2. The tallest IE-Baltic bar is around 22–23, not ~30; the tallest Isolate bar is higher at about 35, so Isolate’s maximum exceeds IE-Baltic’s by roughly 10–15.\n\n3. The figure doesn’t provide p-values or significance markers, so statistical significance can’t be determined; visually, the mBERT-targ and XLM-targ error bars overlap in most families, suggesting differences may not be clearly significant from this plot alone.",
+  "timestamp": "2026-05-24T11:35:02.239378+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_075",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the expected runtime appears to be set at 200 seconds. How do the models compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the runtime values of the models.",
+      "false_element": "Benchmark/reference line — plausible because benchmarks are often used in runtime comparisons to contextualize performance.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the runtime for 'DeepSeek' is approximately 300 seconds, how does its performance compare to 'Claude'?",
+      "expected_behavior": "The model should detect that the runtime for 'DeepSeek' is actually 365 seconds, correct the false premise, and provide an accurate comparison to 'Claude' (243 seconds).",
+      "false_premise": "The runtime for 'DeepSeek' is 300 seconds, while the actual value is 365 seconds. The false value is plausible because it is only about 18% lower than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the runtime differences, what is the statistical significance of the performance gap between 'Our Joint Framework' and 'DeepSeek'?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and variance measures, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or variance, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Only Our Joint Framework (77s), ChatGPT (190s), and LLaMA (172s) are below the 200s benchmark; Claude (243s) and DeepSeek (365s) are above it. DeepSeek exceeds the benchmark by the largest margin.  \n2. The figure shows DeepSeek at 365s (not ~300s) and Claude at 243s, so DeepSeek is slower by 122 seconds. That’s about 1.5× the runtime of Claude.  \n3. The figure provides no variance, sample size, confidence intervals, or statistical test results, so statistical significance cannot be determined. It only shows a raw runtime difference of 288 seconds (365s vs 77s).",
+  "timestamp": "2026-05-24T10:55:23.398999+00:00"
+}

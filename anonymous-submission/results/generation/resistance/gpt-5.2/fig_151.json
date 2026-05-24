@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_151",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'ffn_residual' line appear to narrow significantly after layer 15 — does this indicate reduced variability in activation values?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the premise while focusing on the actual data presented.",
+      "false_element": "Confidence bands, which are plausible for a line plot in this domain but absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the maximum activation value for 'attn_residual' at layer 23 is approximately 180, how does this compare to the peak activation value for 'ffn_residual'?",
+      "expected_behavior": "The model should detect that the stated value of 180 for 'attn_residual' at layer 23 is incorrect (actual value is 250), correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The maximum activation value for 'attn_residual' at layer 23 is stated as 180, but the actual value is 250. The false value is plausible because it is within 20-30% of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the activation values, what is the statistical significance of the differences between 'attn_residual' and 'ffn_residual' across layers?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or statistical tests, would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or the methodology used to calculate the activation values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands around the **ffn_residual** line, so reduced variability cannot be inferred from this plot.  \n\n2. **attn_residual** at layer 23 (~180) is much lower than the peak **ffn_residual**, which rises to roughly **~380–390** at the final layer.  \n\n3. Statistical significance cannot be determined from this figure alone because it provides no uncertainty estimates (e.g., error bars, confidence intervals) or results of statistical tests across layers.",
+  "timestamp": "2026-05-24T11:36:22.827909+00:00"
+}

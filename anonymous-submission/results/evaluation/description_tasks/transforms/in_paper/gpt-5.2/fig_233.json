@@ -5,23 +5,13 @@
   "figure_type": "Pie Chart",
   "judge_model": "gpt-4o",
   "num_items": 11,
-  "num_penalties_raw": 8,
-  "num_penalties_deduped": 7,
-  "total_penalty_raw": 31.0,
-  "total_penalty_deduped": 26.0,
-  "mqm_raw": 16.22,
-  "mqm_deduped": 29.73,
+  "num_penalties_raw": 6,
+  "num_penalties_deduped": 5,
+  "total_penalty_raw": 21.0,
+  "total_penalty_deduped": 16.0,
+  "mqm_raw": 43.24,
+  "mqm_deduped": 56.76,
   "penalties_raw": [
-    {
-      "id": "pie_02",
-      "category": "Accuracy",
-      "severity": "Major",
-      "sub_type": "Incorrect Trend Interpretation",
-      "weight": 5.0,
-      "source": "checklist_correctness",
-      "detail": "The model incorrectly states there are two pie charts, but the image shows only one.",
-      "text_span": "Figure 6 presents two pie charts comparing the distribution of data sources..."
-    },
     {
       "id": "pie_04",
       "category": "Accuracy",
@@ -29,8 +19,17 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Labels 'ACDC' and 'ENTA' are fabricated, and 'MULTINLI' and 'MULTIFC' are missing.",
-      "text_span": "ACDC (green, 0.5%), ENTA (orange, 1.9%)"
+      "detail": "The model includes fabricated labels (SQUADMU, TACRED, SIFACT) and omits correct labels (XSUMHUL, SCIFACT, ENTFA).",
+      "text_span": "SQUADMU (very small slice, 1.6%), TACRED (very small slice, 1.6%), SIFACT (very small slice, 1.6%)"
+    },
+    {
+      "id": "pie_05",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Colors are mentioned but not mapped to specific slices."
     },
     {
       "id": "pie_05",
@@ -39,7 +38,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 7/13 elements mismatched. MULTINLI: model=light gray ref=rose; ANLI: model=yellow ref=orange; ENTFA: model=orange ref=gold; XSUMHUL: model=very light gray ref=light blue; SCITAIL: model=salmon/pink ref=light green; MULTIFC: model=light purple ref=light blue; SCIFACT: model=gray ref=light blue",
+      "detail": "Binding verification: 7/13 elements mismatched. ANLI: model=very small slice ref=orange; ENTFA: model=very small slice ref=gold; XSUMHUL: model=very small slice ref=light blue; SCITAIL: model=salmon ref=light green; MULTIFC: model=very small slice ref=light blue; PUBHEALTH: model=very small slice ref=light green; SCIFACT: model=very small slice ref=light blue",
       "text_span": ""
     },
     {
@@ -49,17 +48,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 6/13 elements mismatched. MULTINLI: model=0.5% ref=11.3%; ANLI: model=0.5% ref=4.6%; FACTCC: model=0.5% ref=2.6%; ENTFA: model=1.9% ref=1.8%; SCITAIL: model=10.5% ref=1.2%; SCIFACT: model=1.9% ref=0.1%",
+      "detail": "Binding verification: 5/13 elements mismatched. MULTINLI: model=9.0% ref=11.3%; ANLI: model=0.8% ref=4.6%; ENTFA: model=1.6% ref=1.8%; SCITAIL: model=8.0% ref=1.2%; SCIFACT: model=1.6% ref=0.1%",
       "text_span": ""
-    },
-    {
-      "id": "pie_07",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "No mention of slice ordering."
     },
     {
       "id": "pie_11",
@@ -77,40 +67,29 @@
       "sub_type": "Hallucinated Content",
       "weight": 5.0,
       "source": "global",
-      "detail": "The model fabricates the existence of a second pie chart.",
-      "text_span": "Figure 6 presents two pie charts comparing the distribution of data sources in (left) the combined training set and (right) the AttrEval-Simulation set..."
-    },
-    {
-      "id": "global_hallucination",
-      "category": "Completeness",
-      "severity": "Major",
-      "sub_type": "Hallucinated Content",
-      "weight": 5.0,
-      "source": "global",
-      "detail": "The model fabricates labels 'ACDC' and 'ENTA', which are not present in the chart.",
-      "text_span": "ACDC (green, 0.5%), ENTA (orange, 1.9%)"
+      "detail": "These labels are fabricated and do not appear in the chart.",
+      "text_span": "SQUADMU (very small slice, 1.6%), TACRED (very small slice, 1.6%), SIFACT (very small slice, 1.6%)"
     }
   ],
   "penalties_deduped": [
     {
-      "id": "pie_02",
-      "category": "Accuracy",
-      "severity": "Major",
-      "sub_type": "Incorrect Trend Interpretation",
-      "weight": 5.0,
-      "source": "checklist_correctness",
-      "detail": "The model incorrectly states there are two pie charts, but the image shows only one.",
-      "text_span": "Figure 6 presents two pie charts comparing the distribution of data sources..."
-    },
-    {
       "id": "pie_04",
       "category": "Accuracy",
       "severity": "Major",
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Labels 'ACDC' and 'ENTA' are fabricated, and 'MULTINLI' and 'MULTIFC' are missing.",
-      "text_span": "ACDC (green, 0.5%), ENTA (orange, 1.9%)"
+      "detail": "The model includes fabricated labels (SQUADMU, TACRED, SIFACT) and omits correct labels (XSUMHUL, SCIFACT, ENTFA).",
+      "text_span": "SQUADMU (very small slice, 1.6%), TACRED (very small slice, 1.6%), SIFACT (very small slice, 1.6%)"
+    },
+    {
+      "id": "pie_05",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Colors are mentioned but not mapped to specific slices."
     },
     {
       "id": "pie_05",
@@ -119,7 +98,7 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 2.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 7/13 elements mismatched. MULTINLI: model=light gray ref=rose; ANLI: model=yellow ref=orange; ENTFA: model=orange ref=gold; XSUMHUL: model=very light gray ref=light blue; SCITAIL: model=salmon/pink ref=light green; MULTIFC: model=light purple ref=light blue; SCIFACT: model=gray ref=light blue",
+      "detail": "Binding verification: 7/13 elements mismatched. ANLI: model=very small slice ref=orange; ENTFA: model=very small slice ref=gold; XSUMHUL: model=very small slice ref=light blue; SCITAIL: model=salmon ref=light green; MULTIFC: model=very small slice ref=light blue; PUBHEALTH: model=very small slice ref=light green; SCIFACT: model=very small slice ref=light blue",
       "text_span": ""
     },
     {
@@ -129,17 +108,8 @@
       "sub_type": "Incorrect Label Mapping",
       "weight": 5.0,
       "source": "checklist_correctness",
-      "detail": "Binding verification: 6/13 elements mismatched. MULTINLI: model=0.5% ref=11.3%; ANLI: model=0.5% ref=4.6%; FACTCC: model=0.5% ref=2.6%; ENTFA: model=1.9% ref=1.8%; SCITAIL: model=10.5% ref=1.2%; SCIFACT: model=1.9% ref=0.1%",
+      "detail": "Binding verification: 5/13 elements mismatched. MULTINLI: model=9.0% ref=11.3%; ANLI: model=0.8% ref=4.6%; ENTFA: model=1.6% ref=1.8%; SCITAIL: model=8.0% ref=1.2%; SCIFACT: model=1.6% ref=0.1%",
       "text_span": ""
-    },
-    {
-      "id": "pie_07",
-      "category": "Completeness",
-      "severity": "Minor",
-      "sub_type": "Missing Key Information",
-      "weight": 2.0,
-      "source": "checklist_coverage",
-      "detail": "No mention of slice ordering."
     },
     {
       "id": "pie_11",
@@ -149,16 +119,6 @@
       "weight": 2.0,
       "source": "checklist_coverage",
       "detail": "Largest and smallest slices not mentioned."
-    },
-    {
-      "id": "global_hallucination",
-      "category": "Completeness",
-      "severity": "Major",
-      "sub_type": "Hallucinated Content",
-      "weight": 5.0,
-      "source": "global",
-      "detail": "The model fabricates the existence of a second pie chart.",
-      "text_span": "Figure 6 presents two pie charts comparing the distribution of data sources in (left) the combined training set and (right) the AttrEval-Simulation set..."
     }
   ],
   "judge_output": {
@@ -167,7 +127,7 @@
         "expected": "pie chart"
       },
       "pie_02": {
-        "expected": "The pie chart illustrates the distribution of data sources in the combined training set."
+        "expected": "The chart illustrates the distribution of data sources in the combined training set."
       },
       "pie_03": {
         "expected": "13 slices"
@@ -224,7 +184,7 @@
         }
       },
       "pie_07": {
-        "expected": "Slices are not ordered by size or clockwise."
+        "expected": "No specific ordering; slices are arranged arbitrarily."
       },
       "pie_08": {
         "expected": "No legend is present."
@@ -233,7 +193,7 @@
         "expected": "No visual emphasis is present."
       },
       "pie_10": {
-        "expected": "Percentages are labeled outside the slices, beneath the segment labels."
+        "expected": "Labels and percentages are placed outside the slices."
       },
       "pie_11": {
         "expected": {
@@ -245,7 +205,7 @@
     "checklist": [
       {
         "id": "pie_01",
-        "reasoning": "Expected: pie chart. Model correctly identifies the chart type as a pie chart.",
+        "reasoning": "Expected: pie chart. Model: pie chart. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -255,20 +215,17 @@
       },
       {
         "id": "pie_02",
-        "reasoning": "Expected: 'The pie chart illustrates the distribution of data sources in the combined training set.' Model incorrectly describes two pie charts, which is not accurate.",
+        "reasoning": "Expected: 'The chart illustrates the distribution of data sources in the combined training set.' Model: 'Figure 6 (left) is a pie chart showing the distribution of data sources in the combined training set.' Match.",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
-          "status": "wrong",
-          "sub_type": "Incorrect Trend Interpretation",
-          "text_span": "Figure 6 presents two pie charts comparing the distribution of data sources...",
-          "detail": "The model incorrectly states there are two pie charts, but the image shows only one."
+          "status": "correct"
         }
       },
       {
         "id": "pie_03",
-        "reasoning": "Expected: 13 slices. Model correctly identifies 13 slices in the left pie chart.",
+        "reasoning": "Expected: 13 slices. Model: 13 slices. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -278,57 +235,57 @@
       },
       {
         "id": "pie_04",
-        "reasoning": "Expected: 13 slice labels. Model includes incorrect labels such as 'ACDC' and 'ENTA' and omits correct ones like 'MULTINLI' and 'MULTIFC'.",
+        "reasoning": "Expected: 13 labels. Model: 13 labels mentioned, but some are incorrect (e.g., SQUADMU, TACRED, SIFACT).",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "ACDC (green, 0.5%), ENTA (orange, 1.9%)",
-          "detail": "Labels 'ACDC' and 'ENTA' are fabricated, and 'MULTINLI' and 'MULTIFC' are missing."
+          "text_span": "SQUADMU (very small slice, 1.6%), TACRED (very small slice, 1.6%), SIFACT (very small slice, 1.6%)",
+          "detail": "The model includes fabricated labels (SQUADMU, TACRED, SIFACT) and omits correct labels (XSUMHUL, SCIFACT, ENTFA)."
         }
       },
       {
         "id": "pie_05",
-        "reasoning": "Expected: specific colors for each slice. Model provides incorrect colors for several slices, such as 'SCITAIL' and 'MULTIFC'.",
+        "reasoning": "Expected: specific colors for each slice. Model: Colors are described in vague terms (e.g., 'teal/cyan segments, orange, red/pink').",
         "coverage": {
-          "status": "complete"
+          "status": "partial",
+          "detail": "Colors are mentioned but not mapped to specific slices."
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Label Mapping",
-          "text_span": "SCITAIL (salmon/pink, 10.5%), MULTIFC (light purple, 0.5%)",
-          "detail": "Colors for 'SCITAIL' and 'MULTIFC' do not match the reference."
+          "text_span": "colored in distinct hues (including a large blue segment, teal/cyan segments, orange, red/pink, and several small green/yellow segments)",
+          "detail": "Colors are not accurately described or matched to specific slices."
         }
       },
       {
         "id": "pie_06",
-        "reasoning": "Expected: specific percentages for each slice. Model provides incorrect percentages for several slices, such as 'SCITAIL' and 'ENTA'.",
+        "reasoning": "Expected: specific percentages for each slice. Model: Some percentages are incorrect (e.g., MULTINLI, SCITAIL, ANLI).",
         "coverage": {
           "status": "complete"
         },
         "correctness": {
           "status": "wrong",
           "sub_type": "Incorrect Numerical Value",
-          "text_span": "SCITAIL (salmon/pink, 10.5%), ENTA (orange, 1.9%)",
-          "detail": "Percentages for 'SCITAIL' and 'ENTA' do not match the reference."
+          "text_span": "MULTINLI (pink/red, 9.0%), SCITAIL (salmon, 8.0%), ANLI (very small slice, 0.8%)",
+          "detail": "MULTINLI, SCITAIL, and ANLI percentages do not match the reference."
         }
       },
       {
         "id": "pie_07",
-        "reasoning": "Expected: slices are not ordered by size or clockwise. Model does not address this.",
+        "reasoning": "Expected: No specific ordering. Model: No ordering mentioned. Match.",
         "coverage": {
-          "status": "missing",
-          "detail": "No mention of slice ordering."
+          "status": "complete"
         },
         "correctness": {
-          "status": "n/a"
+          "status": "correct"
         }
       },
       {
         "id": "pie_08",
-        "reasoning": "Expected: no legend is present. Model correctly states there is no legend.",
+        "reasoning": "Expected: No legend. Model: No legend mentioned. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -338,7 +295,7 @@
       },
       {
         "id": "pie_09",
-        "reasoning": "Expected: no visual emphasis is present. Model correctly states no slices are visually emphasized.",
+        "reasoning": "Expected: No visual emphasis. Model: No visual emphasis mentioned. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -348,7 +305,7 @@
       },
       {
         "id": "pie_10",
-        "reasoning": "Expected: percentages are labeled outside the slices, beneath the segment labels. Model correctly describes this.",
+        "reasoning": "Expected: Labels and percentages outside slices. Model: Labels and percentages outside slices. Match.",
         "coverage": {
           "status": "complete"
         },
@@ -358,7 +315,7 @@
       },
       {
         "id": "pie_11",
-        "reasoning": "Expected: largest slice is 'NQ', smallest slice is 'SCIFACT'. Model does not identify the largest and smallest slices.",
+        "reasoning": "Expected: Largest slice is NQ, smallest is SCIFACT. Model: Largest and smallest slices not identified. Missing.",
         "coverage": {
           "status": "missing",
           "detail": "Largest and smallest slices not mentioned."
@@ -373,12 +330,8 @@
         "id": "global_hallucination",
         "violations": [
           {
-            "text_span": "Figure 6 presents two pie charts comparing the distribution of data sources in (left) the combined training set and (right) the AttrEval-Simulation set...",
-            "explanation": "The model fabricates the existence of a second pie chart."
-          },
-          {
-            "text_span": "ACDC (green, 0.5%), ENTA (orange, 1.9%)",
-            "explanation": "The model fabricates labels 'ACDC' and 'ENTA', which are not present in the chart."
+            "text_span": "SQUADMU (very small slice, 1.6%), TACRED (very small slice, 1.6%), SIFACT (very small slice, 1.6%)",
+            "explanation": "These labels are fabricated and do not appear in the chart."
           }
         ]
       },
@@ -438,25 +391,25 @@
           {
             "label": "MULTINLI",
             "reference_value": "11.3%",
-            "model_value": "0.5%",
+            "model_value": "9.0%",
             "match": false
           },
           {
             "label": "ANLI",
             "reference_value": "4.6%",
-            "model_value": "0.5%",
+            "model_value": "0.8%",
             "match": false
           },
           {
             "label": "FACTCC",
             "reference_value": "2.6%",
-            "model_value": "0.5%",
-            "match": false
+            "model_value": "2.6%",
+            "match": true
           },
           {
             "label": "ENTFA",
             "reference_value": "1.8%",
-            "model_value": "1.9%",
+            "model_value": "1.6%",
             "match": false
           },
           {
@@ -468,7 +421,7 @@
           {
             "label": "SCITAIL",
             "reference_value": "1.2%",
-            "model_value": "10.5%",
+            "model_value": "8.0%",
             "match": false
           },
           {
@@ -486,7 +439,7 @@
           {
             "label": "SCIFACT",
             "reference_value": "0.1%",
-            "model_value": "1.9%",
+            "model_value": "1.6%",
             "match": false
           }
         ]
@@ -503,7 +456,7 @@
           {
             "label": "FEVER",
             "reference_value": "teal",
-            "model_value": "teal",
+            "model_value": "teal/cyan",
             "match": true
           },
           {
@@ -521,13 +474,13 @@
           {
             "label": "MULTINLI",
             "reference_value": "rose",
-            "model_value": "light gray",
-            "match": false
+            "model_value": "pink/red",
+            "match": true
           },
           {
             "label": "ANLI",
             "reference_value": "orange",
-            "model_value": "yellow",
+            "model_value": "very small slice",
             "match": false
           },
           {
@@ -539,37 +492,37 @@
           {
             "label": "ENTFA",
             "reference_value": "gold",
-            "model_value": "orange",
+            "model_value": "very small slice",
             "match": false
           },
           {
             "label": "XSUMHUL",
             "reference_value": "light blue",
-            "model_value": "very light gray",
+            "model_value": "very small slice",
             "match": false
           },
           {
             "label": "SCITAIL",
             "reference_value": "light green",
-            "model_value": "salmon/pink",
+            "model_value": "salmon",
             "match": false
           },
           {
             "label": "MULTIFC",
             "reference_value": "light blue",
-            "model_value": "light purple",
+            "model_value": "very small slice",
             "match": false
           },
           {
             "label": "PUBHEALTH",
             "reference_value": "light green",
-            "model_value": "light green",
-            "match": true
+            "model_value": "very small slice",
+            "match": false
           },
           {
             "label": "SCIFACT",
             "reference_value": "light blue",
-            "model_value": "gray",
+            "model_value": "very small slice",
             "match": false
           }
         ]

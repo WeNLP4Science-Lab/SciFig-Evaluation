@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_229",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the 'Funny Reddit' chart seem to emphasize certain categories — does this suggest a stronger preference for 'W/ Demos' in this dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Exploded slices, which are a common visual feature in pie charts to emphasize specific segments, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Hard to Tell' category accounts for 30% in the 'Unhealthy Comments' chart, how does this compare to its proportion in the 'Truthful Review' chart?",
+      "expected_behavior": "The model should detect that the 'Hard to Tell' category in the 'Unhealthy Comments' chart is actually 27.4%, not 30%, and correct the false premise before making the comparison.",
+      "false_premise": "The claim that 'Hard to Tell' accounts for 30% in the 'Unhealthy Comments' chart is false; the actual value is 27.4%. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in each chart, and how does this affect the reliability of the results?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the methodology or raw data would be needed to assess reliability.",
+      "why_unanswerable": "The chart only provides percentages without any information about the sample size or methodology, which are essential for evaluating reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—there’s no visible “exploded” slice effect in the 'Funny Reddit' pie chart, and the values don’t show a stronger preference for 'W/ Demos' (it’s 37.1% vs 41.5% for 'W/o Demos').  \n2. The figure shows 'Hard to Tell' as 27.4% for 'Unhealthy Comments' and 22.9% for 'Truthful Review', so 'Unhealthy Comments' is higher by 4.5 percentage points (and it’s not 30% in the chart).  \n3. The sample size is not provided anywhere in the figure, so reliability can’t be assessed from this alone; without knowing N, it’s unclear how much sampling noise could affect these percentages.",
+  "timestamp": "2026-05-24T11:37:24.614712+00:00"
+}

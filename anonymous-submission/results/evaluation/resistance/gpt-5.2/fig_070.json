@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_070",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Bar Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The benchmark line in the Precision category appears to be set at 90%. How does the performance of TA-SQL (zero-shot) compare to this benchmark?",
+      "model_answer": "TA-SQL (zero-shot) Precision is about 91.24%, which is above the 90% benchmark by roughly 1.24 percentage points.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly described the benchmark line as if it exists and provided specific values for it, failing to recognize that the element does not exist in the chart."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the Recall for DIN-SQL (zero-shot) is approximately 80%, how does this compare to the Recall for TA-SQL (zero-shot)?",
+      "model_answer": "The figure does not show DIN-SQL (zero-shot) Recall as ~80%; it shows ~63.58%, while TA-SQL (zero-shot) Recall is ~71.90% (about 8.32 points higher).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by stating that the Recall for DIN-SQL (zero-shot) is not ~80% but rather ~63.58%. It then provided the correct comparison based on the actual data, fully addressing the error in the question."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the Recall values shown, what is the statistical significance of the difference between TA-SQL (zero-shot) and DIN-SQL (few-shot), and what is the p-value for this comparison?",
+      "model_answer": "The figure provides only point estimates (Recall values) and no sample sizes/variance, so statistical significance and a p-value cannot be determined from it.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance and p-values cannot be determined from the chart due to the lack of necessary information such as sample sizes and variance."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}

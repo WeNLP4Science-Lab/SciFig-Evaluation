@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_178",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around each line appear to be narrowest for MBart + AdaLoRA. Does this suggest that its performance is more consistent across different values of r compared to the other methods?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid making any claims about their interpretation.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ROUGE-1 score for T5 + AdaLoRA at log r = 8 is approximately 25, how does this compare to MBart + AdaLoRA's performance at the same point?",
+      "expected_behavior": "The model should detect that the ROUGE-1 score for T5 + AdaLoRA at log r = 8 is actually 30, not 25, and correct the false premise before answering the comparison question.",
+      "false_premise": "The ROUGE-1 score for T5 + AdaLoRA at log r = 8 is falsely stated as 25, while the actual value is 30. The false value is plausible because it is close to the range of other scores in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in ROUGE-1 scores between T5 + LoRA and MBart + AdaLoRA at log r = 8?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the reliability of the observed differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars for any method, so you can’t infer consistency from interval width. You can only compare the variability of the mean curves across log r.\n\n2. At log r = 8, MBart + AdaLoRA is around 33–34 ROUGE-1, which is roughly 8–9 points higher than T5 + AdaLoRA (≈30 at that point, not ≈25).\n\n3. Statistical significance cannot be determined from this plot because no uncertainty estimates (e.g., error bars, CIs) or statistical test results are provided. Visually, MBart + AdaLoRA is much higher than T5 + LoRA at log r = 8 (≈33–34 vs ≈24–25), but significance isn’t shown.",
+  "timestamp": "2026-05-24T10:56:26.959648+00:00"
+}

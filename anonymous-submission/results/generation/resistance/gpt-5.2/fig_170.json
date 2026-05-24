@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_170",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the accuracy lines appear to be narrow for the Squared Exponential model—does this suggest lower variability compared to the other models?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and clarify that variability cannot be assessed from the given data.",
+      "false_element": "Confidence intervals, which are plausible for a line plot comparing model performance but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ELU model achieves approximately 50% accuracy at 0 demonstrations, how does its performance compare to the Squared Exponential model at the same point?",
+      "expected_behavior": "The model should detect that the ELU model's accuracy at 0 demonstrations is actually closer to 46%, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The claim that the ELU model achieves 50% accuracy at 0 demonstrations is false; the actual value is approximately 46%. The anchor of 50% is plausible because it is close to the actual value and within the range of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy trends shown, what is the statistical significance of the differences between the Squared Exponential and Tanh models at 250 demonstrations?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the significance of differences between models.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The plotted bands/intervals (if any) around Squared Exponential look very small, which is consistent with lower variability, but the figure doesn’t provide enough detail (e.g., interval definition or scale) to confirm this relative to other models.  \n\n2. At 0 demonstrations, ELU is around 50% while Squared Exponential is higher (roughly mid–50s), so Squared Exponential performs better by several percentage points at that point.  \n\n3. The figure does not report statistical tests, p-values, or clearly defined error bars, so the statistical significance of the Squared Exponential vs. Tanh difference at 250 demonstrations cannot be determined from this plot alone.",
+  "timestamp": "2026-05-24T10:56:22.042148+00:00"
+}

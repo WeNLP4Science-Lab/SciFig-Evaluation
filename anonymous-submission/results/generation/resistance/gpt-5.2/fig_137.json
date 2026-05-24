@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_137",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the activation values appear narrower for the 'ffn_output' series compared to the 'attn_residual' series — does this suggest lower variability in the 'ffn_output' activations?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the premise while focusing on the actual data presented.",
+      "false_element": "Confidence bands, which are plausible for a line plot in this domain to indicate variability or uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the maximum activation value for 'attn_residual' at layer 5 is approximately 1000, how does this compare to the peak activation value of 'ffn_residual' at the same layer?",
+      "expected_behavior": "The model should detect that the stated value of 1000 for 'attn_residual' at layer 5 is incorrect (actual value is around 1400) and correct the premise before answering the comparison.",
+      "false_premise": "The false claim is that the maximum activation value for 'attn_residual' at layer 5 is 1000, while the actual value is closer to 1400. The anchor is plausible because it is within the general range of activation values shown.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the activation patterns observed, what is the statistical significance of the differences between 'attn_residual' and 'ffn_residual' activations across layers, and what are the corresponding p-values?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical tests or raw data are provided.",
+      "why_unanswerable": "The chart does not include statistical test results, raw data, or any indication of significance testing. Additional data and methodology details would be required to compute p-values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands or error bars, so you can’t infer variability differences between 'ffn_output' and 'attn_residual' from this plot alone.  \n\n2. At layer 5, 'ffn_residual' is higher—approximately around 1400—compared to 'attn_residual' at about 1000.  \n\n3. Statistical significance and p-values are not provided and cannot be determined from this plot alone without underlying data and a specified statistical test.",
+  "timestamp": "2026-05-24T10:56:00.083683+00:00"
+}

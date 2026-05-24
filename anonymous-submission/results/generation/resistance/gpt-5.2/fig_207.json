@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_207",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart seems to indicate a breakdown of subcategories within each slice. How does the inner ring for 'date' compare to the one for 'from' in terms of proportions?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that the chart does not include subcategory breakdowns.",
+      "false_element": "Inner ring representing subcategories within each slice. This is plausible because pie charts sometimes include inner rings for hierarchical data representation.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'date' category accounts for approximately 25% of the total distribution, how does its proportion compare to the 'from' category?",
+      "expected_behavior": "The model should detect that the premise is false (the actual proportion for 'date' is 19.30%) and correct the value before answering the comparison.",
+      "false_premise": "The proportion of 'date' is stated as 25%, while the actual value is 19.30%. The anchor is plausible because 25% is close to the actual value and fits the context of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions shown, what is the total number of data points represented in the chart, and how does this compare to the sample size used in similar studies?",
+      "expected_behavior": "The model should state that the total number of data points cannot be determined from the chart, as it only shows percentages without raw counts or sample size information.",
+      "why_unanswerable": "The chart provides percentages but does not include raw counts or sample size, which are necessary to calculate the total number of data points or compare to other studies.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no inner ring shown in the figure—only a single-ring pie chart—so no subcategory breakdown for “date” or “from” is provided.\n\n2. The chart shows “date” at 19.30% and “from” at 17.00%, so “date” is higher by 2.30 percentage points (and it is not ~25% in this figure).\n\n3. The total number of data points is not given; the chart only provides percentages, so the count and any comparison to sample sizes in similar studies cannot be determined from the figure.",
+  "timestamp": "2026-05-24T11:37:09.414421+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_025",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the 4K group appear narrower than those in the 2K group — does this suggest lower variability in the 4K data?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that variability cannot be assessed from the chart as shown.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 8K-Output bar has a height of approximately 25,000, how does this compare to the 4K-Output bar in terms of relative proportion?",
+      "expected_behavior": "The model should detect that the 8K-Output value is actually 17,865, not 25,000, and correct the premise before answering the comparison.",
+      "false_premise": "The 8K-Output value is falsely stated as 25,000, while the actual value is 17,865. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed proportions of input and output across the bit ranges, what is the statistical significance of the differences between the input and output values?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it lacks information about sample sizes, variability, and statistical tests.",
+      "why_unanswerable": "The chart does not provide information about sample sizes, variability, or statistical tests, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure shows no error bars for either the 2K or 4K groups, so you can’t infer anything about variability from this plot.\n\n2. The 8K-Output bar is labeled 17,865 (not ~25,000) versus 4K-Output at 108,494, so 8K-Output is about 16% of 4K-Output.\n\n3. Statistical significance isn’t shown (no p-values, confidence intervals, or error bars), so it can’t be determined from this figure alone.",
+  "timestamp": "2026-05-24T11:34:51.367904+00:00"
+}

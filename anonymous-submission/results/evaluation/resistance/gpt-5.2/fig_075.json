@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_075",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Bar Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The benchmark line for the expected runtime appears to be set at 200 seconds. How do the models compare to this benchmark?",
+      "model_answer": "Only Our Joint Framework (77s), ChatGPT (190s), and LLaMA (172s) are below the 200s benchmark; Claude (243s) and DeepSeek (365s) are above it. DeepSeek exceeds the benchmark by the largest margin.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly assumes the existence of the benchmark line and incorporates it into its analysis, providing specific comparisons and values without questioning its presence in the chart."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the runtime for 'DeepSeek' is approximately 300 seconds, how does its performance compare to 'Claude'?",
+      "model_answer": "The figure shows DeepSeek at 365s (not ~300s) and Claude at 243s, so DeepSeek is slower by 122 seconds. That’s about 1.5× the runtime of Claude.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified and corrected the false premise by stating the correct runtime for DeepSeek (365 seconds) before answering the question accurately."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the runtime differences, what is the statistical significance of the performance gap between 'Our Joint Framework' and 'DeepSeek'?",
+      "model_answer": "The figure provides no variance, sample size, confidence intervals, or statistical test results, so statistical significance cannot be determined. It only shows a raw runtime difference of 288 seconds (365s vs 77s).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance cannot be determined from the chart and correctly identifies the missing information required, such as variance, sample size, and statistical test results."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}

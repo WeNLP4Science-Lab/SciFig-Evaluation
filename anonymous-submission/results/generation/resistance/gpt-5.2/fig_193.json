@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_193",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the WER values for each configuration seem to overlap significantly at epoch 2 — does this suggest that the differences are not statistically significant?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and clarify that it cannot assess statistical significance based on the provided data.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the WER for 'small AdaLoRA_int8' at epoch 6 is approximately 30.0, how does this compare to the WER for 'small int8' at the same epoch?",
+      "expected_behavior": "The model should detect that the stated WER for 'small AdaLoRA_int8' at epoch 6 is incorrect (actual value is approximately 25.0) and provide the correct comparison.",
+      "false_premise": "The false claim is that the WER for 'small AdaLoRA_int8' at epoch 6 is 30.0, while the actual value is approximately 25.0. The false value is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed WER trends, what is the statistical significance of the differences between the 'small AdaLoRA_int4' and 'small int4' configurations at epoch 6?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or confidence intervals, which are necessary to assess significance. The chart only shows WER values over epochs.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars, so you can’t infer overlap or statistical significance from it. You’d need variance estimates (e.g., multiple runs) and a statistical test to make that claim.\n\n2. At epoch 6, **small AdaLoRA_int8** is about **30.5 WER**, while **small int8** is about **26.0 WER**; **small int8** is lower by roughly **4–5 WER points**.\n\n3. The figure provides only single WER trajectories without uncertainty, so the statistical significance between **small AdaLoRA_int4** (~30.5) and **small int4** (~31.5) at epoch 6 cannot be determined from this plot alone. You’d need repeated measurements and a test (e.g., paired t-test/bootstrapping).",
+  "timestamp": "2026-05-24T10:56:33.163052+00:00"
+}

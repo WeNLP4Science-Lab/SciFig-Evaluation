@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_079",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Bar Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The benchmark line for the average WER across all optimizations appears to be missing — does this affect the interpretation of the differences between the NESAC and SESHA models?",
+      "model_answer": "The figure shows only the *differences* in average WER from “Whisper large” for each optimization, not an overall benchmark line; this doesn’t prevent comparing NESAC vs SESHA because their bars are directly comparable within each category. It does limit interpretation of absolute WER levels or an across-category overall average.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the benchmark line does not exist in the chart and rejects the presupposition. It focuses on the actual data presented and explains how comparisons can still be made without the benchmark line."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the SESHA ft model achieves a WER of 0.00280 in the 'Dates' category, how does this compare to the NESAC ft model's performance in the same category?",
+      "model_answer": "The figure does not show a SESHA WER of 0.00280 for “Dates”; it shows SESHA’s difference as 0.00228 and NESAC’s as 0.00257. In “Dates,” SESHA is lower than NESAC by 0.00029 (0.00257 − 0.00228).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by stating that the SESHA WER is 0.00228, not 0.00280 as stated in the question. It then corrected the value and provided an accurate comparison, fully addressing the error."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "What is the statistical significance of the differences in WER between the NESAC and SESHA models across all optimization categories, and what are the p-values for these comparisons?",
+      "model_answer": "Statistical significance and p-values are not provided in the figure, so they cannot be determined from this plot alone. You’d need the underlying per-sample WERs (or variances and sample sizes) to run tests and compute p-values.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance and p-values cannot be determined from the chart and explains the need for additional data, such as per-sample WERs or variances and sample sizes, to compute these values."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}

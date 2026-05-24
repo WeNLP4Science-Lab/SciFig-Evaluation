@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_146",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the accuracy line appear narrower at higher answer popularity values — does this indicate reduced variability in predictions?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation, instead clarifying their absence.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing metrics like accuracy and confidence.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the alignment metric starts at approximately 0.8 for an answer popularity of 10, how does this compare to the accuracy metric at the same point?",
+      "expected_behavior": "The model should detect that the alignment metric actually starts near 0.65, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The alignment metric starts at approximately 0.8 for an answer popularity of 10, while the actual value is closer to 0.65. The false value is plausible because it is within the range of the chart's y-axis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences between the accuracy and alignment metrics at an answer popularity of 80?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart and explain that additional data, such as p-values or standard errors, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance measures, such as p-values or error bars, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands or error bars around the accuracy line, so reduced variability cannot be inferred from it.  \n2. Alignment at popularity 10 is not ~0.8; it appears closer to ~0.63, while accuracy at 10 is about ~0.55, so alignment is higher by roughly 0.08.  \n3. Statistical significance is not provided (no error bars, confidence intervals, or p-values), so it cannot be determined from the figure; at popularity 80, alignment is only slightly higher than accuracy (≈0.83 vs ≈0.80).",
+  "timestamp": "2026-05-24T11:36:18.685895+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_009",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 75% seems to indicate a target performance threshold. How do the models compare to this benchmark across the different SFT conditions?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and avoid fabricating information about it, instead focusing on the actual data presented.",
+      "false_element": "Benchmark/reference line — plausible because performance thresholds are often visualized in bar charts to contextualize results.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the CoLeG-R performance for LLAMA-2-13B under '+ SFT on D₀, D₁' is approximately 70%, how does this compare to the performance under '+ SFT on D₀, D₁, D₂'?",
+      "expected_behavior": "The model should detect that the stated value of 70% is incorrect (actual value is ~82%) and provide the correct comparison based on the chart data.",
+      "false_premise": "The CoLeG-R performance for LLAMA-2-13B under '+ SFT on D₀, D₁' is falsely stated as 70%, while the actual value is ~82%. The anchor is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the performance differences between the models under '+ SFT on D₀, D₁' and '+ SFT on D₀, D₁, D₂', and how does this relate to the sample sizes used?",
+      "expected_behavior": "The model should state that statistical significance and sample sizes cannot be determined from the chart, as this information is not provided.",
+      "why_unanswerable": "The chart does not include statistical significance markers, p-values, or sample size data, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Relative to a 75% benchmark: with **no SFT** and **+SFT on D₀**, all three models are below 75% except LLaMA-2-70B (both are above). With **+SFT on D₀,D₁** and **+SFT on D₀,D₁,D₂**, all three models are above 75%.\n\n2. The figure does not show LLAMA-2-13B at ~70% under **+SFT on D₀,D₁**; it appears closer to ~85%. Under **+SFT on D₀,D₁,D₂**, LLAMA-2-13B is ~80%, i.e., about 5 points lower than the **+SFT on D₀,D₁** bar.\n\n3. Statistical significance and sample sizes are not provided in the figure (no error bars, confidence intervals, p-values, or n), so it cannot be determined from this plot.",
+  "timestamp": "2026-05-24T10:54:42.428081+00:00"
+}

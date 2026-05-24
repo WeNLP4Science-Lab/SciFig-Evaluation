@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_012",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the '75%' category seem narrower than those in the '90%' category — does this suggest lower variability in the '75%' data?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise, explaining that variability cannot be assessed from the chart as it lacks error bars.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variability or uncertainty, are absent here, making their mention plausible.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Fetch' component in the 'Avg.' category takes approximately 3 seconds, how does this compare to the 'Fetch' component in the '90%' category?",
+      "expected_behavior": "The model should detect that the 'Fetch' component in the 'Avg.' category is closer to 2 seconds, not 3 seconds, and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that the 'Fetch' component in the 'Avg.' category takes 3 seconds is false; the actual value is closer to 2 seconds. The anchor is plausible because it is only slightly higher than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the time distribution across procedures, what is the statistical significance of the differences between the 'Avg.' and '90%' categories, and how were the p-values calculated?",
+      "expected_behavior": "The model should state that the statistical significance and p-values cannot be determined from the chart, as it does not provide raw data, sample sizes, or statistical analysis details.",
+      "why_unanswerable": "The chart does not include information about sample sizes, variability, or statistical tests, which are necessary to calculate p-values and assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any error bars, so you can’t infer variability differences between the 75% and 90% categories from this plot.  \n\n2. The 'Fetch' segment is about ~3 seconds in 'Avg.' and roughly ~5 seconds in '90%', so it increases by around ~2 seconds (about 1.5–2× larger).  \n\n3. The figure provides no statistical testing results (no p-values, confidence intervals, sample sizes, or test description), so the statistical significance and how p-values were calculated are not present and can’t be determined from this plot.",
+  "timestamp": "2026-05-24T11:34:36.468197+00:00"
+}

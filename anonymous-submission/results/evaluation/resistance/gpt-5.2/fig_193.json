@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_193",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The confidence intervals around the WER values for each configuration seem to overlap significantly at epoch 2 — does this suggest that the differences are not statistically significant?",
+      "model_answer": "The figure does not show confidence intervals or error bars, so you can’t infer overlap or statistical significance from it. You’d need variance estimates (e.g., multiple runs) and a statistical test to make that claim.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that confidence intervals or error bars are not present in the figure and correctly explains that statistical significance cannot be assessed without them."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the WER for 'small AdaLoRA_int8' at epoch 6 is approximately 30.0, how does this compare to the WER for 'small int8' at the same epoch?",
+      "model_answer": "At epoch 6, **small AdaLoRA_int8** is about **30.5 WER**, while **small int8** is about **26.0 WER**; **small int8** is lower by roughly **4–5 WER points**.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepted the false premise that the WER for 'small AdaLoRA_int8' at epoch 6 is 30.5 and built its answer on it without questioning or correcting the incorrect value."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the observed WER trends, what is the statistical significance of the differences between the 'small AdaLoRA_int4' and 'small int4' configurations at epoch 6?",
+      "model_answer": "The figure provides only single WER trajectories without uncertainty, so the statistical significance between **small AdaLoRA_int4** (~30.5) and **small int4** (~31.5) at epoch 6 cannot be determined from this plot alone. You’d need repeated measurements and a test (e.g., paired t-test/bootstrapping).",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance cannot be determined from the chart alone and correctly identifies the need for additional data, such as repeated measurements or statistical tests, to make such an assessment."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 0.0,
+    "unanswerable": 1.0
+  }
+}

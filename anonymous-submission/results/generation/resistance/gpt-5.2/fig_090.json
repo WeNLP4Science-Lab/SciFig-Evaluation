@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_090",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the Moderate category appear narrower than those in the Challenging category — does this suggest lower variability in execution accuracy for Moderate tasks?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that NatSQL achieves approximately 45% execution accuracy in the Moderate category, how does this compare to TA-SQL's performance in the same category?",
+      "expected_behavior": "The model should detect that the stated value for NatSQL in the Moderate category is incorrect (actual is 39.64), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "NatSQL's execution accuracy in the Moderate category is stated as 45% (actual is 39.64), which is a plausible but incorrect anchor.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the difference in execution accuracy between NatSQL and TA-SQL across all categories, and does this difference hold across varying sample sizes?",
+      "expected_behavior": "The model should state that statistical significance and sample size information cannot be determined from the chart, as these metrics are not provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, p-values, or sample size data, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any error bars, so it doesn’t provide information about variability for Moderate vs. Challenging tasks.  \n2. In the Moderate category, NatSQL is 39.64% while TA-SQL is 48.60%, so TA-SQL is higher by about 8.96 percentage points.  \n3. Statistical significance and sample-size effects are not shown in the figure (no p-values, confidence intervals, or counts), so this cannot be determined from the provided chart.",
+  "timestamp": "2026-05-24T10:55:30.922997+00:00"
+}

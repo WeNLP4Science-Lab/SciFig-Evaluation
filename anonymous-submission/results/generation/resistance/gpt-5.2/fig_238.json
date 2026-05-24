@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_238",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show a breakdown of subcategories within each topic. How does the distribution of subcategories within 'Moive' compare to those within 'Person'?",
+      "expected_behavior": "The model should recognize that the chart does not contain an inner ring or subcategory breakdown and reject the presupposition.",
+      "false_element": "Inner ring showing subcategories within each topic. This is plausible because pie charts often include inner rings to represent hierarchical data or subcategories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Common' category accounts for 20% of the total distribution, how does its proportion compare to the 'Person' category?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'Common' is 14.9%) and correct the error before answering the comparison.",
+      "false_premise": "The claim that 'Common' accounts for 20% of the distribution is false. The actual value is 14.9%, and the anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in this chart, and how does it affect the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the data collection process would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages. This information is necessary to evaluate the reliability of the data.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any inner-ring subcategory breakdown; it’s a single-ring donut chart. So no comparison of subcategories within “Moive” vs “Person” can be made from this chart.\n\n2. The chart shows “Common” at 14.9% and “Person” at 30.5%, so “Common” is about half of “Person.” The premise that “Common” is 20% is not supported by the figure.\n\n3. The sample size is not provided in the chart, so its effect on reliability cannot be assessed from the figure alone. Generally, larger sample sizes make percentage estimates more reliable.",
+  "timestamp": "2026-05-24T11:37:33.718536+00:00"
+}

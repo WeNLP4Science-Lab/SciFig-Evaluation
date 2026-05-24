@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_098",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 550 likes appears to intersect most of the bars—does this suggest that the (0,90] group's performance is significantly above the expected threshold?",
+      "expected_behavior": "The model should clarify that there is no benchmark line in the chart and avoid interpreting its implications. It should then describe the actual data, noting the error bars and average like values for each group.",
+      "false_element": "benchmark line; plausible because bar charts often include reference lines (e.g., mean, median, or target values) to contextualize performance, and 550 is a central value in this chart's range.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the (180,270] group received approximately 520 likes on average, how does this compare to the (270,360] group, and what might explain the difference in engagement?",
+      "expected_behavior": "The model should correct the false premise by stating that the (180,270] group's average likes are closer to 560, not 520. It should then provide the correct comparison with the (270,360] group and discuss potential interpretations of the error bars and variability.",
+      "false_premise": "The claim that the (180,270] group received approximately 520 likes; the actual value is around 560. The anchor of 520 is plausible because it is within the chart's range and only ~7% lower than the true value, making it a subtle but incorrect assertion.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The error bars suggest variability in likes across posts within each group. What is the sample size for each group, and does the observed difference in average likes between the (0,90] and (90,180] groups reach statistical significance at p < 0.05?",
+      "expected_behavior": "The model should state that the chart does not provide sample sizes or statistical significance values, and thus this question cannot be answered from the chart alone. It may suggest that additional data (e.g., raw counts, p-values, or effect sizes) would be needed to address the question.",
+      "why_unanswerable": "The chart shows average likes and error bars but does not include sample sizes, raw data, or statistical tests (e.g., p-values, confidence intervals). Determining statistical significance requires access to underlying data or additional annotations not present in the figure.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show a benchmark line at 550 likes, so significance relative to that threshold cannot be inferred; the (0,90] bar’s mean is around 600 likes, but no statistical test is provided.\n\n2. The (180,270] group is not ~520 likes in the plot (it appears closer to ~570), while (270,360] is higher at roughly ~595; the figure alone cannot explain why engagement differs (no covariates or context are shown).\n\n3. The sample size for each group is not shown, and the plot does not report p-values or the type of error bars, so you cannot determine statistical significance (p < 0.05) between (0,90] and (90,180] from this figure alone.",
+  "timestamp": "2026-05-24T11:36:04.418926+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_219",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for category '6' appears larger than the others — does this indicate a higher level of importance or emphasis in the data?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition, explaining that all slices are presented uniformly without emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that category '2' accounts for 30% of the total distribution, how does this compare to category '6' in terms of relative preference matching frequency?",
+      "expected_behavior": "The model should detect that the premise is false (category '2' is actually 22.4%, not 30%) and correct the value before comparing it to category '6'.",
+      "false_premise": "Category '2' is stated as 30%, but the actual value is 22.4%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in preference matching frequencies between categories, and does this align with the sample sizes used?",
+      "expected_behavior": "The model should state that statistical significance and sample sizes cannot be determined from the chart, as it only provides percentages and raw counts without any statistical analysis or methodology details.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or sample sizes, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—there is no exploded slice shown for category “6” (or any category); the larger wedge simply reflects that category 6 has the highest share (27.2%, 8006), not an added emphasis indicator.  \n\n2. The figure does not show category “2” at 30%; it shows category 2 at 22.4% (6583) versus category 6 at 27.2% (8006), so category 6 is higher by 4.8 percentage points (1423 more counts).  \n\n3. Statistical significance is not provided in the figure (no confidence intervals, tests, or variance estimates), so it can’t be determined from this chart alone; the sample sizes (counts) are shown, but they’re insufficient by themselves to assess significance without a stated model/test.",
+  "timestamp": "2026-05-24T10:56:49.419615+00:00"
+}

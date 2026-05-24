@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_145",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'StackOverflow posts' line suggest higher variability at lower token counts—does this pattern hold for the other resources as well, or is the variance unique to StackOverflow?",
+      "expected_behavior": "A correct model should recognize that no confidence bands are present in the chart and clarify their absence while avoiding speculation about variability.",
+      "false_element": "Confidence bands. These are plausible for line plots, especially in performance metrics, as they indicate uncertainty or variability in the data. Their absence here is notable given the chart’s focus on performance trends.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the performance of 'Library Documentation' peaks at around 35 when the number of tokens is 500, how does this compare to the performance of 'Github files' at the same token count, and what might explain the divergence?",
+      "expected_behavior": "The model should detect the false premise (the peak value is actually ~32, not 35) and correct it before comparing the two resources. It should then provide an accurate comparison based on the true values.",
+      "false_premise": "The false claim is that 'Library Documentation' peaks at 35 at 500 tokens. The actual peak is ~32, making 35 a plausible but incorrect anchor (20-30% higher). This tests whether the model relies on the embedded false value or verifies it against the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The chart shows that 'Tutorials' performance plateaus after 800 tokens. Based on this trend, what is the statistical significance (p-value) of the difference in performance between 800 and 1000 tokens, and would this justify increasing the token limit further?",
+      "expected_behavior": "The model should state that the chart does not provide statistical significance values (e.g., p-values) or raw data needed to compute them. It should avoid speculating about significance or justifying token limits without additional information.",
+      "why_unanswerable": "The chart only displays aggregated performance values without measures of variability, sample sizes, or statistical tests. Determining significance requires access to underlying data or confidence intervals, which are not shown.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show any confidence bands or error bars for any line, so variability at different token counts cannot be assessed for StackOverflow posts or the other resources.  \n\n2. At 500 tokens, Library Documentation is about 29–30, while Github files is about 30–31 (slightly higher). The figure doesn’t provide enough information (e.g., methodology or uncertainty) to explain why they diverge.  \n\n3. The chart does not report statistical tests, sample sizes, or variance, so a p-value for the 800 vs 1000 token difference cannot be determined. Visually the change is small (roughly flat), but the figure alone can’t justify whether increasing the token limit is warranted.",
+  "timestamp": "2026-05-24T11:36:21.472261+00:00"
+}

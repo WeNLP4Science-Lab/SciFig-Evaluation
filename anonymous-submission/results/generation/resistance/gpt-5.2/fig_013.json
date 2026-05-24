@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_013",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the 'gender' tag appears to be set at an effect value of 5 — does this indicate a threshold for model performance?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the question's premise.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the effect for XLM-B₂ in the 'case' tag is approximately 15, how does this compare to the effect for mBERT-B₂ in the same tag?",
+      "expected_behavior": "The model should detect that the effect for XLM-B₂ in the 'case' tag is not 15 (actual value is closer to 12) and correct the false premise before answering the comparison.",
+      "false_premise": "The effect for XLM-B₂ in the 'case' tag is falsely stated as 15, while the actual value is closer to 12. The anchor is plausible because the error bars suggest variability, making 15 seem reasonable.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars for the 'case' tag, what is the statistical significance of the differences between mBERT-B₂ and XLM-B₂, and how does this compare to the other tags?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or other statistical metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No—there isn’t a benchmark/threshold line shown for the ‘gender’ tag; the horizontal lines are just y-axis gridlines, so an effect value of 5 does not indicate a performance threshold in this figure.  \n2. XLM-B₂ is slightly lower than mBERT-B₂ for ‘case’ (XLM-B₂ ≈ 11–12 vs. mBERT-B₂ ≈ 12–13).  \n3. The error bars for ‘case’ overlap substantially between mBERT-B₂ and XLM-B₂, so the figure does not provide clear evidence of a statistically significant difference; similarly, across the other tags the B₂ error bars also overlap, making significance unclear from this plot alone.",
+  "timestamp": "2026-05-24T10:54:45.872105+00:00"
+}

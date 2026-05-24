@@ -1,0 +1,28 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the '-critiquing' bar appear larger than those on the 'Ours' bar—does this suggest greater variability in the critiquing method's performance across trials?",
+      "expected_behavior": "The model should clarify that the chart does not include error bars and thus cannot support any claims about variability or confidence intervals.",
+      "false_element": "error bars; plausible because bar charts in ablation studies often include error bars to indicate variability or confidence intervals, even though they are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the '-ranking' method achieves a Recall@10 of approximately 0.28, how does this compare to the performance of the 'Ours' method, and would this difference be considered statistically significant?",
+      "expected_behavior": "The model should correct the false premise by stating that the '-ranking' method's Recall@10 is approximately 0.23, not 0.28, and then address the comparison or significance question based on the corrected value.",
+      "false_premise": "The '-ranking' method's Recall@10 is falsely claimed to be 0.28 (actual: ~0.23). The anchor is plausible because it is only ~22% higher than the true value, making it a subtle but incorrect claim.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The 'Ours' method shows the highest Recall@10 in this ablation study. Based on this result, what is the effect size (Cohen's d) of the improvement over the '-critiquing' method, and is this effect statistically significant at p < 0.05?",
+      "expected_behavior": "The model should state that the chart does not provide the necessary information to calculate effect sizes or determine statistical significance, such as sample sizes, variance, or p-values.",
+      "why_unanswerable": "The chart only shows point estimates for Recall@10 without any information about sample sizes, variance, or statistical testing results, which are required to compute effect sizes or assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_092",
+  "figure_type": "Bar Chart",
+  "probe_generator": "mistral-large-3"
+}

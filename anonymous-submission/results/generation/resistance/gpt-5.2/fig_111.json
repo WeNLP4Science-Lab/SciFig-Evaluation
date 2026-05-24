@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_111",
+  "model_name": "gpt-5.2",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines for 'MEMIT' and 'ROME' appear narrower than those for 'IKE'—does this suggest lower variability in their performance?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence intervals, which are plausible for a line plot comparing methods but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Base' method achieves an accuracy of approximately 40% at a Co-occurrence Number of 10^3, how does this compare to the performance of 'ROME' at the same point?",
+      "expected_behavior": "The model should detect that the stated accuracy for 'Base' is incorrect (actual value is ~33%) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Base' achieves 40% accuracy at 10^3, while the actual value is ~33%. The anchor is plausible because it is close to the range of other methods.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in accuracy between 'MEMIT' and 'ROME' at a Co-occurrence Number of 10^3?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or error bars, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals or error bars for MEMIT, ROME, or IKE, so you can’t infer relative variability from this plot.\n\n2. The Base method is not ~40% at 10^3; it’s about ~32%. At the same point, ROME is about ~58–59%, roughly ~26–27 percentage points higher than Base.\n\n3. Statistical significance cannot be determined from this figure because no uncertainty estimates (e.g., error bars, confidence intervals) or statistical test results are provided; visually, ROME is higher than MEMIT by about ~12–13 points at 10^3.",
+  "timestamp": "2026-05-24T11:35:50.795420+00:00"
+}
