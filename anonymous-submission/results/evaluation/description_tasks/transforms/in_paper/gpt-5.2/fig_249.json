@@ -1,0 +1,362 @@
+{
+  "figure_id": "fig_249",
+  "model_name": "gpt-5.2",
+  "transform": "in_paper",
+  "figure_type": "Pie Chart",
+  "judge_model": "gpt-4o",
+  "num_items": 11,
+  "num_penalties_raw": 6,
+  "num_penalties_deduped": 4,
+  "total_penalty_raw": 27.0,
+  "total_penalty_deduped": 17.0,
+  "mqm_raw": 27.03,
+  "mqm_deduped": 54.05,
+  "penalties_raw": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "global_hallucination",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The chart does not mention 'Agency A'.",
+      "text_span": "for Agency A"
+    },
+    {
+      "id": "pie_03",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The chart contains only two slices, not three.",
+      "text_span": "it contains three slices"
+    },
+    {
+      "id": "pie_04",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "global_hallucination",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The chart does not include 'Article editing'.",
+      "text_span": "and a very thin slice is labeled 'Article editing (0.0%)'"
+    },
+    {
+      "id": "pie_07",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "The arrangement of slices is not described."
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The chart does not mention 'Agency A'.",
+      "text_span": "for Agency A"
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The chart does not include 'Article editing'.",
+      "text_span": "and a very thin slice is labeled 'Article editing (0.0%)'"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "global_hallucination",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The chart does not mention 'Agency A'.",
+      "text_span": "for Agency A"
+    },
+    {
+      "id": "pie_03",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The chart contains only two slices, not three.",
+      "text_span": "it contains three slices"
+    },
+    {
+      "id": "pie_04",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "global_hallucination",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The chart does not include 'Article editing'.",
+      "text_span": "and a very thin slice is labeled 'Article editing (0.0%)'"
+    },
+    {
+      "id": "pie_07",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "The arrangement of slices is not described."
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "donut-style pie chart"
+      },
+      "pie_02": {
+        "expected": "The chart represents the distribution of task types, titled 'Task Type'."
+      },
+      "pie_03": {
+        "expected": 2
+      },
+      "pie_04": {
+        "expected": [
+          "Article generation",
+          "Headline generation"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "Article generation": "red",
+          "Headline generation": "yellow"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "Article generation": "83.2%",
+          "Headline generation": "16.8%"
+        }
+      },
+      "pie_07": {
+        "expected": "Slices are arranged in descending order by size."
+      },
+      "pie_08": {
+        "expected": "No legend is included."
+      },
+      "pie_09": {
+        "expected": "No visual emphasis is present."
+      },
+      "pie_10": {
+        "expected": "Percentage labels are placed outside each slice."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "Article generation",
+          "smallest": "Headline generation"
+        }
+      }
+    },
+    "checklist": [
+      {
+        "id": "pie_01",
+        "reasoning": "Expected: donut-style pie chart. Model correctly identifies it as a donut-style pie chart.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_02",
+        "reasoning": "Expected: The chart represents the distribution of task types, titled 'Task Type'. Model states: 'represents the distribution of task types for Agency A, labeled 'Task Type'.' The addition of 'Agency A' is fabricated.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "global_hallucination",
+          "text_span": "for Agency A",
+          "detail": "The chart does not mention 'Agency A'."
+        }
+      },
+      {
+        "id": "pie_03",
+        "reasoning": "Expected: 2 slices. Model states: 'it contains three slices.' This is incorrect as the chart only has two slices.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "it contains three slices",
+          "detail": "The chart contains only two slices, not three."
+        }
+      },
+      {
+        "id": "pie_04",
+        "reasoning": "Expected: 'Article generation' and 'Headline generation'. Model mentions these but also fabricates 'Article editing'.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "global_hallucination",
+          "text_span": "and a very thin slice is labeled 'Article editing (0.0%)'",
+          "detail": "The chart does not include 'Article editing'."
+        }
+      },
+      {
+        "id": "pie_05",
+        "reasoning": "Expected: 'Article generation' is red, 'Headline generation' is yellow. Model correctly identifies these colors.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_06",
+        "reasoning": "Expected: 'Article generation' = 83.2%, 'Headline generation' = 16.8%. Model correctly states these values.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_07",
+        "reasoning": "Expected: Slices are arranged in descending order by size. Model does not mention this.",
+        "coverage": {
+          "status": "missing",
+          "detail": "The arrangement of slices is not described."
+        },
+        "correctness": {
+          "status": "n/a"
+        }
+      },
+      {
+        "id": "pie_08",
+        "reasoning": "Expected: No legend is included. Model correctly states that no legend is present.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_09",
+        "reasoning": "Expected: No visual emphasis is present. Model correctly states that no slices are visually emphasized.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_10",
+        "reasoning": "Expected: Percentage labels are placed outside each slice. Model correctly states this.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_11",
+        "reasoning": "Expected: Largest = 'Article generation', Smallest = 'Headline generation'. Model correctly identifies these.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": [
+          {
+            "text_span": "for Agency A",
+            "explanation": "The chart does not mention 'Agency A'."
+          },
+          {
+            "text_span": "and a very thin slice is labeled 'Article editing (0.0%)'",
+            "explanation": "The chart does not include 'Article editing'."
+          }
+        ]
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "Article generation",
+            "reference_value": "83.2%",
+            "model_value": "83.2%",
+            "match": true
+          },
+          {
+            "label": "Headline generation",
+            "reference_value": "16.8%",
+            "model_value": "16.8%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "Article generation",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "Headline generation",
+            "reference_value": "yellow",
+            "model_value": "yellow",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}
