@@ -1,0 +1,40 @@
+% !TEX root = ../main.tex
+\subsection{Dataset}
+\label{sec:dataset}
+
+\textsc{SciFig-Eval} comprises 250 English-language scientific figures extracted from arXiv papers, spanning bar charts (99), line plots (99), and pie charts (52). Each figure is paired with a structured expert annotation describing axes, data series, labels, color mappings, and trends, verified against the original PDF context. We additionally record source page numbers and verified figure numbers, enabling in-paper evaluation where the model receives the full PDF page.
+
+\paragraph{Evaluation subsets.}
+From the 250-figure pool, we construct a primary subset of 100 figures (40 bar, 40 line, 20 pie) via stratified random sampling (seed$=$42), and a nested ablation subset of 50 figures (20/20/10) for probe-designer independence studies (\S\ref{sec:ablation}).
+
+\paragraph{Adversarial stimuli.}
+We construct four categories targeting distinct behavioral dimensions: \emph{resistance probes} (250 figures, three types per figure grounded in cognitive science), \emph{caption bias probes} (100 figures with modified captions embedding 2--3 false claims), \emph{admittance blur} (50 figures with unrecoverable elements selectively blurred), and \emph{inductance blur} (48 figures with context-inferable elements blurred). Selective blur candidates were identified through multi-model consensus and confirmed via human review on a purpose-built dashboard. Full construction details appear in Appendix~\ref{sec:dataset-details}.
+
+% ── Table 1: Dataset statistics ──
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Component} & \textbf{Count} \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Figure corpus}} \\
+\quad Bar charts & 99 \\
+\quad Line plots & 99 \\
+\quad Pie charts & 52 \\
+\quad Total figures & 250 \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Evaluation subsets}} \\
+\quad Primary subset (40/40/20) & 100 \\
+\quad Ablation subset (20/20/10) & 50 \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Adversarial stimuli}} \\
+\quad Resistance probes & 250 \\
+\quad Caption bias probes & 100 \\
+\quad Admittance blur candidates & 50 \\
+\quad Inductance blur candidates & 48 \\
+\bottomrule
+\end{tabular}
+\caption{Dataset statistics for \textsc{SciFig-Eval}. The figure corpus spans three chart types drawn from arXiv papers. Evaluation subsets are stratified samples (seed$=$42). Adversarial stimuli target distinct behavioral dimensions of the A-R-I framework.}
+\label{tab:dataset}
+\end{table}

@@ -1,0 +1,465 @@
+{
+  "figure_id": "fig_178",
+  "model_name": "qwen3-vl-30b-a3b",
+  "transform": "in_paper",
+  "figure_type": "Line Plot",
+  "judge_model": "gpt-4o",
+  "num_items": 15,
+  "num_penalties_raw": 3,
+  "num_penalties_deduped": 3,
+  "total_penalty_raw": 9.0,
+  "total_penalty_deduped": 9.0,
+  "mqm_raw": 82.35,
+  "mqm_deduped": 82.35,
+  "penalties_raw": [
+    {
+      "id": "line_09",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Line styles not explicitly mentioned."
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/4 elements mismatched. T5 + AdaLoRA: model={'start': 24, 'end': 31} ref={'start': 23, 'end': 30}; MBart + AdaLoRA: model={'start': 5, 'peak': 34, 'end': 34} ref={'start': 5, 'peak': 32, 'end': 33}",
+      "text_span": ""
+    },
+    {
+      "id": "line_12",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model describes MBart + LoRA as non-monotonic but misses the final stable trend.",
+      "text_span": "MBart + LoRA line shows a significant increase, starting at a score of 5, dropping to a minimum of 3 at log $ r $ = 2, then rising sharply to a peak of 25 at log $ r $ = 4, and slightly decreasing to 24 at log $ r $ = 8."
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "line_09",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "Line styles not explicitly mentioned."
+    },
+    {
+      "id": "line_11",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 2/4 elements mismatched. T5 + AdaLoRA: model={'start': 24, 'end': 31} ref={'start': 23, 'end': 30}; MBart + AdaLoRA: model={'start': 5, 'peak': 34, 'end': 34} ref={'start': 5, 'peak': 32, 'end': 33}",
+      "text_span": ""
+    },
+    {
+      "id": "line_12",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model describes MBart + LoRA as non-monotonic but misses the final stable trend.",
+      "text_span": "MBart + LoRA line shows a significant increase, starting at a score of 5, dropping to a minimum of 3 at log $ r $ = 2, then rising sharply to a peak of 25 at log $ r $ = 4, and slightly decreasing to 24 at log $ r $ = 8."
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "line plot"
+      },
+      "line_02": {
+        "expected": "X-axis labeled 'log r' with no units"
+      },
+      "line_03": {
+        "expected": "Linear scale, range 0 to 8, tick intervals of 2"
+      },
+      "line_04": {
+        "expected": "Y-axis labeled 'ROUGE-1' with no units"
+      },
+      "line_05": {
+        "expected": "Linear scale, range 0 to 35, tick intervals of 5"
+      },
+      "line_06": {
+        "expected": [
+          "T5 + LoRA",
+          "MBart + LoRA",
+          "T5 + AdaLoRA",
+          "MBart + AdaLoRA"
+        ]
+      },
+      "line_07": {
+        "expected": "Legend maps colors and markers to series: red (T5 + LoRA), blue (MBart + LoRA), green (T5 + AdaLoRA), yellow (MBart + AdaLoRA)"
+      },
+      "line_08": {
+        "expected": {
+          "T5 + LoRA": "red",
+          "MBart + LoRA": "blue",
+          "T5 + AdaLoRA": "green",
+          "MBart + AdaLoRA": "yellow"
+        }
+      },
+      "line_09": {
+        "expected": "All lines are solid"
+      },
+      "line_10": {
+        "expected": "All lines use circular markers"
+      },
+      "line_11": {
+        "expected": {
+          "T5 + LoRA": {
+            "start": 23,
+            "end": 25
+          },
+          "MBart + LoRA": {
+            "start": 5,
+            "min": 3,
+            "end": 24
+          },
+          "T5 + AdaLoRA": {
+            "start": 23,
+            "end": 30
+          },
+          "MBart + AdaLoRA": {
+            "start": 5,
+            "peak": 32,
+            "end": 33
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "T5 + LoRA": "stable",
+          "MBart + LoRA": "non-monotonic",
+          "T5 + AdaLoRA": "increasing",
+          "MBart + AdaLoRA": "increasing"
+        }
+      },
+      "line_13": {
+        "expected": "No crossover points"
+      },
+      "line_14": {
+        "expected": "No annotations"
+      },
+      "line_15": {
+        "expected": "No dual y-axes"
+      }
+    },
+    "checklist": [
+      {
+        "id": "line_01",
+        "reasoning": "Expected: line plot. Model correctly identifies this as a line plot.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_02",
+        "reasoning": "Expected: X-axis labeled 'log r' with no units. Model states: 'log r', matching the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_03",
+        "reasoning": "Expected: Linear scale, range 0 to 8, tick intervals of 2. Model states: 'ranges from 0 to 8 with major tick marks at intervals of 2', matching the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_04",
+        "reasoning": "Expected: Y-axis labeled 'ROUGE-1' with no units. Model states: 'ROUGE-1', matching the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_05",
+        "reasoning": "Expected: Linear scale, range 0 to 35, tick intervals of 5. Model states: 'ranges from 0 to 35 with major tick marks at intervals of 5', matching the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_06",
+        "reasoning": "Expected: Four series (T5 + LoRA, MBart + LoRA, T5 + AdaLoRA, MBart + AdaLoRA). Model mentions all four series.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_07",
+        "reasoning": "Expected: Legend maps colors and markers to series. Model correctly describes the legend mappings.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_08",
+        "reasoning": "Expected: T5 + LoRA (red), MBart + LoRA (blue), T5 + AdaLoRA (green), MBart + AdaLoRA (yellow). Model matches all colors.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_09",
+        "reasoning": "Expected: All lines are solid. Model does not explicitly state this, but no alternative line styles are mentioned.",
+        "coverage": {
+          "status": "partial",
+          "detail": "Line styles not explicitly mentioned."
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_10",
+        "reasoning": "Expected: All lines use circular markers. Model states: 'red circles', 'blue circles', 'green circles', 'orange circles', matching the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_11",
+        "reasoning": "Expected: Numerical values for start, end, peaks, and troughs. Model values for MBart + AdaLoRA peak (34) and T5 + AdaLoRA end (31) differ from reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "rises sharply to a score of 34 at log $ r $ = 4, and remains stable at that level for higher values of $ r $",
+          "detail": "Model states MBart + AdaLoRA peak is 34, but reference states 32."
+        }
+      },
+      {
+        "id": "line_12",
+        "reasoning": "Expected: Trends for all series. Model trends for MBart + LoRA and MBart + AdaLoRA differ from reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Trend Interpretation",
+          "text_span": "MBart + LoRA line shows a significant increase, starting at a score of 5, dropping to a minimum of 3 at log $ r $ = 2, then rising sharply to a peak of 25 at log $ r $ = 4, and slightly decreasing to 24 at log $ r $ = 8.",
+          "detail": "Model describes MBart + LoRA as non-monotonic but misses the final stable trend."
+        }
+      },
+      {
+        "id": "line_13",
+        "reasoning": "Expected: No crossover points. Model does not mention any crossover points.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_14",
+        "reasoning": "Expected: No annotations. Model does not mention any annotations.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_15",
+        "reasoning": "Expected: No dual y-axes. Model does not mention any dual y-axes.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "T5 + LoRA",
+            "reference_value": {
+              "start": 23,
+              "end": 25
+            },
+            "model_value": {
+              "start": 24,
+              "end": 25
+            },
+            "match": true
+          },
+          {
+            "label": "MBart + LoRA",
+            "reference_value": {
+              "start": 5,
+              "min": 3,
+              "end": 24
+            },
+            "model_value": {
+              "start": 5,
+              "min": 3,
+              "end": 24
+            },
+            "match": true
+          },
+          {
+            "label": "T5 + AdaLoRA",
+            "reference_value": {
+              "start": 23,
+              "end": 30
+            },
+            "model_value": {
+              "start": 24,
+              "end": 31
+            },
+            "match": false
+          },
+          {
+            "label": "MBart + AdaLoRA",
+            "reference_value": {
+              "start": 5,
+              "peak": 32,
+              "end": 33
+            },
+            "model_value": {
+              "start": 5,
+              "peak": 34,
+              "end": 34
+            },
+            "match": false
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "T5 + LoRA",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "MBart + LoRA",
+            "reference_value": "blue",
+            "model_value": "blue",
+            "match": true
+          },
+          {
+            "label": "T5 + AdaLoRA",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "MBart + AdaLoRA",
+            "reference_value": "yellow",
+            "model_value": "orange",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "T5 + LoRA",
+            "reference_value": "stable",
+            "model_value": "stable",
+            "match": true
+          },
+          {
+            "label": "MBart + LoRA",
+            "reference_value": "non-monotonic",
+            "model_value": "non-monotonic",
+            "match": true
+          },
+          {
+            "label": "T5 + AdaLoRA",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          },
+          {
+            "label": "MBart + AdaLoRA",
+            "reference_value": "increasing",
+            "model_value": "increasing",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}

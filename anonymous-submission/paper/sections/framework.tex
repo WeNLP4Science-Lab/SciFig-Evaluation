@@ -1,0 +1,76 @@
+%!TEX root = ../main.tex
+\section{Evaluation Framework}
+\label{sec:framework}
+
+We organize \textsc{SciFig-Eval} around two complementary axes of evaluation: \emph{what} a model communicates (open-ended description vs.\ targeted question answering) and \emph{how} the model behaves under pressure (standard vs.\ adversarial conditions). This yields a $2\!\times\!2$ evaluation matrix (Table~\ref{tab:eval-matrix}) that structures every experiment in the benchmark.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{@{}lp{3.1cm}p{3.1cm}@{}}
+\toprule
+ & \textbf{Standard} & \textbf{Adversarial} \\
+\midrule
+\textbf{Description} & Baseline MQM & Caption bias, passive admittance / inductance \\
+\textbf{Reasoning}    & Capability Qs & Resistance probes, active admittance / inductance \\
+\bottomrule
+\end{tabular}
+\caption{The $2\!\times\!2$ evaluation matrix. Each cell measures a distinct aspect of VLM competence on scientific figures. Standard conditions assess quality; adversarial conditions expose behavioral reliability.}
+\label{tab:eval-matrix}
+\end{table}
+
+Under standard conditions, we measure description quality through checklist-based MQM scoring and reasoning ability through targeted capability questions (counting, computation, comparison, pattern analysis). Under adversarial conditions, we probe behavioral reliability: whether a model echoes false captions, accepts non-existent chart elements, or fabricates answers for information it cannot see. A key empirical observation motivating this design is that rankings under standard conditions diverge substantially from rankings under adversarial conditions, suggesting that quality and reliability are distinct dimensions of model competence.
+
+\subsection{Checklist-Based MQM Evaluation}
+\label{sec:mqm}
+
+We evaluate open-ended descriptions using a chart-type-specific variant of the Multidimensional Quality Metrics (MQM) framework. Each chart type has a dedicated checklist: 14~items for bar charts, 15~for line plots, and 11~for pie charts. Items cover structural identification (chart type, orientation, grouping), axis and legend accuracy, numerical correctness, and visual element description. Each item is classified as \emph{Major} or \emph{Minor} based on its impact on figure comprehension.
+
+An LLM judge (GPT-4o) assesses each checklist item on two axes: \emph{coverage} (complete, partial, or missing) and \emph{correctness} (correct, partial, wrong, or n/a), then scans for violations of seven global constraints. A rule-based engine maps judge output to penalties across three dimensions---Accuracy, Completeness, and Clarity---with severity-dependent weights (full weight table in Appendix~\ref{sec:mqm-details}). The final MQM score normalizes total penalties against a severity-adjusted maximum:
+\begin{equation}
+\text{MQM} = \max\!\Bigl(0,\; 100 - \frac{\sum_{i} w_i}{D} \times 100\Bigr)
+\label{eq:mqm}
+\end{equation}
+
+\noindent where $w_i$ is the weight of penalty~$i$ and $D$ is the maximum possible penalty given the checklist composition.
+
+Two mechanisms guard against scoring artifacts: \emph{binding verification} cross-checks element-level value--label--colour correspondences, escalating any mismatch to a Major error; and a \emph{deduplication engine} collapses overlapping penalties from global constraints and checklist items. Automated MQM rankings achieve a Spearman correlation of $\rho = 1.0$ with human expert rankings, confirming that the approach preserves human judgment at scale.
+
+\subsection{Caption Bias Probes}
+\label{sec:caption-bias}
+
+Caption bias probes test whether a model trusts its own visual perception over misleading textual context. For each figure, we generate a modified caption containing exactly 2--3 embedded false claims, following a set of psychology-informed design principles. The \emph{70/30 rule} ensures that roughly 70\% of the modified caption is verifiably correct, establishing trust before introducing poisoned claims. False numerical values occupy an \emph{anchoring sweet spot} of 20--40\% deviation from actual values---close enough to be plausible, far enough to be clearly falsifiable by visual inspection \citep{tversky1974judgment}. Claims target secondary details rather than dominant features (\emph{peripheral misinformation}), and framing employs \emph{loaded verbs} that subtly mischaracterize trends (e.g., ``declined'' vs.\ ``stabilized'').
+
+Each model generates a description given the figure image and the modified caption. An LLM judge then evaluates each false claim independently through a randomized A/B design: for each modification, the judge receives the claim and the ground-truth reality in randomized order (A or B) and determines which the model's description aligns with, eliminating position bias. The \emph{caption bias resistance score} is:
+\begin{equation}
+R_{\text{caption}} = \frac{n_{\text{image}}}{n_{\text{image}} + n_{\text{caption}}}
+\label{eq:caption-bias}
+\end{equation}
+
+\noindent where $n_{\text{image}}$ is the number of claims where the model followed visual evidence and $n_{\text{caption}}$ is the number where it echoed the false caption.
+
+\subsection{Hallucination Resistance Probes}
+\label{sec:resistance}
+
+We design three probe types grounded in cognitive science to test whether models can resist fabricating information under adversarial questioning.
+
+\paragraph{Inexist probes} use \emph{presupposition embedding} \citep{loftus1975leading}: definite articles (``the error bars,'' ``the regression line'') presuppose the existence of chart elements that are absent. The false element is embedded in a subordinate clause, directing attention to an analytical question \emph{about} the element rather than \emph{whether} it exists, exploiting co-occurrence priors for the chart type.
+
+\paragraph{Contra probes} exploit \emph{anchoring bias} \citep{tversky1974judgment}: a specific but incorrect numerical value (20--30\% off) is embedded as a premise, and the model is asked to build upon it (e.g., compute a comparison). The model must first detect the false anchor, then correct it---substantially harder than reading a value directly.
+
+\paragraph{Unanswerable probes} leverage \emph{conversational implicature} \citep{grice1975logic}: domain-appropriate questions (requesting $p$-values, sample sizes, or projections beyond the plotted range) sound like legitimate analytical follow-ups but cannot be answered from the chart alone. Refusal is costly because the question sounds helpful and reasonable.
+
+Each probe response is scored on a three-point rubric: 1.0~(correctly resists), 0.5~(hedges but partially complies), and 0.0~(fully accepts the false premise or fabricates an answer). The aggregate \emph{resistance score} averages across all probes per model.
+
+\subsection{The A-R-I Behavioral Framework}
+\label{sec:ari}
+
+The evaluation components described above feed into a unified behavioral theory that decomposes model behavior into three independently measurable dimensions, which we term the \emph{A-R-I framework}.
+
+\paragraph{Admittance} measures whether a model acknowledges visual limitations---the inverse of confident fabrication. We assess admittance both passively (does the model's open-ended description mention blurred or unreadable elements?) and actively (when asked a targeted question about a selectively blurred element, does the model admit uncertainty?). Active admittance evaluation uses a judge that independently scores two binary dimensions: whether the model \emph{admits} uncertainty and whether it \emph{fabricates} a specific answer. A model can do both simultaneously (e.g., ``the label is obscured but appears to be X''), and this decomposition captures important behavioral nuance.
+
+\paragraph{Resistance} measures a model's ability to push back against misleading inputs. This dimension aggregates the hallucination resistance probes (\S\ref{sec:resistance}) and caption bias probes (\S\ref{sec:caption-bias}), capturing whether the model prioritizes its own visual evidence over authoritative-sounding but false textual context.
+
+\paragraph{Inductance} measures whether a model can infer missing information from surrounding context. When a chart element is selectively blurred, some elements remain recoverable through contextual reasoning (e.g., a bar label inferable from axis patterns or legend entries), while others are genuinely unrecoverable. We assess inductance through the same selective blur methodology used for admittance, but focus on the \emph{correctness} of fabricated answers. When a model fabricates an answer for an inferable element, correctness validates whether genuine reasoning occurred or whether the output was a lucky guess. This distinction is empirically validated: models achieve 21--81\% correctness on inferable elements versus 0--14\% on non-inferable elements, confirming that inductance captures real reasoning rather than noise.
+
+\paragraph{Independence of dimensions.} We observe empirically that A-R-I dimensions capture distinct behavioral properties. A model can excel at admittance while failing at inductance, or exhibit high resistance while fabricating answers for elements it cannot see. Empirically, the highest-scoring model on MQM admits visual limitations only 6\% of the time, while the second-ranked model admits 90\%---a divergence invisible to quality-only benchmarks. Implementation details for selective blur appear in Appendix~\ref{sec:blur-details}.

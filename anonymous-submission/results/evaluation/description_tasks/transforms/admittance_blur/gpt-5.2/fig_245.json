@@ -1,0 +1,338 @@
+{
+  "figure_id": "fig_245",
+  "model_name": "gpt-5.2",
+  "transform": "admittance_blur",
+  "figure_type": "Pie Chart",
+  "judge_model": "gpt-4o",
+  "num_items": 11,
+  "num_penalties_raw": 4,
+  "num_penalties_deduped": 3,
+  "total_penalty_raw": 11.0,
+  "total_penalty_deduped": 9.0,
+  "mqm_raw": 70.27,
+  "mqm_deduped": 75.68,
+  "penalties_raw": [
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/3 elements mismatched. EDGE_P2P: model=green ref=blue",
+      "text_span": ""
+    },
+    {
+      "id": "pie_06",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model mislabels the largest slice as EDGE_P2P instead of LOCAL.",
+      "text_span": "The largest slice is labeled “EDGE_P2P,” colored green, and occupies approximately 94.5% of the chart"
+    },
+    {
+      "id": "pie_07",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "The model does not address the ordering of slices."
+    },
+    {
+      "id": "pie_11",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The model misidentifies the largest slice as EDGE_P2P instead of LOCAL.",
+      "text_span": "The largest slice is labeled “EDGE_P2P,” colored green"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/3 elements mismatched. EDGE_P2P: model=green ref=blue",
+      "text_span": ""
+    },
+    {
+      "id": "pie_06",
+      "category": "Accuracy",
+      "severity": "Major",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 5.0,
+      "source": "checklist_correctness",
+      "detail": "The model mislabels the largest slice as EDGE_P2P instead of LOCAL.",
+      "text_span": "The largest slice is labeled “EDGE_P2P,” colored green, and occupies approximately 94.5% of the chart"
+    },
+    {
+      "id": "pie_07",
+      "category": "Completeness",
+      "severity": "Minor",
+      "sub_type": "Missing Key Information",
+      "weight": 2.0,
+      "source": "checklist_coverage",
+      "detail": "The model does not address the ordering of slices."
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "pie chart"
+      },
+      "pie_02": {
+        "expected": "The chart shows the token routing distribution for FedHLM."
+      },
+      "pie_03": {
+        "expected": "3 slices"
+      },
+      "pie_04": {
+        "expected": [
+          "LOCAL",
+          "LLM",
+          "EDGE_P2P"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "LOCAL": "green",
+          "LLM": "red",
+          "EDGE_P2P": "blue"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "LOCAL": "94.5%",
+          "LLM": "3.9%",
+          "EDGE_P2P": "1.6%"
+        }
+      },
+      "pie_07": {
+        "expected": "Slices are not ordered by size."
+      },
+      "pie_08": {
+        "expected": "No legend is present."
+      },
+      "pie_09": {
+        "expected": "No slices are visually emphasized."
+      },
+      "pie_10": {
+        "expected": "Percentage labels are displayed inside the slices."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "LOCAL",
+          "smallest": "EDGE_P2P"
+        }
+      }
+    },
+    "checklist": [
+      {
+        "id": "pie_01",
+        "reasoning": "Expected: pie chart. Model correctly identifies the chart as a pie chart.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_02",
+        "reasoning": "Expected: The chart shows the token routing distribution for FedHLM. Model describes the chart as depicting token distribution across routing categories, which aligns with the reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_03",
+        "reasoning": "Expected: 3 slices. Model correctly states there are three slices.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_04",
+        "reasoning": "Expected: LOCAL, LLM, EDGE_P2P. Model mentions all three labels.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_05",
+        "reasoning": "Expected: LOCAL=green, LLM=red, EDGE_P2P=blue. Model correctly describes LOCAL as green and LLM as red but incorrectly states EDGE_P2P is green instead of blue.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "The largest slice is labeled “EDGE_P2P,” colored green",
+          "detail": "The model incorrectly describes the color of EDGE_P2P as green instead of blue."
+        }
+      },
+      {
+        "id": "pie_06",
+        "reasoning": "Expected: LOCAL=94.5%, LLM=3.9%, EDGE_P2P=1.6%. Model incorrectly assigns 94.5% to EDGE_P2P instead of LOCAL.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "The largest slice is labeled “EDGE_P2P,” colored green, and occupies approximately 94.5% of the chart",
+          "detail": "The model mislabels the largest slice as EDGE_P2P instead of LOCAL."
+        }
+      },
+      {
+        "id": "pie_07",
+        "reasoning": "Expected: Slices are not ordered by size. Model does not explicitly mention this.",
+        "coverage": {
+          "status": "missing",
+          "detail": "The model does not address the ordering of slices."
+        },
+        "correctness": {
+          "status": "n/a"
+        }
+      },
+      {
+        "id": "pie_08",
+        "reasoning": "Expected: No legend is present. Model correctly states that no legend is used.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_09",
+        "reasoning": "Expected: No slices are visually emphasized. Model correctly states that no slices are visually emphasized.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_10",
+        "reasoning": "Expected: Percentage labels are displayed inside the slices. Model correctly notes that percentages are displayed inside the slices.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_11",
+        "reasoning": "Expected: Largest=LOCAL, Smallest=EDGE_P2P. Model incorrectly identifies the largest slice as EDGE_P2P instead of LOCAL.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "The largest slice is labeled “EDGE_P2P,” colored green",
+          "detail": "The model misidentifies the largest slice as EDGE_P2P instead of LOCAL."
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "LOCAL",
+            "reference_value": "94.5%",
+            "model_value": "94.5%",
+            "match": true
+          },
+          {
+            "label": "LLM",
+            "reference_value": "3.9%",
+            "model_value": "3.9%",
+            "match": true
+          },
+          {
+            "label": "EDGE_P2P",
+            "reference_value": "1.6%",
+            "model_value": "1.6%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "LOCAL",
+            "reference_value": "green",
+            "model_value": "green",
+            "match": true
+          },
+          {
+            "label": "LLM",
+            "reference_value": "red",
+            "model_value": "red",
+            "match": true
+          },
+          {
+            "label": "EDGE_P2P",
+            "reference_value": "blue",
+            "model_value": "green",
+            "match": false
+          }
+        ]
+      }
+    ]
+  }
+}
