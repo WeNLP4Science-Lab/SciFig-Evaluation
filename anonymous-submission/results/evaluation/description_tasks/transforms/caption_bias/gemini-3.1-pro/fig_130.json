@@ -1,0 +1,417 @@
+{
+  "figure_id": "fig_130",
+  "model_name": "gemini-3.1-pro",
+  "transform": "caption_bias",
+  "figure_type": "Line Plot",
+  "judge_model": "gpt-4o",
+  "num_items": 15,
+  "num_penalties_raw": 2,
+  "num_penalties_deduped": 2,
+  "total_penalty_raw": 4.0,
+  "total_penalty_deduped": 4.0,
+  "mqm_raw": 92.16,
+  "mqm_deduped": 92.16,
+  "penalties_raw": [
+    {
+      "id": "line_04",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model incorrectly labels the bottom plot's y-axis as 'Size_run^a' instead of 'Size_run'.",
+      "text_span": "Size_run^a"
+    },
+    {
+      "id": "line_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model omits the 'a' tick mark for the bottom plot.",
+      "text_span": "symbolic tick marks at w+a+s and c"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "line_04",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model incorrectly labels the bottom plot's y-axis as 'Size_run^a' instead of 'Size_run'.",
+      "text_span": "Size_run^a"
+    },
+    {
+      "id": "line_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Numerical Value",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Model omits the 'a' tick mark for the bottom plot.",
+      "text_span": "symbolic tick marks at w+a+s and c"
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "line_01": {
+        "expected": "line plot"
+      },
+      "line_02": {
+        "expected": "x-axis labeled 'm', no units or numeric tick intervals, marked value m_0"
+      },
+      "line_03": {
+        "expected": "continuous linear scale starting from 0, no numeric tick intervals"
+      },
+      "line_04": {
+        "expected": "y-axis labeled 'n' (top plot) and 'Size_run' (bottom plot), no units or numeric tick intervals"
+      },
+      "line_05": {
+        "expected": "linear scale starting from 0, symbolic tick marks at w, c-a-s, c-a (top plot) and w+a+s, c, a (bottom plot)"
+      },
+      "line_06": {
+        "expected": "single solid black line in each plot"
+      },
+      "line_07": {
+        "expected": "no legend present"
+      },
+      "line_08": {
+        "expected": {
+          "top plot": "black",
+          "bottom plot": "black"
+        }
+      },
+      "line_09": {
+        "expected": {
+          "top plot": "solid",
+          "bottom plot": "solid"
+        }
+      },
+      "line_10": {
+        "expected": "no markers present"
+      },
+      "line_11": {
+        "expected": {
+          "top plot": {
+            "start": "(0,0)",
+            "peaks": [
+              "c-a",
+              "c-a-s"
+            ],
+            "troughs": [
+              "w"
+            ],
+            "pattern": "sawtooth"
+          },
+          "bottom plot": {
+            "start": "(0,0)",
+            "peaks": [
+              "c"
+            ],
+            "troughs": [
+              "w+a+s"
+            ],
+            "pattern": "sawtooth"
+          }
+        }
+      },
+      "line_12": {
+        "expected": {
+          "top plot": "non-monotonic (linear increases, sharp drops, repeating sawtooth)",
+          "bottom plot": "non-monotonic (linear increases, sharp drops, repeating sawtooth)"
+        }
+      },
+      "line_13": {
+        "expected": "intersection at m_0 for both plots"
+      },
+      "line_14": {
+        "expected": "dotted horizontal lines indicating symbolic tick marks"
+      },
+      "line_15": {
+        "expected": "no dual y-axes"
+      }
+    },
+    "checklist": [
+      {
+        "id": "line_01",
+        "reasoning": "Expected: line plot. Model: line plot. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_02",
+        "reasoning": "Expected: x-axis labeled 'm', no units or numeric tick intervals, marked value m_0. Model: x-axis labeled 'm', no units or numeric tick intervals, marked value m_0. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_03",
+        "reasoning": "Expected: continuous linear scale starting from 0, no numeric tick intervals. Model: continuous linear scale starting from 0, no numeric tick intervals. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_04",
+        "reasoning": "Expected: y-axis labeled 'n' (top plot) and 'Size_run' (bottom plot), no units or numeric tick intervals. Model: y-axis labeled 'n' (top plot) and 'Size_run^a' (bottom plot), no units or numeric tick intervals. Partial match due to incorrect label for bottom plot.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "Size_run^a",
+          "detail": "Model incorrectly labels the bottom plot's y-axis as 'Size_run^a' instead of 'Size_run'."
+        }
+      },
+      {
+        "id": "line_05",
+        "reasoning": "Expected: linear scale starting from 0, symbolic tick marks at w, c-a-s, c-a (top plot) and w+a+s, c, a (bottom plot). Model: linear scale starting from 0, symbolic tick marks at w, c-a-s, c-a (top plot) and w+a+s, c (bottom plot). Partial match due to missing 'a' tick mark in bottom plot.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Numerical Value",
+          "text_span": "symbolic tick marks at w+a+s and c",
+          "detail": "Model omits the 'a' tick mark for the bottom plot."
+        }
+      },
+      {
+        "id": "line_06",
+        "reasoning": "Expected: single solid black line in each plot. Model: single solid black line in each plot. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_07",
+        "reasoning": "Expected: no legend present. Model: no legend present. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_08",
+        "reasoning": "Expected: black lines for both plots. Model: black lines for both plots. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_09",
+        "reasoning": "Expected: solid lines for both plots. Model: solid lines for both plots. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_10",
+        "reasoning": "Expected: no markers present. Model: no markers present. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_11",
+        "reasoning": "Expected: top plot starts at (0,0), peaks at c-a and c-a-s, troughs at w, sawtooth pattern; bottom plot starts at (0,0), peaks at c, troughs at w+a+s, sawtooth pattern. Model: matches all aspects. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_12",
+        "reasoning": "Expected: non-monotonic trends (linear increases, sharp drops, repeating sawtooth) for both plots. Model: matches expected trends. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_13",
+        "reasoning": "Expected: intersection at m_0 for both plots. Model: intersection at m_0 for both plots. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_14",
+        "reasoning": "Expected: dotted horizontal lines indicating symbolic tick marks. Model: dotted horizontal lines indicating symbolic tick marks. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "line_15",
+        "reasoning": "Expected: no dual y-axes. Model: no dual y-axes. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": []
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "line_11",
+        "comparisons": [
+          {
+            "label": "top plot",
+            "reference_value": {
+              "start": "(0,0)",
+              "peaks": [
+                "c-a",
+                "c-a-s"
+              ],
+              "troughs": [
+                "w"
+              ],
+              "pattern": "sawtooth"
+            },
+            "model_value": {
+              "start": "(0,0)",
+              "peaks": [
+                "c-a",
+                "c-a-s"
+              ],
+              "troughs": [
+                "w"
+              ],
+              "pattern": "sawtooth"
+            },
+            "match": true
+          },
+          {
+            "label": "bottom plot",
+            "reference_value": {
+              "start": "(0,0)",
+              "peaks": [
+                "c"
+              ],
+              "troughs": [
+                "w+a+s"
+              ],
+              "pattern": "sawtooth"
+            },
+            "model_value": {
+              "start": "(0,0)",
+              "peaks": [
+                "c"
+              ],
+              "troughs": [
+                "w+a+s"
+              ],
+              "pattern": "sawtooth"
+            },
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_08",
+        "comparisons": [
+          {
+            "label": "top plot",
+            "reference_value": "black",
+            "model_value": "black",
+            "match": true
+          },
+          {
+            "label": "bottom plot",
+            "reference_value": "black",
+            "model_value": "black",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "line_12",
+        "comparisons": [
+          {
+            "label": "top plot",
+            "reference_value": "non-monotonic (linear increases, sharp drops, repeating sawtooth)",
+            "model_value": "non-monotonic (linear increases, sharp drops, repeating sawtooth)",
+            "match": true
+          },
+          {
+            "label": "bottom plot",
+            "reference_value": "non-monotonic (linear increases, sharp drops, repeating sawtooth)",
+            "model_value": "non-monotonic (linear increases, sharp drops, repeating sawtooth)",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}
