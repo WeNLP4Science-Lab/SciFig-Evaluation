@@ -2,34 +2,41 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The model that writes the best scientific figure descriptions is also the one that most confidently fabricates information it cannot see.
-Vision-language models are rapidly entering scientific workflows, from literature review assistants that summarize chart findings to accessibility tools that narrate figures for visually impaired researchers.
-When a model misreads a trend line or invents a data point, the downstream consequences propagate silently: a fabricated value becomes a cited fact, a hallucinated comparison shapes a research conclusion.
-The stakes demand not only that models describe figures accurately, but that they behave reliably when faced with ambiguity, missing information, or misleading context.
-Yet current evaluation practices assess only the first of these requirements, leaving the second entirely unmeasured.
+GPT-5.2 produces the highest-quality scientific figure descriptions in our evaluation, scoring 91.6 on a checklist-based MQM metric validated against human judgment.
+It also fabricates answers 94\% of the time when asked about chart elements it cannot see, with nothing in its output to distinguish the fabrication from genuine analysis.
+This is not a failure of perception or reasoning.
+The model sees well and thinks competently.
+It is a failure of \emph{behaviour}, the dimension that determines what a model does when it encounters uncertainty or deception, and the dimension that no existing benchmark measures.
 
-Existing benchmarks for scientific figure understanding evaluate models exclusively through question answering on clean images.
-FigureQA~\citep{kahou2018figureqa} and PlotQA~\citep{methani2020plotqa} test binary and numerical reasoning over synthetic or semi-synthetic charts.
+Vision-language models are entering scientific workflows at scale, powering literature review assistants, accessibility narration tools, and automated figure analysis pipelines.
+Current benchmarks evaluate these models on perception (can the model extract information from a figure?) and reasoning (can it answer targeted questions about what it sees?).
+FigureQA~\citep{kahou2018figureqa} and PlotQA~\citep{methani2020plotqa} test binary and numerical reasoning over synthetic charts.
 ChartQA~\citep{masry2022chartqa} advances to human-authored questions on real-world figures, and ChartBench~\citep{xu2024chartbench} broadens chart type coverage.
-These benchmarks measure whether a model produces a correct answer, but none ask whether a model admits when it cannot see, resists false premises embedded in questions, or distinguishes its own visual evidence from authoritative-sounding but incorrect textual context.
-A model can score highly on ChartQA while confidently fabricating information about chart elements that do not exist, because no existing benchmark tests for this failure mode.
+These benchmarks share a common design assumption: that the model receives a clean image and a well-formed question, and that the answer is knowable from the visual evidence provided.
+Scientific deployment violates all three assumptions.
+Figures arrive degraded, captions contain errors, and some questions have no answer in the image.
+A model that scores perfectly on ChartQA can still confidently fabricate information about chart elements that do not exist, because no existing benchmark tests what happens when the ground shifts.
 
-We present \textsc{SciFig-Eval}, a diagnostic evaluation framework that measures both description quality and behavioral reliability on scientific figures.
-The framework is organized around two evaluation axes (open-ended description and targeted reasoning) crossed with two conditions (standard and adversarial), yielding a $2\!\times\!2$ evaluation matrix that structures every experiment.
-Adversarial probes are grounded in cognitive science: \emph{presupposition embedding}~\citep{loftus1975leading} tests whether definite articles trick models into accepting non-existent chart elements, \emph{anchoring bias}~\citep{tversky1974judgment} plants plausible but incorrect values, and \emph{sycophantic agreement}~\citep{sharma2024sycophancy} measures whether models echo false captions over their own visual perception.
-These probes feed into the \emph{A-R-I behavioral framework}, which decomposes model behavior into three independently measurable dimensions: Admittance (does the model acknowledge visual limitations?), Resistance (does it push back on false premises?), and Inductance (can it infer missing information from context?).
-We evaluate 8 models across 250 figures and over 11,000 evaluation instances (Figure~\ref{fig:overview}).
+We present \textsc{SciFig-Eval}, a diagnostic benchmark that evaluates vision-language models across three dimensions of increasing demand.
+\emph{Perception} measures whether a model can see and describe a scientific figure accurately, using checklist-based MQM scoring across 250 figures and 6 image transforms.
+\emph{Reasoning} measures whether a model can think about what it sees, through targeted capability questions spanning counting, computation, comparison, and pattern analysis.
+\emph{Behaviour} measures how a model acts under uncertainty and deception, through the \emph{A-R-I framework} that decomposes behavioural reliability into three independently measurable dimensions.
+Admittance tests whether the model acknowledges what it cannot see.
+Resistance tests whether it pushes back on false premises and misleading captions.
+Inductance tests whether it reasons from partial information rather than fabricating.
+The adversarial probes that drive the behavioural evaluation are grounded in cognitive science: presupposition embedding~\citep{loftus1975leading} tests whether definite articles trick models into accepting non-existent chart elements, anchoring bias~\citep{tversky1974judgment} plants plausible but incorrect values, and sycophantic agreement~\citep{sharma2024sycophancy} measures whether models echo false captions over their own visual evidence.
+We evaluate 8 models across more than 11,000 evaluation instances (Figure~\ref{fig:overview}).
 
-Quality rankings diverge from reliability rankings at precisely the points that matter for deployment.
-GPT-5.2 leads on description quality with an MQM score of 91.6, but admits visual limitations only 6\% of the time when asked about elements it cannot see, fabricating answers for the remaining 94\%.
-Gemini 3.1 Pro, ranking second on quality at 90.2, admits uncertainty 90\% of the time and achieves the highest resistance to hallucination probes (0.91).
-The divergence extends to caption dependency: Phi-4 follows poisoned captions over its own visual evidence 95\% of the time ($R = 0.05$), while presupposition embedding, the technique borrowed from eyewitness testimony research, catches models that successfully resist explicit false values but fail against implicit assumptions about non-existent elements.
-A benchmark reporting only quality scores would rank GPT-5.2 and Gemini as near-equivalent, missing the fact that one fabricates 98\% of the time while the other acknowledges uncertainty.
+Models that are nearly indistinguishable on perception and reasoning diverge sharply on behaviour.
+GPT-5.2 and Gemini 3.1 Pro score within 1.4 MQM points of each other on description quality, yet their admittance rates differ by 84 percentage points.
+Gemini acknowledges visual uncertainty in 90\% of cases. No other model exceeds 22\%.
+The divergence extends beyond admittance. Phi-4 follows poisoned captions over its own visual evidence 95\% of the time ($R = 0.05$), and presupposition embedding catches models that successfully resist explicit false values but fail against implicit assumptions about non-existent elements.
+A benchmark reporting only perception and reasoning scores would rank GPT-5.2 and Gemini as near-equivalent, missing the behavioural gap that separates a confident fabricator from the only model in our evaluation that admits what it cannot see.
 
 Our contributions are as follows:
 \begin{enumerate}
-    \item A multi-dimensional evaluation framework for scientific figure understanding that pairs standard quality assessment with psychology-informed adversarial probes across two evaluation axes and two conditions (\S\ref{sec:framework}).
-    \item The A-R-I behavioral framework, which decomposes model behavior into Admittance, Resistance, and Inductance, providing independently measurable dimensions of reliability under uncertainty (\S\ref{sec:ari}).
-    \item An empirical demonstration that description quality and behavioral reliability are distinct dimensions of VLM competence, with model rankings diverging substantially across these dimensions (\S\ref{sec:results}).
+    \item \textsc{SciFig-Eval}, a diagnostic benchmark that evaluates VLMs across perception, reasoning, and behaviour on scientific figures, pairing standard quality assessment with psychology-informed adversarial probes (\S\ref{sec:framework}).
+    \item The A-R-I behavioural framework, which decomposes model behaviour under challenge into Admittance, Resistance, and Inductance, providing independently measurable dimensions that any evaluation can adopt (\S\ref{sec:ari}).
+    \item An empirical demonstration, across 8 models and 11,000+ instances, that perception and behaviour are distinct dimensions of VLM competence, with model rankings diverging at precisely the points that matter for scientific deployment (\S\ref{sec:results}).
     \item A full benchmark release including the annotated dataset, adversarial probes, evaluation code, and an interactive review dashboard.
 \end{enumerate}

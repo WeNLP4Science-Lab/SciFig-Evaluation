@@ -1,37 +1,25 @@
+%!TEX root = ../main.tex
 \section{Related Work}
 \label{sec:related_work}
 
-\subsection{Chart and Figure Understanding Benchmarks}
+\subsection{Scientific Figure Benchmarks}
 
-Chart understanding benchmarks have progressed from synthetic binary questions \citep{kahou2018figureqa} to numerical reasoning over real-world plots \citep{methani2020plotqa,masry2022chartqa} and complex visual reasoning across diverse chart types \citep{xu2024chartbench}. \citet{li2023scigraphqa} targeted scientific graphs specifically, generating multi-turn QA from arXiv papers. A comprehensive comparison of these and additional benchmarks appears in Appendix~\ref{sec:benchmark-comparison}.
+Chart understanding benchmarks have progressed from synthetic binary questions \citep{kahou2018figureqa} through numerical reasoning over real-world plots \citep{methani2020plotqa,masry2022chartqa} to complex visual reasoning across diverse chart types \citep{xu2024chartbench}. \citet{li2023scigraphqa} targeted scientific graphs specifically, generating multi-turn QA from arXiv papers. A comprehensive comparison of these and additional benchmarks appears in Appendix~\ref{sec:benchmark-comparison}.
 
-These benchmarks share a common limitation. They evaluate VLMs exclusively through question answering on clean images, measuring whether a model produces a correct answer.
-None assess behavioral reliability, whether a model fabricates information it cannot see, echoes false premises, or acknowledges visual uncertainty.
-\textsc{SciFig-Eval} addresses this gap by pairing standard quality evaluation with adversarial behavioral probes, measuring not only \emph{what} a model says but \emph{how} it behaves under uncertainty and deception.
+These benchmarks evaluate perception and reasoning. They ask whether a model can extract a value, identify a trend, or answer a factual question about a clean image. None evaluate \emph{behaviour}, whether a model fabricates information it cannot see, echoes false premises, or acknowledges uncertainty when visual evidence is degraded. \textsc{SciFig-Eval} fills this gap by adding a behavioural evaluation axis, measuring not only what a model says about a figure but how it acts when challenged with partial visibility and misleading context. The perception-reasoning-behaviour distinction structures every experiment in this paper and reveals that models ranking identically on the first two dimensions diverge dramatically on the third (\S\ref{sec:results}).
 
 \subsection{VLM Hallucination and Reliability}
 
-Hallucination in vision-language models has received growing attention.
-\citet{rohrbach2018object} introduced the CHAIR metric for detecting object hallucination in image captions.
-\citet{li2023pope} proposed POPE, converting hallucination detection into a polling-based binary classification task that systematically probes co-occurrence biases.
-\citet{guan2024hallusionbench} designed HallusionBench with expert-crafted visual illusions and language traps to diagnose entangled hallucination modes, and \citet{sun2024aligning} introduced MMHal-Bench to penalize hallucination across eight question categories.
-\citet{bai2024hallucination} provide a comprehensive survey categorizing hallucination sources in multimodal models.
+Hallucination research in vision-language models has focused on natural images. \citet{rohrbach2018object} introduced the CHAIR metric for object hallucination in image captions. \citet{li2023pope} proposed POPE, converting hallucination detection into a polling-based binary task that probes co-occurrence biases. \citet{guan2024hallusionbench} designed HallusionBench with expert-crafted visual illusions, and \citet{sun2024aligning} introduced MMHal-Bench to penalise hallucination across eight question categories. \citet{bai2024hallucination} provide a comprehensive survey categorising hallucination sources.
 
-These efforts focus predominantly on natural images, where hallucination means inventing objects absent from a scene.
-Scientific figures present distinct challenges, with structured layouts, quantitative data encoded in visual channels, and domain conventions that demand precise extraction rather than approximate recognition.
-Moreover, no existing benchmark tests whether a model \emph{admits} when visual information is unavailable.
+Scientific figures differ from natural images in ways that make existing hallucination frameworks insufficient. Structured layouts, quantitative data encoded in visual channels, and domain conventions demand precise extraction rather than approximate recognition. A model hallucinating a non-existent bar in a chart carries different consequences from a model inventing a background object in a photograph. More fundamentally, no existing benchmark tests whether a model \emph{admits} when it cannot see.
 
-Our probes draw on cognitive science rather than treating hallucination as a monolithic category. \emph{Presupposition embedding}~\citep{loftus1975leading} uses definite articles to make models accept non-existent chart elements. \emph{Anchoring bias}~\citep{tversky1974judgment} plants plausible but incorrect values that models fail to challenge. The \emph{cooperative principle}~\citep{grice1975logic} exploits models' assumption that questions are well-formed, making them answer rather than refuse. \emph{Sycophantic agreement}~\citep{sharma2024sycophancy} captures models' tendency to echo provided captions over their own visual evidence.
+Our behavioural probes draw on cognitive science rather than treating hallucination as a monolithic category. \emph{Presupposition embedding}~\citep{loftus1975leading} uses definite articles to make models accept non-existent chart elements. \emph{Anchoring bias}~\citep{tversky1974judgment} plants plausible but incorrect values that models fail to challenge. The \emph{cooperative principle}~\citep{grice1975logic} exploits models' assumption that questions are well-formed, producing answers rather than refusals. \emph{Sycophantic agreement}~\citep{sharma2024sycophancy} captures the tendency to echo provided captions over direct visual evidence. Together, these probes operationalise the behavioural dimension that existing benchmarks leave unmeasured.
 
 \subsection{Evaluation Methodology}
 
-\textsc{SciFig-Eval} adapts the Multidimensional Quality Metrics (MQM) framework~\citep{lommel2014multidimensional}, originally developed for translation quality assessment and subsequently adopted as the standard for WMT human evaluation~\citep{freitag2021experts}.
-MQM decomposes quality into fine-grained error categories with severity weightings, enabling diagnostic evaluation rather than holistic scoring.
-We extend MQM to chart descriptions by introducing \emph{binding verification}, which checks not only whether described elements exist in the figure but whether stated relationships between elements (e.g., ``the blue bar exceeds the red bar'') are grounded in the visual evidence.
+\textsc{SciFig-Eval} adapts the Multidimensional Quality Metrics (MQM) framework~\citep{lommel2014multidimensional}, originally developed for translation quality assessment and adopted as the standard for WMT human evaluation~\citep{freitag2021experts}. MQM decomposes quality into fine-grained error categories with severity weightings, enabling diagnostic evaluation rather than holistic scoring. We extend MQM to figure descriptions by introducing \emph{binding verification}, which checks not only whether described elements exist in the figure but whether stated relationships between elements (e.g., ``the blue bar exceeds the red bar'') are grounded in the visual evidence.
 
-For scalable evaluation, we follow the LLM-as-judge paradigm validated by \citet{zheng2023judging}, who demonstrated strong agreement between LLM judges and human preferences on MT-Bench.
-Our judges apply checklist-based scoring in which each figure is annotated with verifiable claims, and the judge evaluates whether the model's description correctly addresses each claim.
-This structured approach mitigates the subjectivity of holistic ratings while enabling the scale required to evaluate eight models across multiple conditions.
+For scalable evaluation, we follow the LLM-as-judge paradigm validated by \citet{zheng2023judging}, who demonstrated strong agreement between LLM judges and human preferences on MT-Bench. Our judges apply checklist-based scoring in which each figure is annotated with verifiable claims, and the judge evaluates whether the description correctly addresses each claim. This structured approach mitigates the subjectivity of holistic ratings while enabling evaluation of eight models across multiple conditions.
 
-Together, these methodological choices position \textsc{SciFig-Eval} as the first framework that unifies description quality measurement with behavioral reliability assessment on scientific figures.
-Existing benchmarks measure quality \emph{or} detect hallucinations; we measure both and find that model rankings diverge substantially across these dimensions (\S\ref{sec:experiments}).
+Existing benchmarks measure perception and reasoning \emph{or} detect hallucinations. \textsc{SciFig-Eval} measures all three dimensions and finds that model rankings diverge substantially across them (\S\ref{sec:results}).
