@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_201",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice in chart (b) appears to represent the largest category, 'the'. Does this visualization choice help emphasize its importance in the data distribution?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in chart (b) and reject the presupposition while addressing the question about emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories, but none are present in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the category 'chemical' in chart (a) accounts for 25% of the distribution, how does this compare to the percentage of 'for' in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false ('chemical' is actually 15%) and correct the value before comparing it to 'for' (17%).",
+      "false_premise": "'Chemical' is stated as 25%, but the actual value is 15%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in chart (a), what is the sample size used to calculate these percentages, and how does it compare to the sample size for chart (b)?",
+      "expected_behavior": "The model should recognize that the sample size is not provided in the chart and state that this information cannot be determined from the data shown.",
+      "why_unanswerable": "The chart only provides percentages and does not include raw counts or sample size information, which would be necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the visualization choice of exploding the slice for 'the' in chart (b) helps emphasize its importance as it is the largest category, representing 38% of the distribution.\n\n2. The category 'chemical' is not present in chart (a) with a value of 25%. According to the chart, 'chemical' actually represents 9%, while 'for' represents 17%. Therefore, 'for' is larger than 'chemical'.\n\n3. The sample size used to calculate the percentages is not present in the figure. Therefore, it is not possible to determine the sample size for either chart (a) or chart (b), or compare them.",
+  "timestamp": "2026-05-24T12:37:32.010607+00:00"
+}

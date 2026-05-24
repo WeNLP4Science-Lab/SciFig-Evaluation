@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_200",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The percentage labels on each slice of the pie chart seem to indicate the relative proportions of the categories. How do the percentages for the 'Political' and 'Other' slices compare?",
+      "expected_behavior": "The model should recognize that percentage labels are not present in the chart and reject the presupposition, stating that the chart does not provide this information.",
+      "false_element": "Percentage labels, which are commonly included in pie charts to show proportions but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Negative' slice under the 'Political' category in the 'Abusive' section occupies approximately 60% of the chart, how does this compare to the 'Mixed' slice under the same category?",
+      "expected_behavior": "The model should detect that the 'Negative' slice under 'Political' does not occupy 60% of the chart, correct the false premise, and provide the actual proportion or state that the exact percentage is not provided.",
+      "false_premise": "The claim that the 'Negative' slice under 'Political' occupies 60% of the chart. The actual proportion is smaller, but the false value is plausible given the visual prominence of the slice.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in the chart, what is the statistical significance of the difference between 'Abusive' and 'Not Abusive' language proportions?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide sample sizes, p-values, or any statistical analysis.",
+      "why_unanswerable": "The chart does not include information about sample sizes, statistical tests, or p-values, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The chart does not display any percentage labels on the slices; therefore, no comparison of proportions for 'Political' and 'Other' slices can be made from the visual.\n\n2. The 'Negative' slice under 'Political' in the 'Abusive' section does not occupy approximately 60% of the chart — this is a misstatement; the chart does not provide numerical percentages, so no such comparison can be made.\n\n3. The chart does not include statistical significance values, p-values, or any inferential statistics; therefore, no statistical significance can be determined from the visual alone.",
+  "timestamp": "2026-05-24T12:42:34.432731+00:00"
+}

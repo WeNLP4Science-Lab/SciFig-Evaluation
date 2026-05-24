@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_112",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the loss curves appear to be narrower for SepLLM (n=128) compared to SepLLM (n=64, H/T) — does this suggest lower variance in the model's performance?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are plausible for a line plot showing loss values over iterations, as they often accompany such data to indicate uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the final loss value for StrmLLM (n=64) is approximately 2.3, how does this compare to SepLLM (n=64, H/T)?",
+      "expected_behavior": "The model should detect that the final loss value for StrmLLM (n=64) is actually closer to 2.6, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The final loss value for StrmLLM (n=64) is stated as 2.3, while the actual value is closer to 2.6. The anchor is plausible because it is within the range of loss values shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed loss trends, what is the statistical significance of the difference between SepLLM (n=64, H/T) and SepLLM (n=128) at 140,000 iterations?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical metrics like p-values or confidence intervals, which are necessary to assess significance. The chart only shows loss values over iterations.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not provide explicit information about the variance of the model's performance, but the narrower confidence interval for SepLLM (n=128) compared to SepLLM (n=64, H/T) could suggest lower variance.\n\n2. The final loss value for StrmLLM (n=64) is not approximately 2.3; it is actually around 2.65. In contrast, SepLLM (n=64, H/T) has a lower final loss value, around 2.5.\n\n3. The figure does not provide information about the statistical significance of the difference between SepLLM (n=64, H/T) and SepLLM (n=128) at 140,000 iterations. The question cannot be answered based on the given information.",
+  "timestamp": "2026-05-24T12:36:04.614231+00:00"
+}

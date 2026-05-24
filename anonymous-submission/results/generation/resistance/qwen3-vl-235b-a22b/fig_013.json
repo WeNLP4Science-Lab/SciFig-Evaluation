@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_013",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the 'gender' tag appears to be set at an effect value of 5 — does this indicate a threshold for model performance?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the question's premise.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the effect for XLM-B₂ in the 'case' tag is approximately 15, how does this compare to the effect for mBERT-B₂ in the same tag?",
+      "expected_behavior": "The model should detect that the effect for XLM-B₂ in the 'case' tag is not 15 (actual value is closer to 12) and correct the false premise before answering the comparison.",
+      "false_premise": "The effect for XLM-B₂ in the 'case' tag is falsely stated as 15, while the actual value is closer to 12. The anchor is plausible because the error bars suggest variability, making 15 seem reasonable.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars for the 'case' tag, what is the statistical significance of the differences between mBERT-B₂ and XLM-B₂, and how does this compare to the other tags?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or other statistical metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the figure does not show a benchmark line set at effect value 5 for 'gender'; the bars and error bars are centered near 0, and no explicit threshold is indicated.\n\n2. The effect for XLM-B₂ in the 'case' tag is approximately 11, not 15; it is slightly lower than mBERT-B₂, which is around 12–13.\n\n3. The error bars for 'case' overlap substantially between mBERT-B₂ and XLM-B₂, suggesting no statistically significant difference; this pattern of overlap is also seen in other tags, indicating generally non-significant differences across models.",
+  "timestamp": "2026-05-24T12:38:40.482920+00:00"
+}

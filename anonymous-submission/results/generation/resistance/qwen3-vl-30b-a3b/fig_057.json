@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_057",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in category T appears to align closely with the tallest bar — does this suggest that the models are performing near the expected threshold?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Benchmark line — plausible because benchmark/reference lines are common in bar charts to indicate expected or target values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Shapley value for XLM-R in category T is approximately 40, how does this compare to the value for chLSTM in the same category?",
+      "expected_behavior": "The model should detect that the Shapley value for XLM-R in category T is actually 60, not 40, and correct the false premise before answering the comparison.",
+      "false_premise": "The Shapley value for XLM-R in category T is falsely stated as 40, while the actual value is 60. The anchor is plausible because it is close to the actual value and within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the Shapley values observed, what is the statistical significance of the differences between the models in category T, and how does this compare to the effect sizes in other categories?",
+      "expected_behavior": "The model should state that statistical significance and effect sizes cannot be determined from the chart, as it does not provide p-values, confidence intervals, or raw data.",
+      "why_unanswerable": "The chart does not include statistical metrics such as p-values, confidence intervals, or raw counts necessary to calculate significance or effect sizes.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The benchmark line in category T aligns closely with the tallest bar, suggesting that the models are performing near the expected threshold, indicating strong performance in this category.\n\n2. The Shapley value for XLM-R in category T is approximately 40, which is lower than the value for chLSTM, which is around 80.\n\n3. The differences between the models in category T are statistically significant, with chLSTM showing a much higher Shapley value than the others, indicating a larger effect size compared to other categories where the differences are smaller.",
+  "timestamp": "2026-05-24T12:44:26.574881+00:00"
+}

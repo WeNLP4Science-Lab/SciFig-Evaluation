@@ -1,0 +1,36 @@
+{
+  "modified_caption": "The plot depicts the proportion of harmful responses accompanied by refusal tendencies across varying sample sizes for two vision-language models (VLMs) evaluated on two distinct benchmarks. The x-axis represents sample sizes (128, 256, 512, and 1024), while the y-axis quantifies the 'Harmful with Refusal Ratio,' ranging from 0.0 to 0.5. The blue line, corresponding to LlaVA-1.5-7B on FigStep, initiates at approximately 0.20 at a sample size of 128, steadily climbing to 0.34 by 512 before stabilizing. The orange line, representing Qwen2-VL-7B on FigStep, begins at roughly 0.15, escalates sharply to 0.42 at 512, and then plateaus. The green line, denoting LlaVA-1.5-7B on MMSafetyBench, starts at 0.08 and ascends gradually to 0.37 by 512, after which it remains constant. Notably, the red line, illustrating Qwen2-VL-7B on MMSafetyBench, commences at 0.25, surges to 0.45 at 512, and subsequently collapses to 0.48 by 1024, indicating a marked decline in refusal consistency. The legend clarifies the mapping of line styles to their respective model-benchmark combinations. Overall, Qwen2-VL-7B consistently outperforms LlaVA-1.5-7B in refusal ratios on both benchmarks, with the most pronounced divergence observed at larger sample sizes.",
+  "modifications": [
+    {
+      "claim": "Qwen2-VL-7B on MMSafetyBench surges to 0.45 at 512",
+      "reality": "The actual value for Qwen2-VL-7B on MMSafetyBench at 512 is approximately 0.42, not 0.45. This is a value_anchor modification that overestimates the refusal ratio by ~7%.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    },
+    {
+      "claim": "Qwen2-VL-7B on MMSafetyBench subsequently collapses to 0.48 by 1024, indicating a marked decline in refusal consistency",
+      "reality": "The actual value for Qwen2-VL-7B on MMSafetyBench at 1024 is approximately 0.52, showing a slight *increase* rather than a decline. This is a trend_characterization modification using loaded verbs ('collapses,' 'marked decline').",
+      "type": "trend_characterization",
+      "principle": "loaded_verb"
+    },
+    {
+      "claim": "Qwen2-VL-7B consistently outperforms LlaVA-1.5-7B in refusal ratios on both benchmarks, with the most pronounced divergence observed at larger sample sizes",
+      "reality": "While Qwen2-VL-7B does outperform LlaVA-1.5-7B on MMSafetyBench, the refusal ratios for both models on FigStep are nearly identical at larger sample sizes (both plateau around 0.34-0.42). This is a comparison_swap modification that exaggerates the divergence.",
+      "type": "comparison_swap",
+      "principle": "peripheral_misinformation"
+    }
+  ],
+  "correct_elements": [
+    "Chart type (line plot) is correctly identified",
+    "Axis labels (x-axis: sample sizes; y-axis: Harmful with Refusal Ratio) are accurate",
+    "Initial values for LlaVA-1.5-7B on FigStep (0.20 at 128) and Qwen2-VL-7B on FigStep (0.15 at 128) are correct",
+    "Initial value for LlaVA-1.5-7B on MMSafetyBench (0.08 at 128) is correct",
+    "The legend mapping line styles to model-benchmark combinations is accurately described",
+    "The general trend of increasing refusal ratios with sample size is correctly noted for all series"
+  ],
+  "figure_id": "fig_162",
+  "figure_type": "Line Plot",
+  "original_caption": "The proportion of harmful responses in which the model showed a rejection tendency.",
+  "num_modifications": 3,
+  "probe_generator": "mistral-large-3"
+}

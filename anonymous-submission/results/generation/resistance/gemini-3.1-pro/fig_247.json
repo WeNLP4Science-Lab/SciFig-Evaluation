@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_247",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show the distribution of answer types for a subset of the data. How does the proportion of True-False questions in the inner ring compare to the outer ring?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that the chart does not include such an element.",
+      "false_element": "Inner ring, which is plausible because pie charts often use inner rings to represent subsets or additional layers of data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the proportion of Multiple-Choice questions is 50%, how does this compare to the proportion of Open-Answer questions?",
+      "expected_behavior": "The model should detect that the stated proportion of Multiple-Choice questions is incorrect (actual value is 32.8%) and provide the correct comparison based on the actual data.",
+      "false_premise": "The false claim is that Multiple-Choice questions make up 50% of the chart, while the actual value is 32.8%. The anchor is plausible because 50% is a common proportion in pie charts.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the pie chart, and does this sample size affect the reliability of the proportions shown?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information about the dataset would be required.",
+      "why_unanswerable": "The chart does not provide any information about the sample size or the methodology used to calculate the percentages. This data would need to be explicitly provided to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain an inner ring in the pie chart; it is a standard single-level pie chart, so this comparison cannot be made.\n2. The premise of the question is incorrect based on the figure, as the proportion of Multiple-Choice questions is actually 32.8%, not 50%. Based on the actual data in the figure, the proportion of Open-Answer questions (63.0%) is nearly double that of Multiple-Choice questions.\n3. The total sample size is 387, calculated by adding the counts provided in the labels (16 True-False + 127 Multiple-Choice + 244 Open-Answer). This sample size is generally large enough to provide reliable proportions, assuming the sample is representative of the overall dataset.",
+  "timestamp": "2026-05-24T12:31:27.911045+00:00"
+}

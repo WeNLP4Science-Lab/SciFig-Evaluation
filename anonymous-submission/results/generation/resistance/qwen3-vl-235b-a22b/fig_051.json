@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_051",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line indicating the expected average performance appears to be slightly above the 'ClInGS' bar — does this suggest that 'ClInGS' exceeded expectations?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in performance charts to indicate expected or target values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'FactTune' method achieves an average performance of approximately 65, how does this compare to the 'ClInGS' method's performance?",
+      "expected_behavior": "The model should detect that the stated value for 'FactTune' (65) is incorrect, correct it to the actual value (~51), and then compare it to 'ClInGS' (~58).",
+      "false_premise": "The false claim is that 'FactTune' achieves 65, while the actual value is ~51. The anchor is plausible because it is within the chart's range and close to the highest value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the average performance values shown, what is the statistical significance of the difference between 'Self-RAG' and 'ClInGS' methods, and what are the corresponding p-values?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis results are provided.",
+      "why_unanswerable": "The chart does not include any information about statistical tests, p-values, or significance markers. Additional data, such as sample sizes and test results, would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, there is no benchmark line shown in the figure; the horizontal gridlines are just for scale. The 'ClInGS' bar is the highest, indicating it has the best performance among the methods shown, but no “expectation” is indicated.\n\n2. The 'FactTune' method does not appear in the figure — only 'FactTuneClInGS (w/)' is shown, which performs around 52–53, lower than 'ClInGS' (~59). The standalone 'FactTune' performance is not depicted.\n\n3. The figure does not provide any statistical significance tests or p-values; it only shows average performance bars. Therefore, no p-values or significance can be determined from this chart alone.",
+  "timestamp": "2026-05-24T12:39:24.229080+00:00"
+}

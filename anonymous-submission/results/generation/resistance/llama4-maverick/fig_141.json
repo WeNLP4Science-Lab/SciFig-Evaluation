@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_141",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the loss curves appear to overlap significantly between 'SepLLM (n=64)' and 'SepLLM (n=128)'—does this suggest that their performance is statistically indistinguishable?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the loss for 'SepLLM (n=64)' at 125,000 iterations is approximately 2.5, how does this compare to the loss for 'Vanilla before post-training'?",
+      "expected_behavior": "The model should detect that the loss for 'SepLLM (n=64)' at 125,000 iterations is closer to 2.3, not 2.5, and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that the loss for 'SepLLM (n=64)' at 125,000 iterations is 2.5, when the actual value is closer to 2.3. The anchor is plausible because it is within the range of the y-axis and near the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in the loss curves, what is the statistical significance of the difference between 'SepLLM (n=64)' and 'SepLLM (n=128)' at 125,000 iterations, and what are the corresponding p-values?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical tests or raw data are provided.",
+      "why_unanswerable": "The chart does not include information about statistical tests, sample sizes, or p-values, which are necessary to assess significance. Additional data and analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The significant overlap in confidence intervals between 'SepLLM (n=64)' and 'SepLLM (n=128)' suggests that their performance may be statistically similar, but it does not definitively confirm that they are statistically indistinguishable without further statistical analysis.\n\n2. The loss for 'SepLLM (n=64)' at 125,000 iterations is approximately 2.3, not 2.5. Comparing this to 'Vanilla before post-training', which has a loss of approximately 2.35, indicates that 'SepLLM (n=64)' has a slightly lower loss.\n\n3. The figure does not provide information on the statistical significance or p-values for the difference between 'SepLLM (n=64)' and 'SepLLM (n=128)' at 125,000 iterations. Therefore, it is not possible to determine the statistical significance or p-values based on the given figure.",
+  "timestamp": "2026-05-24T12:36:37.331471+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_183",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend line for the Reconstruction Loss appears to intersect with the Task Loss around 600 steps — does this indicate a significant correlation between the two metrics?",
+      "expected_behavior": "The model should recognize that there is no trend line in the chart and reject the presupposition, focusing instead on the actual data presented.",
+      "false_element": "Trend line — plausible because trend lines are commonly used in line plots to summarize the overall direction of data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Regularization Loss peaks at approximately 2.3 around 50 steps, how does this compare to the peak value of the Reconstruction Loss?",
+      "expected_behavior": "The model should detect that the stated peak value of 2.3 for Regularization Loss is incorrect (actual peak is closer to 3) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that the Regularization Loss peaks at 2.3 around 50 steps, while the actual peak value is closer to 3. The anchor is plausible because the chart shows variability in the Regularization Loss, making 2.3 a reasonable but incorrect estimate.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed variability in the loss metrics, what is the statistical significance of the differences between the Reconstruction Loss and Regularization Loss at 1000 steps?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or confidence intervals, which are necessary to assess statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The trend lines for Reconstruction Loss and Task Loss do not intersect around 600 steps in the figure; the Reconstruction Loss remains consistently above the Task Loss in that region. Therefore, no correlation can be inferred from an intersection that does not exist.\n2. The Reconstruction Loss has a much higher peak value of approximately 8.0 at step 0, compared to the Regularization Loss which actually peaks closer to 3.0 around 50 steps.\n3. The figure does not provide explicit statistical significance values or tests. However, visually, the shaded variability bands for the Reconstruction Loss and Regularization Loss do not overlap at 1000 steps, suggesting the difference between them is likely significant.",
+  "timestamp": "2026-05-24T12:26:27.894576+00:00"
+}

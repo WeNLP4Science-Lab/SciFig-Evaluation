@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_236",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for Level3 appears smaller than expected compared to Level1 — does this indicate a significant difference in proportions?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the premise, explaining that all slices are displayed uniformly without emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific segments.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that Level2 represents 30% of the total distribution, how does its proportion compare to Level1?",
+      "expected_behavior": "The model should detect that the premise is false (Level2 actually represents 44.32%) and correct the value before answering the comparison question.",
+      "false_premise": "Level2 is stated to represent 30%, but the actual value is 44.32%. The false value is plausible because it is close to the percentage of Level1 (30.04%), which could lead to confusion.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each level, and how does it affect the reliability of the data?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about the sample size and explain that additional data about the methodology or raw counts would be required to answer the question.",
+      "why_unanswerable": "The chart only provides percentages and values for each level but does not include information about the sample size or methodology, which are necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice is actually for Level2, not Level3. Level3 (25.64%) is indeed smaller than Level1 (30.04%), indicating a difference in proportions.\n\n2. Level2 actually represents 44.32% of the total distribution, not 30%. It is larger than Level1, which represents 30.04%.\n\n3. The sample size is not provided in the figure, so it is not possible to determine its effect on the reliability of the data.",
+  "timestamp": "2026-05-24T12:38:07.628338+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_079",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the average WER across all optimizations appears to be missing — does this affect the interpretation of the differences between the NESAC and SESHA models?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to contextualize differences.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SESHA ft model achieves a WER of 0.00280 in the 'Dates' category, how does this compare to the NESAC ft model's performance in the same category?",
+      "expected_behavior": "The model should detect that the SESHA ft model's actual WER in the 'Dates' category is 0.00228, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "SESHA ft model WER in 'Dates' category is 0.00280 (actual value is 0.00228). The anchor is plausible because it is close to the actual value and fits the chart's range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in WER between the NESAC and SESHA models across all optimization categories, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart and explain that additional statistical analysis and raw data would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or the underlying data used to calculate WER values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain a benchmark line for the average WER across all optimizations. However, this does not prevent comparing the two models, as the chart is designed to show the difference in performance between each model and a baseline (Whisper large) for each specific optimization category.\n2. The premise of the question is incorrect based on the figure, as the value shown for the SESHA ft model in the 'Dates' category is 0.00228, not 0.00280. According to the figure, the SESHA ft model (0.00228) has a smaller difference in average WER than the NESAC ft model (0.00257) in the 'Dates' category.\n3. The figure does not provide any information regarding statistical significance or p-values.",
+  "timestamp": "2026-05-24T12:17:35.645901+00:00"
+}

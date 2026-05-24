@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_176",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend lines in the chart appear to diverge significantly near x=1.2 — does this indicate a shift in the underlying data distribution?",
+      "expected_behavior": "The model should recognize that there are no trend lines in the chart and clarify that the divergence is based on the plotted data itself, not any additional trend analysis.",
+      "false_element": "Trend lines, which are plausible in line plots to show overall direction or regression, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Macro-F1 Score for 'MATTER (ours)' peaks at approximately 50% near x=1.0, how does this compare to the peak score for 'w/o material information'?",
+      "expected_behavior": "The model should detect that the stated peak value of 50% is incorrect (actual peak is 58%) and provide the correct comparison based on the actual values.",
+      "false_premise": "The false claim is that the peak Macro-F1 Score for 'MATTER (ours)' is 50%, while the actual peak is 58%. The anchor is plausible because it is within the general range of scores shown.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the two conditions, and what are the p-values for their peak scores?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as these metrics require additional statistical analysis and raw data.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or p-values, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The divergence near x=1.2 suggests a potential shift in performance, but the chart alone does not provide statistical evidence to confirm a shift in the underlying data distribution.\n\n2. The peak Macro-F1 Score for 'MATTER (ours)' is approximately 58%, while the peak for 'w/o material information' is around 54%. Thus, 'MATTER (ours)' achieves a higher peak score.\n\n3. The chart does not provide p-values or statistical significance for the differences between the two conditions.",
+  "timestamp": "2026-05-24T12:46:08.904291+00:00"
+}

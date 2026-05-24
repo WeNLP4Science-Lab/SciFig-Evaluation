@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_187",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the BLEU scores for 'Consistency-CE' appear narrower than those for 'Inconsistency-CE-MP' — does this suggest greater reliability in the former method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain to indicate uncertainty or variability in BLEU scores.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the BLEU score for 'Consistency-Bi' at AL 7 is approximately 30, how does this compare to the BLEU score for 'Inconsistency-CE-MP' at the same AL?",
+      "expected_behavior": "The model should detect that the BLEU score for 'Consistency-Bi' at AL 7 is actually around 27.5, not 30, and correct the false premise before answering the comparison.",
+      "false_premise": "The BLEU score for 'Consistency-Bi' at AL 7 is 30, while the actual value is approximately 27.5. The false value is plausible because it is close to the actual value and fits the upward trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in BLEU scores between 'Consistency-Bi' and 'Inconsistency-CE-MP' at AL 7?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide p-values or other statistical metrics.",
+      "why_unanswerable": "The chart does not include statistical significance metrics such as p-values or confidence intervals, which are necessary to assess the significance of differences between methods.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals or error bars for any of the methods. Therefore, it is not possible to assess reliability based on confidence intervals from this graph.\n2. The premise is incorrect, as the BLEU score for 'Consistency-Bi' near AL 7 (specifically at ~7.5) is actually just under 28, not 30. At this same AL, the BLEU score for 'Inconsistency-CE-MP' is approximately 27.\n3. The figure does not provide any information regarding statistical significance, such as p-values or error bars. Consequently, the statistical significance of the differences between these methods cannot be determined from the graph alone.",
+  "timestamp": "2026-05-24T12:26:54.119393+00:00"
+}

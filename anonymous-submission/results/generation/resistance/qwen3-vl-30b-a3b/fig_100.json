@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_100",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend lines in the Easy Training Set plot appear to converge near step 500 — does this indicate that the methods are achieving similar performance levels?",
+      "expected_behavior": "The model should recognize that there are no trend lines in the chart and clarify that the question is based on a nonexistent element.",
+      "false_element": "Trend lines, which are plausible in line plots to summarize the overall direction of data but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Llama-On-Policy-Hard method achieves a training reward of approximately 0.15 at step 500, how does this compare to the Llama-LUFFY-Hard method's performance at the same step?",
+      "expected_behavior": "The model should detect that the stated value of 0.15 for Llama-On-Policy-Hard at step 500 is incorrect (actual value is 0.0) and provide the correct comparison.",
+      "false_premise": "The false claim is that Llama-On-Policy-Hard achieves a training reward of 0.15 at step 500, while the actual value is 0.0. The anchor is plausible because 0.15 is within the range of the y-axis and aligns with the general upward trend of the other method.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed training rewards, what is the statistical significance of the difference between the two methods on the Hard Training Set, and what are the p-values for this comparison?",
+      "expected_behavior": "The model should state that the statistical significance and p-values cannot be determined from the chart alone, as it does not provide information about sample sizes or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, statistical tests, or p-values, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the trend lines in the Easy Training Set plot appear to converge near step 500, indicating that both methods are achieving similar performance levels at that point.\n\n2. At step 500, the Llama-On-Policy-Hard method achieves a training reward of approximately 0.15, which is lower than the Llama-LUFFY-Hard method's training reward of approximately 0.20.\n\n3. The statistical significance of the difference between the two methods on the Hard Training Set cannot be determined from the figure alone, as p-values are not provided.",
+  "timestamp": "2026-05-24T12:45:04.264932+00:00"
+}

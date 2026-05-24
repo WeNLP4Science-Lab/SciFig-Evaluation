@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_205",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Multitasking' appears larger than the other slices—does this indicate its relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Exploded slice; plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Privacy Protection' is represented with a value of 90, how does this compare to the value of 'Multitasking' in terms of relative importance?",
+      "expected_behavior": "The model should detect that the value of 'Privacy Protection' is actually 111, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The value of 'Privacy Protection' is 90; the actual value is 111, and 90 is a plausible anchor as it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the values shown, what is the statistical significance of the differences between 'Privacy Protection' and 'Multitasking,' and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide any information about sample sizes or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, statistical tests, or p-values, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no exploded slices in this figure. The 'Multitasking' slice is visually larger because its numerical value (160) is the highest, though the figure does not explicitly state if these values represent relative importance.\n2. The premise of the question is incorrect, as the figure shows 'Privacy Protection' has a value of 111, not 90. Based on the actual values shown, 'Multitasking' (160) is numerically higher than 'Privacy Protection' (111).\n3. Statistical significance and p-values are not present in the figure. The chart only displays single numerical values for each category without any statistical context.",
+  "timestamp": "2026-05-24T12:28:38.667064+00:00"
+}

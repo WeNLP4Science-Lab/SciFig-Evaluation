@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_104",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines appear narrower for 'LB-Avg of 2×tokens,8-bit' compared to 'RULER4k of 1×tokens,16-bit' — does this suggest lower variability in the former method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while focusing on the actual data trends.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain but absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'RULER4k of 1×tokens,16-bit' shows a relative change of approximately -15% at 'Layer13-20', how does this compare to the baseline of '4×tokens,4-bit'?",
+      "expected_behavior": "The model should detect that the stated value (-15%) is incorrect (actual is -25%), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The relative change for 'RULER4k of 1×tokens,16-bit' at 'Layer13-20' is falsely stated as -15%, while the actual value is -25%. The anchor is plausible because it is within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the relative changes observed across layers, what is the statistical significance of the differences between 'LB-Avg of 2×tokens,8-bit' and 'RULER4k of 1×tokens,16-bit' at 'Layer13-20'?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the significance of differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals for 'LB-Avg of 2×tokens,8-bit' suggest lower variability and potentially more consistent performance for that method. Wider intervals indicate greater uncertainty in the results.\n2. 'RULER4k of 1×tokens,16-bit' at 'Layer13-20' shows a significantly larger negative change (-15%) compared to the baseline, which remains near 0% throughout all layers. This indicates a substantial performance decrease for 'RULER4k of 1×tokens,16-bit' at that layer.\n3. The figure does not provide information about statistical significance; it only shows relative changes and confidence intervals. Determining statistical significance would require additional data like p-values or standard error calculations, which are not present here.",
+  "timestamp": "2026-05-24T12:09:23.981396+00:00"
+}

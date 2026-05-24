@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_094",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the 'Ours' bar appears to be higher than in the 'Standard' bar. Does this indicate a better performance in the 'Ours' scenario?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Benchmark/reference lines, which are plausible in bar charts to indicate thresholds or targets but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Context' category in the 'Standard' bar accounts for 40% of the composition, how does this compare to the 'Context' category in the 'Ours' bar?",
+      "expected_behavior": "The model should detect that the 'Context' category in the 'Standard' bar is actually 23.6%, not 40%, and correct the false premise before making the comparison.",
+      "false_premise": "The claim that the 'Context' category in the 'Standard' bar is 40% is false; the actual value is 23.6%. The anchor is plausible because it is within a reasonable range for a bar chart percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in the 'Ours' and 'Standard' scenarios, what is the statistical significance of the difference in 'Context' percentages between the two bars?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide information about sample sizes, variance, or p-values.",
+      "why_unanswerable": "The chart does not include statistical metrics such as sample sizes, variance, or p-values, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the benchmark line being higher does not inherently indicate better performance; it merely shows the total bar height is greater, which could reflect different total scales or compositions.\n\n2. The 'Context' category in 'Standard' is 23.6%, which is significantly lower than the 60.6% in 'Ours', indicating 'Ours' relies more heavily on context.\n\n3. The difference in 'Context' percentages (60.6% vs 23.6%) is substantial, but without statistical tests or confidence intervals, we cannot determine its statistical significance from the chart alone.",
+  "timestamp": "2026-05-24T12:48:19.592676+00:00"
+}

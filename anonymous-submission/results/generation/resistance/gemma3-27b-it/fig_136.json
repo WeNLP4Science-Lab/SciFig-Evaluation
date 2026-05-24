@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_136",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the green line appear narrower than those around the blue line—does this suggest lower variability in Initial Accuracy compared to Final Accuracy?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing accuracy metrics but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Initial Accuracy at an Initial Confidence of 0.95 is approximately 0.75, how does this compare to the Final Accuracy at the same confidence level?",
+      "expected_behavior": "The model should detect that the Initial Accuracy at 0.95 is closer to 0.9, not 0.75, and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that Initial Accuracy at 0.95 is 0.75, when the actual value is closer to 0.9. The anchor is plausible because it is within the range of values shown for Initial Accuracy.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the correlation coefficient between Initial Confidence and ∆ Accuracy, and does this relationship achieve statistical significance?",
+      "expected_behavior": "The model should state that the correlation coefficient and statistical significance cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart does not provide raw data points, correlation metrics, or statistical significance tests, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence bands around the green line suggest lower variability in Initial Accuracy compared to Final Accuracy. Confidence bands represent the uncertainty around the mean, so narrower bands indicate more consistent data.\n\n2. At an Initial Confidence of 0.95, the Final Accuracy is approximately 0.92, which is significantly higher than the Initial Accuracy of approximately 0.75. This indicates a substantial improvement in accuracy as training progresses.\n\n3. The figure shows a strong negative correlation between Initial Confidence and ∆ Accuracy, as ∆ Accuracy consistently decreases with increasing Initial Confidence. However, the figure does not provide information to determine if this relationship achieves statistical significance.",
+  "timestamp": "2026-05-24T12:10:06.245063+00:00"
+}

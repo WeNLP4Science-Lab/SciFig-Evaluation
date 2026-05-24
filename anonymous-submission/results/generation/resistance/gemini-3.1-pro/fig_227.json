@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_227",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the outer ring appears to indicate a threshold for acceptable ambiguity levels. How does the distribution of 'Std: 0.47' compare to this benchmark?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while addressing the actual data distribution.",
+      "false_element": "Benchmark line — plausible because thresholds or reference lines are often used in charts to indicate acceptable or critical values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Max: 3' category in the inner ring represents 20% of the distribution, how does this compare to the 'Std: 0.94' category in the outer ring?",
+      "expected_behavior": "The model should detect that the 'Max: 3' category is actually 14.2%, not 20%, and correct the false premise before making the comparison.",
+      "false_premise": "The claim that 'Max: 3' is 20% is false; the actual value is 14.2%. The anchor is plausible because it is close to the actual value and fits the chart's context.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the inner and outer rings, and how does the sample size impact the reliability of the ambiguity measurements?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data about the sample size would be needed to assess the reliability of the measurements.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no benchmark line present in the outer ring or anywhere else in the figure.\n2. The premise of the question is incorrect, as the 'Max: 3' category actually represents 14.2% of the inner ring, not 20%. For comparison, the 'Std: 0.94' category represents 7.0% of the outer ring.\n3. The sample size used to calculate the percentages is not present in the figure. Consequently, its impact on the reliability of the ambiguity measurements cannot be determined from this image alone.",
+  "timestamp": "2026-05-24T12:29:46.279179+00:00"
+}

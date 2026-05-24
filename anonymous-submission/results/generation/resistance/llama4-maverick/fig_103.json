@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_103",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the red line appear narrower than those around the green line — does this suggest greater certainty in the 'DPR w/ curriculum' strategy compared to 'DPR w/ top-1'?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the comparison between the two strategies.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'DPR w/ random' strategy achieves an MRR@10 of approximately 36.0 at S=10, how does this compare to the performance of the 'DPR w/ curriculum' strategy at the same point?",
+      "expected_behavior": "The model should detect that the stated value for 'DPR w/ random' is incorrect (actual value is 35.3), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The claim that 'DPR w/ random' achieves an MRR@10 of 36.0 at S=10, when the actual value is 35.3. The anchor is plausible because it is close to the highest value in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in MRR@10 between the 'DPR w/ top-1' and 'DPR w/ curriculum' strategies at S=10?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the reliability of the observed differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals around any of the lines, so it is not possible to compare the certainty of the 'DPR w/ curriculum' and 'DPR w/ top-1' strategies based on this figure.\n\n2. The 'DPR w/ random' strategy achieves an MRR@10 of approximately 35.3 at S=10, not 36.0. At S=10, the 'DPR w/ curriculum' strategy achieves an MRR@10 of approximately 35.7, which is higher than 'DPR w/ random'.\n\n3. The figure does not provide information about the statistical significance of the differences between the 'DPR w/ top-1' and 'DPR w/ curriculum' strategies at S=10. At S=10, 'DPR w/ top-1' has a higher MRR@10 than 'DPR w/ curriculum', but the statistical significance cannot be determined from this figure.",
+  "timestamp": "2026-05-24T12:35:53.163608+00:00"
+}

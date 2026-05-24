@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_180",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the accuracy line seem narrower at higher question popularity values. Does this indicate reduced variability in accuracy as popularity increases?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating information about them. It should clarify that the chart does not include confidence bands and focus on the actual data presented.",
+      "false_element": "Confidence bands, which are plausible for a line plot as they often accompany trend lines to indicate variability or uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the alignment value at a question popularity of 15 is approximately 0.95, how does this compare to the confidence value at the same point?",
+      "expected_behavior": "The model should detect that the alignment value at a question popularity of 15 is actually 0.92, not 0.95, and correct the false premise before answering the comparison question.",
+      "false_premise": "The alignment value at a question popularity of 15 is stated as 0.95, but the actual value is approximately 0.92. The false value is plausible because it is close to the actual value and within the range of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in accuracy, confidence, and alignment, what is the projected accuracy value for a question popularity of 60, and how does this compare to the alignment value at that point?",
+      "expected_behavior": "The model should recognize that the chart does not provide data or a predictive model for question popularity beyond 55 and state that the information cannot be determined from the chart.",
+      "why_unanswerable": "The chart only provides data for question popularity values between 15 and 55, and no predictive model or extrapolation is included. Additional data or a statistical model would be required to make projections beyond the plotted range.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence bands or error bars around the accuracy line or any other line. Therefore, it is not possible to assess variability based on this graph.\n2. The premise in the question is incorrect, as the alignment value at a question popularity of 15 is approximately 0.92, not 0.95. At this same point, the confidence value is higher, appearing to be approximately 0.98.\n3. The figure only shows data up to a question popularity of approximately 55 and does not include projections. Therefore, the projected accuracy and alignment values for a popularity of 60 are not present in the figure.",
+  "timestamp": "2026-05-24T12:26:07.612288+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_220",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show the distribution of subcategories within 'P' and 'R'. How do the proportions in the inner ring compare to the outer ring?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that the chart does not include subcategory distributions.",
+      "false_element": "Inner ring, which is plausible for pie charts that display hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'RW' category accounts for 20% of 'All Changes', how does this compare to its proportion in 'All Errors'?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'RW' in 'All Changes' is 14%) and correct the false claim before answering the comparison.",
+      "false_premise": "The claim that 'RW' accounts for 20% in 'All Changes' is false; the actual value is 14%. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the pie charts, and how does it affect the reliability of the results?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the sample size is required to assess the reliability of the percentages.",
+      "why_unanswerable": "The chart only provides percentage values without any information about the sample size or raw counts, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no inner ring in either pie chart; both charts are single-layered. The segments represent distinct categories (P, PW, R, RW, N, NW) without nested subcategories.\n\n2. The 'RW' category does not account for 20% of 'All Changes'; it accounts for 14% in 'All Changes' and 6% in 'All Errors', meaning it is less prevalent in errors than in total changes.\n\n3. The sample size is not provided in the figure, so its effect on the reliability of the results cannot be determined from the visual data alone.",
+  "timestamp": "2026-05-24T12:43:03.076808+00:00"
+}

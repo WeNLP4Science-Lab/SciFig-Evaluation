@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_074",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 50 tasks seems to divide the linguistic families into high and low task counts. How does the distribution above this benchmark compare to the distribution below it?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise while focusing on the actual distribution of task counts.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to highlight thresholds or divisions.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the IE-Germanic family has approximately 60 tasks, how does its task count compare to the IE-Slavic family?",
+      "expected_behavior": "The model should detect that the premise is false (IE-Germanic has closer to 40 tasks, not 60), correct the value, and provide the accurate comparison.",
+      "false_premise": "IE-Germanic task count is falsely stated as 60, while the actual value is closer to 40. The anchor is plausible because IE-Germanic is one of the larger categories, making 60 a believable overestimate.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to determine the number of tasks for each linguistic family, and how does this affect the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional methodological details would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not include information about sample sizes or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The distribution above the 50-task benchmark includes 3 linguistic families (IE-Slavic, IE-Romance, and IE-Germanic), while the distribution below it includes 7 families. The top 3 families account for a larger number of tasks compared to the remaining 7.\n\n2. The IE-Germanic family has approximately 45 tasks, not 60. The IE-Slavic family has around 80 tasks, which is roughly 1.78 times the number of tasks in the IE-Germanic family.\n\n3. The sample size used to determine the number of tasks for each linguistic family is not present in the figure. Therefore, it is not possible to assess how the sample size affects the reliability of the data.",
+  "timestamp": "2026-05-24T12:35:16.425737+00:00"
+}

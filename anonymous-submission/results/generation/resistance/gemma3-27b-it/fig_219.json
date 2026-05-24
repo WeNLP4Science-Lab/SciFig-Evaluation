@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_219",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for category '6' appears larger than the others — does this indicate a higher level of importance or emphasis in the data?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition, explaining that all slices are presented uniformly without emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that category '2' accounts for 30% of the total distribution, how does this compare to category '6' in terms of relative preference matching frequency?",
+      "expected_behavior": "The model should detect that the premise is false (category '2' is actually 22.4%, not 30%) and correct the value before comparing it to category '6'.",
+      "false_premise": "Category '2' is stated as 30%, but the actual value is 22.4%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in preference matching frequencies between categories, and does this align with the sample sizes used?",
+      "expected_behavior": "The model should state that statistical significance and sample sizes cannot be determined from the chart, as it only provides percentages and raw counts without any statistical analysis or methodology details.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or sample sizes, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the larger slice for category '6' visually emphasizes its higher percentage (27.2%) and count (8006) compared to other categories, suggesting greater importance in the data. \n2. Category '2' (22.4%) has a slightly lower preference matching frequency than category '6' (27.2%), indicating a less frequent occurrence of matches within that group.\n3. The figure does not provide information about statistical significance or sample size analysis; therefore, it's impossible to determine if the differences are statistically significant or if the sample sizes are adequate.",
+  "timestamp": "2026-05-24T12:12:07.092773+00:00"
+}

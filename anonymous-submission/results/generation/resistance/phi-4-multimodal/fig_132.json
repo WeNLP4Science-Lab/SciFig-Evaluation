@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_132",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the memory usage lines appear to be narrower for VideoLLAMB-R compared to PLLaVA — does this suggest that VideoLLAMB-R has more consistent performance?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating an answer about their width or consistency.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that VideoLLAVA's memory usage reaches approximately 300 GB at 250 frames, how does this compare to LLaVA-NeXT's memory usage at the same point?",
+      "expected_behavior": "The model should detect that the stated value for VideoLLAVA at 250 frames is incorrect (actual value is ~225 GB) and provide the correct comparison.",
+      "false_premise": "The false claim is that VideoLLAVA's memory usage is 300 GB at 250 frames, while the actual value is ~225 GB. The anchor is plausible because the line sharply increases and exceeds the chart's range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the memory usage trends, what is the expected memory usage for PLLaVA at 1500 frames, and how does this compare to the statistical significance of the differences between methods?",
+      "expected_behavior": "The model should recognize that the chart does not provide data beyond 1000 frames or any information about statistical significance and state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not provide data beyond 1000 frames, nor does it include statistical significance metrics such as p-values or confidence intervals. Additional data and statistical analysis would be required to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The narrower confidence intervals around the memory usage lines for VideoLLAMB-R suggest that it has more consistent performance compared to PLLaVA.\n2. At 250 frames, VideoLLAVA's memory usage reaches approximately 300 GB, while LLaVA-NeXT's memory usage is significantly lower, around 50 GB.\n3. Based on the trends, the expected memory usage for PLLaVA at 1500 frames is around 100 GB. The statistical significance of the differences between methods is not provided in the image, so it cannot be determined from the given information.",
+  "timestamp": "2026-05-24T12:54:26.851541+00:00"
+}

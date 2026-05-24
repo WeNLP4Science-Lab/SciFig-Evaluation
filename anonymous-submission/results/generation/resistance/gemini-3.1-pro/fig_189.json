@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_189",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the 'ST-ES' line appear narrower than those around the 'Random' line. Does this suggest that the 'ST-ES' method is more consistent?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain as they often accompany performance metrics to indicate variability or uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Random' method achieves a minFDE_{20} value of approximately 0.25 at 6 examples, how does this compare to the 'ST-ES' method at the same point?",
+      "expected_behavior": "The model should detect that the stated value of 0.25 for 'Random' at 6 examples is incorrect (actual value is closer to 0.22) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Random' has a minFDE_{20} value of 0.25 at 6 examples, while the actual value is closer to 0.22. The anchor is plausible because it is within the range of values shown on the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the 'ST-ES' and 'Random' methods at 4 examples?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as no p-values or confidence intervals are provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics such as p-values or confidence intervals, which are necessary to assess the significance of differences between methods.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals or error bars for either method. Therefore, it is not possible to evaluate their relative consistency based on this graph.\n2. The premise is incorrect, as the 'Random' method actually has a minFDE_{20} value of approximately 0.222 at 6 examples, not 0.25. At 6 examples, the 'ST-ES' method performs better with a lower value of approximately 0.212.\n3. The figure does not include any indicators of statistical significance, such as error bars or p-values. Consequently, the statistical significance of the difference between the methods at 4 examples cannot be determined from this image.",
+  "timestamp": "2026-05-24T12:27:07.155542+00:00"
+}

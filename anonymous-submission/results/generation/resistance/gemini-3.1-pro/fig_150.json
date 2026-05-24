@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_150",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the 'Flip needed' line appear narrower than those around the 'Flip ignored' line. Does this suggest greater certainty in the 'Flip needed' configuration?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the premise while explaining that the chart does not provide information about certainty or variability.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in a scientific context to indicate uncertainty or variability in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the number of possible solutions for 'Flip ignored' at 6 missing pieces is approximately 5 × 10^6, how does this compare to the number of solutions for 'Flip needed' at the same point?",
+      "expected_behavior": "The model should detect that the value of 5 × 10^6 is incorrect (actual value is closer to 10^7) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that the number of possible solutions for 'Flip ignored' at 6 missing pieces is 5 × 10^6, while the actual value is closer to 10^7. The anchor is plausible because it is within the same order of magnitude as the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the 'Flip needed' and 'Flip ignored' configurations, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance or p-values and explain that additional statistical analysis would be required to determine this.",
+      "why_unanswerable": "The chart does not include any statistical metrics, such as p-values or confidence intervals, nor does it provide raw data or sample sizes necessary for such calculations.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display any confidence intervals or error bars for either line. Therefore, it is not possible to assess certainty based on this graph.\n2. At 6 missing pieces, the number of solutions for 'Flip needed' is $10^8$, which is substantially higher than the approximately $5 \\times 10^6$ solutions for 'Flip ignored'.\n3. The figure does not provide any information regarding statistical significance or p-values. It only displays the calculated search space sizes.",
+  "timestamp": "2026-05-24T12:23:42.985352+00:00"
+}

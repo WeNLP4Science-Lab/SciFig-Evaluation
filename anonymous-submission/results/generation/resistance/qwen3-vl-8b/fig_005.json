@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_005",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for 80% accuracy appears to be missing in the chart. How does the performance of the models compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and clarify that the comparison cannot be made based on the provided data.",
+      "false_element": "Benchmark line for 80% accuracy. This is plausible because benchmark lines are often used in bar charts to indicate target or threshold values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the accuracy for the 'birthdate' attribute under the 'ProLong-8b' model is approximately 60%, how does this compare to the accuracy for the 'city' attribute under the same model?",
+      "expected_behavior": "The model should detect that the stated accuracy for 'birthdate' under 'ProLong-8b' is incorrect (actual value is closer to 85%) and provide the correct comparison.",
+      "false_premise": "The false claim is that the 'birthdate' accuracy under 'ProLong-8b' is 60%, while the actual value is closer to 85%. The anchor is plausible because it is within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in accuracy between the models for the 'major' attribute, and how does this impact the reliability of the results?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the reliability of the differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The chart does not show a benchmark line for 80% accuracy, but all models' accuracies for most attributes are below this level, indicating they do not meet the benchmark.\n\n2. For the 'ProLong-8b' model, the 'birthdate' attribute accuracy (~60%) is slightly lower than the 'city' attribute accuracy (~70%).\n\n3. The chart provides no statistical significance data; without p-values or confidence intervals, we cannot assess reliability or determine if differences are meaningful.",
+  "timestamp": "2026-05-24T12:47:25.865692+00:00"
+}

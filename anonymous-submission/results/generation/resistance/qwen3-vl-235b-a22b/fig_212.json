@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_212",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner rings of the pie charts seem to indicate subcategories within each segment—how do these subcategories relate to the overall percentages shown?",
+      "expected_behavior": "The model should recognize that inner rings are not present in the chart and clarify that the pie charts only display single-level categories without subcategories.",
+      "false_element": "Inner rings, which are plausible in pie charts to represent subcategories or hierarchical data but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Safety' category in the Gemini1.5-Pro chart accounts for approximately 20% of the total, how does this compare to the 'Safety' category in GPT4-o?",
+      "expected_behavior": "The model should detect that the 'Safety' category in Gemini1.5-Pro is actually 9.3%, not 20%, and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that 'Safety' in Gemini1.5-Pro is 20%, when the actual value is 9.3%. The anchor is plausible because 20% is close to the actual value and fits the chart's domain.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in each pie chart, and how does it affect the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information about the dataset or methodology would be required to assess reliability.",
+      "why_unanswerable": "The chart only provides percentages and does not include any information about the sample size or underlying data, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no inner rings in the pie charts; each chart is a single-layer pie with segments representing categories. The percentages shown are for the entire segment, not subcategories.\n\n2. The 'Safety' category in Gemini1.5-Pro is 9.3%, not 20%; in GPT4-o, it is 16.7%. Thus, GPT4-o has a higher proportion of 'Safety' issues than Gemini1.5-Pro.\n\n3. The sample size is not explicitly stated in the figure, but the raw counts (e.g., 5, 19, 33) suggest small samples (e.g., 6 for GPT4-o, 86 for Gemini1.5-Pro). Small samples may reduce reliability and generalizability of the percentages.",
+  "timestamp": "2026-05-24T12:42:51.534776+00:00"
+}

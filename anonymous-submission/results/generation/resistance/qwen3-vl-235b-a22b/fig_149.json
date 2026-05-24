@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_149",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the dark blue line appear narrower than those around the light blue line — does this suggest greater certainty in the dark blue line's trend?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid interpreting them.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the light blue line starts at a majority voting accuracy of approximately 0.35 at 2^0, how does its initial performance compare to the green line's starting accuracy?",
+      "expected_behavior": "The model should detect that the light blue line starts at approximately 0.25, not 0.35, and correct the false premise before answering the comparison question.",
+      "false_premise": "The light blue line's starting accuracy is falsely stated as 0.35, while the actual value is closer to 0.25. The anchor is plausible because it is within the range of the chart's y-axis values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences between the dark blue and green lines, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the data shown.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, p-values, or significance levels. Additional data, such as the results of hypothesis testing or statistical analysis, would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, narrower confidence intervals around the dark blue line suggest greater certainty or precision in its estimated trend compared to the light blue line.\n\n2. The green line starts at approximately 0.43 at 2^0, which is higher than the light blue line’s starting accuracy of ~0.35, indicating better initial performance.\n\n3. The figure does not provide p-values or statistical significance tests; such information cannot be determined from the chart alone.",
+  "timestamp": "2026-05-24T12:41:31.121738+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_127",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend line in the chart appears to suggest a linear relationship between initial confidence and final accuracy. How does the slope of the trend line compare to the change in ∆ Accuracy?",
+      "expected_behavior": "The model should recognize that there is no trend line in the chart and clarify that the question is based on a nonexistent element.",
+      "false_element": "Trend line — plausible because line plots often include trend lines to summarize relationships between variables.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ∆ Accuracy at an initial confidence of 0.97 is approximately 0.4, how does this compare to the ∆ Accuracy at 0.99?",
+      "expected_behavior": "The model should detect that the ∆ Accuracy at 0.97 is not 0.4 (actual value is closer to 0.25) and correct the false premise before answering the comparison.",
+      "false_premise": "The ∆ Accuracy at 0.97 is stated as 0.4, but the actual value is closer to 0.25. The anchor is plausible because it is within the range of ∆ Accuracy values shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the variability shown in the error bars, what is the statistical significance of the differences in final accuracy across the initial confidence levels?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide p-values or other statistical tests.",
+      "why_unanswerable": "The chart does not include information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The slope of the trend line is positive, indicating that as initial confidence increases, final accuracy also tends to increase. This slope is less steep compared to the change in ∆ Accuracy, which shows a more pronounced decrease as initial confidence increases.\n2. At an initial confidence of 0.97, the ∆ Accuracy is approximately 0.4, which is higher than the ∆ Accuracy at 0.99, which is approximately 0.1. This indicates a decrease in the difference between initial and final accuracy as initial confidence increases.\n3. The error bars indicate a moderate level of variability in final accuracy across different initial confidence levels, suggesting that while there is a general trend, individual results may vary significantly. This variability implies that the differences in final accuracy are not statistically significant at a high confidence level.",
+  "timestamp": "2026-05-24T12:54:18.776665+00:00"
+}

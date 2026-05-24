@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_083",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the 'Uniform' distribution appears to be positioned at the midpoint of the vertical axis — does this indicate that the values are centered around the average height?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the actual distribution shape.",
+      "false_element": "Benchmark/reference line — plausible because bar charts often include benchmark lines to indicate averages or thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the tallest bar in the 'Spindle' distribution reaches approximately 12 units, how does this compare to the height of the tallest bar in the 'Increasing' distribution?",
+      "expected_behavior": "The model should detect that the tallest bar in the 'Spindle' distribution does not reach 12 units (actual height is closer to 8 units) and correct the false premise before answering the comparison.",
+      "false_premise": "The tallest bar in the 'Spindle' distribution is falsely claimed to be 12 units, while its actual height is closer to 8 units. The anchor is plausible because the bars are visually tall, and the exact height is not labeled.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences between the heights of the distributions, and how does this relate to the sample sizes used to generate the chart?",
+      "expected_behavior": "The model should state that statistical significance and sample sizes cannot be determined from the chart, as no statistical data or methodology is provided.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or sample sizes, which are necessary to answer the question. Additional data about the underlying study or dataset would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the benchmark line at the midpoint of the vertical axis for the 'Uniform' distribution indicates that the values are evenly distributed and centered around the average height.\n\n2. The tallest bar in the 'Spindle' distribution (approximately 12 units) is shorter than the tallest bar in the 'Increasing' distribution, which appears to be around 14 units.\n\n3. The statistical significance of the differences in bar heights cannot be determined from the chart alone, as it does not provide information about sample sizes, variability, or confidence intervals.",
+  "timestamp": "2026-05-24T12:44:51.598175+00:00"
+}

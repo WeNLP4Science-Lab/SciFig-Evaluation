@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_191",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines appear to be narrow, suggesting high precision in the PPL values. How do these intervals compare across the different gamma values?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty, are absent here. Their inclusion would be plausible given the chart's focus on evaluation metrics.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the PPL for γ=0.5 at 8K is approximately 7.9, how does this compare to the PPL for γ=0.75 at the same context length?",
+      "expected_behavior": "The model should detect that the stated PPL value for γ=0.5 at 8K is incorrect (actual value is approximately 7.76), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The false claim is that the PPL for γ=0.5 at 8K is 7.9, while the actual value is approximately 7.76. The false value is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in PPL across context lengths, what is the projected PPL for γ=0.25 at 128K, and how does this compare to the statistical significance of the observed differences between γ=0.5 and γ=0.75?",
+      "expected_behavior": "The model should recognize that the chart does not provide data or methodology to project PPL beyond 64K or to calculate statistical significance, and it should state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not include data for context lengths beyond 64K or any statistical analysis (e.g., p-values or confidence intervals) to assess significance. Additional data and statistical tests would be required to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The confidence intervals around the lines are not explicitly shown in the figure, so a direct comparison cannot be made.\n2. The PPL for γ=0.5 at 8K is approximately 7.9, while the PPL for γ=0.75 at the same context length is slightly lower, around 7.8.\n3. The projected PPL for γ=0.25 at 128K is not explicitly shown in the figure, so it cannot be determined. The statistical significance of the observed differences between γ=0.5 and γ=0.75 cannot be determined without additional information.",
+  "timestamp": "2026-05-24T12:56:16.843140+00:00"
+}

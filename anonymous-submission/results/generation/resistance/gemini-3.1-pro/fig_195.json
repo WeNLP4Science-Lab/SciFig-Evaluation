@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_195",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'MoHD ATTN + MLP' line appear narrower than those around the 'Only MoHD ATTN' line—does this suggest lower uncertainty in the former method's performance?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the presupposition while explaining that the chart does not provide uncertainty measures.",
+      "false_element": "Confidence bands, which are plausible in line plots to indicate uncertainty or variability in the data.",
+      "principle": "Presupposition embedding, co-occurrence priors."
+    },
+    {
+      "type": "contra",
+      "question": "Given that the evaluation perplexity for 'Only MoHD FFN' at 50% activated parameters is approximately 12.5, how does this compare to the performance of 'Transformer' at 100% activation?",
+      "expected_behavior": "The model should detect that the stated value of 12.5 is incorrect (actual value is 11.3) and correct the premise before comparing it to the 'Transformer' performance.",
+      "false_premise": "The evaluation perplexity for 'Only MoHD FFN' at 50% activation is stated as 12.5, but the actual value is 11.3. The anchor is plausible because it is close to the range of values in the chart.",
+      "principle": "Anchoring, subordinate embedding."
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences in evaluation perplexity between the methods, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone and explain that additional statistical analysis and raw data would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or p-values, which are necessary to assess significance.",
+      "principle": "Domain conventions, refusal cost."
+    }
+  ],
+  "raw_response": "1. The figure does not display any confidence bands or error bars for any of the lines. Therefore, it is not possible to assess or compare the uncertainty in the methods' performance based on this image.\n2. The premise of the question is incorrect; the chart shows the evaluation perplexity for 'Only MoHD FFN' at 50% is approximately 11.3, not 12.5. This actual value of ~11.3 is lower (better) than the 'Transformer' baseline, which remains constant at approximately 11.6.\n3. The figure does not contain any information about statistical significance or p-values. Consequently, this information cannot be determined from the provided chart.",
+  "timestamp": "2026-05-24T12:27:38.772016+00:00"
+}

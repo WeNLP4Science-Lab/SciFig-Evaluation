@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_086",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the average token count appears to be positioned near 5000. How do the categories above and below this benchmark compare in terms of variance?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise, stating that no comparison can be made based on a nonexistent element.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are often used in bar charts to indicate averages or thresholds for comparison.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Science category contains approximately 2000 tokens, how does its token count compare to the Non-fiction category?",
+      "expected_behavior": "The model should detect that the premise is false (Science has 1626 tokens, not 2000), correct the value, and provide the correct comparison.",
+      "false_premise": "The Science category is falsely stated to have 2000 tokens, while the actual value is 1626. The false value is plausible because it is only about 23% higher than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in token counts between the News and Administrative categories, and how does this relate to the sample sizes used in the dataset?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance or sample sizes and state that this cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, sample sizes, or any methodology details. Additional data about the dataset's sampling and statistical analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The categories above the 5000 benchmark are News and Administrative, with token counts of 10584 and 6472, respectively. The categories below this benchmark are Religion, Non-fiction, Fiction, Law, Science, and Blogs. The variance among the categories below the benchmark is high, with token counts ranging from 32 to 1889. In contrast, the variance among the categories above the benchmark is relatively low, with only two categories.\n\n2. The Science category actually contains approximately 1626 tokens, not 2000. Comparing this to the Non-fiction category, which has 1889 tokens, we see that Science has fewer tokens than Non-fiction.\n\n3. The figure does not provide information about the statistical significance of the differences in token counts or the sample sizes used in the dataset. Therefore, it is not possible to determine the statistical significance of the differences between the News and Administrative categories based on this figure alone.",
+  "timestamp": "2026-05-24T12:35:32.418614+00:00"
+}

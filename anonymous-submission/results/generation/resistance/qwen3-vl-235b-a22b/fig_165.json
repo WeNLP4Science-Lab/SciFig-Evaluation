@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_165",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'TrajICL' line appear narrower at higher ratios — does this suggest reduced uncertainty in predictions?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence bands, which are plausible for a line plot in this domain as they often represent uncertainty in predictions.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'FT' method starts at a minFDE20 value of approximately 18.5 at ratio 0.0, how does its initial performance compare to 'TrajICL'?",
+      "expected_behavior": "The model should detect that the initial value for 'FT' is incorrect (actual is ~22.2), correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The initial value for 'FT' is falsely stated as 18.5, while the actual value is ~22.2. The false value is plausible because it is within the range of the chart and close to the lowest values observed.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the performance differences between 'TrajICL' and 'Head Tuning' across all ratios?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or confidence intervals, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence bands around any lines, so this cannot be assessed from the provided plot.\n\n2. At ratio 0.0, 'FT' starts at approximately 22.2, not 18.5 — 'TrajICL' starts at ~20.5, meaning 'FT' begins with worse performance than 'TrajICL'.\n\n3. The figure does not include error bars, p-values, or statistical tests, so the statistical significance of performance differences cannot be determined from this plot alone.",
+  "timestamp": "2026-05-24T12:41:49.621724+00:00"
+}

@@ -1,0 +1,44 @@
+{
+  "modified_caption": "Comparison of query selection strategies in Dense Passage Retrieval (DPR) evaluated via Mean Reciprocal Rank (MRR@10) on the MS-Marco development set. The x-axis denotes the number of queries used during inference (S), ranging from 2 to 10, while the y-axis represents MRR@10, spanning from 33.0 to 36.5. Six strategies are depicted: DPR without query expansion (black solid line, constant at approximately 34.3), DPR with curriculum-based query selection (red solid line with circles, rising modestly from 35.1 to 35.8), DPR with top-1 query selection (green solid line with triangles, increasing sharply from 33.0 to 36.5), DPR with random query selection (blue solid line with circles, stabilizing around 34.5 after an initial rise), DPR with bottom-1 query selection (purple solid line with circles, declining steadily from 35.2 to 34.6), and DPR with gold query selection (yellow solid line with circles, surging from 33.0 at S=4 to 35.0 at S=10). Dashed lines represent typical DPR representations without corpus expansion, with the red dashed line (curriculum) consistently outperforming others at 35.6, while the green dashed line (top-1) plateaus at 34.2. Notably, the DPR with random queries initially surpasses the curriculum-based approach but is subsequently overtaken as the number of queries increases. The gold query strategy demonstrates the most rapid improvement, though it fails to match the peak performance of the top-1 strategy by S=10. These results suggest that while targeted query selection strategies (e.g., top-1) yield the highest MRR gains, even suboptimal strategies like bottom-1 can maintain competitive performance under limited query conditions.",
+  "modifications": [
+    {
+      "claim": "DPR with random query selection (blue solid line with circles, stabilizing around 34.5 after an initial rise)",
+      "reality": "The blue line (DPR w/ random) actually stabilizes around 35.3, not 34.5, and does not show a significant initial rise followed by stabilization but rather a gradual increase.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    },
+    {
+      "claim": "DPR with bottom-1 query selection (purple solid line with circles, declining steadily from 35.2 to 34.6)",
+      "reality": "The purple line (DPR w/ bottom-1) starts at approximately 34.8, not 35.2, and does not decline steadily but rather fluctuates slightly before stabilizing around 34.6.",
+      "type": "trend_characterization",
+      "principle": "loaded_verb"
+    },
+    {
+      "claim": "the green dashed line (top-1) plateaus at 34.2",
+      "reality": "The green dashed line (top-1) is not shown in the figure; only the solid green line is present, and no dashed green line plateaus at 34.2. The dashed lines correspond to red, blue, purple, and black, with the green dashed line being entirely fabricated.",
+      "type": "comparison_swap",
+      "principle": "peripheral_misinformation"
+    },
+    {
+      "claim": "DPR with random queries initially surpasses the curriculum-based approach but is subsequently overtaken",
+      "reality": "The blue line (DPR w/ random) never surpasses the red line (DPR w/ curriculum) at any point; the red line consistently remains above the blue line.",
+      "type": "ranking_inversion",
+      "principle": "peripheral_misinformation"
+    }
+  ],
+  "correct_elements": [
+    "Chart type is correctly identified as a line plot.",
+    "Axes labels and ranges are accurately described (x-axis: Number of queries used during inference (S), 2 to 10; y-axis: MRR@10, 33.0 to 36.5).",
+    "The legend and line styles (solid vs. dashed) are correctly referenced.",
+    "The DPR w/o query (black solid line) is correctly described as constant at approximately 34.3.",
+    "The DPR w/ curriculum (red solid line) is correctly noted to rise modestly from 35.1 to 35.8.",
+    "The DPR w/ top-1 (green solid line) is correctly described as increasing sharply from 33.0 to 36.5.",
+    "The DPR w/ gold (yellow solid line) is correctly noted to start at 33.0 at S=4 and rise to 35.0 at S=10.",
+    "The presence of dashed lines for typical DPR representations is correctly mentioned."
+  ],
+  "figure_id": "fig_103",
+  "figure_type": "Line Plot",
+  "original_caption": "Comparison of different query selection strategies. During training, we first expand the document with a query selected from the generated queries using a specific strategy, and then train DPR with the expanded document. During inference, we evaluate the well-trained DPR retrievers with corpus expansion (solid lines) and the typical representation (dotted lines) on the dev set of MS-Marco, where the solid and dotted lines with the same color are results for the same DPR.",
+  "num_modifications": 4,
+  "probe_generator": "mistral-large-3"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_069",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the AVG category appears to be set at 0.8 — does this indicate a target performance threshold for the models?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition.",
+      "false_element": "Benchmark line — plausible because benchmark lines are often used in performance comparison charts to indicate target thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SOLAR-10.7B-v1.0 model achieves a value of 0.85 in the KoBEST-CP category, how does this compare to the performance of RedWhale (our) in the same category?",
+      "expected_behavior": "The model should detect that the SOLAR-10.7B-v1.0 value is actually 1.00, not 0.85, and correct the false premise before answering the comparison.",
+      "false_premise": "The SOLAR-10.7B-v1.0 value in KoBEST-CP is falsely stated as 0.85, while the actual value is 1.00. The anchor is plausible because 0.85 is close to the other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the performance values across all categories, what is the statistical significance of the differences between the models, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis or raw data is provided.",
+      "why_unanswerable": "The chart does not include information about statistical tests, sample sizes, or p-values, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no benchmark line set at 0.8 in the AVG category or anywhere else in the figure; the values shown for the AVG category are 0.57, 0.61, and 1.00.\n2. The premise of the question is incorrect, as the figure shows the SOLAR-10.7B-v1.0 model achieving a value of 1.00 in the KoBEST-CP category, not 0.85. In that same category, RedWhale (our) achieves a score of 0.71.\n3. The figure does not provide any information regarding the statistical significance of the differences between the models, nor does it include p-values.",
+  "timestamp": "2026-05-24T12:16:58.015468+00:00"
+}

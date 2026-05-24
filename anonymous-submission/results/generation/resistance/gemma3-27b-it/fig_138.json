@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_138",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the blue line appear narrower than those around the green line — does this suggest lower variability in final accuracy compared to initial accuracy?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence bands, which are plausible in line plots to represent uncertainty but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the final accuracy at an initial confidence of 0.99 is approximately 0.85, how does this compare to the initial accuracy at the same confidence level?",
+      "expected_behavior": "The model should detect that the stated final accuracy value (0.85) is incorrect, correct it to the actual value (slightly below 1.0), and provide the correct comparison.",
+      "false_premise": "The false claim is that the final accuracy at 0.99 is approximately 0.85, while the actual value is slightly below 1.0. The anchor is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends in the chart, what is the statistical significance of the difference between initial and final accuracy at an initial confidence of 0.85?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or test statistics, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or test statistics, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence bands around the blue (final accuracy) line suggest lower variability in final accuracy compared to the wider bands around the green (initial accuracy) line. This indicates that final accuracy is more consistent across different runs or conditions.\n\n2. At an initial confidence of 0.99, the final accuracy (approximately 0.85) is notably lower than the initial accuracy (approximately 0.98). This suggests a significant decrease in accuracy as the initial confidence increases to this level.\n\n3. The figure does not provide information about statistical significance; it only shows the trends of the data. Determining statistical significance would require additional statistical tests and p-values, which are not present in the figure.",
+  "timestamp": "2026-05-24T12:10:16.173275+00:00"
+}

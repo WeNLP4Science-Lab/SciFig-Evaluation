@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_209",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'External News Article' seems larger than expected — does this indicate its relative importance compared to other categories?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual proportions shown.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific categories but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Draft/Other' accounts for 12 out of 38 parts, how does its proportion compare to 'External News Article'?",
+      "expected_behavior": "The model should detect that the value for 'Draft/Other' is incorrect (actual value is 9/38), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The claim that 'Draft/Other' accounts for 12/38 is false; the actual value is 9/38. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions shown, what is the statistical significance of the differences between the categories, and what is the p-value for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values cannot be determined from the chart alone and explain that additional data and analysis would be required.",
+      "why_unanswerable": "The chart only shows proportions and does not provide raw data, sample sizes, or statistical tests necessary to calculate significance or p-values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the visual size of the slice does not indicate relative importance; it represents the proportion of the total, which is 15/38 for 'External News Article'.\n\n2. 'Draft/Other' accounts for 9/38, which is less than 'External News Article' (15/38), so 'External News Article' is more common.\n\n3. The figure does not provide statistical significance or p-values for the comparisons between categories.",
+  "timestamp": "2026-05-24T12:46:41.092036+00:00"
+}

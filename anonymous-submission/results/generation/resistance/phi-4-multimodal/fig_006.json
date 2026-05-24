@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_006",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the 'TR-N' metric appear narrower than those on the 'CCP' metric — does this suggest lower variability in the 'TR-N' results?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the presupposition while explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Greedy (CodeLlama-7B)' algorithm achieves a performance of approximately 0.5 on the 'EGP' metric, how does this compare to the performance of 'RPG (CodeLlama-34B)' on the same metric?",
+      "expected_behavior": "The model should detect that the stated value of 0.5 for 'Greedy (CodeLlama-7B)' on 'EGP' is incorrect (actual value is approximately 0.0) and correct the premise before answering the comparison.",
+      "false_premise": "The false claim is that 'Greedy (CodeLlama-7B)' achieves 0.5 on 'EGP', while the actual value is approximately 0.0. The anchor is plausible because 0.5 is within the chart's range and aligns with other values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the performance differences across metrics, what is the statistical significance of the observed trends, and what are the p-values for each comparison?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and explain that additional data or analysis would be required to answer the question.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or the underlying data used to calculate them. These metrics require additional statistical analysis beyond what is shown.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower error bars on the 'TR-N' metric suggest lower variability in the results for that metric compared to 'CCP'.\n2. The 'Greedy (CodeLlama-7B)' algorithm has a performance of approximately 0.5 on the 'EGP' metric, which is lower than the performance of 'RPG (CodeLlama-34B)' on the same metric.\n3. The image does not provide information on statistical significance or p-values for the observed trends.",
+  "timestamp": "2026-05-24T12:50:16.450289+00:00"
+}

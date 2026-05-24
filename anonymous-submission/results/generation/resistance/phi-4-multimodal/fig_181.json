@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_181",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the 'start' line appear narrower than those around the 'end' line. Does this suggest greater certainty in the 'start' line's values?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain to indicate uncertainty around the ASR values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ASR for the 'random' line at the keyword 'cf' is approximately 0.4, how does this compare to the 'start' line at the same keyword?",
+      "expected_behavior": "The model should detect that the ASR for 'random' at 'cf' is actually closer to 0.2, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The ASR for 'random' at 'cf' is stated as 0.4, but the actual value is closer to 0.2. The false value is plausible because it is within the range of the chart and close to other values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the ASR trends for the 'start' and 'end' lines, what is the statistical significance of the difference between their values at the keyword 'beautiful'?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the significance of differences between values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals around the 'start' line suggest greater certainty in its values.\n2. The ASR for the 'random' line at the keyword 'cf' is lower than the 'start' line at the same keyword.\n3. The ASR values for the 'start' and 'end' lines at the keyword 'beautiful' are not statistically significant as they overlap.",
+  "timestamp": "2026-05-24T12:55:55.428029+00:00"
+}

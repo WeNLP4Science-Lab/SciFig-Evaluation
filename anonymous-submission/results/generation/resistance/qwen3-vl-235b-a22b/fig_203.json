@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_203",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the Cultural Layer seem to emphasize its importance relative to the other layers. How does this visual choice affect the interpretation of the chart?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and clarify that the Cultural Layer is not visually emphasized in this way.",
+      "false_element": "Exploded slices — plausible because pie charts often use exploded slices to highlight specific segments, but none are present in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Signal Layer accounts for 10% of the chart, how does its proportion compare to the Cultural Layer's 14.1%?",
+      "expected_behavior": "The model should detect that the Signal Layer does not account for 10% (actual value is 4.3%) and correct the false premise before answering the comparison.",
+      "false_premise": "The Signal Layer is stated to account for 10%, but its actual value is 4.3%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions of the layers, what is the sample size used to calculate these percentages, and how does this affect the reliability of the analysis?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about the sample size and explain that this data is necessary to assess the reliability of the analysis.",
+      "why_unanswerable": "The chart does not include any information about the sample size or the methodology used to calculate the percentages. Additional data about the study design and sample size would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slices in the Cultural Layer do not actually emphasize its importance; they are simply a visual artifact of the chart’s design to separate subcategories. The layer’s actual weight (14.1%) is smaller than both the Perception and Semantic Layers, so the explosion doesn’t imply greater significance.\n\n2. The Signal Layer does not account for 10% — it is labeled as 4.3% in the chart. Compared to the Cultural Layer’s 14.1%, the Signal Layer is substantially smaller, representing less than one-third of the Cultural Layer’s proportion.\n\n3. The chart does not provide any information about the sample size used to calculate these percentages. Without this data, the reliability or statistical validity of the analysis cannot be assessed from the figure alone.",
+  "timestamp": "2026-05-24T12:42:40.755463+00:00"
+}

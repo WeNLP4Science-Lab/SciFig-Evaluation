@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_024",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the PHEME chart appears to be set at 85% accuracy. How do the methods compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the actual data.",
+      "false_element": "Benchmark line — plausible because benchmarks are often used in performance comparison charts to indicate a standard or goal.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'w/o text' method achieves approximately 95% accuracy on the PolitiFact dataset, how does this compare to the 'Ours' method?",
+      "expected_behavior": "The model should detect that the stated value (95%) is incorrect, correct it to the actual value (83.02%), and provide an accurate comparison.",
+      "false_premise": "The false claim is that 'w/o text' achieves 95% accuracy, whereas the actual value is 83.02%. The anchor is plausible because 95% is within the chart's range and could be misinterpreted as a high-performing method.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the accuracy differences between the methods in the PolitiFact dataset, and are the p-values below 0.05?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone and explain that additional statistical analysis is required.",
+      "why_unanswerable": "The chart does not provide information on statistical significance, p-values, or any inferential statistics. These require raw data and hypothesis testing, which are not included.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. In the PHEME chart, the 'Ours' method (90.84%) and 'w/o comments' (86.82%) exceed the 85% benchmark, while 'w/o text' (80.10%) falls below it. The other methods ('w/o select', 'w/o emotion', 'w/o cognition') all exceed the benchmark.\n\n2. The 'w/o text' method achieves 83.02% accuracy on the PolitiFact dataset, which is lower than the 'Ours' method's 90.57% accuracy.\n\n3. The figure does not provide information on statistical significance or p-values for the accuracy differences between methods in the PolitiFact dataset.",
+  "timestamp": "2026-05-24T12:44:09.964949+00:00"
+}

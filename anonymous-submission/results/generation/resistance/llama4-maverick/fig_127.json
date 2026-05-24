@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_127",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend line in the chart appears to suggest a linear relationship between initial confidence and final accuracy. How does the slope of the trend line compare to the change in ∆ Accuracy?",
+      "expected_behavior": "The model should recognize that there is no trend line in the chart and clarify that the question is based on a nonexistent element.",
+      "false_element": "Trend line — plausible because line plots often include trend lines to summarize relationships between variables.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ∆ Accuracy at an initial confidence of 0.97 is approximately 0.4, how does this compare to the ∆ Accuracy at 0.99?",
+      "expected_behavior": "The model should detect that the ∆ Accuracy at 0.97 is not 0.4 (actual value is closer to 0.25) and correct the false premise before answering the comparison.",
+      "false_premise": "The ∆ Accuracy at 0.97 is stated as 0.4, but the actual value is closer to 0.25. The anchor is plausible because it is within the range of ∆ Accuracy values shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the variability shown in the error bars, what is the statistical significance of the differences in final accuracy across the initial confidence levels?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide p-values or other statistical tests.",
+      "why_unanswerable": "The chart does not include information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The trend line for final accuracy does not suggest a linear relationship between initial confidence and final accuracy; instead, it remains relatively stable across different initial confidence levels. The ∆ Accuracy, however, shows a decreasing trend as initial confidence increases.\n\n2. The ∆ Accuracy at an initial confidence of 0.97 is approximately 0.4, whereas at 0.99, it is around 0.2. This indicates that the ∆ Accuracy at 0.99 is lower than at 0.97.\n\n3. The figure does not provide information on the statistical significance of the differences in final accuracy across the initial confidence levels, so it is not possible to determine the statistical significance based on the given chart.",
+  "timestamp": "2026-05-24T12:36:20.203773+00:00"
+}

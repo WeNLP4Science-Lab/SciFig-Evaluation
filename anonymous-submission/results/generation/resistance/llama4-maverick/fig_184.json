@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_184",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the magenta line appear to be much wider at N=10 compared to N=5 — does this suggest greater variability in the data at N=10?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the premise, explaining that variability cannot be inferred without them.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in a scientific context to indicate variability or uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the AUC for the orange line at N=20 is approximately 85%, how does this compare to the magenta line at N=20?",
+      "expected_behavior": "The model should detect that the stated AUC for the orange line at N=20 is incorrect (actual value is 92%) and provide the correct comparison.",
+      "false_premise": "The AUC for the orange line at N=20 is stated as 85%, but the actual value is 92%. The false value is plausible because it is within 20-30% of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences in AUC between the magenta and blue lines at N=10?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the significance of differences between the lines.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals around any of the lines, so it is not possible to assess the variability in the data at different values of N.\n\n2. The AUC for the orange line at N=20 is approximately 91%, not 85%. The AUC for the magenta line at N=20 is approximately 82%. Therefore, the AUC for the orange line is higher than that of the magenta line at N=20.\n\n3. The figure does not provide information on the statistical significance of the differences between the lines. Therefore, it is not possible to determine the statistical significance of the differences in AUC between the magenta and blue lines at N=10 based on this chart alone.",
+  "timestamp": "2026-05-24T12:37:19.500325+00:00"
+}

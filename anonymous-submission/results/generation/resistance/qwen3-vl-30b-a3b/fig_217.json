@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_217",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize certain domains like 'AI/NLP Research' and 'Econ. & Fin.' — does this suggest these categories are more significant than others?",
+      "expected_behavior": "The model should recognize that the chart does not include exploded slices and reject the presupposition, clarifying that all slices are visually equal in emphasis.",
+      "false_element": "Exploded slices, which are plausible for pie charts to highlight specific categories but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'History' accounts for 12% of the dataset, how does its representation compare to 'Game&Anime' in terms of relative importance?",
+      "expected_behavior": "The model should detect that the premise is false ('History' is actually 8.2%) and correct the value before addressing the comparison.",
+      "false_premise": "'History' is claimed to be 12%, but the actual value is 8.2%. The false value is plausible because it is within a reasonable range of the true value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size underlying the percentages in the pie chart, and how does it impact the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the dataset would be required to assess reliability.",
+      "why_unanswerable": "The chart only provides percentages and does not include information about the sample size or raw counts, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slices highlight 'AI/NLP Research' and 'Econ. & Fin.' visually, but this does not necessarily imply greater significance; it is a design choice to emphasize these categories, which are among the largest in the dataset.\n\n2. 'History' accounts for 8.2% and 'Game&Anime' also accounts for 8.2%, so they are equal in relative importance.\n\n3. The sample size is not provided in the figure, so it is impossible to determine the reliability of the data based on the given information.",
+  "timestamp": "2026-05-24T12:46:49.254710+00:00"
+}

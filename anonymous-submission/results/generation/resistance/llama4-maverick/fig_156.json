@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_156",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals for the 'tiny AdaLoRA_int4' series appear narrower than those for 'tiny int8' — does this suggest lower variability in the former method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'tiny full' method starts at a WER of approximately 40 at epoch 0, how does its initial performance compare to the other methods?",
+      "expected_behavior": "The model should detect that the initial WER for 'tiny full' is actually below 30, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The claim that 'tiny full' starts at a WER of approximately 40 is false; the actual value is below 30. The false value is plausible because it is close to the range of other methods' initial WER values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed WER trends, what is the statistical significance of the differences between the methods at epoch 6, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values cannot be determined from the chart alone and explain that additional data or analysis would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, sample sizes, or p-values, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals for any of the series, so it is not possible to assess the variability of 'tiny AdaLoRA_int4' relative to 'tiny int8' or any other method based on the provided information.\n\n2. The 'tiny full' method actually starts at a WER of approximately 30 at epoch 0, not 40. Its initial performance is better than the other methods shown, as they all start with a WER above 50.\n\n3. The figure does not provide information on the statistical significance of the differences between the methods or their p-values at epoch 6 or any other epoch. It only shows the WER trends over epochs for the different methods.",
+  "timestamp": "2026-05-24T12:36:53.438002+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_032",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the AvgObj bars seem to be smaller for DEITA compared to TagNum — does this suggest lower variability in DEITA's scores?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise, explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in a bar chart to indicate variability or uncertainty in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the AvgSub score for TagNum is approximately 50, how does this compare to the Base AvgSub value?",
+      "expected_behavior": "The model should detect that the AvgSub score for TagNum is actually 39.13, not 50, and correct the false premise before comparing it to the Base AvgSub value of 37.91.",
+      "false_premise": "The AvgSub score for TagNum is 50, while the actual value is 39.13. The false value is plausible because it is within the range of scores shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the AvgObj scores across the three categories, what is the statistical significance of the differences between them, and what is the p-value for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide information about sample sizes, variance, or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, variance, or the results of statistical tests, which are necessary to calculate p-values and assess statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show error bars for the AvgObj bars, so variability cannot be assessed visually.\n\n2. The AvgSub score for TagNum is 39.13, which is below the Base AvgSub value of approximately 40 (indicated by the dashed orange line).\n\n3. The figure does not provide statistical significance or p-values for any comparisons.",
+  "timestamp": "2026-05-24T12:47:42.268827+00:00"
+}

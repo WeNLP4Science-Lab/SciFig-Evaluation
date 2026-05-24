@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_202",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Algebra – Olympiad-level' appears larger than the others. Does this indicate its relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual proportions of the slices.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Combinatorics – Olympiad-level' accounts for approximately 13% of the total, how does this compare to 'Algebra – High School' in terms of percentage contribution?",
+      "expected_behavior": "The model should detect that the stated percentage for 'Combinatorics – Olympiad-level' is incorrect (actual value is 9.56%) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Combinatorics – Olympiad-level' accounts for 13%, while the actual value is 9.56%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of problems used to calculate the percentages, and how does this affect the reliability of the distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the exploded slice visually emphasizes 'Algebra – Olympiad-level' as the largest category (21.19%), indicating it has the highest relative contribution in the dataset.\n\n2. 'Combinatorics – Olympiad-level' contributes 9.56%, which is less than 'Algebra – High School' at 17.83%, making the latter nearly twice as large in percentage contribution.\n\n3. The sample size is 386 (sum of all problem counts: 82+4+25+37+69+55+14+25+24+14+21+17), and while not extremely large, it is sufficient to provide a reasonably reliable distribution for comparative analysis.",
+  "timestamp": "2026-05-24T12:42:33.050669+00:00"
+}

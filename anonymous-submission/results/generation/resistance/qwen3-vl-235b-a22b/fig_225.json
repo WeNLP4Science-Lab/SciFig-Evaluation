@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_225",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner rings in the pie charts seem to indicate a secondary layer of data. How do the inner rings correlate with the outer slices in terms of distribution?",
+      "expected_behavior": "The model should recognize that there are no inner rings in the pie charts and reject the premise, clarifying that the chart does not include such elements.",
+      "false_element": "Inner rings, which are plausible in pie charts to represent additional layers of data but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'N−K+' category in the 'medium' chart accounts for approximately 60% of the distribution, how does this compare to the 'N+K+' category in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'N−K+' in the 'medium' chart is 44.3%) and correct the error before answering the comparison question.",
+      "false_premise": "The claim that 'N−K+' in the 'medium' chart accounts for 60% is false; the actual value is 44.3%. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories across the three charts, what is the statistical significance of the differences between the 'N+K+' and 'N−K+' categories?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide sample sizes, p-values, or other statistical metrics.",
+      "why_unanswerable": "The chart only provides percentage distributions without any statistical metrics or raw data, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner rings do not exist; the pie charts are single-layered with no secondary data rings. Each slice represents a single category’s percentage of the whole.\n\n2. The 'N−K+' category in the 'medium' chart is 44.3%, not 60%; it is slightly less than the 'N+K+' category, which is 44.6%.\n\n3. The figure does not provide statistical significance testing (e.g., p-values or confidence intervals), so no statistical significance can be determined from the visual data alone.",
+  "timestamp": "2026-05-24T12:43:08.036835+00:00"
+}

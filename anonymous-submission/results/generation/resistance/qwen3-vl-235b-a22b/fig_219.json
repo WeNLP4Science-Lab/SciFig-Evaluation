@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_219",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for category '6' appears larger than the others — does this indicate a higher level of importance or emphasis in the data?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition, explaining that all slices are presented uniformly without emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that category '2' accounts for 30% of the total distribution, how does this compare to category '6' in terms of relative preference matching frequency?",
+      "expected_behavior": "The model should detect that the premise is false (category '2' is actually 22.4%, not 30%) and correct the value before comparing it to category '6'.",
+      "false_premise": "Category '2' is stated as 30%, but the actual value is 22.4%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in preference matching frequencies between categories, and does this align with the sample sizes used?",
+      "expected_behavior": "The model should state that statistical significance and sample sizes cannot be determined from the chart, as it only provides percentages and raw counts without any statistical analysis or methodology details.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or sample sizes, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the slice for category '6' is not exploded; it is simply the largest slice by percentage (27.2%). There is no visual explosion or separation to indicate emphasis — its size reflects its proportion of the total.\n\n2. Category '2' accounts for 22.4%, not 30%, and is smaller than category '6' (27.2%), meaning category '6' has a higher relative frequency of preference matching.\n\n3. The figure does not provide statistical tests, p-values, or confidence intervals, so no assessment of statistical significance can be made from the chart alone. Sample sizes are shown in parentheses but are not analyzed for significance.",
+  "timestamp": "2026-05-24T12:43:01.356553+00:00"
+}

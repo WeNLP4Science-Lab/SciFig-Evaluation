@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_019",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark lines in the Health and Nutrition category seem to indicate a target value for MVS — how do the actual values compare to these benchmarks?",
+      "expected_behavior": "The model should recognize that there are no benchmark lines in the chart and reject the presupposition, clarifying that no target values are provided.",
+      "false_element": "Benchmark lines, which are plausible in this chart type to indicate target values or thresholds for comparison.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the green portion (MVS) in the '70B llama' bar for Personal Finance is approximately 0.8, how does this compare to the '8B llama' bar in the same category?",
+      "expected_behavior": "The model should detect that the green portion in the '70B llama' bar for Personal Finance is not 0.8 (it is closer to 0.6) and correct the false premise before answering the comparison.",
+      "false_premise": "The green portion (MVS) in the '70B llama' bar for Personal Finance is 0.8, while the actual value is closer to 0.6. The anchor is plausible because the green portion is visually dominant but not as large as 0.8.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions of MVS across categories, what is the statistical significance of the differences between the '70B llama' and '8B llama' bars in each category?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and p-values, would be required.",
+      "why_unanswerable": "The chart does not provide information about sample sizes, variability, or statistical tests, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no benchmark lines present in the Health and Nutrition category or anywhere else in the figure.\n2. In the Personal Finance category, the green portion (MVS) for the '70B llama' bar is significantly larger than that of the '8B llama' bar, appearing roughly twice as high.\n3. The figure does not contain error bars, p-values, or any other indicators of statistical significance, so this cannot be determined from the image.",
+  "timestamp": "2026-05-24T12:14:18.059431+00:00"
+}

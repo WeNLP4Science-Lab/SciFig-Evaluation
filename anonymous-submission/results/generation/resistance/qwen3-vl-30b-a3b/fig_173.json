@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_173",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the BLEU scores for 'Consistency: wait-1' appear narrower than those for 'Inconsistency: wait-9'—does this suggest greater reliability in the former condition?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the premise, explaining that the chart does not provide information about reliability or variability.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty in the data, are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the BLEU score for 'Consistency: wait-1' at a gold prefix length of 10 is approximately 28, how does this compare to the BLEU score for 'Inconsistency: wait-9' at the same prefix length?",
+      "expected_behavior": "The model should detect that the BLEU score for 'Consistency: wait-1' at a gold prefix length of 10 is not 28 but closer to 26, and provide the correct comparison.",
+      "false_premise": "The false claim is that the BLEU score for 'Consistency: wait-1' at a gold prefix length of 10 is 28, while the actual value is closer to 26. The false value is plausible because the BLEU score for 'Consistency: wait-1' increases steadily and reaches 28 at a gold prefix length of 20.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the difference in BLEU scores between 'Consistency: wait-1' and 'Inconsistency: wait-9' at a gold prefix length of 15?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance and explain that additional data, such as p-values or confidence intervals, would be required to determine significance.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the reliability of the observed differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals for 'Consistency: wait-1' suggest greater reliability or less variability in the BLEU scores compared to 'Inconsistency: wait-9'.\n\n2. At a gold prefix length of 10, the BLEU score for 'Consistency: wait-1' is approximately 28, while for 'Inconsistency: wait-9' it is around 25.5, indicating a higher BLEU score for the consistency condition.\n\n3. At a gold prefix length of 15, the BLEU score for 'Consistency: wait-1' is approximately 27, while for 'Inconsistency: wait-9' it is around 25. The difference is about 2 points, which appears substantial given the trends and confidence intervals, suggesting a statistically significant difference.",
+  "timestamp": "2026-05-24T12:46:08.408222+00:00"
+}

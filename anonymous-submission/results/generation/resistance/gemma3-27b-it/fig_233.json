@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_233",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize the larger data sources like NQ and FEVER. How does this visual choice impact the interpretation of the chart?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, focusing instead on the actual visual elements present.",
+      "false_element": "Exploded slices, which are plausible for pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SNLI data source accounts for approximately 20% of the training set, how does its contribution compare to that of FEVER?",
+      "expected_behavior": "The model should detect that the premise is false (SNLI is actually 15.4%) and correct the value before answering the comparison question.",
+      "false_premise": "The claim that SNLI accounts for 20% of the training set, when the actual value is 15.4%. The false value is plausible because it is only slightly higher than the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used for each data source, and how does the distribution of raw counts compare across the training set?",
+      "expected_behavior": "The model should state that the sample sizes and raw counts cannot be determined from the chart, as it only provides percentage values without any information on absolute numbers.",
+      "why_unanswerable": "The chart only shows percentage distributions, not raw counts or sample sizes, which would require additional data or documentation.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Emphasizing larger slices draws the viewer's attention to the dominant data sources, potentially downplaying the relative importance of the smaller ones. This can create a perception that NQ and FEVER are *much* more significant than they are in reality.\n\n2. SNLI (15.4%) represents a slightly smaller contribution than FEVER (16.1%) to the training set, though they are relatively close in proportion. Both are significant, but FEVER has a marginally larger share.\n\n3. The figure does not provide information about the sample size for each data source or the distribution of raw counts. It only shows the percentage representation of each source within the combined training set.",
+  "timestamp": "2026-05-24T12:12:29.934190+00:00"
+}

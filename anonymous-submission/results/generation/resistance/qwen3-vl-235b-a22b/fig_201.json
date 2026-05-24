@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_201",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice in chart (b) appears to represent the largest category, 'the'. Does this visualization choice help emphasize its importance in the data distribution?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in chart (b) and reject the presupposition while addressing the question about emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories, but none are present in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the category 'chemical' in chart (a) accounts for 25% of the distribution, how does this compare to the percentage of 'for' in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false ('chemical' is actually 15%) and correct the value before comparing it to 'for' (17%).",
+      "false_premise": "'Chemical' is stated as 25%, but the actual value is 15%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in chart (a), what is the sample size used to calculate these percentages, and how does it compare to the sample size for chart (b)?",
+      "expected_behavior": "The model should recognize that the sample size is not provided in the chart and state that this information cannot be determined from the data shown.",
+      "why_unanswerable": "The chart only provides percentages and does not include raw counts or sample size information, which would be necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, exploding the largest slice in chart (b) visually emphasizes its dominance (38%) and draws attention to its relative importance compared to other categories.\n\n2. The category 'chemical' does not account for 25% in chart (a); it is shown as 17%. The category 'for' is 15%, so 'chemical' is slightly larger, not 25%.\n\n3. The sample size cannot be determined from the pie charts alone, as they only show relative percentages, not absolute counts or total sample sizes for either chart.",
+  "timestamp": "2026-05-24T12:42:30.617028+00:00"
+}

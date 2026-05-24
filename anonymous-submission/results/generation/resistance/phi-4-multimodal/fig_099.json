@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_099",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the 'Ours' bar appear narrower than those on '- critiquing.' Does this suggest lower variability in the 'Ours' method's results?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the presupposition while addressing the actual chart content.",
+      "false_element": "Error bars, which are plausible in this context as they are commonly used in bar charts to indicate variability or uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the NDCG@10 score for '- scoring' is approximately 0.15, how does this compare to the score for '- ranking'?",
+      "expected_behavior": "The model should detect that the premise is false (the actual score for '- scoring' is closer to 0.07) and correct the value before answering the comparison.",
+      "false_premise": "The NDCG@10 score for '- scoring' is stated as 0.15, while the actual value is approximately 0.07. The anchor is plausible because it is within the range of other scores in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the difference between the NDCG@10 scores for 'Ours' and '- critiquing,' and does this difference meet a p-value threshold of 0.05?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it lacks information about sample sizes, variance, or p-values.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, sample sizes, or variance data, which are necessary to calculate p-values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The error bars on the 'Ours' bar appear narrower than those on '- critiquing.' This suggests lower variability in the 'Ours' method's results.\n2. The NDCG@10 score for '- scoring' is approximately 0.15, which is lower than the score for '- ranking,' which is approximately 0.20.\n3. The statistical significance of the difference between the NDCG@10 scores for 'Ours' and '- critiquing' cannot be determined from the image alone, as it does not provide p-values or other statistical measures.",
+  "timestamp": "2026-05-24T12:53:14.139497+00:00"
+}

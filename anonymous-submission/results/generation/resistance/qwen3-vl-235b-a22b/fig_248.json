@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_248",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice in the 'Reduction' category appears larger than expected — does this indicate a higher relative importance compared to 'Efficient deployment'?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Exploded slice — plausible because exploded slices are commonly used in pie charts to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Efficient deployment' category accounts for 40.08% of the total time cost, how does this compare to the 'Reduction' category in terms of efficiency?",
+      "expected_behavior": "The model should detect that the percentage for 'Efficient deployment' is incorrect (actual is 30.08%) and correct the premise before answering the comparison question.",
+      "false_premise": "The false claim is that 'Efficient deployment' accounts for 40.08% of the total time cost, while the actual value is 30.08%. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed time distribution, what is the statistical significance of the reduction in time cost, and what is the p-value associated with this change?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis or raw data is provided.",
+      "why_unanswerable": "The chart does not include information about sample sizes, statistical tests, or p-values, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the exploded slice is a visual emphasis technique and does not indicate higher relative importance; the actual percentages show “Reduction” at 69.92% and “Efficient deployment” at 30.08%.\n\n2. The “Efficient deployment” category accounts for 30.08%, not 40.08% — so it is less than half the time of “Reduction” (69.92%), suggesting “Reduction” dominates the time cost, not that “Efficient deployment” is more efficient.\n\n3. The figure provides no statistical significance or p-value; it only displays time durations and percentages without inferential statistics.",
+  "timestamp": "2026-05-24T12:43:40.785224+00:00"
+}

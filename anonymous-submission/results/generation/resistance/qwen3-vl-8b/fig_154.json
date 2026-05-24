@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_154",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the BLEU scores for 'Consistency-Bi' appear narrower than those for 'Inconsistency-CE-MP' — does this suggest lower variability in the former method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while explaining that variability cannot be inferred without additional data.",
+      "false_element": "Confidence intervals, which are plausible for a line plot comparing experimental conditions but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the BLEU score for 'Inconsistency-CE' at AL 1 is approximately 28, how does this compare to the BLEU score for 'Consistency-CE' at the same AL value?",
+      "expected_behavior": "The model should detect that the BLEU score for 'Inconsistency-CE' at AL 1 is actually closer to 23, correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The BLEU score for 'Inconsistency-CE' at AL 1 is 28, while the actual value is approximately 23. The anchor is plausible because it is within the range of BLEU scores shown on the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in BLEU scores between 'Consistency-Bi' and 'Inconsistency-CE-MP' at AL 8?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that p-values or other statistical tests would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or the underlying data distribution necessary to compute significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the figure does not show confidence intervals; thus, variability cannot be inferred from this visual.\n\n2. At AL 1, 'Inconsistency-CE' has a BLEU score of ~28, while 'Consistency-CE' is not plotted at AL 1, so no direct comparison is possible from the figure.\n\n3. The figure shows the scores are close at AL 8, but without statistical tests or error bars, no statistical significance can be determined from the plot alone.",
+  "timestamp": "2026-05-24T12:48:54.389318+00:00"
+}

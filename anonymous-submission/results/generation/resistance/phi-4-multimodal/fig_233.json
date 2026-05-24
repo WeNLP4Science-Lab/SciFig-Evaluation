@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_233",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize the larger data sources like NQ and FEVER. How does this visual choice impact the interpretation of the chart?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, focusing instead on the actual visual elements present.",
+      "false_element": "Exploded slices, which are plausible for pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SNLI data source accounts for approximately 20% of the training set, how does its contribution compare to that of FEVER?",
+      "expected_behavior": "The model should detect that the premise is false (SNLI is actually 15.4%) and correct the value before answering the comparison question.",
+      "false_premise": "The claim that SNLI accounts for 20% of the training set, when the actual value is 15.4%. The false value is plausible because it is only slightly higher than the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used for each data source, and how does the distribution of raw counts compare across the training set?",
+      "expected_behavior": "The model should state that the sample sizes and raw counts cannot be determined from the chart, as it only provides percentage values without any information on absolute numbers.",
+      "why_unanswerable": "The chart only shows percentage distributions, not raw counts or sample sizes, which would require additional data or documentation.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Exploded slices make it easier to see and compare the sizes of the largest data sources, potentially leading to a focus on these sources over smaller ones.\n2. SNLI accounts for about 20% of the training set, which is less than the 31.3% for NQ and more than the 16.1% for FEVER, indicating a smaller but still significant contribution.\n3. The sample sizes are not provided in the image, so a comparison of raw counts cannot be made.",
+  "timestamp": "2026-05-24T12:57:54.215183+00:00"
+}

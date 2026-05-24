@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_142",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the hidden state mean before the gate appear to widen significantly after layer 17 — does this indicate increased variability in the model's behavior?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and clarify that variability cannot be assessed from the given data.",
+      "false_element": "Confidence intervals, which are plausible for a line plot showing trends and variability but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the hidden state mean before the gate peaks at approximately 3.6 in layer 24, how does this compare to the hidden state mean after the gate at the same layer?",
+      "expected_behavior": "The model should detect that the peak value of 3.6 is incorrect (actual value is approximately 4.8) and provide the correct comparison.",
+      "false_premise": "The false claim is that the peak value of the hidden state mean before the gate is 3.6, while the actual value is approximately 4.8. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the hidden state mean before and after the gate across all layers?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or variability measures necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The plot shows only mean values, not confidence intervals, so variability cannot be assessed from this figure.\n\n2. At layer 24, the hidden state mean after the gate (avg 0.05) is much lower than before the gate (peaking at ~3.6), indicating a strong gating effect.\n\n3. The statistical significance cannot be determined from this plot alone, as it lacks error bars, p-values, or statistical tests.",
+  "timestamp": "2026-05-24T12:48:47.216090+00:00"
+}

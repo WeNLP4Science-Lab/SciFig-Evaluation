@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_062",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the gray bars appear smaller than those on the yellow bars — does this suggest lower variability in the inferred frames data compared to the lexical signal data?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise, explaining that variability cannot be assessed from the chart as shown.",
+      "false_element": "Error bars, which are plausible in a bar chart to indicate variability or uncertainty in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the gray bar at an observation probability of 0.5 has a value of -1, how does this compare to the yellow bar at the same probability?",
+      "expected_behavior": "The model should detect that the gray bar at 0.5 does not have a value of -1 (actual value is just below -2), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The gray bar at 0.5 is falsely claimed to have a value of -1, while its actual value is just below -2. The false value is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed values, what is the statistical significance of the difference between the gray and yellow bars at each observation probability?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or other statistical metrics.",
+      "why_unanswerable": "The chart does not include statistical significance metrics such as p-values or confidence intervals, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the smaller error bars on the gray bars suggest lower variability in the inferred frames data compared to the lexical signal data.\n\n2. The gray bar at 0.5 has a value of -1, while the yellow bar at the same probability has a value of approximately 2, indicating a significant difference in average change using compression.\n\n3. The figure does not provide statistical significance values (e.g., p-values) or confidence intervals, so the statistical significance of the differences cannot be determined from the provided data.",
+  "timestamp": "2026-05-24T12:44:34.212041+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_076",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the 'TAG' and 'LoRA' bars seem to overlap slightly — does this suggest that their computation costs are statistically indistinguishable?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that it cannot assess statistical indistinguishability based on the given data.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the computation cost for 'MTL-FT' is approximately 5 × 10^19 FLOPs, how does this compare to 'Full FT' in terms of efficiency?",
+      "expected_behavior": "The model should detect that the computation cost for 'MTL-FT' is actually closer to 3 × 10^19 FLOPs, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The false claim is that 'MTL-FT' has a computation cost of 5 × 10^19 FLOPs, while the actual value is closer to 3 × 10^19 FLOPs. The anchor is plausible because it is within the same order of magnitude as the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the computation costs shown, what is the expected energy consumption for each method, and how does this align with the carbon footprint of the training process?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about energy consumption or carbon footprint and explain that additional data, such as energy usage per FLOP and carbon emission factors, would be required to answer the question.",
+      "why_unanswerable": "The chart only provides computation costs in terms of FLOPs and does not include any data on energy consumption or environmental impact, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, overlapping bars in a bar chart do not imply statistical indistinguishability; they only suggest similar magnitudes visually.\n\n2. 'MTL-FT' is significantly more efficient than 'Full FT', as its cost (~5×10¹⁹ FLOPs) is about 1/20th of 'Full FT' (~10²⁰ FLOPs).\n\n3. The figure does not provide energy consumption or carbon footprint data; these metrics cannot be inferred from FLOPs alone without additional hardware and environmental context.",
+  "timestamp": "2026-05-24T12:48:08.708181+00:00"
+}

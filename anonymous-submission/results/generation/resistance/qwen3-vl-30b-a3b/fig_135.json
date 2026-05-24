@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_135",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'Final Acc' line appear narrower at 0.97 initial confidence compared to 0.95 — does this suggest reduced variability in the measurements?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation. It should clarify that the chart does not include confidence bands and focus on the actual error bars provided.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing accuracy trends but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Initial Acc' value at 0.99 initial confidence is approximately 0.25, how does this compare to the 'Final Acc' value at the same point?",
+      "expected_behavior": "The model should detect that the 'Initial Acc' value at 0.99 initial confidence is actually 0.15, not 0.25, and correct the false premise before providing the comparison.",
+      "false_premise": "The claim that 'Initial Acc' at 0.99 initial confidence is 0.25 is false; the actual value is 0.15. The anchor is plausible because it is close to the actual value and fits the trend of gradual increase.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in 'Final Acc' and 'Δ Acc', what is the statistical significance of the differences between these two metrics across the initial confidence range?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or any statistical testing results.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the significance of differences between the metrics.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence bands around the 'Final Acc' line at 0.97 initial confidence suggest reduced variability in the measurements compared to 0.95.\n\n2. At 0.99 initial confidence, the 'Initial Acc' value is approximately 0.25, which is significantly lower than the 'Final Acc' value, which is around 0.9.\n\n3. The statistical significance of the differences between 'Final Acc' and 'Δ Acc' cannot be determined from the figure alone, as it does not provide p-values or confidence intervals for the differences.",
+  "timestamp": "2026-05-24T12:45:39.461041+00:00"
+}

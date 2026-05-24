@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_116",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend lines for the 'Translation' and 'Math' tasks appear to intersect at around 8 experts — does this suggest a shift in their relative performance at this point?",
+      "expected_behavior": "The model should recognize that there are no trend lines in the chart and clarify that the question is based on a nonexistent element.",
+      "false_element": "Trend lines, which are plausible in line plots to indicate overall direction or rate of change but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the normalized average gate value for the 'Code' task starts at approximately 0.09, how does this compare to the starting value for the 'Law' task?",
+      "expected_behavior": "The model should detect that the starting value for 'Code' is actually slightly above 0.06, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The normalized average gate value for 'Code' starts at approximately 0.09, while the actual value is slightly above 0.06. The false value is plausible because it is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed convergence of all tasks at 64 experts, what is the statistical significance of this trend, and how does it compare to the variance decomposition across tasks?",
+      "expected_behavior": "The model should state that the statistical significance and variance decomposition cannot be determined from the chart alone, as these metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information on statistical significance or variance decomposition, which would require additional data such as p-values, effect sizes, or detailed statistical analysis.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. While the trend lines for 'Translation' and 'Math' intersect near 8 experts, the y-axis represents \"Normalized Average Gate Value,\" not performance. Therefore, the figure does not provide information to suggest a shift in their relative performance.\n2. The starting normalized average gate value for the 'Code' task is higher than that of the 'Law' task. At 1 expert, 'Code' starts near 0.08-0.09, while 'Law' starts lower, around 0.06-0.07.\n3. The figure does not contain information regarding the statistical significance of the trend or variance decomposition across tasks. It only displays the normalized average gate values and their associated shaded regions.",
+  "timestamp": "2026-05-24T12:22:40.930706+00:00"
+}

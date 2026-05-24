@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_242",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for the 'Very hard' category seems larger than the 'Hard' category. Does this indicate a higher relative importance of 'Very hard' entries in the dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, clarifying that all slices are presented uniformly without emphasis.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific categories but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Hard' category accounts for approximately 35% of the dataset, how does this compare to the 'Medium' category in terms of relative proportion?",
+      "expected_behavior": "The model should detect that the 'Hard' category is actually 25.7% and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that 'Hard' accounts for 35% of the dataset is false; the actual value is 25.7%. The anchor is plausible because it is only 9.3% higher than the true value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size for each difficulty category, and how does the variance in the 'Medium' category compare to the others?",
+      "expected_behavior": "The model should state that the sample sizes and variance cannot be determined from the chart, as it only provides percentages and total counts without any information on variance or raw data distribution.",
+      "why_unanswerable": "The chart does not provide sample sizes for each category or any information about variance. Additional data, such as raw counts or statistical analysis, would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the size of the slice in a pie chart represents the proportion of the whole, and 'Hard' (25.7%) is actually larger than 'Very hard' (6.5%). The exploded slice for 'Very hard' may create a visual illusion, making it appear larger than it is.\n\n2. The 'Hard' category actually accounts for approximately 25.7% of the dataset, not 35%. Comparing this to the 'Medium' category, which accounts for 51.8%, the 'Medium' category is roughly twice as large as the 'Hard' category in terms of relative proportion.\n\n3. The sample sizes for each difficulty category are given in the legend: Medium (725,892), Hard (360,137), Easy (157,053), Very hard (91,576), and Very easy (65,332). The figure does not provide information about variance, so a comparison of variance between categories is not possible based on the given data.",
+  "timestamp": "2026-05-24T12:38:14.938977+00:00"
+}

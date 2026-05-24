@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_227",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the outer ring appears to indicate a threshold for acceptable ambiguity levels. How does the distribution of 'Std: 0.47' compare to this benchmark?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while addressing the actual data distribution.",
+      "false_element": "Benchmark line — plausible because thresholds or reference lines are often used in charts to indicate acceptable or critical values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Max: 3' category in the inner ring represents 20% of the distribution, how does this compare to the 'Std: 0.94' category in the outer ring?",
+      "expected_behavior": "The model should detect that the 'Max: 3' category is actually 14.2%, not 20%, and correct the false premise before making the comparison.",
+      "false_premise": "The claim that 'Max: 3' is 20% is false; the actual value is 14.2%. The anchor is plausible because it is close to the actual value and fits the chart's context.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the inner and outer rings, and how does the sample size impact the reliability of the ambiguity measurements?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data about the sample size would be needed to assess the reliability of the measurements.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not explicitly label or define a “benchmark line” in the outer ring; it only shows categories for “Ambiguity Std” values (0.0, 0.47, 0.82, 0.94) with corresponding percentages. “Std: 0.47” accounts for 49.0% of the outer ring, the largest single segment, but no benchmark is visually or textually indicated for comparison.\n\n2. The “Max: 3” category in the inner ring is labeled as 14.2%, not 20%. It is smaller than the “Std: 0.94” category in the outer ring, which is 7.0%. Thus, “Max: 3” represents a larger proportion than “Std: 0.94” (14.2% > 7.0%).\n\n3. The sample size is not provided in the figure or its legends. Without knowing the sample size, it is impossible to assess the statistical reliability or confidence intervals of the ambiguity measurements shown.",
+  "timestamp": "2026-05-24T12:43:17.063726+00:00"
+}

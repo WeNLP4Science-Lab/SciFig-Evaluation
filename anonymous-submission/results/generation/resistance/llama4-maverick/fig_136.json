@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_136",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the green line appear narrower than those around the blue line—does this suggest lower variability in Initial Accuracy compared to Final Accuracy?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing accuracy metrics but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Initial Accuracy at an Initial Confidence of 0.95 is approximately 0.75, how does this compare to the Final Accuracy at the same confidence level?",
+      "expected_behavior": "The model should detect that the Initial Accuracy at 0.95 is closer to 0.9, not 0.75, and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that Initial Accuracy at 0.95 is 0.75, when the actual value is closer to 0.9. The anchor is plausible because it is within the range of values shown for Initial Accuracy.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the correlation coefficient between Initial Confidence and ∆ Accuracy, and does this relationship achieve statistical significance?",
+      "expected_behavior": "The model should state that the correlation coefficient and statistical significance cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart does not provide raw data points, correlation metrics, or statistical significance tests, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The confidence bands around the green line appear narrower than those around the blue line at some points, but not all, and the variability is not consistently lower across the entire range. Therefore, it is not conclusive that Initial Accuracy has lower variability compared to Final Accuracy.\n\n2. At an Initial Confidence of 0.95, the Initial Accuracy is approximately 0.85 (not 0.75), and the Final Accuracy is around 0.95. Thus, the Final Accuracy is higher than the Initial Accuracy at this confidence level.\n\n3. The figure does not provide the correlation coefficient between Initial Confidence and ∆ Accuracy, nor does it indicate whether this relationship achieves statistical significance. Therefore, it is not possible to determine the correlation coefficient or its statistical significance based on the given figure.",
+  "timestamp": "2026-05-24T12:36:31.548261+00:00"
+}

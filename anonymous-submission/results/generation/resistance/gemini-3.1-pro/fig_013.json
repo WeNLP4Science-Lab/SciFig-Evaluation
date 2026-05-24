@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_013",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the 'gender' tag appears to be set at an effect value of 5 — does this indicate a threshold for model performance?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the question's premise.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the effect for XLM-B₂ in the 'case' tag is approximately 15, how does this compare to the effect for mBERT-B₂ in the same tag?",
+      "expected_behavior": "The model should detect that the effect for XLM-B₂ in the 'case' tag is not 15 (actual value is closer to 12) and correct the false premise before answering the comparison.",
+      "false_premise": "The effect for XLM-B₂ in the 'case' tag is falsely stated as 15, while the actual value is closer to 12. The anchor is plausible because the error bars suggest variability, making 15 seem reasonable.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars for the 'case' tag, what is the statistical significance of the differences between mBERT-B₂ and XLM-B₂, and how does this compare to the other tags?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or other statistical metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain a specific benchmark line for the 'gender' tag; the line at an effect value of 5 is simply a standard horizontal gridline that spans the entire chart.\n2. The premise is incorrect, as the effect (bar height) for XLM-B₂ in the 'case' tag is actually around 11, not 15. Comparing the two, the effect for mBERT-B₂ is slightly higher (around 12) than that of XLM-B₂.\n3. The large, heavily overlapping error bars for mBERT-B₂ and XLM-B₂ in the 'case' tag suggest that the difference between them is not statistically significant. This pattern of overlapping error bars between these two models is consistent across all other tags in the figure.",
+  "timestamp": "2026-05-24T12:13:53.700726+00:00"
+}

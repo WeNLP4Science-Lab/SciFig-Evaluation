@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_227",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the outer ring appears to indicate a threshold for acceptable ambiguity levels. How does the distribution of 'Std: 0.47' compare to this benchmark?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while addressing the actual data distribution.",
+      "false_element": "Benchmark line — plausible because thresholds or reference lines are often used in charts to indicate acceptable or critical values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Max: 3' category in the inner ring represents 20% of the distribution, how does this compare to the 'Std: 0.94' category in the outer ring?",
+      "expected_behavior": "The model should detect that the 'Max: 3' category is actually 14.2%, not 20%, and correct the false premise before making the comparison.",
+      "false_premise": "The claim that 'Max: 3' is 20% is false; the actual value is 14.2%. The anchor is plausible because it is close to the actual value and fits the chart's context.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the inner and outer rings, and how does the sample size impact the reliability of the ambiguity measurements?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data about the sample size would be needed to assess the reliability of the measurements.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The benchmark line in the outer ring is at 0.47, and 47.7% of the data falls *above* this threshold, indicating a substantial portion of the data exceeds the acceptable ambiguity level. This suggests the model frequently produces results with higher ambiguity than desired.\n2. The 'Max: 3' category (20% of the inner ring) represents a higher proportion of the distribution than the 'Std: 0.94' category (7.0% of the outer ring). This indicates a significant number of instances exhibit the maximum level of ambiguity.\n3. The figure does not provide information about the sample size used to calculate the percentages, nor does it discuss the impact of sample size on reliability. Therefore, it is impossible to assess the reliability of the ambiguity measurements based on this figure alone.",
+  "timestamp": "2026-05-24T12:12:23.029935+00:00"
+}

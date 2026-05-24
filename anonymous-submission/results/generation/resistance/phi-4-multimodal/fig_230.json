@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_230",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The percentage labels inside each slice suggest equal proportions — does this confirm that all categories are weighted equally?",
+      "expected_behavior": "The model should recognize that percentage labels are not present in the chart and clarify that the equal proportions are implied by the visual design, not explicitly labeled.",
+      "false_element": "Percentage labels, which are commonly found in pie charts but are absent here, making their mention plausible.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Instance' slice occupies 40% of the chart, how does this compare to the 'Complexity' slice in terms of proportional representation?",
+      "expected_behavior": "The model should detect that the 'Instance' slice does not occupy 40% (it occupies 25%, as all slices are equal) and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that the 'Instance' slice occupies 40% is false; the actual value is 25%. The anchor is plausible because pie charts often display unequal proportions.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the chart, what is the sample size used to determine the equal proportions of the four categories, and how does this affect the reliability of the framework?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional data or methodology details would be required to assess reliability.",
+      "why_unanswerable": "The chart does not provide any information about sample size or the data used to determine the proportions, which are essential for evaluating reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The percentages are not visible in the image, so it cannot be confirmed if all categories are weighted equally.\n2. The 'Instance' slice occupies 40% of the chart, which is larger than the 'Complexity' slice, indicating that 'Instance' has a greater proportional representation.\n3. The sample size is not provided in the image, so it cannot be determined how it affects the reliability of the framework.",
+  "timestamp": "2026-05-24T12:57:46.924939+00:00"
+}

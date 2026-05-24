@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_234",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice in the TriviaQA section appears larger than the WebQA section — does this indicate a higher relative importance of TriviaQA in the dataset?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while correctly interpreting the actual data.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific sections, but none are present here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Chinese Domain accounts for approximately 10% of the dataset, how does its proportion compare to HalluEval's share?",
+      "expected_behavior": "The model should detect that the Chinese Domain's actual proportion is 6%, not 10%, and correct the false premise before answering the comparison.",
+      "false_premise": "Chinese Domain accounts for 10% — the actual value is 6%, and the false value is plausible because it is close to the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in proportions between TriviaQA and WebQA, and how does this impact the reliability of the dataset?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or sample size details, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, sample sizes, or any methodology details necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice in the TriviaQA section appears larger than the WebQA section because it represents 46% of the dataset, whereas WebQA represents 25%. This indicates a higher relative importance of TriviaQA in the dataset.\n\n2. The Chinese Domain actually accounts for 6% of the dataset, not 10%. HalluEval's share is 18%, which is three times larger than the Chinese Domain's share.\n\n3. The figure does not provide information about the statistical significance of the differences in proportions between TriviaQA and WebQA, so it is not possible to determine this from the given data.",
+  "timestamp": "2026-05-24T12:38:06.686379+00:00"
+}

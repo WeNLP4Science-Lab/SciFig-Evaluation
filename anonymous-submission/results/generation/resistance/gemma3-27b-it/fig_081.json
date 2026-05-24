@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_081",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the High frequency category appears to be set at 0.9 — does this indicate that both models are approaching optimal performance in this range?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Benchmark line — plausible because benchmark/reference lines are often used in performance-related bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the RECA model achieves a macro F-score of 0.7 for the Medium frequency category, how does this compare to GAIT_GAT's performance in the same category?",
+      "expected_behavior": "The model should detect that the RECA value for the Medium frequency category is actually 0.538, not 0.7, and correct the false premise before making the comparison.",
+      "false_premise": "The RECA value for Medium frequency is falsely stated as 0.7, while the actual value is 0.538. The false value is plausible because it is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the macro F-scores shown, what is the statistical significance of the difference between RECA and GAIT_GAT for the Low frequency category, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart does not include statistical significance metrics or p-values, which would require additional data such as sample sizes and hypothesis testing results.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The benchmark line is not present in the figure, so it is impossible to determine if the models are approaching optimal performance based on this information. The figure only shows the macro F-scores for each model and frequency category.\n\n2. The RECA model (0.538) performs significantly better than the GAIT_GAT model (0.224) in the Medium frequency category. RECA's macro F-score is more than double that of GAIT_GAT in this range.\n\n3. The figure does not provide information about statistical significance or p-values for any comparisons between the models. It only displays the macro F-scores themselves, not the results of any statistical tests.",
+  "timestamp": "2026-05-24T12:08:52.242554+00:00"
+}

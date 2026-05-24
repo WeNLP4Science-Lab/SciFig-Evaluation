@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_235",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for the 'Math' category appears larger than the 'Coding' slice — does this indicate a higher relative importance of Math tasks in the dataset?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition, clarifying that all slices are presented uniformly without emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories, but none are present in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Information Seeking' category accounts for 30% of the total distribution, how does its proportion compare to the 'Math' category?",
+      "expected_behavior": "The model should detect that the premise is false (the actual proportion of 'Information Seeking' is 22.2%) and correct the value before answering the comparison question.",
+      "false_premise": "The false claim is that 'Information Seeking' accounts for 30% of the distribution, while the actual value is 22.2%. The false value is plausible because it is close to the actual value and aligns with the general size of the slice.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages shown in the chart, and how does it impact the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information about the dataset would be required to assess reliability.",
+      "why_unanswerable": "The chart only provides percentages and absolute counts for each category but does not include information about the total sample size or methodology used to calculate the percentages.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the larger slice for 'Math' (29.3%) compared to 'Coding' (24.3%) indicates Math tasks constitute a higher proportion of the dataset, suggesting greater relative volume or emphasis.\n\n2. The 'Information Seeking' category accounts for 22.2%, which is less than the 'Math' category’s 29.3%, meaning Math represents a larger share of the total distribution.\n\n3. The sample size is not explicitly stated as a total sum, but the raw counts for each category are provided (e.g., Math: 410,756). The reliability is likely high due to large individual category sizes, though the total sample size would need to be summed to confirm.",
+  "timestamp": "2026-05-24T12:43:29.486059+00:00"
+}

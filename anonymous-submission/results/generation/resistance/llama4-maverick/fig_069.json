@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_069",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the AVG category appears to be set at 0.8 — does this indicate a target performance threshold for the models?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition.",
+      "false_element": "Benchmark line — plausible because benchmark lines are often used in performance comparison charts to indicate target thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the SOLAR-10.7B-v1.0 model achieves a value of 0.85 in the KoBEST-CP category, how does this compare to the performance of RedWhale (our) in the same category?",
+      "expected_behavior": "The model should detect that the SOLAR-10.7B-v1.0 value is actually 1.00, not 0.85, and correct the false premise before answering the comparison.",
+      "false_premise": "The SOLAR-10.7B-v1.0 value in KoBEST-CP is falsely stated as 0.85, while the actual value is 1.00. The anchor is plausible because 0.85 is close to the other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the performance values across all categories, what is the statistical significance of the differences between the models, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis or raw data is provided.",
+      "why_unanswerable": "The chart does not include information about statistical tests, sample sizes, or p-values, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The benchmark line in the AVG category is actually set at 1.00, not 0.8, as indicated by the gray bar representing SOLAR-10.7B-v1.0 (base). The figure does not provide information on whether this represents a target performance threshold.\n\n2. The SOLAR-10.7B-v1.0 model does not achieve a value of 0.85 in the KoBEST-CP category; instead, it is set at 1.00. RedWhale (our) achieves a value of 0.70 in the KoBEST-CP category. To compare, RedWhale's performance is 0.70, while SOLAR-10.7B-v1.0 is normalized to 1.00.\n\n3. The figure does not provide information on the statistical significance of the differences between the models or the p-values for these comparisons.",
+  "timestamp": "2026-05-24T12:35:11.828812+00:00"
+}

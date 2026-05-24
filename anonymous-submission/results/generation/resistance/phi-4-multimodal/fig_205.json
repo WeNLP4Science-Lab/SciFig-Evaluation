@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_205",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Multitasking' appears larger than the other slices—does this indicate its relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Exploded slice; plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Privacy Protection' is represented with a value of 90, how does this compare to the value of 'Multitasking' in terms of relative importance?",
+      "expected_behavior": "The model should detect that the value of 'Privacy Protection' is actually 111, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The value of 'Privacy Protection' is 90; the actual value is 111, and 90 is a plausible anchor as it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the values shown, what is the statistical significance of the differences between 'Privacy Protection' and 'Multitasking,' and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide any information about sample sizes or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, statistical tests, or p-values, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice for 'Multitasking' does not necessarily indicate its relative importance; it is likely a design choice to emphasize the slice.\n2. 'Privacy Protection' has a value of 90, which is lower than the value of 'Multitasking' at 160, indicating it is considered less important in this dataset.\n3. The image does not provide information on statistical significance or p-values, so this question cannot be answered based on the image alone.",
+  "timestamp": "2026-05-24T12:56:40.923913+00:00"
+}

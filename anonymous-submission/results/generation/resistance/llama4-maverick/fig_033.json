@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_033",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark lines in the chart seem to indicate a target score of 70% across all datasets. How do the models' performances compare to this benchmark?",
+      "expected_behavior": "A correct model should recognize that no benchmark lines exist in the chart and reject the presupposition while addressing the actual performance scores shown.",
+      "false_element": "Benchmark lines, which are plausible in this context as they are often used in performance evaluation charts to indicate target or expected values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the TruthfulQA score for LLaMA-3-8B-it is approximately 60%, how does this compare to Ours (Iterative RLHF) on the same dataset?",
+      "expected_behavior": "The model should detect that the TruthfulQA score for LLaMA-3-8B-it is actually closer to 45%, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The TruthfulQA score for LLaMA-3-8B-it is falsely stated as 60%, while the actual value is closer to 45%. The anchor is plausible because 60% is within the range of other scores in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed scores, what is the statistical significance of the performance differences between the two models across all datasets?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or sample size information.",
+      "why_unanswerable": "The chart does not include statistical metrics such as p-values, confidence intervals, or sample sizes, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The models' performances are generally below the 70% benchmark across most datasets, with a few exceptions where they are close to or above it. For instance, both models score around 80% on GSM-8K, exceeding the benchmark.\n\n2. The score for LLaMA-3-8B-it on TruthfulQA is actually around 43%, not 60%. Ours (Iterative RLHF) scores approximately 60% on the same dataset, indicating a significant improvement over LLaMA-3-8B-it.\n\n3. The figure does not provide information on the statistical significance of the performance differences between the two models across all datasets. Therefore, it is not possible to determine the statistical significance based on the given chart.",
+  "timestamp": "2026-05-24T12:34:34.351932+00:00"
+}

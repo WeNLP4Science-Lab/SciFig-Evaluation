@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_072",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the 'LaSQuE (mean)' group appear narrower than those in the 'ExEnt' group — does this suggest lower variability in the former method?",
+      "expected_behavior": "A correct model should recognize that error bars are not present in the chart and reject the presupposition, explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in this chart type to represent variability or confidence intervals but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the accuracy of 'LaSQuE (mean)' is approximately 50%, how does this compare to the accuracy of 'LaSQuE (syn2real)'?",
+      "expected_behavior": "The model should detect the false premise (accuracy of 'LaSQuE (mean)' is actually ~41.5%) and correct it, then compare the corrected value to 'LaSQuE (syn2real)' (~59%).",
+      "false_premise": "The claim that 'LaSQuE (mean)' achieves 50% accuracy is false; the actual value is ~41.5%. The anchor is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy percentages shown, what is the statistical significance of the difference between 'ExEnt' and 'LaSQuE (syn2real)' methods?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it lacks information about sample sizes, variance, or p-values.",
+      "why_unanswerable": "The chart does not provide statistical metrics such as p-values, confidence intervals, or sample sizes, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower error bars in the 'LaSQuE (mean)' group suggest lower variability compared to the 'ExEnt' group.\n\n2. The accuracy of 'LaSQuE (mean)' is approximately 50%, which is lower than the accuracy of 'LaSQuE (syn2real)', which is around 60%.\n\n3. The figure does not provide information on statistical significance; it only shows accuracy percentages and error bars.",
+  "timestamp": "2026-05-24T12:44:44.245255+00:00"
+}

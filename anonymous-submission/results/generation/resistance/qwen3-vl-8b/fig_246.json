@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_246",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Headline generation' appears smaller than expected—does this indicate a lower emphasis on this task type compared to the others?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and clarify that the chart does not include such a feature.",
+      "false_element": "Exploded slice for 'Headline generation'; plausible because exploded slices are a common feature in pie charts to emphasize specific segments.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Article editing' accounts for 20% of the task distribution, how does its proportion compare to 'Article generation'?",
+      "expected_behavior": "The model should detect that the premise is false (actual value for 'Article editing' is 14.6%) and provide the correct comparison based on the true values.",
+      "false_premise": "'Article editing' accounts for 20% of the task distribution; actual value is 14.6%, and 20% is a plausible anchor as it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of journalist-LLM conversations used to calculate the percentages in this chart, and how does it impact the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the sample size would be needed to assess the reliability of the data.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the smaller slice visually reflects its low percentage (2.4%), indicating it is the least emphasized task type.\n\n2. The chart shows 'Article editing' at 14.6%, which is significantly less than 'Article generation' at 82.9%, not 20%.\n\n3. The sample size is not provided in the figure, so its impact on reliability cannot be assessed from this chart alone.",
+  "timestamp": "2026-05-24T12:49:55.967405+00:00"
+}

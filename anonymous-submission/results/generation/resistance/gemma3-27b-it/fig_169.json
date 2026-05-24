@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_169",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the perplexity line appear narrower at lower recent sequence ratios — does this suggest reduced variability in the model's performance?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating an interpretation.",
+      "false_element": "Confidence intervals, which are plausible for a line plot evaluating metrics like perplexity but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the GPU memory ratio reaches approximately 80% at a recent sequence ratio of 100%, how does this compare to the full cache GPU memory usage?",
+      "expected_behavior": "The model should detect that the GPU memory ratio at 100% recent sequence ratio is actually 100%, not 80%, and correct the false premise before answering.",
+      "false_premise": "The GPU memory ratio at 100% recent sequence ratio is falsely stated as 80%, while the actual value is 100%. The anchor is plausible because it is close to the actual value and fits the trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends in perplexity and GPU memory ratio, what is the statistical significance of the differences between the full cache and recent sequence methods?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as no p-values or significance tests are provided.",
+      "why_unanswerable": "The chart does not include information about statistical tests, p-values, or confidence intervals, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals at lower recent sequence ratios suggest reduced variability in the model's perplexity, indicating more consistent performance. This implies the model is less sensitive to slight changes in input when considering a smaller recent sequence.\n\n2. At a recent sequence ratio of 100%, the GPU memory ratio is approximately 80%, while the full cache GPU memory usage remains consistently around 60%. This indicates that using a recent sequence approach requires significantly more GPU memory than a full cache approach. \n\n3. The figure does not provide any statistical significance testing; it only shows observed trends. Therefore, it is not possible to determine the statistical significance of the differences between the full cache and recent sequence methods from this figure alone.",
+  "timestamp": "2026-05-24T12:11:01.283360+00:00"
+}

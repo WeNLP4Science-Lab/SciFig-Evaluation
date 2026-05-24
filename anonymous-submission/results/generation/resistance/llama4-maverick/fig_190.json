@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_190",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the 'LoRA_T=1' line appear narrower than those around the 'C³A_b=128/2' line. Does this suggest that 'LoRA_T=1' has more consistent performance?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Linear' method achieves approximately 0.8 training accuracy at epoch 60, how does this compare to the peak accuracy of 'C³A_b=128/2'?",
+      "expected_behavior": "The model should detect that the stated accuracy for the 'Linear' method at epoch 60 is incorrect (actual value is closer to 1.0) and provide the correct comparison.",
+      "false_premise": "The false claim is that the 'Linear' method achieves 0.8 accuracy at epoch 60, while the actual value is closer to 1.0. The anchor is plausible because the 'Linear' method fluctuates and approaches 1.0 around this epoch.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the training accuracy trends, what is the statistical significance of the differences between the methods, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined.",
+      "why_unanswerable": "The chart does not include statistical analysis, such as p-values or significance tests, which would require additional data and methodology details.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show confidence intervals around the lines, it shows the actual lines representing the training accuracy over epochs for different methods. Therefore, we cannot assess the consistency of performance based on confidence intervals.\n\n2. At epoch 60, the 'Linear' method achieves approximately 0.95 training accuracy, while 'C³A_b=128/2' has already reached its peak accuracy of around 1.0. Thus, 'C³A_b=128/2' has a higher peak accuracy than 'Linear' at epoch 60.\n\n3. The figure does not provide information about the statistical significance or p-values for the comparisons between the methods. Therefore, we cannot determine the statistical significance of the differences between the methods based on this figure.",
+  "timestamp": "2026-05-24T12:37:23.567837+00:00"
+}

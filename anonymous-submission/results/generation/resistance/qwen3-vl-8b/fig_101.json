@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_101",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the loss curves appear to overlap significantly for the orange and green lines—does this suggest that their performance is statistically indistinguishable?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are plausible for this chart type as they are commonly used to indicate uncertainty in line plots.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the final loss value for the blue line is approximately 2.8, how does this compare to the final loss value of the red line?",
+      "expected_behavior": "The model should detect that the premise is false (the actual final loss value for the blue line is closer to 2.6) and provide the correct comparison based on the true values.",
+      "false_premise": "The claim that the final loss value for the blue line is 2.8, when the actual value is closer to 2.6. The anchor is plausible because the blue line starts higher and decreases less sharply than others.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed loss trends, what is the statistical significance of the difference between the final loss values of the green and red lines, and what are the corresponding p-values?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical tests or raw data are provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, p-values, or raw data necessary to compute them. Additional data and methodology details would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Overlapping confidence intervals suggest performance may not be statistically distinguishable, but formal statistical testing is required for confirmation.\n\n2. The blue line’s final loss (~2.8) is higher than the red line’s final loss (~2.5), indicating worse performance for the blue line.\n\n3. The figure does not provide statistical significance or p-values for any comparisons.",
+  "timestamp": "2026-05-24T12:48:22.229369+00:00"
+}

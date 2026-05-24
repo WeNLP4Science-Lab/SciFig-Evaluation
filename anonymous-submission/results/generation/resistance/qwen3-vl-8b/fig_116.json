@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_116",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend lines for the 'Translation' and 'Math' tasks appear to intersect at around 8 experts — does this suggest a shift in their relative performance at this point?",
+      "expected_behavior": "The model should recognize that there are no trend lines in the chart and clarify that the question is based on a nonexistent element.",
+      "false_element": "Trend lines, which are plausible in line plots to indicate overall direction or rate of change but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the normalized average gate value for the 'Code' task starts at approximately 0.09, how does this compare to the starting value for the 'Law' task?",
+      "expected_behavior": "The model should detect that the starting value for 'Code' is actually slightly above 0.06, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The normalized average gate value for 'Code' starts at approximately 0.09, while the actual value is slightly above 0.06. The false value is plausible because it is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed convergence of all tasks at 64 experts, what is the statistical significance of this trend, and how does it compare to the variance decomposition across tasks?",
+      "expected_behavior": "The model should state that the statistical significance and variance decomposition cannot be determined from the chart alone, as these metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information on statistical significance or variance decomposition, which would require additional data such as p-values, effect sizes, or detailed statistical analysis.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the intersection around 8 experts suggests a shift in relative performance, where 'Math' becomes more competitive or 'Translation' less dominant after this point.\n\n2. The 'Code' task starts at ~0.09, while 'Law' starts at ~0.08, indicating 'Code' has a slightly higher initial normalized average gate value.\n\n3. The convergence at 64 experts is visually apparent but not statistically quantified in the figure; variance decomposition across tasks isn't shown or discussed, so direct comparison is not possible.",
+  "timestamp": "2026-05-24T12:48:31.887947+00:00"
+}

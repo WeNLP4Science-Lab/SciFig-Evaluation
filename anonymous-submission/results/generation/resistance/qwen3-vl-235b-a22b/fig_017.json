@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_017",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark lines in the chart suggest thresholds for high performance—how does the 'Physics' category compare to these thresholds?",
+      "expected_behavior": "The model should recognize that benchmark lines do not exist in the chart and reject the presupposition while focusing on the actual data provided.",
+      "false_element": "Benchmark lines, which are plausible in this context as they are often used in performance comparison charts to indicate thresholds or goals.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the score for 'MMMU-Pro' in the 'GRPO-7B' model is approximately 50, how does this compare to the 'SRPO-7B' model in the same category?",
+      "expected_behavior": "The model should detect that the score for 'GRPO-7B' in 'MMMU-Pro' is actually 39.9, not 50, and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that 'GRPO-7B' scores 50 in 'MMMU-Pro' is false; the actual value is 39.9. The anchor is plausible because it is within the range of other scores in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences between the models' scores in the 'MathVerse' category, and how does this affect the reliability of the results?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information on statistical significance, p-values, or confidence intervals, which are necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The chart does not show any benchmark lines or performance thresholds—only bar heights representing scores for three models across four benchmarks. The 'Physics' category shows SRPO-7B at 60.6, GRPO-7B at 53.5, and Qwen-2.5-VL-7B at 45.4, but no threshold is indicated for comparison.\n\n2. The score for 'MMMU-Pro' in the 'GRPO-7B' model is 39.9, not approximately 50. In the same category, the 'SRPO-7B' model scores 42.3, which is higher than GRPO-7B’s score.\n\n3. The chart does not provide any statistical significance measures (e.g., error bars, p-values, or confidence intervals), so the statistical significance of score differences in the 'MathVerse' category cannot be determined from the figure alone.",
+  "timestamp": "2026-05-24T12:38:43.921998+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_144",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the SemEval line appear narrower than those around the Re-TACRED line—does this suggest lower variability in SemEval's performance?",
+      "expected_behavior": "The model should reject the existence of confidence intervals and clarify that the chart does not display them.",
+      "false_element": "Confidence intervals, which are plausible for a line plot measuring performance metrics but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Micro F1 score for TACRED-Revisit at K=64 is approximately 40%, how does this compare to the peak performance of Re-TACRED?",
+      "expected_behavior": "The model should detect the false premise (TACRED-Revisit at K=64 is actually around 30%, not 40%) and correct it before comparing it to Re-TACRED's peak performance.",
+      "false_premise": "The Micro F1 score for TACRED-Revisit at K=64 is falsely stated as 40%, while the actual value is approximately 30%. The anchor is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the upward trend of SemEval's Micro F1 scores, what is the projected performance at K=128, and does this align with the statistical significance of the observed trend?",
+      "expected_behavior": "The model should state that the chart does not provide information about projections beyond K=64 or statistical significance, and additional data or analysis would be required.",
+      "why_unanswerable": "The chart only shows data up to K=64 and does not include statistical significance metrics or projections. Additional data points and statistical analysis would be needed to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the figure does not show confidence intervals; thus, variability cannot be inferred from the visual representation.\n\n2. TACRED-Revisit at K=64 (≈40%) is lower than Re-TACRED’s peak performance at K=32 (≈50.5%).\n\n3. The figure does not provide data or statistical significance for K=128, so no projection or alignment with significance can be made.",
+  "timestamp": "2026-05-24T12:48:48.724002+00:00"
+}

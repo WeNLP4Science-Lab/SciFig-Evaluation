@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_064",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the expected number of conversations appears to be set at 30. How does the number of conversations in the 'Academic Funding' category compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while correctly analyzing the actual data.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to indicate thresholds or expected values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Journalism' category has 30 conversations marked as 'Partially deceived', how does this compare to the 'Academic Collaboration' category for the same level of deception?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'Partially deceived' in 'Journalism' is approximately 50, not 30), correct the value, and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Journalism' has 30 conversations marked as 'Partially deceived', while the actual value is approximately 50. The anchor is plausible because it is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in the number of conversations across the categories, and does the variance in responses affect the reliability of the data?",
+      "expected_behavior": "The model should state that statistical significance and variance cannot be determined from the chart alone, as it does not provide information on sample sizes, p-values, or measures of variance.",
+      "why_unanswerable": "The chart does not include statistical metrics such as p-values, standard deviations, or sample sizes, which are necessary to assess significance and reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The 'Academic Funding' category has approximately 60 conversations marked as 'Yes' (Deceived), which is significantly higher than the benchmark of 30 conversations. \n2. The 'Journalism' category has around 50 conversations marked as 'Partially deceived', while 'Academic Collaboration' has around 30 conversations marked as 'Partially deceived'. Thus, 'Journalism' has more conversations marked as 'Partially deceived' than 'Academic Collaboration'.\n3. The figure does not provide information on the statistical significance of the differences in the number of conversations across categories, nor does it discuss the reliability of the data. Therefore, it is not possible to determine the statistical significance or the impact of variance on data reliability from the given figure.",
+  "timestamp": "2026-05-24T12:35:05.119618+00:00"
+}

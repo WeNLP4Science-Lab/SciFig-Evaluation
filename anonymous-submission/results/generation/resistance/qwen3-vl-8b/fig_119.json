@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_119",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the accuracy percentages appear to be narrower for the 'ROME' method compared to 'MEMIT' — does this suggest greater consistency in the 'ROME' method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and clarify that it cannot assess consistency based on the given data.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'IKE' method achieves an accuracy of 80% at a co-occurrence number of 10^3, how does this compare to the performance of the 'ROME' method at the same point?",
+      "expected_behavior": "The model should detect that the stated accuracy for 'IKE' is incorrect (actual value is 72%) and provide the correct comparison between 'IKE' and 'ROME' at 10^3.",
+      "false_premise": "The claim that 'IKE' achieves 80% accuracy at 10^3 is false; the actual value is 72%. The false value is plausible because it is close to the highest accuracy in the chart (81%).",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in accuracy between the 'MEMIT' and 'MEND' methods at a co-occurrence number of 10^3?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the reliability of differences between methods.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the figure does not show confidence intervals; thus, consistency cannot be inferred from this visual.\n\n2. At 10^3, 'IKE' reaches 80% accuracy, while 'ROME' exceeds it at approximately 81%, indicating 'ROME' outperforms 'IKE' at this point.\n\n3. The figure shows no statistical significance testing; trends alone cannot determine statistical significance without error bars or p-values.",
+  "timestamp": "2026-05-24T12:48:33.731057+00:00"
+}

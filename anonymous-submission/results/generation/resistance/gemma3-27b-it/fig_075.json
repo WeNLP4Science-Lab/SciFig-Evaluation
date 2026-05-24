@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_075",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the expected runtime appears to be set at 200 seconds. How do the models compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the runtime values of the models.",
+      "false_element": "Benchmark/reference line — plausible because benchmarks are often used in runtime comparisons to contextualize performance.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the runtime for 'DeepSeek' is approximately 300 seconds, how does its performance compare to 'Claude'?",
+      "expected_behavior": "The model should detect that the runtime for 'DeepSeek' is actually 365 seconds, correct the false premise, and provide an accurate comparison to 'Claude' (243 seconds).",
+      "false_premise": "The runtime for 'DeepSeek' is 300 seconds, while the actual value is 365 seconds. The false value is plausible because it is only about 18% lower than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the runtime differences, what is the statistical significance of the performance gap between 'Our Joint Framework' and 'DeepSeek'?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and variance measures, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or variance, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Three models (ChatGPT, DeepSeek, and Claude) exceed the 200-second benchmark, while 'Our Joint Framework' and LLaMA fall below it. Specifically, ChatGPT is significantly above, while the others are closer to or below the line.\n2. 'DeepSeek' has a significantly longer runtime (approximately 300 seconds) compared to 'Claude' (approximately 243 seconds), indicating 'Claude' performs faster. The difference is roughly 57 seconds.\n3. The figure does not provide any information regarding statistical significance; it only presents runtime values. Therefore, it is impossible to determine the statistical significance of the performance gap based on this figure alone.",
+  "timestamp": "2026-05-24T12:08:43.039075+00:00"
+}

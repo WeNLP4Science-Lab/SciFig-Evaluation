@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_172",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the Accuracy line appear narrower at higher Question Popularity values — does this indicate reduced variability in the model's predictions?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation based on them.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing trends and variability but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Alignment value at Question Popularity 5 is approximately 0.85, how does this compare to the Confidence value at the same point?",
+      "expected_behavior": "The model should detect that the Alignment value at Question Popularity 5 is actually closer to 0.73, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The Alignment value at Question Popularity 5 is falsely stated as 0.85, while the actual value is approximately 0.73. The anchor is plausible because the Alignment line fluctuates near 0.85 later in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences between Accuracy and Alignment values at Question Popularity 15, and how does this relate to the sample size used in the analysis?",
+      "expected_behavior": "The model should state that statistical significance and sample size information cannot be determined from the chart, as these metrics are not provided.",
+      "why_unanswerable": "The chart does not include statistical significance markers, p-values, or sample size information, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence bands at higher Question Popularity values suggest reduced variability in the model's predictions, likely due to increased sample sizes or more stable data at higher popularity levels.\n\n2. At Question Popularity 5, the Alignment value is approximately 0.85, which is higher than the Confidence value, which is around 0.93.\n\n3. The differences between Accuracy and Alignment values at Question Popularity 15 are not statistically significant based on the overlapping confidence intervals, and this is consistent with the sample size used in the analysis, which may not be large enough to detect small differences.",
+  "timestamp": "2026-05-24T12:46:06.796090+00:00"
+}

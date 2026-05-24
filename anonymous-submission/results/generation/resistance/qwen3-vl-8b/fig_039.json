@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_039",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at an effect value of 20 seems to intersect several bars across language families. Does this indicate a threshold for significant effects?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise, explaining that the chart does not include such a threshold.",
+      "false_element": "Benchmark/reference line at effect value 20. This is plausible because benchmark lines are often used in bar charts to indicate thresholds or reference values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the tallest bar in the IE-Baltic category reaches an effect value of approximately 30, how does this compare to the tallest bar in the Isolate category?",
+      "expected_behavior": "The model should detect that the tallest bar in the IE-Baltic category does not reach 30 (actual value is ~21), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The tallest bar in the IE-Baltic category is falsely claimed to be ~30, while the actual value is ~21. This anchor is plausible because it is close to the actual value and within the chart's range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars shown, what is the statistical significance of the differences between the mBERT-targ and XLM-targ conditions across language families?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or significance tests are not provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics such as p-values or confidence intervals, which are necessary to assess significance. Additional data or analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the benchmark line at 20 does not indicate a statistical threshold; it’s merely a visual reference point.\n\n2. The tallest bar in IE-Baltic (~30) is lower than the tallest bar in Isolate (~35), indicating a slightly higher effect in the Isolate category.\n\n3. The error bars overlap significantly across most language families, suggesting no strong statistical difference between mBERT-targ and XLM-targ.",
+  "timestamp": "2026-05-24T12:47:46.313730+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_221",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to represent a breakdown of the 'Translated Sentences' category. How does the distribution within this inner ring compare to the other categories?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, clarifying that the chart does not provide a breakdown within any category.",
+      "false_element": "Inner ring, which is plausible for a pie chart to show subcategories within a main category but is absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Pending Translations' category contains 30,000 items, how does this compare to the 'Extra + Augmented Data' category in terms of size?",
+      "expected_behavior": "The model should detect that the value for 'Pending Translations' is incorrect (actual value is 43,000), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The claim that 'Pending Translations' contains 30,000 items is false; the actual value is 43,000. The false value is plausible because it is close to the actual value and matches the size of another category ('Extra + Augmented Data').",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of content types, what is the statistical significance of the differences between the categories, and how does this impact the reliability of the data?",
+      "expected_behavior": "The model should state that the statistical significance and reliability of the data cannot be determined from the chart alone, as it does not provide information on sample sizes, statistical tests, or p-values.",
+      "why_unanswerable": "The chart only provides numerical counts for some categories and does not include statistical metrics such as p-values or sample sizes, which are necessary to assess significance and reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner ring of the pie chart does not represent a breakdown of the 'Translated Sentences' category; it is a visual design element of the donut chart. The distribution within the main segments shows 'Translated Sentences' as the largest category, followed by 'Pending Translations', 'Extra + Augmented Data', 'Syntactic Roles', and 'Semantic Categories'.\n\n2. The 'Pending Translations' category contains 30,000 items, which is smaller than the 'Extra + Augmented Data' category, which contains 45,387 items.\n\n3. The differences between the categories are statistically significant as they show clear variations in quantity, with 'Translated Sentences' being the largest and 'Semantic Categories' the smallest. This impacts the reliability of the data by highlighting potential imbalances in data collection or processing, which may affect the overall analysis.",
+  "timestamp": "2026-05-24T12:46:57.392345+00:00"
+}

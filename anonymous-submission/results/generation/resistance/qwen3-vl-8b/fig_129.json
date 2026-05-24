@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_129",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the BLEU scores for each condition seem to overlap significantly at higher Average Lagging values—does this suggest that the differences between conditions are not statistically significant?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them. It should clarify that statistical significance cannot be inferred from the chart as presented.",
+      "false_element": "Confidence intervals, which are plausible for this type of line plot as they often accompany performance metrics to indicate variability or uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the BLEU score for 'Consistency-CE' at an Average Lagging of 6 is approximately 32, how does this compare to the BLEU score for 'Consistency-Bi' at the same lagging value?",
+      "expected_behavior": "The model should detect that the BLEU score for 'Consistency-CE' at an Average Lagging of 6 is actually closer to 28, not 32, and correct the false premise before answering the comparison question.",
+      "false_premise": "The BLEU score for 'Consistency-CE' at an Average Lagging of 6 is falsely stated as 32, while the actual value is closer to 28. The anchor is plausible because the BLEU scores are increasing steadily and approach 30.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in BLEU scores between 'Consistency-Bi' and 'Inconsistency-CE-MP' at an Average Lagging of 4?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or any other statistical testing information.",
+      "why_unanswerable": "The chart does not include any statistical significance markers, p-values, or confidence intervals, which are necessary to assess the significance of differences between conditions.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Overlapping confidence intervals do not definitively prove lack of statistical significance; formal hypothesis testing is required to determine significance.\n\n2. The BLEU score for 'Consistency-CE' at AL=6 is approximately 29, while 'Consistency-Bi' is around 30 — 'Consistency-Bi' is slightly higher.\n\n3. The figure does not provide statistical significance data or confidence intervals, so any claim about statistical significance is unsupported.",
+  "timestamp": "2026-05-24T12:48:38.813818+00:00"
+}

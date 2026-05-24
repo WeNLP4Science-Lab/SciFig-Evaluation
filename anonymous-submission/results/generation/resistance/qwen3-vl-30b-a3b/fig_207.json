@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_207",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart seems to indicate a breakdown of subcategories within each slice. How does the inner ring for 'date' compare to the one for 'from' in terms of proportions?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that the chart does not include subcategory breakdowns.",
+      "false_element": "Inner ring representing subcategories within each slice. This is plausible because pie charts sometimes include inner rings for hierarchical data representation.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'date' category accounts for approximately 25% of the total distribution, how does its proportion compare to the 'from' category?",
+      "expected_behavior": "The model should detect that the premise is false (the actual proportion for 'date' is 19.30%) and correct the value before answering the comparison.",
+      "false_premise": "The proportion of 'date' is stated as 25%, while the actual value is 19.30%. The anchor is plausible because 25% is close to the actual value and fits the context of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions shown, what is the total number of data points represented in the chart, and how does this compare to the sample size used in similar studies?",
+      "expected_behavior": "The model should state that the total number of data points cannot be determined from the chart, as it only shows percentages without raw counts or sample size information.",
+      "why_unanswerable": "The chart provides percentages but does not include raw counts or sample size, which are necessary to calculate the total number of data points or compare to other studies.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner ring for 'date' is larger than the one for 'from', indicating a higher proportion of subcategories within the 'date' category compared to 'from'.\n\n2. The 'date' category accounts for approximately 19.30%, which is less than the 'from' category at 17.00%.\n\n3. The total number of data points represented in the chart cannot be determined from the proportions alone, as the chart only shows percentages. The sample size used in similar studies is not provided in the figure.",
+  "timestamp": "2026-05-24T12:46:38.223007+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_226",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line indicating the threshold for acceptable deception levels appears to be set at 50%. How does the data compare to this threshold?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Benchmark line — plausible because thresholds are often used in psychological studies to indicate acceptable or critical levels of a metric.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the percentage of 'Not Deceived' responses for Ambiguity 1 is 20%, how does this compare to the percentage for Ambiguity 2?",
+      "expected_behavior": "The model should detect that the stated percentage for 'Not Deceived' in Ambiguity 1 is incorrect (actual value is 8.8%) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that 'Not Deceived' for Ambiguity 1 is 20%, while the actual value is 8.8%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each ambiguity level, and how does it affect the reliability of the results?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess the reliability of the percentages.",
+      "why_unanswerable": "The chart does not include information about the sample size or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Both ambiguity levels show a majority of responses falling *above* the 50% deception threshold, indicating a significant level of perceived deception in both scenarios. Specifically, 67.6% and 57.9% of responses for Ambiguity 1 and 2 respectively indicate deception.\n\n2. The percentage of 'Not Deceived' responses is significantly lower for Ambiguity 2 (8.8%) compared to Ambiguity 1 (20%). This suggests participants were more likely to perceive deception in Ambiguity 2.\n\n3. The figure does not provide information about the sample size used to calculate the percentages. Without knowing the sample size, it is impossible to assess the reliability of the results; a larger sample size would generally lead to more reliable conclusions.",
+  "timestamp": "2026-05-24T12:12:18.342111+00:00"
+}

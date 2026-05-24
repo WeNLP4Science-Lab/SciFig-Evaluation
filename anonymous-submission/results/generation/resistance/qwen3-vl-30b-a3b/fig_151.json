@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_151",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the 'ffn_residual' line appear to narrow significantly after layer 15 — does this indicate reduced variability in activation values?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the premise while focusing on the actual data presented.",
+      "false_element": "Confidence bands, which are plausible for a line plot in this domain but absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the maximum activation value for 'attn_residual' at layer 23 is approximately 180, how does this compare to the peak activation value for 'ffn_residual'?",
+      "expected_behavior": "The model should detect that the stated value of 180 for 'attn_residual' at layer 23 is incorrect (actual value is 250), correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The maximum activation value for 'attn_residual' at layer 23 is stated as 180, but the actual value is 250. The false value is plausible because it is within 20-30% of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the activation values, what is the statistical significance of the differences between 'attn_residual' and 'ffn_residual' across layers?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or statistical tests, would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or the methodology used to calculate the activation values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrowing of the confidence bands around the 'ffn_residual' line after layer 15 suggests reduced variability in activation values, indicating more consistent behavior in the model's outputs.\n\n2. The peak activation value for 'ffn_residual' is approximately 380, which is significantly higher than the maximum activation value of 180 for 'attn_residual' at layer 23.\n\n3. The differences between 'attn_residual' and 'ffn_residual' are statistically significant across layers, as evidenced by the distinct and diverging trends, with 'ffn_residual' showing a much steeper increase and higher activation values, particularly after layer 15.",
+  "timestamp": "2026-05-24T12:45:50.194058+00:00"
+}

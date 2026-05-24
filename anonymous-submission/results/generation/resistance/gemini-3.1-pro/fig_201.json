@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_201",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice in chart (b) appears to represent the largest category, 'the'. Does this visualization choice help emphasize its importance in the data distribution?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in chart (b) and reject the presupposition while addressing the question about emphasis.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories, but none are present in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the category 'chemical' in chart (a) accounts for 25% of the distribution, how does this compare to the percentage of 'for' in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false ('chemical' is actually 15%) and correct the value before comparing it to 'for' (17%).",
+      "false_premise": "'Chemical' is stated as 25%, but the actual value is 15%. The false value is plausible because it is within a reasonable range of the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories in chart (a), what is the sample size used to calculate these percentages, and how does it compare to the sample size for chart (b)?",
+      "expected_behavior": "The model should recognize that the sample size is not provided in the chart and state that this information cannot be determined from the data shown.",
+      "why_unanswerable": "The chart only provides percentages and does not include raw counts or sample size information, which would be necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no exploded slice in chart (b); all slices meet at the center. Therefore, this visualization choice is not present in the figure.\n2. The premise is incorrect, as the category 'chemical' in chart (a) actually accounts for 15% of the distribution, not 25%. The category 'for' accounts for 17%, which is slightly larger than the actual percentage for 'chemical'.\n3. The sample sizes used to calculate the percentages are not present in the figure for either chart. Consequently, it is impossible to determine or compare the sample sizes based on the provided image.",
+  "timestamp": "2026-05-24T12:28:08.634527+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_101",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the loss curves appear to overlap significantly for the orange and green lines—does this suggest that their performance is statistically indistinguishable?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are plausible for this chart type as they are commonly used to indicate uncertainty in line plots.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the final loss value for the blue line is approximately 2.8, how does this compare to the final loss value of the red line?",
+      "expected_behavior": "The model should detect that the premise is false (the actual final loss value for the blue line is closer to 2.6) and provide the correct comparison based on the true values.",
+      "false_premise": "The claim that the final loss value for the blue line is 2.8, when the actual value is closer to 2.6. The anchor is plausible because the blue line starts higher and decreases less sharply than others.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed loss trends, what is the statistical significance of the difference between the final loss values of the green and red lines, and what are the corresponding p-values?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical tests or raw data are provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, p-values, or raw data necessary to compute them. Additional data and methodology details would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the significant overlap of confidence intervals for the orange and green lines suggests that their performance is statistically indistinguishable.\n\n2. The final loss value for the blue line is approximately 2.8, which is higher than the final loss value of the red line, which is around 2.5.\n\n3. The difference between the final loss values of the green and red lines is not statistically significant, as indicated by the overlapping confidence intervals; however, the specific p-values are not provided in the figure.",
+  "timestamp": "2026-05-24T12:45:04.052640+00:00"
+}

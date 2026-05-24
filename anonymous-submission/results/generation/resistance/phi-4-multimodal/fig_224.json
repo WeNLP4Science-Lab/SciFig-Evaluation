@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_224",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show a breakdown of regional variations within each language category. How does the regional distribution of Spanish compare to that of English?",
+      "expected_behavior": "The model should recognize that the chart does not contain an inner ring or regional breakdown and reject the premise.",
+      "false_element": "Inner ring showing regional variations, which is plausible for pie charts that display hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Russian' category accounts for approximately 8% of the chart, how does its share compare to the 'Spanish' category?",
+      "expected_behavior": "The model should detect that the 'Russian' category is actually 5.7%, not 8%, and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that 'Russian' accounts for 8%, when the actual value is 5.7%. The anchor is plausible because it is close to the actual value and within a reasonable range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of the dataset used to calculate these percentages, and how does it affect the reliability of the language distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner ring of the pie chart shows a more detailed breakdown of regional variations within each language category, but the exact percentages for each region are not provided in the image.\n2. The 'Russian' category accounts for approximately 8% of the chart, which is slightly higher than the 'Spanish' category, which accounts for 31.4%.\n3. The sample size of the dataset used to calculate these percentages is not provided in the image, so it is not possible to determine how it affects the reliability of the language distribution.",
+  "timestamp": "2026-05-24T12:57:32.031500+00:00"
+}

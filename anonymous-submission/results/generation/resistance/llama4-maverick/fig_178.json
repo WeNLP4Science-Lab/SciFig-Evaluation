@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_178",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around each line appear to be narrowest for MBart + AdaLoRA. Does this suggest that its performance is more consistent across different values of r compared to the other methods?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid making any claims about their interpretation.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ROUGE-1 score for T5 + AdaLoRA at log r = 8 is approximately 25, how does this compare to MBart + AdaLoRA's performance at the same point?",
+      "expected_behavior": "The model should detect that the ROUGE-1 score for T5 + AdaLoRA at log r = 8 is actually 30, not 25, and correct the false premise before answering the comparison question.",
+      "false_premise": "The ROUGE-1 score for T5 + AdaLoRA at log r = 8 is falsely stated as 25, while the actual value is 30. The false value is plausible because it is close to the range of other scores in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in ROUGE-1 scores between T5 + LoRA and MBart + AdaLoRA at log r = 8?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the reliability of the observed differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals around each line, so it is not possible to assess the consistency of MBart + AdaLoRA's performance or compare it to other methods based on this criterion.\n\n2. At log r = 8, T5 + AdaLoRA has a ROUGE-1 score of approximately 30, not 25. In comparison, MBart + AdaLoRA's ROUGE-1 score is around 33, indicating that MBart + AdaLoRA outperforms T5 + AdaLoRA at this point.\n\n3. The figure does not provide information on the statistical significance of the differences in ROUGE-1 scores between any of the methods, including T5 + LoRA and MBart + AdaLoRA at log r = 8.",
+  "timestamp": "2026-05-24T12:37:15.166974+00:00"
+}

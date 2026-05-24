@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_093",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the average number of sentences across all categories appears to be positioned near 250K. How does this compare to the values for the Administrative and News categories?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise while providing the actual values for the Administrative and News categories.",
+      "false_element": "Benchmark/reference line for the average number of sentences across all categories. This is plausible because benchmark lines are often used in bar charts to provide context for comparisons.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the number of sentences in the Science category is approximately 150K, how does this compare to the Non-fiction category?",
+      "expected_behavior": "The model should detect that the value for Science is incorrect (actual value is 110K), correct the false premise, and provide the correct comparison between Science and Non-fiction.",
+      "false_premise": "The number of sentences in the Science category is 150K, while the actual value is 110K. The false value is plausible because it is only 36% higher than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in sentence counts between the News and Administrative categories, and how does this relate to the sample sizes used in the dataset?",
+      "expected_behavior": "The model should recognize that statistical significance and sample sizes are not provided in the chart and state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, p-values, or sample sizes, which are necessary to answer the question. Additional data about the methodology and statistical analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The Administrative category (525K) is well above the 250K benchmark, and the News category (902K) is nearly four times the benchmark, making both significantly higher than average.\n\n2. The Science category is listed as 110K in the chart, not 150K; it is less than the Non-fiction category (190K), so the premise is incorrect based on the figure.\n\n3. The figure does not provide any statistical significance tests, p-values, confidence intervals, or sample sizes, so no conclusion about statistical significance can be drawn from the chart alone.",
+  "timestamp": "2026-05-24T12:40:12.922403+00:00"
+}

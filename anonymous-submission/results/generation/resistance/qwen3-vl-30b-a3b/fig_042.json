@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_042",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for acceptable factual errors appears to be set at 20 across all datasets. How do the results for MuSiQue compare to this benchmark?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and avoid fabricating an interpretation based on it.",
+      "false_element": "Benchmark/reference line — plausible because benchmarks are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the factual errors for IRCoT QA in the 2WikiMQA dataset are approximately 20, how does this compare to the errors for OneR QA in the same dataset?",
+      "expected_behavior": "The model should detect that the factual errors for IRCoT QA in 2WikiMQA are actually 14, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The claim that IRCoT QA has 20 errors in 2WikiMQA is false; the actual value is 14. The anchor is plausible because it is close to the actual value and within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in factual errors between NoR QA and OneR QA across all datasets, and how does this impact the reliability of the results?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The results for MuSiQue exceed the benchmark of 20 factual errors, with NoR QA at 28, OneR QA at 27, and IRCoT QA at 23, all surpassing the acceptable threshold.\n\n2. In the 2WikiMQA dataset, the factual errors for IRCoT QA are approximately 14, which is lower than the 23 errors for OneR QA, indicating better performance for IRCoT QA compared to OneR QA.\n\n3. The statistical significance of the differences cannot be determined from the figure alone, as it does not provide p-values or confidence intervals; thus, the reliability of the results is limited without additional statistical analysis.",
+  "timestamp": "2026-05-24T12:44:16.149777+00:00"
+}

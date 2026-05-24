@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_087",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at an Avg. JGA Score of 0.8 seems to indicate a target performance threshold. How do the models compare to this benchmark across the turns?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition, focusing only on the actual data presented.",
+      "false_element": "Benchmark/reference line at Avg. JGA Score of 0.8, which is plausible because such lines are often used in performance comparison charts to indicate target thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Avg. JGA Score for T5-small at Turn ID 6 is approximately 0.7, how does this compare to LLaMA-7B's performance at the same turn?",
+      "expected_behavior": "The model should detect that the Avg. JGA Score for T5-small at Turn ID 6 is not 0.7 (actual value is closer to 0.6), correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The Avg. JGA Score for T5-small at Turn ID 6 is falsely stated as 0.7, while the actual value is closer to 0.6. The anchor is plausible because it is within the general range of scores observed in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed decline in Avg. JGA Scores, what is the statistical significance of the difference between LLaMA-7B and T5-small at Turn ID 12, and what are the p-values for this comparison?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide any statistical analysis or raw data.",
+      "why_unanswerable": "The chart does not include statistical significance markers, p-values, or any underlying data necessary to compute these metrics. Additional statistical analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. LLaMA-7B consistently scores above the 0.8 benchmark across most turns, while T5-small scores below it for most turns, indicating LLaMA-7B performs better relative to the target.\n\n2. At Turn ID 6, LLaMA-7B scores approximately 0.82, which is higher than T5-small's 0.62, showing LLaMA-7B outperforms T5-small by about 0.2 points.\n\n3. The figure does not provide statistical significance or p-values for any comparison; such metrics are not visually represented or quantified in the chart.",
+  "timestamp": "2026-05-24T12:48:14.800212+00:00"
+}

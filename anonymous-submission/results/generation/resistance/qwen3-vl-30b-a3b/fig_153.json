@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_153",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the green line appear narrower than those around the blue line—does this suggest that the initial accuracy is more consistent than the final accuracy?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and reject the premise while focusing on the actual variability shown by the error bars.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing accuracy trends but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the initial accuracy at x = 13 is approximately 0.7, how does this compare to the final accuracy at the same x-value?",
+      "expected_behavior": "The model should detect that the initial accuracy at x = 13 is closer to 0.55, not 0.7, and correct the false premise before comparing it to the final accuracy.",
+      "false_premise": "The initial accuracy at x = 13 is falsely stated as 0.7, while the actual value is closer to 0.55. The anchor is plausible because it is within the range of the green line's values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between initial and final accuracy at x = 13, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that the statistical significance and p-value cannot be determined from the chart alone, as it does not provide information about sample sizes or statistical tests.",
+      "why_unanswerable": "The chart does not include information about statistical tests, sample sizes, or p-values, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence bands around the green line suggest that the initial accuracy measurements are more consistent (have less variability) than the final accuracy measurements.\n\n2. At x = 13, the initial accuracy is approximately 0.5, while the final accuracy is approximately 0.7. Therefore, the final accuracy is higher than the initial accuracy at this point.\n\n3. The difference between initial and final accuracy at x = 13 is not statistically significant based on the overlap of the confidence intervals. The p-value cannot be determined from the figure alone.",
+  "timestamp": "2026-05-24T12:45:51.275366+00:00"
+}

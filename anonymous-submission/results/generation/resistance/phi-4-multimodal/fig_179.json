@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_179",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the average vocabulary size curves appear narrower for Japanese compared to Spanish — does this suggest less variability in the Japanese data?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty, are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the vocabulary size for Korean reaches approximately 2200 at 500 iterations, how does this compare to the vocabulary size for Spanish at the same point?",
+      "expected_behavior": "The model should detect that the stated value for Korean (2200) is incorrect, correct it to the actual value (approximately 2900), and provide an accurate comparison.",
+      "false_premise": "The false claim is that the vocabulary size for Korean at 500 iterations is 2200, while the actual value is approximately 2900. The false value is plausible because it is within 20-30% of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the projected vocabulary size for each language after 1000 iterations, and how does this align with the standard deviation across starting words?",
+      "expected_behavior": "The model should recognize that the chart does not provide data beyond 500 iterations or standard deviation values, and state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart only provides data up to 500 iterations and does not include standard deviation values or any information about projections beyond the plotted range. Additional data or a mathematical model would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals for Japanese suggest less variability in the Japanese data compared to Spanish.\n2. At 500 iterations, the vocabulary size for Korean is approximately 2200, which is slightly lower than the vocabulary size for Spanish at the same point.\n3. After 1000 iterations, the projected vocabulary size for Spanish is approximately 4000, for Korean is around 3500, and for Japanese is about 3000. The standard deviation across starting words remains relatively consistent, indicating similar variability in vocabulary growth for all three languages.",
+  "timestamp": "2026-05-24T12:55:52.675228+00:00"
+}

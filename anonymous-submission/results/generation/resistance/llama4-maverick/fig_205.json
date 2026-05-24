@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_205",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Multitasking' appears larger than the other slices—does this indicate its relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Exploded slice; plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Privacy Protection' is represented with a value of 90, how does this compare to the value of 'Multitasking' in terms of relative importance?",
+      "expected_behavior": "The model should detect that the value of 'Privacy Protection' is actually 111, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The value of 'Privacy Protection' is 90; the actual value is 111, and 90 is a plausible anchor as it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the values shown, what is the statistical significance of the differences between 'Privacy Protection' and 'Multitasking,' and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide any information about sample sizes or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, statistical tests, or p-values, which are necessary to determine significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice for 'Multitasking' appears larger than the other slices because it has a higher value (160) compared to the other categories, not necessarily because of its relative importance in the dataset.\n\n2. 'Privacy Protection' is actually represented with a value of 111, not 90. Comparing this to 'Multitasking' (160), 'Multitasking' has a higher value, indicating potentially greater relative importance.\n\n3. The figure does not provide information on the statistical significance or p-value for the differences between 'Privacy Protection' and 'Multitasking.' Therefore, it is not possible to determine the statistical significance or p-value based on the given data.",
+  "timestamp": "2026-05-24T12:37:40.112547+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_213",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize certain categories like 'Chemical' and 'Protein' — does this indicate their relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual distribution of categories.",
+      "false_element": "Exploded slices, which are a common feature in pie charts to emphasize specific categories, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Protein' category occupies 20% of the chart, how does its proportion compare to the 'Chemical' category?",
+      "expected_behavior": "The model should detect that the premise is false (the actual proportion of 'Protein' is 15%) and correct the value before making the comparison.",
+      "false_premise": "The claim that 'Protein' occupies 20% of the chart, when the actual value is 15%. The false value is plausible because it is close to the actual percentage.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in this pie chart, and how does it affect the reliability of the data?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about the sample size and explain that additional data would be needed to assess reliability.",
+      "why_unanswerable": "The chart only provides percentage values for each category but does not include information about the sample size or methodology used to calculate these percentages.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slices in the pie chart highlight certain categories, but the figure does not explicitly state that this indicates their relative importance in the dataset. It is likely used for visual emphasis.\n\n2. The 'Protein' category occupies 15% of the chart, not 20%, and the 'Chemical' category occupies 32%. Therefore, 'Chemical' is more than twice as large as 'Protein'.\n\n3. The sample size used to calculate the percentages is not provided in the figure. Therefore, it is not possible to determine its effect on the reliability of the data.",
+  "timestamp": "2026-05-24T12:37:45.647919+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_225",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner rings in the pie charts seem to indicate a secondary layer of data. How do the inner rings correlate with the outer slices in terms of distribution?",
+      "expected_behavior": "The model should recognize that there are no inner rings in the pie charts and reject the premise, clarifying that the chart does not include such elements.",
+      "false_element": "Inner rings, which are plausible in pie charts to represent additional layers of data but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'N−K+' category in the 'medium' chart accounts for approximately 60% of the distribution, how does this compare to the 'N+K+' category in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'N−K+' in the 'medium' chart is 44.3%) and correct the error before answering the comparison question.",
+      "false_premise": "The claim that 'N−K+' in the 'medium' chart accounts for 60% is false; the actual value is 44.3%. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories across the three charts, what is the statistical significance of the differences between the 'N+K+' and 'N−K+' categories?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide sample sizes, p-values, or other statistical metrics.",
+      "why_unanswerable": "The chart only provides percentage distributions without any statistical metrics or raw data, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner rings represent a category labeled “CoT” and appear to show the proportional distribution *within* each larger category represented by the outer slices. The inner rings’ percentages do not directly correlate to the outer slices’ percentages, but rather represent a sub-division of each outer slice. \n2. The 'N−K+' category (44.3%) accounts for a significantly larger portion of the 'medium' chart’s distribution than the 'N+K+' category (7.2%). Specifically, 'N−K+' is over six times larger than 'N+K+'.\n3. The figure does not provide enough information to determine the statistical significance of the differences between the 'N+K+' and 'N−K+' categories. Statistical significance requires data beyond just the percentages shown in these pie charts, such as sample sizes and standard deviations.",
+  "timestamp": "2026-05-24T12:12:18.258441+00:00"
+}

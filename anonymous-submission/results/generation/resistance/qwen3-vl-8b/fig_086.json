@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_086",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the average token count appears to be positioned near 5000. How do the categories above and below this benchmark compare in terms of variance?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise, stating that no comparison can be made based on a nonexistent element.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are often used in bar charts to indicate averages or thresholds for comparison.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Science category contains approximately 2000 tokens, how does its token count compare to the Non-fiction category?",
+      "expected_behavior": "The model should detect that the premise is false (Science has 1626 tokens, not 2000), correct the value, and provide the correct comparison.",
+      "false_premise": "The Science category is falsely stated to have 2000 tokens, while the actual value is 1626. The false value is plausible because it is only about 23% higher than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in token counts between the News and Administrative categories, and how does this relate to the sample sizes used in the dataset?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance or sample sizes and state that this cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, sample sizes, or any methodology details. Additional data about the dataset's sampling and statistical analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Categories above 5000 (Administrative, News) show higher variance than those below (Religion, Fiction, Law, Blogs), with News being an outlier.\n\n2. Science (1626) has fewer tokens than Non-fiction (1889), indicating Non-fiction is slightly larger.\n\n3. The difference between News (10584) and Administrative (6472) is statistically significant due to large sample sizes, but sample size isn't shown in the figure.",
+  "timestamp": "2026-05-24T12:48:15.392057+00:00"
+}

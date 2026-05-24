@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_242",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for the 'Very hard' category seems larger than the 'Hard' category. Does this indicate a higher relative importance of 'Very hard' entries in the dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, clarifying that all slices are presented uniformly without emphasis.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific categories but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Hard' category accounts for approximately 35% of the dataset, how does this compare to the 'Medium' category in terms of relative proportion?",
+      "expected_behavior": "The model should detect that the 'Hard' category is actually 25.7% and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that 'Hard' accounts for 35% of the dataset is false; the actual value is 25.7%. The anchor is plausible because it is only 9.3% higher than the true value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size for each difficulty category, and how does the variance in the 'Medium' category compare to the others?",
+      "expected_behavior": "The model should state that the sample sizes and variance cannot be determined from the chart, as it only provides percentages and total counts without any information on variance or raw data distribution.",
+      "why_unanswerable": "The chart does not provide sample sizes for each category or any information about variance. Additional data, such as raw counts or statistical analysis, would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the 'Very hard' slice is not exploded and is visually smaller than the 'Hard' slice; it accounts for only 6.5% versus 25.7% for 'Hard', so it does not indicate higher relative importance.\n\n2. The 'Hard' category actually accounts for 25.7%, not 35%; it is less than half the size of the 'Medium' category, which is 51.8%, meaning 'Medium' is roughly twice as large proportionally.\n\n3. Sample sizes are: Medium (725,892), Hard (360,137), Easy (157,053), Very hard (91,576), Very easy (65,332). The figure does not provide variance data for any category, so variance cannot be compared.",
+  "timestamp": "2026-05-24T12:43:34.502118+00:00"
+}

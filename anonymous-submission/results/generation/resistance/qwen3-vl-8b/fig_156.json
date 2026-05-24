@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_156",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals for the 'tiny AdaLoRA_int4' series appear narrower than those for 'tiny int8' — does this suggest lower variability in the former method?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'tiny full' method starts at a WER of approximately 40 at epoch 0, how does its initial performance compare to the other methods?",
+      "expected_behavior": "The model should detect that the initial WER for 'tiny full' is actually below 30, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The claim that 'tiny full' starts at a WER of approximately 40 is false; the actual value is below 30. The false value is plausible because it is close to the range of other methods' initial WER values.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed WER trends, what is the statistical significance of the differences between the methods at epoch 6, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values cannot be determined from the chart alone and explain that additional data or analysis would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, sample sizes, or p-values, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The plot does not show confidence intervals; thus, no conclusion about variability can be drawn from this visual.\n\n2. The 'tiny full' method starts at a WER of ~29 at epoch 0, which is significantly better (lower WER) than all other methods shown, which start at WERs above 60.\n\n3. The plot shows trends but provides no statistical significance or p-values; such metrics are not displayed or derivable from the graph alone.",
+  "timestamp": "2026-05-24T12:48:56.377458+00:00"
+}

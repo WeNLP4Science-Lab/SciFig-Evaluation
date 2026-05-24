@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_247",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show the distribution of answer types for a subset of the data. How does the proportion of True-False questions in the inner ring compare to the outer ring?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that the chart does not include such an element.",
+      "false_element": "Inner ring, which is plausible because pie charts often use inner rings to represent subsets or additional layers of data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the proportion of Multiple-Choice questions is 50%, how does this compare to the proportion of Open-Answer questions?",
+      "expected_behavior": "The model should detect that the stated proportion of Multiple-Choice questions is incorrect (actual value is 32.8%) and provide the correct comparison based on the actual data.",
+      "false_premise": "The false claim is that Multiple-Choice questions make up 50% of the chart, while the actual value is 32.8%. The anchor is plausible because 50% is a common proportion in pie charts.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the pie chart, and does this sample size affect the reliability of the proportions shown?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information about the dataset would be required.",
+      "why_unanswerable": "The chart does not provide any information about the sample size or the methodology used to calculate the percentages. This data would need to be explicitly provided to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner ring shows True-False at 4.1%, while the outer ring shows it at 16%—the outer ring proportion is significantly higher.\n\n2. The given 50% for Multiple-Choice contradicts the pie chart’s 32.8%, so the assumption is invalid.\n\n3. The sample size is 440 (sum of counts: 16+127+244). Larger samples improve proportion reliability, so 440 is reasonably reliable.",
+  "timestamp": "2026-05-24T12:49:58.607190+00:00"
+}

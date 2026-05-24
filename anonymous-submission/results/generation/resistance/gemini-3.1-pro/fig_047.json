@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_047",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 85% accuracy seems to highlight a key threshold — how do the green bars compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and avoid fabricating its existence while addressing the comparison of the green bars' accuracy values.",
+      "false_element": "Benchmark line — plausible because benchmark lines are commonly used in bar charts to indicate thresholds or goals.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the accuracy of the 'random layers + permute' configuration is approximately 70%, how does this compare to the 'embedding' configuration?",
+      "expected_behavior": "The model should detect that the stated accuracy for 'random layers + permute' is incorrect (actual value is closer to 80%) and provide the correct comparison with the 'embedding' configuration.",
+      "false_premise": "The false claim is that 'random layers + permute' has an accuracy of 70%, while the actual value is closer to 80%. The anchor is plausible because the red bars are near 70%, making the error subtle.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the accuracy differences between the 'random layers' and 'random' configurations, and does this suggest a meaningful improvement?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess the meaningfulness of the differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. All of the green bars, which represent the various \"random layers\" configurations, fall below the 85% accuracy benchmark line. Their accuracies appear to range between approximately 79% and 82%.\n2. The premise of the question is incorrect based on the figure, as the \"random layers + permute\" configuration shows an accuracy of roughly 79-81%, not 70%. This is very similar to the \"embedding\" configuration, which has an accuracy of approximately 80-82%.\n3. The provided figure does not include error bars, p-values, or any other indicators of statistical significance. Therefore, it is not possible to determine the statistical significance of the accuracy differences between the configurations from this image alone.",
+  "timestamp": "2026-05-24T12:15:49.985389+00:00"
+}

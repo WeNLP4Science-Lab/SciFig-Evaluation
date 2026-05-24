@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_237",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 2018 appears larger than the other slices — does this indicate a higher level of significance for that year?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while focusing on the actual data provided.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific categories.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the percentage for 2017 is 30%, how does this compare to the percentage for 2018?",
+      "expected_behavior": "The model should detect that the percentage for 2017 is actually 21%, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The percentage for 2017 is 30%, while the actual value is 21%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each year, and how does it impact the reliability of the data?",
+      "expected_behavior": "The model should recognize that the sample size is not provided in the chart and state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart only provides percentages and raw counts for each year but does not include information about the sample size or methodology used to calculate the data.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice for 2018 does not indicate a higher level of significance for that year; it is simply a visual representation and does not affect the actual data.\n2. The percentage for 2017 is actually 21%, not 30%, so a comparison to 2018's 33% is that 2018 is higher by 12 percentage points.\n3. The sample size is not explicitly stated in the figure, so it is not possible to determine its impact on the reliability of the data.",
+  "timestamp": "2026-05-24T12:38:08.687375+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_098",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 500 likes appears to intersect with the error bars of the (90,180] group. Does this suggest that the average likes for this group are significantly different from the benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise, while correctly interpreting the error bars and average values.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are commonly used in bar charts to indicate a reference or threshold value.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the average likes for the (180,270] group are approximately 450, how does this compare to the (0,90] group in terms of popularity?",
+      "expected_behavior": "The model should detect that the average likes for the (180,270] group are closer to 550, not 450, and correct the false premise before answering the comparison question.",
+      "false_premise": "The false claim is that the average likes for the (180,270] group are 450, while the actual value is closer to 550. The false value is plausible because it is within the range of the vertical axis but 20-30% lower than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars shown, what is the statistical significance of the differences in average likes between the (0,90] and (90,180] groups?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance, such as p-values or confidence intervals, and state that this cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not include statistical significance markers, p-values, or any information about the statistical tests performed. Additional data or methodology details would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the benchmark at 500 does not indicate statistical significance; it merely intersects the error bar range, which includes values above and below 500.\n\n2. The (180,270] group is less popular than the (0,90] group, as its average likes (~575) are visibly lower than the (0,90] group's average (~600).\n\n3. The error bars overlap substantially between the (0,90] and (90,180] groups, suggesting no statistically significant difference in their average likes.",
+  "timestamp": "2026-05-24T12:48:22.297719+00:00"
+}

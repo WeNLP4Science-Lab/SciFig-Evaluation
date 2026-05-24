@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_029",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 80% seems to intersect with several bars, including Gemini Flash 1.5 and phi-4. Does this suggest these models consistently outperform the benchmark across all tests?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and clarify that the question is based on a nonexistent element.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are often used in bar charts to indicate a standard or target value, especially in performance comparisons.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the average score for Gemini Flash 1.5 is approximately 70, how does this compare to the performance of phi-4?",
+      "expected_behavior": "The model should detect that the stated value for Gemini Flash 1.5 (70) is incorrect, correct it to the actual value (81.6), and then compare it to phi-4's score (91.8).",
+      "false_premise": "The false claim is that Gemini Flash 1.5 has an average score of 70, while the actual value is 81.6. The anchor is plausible because it is close to the lowest score in the chart (66.4 for Llama-3.3 70B Instruct).",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed scores, what is the statistical significance of the difference between phi-4 and Gemini Pro 1.5, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that the statistical significance and p-value cannot be determined from the chart alone, as it does not provide raw data, sample sizes, or statistical tests.",
+      "why_unanswerable": "The chart does not include information about sample sizes, raw data, or statistical tests, which are necessary to calculate p-values and assess statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the benchmark line at 80% simply indicates where 80% performance lies on the y-axis; it doesn’t mean the models consistently outperform it across *all* tests, only at those specific points of intersection. The error bars indicate the range of scores, and performance varies.\n2. Gemini Flash 1.5 scores approximately 70, while phi-4 scores approximately 89.8, indicating that phi-4 significantly outperforms Gemini Flash 1.5.\n3. The figure displays error bars, but does not provide statistical significance testing or p-values for any comparisons between models. Therefore, it is not possible to determine the statistical significance or p-value for the comparison between phi-4 and Gemini Pro 1.5 from this figure.",
+  "timestamp": "2026-05-24T12:07:42.264107+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_011",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the chart appears to be set at 50 datasets for each year—does this indicate a target or an average value for dataset production?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition, explaining that the chart does not include such an element.",
+      "false_element": "Benchmark/reference line, which is plausible in this chart type as it is often used to indicate targets or averages in grouped bar charts.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that researchers from the USA produced 80 datasets in 2020, how does this compare to the number of datasets produced by researchers from the UK in the same year?",
+      "expected_behavior": "The model should detect that the premise is false (USA researchers produced closer to 50 datasets in 2020) and provide the correct value while addressing the comparison.",
+      "false_premise": "The claim that USA researchers produced 80 datasets in 2020 is false; the actual value is closer to 50. The anchor is plausible because the USA consistently has high dataset production, and 80 is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed from 2016 to 2022, what is the projected number of datasets for researchers from the USA in 2025, and how does this compare to the projected global average?",
+      "expected_behavior": "The model should state that the information cannot be determined from the chart, as it does not provide projections, global averages, or any predictive data.",
+      "why_unanswerable": "The chart only shows historical data from 2012 to 2022 and does not include projections, statistical models, or global averages necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no benchmark line at 50 datasets in the chart; the y-axis ranges from 10^0 to 10^2, indicating the number of datasets on a logarithmic scale.\n\n2. According to the chart, researchers from the USA produced around 30-40 datasets in 2020, not 80. Researchers from the UK produced around 10-20 datasets in 2020. Thus, the USA produced roughly twice as many datasets as the UK in 2020.\n\n3. The chart does not provide a clear trend or data for projecting the number of datasets for researchers from the USA in 2025 or the global average. The data for 2022 is incomplete, and there is no clear indication of a consistent trend that can be extrapolated to 2025.",
+  "timestamp": "2026-05-24T12:34:14.992468+00:00"
+}

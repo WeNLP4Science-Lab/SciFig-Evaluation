@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_244",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for the 'Null' category appears larger than the others — does this indicate a higher level of uncertainty in the data for this category?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual data distribution.",
+      "false_element": "Exploded slices, which are plausible for pie charts to emphasize specific categories but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Have test case' category accounts for 30% of the dataset, how does its proportion compare to the 'Have reference answer' category?",
+      "expected_behavior": "The model should detect that the 'Have test case' category is actually 21.9%, not 30%, and correct the false premise before comparing the proportions.",
+      "false_premise": "The claim that 'Have test case' is 30%, when the actual value is 21.9%. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each category, and how does this impact the reliability of the data?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional information about the dataset is required.",
+      "why_unanswerable": "The chart only provides percentages and absolute counts for each category but does not specify the total sample size or methodology used to calculate the percentages.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The 'Null' slice is not exploded in the provided figure. Its larger size simply indicates that it represents the largest proportion (39.2%) of the dataset, not a higher level of uncertainty.\n2. The figure states that the 'Have test case' category accounts for 21.9% of the dataset, not 30%. This proportion is smaller than the 'Have reference answer' category, which makes up 38.9% of the dataset.\n3. The sample sizes for each category are listed in the legend: Null (549,238), Have reference answer (543,935), and Have test case (306,818). The figure does not provide any information about how these sample sizes impact the reliability of the data.",
+  "timestamp": "2026-05-24T12:31:10.412237+00:00"
+}

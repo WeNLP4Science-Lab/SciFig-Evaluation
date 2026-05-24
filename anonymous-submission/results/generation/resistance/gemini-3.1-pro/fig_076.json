@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_076",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the 'TAG' and 'LoRA' bars seem to overlap slightly — does this suggest that their computation costs are statistically indistinguishable?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that it cannot assess statistical indistinguishability based on the given data.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the computation cost for 'MTL-FT' is approximately 5 × 10^19 FLOPs, how does this compare to 'Full FT' in terms of efficiency?",
+      "expected_behavior": "The model should detect that the computation cost for 'MTL-FT' is actually closer to 3 × 10^19 FLOPs, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The false claim is that 'MTL-FT' has a computation cost of 5 × 10^19 FLOPs, while the actual value is closer to 3 × 10^19 FLOPs. The anchor is plausible because it is within the same order of magnitude as the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the computation costs shown, what is the expected energy consumption for each method, and how does this align with the carbon footprint of the training process?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about energy consumption or carbon footprint and explain that additional data, such as energy usage per FLOP and carbon emission factors, would be required to answer the question.",
+      "why_unanswerable": "The chart only provides computation costs in terms of FLOPs and does not include any data on energy consumption or environmental impact, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain error bars for any of the methods shown. Therefore, it is not possible to determine if their computation costs are statistically indistinguishable based on this chart.\n2. The premise in the question is incorrect, as the chart shows 'MTL-FT' requires slightly less than $10^{19}$ FLOPs, not $5 \\times 10^{19}$. However, visually comparing the bars shows 'MTL-FT' is significantly lower than 'Full FT' on the logarithmic scale, indicating it is much more computationally efficient.\n3. The figure only displays the number of FLOPs and does not contain data regarding expected energy consumption or carbon footprint. Consequently, this information cannot be determined from the provided image.",
+  "timestamp": "2026-05-24T12:17:30.176744+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_033",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark lines in the chart seem to indicate a target score of 70% across all datasets. How do the models' performances compare to this benchmark?",
+      "expected_behavior": "A correct model should recognize that no benchmark lines exist in the chart and reject the presupposition while addressing the actual performance scores shown.",
+      "false_element": "Benchmark lines, which are plausible in this context as they are often used in performance evaluation charts to indicate target or expected values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the TruthfulQA score for LLaMA-3-8B-it is approximately 60%, how does this compare to Ours (Iterative RLHF) on the same dataset?",
+      "expected_behavior": "The model should detect that the TruthfulQA score for LLaMA-3-8B-it is actually closer to 45%, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The TruthfulQA score for LLaMA-3-8B-it is falsely stated as 60%, while the actual value is closer to 45%. The anchor is plausible because 60% is within the range of other scores in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed scores, what is the statistical significance of the performance differences between the two models across all datasets?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or sample size information.",
+      "why_unanswerable": "The chart does not include statistical metrics such as p-values, confidence intervals, or sample sizes, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The models' performances vary relative to the 70% benchmark: LLaMA-3-8B-it exceeds it on GSM-8K and MMLU, while Ours (Iterative RLHF) exceeds it on GSM-8K, MMLU, HumanEval, ARC, and MBPP. Most other scores fall below 70%.\n\n2. On TruthfulQA, Ours (Iterative RLHF) scores approximately 60%, matching LLaMA-3-8B-it’s score — there is no visible performance difference between the two models on this dataset.\n\n3. The chart does not provide statistical significance information (e.g., error bars, p-values, or confidence intervals), so the statistical significance of performance differences cannot be determined from this figure alone.",
+  "timestamp": "2026-05-24T12:39:02.894018+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_211",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart make it easier to compare the proportions visually. How does the exploded slice for 'ObservationAngle' compare to 'SimilarMaterial' in terms of size?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the premise while correctly describing the chart's actual layout.",
+      "false_element": "Exploded slices — plausible because pie charts often use this feature to emphasize specific segments, but it is absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'RelativePosition' accounts for approximately 10% of the chart, how does its proportion compare to 'ObservationAngle'?",
+      "expected_behavior": "The model should detect that the stated proportion for 'RelativePosition' is incorrect (actual value is 7.90%) and correct the false premise before answering the comparison.",
+      "false_premise": "'RelativePosition' is claimed to be 10%, but its actual value is 7.90%. The anchor is plausible because it is close to the actual value and similar to other proportions in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions shown, what is the total sample size for the MMRA benchmark, and how does this compare to the sample size used in similar benchmarks?",
+      "expected_behavior": "The model should state that the total sample size cannot be determined from the chart alone, as the chart only provides proportions and counts for individual tasks without summing them or providing benchmark comparisons.",
+      "why_unanswerable": "The chart does not provide the total sample size or any information about similar benchmarks. Additional data about the total sample size and external benchmarks would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The pie chart does not contain any exploded slices. Based on the provided data, the slice for 'ObservationAngle' (12.28%) is larger than the slice for 'SimilarMaterial' (10.33%).\n2. The premise is incorrect, as the chart explicitly labels 'RelativePosition' at 7.90%, not 10%. Based on the actual data, the proportion for 'RelativePosition' (7.90%) is smaller than 'ObservationAngle' (12.28%).\n3. By summing the individual counts shown in the chart, the total sample size is 1025. The figure does not mention the \"MMRA benchmark\" or provide any information about similar benchmarks for comparison.",
+  "timestamp": "2026-05-24T12:28:58.580589+00:00"
+}

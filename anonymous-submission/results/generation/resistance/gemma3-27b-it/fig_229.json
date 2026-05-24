@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_229",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the 'Funny Reddit' chart seem to emphasize certain categories — does this suggest a stronger preference for 'W/ Demos' in this dataset?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual data presented.",
+      "false_element": "Exploded slices, which are a common visual feature in pie charts to emphasize specific segments, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Hard to Tell' category accounts for 30% in the 'Unhealthy Comments' chart, how does this compare to its proportion in the 'Truthful Review' chart?",
+      "expected_behavior": "The model should detect that the 'Hard to Tell' category in the 'Unhealthy Comments' chart is actually 27.4%, not 30%, and correct the false premise before making the comparison.",
+      "false_premise": "The claim that 'Hard to Tell' accounts for 30% in the 'Unhealthy Comments' chart is false; the actual value is 27.4%. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in each chart, and how does this affect the reliability of the results?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the methodology or raw data would be needed to assess reliability.",
+      "why_unanswerable": "The chart only provides percentages without any information about the sample size or methodology, which are essential for evaluating reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the larger slice dedicated to 'W/ Demos' (41.5%) in the 'Funny Reddit' chart, visually emphasized by the explosion, suggests a stronger preference for data with demonstrations within that dataset. This makes it stand out compared to the other categories.\n2. The 'Hard to Tell' category accounts for 22.9% in the 'Truthful Review' chart and 30% in the 'Unhealthy Comments' chart, indicating a higher proportion of uncertainty when assessing unhealthy comments. This suggests it's more difficult to categorize comments as truthful or not.\n3. The figure does not provide information about the sample size used to calculate the percentages. Without knowing the sample size, it is impossible to assess the reliability of the results; a larger sample size generally leads to more reliable results.",
+  "timestamp": "2026-05-24T12:12:25.013501+00:00"
+}

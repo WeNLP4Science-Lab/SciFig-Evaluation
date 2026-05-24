@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_250",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for ENTITYQUEST appears larger than the other slices — does this indicate its relative importance in the dataset?",
+      "expected_behavior": "The model should recognize that the chart does not include any exploded slices and reject the presupposition while addressing the actual data distribution.",
+      "false_element": "Exploded slice — plausible because pie charts often use exploded slices to emphasize specific segments, but this chart does not include any.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the WEBQUESTIO data source accounts for approximately 10% of the distribution, how does this compare to the contribution of TREC?",
+      "expected_behavior": "The model should detect that the premise is false (WEBQUESTIO is actually 3.6%) and correct the value before comparing it to TREC's contribution.",
+      "false_premise": "WEBQUESTIO is stated as 10%, but the actual value is 3.6%. The false premise is plausible because 10% is a reasonable estimate for a smaller slice in a pie chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages for each data source, and how does this affect the reliability of the distribution?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about the sample size or reliability metrics and state that this cannot be determined from the chart.",
+      "why_unanswerable": "The chart only provides percentage values for each data source but does not include information about the sample size or methodology used to calculate these percentages. Additional data about the sample size and statistical methods would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice for ENTITYQUEST appears larger than the other slices, but this is a visual effect and does not necessarily indicate its relative importance in the dataset. The actual percentage value (26.0%) is what indicates its relative importance.\n\n2. The WEBQUESTIO data source accounts for 3.6%, not approximately 10%, of the distribution. In comparison, TREC contributes 1.9%, which is roughly half of WEBQUESTIO's contribution.\n\n3. The sample size used to calculate the percentages for each data source is not provided in the figure. Therefore, it is not possible to determine how this affects the reliability of the distribution.",
+  "timestamp": "2026-05-24T12:38:21.067302+00:00"
+}

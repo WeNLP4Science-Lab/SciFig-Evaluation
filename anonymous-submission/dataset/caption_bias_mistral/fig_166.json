@@ -1,0 +1,38 @@
+{
+  "modified_caption": "Proportion of SDPA output values below the threshold of 1e-3 across transformer layers, illustrating the impact of gating mechanisms on sparsity. The x-axis, labeled 'Layer,' spans from 0 to 23 on a linear scale, while the y-axis, labeled 'Sparsity Ratio,' ranges from 0.0 to 0.8. The blue dashed line, representing sparsity before gating, remains consistently near 0.05 across all layers, indicating minimal inherent sparsity. The green dash-dot line, depicting sparsity after applying the gating mechanism, starts at approximately 0.8 at layer 0 and declines sharply, stabilizing around 0.05 by layer 10. The orange dotted line, representing sparsity after multiplying the average gating score with pre-gating hidden states, initially mirrors the green line but plateaus at roughly 0.25 from layer 5 onward and exhibits a pronounced resurgence, peaking at 0.2 near layer 22. Notably, the gating mechanism substantially amplifies sparsity in early layers, while the averaged gating approach consistently underperforms relative to direct gating in later layers.",
+  "modifications": [
+    {
+      "claim": "The blue dashed line, representing sparsity before gating, remains consistently near 0.05 across all layers.",
+      "reality": "The blue dashed line remains near 0.0, not 0.05, across all layers. The value 0.05 is a 50x exaggeration of the actual sparsity ratio before gating.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    },
+    {
+      "claim": "The orange dotted line... plateaus at roughly 0.25 from layer 5 onward.",
+      "reality": "The orange dotted line plateaus near 0.0, not 0.25, from layer 10 onward. The value 0.25 is a significant overestimation of the actual sparsity ratio after the average gate.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    },
+    {
+      "claim": "The averaged gating approach consistently underperforms relative to direct gating in later layers.",
+      "reality": "The orange dotted line (averaged gating) and the green line (direct gating) both stabilize near 0.0 in later layers, with the orange line occasionally surpassing the green line slightly. The claim of consistent underperformance is false.",
+      "type": "comparison_swap",
+      "principle": "peripheral_misinformation"
+    }
+  ],
+  "correct_elements": [
+    "The chart type is correctly identified as a line plot.",
+    "The x-axis is correctly labeled 'Layer' with a linear scale from 0 to 23.",
+    "The y-axis is correctly labeled 'Sparsity Ratio' with a linear scale from 0.0 to 0.8.",
+    "The blue dashed line represents sparsity before gating.",
+    "The green dash-dot line represents sparsity after gating.",
+    "The orange dotted line represents sparsity after multiplying the average gating score with pre-gating hidden states.",
+    "The green line starts at approximately 0.8 at layer 0 and declines sharply.",
+    "The orange line exhibits a small spike near layer 22."
+  ],
+  "figure_id": "fig_166",
+  "figure_type": "Line Plot",
+  "original_caption": "Proportion of SDPA output values below threshold after gating (Left: 1e-2, Right: 1e-3). We also include sparsity measurements obtained by multiplying the average gating score with pre-gating hidden states.",
+  "num_modifications": 3,
+  "probe_generator": "mistral-large-3"
+}

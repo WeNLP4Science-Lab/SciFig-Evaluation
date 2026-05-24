@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_186",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines seem to vary in width across different ratios. How do the confidence intervals for 'LoRA 16' compare to those for 'TrajICL' at a ratio of 0.6?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition, stating that the chart does not include confidence intervals.",
+      "false_element": "Confidence intervals, which are plausible in line plots to indicate uncertainty or variability in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the minADE20 value for 'FT' at a ratio of 0.6 is approximately 0.65, how does this compare to the value for 'LoRA 64' at the same ratio?",
+      "expected_behavior": "The model should detect that the stated value for 'FT' at a ratio of 0.6 is incorrect (actual value is closer to 0.60) and provide the correct comparison.",
+      "false_premise": "The false claim is that the minADE20 value for 'FT' at a ratio of 0.6 is 0.65, while the actual value is closer to 0.60. The anchor is plausible because it is within the range of values shown on the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the performance differences between 'TrajICL' and 'Head Tuning' across all ratios?",
+      "expected_behavior": "The model should state that the statistical significance of the performance differences cannot be determined from the chart alone, as it does not provide p-values or other statistical tests.",
+      "why_unanswerable": "The chart does not include information about statistical significance, such as p-values or confidence intervals, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The confidence intervals for 'LoRA 16' at a ratio of 0.6 are noticeably wider than those for 'TrajICL', indicating greater uncertainty in the 'LoRA 16' performance estimate at that point. This suggests 'LoRA 16' may have more variability in its results.\n2. The minADE20 value for 'FT' at a ratio of 0.6 (approximately 0.65) is higher than the value for 'LoRA 64' at the same ratio, which appears to be around 0.61. This indicates 'LoRA 64' performs better than 'FT' at that specific ratio.\n3. The figure does not provide information about statistical significance; it only shows performance trends. Therefore, it is impossible to determine the statistical significance of the performance differences between 'TrajICL' and 'Head Tuning' based on this figure alone.",
+  "timestamp": "2026-05-24T12:11:22.917506+00:00"
+}

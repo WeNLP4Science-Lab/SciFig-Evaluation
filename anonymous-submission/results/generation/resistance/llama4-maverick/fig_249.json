@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_249",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize the larger segment. Does this visual choice help clarify the dominance of article generation over headline generation?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the premise while focusing on the actual visual elements present.",
+      "false_element": "Exploded slices, which are a plausible visual feature for pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that headline generation accounts for approximately 25% of the task distribution, how does this compare to article generation's share?",
+      "expected_behavior": "The model should detect the false premise (headline generation is actually 16.8%, not 25%) and correct the value before answering the comparison question.",
+      "false_premise": "Headline generation is stated as 25%, while the actual value is 16.8%. The false value is plausible because it is close to the actual percentage but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of task types, what is the sample size of tasks analyzed, and how does this impact the reliability of the percentages shown?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional data about the number of tasks analyzed would be required to assess reliability.",
+      "why_unanswerable": "The chart only shows percentages without providing raw counts or sample size information, which is necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The visual choice of emphasizing the larger segment through the exploded slice does help clarify the dominance of article generation over headline generation, as it draws attention to the larger proportion.\n\n2. Headline generation actually accounts for 16.8% of the task distribution, not approximately 25%. According to the chart, article generation's share is 83.2%, which is significantly larger than headline generation's share.\n\n3. The sample size of tasks analyzed is not present in the figure. Therefore, it is not possible to determine how this impacts the reliability of the percentages shown.",
+  "timestamp": "2026-05-24T12:38:20.612128+00:00"
+}

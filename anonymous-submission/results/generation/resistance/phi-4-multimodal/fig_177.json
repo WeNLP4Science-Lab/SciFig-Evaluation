@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_177",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines appear to narrow as the ratio increases — does this suggest reduced variability in the methods' performance?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating an answer about their interpretation.",
+      "false_element": "Confidence intervals, which are plausible for a line plot showing performance metrics but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the green line for 'FT' starts at a minFDE20 value of approximately 1.5 at a ratio of 0.0, how does its performance improvement compare to the red line for 'LoRA 16'?",
+      "expected_behavior": "The model should detect that the starting value for 'FT' is incorrect (actual value is ~1.9), correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The starting value for 'FT' is falsely stated as 1.5, while the actual value is ~1.9. The anchor is plausible because it is close to the actual value and fits the downward trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences between the methods at a ratio of 0.6, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the available data.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, p-values, or significance markers. Additional data, such as raw values and statistical analysis results, would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrowing confidence intervals suggest reduced variability in the methods' performance as the ratio increases.\n2. The 'FT' line shows a more significant improvement in performance compared to the 'LoRA 16' line, as it starts at a higher minFDE20 value and decreases more sharply.\n3. The chart does not provide p-values or statistical significance information, so this cannot be determined from the given data.",
+  "timestamp": "2026-05-24T12:55:49.755688+00:00"
+}

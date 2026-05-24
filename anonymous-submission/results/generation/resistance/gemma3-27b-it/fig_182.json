@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_182",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the green line appear narrower than those around the orange line—does this suggest greater certainty in the 'start' data compared to the 'random' data?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are plausible in line plots to indicate uncertainty or variability in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ASR for the 'random' data at 'beautiful' is approximately 0.3, how does this compare to the 'start' data at the same point?",
+      "expected_behavior": "The model should detect that the ASR for 'random' at 'beautiful' is actually closer to 0.6, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The ASR for 'random' at 'beautiful' is stated as 0.3, but the actual value is approximately 0.6. The false value is plausible because it is within the range of the y-axis and close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in ASR between the 'start' and 'end' data series at 'wonderful'?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or sample sizes, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, sample sizes, or p-values, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals around the green line ('start' data) suggest greater certainty in its ASR values compared to the 'random' data, which has wider intervals. This indicates less variability in the 'start' data's performance.\n\n2. The ASR for the 'random' data at 'beautiful' is approximately 0.3, while the 'start' data at the same point has an ASR of approximately 0.6. This indicates the 'start' data performs significantly better than the 'random' data at 'beautiful'.\n\n3. The figure does not provide information about statistical significance; it only shows ASR values and confidence intervals. Therefore, it is impossible to determine the statistical significance of the difference between the 'start' and 'end' data series at 'wonderful' based on this figure alone.",
+  "timestamp": "2026-05-24T12:11:19.098976+00:00"
+}

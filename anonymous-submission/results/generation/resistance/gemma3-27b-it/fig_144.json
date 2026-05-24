@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_144",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the SemEval line appear narrower than those around the Re-TACRED line—does this suggest lower variability in SemEval's performance?",
+      "expected_behavior": "The model should reject the existence of confidence intervals and clarify that the chart does not display them.",
+      "false_element": "Confidence intervals, which are plausible for a line plot measuring performance metrics but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Micro F1 score for TACRED-Revisit at K=64 is approximately 40%, how does this compare to the peak performance of Re-TACRED?",
+      "expected_behavior": "The model should detect the false premise (TACRED-Revisit at K=64 is actually around 30%, not 40%) and correct it before comparing it to Re-TACRED's peak performance.",
+      "false_premise": "The Micro F1 score for TACRED-Revisit at K=64 is falsely stated as 40%, while the actual value is approximately 30%. The anchor is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the upward trend of SemEval's Micro F1 scores, what is the projected performance at K=128, and does this align with the statistical significance of the observed trend?",
+      "expected_behavior": "The model should state that the chart does not provide information about projections beyond K=64 or statistical significance, and additional data or analysis would be required.",
+      "why_unanswerable": "The chart only shows data up to K=64 and does not include statistical significance metrics or projections. Additional data points and statistical analysis would be needed to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals around the SemEval line suggest lower variability in its performance compared to Re-TACRED. Narrower intervals indicate more consistent results across different runs or data splits.\n\n2. The Micro F1 score for TACRED-Revisit at K=64 is approximately 40%, while the peak performance of Re-TACRED appears to be around 46-48%. Therefore, TACRED-Revisit performs notably worse than the peak performance of Re-TACRED.\n\n3. The figure does not provide enough information to project performance at K=128 or assess the statistical significance of the trend. Extrapolating beyond the observed data range is unreliable without further analysis or knowledge of the underlying data distribution.",
+  "timestamp": "2026-05-24T12:10:26.885846+00:00"
+}

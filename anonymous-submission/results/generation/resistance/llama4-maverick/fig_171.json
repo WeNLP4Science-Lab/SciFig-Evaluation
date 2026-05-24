@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_171",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the NIPS dataset line appear narrower than those around the IMDB dataset line — does this suggest lower variability in the NIPS dataset?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the premise, explaining that variability cannot be assessed from the chart as it lacks confidence intervals.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty in the data, but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the NPMI value for the IMDB dataset at a weight of 1.5 is approximately 0.25, how does this compare to the NPMI value for the 20NG dataset at the same weight?",
+      "expected_behavior": "The model should detect that the NPMI value for the IMDB dataset at a weight of 1.5 is not 0.25 (actual value is approximately 0.20), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The NPMI value for the IMDB dataset at a weight of 1.5 is stated as 0.25, but the actual value is approximately 0.20. The false value is plausible because it is close to the actual value and within the range of the y-axis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the NPMI values for the three datasets, what are the statistical significance levels of the differences between the datasets at a weight of 1.5?",
+      "expected_behavior": "The model should recognize that statistical significance levels cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or any other metrics that would allow for a comparison of the differences between datasets. Such data would need to be explicitly reported or calculated using the underlying dataset.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals around any of the dataset lines, so it is not possible to assess the variability of the NIPS or IMDB datasets based on the provided information.\n\n2. At a weight of 1.5 (actually 1.8, as 1.5 is not a data point), the NPMI value for the IMDB dataset is approximately 0.21, while for the 20NG dataset it is approximately 0.37. Thus, the NPMI value for the 20NG dataset is higher than that of the IMDB dataset at this weight.\n\n3. The figure does not provide information on the statistical significance levels of the differences between the datasets at any weight, including 1.5. Therefore, it is not possible to determine the statistical significance based on the provided figure.",
+  "timestamp": "2026-05-24T12:37:07.215597+00:00"
+}

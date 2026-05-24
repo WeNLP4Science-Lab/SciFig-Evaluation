@@ -1,0 +1,306 @@
+{
+  "figure_id": "fig_249",
+  "model_name": "qwen3-vl-8b",
+  "transform": "low_contrast",
+  "figure_type": "Pie Chart",
+  "judge_model": "gpt-4o",
+  "num_items": 11,
+  "num_penalties_raw": 3,
+  "num_penalties_deduped": 2,
+  "total_penalty_raw": 9.0,
+  "total_penalty_deduped": 4.0,
+  "mqm_raw": 75.68,
+  "mqm_deduped": 89.19,
+  "penalties_raw": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "global_hallucination",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The model introduces fabricated context not supported by the chart.",
+      "text_span": "within the context of generative AI’s application in journalism"
+    },
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/2 elements mismatched. Headline generation: model=olive green ref=yellow",
+      "text_span": ""
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The model introduces fabricated context not supported by the chart.",
+      "text_span": "within the context of generative AI’s application in journalism"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_02",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "global_hallucination",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The model introduces fabricated context not supported by the chart.",
+      "text_span": "within the context of generative AI’s application in journalism"
+    },
+    {
+      "id": "pie_05",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Label Mapping",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "Binding verification: 1/2 elements mismatched. Headline generation: model=olive green ref=yellow",
+      "text_span": ""
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "pie chart"
+      },
+      "pie_02": {
+        "expected": "The chart represents the distribution of different task types, titled 'Task Type'."
+      },
+      "pie_03": {
+        "expected": "2 slices"
+      },
+      "pie_04": {
+        "expected": [
+          "Article generation",
+          "Headline generation"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "Article generation": "red",
+          "Headline generation": "yellow"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "Article generation": "83.2%",
+          "Headline generation": "16.8%"
+        }
+      },
+      "pie_07": {
+        "expected": "Slices are arranged in descending order by size."
+      },
+      "pie_08": {
+        "expected": "No legend is included."
+      },
+      "pie_09": {
+        "expected": "No visual emphasis is present."
+      },
+      "pie_10": {
+        "expected": "Percentage labels are placed outside each slice."
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "Article generation",
+          "smallest": "Headline generation"
+        }
+      }
+    },
+    "checklist": [
+      {
+        "id": "pie_01",
+        "reasoning": "Expected: pie chart. Model states: 'donut chart'. Donut charts are a subset of pie charts, so this is acceptable.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_02",
+        "reasoning": "Expected: 'The chart represents the distribution of different task types, titled 'Task Type'.' Model states: 'This donut chart, titled “Task Type,” visually represents the distribution of two distinct task categories within the context of generative AI’s application in journalism.' The model adds unnecessary context not present in the image or reference.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "global_hallucination",
+          "text_span": "within the context of generative AI’s application in journalism",
+          "detail": "The model introduces fabricated context not supported by the chart."
+        }
+      },
+      {
+        "id": "pie_03",
+        "reasoning": "Expected: 2 slices. Model states: 'The chart is composed of two slices.' This matches.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_04",
+        "reasoning": "Expected: 'Article generation' and 'Headline generation'. Model mentions both labels.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_05",
+        "reasoning": "Expected: 'Article generation' is red, 'Headline generation' is yellow. Model states: 'Article generation' is muted reddish-brown and 'Headline generation' is muted olive green. After applying the colour family mapping, 'reddish-brown' maps to red, but 'olive green' does not map to yellow.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "partial",
+          "sub_type": "Incorrect Label Mapping",
+          "text_span": "muted olive green",
+          "detail": "'Headline generation' is described as muted olive green, but the chart shows it as yellow."
+        }
+      },
+      {
+        "id": "pie_06",
+        "reasoning": "Expected: 'Article generation' = 83.2%, 'Headline generation' = 16.8%. Model states the same values.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_07",
+        "reasoning": "Expected: Slices are arranged in descending order by size. Model states: 'The segments are arranged in a descending order of size.' This matches.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_08",
+        "reasoning": "Expected: No legend is included. Model does not mention a legend.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_09",
+        "reasoning": "Expected: No visual emphasis is present. Model does not mention any visual emphasis.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_10",
+        "reasoning": "Expected: Percentage labels are placed outside each slice. Model states: 'Both percentage values are explicitly labeled outside their respective segments.' This matches.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_11",
+        "reasoning": "Expected: Largest = 'Article generation', Smallest = 'Headline generation'. Model states: 'Article generation occupies the majority of the ring.' This matches.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": [
+          {
+            "text_span": "within the context of generative AI’s application in journalism",
+            "explanation": "The model introduces fabricated context not supported by the chart."
+          }
+        ]
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "Article generation",
+            "reference_value": "83.2%",
+            "model_value": "83.2%",
+            "match": true
+          },
+          {
+            "label": "Headline generation",
+            "reference_value": "16.8%",
+            "model_value": "16.8%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "Article generation",
+            "reference_value": "red",
+            "model_value": "reddish-brown",
+            "match": true
+          },
+          {
+            "label": "Headline generation",
+            "reference_value": "yellow",
+            "model_value": "olive green",
+            "match": false
+          }
+        ]
+      }
+    ]
+  }
+}

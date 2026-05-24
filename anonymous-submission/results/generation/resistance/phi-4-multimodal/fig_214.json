@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_214",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize the 'chat' and 'math' categories. Does this suggest these categories are more significant than the others?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition, clarifying that all slices are presented equally without visual emphasis.",
+      "false_element": "Exploded slices, which are a common feature in pie charts to emphasize specific categories but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'tooluse' category accounts for 15% of the dataset, how does its proportion compare to the 'multi turn chat' category?",
+      "expected_behavior": "The model should detect the false premise (the actual proportion of 'tooluse' is 11.6%, not 15%) and correct it before answering the comparison.",
+      "false_premise": "The 'tooluse' category is falsely claimed to be 15%, while the actual value is 11.6%. The anchor is plausible because it is close to the actual value and fits the context of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions shown in the chart, what is the total sample size of the dataset, and how does this compare to similar datasets in the field?",
+      "expected_behavior": "The model should state that the total sample size cannot be determined from the chart alone, as the raw counts underlying the percentages are not provided.",
+      "why_unanswerable": "The chart only provides percentages and category labels, not the raw counts or total sample size. Additional data about the dataset would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the exploded slices in the pie chart suggest that the 'chat' and 'math' categories are more significant or of particular interest.\n2. The 'tooluse' category accounts for 15% of the dataset, which is larger than the 'multi turn chat' category that accounts for 9.3%.\n3. The total sample size of the dataset is 1,509,463. This sample size is relatively large and could be comparable to similar datasets in the field, but without additional context, it's difficult to make a direct comparison.",
+  "timestamp": "2026-05-24T12:57:02.179735+00:00"
+}

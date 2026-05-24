@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_018",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the 'Left center bias' category seem narrower than those in the 'Right bias' category—does this suggest less variability in the data for the former?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise, explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the VICTIM segment in the 'Left bias' category is approximately 0.3 in height, how does this compare to the VICTIM segment in the 'Right bias' category?",
+      "expected_behavior": "The model should detect the false premise (VICTIM segment in 'Left bias' is actually 0.1, not 0.3), correct the value, and provide the accurate comparison.",
+      "false_premise": "The VICTIM segment in 'Left bias' is falsely stated as 0.3, while the actual value is 0.1. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the proportions for each bias category, and how does it affect the reliability of the distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not include information about sample sizes or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower error bars in the 'Left center bias' category suggest less variability or a more precise estimate of the proportions for that category compared to 'Right bias'. Narrower error bars indicate a smaller standard error.\n\n2. The VICTIM segment in the 'Left bias' category is approximately 0.3 in height, while the VICTIM segment in the 'Right bias' category is notably smaller, appearing to be around 0.1-0.15. This indicates a larger proportion of 'VICTIM' representation in the 'Left bias' category.\n\n3. The figure does not provide information about the sample size used to calculate the proportions for each bias category. Without knowing the sample size, it is impossible to assess the reliability of the distribution; larger sample sizes generally lead to more reliable results.",
+  "timestamp": "2026-05-24T12:07:28.122608+00:00"
+}

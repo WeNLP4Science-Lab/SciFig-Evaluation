@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_218",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Draft/Other' appears larger than the slice for 'Press Release'—does this indicate a significant difference in their proportions?",
+      "expected_behavior": "The model should recognize that there is no exploded slice in the chart and reject the presupposition while correctly interpreting the proportions of the slices.",
+      "false_element": "Exploded slice, which is plausible for pie charts to emphasize specific categories but is absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'External News Article' accounts for 18% of the stimuli, how does this compare to the proportion of 'Press Release'?",
+      "expected_behavior": "The model should detect that the stated proportion for 'External News Article' is incorrect (actual is 13.1%) and provide the correct comparison to 'Press Release' (21.9%).",
+      "false_premise": "The false claim is that 'External News Article' accounts for 18%, while the actual value is 13.1%. The anchor is plausible because it is close to the actual value and fits the chart's domain.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size underlying the percentages shown in the chart, and how does this affect the reliability of the proportions?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional data or methodology details would be required to assess reliability.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology, which are necessary to evaluate the reliability of the proportions.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain any exploded slices. However, the slice for 'Draft/Other' (28.5%) is larger than the slice for 'Press Release' (21.9%), which accurately reflects their stated proportions.\n2. The figure indicates that 'External News Article' accounts for 13.1% of the stimuli, not 18%. Based on the provided data, this 13.1% is smaller than the 21.9% proportion for 'Press Release'.\n3. The sample size underlying the percentages is not present in the figure. Consequently, it is impossible to assess the reliability of the proportions based solely on this image.",
+  "timestamp": "2026-05-24T12:29:19.051161+00:00"
+}

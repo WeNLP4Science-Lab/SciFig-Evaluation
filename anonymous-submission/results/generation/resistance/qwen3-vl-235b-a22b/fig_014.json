@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_014",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the NIPS dataset appear narrower for L=3 compared to L=1 — does this suggest lower variability in the results for L=3?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise while explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in this chart type to indicate variability or confidence intervals but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the NPMI value for the IMDB dataset at L=3 is approximately 0.25, how does this compare to the NPMI value for L=2 in the same dataset?",
+      "expected_behavior": "The model should detect that the premise (NPMI value for L=3 being 0.25) is false, correct it to the actual value of 0.194, and provide the correct comparison.",
+      "false_premise": "The NPMI value for IMDB at L=3 is falsely stated as 0.25, while the actual value is 0.194. The anchor is plausible because it is close to the range of values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the NPMI values observed across datasets, what is the statistical significance of the differences between L=1 and L=2 for the 20NG dataset?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or confidence intervals, which are necessary to assess significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no error bars shown in the figure for any dataset or L value, so no conclusion about variability can be drawn from the visual.\n\n2. The NPMI value for IMDB at L=3 is 0.194, not approximately 0.25; it is lower than the L=2 value of 0.202.\n\n3. The figure does not provide statistical significance tests or confidence intervals, so the statistical significance of differences between L=1 and L=2 for the 20NG dataset cannot be determined from the chart.",
+  "timestamp": "2026-05-24T12:38:38.835889+00:00"
+}

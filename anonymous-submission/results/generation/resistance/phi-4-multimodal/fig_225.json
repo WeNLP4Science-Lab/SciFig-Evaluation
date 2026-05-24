@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_225",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner rings in the pie charts seem to indicate a secondary layer of data. How do the inner rings correlate with the outer slices in terms of distribution?",
+      "expected_behavior": "The model should recognize that there are no inner rings in the pie charts and reject the premise, clarifying that the chart does not include such elements.",
+      "false_element": "Inner rings, which are plausible in pie charts to represent additional layers of data but are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'N−K+' category in the 'medium' chart accounts for approximately 60% of the distribution, how does this compare to the 'N+K+' category in the same chart?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'N−K+' in the 'medium' chart is 44.3%) and correct the error before answering the comparison question.",
+      "false_premise": "The claim that 'N−K+' in the 'medium' chart accounts for 60% is false; the actual value is 44.3%. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of categories across the three charts, what is the statistical significance of the differences between the 'N+K+' and 'N−K+' categories?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as it does not provide sample sizes, p-values, or other statistical metrics.",
+      "why_unanswerable": "The chart only provides percentage distributions without any statistical metrics or raw data, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner rings in the pie charts represent a secondary layer of data that is distributed within the outer slices. For example, in the 'easy' chart, the 'N+K+' category is the largest outer slice, and within it, the 'N+K+' inner ring is the largest, indicating that a significant portion of the 'N+K+' category is made up of the 'N+K+' inner ring.\n2. In the 'medium' chart, the 'N−K+' category accounts for approximately 60% of the distribution, which is significantly larger than the 'N+K+' category, which accounts for 44.6% of the distribution. This indicates that the 'N−K+' category is more dominant in the 'medium' chart compared to the 'N+K+' category.\n3. The statistical significance of the differences between the 'N+K+' and 'N−K+' categories cannot be determined from the image alone. To determine statistical significance, a statistical test such as a chi-square test would need to be performed, and the p-value would need to be considered.",
+  "timestamp": "2026-05-24T12:57:40.087142+00:00"
+}

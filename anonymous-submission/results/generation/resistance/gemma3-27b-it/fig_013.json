@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_013",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the 'gender' tag appears to be set at an effect value of 5 — does this indicate a threshold for model performance?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the question's premise.",
+      "false_element": "Benchmark/reference line — plausible because benchmark lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the effect for XLM-B₂ in the 'case' tag is approximately 15, how does this compare to the effect for mBERT-B₂ in the same tag?",
+      "expected_behavior": "The model should detect that the effect for XLM-B₂ in the 'case' tag is not 15 (actual value is closer to 12) and correct the false premise before answering the comparison.",
+      "false_premise": "The effect for XLM-B₂ in the 'case' tag is falsely stated as 15, while the actual value is closer to 12. The anchor is plausible because the error bars suggest variability, making 15 seem reasonable.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the error bars for the 'case' tag, what is the statistical significance of the differences between mBERT-B₂ and XLM-B₂, and how does this compare to the other tags?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as p-values or other statistical metrics are not provided.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, such as p-values or confidence intervals, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not explicitly state that 5 is a performance threshold, but it serves as a visual reference point for evaluating the effect sizes of different models and tags. It appears to be a zero-effect line, with values above indicating a positive effect.\n\n2. The effect for mBERT-B₂ in the 'case' tag is approximately 2, which is significantly lower than the effect of approximately 15 for XLM-B₂ in the same tag. This suggests XLM-B₂ performs much better than mBERT-B₂ for the 'case' tag.\n\n3. The error bars for 'case' do not overlap between mBERT-B₂ and XLM-B₂, indicating a statistically significant difference between the two models for this tag. This difference appears more pronounced than for the other tags, where error bars frequently overlap, suggesting less statistical significance.",
+  "timestamp": "2026-05-24T12:07:24.614450+00:00"
+}

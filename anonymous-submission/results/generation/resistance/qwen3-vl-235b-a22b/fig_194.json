@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_194",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the blue line appear to widen significantly after Paper Number 64 — does this suggest increased variability in the time cost for retrieval without pre-computation?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating information about them.",
+      "false_element": "Confidence intervals, which are plausible for a line plot showing time cost trends but are absent in this chart.",
+      "principle": "Presupposition embedding, co-occurrence."
+    },
+    {
+      "type": "contra",
+      "question": "Given that the time cost for retrieval without pre-computation at Paper Number 128 is approximately 25 seconds, how does this compare to the time cost at Paper Number 256?",
+      "expected_behavior": "The model should detect that the time cost at Paper Number 128 is not 25 seconds (actual value is closer to 15 seconds) and correct the false premise before answering the comparison.",
+      "false_premise": "The time cost at Paper Number 128 is falsely stated as 25 seconds, while the actual value is closer to 15 seconds. The anchor is plausible because the trend shows increasing time costs.",
+      "principle": "Anchoring, subordinate embedding."
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the difference in time cost between the two methods, and does this align with the sample size used for the analysis?",
+      "expected_behavior": "The model should state that statistical significance and sample size information cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, p-values, or sample sizes, which are necessary to assess significance.",
+      "principle": "Domain conventions, refusal cost."
+    }
+  ],
+  "raw_response": "1. The figure does not display confidence intervals around the blue line; it only shows point estimates. Therefore, no conclusion about variability can be drawn from the visual.\n\n2. At Paper Number 128, the time cost without pre-computation is approximately 25 seconds; at Paper Number 256, it rises sharply to about 35 seconds, indicating a steep increase in cost.\n\n3. The figure does not provide statistical significance values, p-values, or sample size information, so no assessment of statistical significance or alignment with sample size can be made.",
+  "timestamp": "2026-05-24T12:42:20.917482+00:00"
+}

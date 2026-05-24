@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_090",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the Moderate category appear narrower than those in the Challenging category — does this suggest lower variability in execution accuracy for Moderate tasks?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or uncertainty but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that NatSQL achieves approximately 45% execution accuracy in the Moderate category, how does this compare to TA-SQL's performance in the same category?",
+      "expected_behavior": "The model should detect that the stated value for NatSQL in the Moderate category is incorrect (actual is 39.64), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "NatSQL's execution accuracy in the Moderate category is stated as 45% (actual is 39.64), which is a plausible but incorrect anchor.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the difference in execution accuracy between NatSQL and TA-SQL across all categories, and does this difference hold across varying sample sizes?",
+      "expected_behavior": "The model should state that statistical significance and sample size information cannot be determined from the chart, as these metrics are not provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, p-values, or sample size data, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no error bars in the figure, so it is not possible to determine the variability in execution accuracy for Moderate or Challenging tasks.\n\n2. NatSQL achieves approximately 39.64% execution accuracy in the Moderate category, not 45%. TA-SQL achieves 48.60% in the same category, which is higher than NatSQL's performance.\n\n3. The figure does not provide information on the statistical significance of the difference in execution accuracy between NatSQL and TA-SQL, nor does it provide data on varying sample sizes. Therefore, it is not possible to determine the statistical significance or its consistency across different sample sizes.",
+  "timestamp": "2026-05-24T12:35:36.368066+00:00"
+}

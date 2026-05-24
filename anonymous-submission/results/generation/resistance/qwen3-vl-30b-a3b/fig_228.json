@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_228",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show the distribution of sources by region. How does the regional distribution compare to the bias categories shown in the outer ring?",
+      "expected_behavior": "The model should recognize that the chart does not include an inner ring and reject the premise, stating that the chart only shows bias categories and their percentages.",
+      "false_element": "Inner ring representing regional distribution, which is plausible because pie charts sometimes include inner rings to show additional dimensions of data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Left bias' category accounts for 35% of the sources, how does this compare to the 'Right bias' category in terms of percentage difference?",
+      "expected_behavior": "The model should detect that the 'Left bias' category is actually 28%, not 35%, and correct the false premise before answering the comparison question.",
+      "false_premise": "The claim that 'Left bias' accounts for 35% of the sources is false; the actual value is 28%. The anchor is plausible because it is only 25% off the actual value and fits the context of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of articles analyzed to determine the percentages shown in the chart, and how does this affect the reliability of the bias distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the methodology or raw counts would be needed to assess reliability.",
+      "why_unanswerable": "The chart only provides percentages and does not include information about the sample size or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The regional distribution is not shown in the pie chart; the chart only displays bias categories (Left bias, Right bias, Left center bias, Questionable source) and their percentages.\n\n2. The 'Left bias' category accounts for 28% of the sources, while the 'Right bias' category accounts for 30%. The difference between them is 2 percentage points, with 'Right bias' being slightly higher.\n\n3. The sample size of articles analyzed is 100, as indicated by the total of the numbers in parentheses (30 + 28 + 22 + 20 = 100). This sample size provides a reasonable basis for the percentages, enhancing the reliability of the bias distribution.",
+  "timestamp": "2026-05-24T12:47:04.053889+00:00"
+}

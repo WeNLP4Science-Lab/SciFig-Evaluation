@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_183",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend line for the Reconstruction Loss appears to intersect with the Task Loss around 600 steps — does this indicate a significant correlation between the two metrics?",
+      "expected_behavior": "The model should recognize that there is no trend line in the chart and reject the presupposition, focusing instead on the actual data presented.",
+      "false_element": "Trend line — plausible because trend lines are commonly used in line plots to summarize the overall direction of data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Regularization Loss peaks at approximately 2.3 around 50 steps, how does this compare to the peak value of the Reconstruction Loss?",
+      "expected_behavior": "The model should detect that the stated peak value of 2.3 for Regularization Loss is incorrect (actual peak is closer to 3) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that the Regularization Loss peaks at 2.3 around 50 steps, while the actual peak value is closer to 3. The anchor is plausible because the chart shows variability in the Regularization Loss, making 2.3 a reasonable but incorrect estimate.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed variability in the loss metrics, what is the statistical significance of the differences between the Reconstruction Loss and Regularization Loss at 1000 steps?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, p-values, or confidence intervals, which are necessary to assess statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, their intersection at 600 steps does not indicate a significant correlation; both metrics are independently fluctuating and show no clear trend or dependency on each other.\n\n2. The Reconstruction Loss peaks sharply at ~8.0 near step 0, while the Regularization Loss peaks at ~2.3 near step 50 — the Reconstruction Loss peak is substantially higher and occurs earlier.\n\n3. At 1000 steps, the difference between the Reconstruction Loss (~0.8) and Regularization Loss (~2.0) is visually apparent but not statistically quantifiable from this plot alone — no significance can be determined without error bars or statistical tests.",
+  "timestamp": "2026-05-24T12:49:10.825728+00:00"
+}

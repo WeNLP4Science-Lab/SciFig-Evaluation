@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_075",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the expected runtime appears to be set at 200 seconds. How do the models compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the runtime values of the models.",
+      "false_element": "Benchmark/reference line — plausible because benchmarks are often used in runtime comparisons to contextualize performance.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the runtime for 'DeepSeek' is approximately 300 seconds, how does its performance compare to 'Claude'?",
+      "expected_behavior": "The model should detect that the runtime for 'DeepSeek' is actually 365 seconds, correct the false premise, and provide an accurate comparison to 'Claude' (243 seconds).",
+      "false_premise": "The runtime for 'DeepSeek' is 300 seconds, while the actual value is 365 seconds. The false value is plausible because it is only about 18% lower than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the runtime differences, what is the statistical significance of the performance gap between 'Our Joint Framework' and 'DeepSeek'?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and variance measures, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or variance, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not explicitly designate the 200-second grid line as a benchmark for expected runtime. However, comparing the values to 200 seconds, \"Our Joint Framework\" (77), \"ChatGPT\" (190), and \"LLaMA\" (172) fall below this mark, while \"DeepSeek\" (365) and \"Claude\" (243) exceed it.\n2. The premise of the question is incorrect, as the figure explicitly labels the runtime for 'DeepSeek' as 365 seconds, not 300. Based on the actual data shown, 'DeepSeek' (365 seconds) has a substantially longer runtime than 'Claude' (243 seconds).\n3. The statistical significance of the performance gap is not present in the figure. The chart only displays single runtime values without error bars, p-values, or confidence intervals required to determine statistical significance.",
+  "timestamp": "2026-05-24T12:17:17.593556+00:00"
+}

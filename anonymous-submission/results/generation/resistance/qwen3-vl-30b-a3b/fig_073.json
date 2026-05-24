@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_073",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for a 0.75 accuracy threshold appears to intersect most bars in the chart. How does this threshold help evaluate the models' performance?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while addressing the question about evaluating model performance using thresholds.",
+      "false_element": "Benchmark/reference line for a 0.75 accuracy threshold. This is plausible because benchmark lines are commonly used in bar charts to indicate performance thresholds or goals.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Sentiment Accuracy for the Single-task_baseline model is approximately 0.7, how does this compare to the Paraphrase Accuracy for the same model?",
+      "expected_behavior": "The model should detect that the Sentiment Accuracy for the Single-task_baseline model is closer to 0.5, not 0.7, and correct the false premise before answering the comparison question.",
+      "false_premise": "The false claim is that the Sentiment Accuracy for the Single-task_baseline model is 0.7, while the actual value is closer to 0.5. The anchor is plausible because 0.7 is within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy values shown, what is the statistical significance of the differences between the models, and are the results consistent across different datasets?",
+      "expected_behavior": "The model should state that statistical significance and dataset consistency cannot be determined from the chart and explain that additional data, such as p-values, confidence intervals, or dataset-specific results, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or dataset-specific results, which are necessary to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The 0.75 accuracy threshold serves as a benchmark to determine whether a model's performance is above or below a desirable level, helping to assess if the model is effective for practical applications.\n\n2. The Sentiment Accuracy for the Single-task_baseline model is approximately 0.7, which is lower than its Paraphrase Accuracy, which is around 0.8.\n\n3. The chart does not provide information on statistical significance or consistency across datasets; it only shows accuracy values for different models.",
+  "timestamp": "2026-05-24T12:44:47.415150+00:00"
+}

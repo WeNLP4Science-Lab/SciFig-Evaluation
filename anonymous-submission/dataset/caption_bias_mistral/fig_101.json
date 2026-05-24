@@ -1,0 +1,38 @@
+{
+  "modified_caption": "(a) Training loss trajectories across iterations for various model configurations. The line plot depicts the change in loss over training iterations, with the x-axis labeled \"#Iteration\" (0 to 140,000) and the y-axis labeled \"Loss\" (2.4 to 3.4). Six model configurations are compared: Vanilla, StrmLLM (n=64), SepLLM (n=64), SepLLM (n=64, H), SepLLM (n=64, H/T), and SepLLM (n=128). The Vanilla model (purple) exhibits the highest initial loss, declining sharply to approximately 2.7 by 10,000 iterations and gradually stabilizing near 2.45. StrmLLM (n=64) (blue) demonstrates a more rapid initial decline, reaching 2.6 by 20,000 iterations, but ultimately plateaus at roughly 2.75, consistently exceeding the loss of all other configurations beyond 40,000 iterations. SepLLM (n=64) (orange) and SepLLM (n=64, H) (green) follow nearly identical trajectories, with losses converging around 2.52 and 2.51, respectively, though SepLLM (n=64) initially declines at a marginally slower rate. SepLLM (n=64, H/T) (red) stabilizes prematurely, maintaining a loss of approximately 2.65 after 60,000 iterations, indicating diminished optimization efficiency. SepLLM (n=128) (blue-violet) achieves the lowest final loss, descending to 2.48, and exhibits the most consistent downward trend, with minimal fluctuations. A vertical green line at iteration 0 demarcates the onset of training. The legend is positioned in the top-right corner.",
+  "modifications": [
+    {
+      "claim": "StrmLLM (n=64) (blue) ultimately plateaus at roughly 2.75, consistently exceeding the loss of all other configurations beyond 40,000 iterations.",
+      "reality": "StrmLLM (n=64) (blue) actually plateaus near 2.6, not 2.75, and does not consistently exceed the loss of all other configurations; it remains above SepLLM variants but below Vanilla after 40,000 iterations.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    },
+    {
+      "claim": "SepLLM (n=64, H/T) (red) stabilizes prematurely, maintaining a loss of approximately 2.65 after 60,000 iterations, indicating diminished optimization efficiency.",
+      "reality": "SepLLM (n=64, H/T) (red) does not stabilize at 2.65; it continues to decline and ends near 2.49, with no evidence of premature stabilization or diminished efficiency.",
+      "type": "trend_characterization",
+      "principle": "loaded_verb"
+    },
+    {
+      "claim": "SepLLM (n=64) (orange) initially declines at a marginally slower rate than SepLLM (n=64, H) (green).",
+      "reality": "SepLLM (n=64) (orange) and SepLLM (n=64, H) (green) decline at nearly identical rates initially, with no discernible difference in the rate of loss reduction.",
+      "type": "rate_mischaracterization",
+      "principle": "peripheral_misinformation"
+    }
+  ],
+  "correct_elements": [
+    "Chart type (line plot) is correctly identified.",
+    "Axis labels and scales (#Iteration, Loss) are accurate.",
+    "Model configurations (Vanilla, StrmLLM, SepLLM variants) are correctly listed.",
+    "Vanilla model's initial loss and general trend are correctly described.",
+    "SepLLM (n=128) achieves the lowest final loss (near 2.48).",
+    "Vertical green line at iteration 0 is noted.",
+    "Legend position (top-right) is correct.",
+    "General trend of decreasing loss over iterations is accurately stated."
+  ],
+  "figure_id": "fig_101",
+  "figure_type": "Line Plot",
+  "original_caption": "(a) Loss w.r.t steps\n\nTraining loss curves for training from scratch. 5(b) shows\nthe ratios of the loss values of different methods to that of Vanilla with respect to FLOPs.",
+  "num_modifications": 3,
+  "probe_generator": "mistral-large-3"
+}

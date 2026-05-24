@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_070",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the Precision category appears to be set at 90%. How does the performance of TA-SQL (zero-shot) compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and avoid fabricating information about it. Instead, it should focus on the actual values provided in the chart.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are often used in bar charts to indicate target or expected values for comparison.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Recall for DIN-SQL (zero-shot) is approximately 80%, how does this compare to the Recall for TA-SQL (zero-shot)?",
+      "expected_behavior": "The model should detect that the stated Recall value for DIN-SQL (zero-shot) is incorrect (actual value is 63.58) and provide the correct comparison based on the chart data.",
+      "false_premise": "The false claim is that the Recall for DIN-SQL (zero-shot) is 80%, while the actual value is 63.58. The anchor is plausible because it is close to the Recall values of the other models in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the Recall values shown, what is the statistical significance of the difference between TA-SQL (zero-shot) and DIN-SQL (few-shot), and what is the p-value for this comparison?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the data shown.",
+      "why_unanswerable": "The chart does not provide any information about statistical tests, sample sizes, or p-values, which are necessary to determine statistical significance. Additional data or analysis would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The performance of TA-SQL (zero-shot) in the Precision category is 91.24%, which is above the benchmark line of 90%.\n2. The Recall for DIN-SQL (zero-shot) is actually 63.58%, not approximately 80%. Comparing this to the Recall for TA-SQL (zero-shot), which is 71.90%, shows that TA-SQL (zero-shot) has a higher Recall.\n3. The figure does not provide information about the statistical significance or p-value for the comparison between TA-SQL (zero-shot) and DIN-SQL (few-shot) Recall values. Therefore, it is not possible to determine the statistical significance or p-value based on the given figure.",
+  "timestamp": "2026-05-24T12:35:11.421838+00:00"
+}

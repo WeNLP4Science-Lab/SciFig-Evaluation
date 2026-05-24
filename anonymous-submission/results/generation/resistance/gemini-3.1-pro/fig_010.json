@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_010",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the second bar of the 'Ambiguity Std' chart seem narrower than those in the first bar — does this suggest lower variability in the second group?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and avoid fabricating an interpretation based on them.",
+      "false_element": "Error bars, which are commonly included in bar charts to represent variability or uncertainty, are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Fleiss Kappa value for the 'Ambiguity Std' category 0.82 is approximately 0.25, how does this compare to the value for category 0.47?",
+      "expected_behavior": "The model should detect that the Fleiss Kappa value for category 0.82 is actually 0.03, correct the false premise, and provide the correct comparison.",
+      "false_premise": "The false claim is that the Fleiss Kappa value for category 0.82 is 0.25, while the actual value is 0.03. The anchor of 0.25 is plausible because it is close to the value for category 0.94 (0.24).",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the Fleiss Kappa values shown, what is the statistical significance of the differences between the categories, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that the statistical significance and p-values cannot be determined from the chart alone, as this information is not provided.",
+      "why_unanswerable": "The chart does not include any information about statistical significance, p-values, or the underlying data used to calculate Fleiss Kappa values. Additional statistical analysis would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no error bars present in the figure, so it is not possible to assess variability based on them.\n2. The premise of the question is incorrect, as the Fleiss Kappa value for the 'Ambiguity Std' category 0.82 is 0.03, not approximately 0.25. This value (0.03) is substantially lower than the value for category 0.47, which is 0.46.\n3. The figure does not provide any information regarding statistical significance or p-values for the comparisons between categories.",
+  "timestamp": "2026-05-24T12:13:40.577684+00:00"
+}

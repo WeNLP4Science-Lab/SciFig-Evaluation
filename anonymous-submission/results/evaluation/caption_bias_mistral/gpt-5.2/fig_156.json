@@ -1,0 +1,54 @@
+{
+  "figure_id": "fig_156",
+  "model_name": "gpt-5.2",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "num_modifications": 4,
+  "evaluations": [
+    {
+      "modification_index": 0,
+      "claim": "The 'tiny AdaLoRA_int8' series stabilizes at 38 by the final epoch.",
+      "reality": "The 'tiny AdaLoRA_int8' series actually stabilizes below 32 by epoch 6, not 38. The value 38 is approximately 20% higher than the true value, violating the observed trend.",
+      "type": "value_anchor",
+      "principle": "anchoring",
+      "judge_answer": "B",
+      "mapped_to": "image",
+      "reason": "'tiny AdaLoRA_int8' ends below 32, not 38."
+    },
+    {
+      "modification_index": 1,
+      "claim": "The 'tiny int4' method decreases to 45 by epoch 6, exhibiting a less consistent downward trajectory compared to AdaLoRA variants.",
+      "reality": "The 'tiny int4' method decreases to below 40 by epoch 6, not 45. The claim also mischaracterizes the trajectory as 'less consistent,' whereas it follows a relatively smooth decline similar to other methods.",
+      "type": "value_anchor",
+      "principle": "anchoring",
+      "judge_answer": "B",
+      "mapped_to": "image",
+      "reason": "'tiny int4' ends below 40, trajectory smooth."
+    },
+    {
+      "modification_index": 2,
+      "claim": "The 'tiny int8' approach collapses to 30 by epoch 6, outperforming all other quantized methods.",
+      "reality": "The 'tiny int8' method ends at approximately 37 WER, not 30, and does not outperform 'tiny AdaLoRA_int8,' which achieves a lower WER. The term 'collapses' is also a loaded verb exaggerating the rate of decline.",
+      "type": "trend_characterization",
+      "principle": "loaded_verb",
+      "judge_answer": "A",
+      "mapped_to": "image",
+      "reason": "'tiny int8' ends at 37, not 30."
+    },
+    {
+      "modification_index": 3,
+      "claim": "The 'tiny int8' method consistently surpasses the 'tiny AdaLoRA_int8' variant after epoch 3.",
+      "reality": "The 'tiny int8' method never surpasses 'tiny AdaLoRA_int8'; the latter maintains a lower WER throughout the fine-tuning process. This is a comparison swap.",
+      "type": "comparison_swap",
+      "principle": "peripheral_misinformation",
+      "judge_answer": "A",
+      "mapped_to": "image",
+      "reason": "'tiny AdaLoRA_int8' consistently outperforms 'tiny int8'."
+    }
+  ],
+  "followed_image": 4,
+  "followed_caption": 0,
+  "not_addressed": 0,
+  "resistance": 1.0,
+  "completeness": 1.0
+}

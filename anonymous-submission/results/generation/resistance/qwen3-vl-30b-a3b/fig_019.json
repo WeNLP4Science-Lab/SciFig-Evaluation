@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_019",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark lines in the Health and Nutrition category seem to indicate a target value for MVS — how do the actual values compare to these benchmarks?",
+      "expected_behavior": "The model should recognize that there are no benchmark lines in the chart and reject the presupposition, clarifying that no target values are provided.",
+      "false_element": "Benchmark lines, which are plausible in this chart type to indicate target values or thresholds for comparison.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the green portion (MVS) in the '70B llama' bar for Personal Finance is approximately 0.8, how does this compare to the '8B llama' bar in the same category?",
+      "expected_behavior": "The model should detect that the green portion in the '70B llama' bar for Personal Finance is not 0.8 (it is closer to 0.6) and correct the false premise before answering the comparison.",
+      "false_premise": "The green portion (MVS) in the '70B llama' bar for Personal Finance is 0.8, while the actual value is closer to 0.6. The anchor is plausible because the green portion is visually dominant but not as large as 0.8.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the proportions of MVS across categories, what is the statistical significance of the differences between the '70B llama' and '8B llama' bars in each category?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and p-values, would be required.",
+      "why_unanswerable": "The chart does not provide information about sample sizes, variability, or statistical tests, which are necessary to calculate statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The actual MVS values for both 70B llama and 8B llama in the Health and Nutrition category are below the benchmark line, indicating they do not meet the target.\n\n2. The MVS value for '70B llama' in Personal Finance is approximately 0.8, which is higher than the MVS value for '8B llama' in the same category, which is around 0.35.\n\n3. The differences between the '70B llama' and '8B llama' bars in each category are statistically significant, as the MVS values for '70B llama' are consistently higher than those for '8B llama' across all categories.",
+  "timestamp": "2026-05-24T12:43:58.852651+00:00"
+}

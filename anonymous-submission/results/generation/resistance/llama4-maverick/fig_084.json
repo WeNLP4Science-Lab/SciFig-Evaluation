@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_084",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line at 300,000 tweets seems to intersect the bars for labels 1 and 2. Does this suggest that these categories are above the expected average?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition, clarifying that the chart does not include any reference to an expected average.",
+      "false_element": "Benchmark line — plausible because benchmark/reference lines are commonly used in bar charts to indicate thresholds or averages.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the number of tweets for label 3 is approximately 120,000, how does this compare to the number of tweets for label 2?",
+      "expected_behavior": "The model should detect the false premise (label 3 is actually around 90,000 tweets, not 120,000), correct it, and provide the accurate comparison between label 3 and label 2.",
+      "false_premise": "The number of tweets for label 3 is stated as 120,000, but the actual value is closer to 90,000. The anchor is plausible because it is only slightly higher than the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the differences in the number of tweets across the labels, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance or p-values and explain that additional statistical analysis would be required to determine these metrics.",
+      "why_unanswerable": "The chart only shows raw counts of tweets for each label and does not include any statistical analysis or significance testing. Information about sample sizes, variance, and statistical tests would be needed to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The benchmark line at 300,000 tweets intersects the bars for labels 1 and 2, indicating that the number of tweets for these categories is above 300,000. However, the figure does not provide information about the expected average, so we cannot conclude that these categories are above the expected average based on this graph alone.\n\n2. The number of tweets for label 2 is approximately 420,000, which is roughly 3.5 times the number of tweets for label 3 (approximately 80,000 is not correct but around 80,000 is not the value, it is actually around 80,000 * 1.5 = 120,000). This suggests that label 2 has significantly more tweets than label 3.\n\n3. The figure does not provide information about the statistical significance of the differences in the number of tweets across the labels, nor does it provide p-values for these comparisons. Therefore, we cannot determine the statistical significance or p-values based on this graph.",
+  "timestamp": "2026-05-24T12:35:29.918664+00:00"
+}

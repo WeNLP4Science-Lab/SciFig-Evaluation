@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_245",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize certain categories — does the separation of the 'LLM' slice indicate its importance relative to 'LOCAL'?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while focusing on the actual chart elements.",
+      "false_element": "Exploded slices, which are a common feature in pie charts to emphasize specific categories, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'EDGE_P2P' category accounts for approximately 10% of the token routing distribution, how does this compare to the 'LLM' category in terms of relative contribution?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'EDGE_P2P' is 1.6%) and correct it before answering the comparison question.",
+      "false_premise": "The claim that 'EDGE_P2P' accounts for 10% is false; the actual value is 1.6%. The anchor is plausible because it is within the range of typical pie chart proportions.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of tokens used to calculate the percentages in this chart, and how does this impact the reliability of the distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess the reliability of the percentages.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology used to calculate the percentages, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The separation of the 'LLM' slice (3.9%) visually emphasizes it, but it does not indicate greater importance than 'LOCAL' (94.5%), which dominates the distribution; the explosion is likely for readability, not significance.\n\n2. The 'EDGE_P2P' category accounts for 1.6%, not 10%, and is substantially smaller than 'LLM' (3.9%), meaning 'LLM' contributes more than double the share of 'EDGE_P2P'.\n\n3. The sample size of tokens is not provided in the figure, so the reliability of the distribution cannot be assessed from the chart alone.",
+  "timestamp": "2026-05-24T12:43:39.046575+00:00"
+}

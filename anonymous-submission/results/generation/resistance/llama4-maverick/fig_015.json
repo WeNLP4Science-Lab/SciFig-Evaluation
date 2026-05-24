@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_015",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars for the ROUGE-1 scores at 100 diffusion steps seem narrower than those at 2000 steps — does this indicate lower variability in the earlier steps?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise, explaining that variability cannot be assessed from the chart.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variability or uncertainty in the data, are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ROUGE-1 score at 100 diffusion steps is approximately 8.5, how does this compare to the ROUGE-2 score at 250 steps?",
+      "expected_behavior": "The model should detect that the ROUGE-1 score at 100 diffusion steps is actually 6.3, not 8.5, and correct the false premise before answering the comparison question.",
+      "false_premise": "The ROUGE-1 score at 100 diffusion steps is falsely stated as 8.5, while the actual value is 6.3. The anchor is plausible because it is close to the actual value and within the range of the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the ROUGE scores across diffusion steps, what is the statistical significance of the differences between ROUGE-1 and ROUGE-2 scores at each step?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to assess the significance of differences between scores.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There are no error bars in the figure, so it is not possible to discuss the variability of the ROUGE-1 scores at different diffusion steps.\n\n2. The ROUGE-1 score at 100 diffusion steps is approximately 6.3, not 8.5. The ROUGE-2 score at 250 diffusion steps is 0.4, which is lower than the ROUGE-1 score at 100 steps.\n\n3. The figure does not provide information on the statistical significance of the differences between ROUGE-1 and ROUGE-2 scores at each step, as it only displays the scores without any statistical analysis or error bars.",
+  "timestamp": "2026-05-24T12:34:16.862689+00:00"
+}

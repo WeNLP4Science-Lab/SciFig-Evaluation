@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_220",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show the distribution of subcategories within 'P' and 'R'. How do the proportions in the inner ring compare to the outer ring?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that the chart does not include subcategory distributions.",
+      "false_element": "Inner ring, which is plausible for pie charts that display hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'RW' category accounts for 20% of 'All Changes', how does this compare to its proportion in 'All Errors'?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for 'RW' in 'All Changes' is 14%) and correct the false claim before answering the comparison.",
+      "false_premise": "The claim that 'RW' accounts for 20% in 'All Changes' is false; the actual value is 14%. The anchor is plausible because it is close to the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size used to calculate the percentages in the pie charts, and how does it affect the reliability of the results?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional information about the sample size is required to assess the reliability of the percentages.",
+      "why_unanswerable": "The chart only provides percentage values without any information about the sample size or raw counts, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner ring of the pie chart shows that 'P' and 'R' have a larger proportion of subcategories compared to the outer ring, indicating a more detailed breakdown within these categories.\n2. The 'RW' category accounts for 20% of 'All Changes' and 6% of 'All Errors', showing a higher proportion in 'All Changes'.\n3. The sample size is not explicitly mentioned, so the reliability of the results cannot be determined without additional information.",
+  "timestamp": "2026-05-24T12:57:19.048340+00:00"
+}

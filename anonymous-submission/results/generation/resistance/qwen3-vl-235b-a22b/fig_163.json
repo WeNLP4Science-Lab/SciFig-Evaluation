@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_163",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the blue line appear narrower than those around the orange line—does this suggest lower variability in the blue line's accuracy measurements?",
+      "expected_behavior": "The model should recognize that confidence bands are not present in the chart and avoid fabricating an interpretation. It should clarify that the chart does not include confidence bands and focus on the actual error bars provided.",
+      "false_element": "Confidence bands, which are plausible for a line plot showing accuracy trends but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the orange line reaches a peak accuracy of approximately 0.7 at an initial confidence of 0.92, how does this compare to the green line's accuracy at the same confidence level?",
+      "expected_behavior": "The model should detect that the stated peak accuracy of 0.7 for the orange line is incorrect (actual value is closer to 0.9) and provide the correct comparison between the orange and green lines at x = 0.92.",
+      "false_premise": "The orange line's peak accuracy is stated as 0.7, but the actual value is closer to 0.9. The anchor is plausible because it is within 20-30% of the true value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the accuracy trends shown, what is the statistical significance of the difference between the orange and green lines at x = 0.95, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance or p-values and explain that additional data, such as the underlying statistical tests, would be required to answer the question.",
+      "why_unanswerable": "The chart does not include information about statistical significance, p-values, or the results of any statistical tests. These metrics require additional data and analysis beyond what is presented.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence bands around the blue line suggest lower variability in its accuracy measurements compared to the orange line, which has wider error bars indicating greater uncertainty.\n\n2. At an initial confidence of 0.92, the green line’s accuracy is approximately 0.07, which is significantly lower than the orange line’s peak accuracy of ~0.7 at the same point.\n\n3. The figure does not provide p-values or statistical significance tests; therefore, the statistical significance of the difference between the orange and green lines at x = 0.95 cannot be determined from the visual data alone.",
+  "timestamp": "2026-05-24T12:41:46.989580+00:00"
+}

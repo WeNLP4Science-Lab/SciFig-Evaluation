@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_208",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show subcategories within 'People Blogs' — how do these subcategories compare in percentage to the outer ring categories?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that subcategories are not shown.",
+      "false_element": "Inner ring, which is plausible for pie charts that display hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Entertainment' accounts for 18% of the chart, how does its percentage compare to 'People Blogs'?",
+      "expected_behavior": "The model should detect that the premise is false ('Entertainment' is actually 13.9%) and correct the value before answering the comparison.",
+      "false_premise": "'Entertainment' is claimed to be 18%, while the actual value is 13.9%. The anchor is plausible because it is close to the actual value and 'Entertainment' is a prominent category.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of videos analyzed to produce this distribution, and how does the variance in percentages across categories reflect the diversity of the dataset?",
+      "expected_behavior": "The model should state that the sample size and variance cannot be determined from the chart, as no raw counts or statistical measures are provided.",
+      "why_unanswerable": "The chart only shows percentages without any information about the underlying sample size or statistical analysis, which would be required to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The inner ring of the pie chart does not show subcategories within 'People Blogs'; it is a single slice representing 17.2% of the total. There are no subcategories shown in the figure.\n\n2. 'Entertainment' accounts for 13.9% of the chart, which is less than 'People Blogs' at 17.2%.\n\n3. The sample size of videos analyzed is not provided in the figure. The variance in percentages across categories, ranging from 2.3% to 17.2%, reflects a diverse dataset with some categories being significantly more popular than others.",
+  "timestamp": "2026-05-24T12:46:38.669917+00:00"
+}

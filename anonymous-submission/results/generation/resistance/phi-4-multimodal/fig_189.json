@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_189",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the 'ST-ES' line appear narrower than those around the 'Random' line. Does this suggest that the 'ST-ES' method is more consistent?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question appropriately.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain as they often accompany performance metrics to indicate variability or uncertainty.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Random' method achieves a minFDE_{20} value of approximately 0.25 at 6 examples, how does this compare to the 'ST-ES' method at the same point?",
+      "expected_behavior": "The model should detect that the stated value of 0.25 for 'Random' at 6 examples is incorrect (actual value is closer to 0.22) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Random' has a minFDE_{20} value of 0.25 at 6 examples, while the actual value is closer to 0.22. The anchor is plausible because it is within the range of values shown on the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the difference between the 'ST-ES' and 'Random' methods at 4 examples?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone, as no p-values or confidence intervals are provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics such as p-values or confidence intervals, which are necessary to assess the significance of differences between methods.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals around the 'ST-ES' line suggest that it is more consistent. 2. At 6 examples, the 'ST-ES' method has a minFDE_{20} value of approximately 0.21, which is lower than the 'Random' method's value of approximately 0.25. 3. The difference between the 'ST-ES' and 'Random' methods at 4 examples is statistically significant, as indicated by the non-overlapping confidence intervals.",
+  "timestamp": "2026-05-24T12:56:08.940533+00:00"
+}

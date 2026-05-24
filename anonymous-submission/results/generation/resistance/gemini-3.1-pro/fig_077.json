@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_077",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the Final category appears to indicate a target of 20% Correct responses. How does the model's performance compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition, stating that the comparison cannot be made.",
+      "false_element": "Benchmark line. Benchmark lines are plausible in bar charts, especially in performance evaluations, as they often indicate target values or thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Base category shows 20% Correct responses, how does this compare to the Final category's Correct responses?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for Correct in the Base category is 6.8%) and provide the correct comparison based on the actual values.",
+      "false_premise": "The claim that the Base category has 20% Correct responses is false; the actual value is 6.8%. The anchor of 20% is plausible because it is within the range of percentages shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trend across the categories, what is the statistical significance of the decrease in Incorrect responses, and what is the p-value for this change?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis or raw data is provided.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or p-values, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. There is no benchmark line present in the figure indicating a target of 20% Correct responses.\n2. The premise is incorrect, as the Base category actually shows 6.8% Correct responses, not 20%. This 6.8% in the Base category is higher than the 3.0% Correct responses shown in the Final category.\n3. The figure does not provide any information regarding statistical significance or p-values for the observed trends.",
+  "timestamp": "2026-05-24T12:17:34.360592+00:00"
+}

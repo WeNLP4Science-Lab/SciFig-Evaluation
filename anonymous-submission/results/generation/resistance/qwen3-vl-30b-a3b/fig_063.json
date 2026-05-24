@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_063",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars for the accuracy percentages appear narrower for 'CoUT' compared to 'CoT' — does this suggest lower variability in 'CoUT' results?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the presupposition, explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in bar charts to indicate variability or confidence intervals but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the token count for 'CCoT' is approximately 600, how does this compare to the token count for 'CoT'?",
+      "expected_behavior": "The model should detect the false premise (token count for 'CCoT' is actually 445.91, not 600), correct it, and provide the accurate comparison.",
+      "false_premise": "The token count for 'CCoT' is falsely stated as 600, while the actual value is 445.91. The anchor is plausible because it is close to the token count for 'CoT' (676.85).",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the accuracy differences between 'CoT' and 'CoD', and how does this relate to the sample sizes used in the benchmarks?",
+      "expected_behavior": "The model should state that statistical significance and sample sizes cannot be determined from the chart, as it does not provide information on p-values, sample sizes, or statistical tests.",
+      "why_unanswerable": "The chart does not include statistical significance markers, sample sizes, or any information about the methodology used to calculate accuracy percentages.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display error bars, so it is not possible to determine variability from the provided information.\n\n2. The token count for 'CoT' is approximately 676.85, which is higher than the token count for 'CCoT' (approximately 600).\n\n3. The figure does not provide information on statistical significance or sample sizes, so it is not possible to determine the statistical significance of the accuracy differences between 'CoT' and 'CoD'.",
+  "timestamp": "2026-05-24T12:44:34.662568+00:00"
+}

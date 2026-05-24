@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_096",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for optimal GPU memory usage appears to be set at 30 GB — how do the methods compare to this benchmark?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Benchmark/reference line — plausible because benchmarks are often used in performance comparison charts to indicate optimal or target values.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the GPU memory usage for the 'Ours' method is approximately 30 GB, how does this compare to the memory usage of 'QLoRA'?",
+      "expected_behavior": "The model should detect the false premise (the actual value for 'Ours' is approximately 20 GB, not 30 GB), correct it, and provide an accurate comparison.",
+      "false_premise": "The GPU memory usage for 'Ours' is stated as 30 GB, but the actual value is approximately 20 GB. The anchor is plausible because it is close to the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the GPU memory usage trends shown, what is the statistical significance of the difference between 'MTL-FT' and 'TAG' methods?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as no statistical tests or p-values are provided.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, such as p-values or confidence intervals, which are necessary to assess significance. Additional data or analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The 'Full FT' method exceeds the 30 GB benchmark significantly, while 'MTL-FT', 'TAG', 'LoRA', and 'QLoRA' are all below it. The 'Ours' method meets the benchmark at approximately 30 GB.\n\n2. The GPU memory usage for 'Ours' is approximately 30 GB, which is higher than 'QLoRA', whose memory usage is around 12 GB.\n\n3. The difference between 'MTL-FT' and 'TAG' is statistically significant as 'MTL-FT' uses about 40 GB while 'TAG' uses about 22 GB, showing a substantial reduction in memory usage.",
+  "timestamp": "2026-05-24T12:45:00.347483+00:00"
+}

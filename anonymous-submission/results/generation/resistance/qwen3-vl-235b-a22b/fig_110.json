@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_110",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The trend lines in the chart suggest a consistent increase in the average correct gate rate after layer 20. How do the confidence intervals around these trend lines support this observation?",
+      "expected_behavior": "The model should recognize that there are no trend lines or confidence intervals in the chart and clarify that the observation cannot be supported by nonexistent elements.",
+      "false_element": "Trend lines and confidence intervals, which are plausible in line plots but absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the average correct gate rate for the Wiki Attention input at layer 15 is approximately 0.5, how does this compare to the Character Attention input at the same layer?",
+      "expected_behavior": "The model should detect that the stated value of 0.5 for Wiki Attention input at layer 15 is incorrect (actual value is closer to 0.3), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The average correct gate rate for Wiki Attention input at layer 15 is stated as 0.5, but the actual value is closer to 0.3. The false value is plausible because it is within the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the variability shown in the shaded regions, what is the statistical significance of the differences between the Character MLP input and Wiki MLP input at layer 10?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart, as it does not provide p-values or other statistical tests.",
+      "why_unanswerable": "The chart does not include information about statistical significance, such as p-values or confidence intervals, which are necessary to assess the significance of differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The confidence intervals (shaded regions) around the trend lines after layer 20 remain relatively tight and do not overlap significantly between some lines, suggesting the observed increase is consistent and not due to random variation. However, for some lines (e.g., Character MLP and Wiki MLP), the intervals still overlap, indicating less certainty in their relative performance.\n\n2. At layer 15, the Wiki Attention input (solid red) is at approximately 0.5, while the Character Attention input (solid blue) is lower, around 0.3–0.35, indicating the Wiki Attention input performs significantly better at that layer.\n\n3. At layer 10, the shaded regions for Character MLP input (dashed blue) and Wiki MLP input (dashed red) overlap substantially, suggesting that the difference in average correct gate rate between them is not statistically significant at that layer.",
+  "timestamp": "2026-05-24T12:40:42.443235+00:00"
+}

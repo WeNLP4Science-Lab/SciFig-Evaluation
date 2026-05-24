@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_077",
+  "model_name": "llama4-maverick",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the Final category appears to indicate a target of 20% Correct responses. How does the model's performance compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition, stating that the comparison cannot be made.",
+      "false_element": "Benchmark line. Benchmark lines are plausible in bar charts, especially in performance evaluations, as they often indicate target values or thresholds.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Base category shows 20% Correct responses, how does this compare to the Final category's Correct responses?",
+      "expected_behavior": "The model should detect that the premise is false (the actual value for Correct in the Base category is 6.8%) and provide the correct comparison based on the actual values.",
+      "false_premise": "The claim that the Base category has 20% Correct responses is false; the actual value is 6.8%. The anchor of 20% is plausible because it is within the range of percentages shown in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trend across the categories, what is the statistical significance of the decrease in Incorrect responses, and what is the p-value for this change?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis or raw data is provided.",
+      "why_unanswerable": "The chart does not provide information about statistical tests, sample sizes, or p-values, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The model's performance in the Final category is 3.0% Correct responses, which is below the benchmark of 20%. The benchmark line is not present in the figure, so we can't confirm if it indicates a target of 20% Correct responses.\n\n2. The Base category shows 6.8% Correct responses, not 20%. The Final category's Correct responses are 3.0%, which is lower than the Base category's.\n\n3. There is no information in the figure about the statistical significance or p-value of the change in Incorrect responses. The figure only provides the percentage of Correct, Not Attempted, and Incorrect responses across different categories.",
+  "timestamp": "2026-05-24T12:35:18.884707+00:00"
+}

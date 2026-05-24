@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_081",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for the High frequency category appears to be set at 0.9 — does this indicate that both models are approaching optimal performance in this range?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Benchmark line — plausible because benchmark/reference lines are often used in performance-related bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the RECA model achieves a macro F-score of 0.7 for the Medium frequency category, how does this compare to GAIT_GAT's performance in the same category?",
+      "expected_behavior": "The model should detect that the RECA value for the Medium frequency category is actually 0.538, not 0.7, and correct the false premise before making the comparison.",
+      "false_premise": "The RECA value for Medium frequency is falsely stated as 0.7, while the actual value is 0.538. The false value is plausible because it is within a reasonable range of the actual value.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the macro F-scores shown, what is the statistical significance of the difference between RECA and GAIT_GAT for the Low frequency category, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart does not include statistical significance metrics or p-values, which would require additional data such as sample sizes and hypothesis testing results.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. No, the y-axis simply goes up to 1.0 and 0.9 is not a benchmark line; it’s just a gridline. Both models are performing well in the High frequency category, but there’s no indication that 0.9 represents an optimal or target threshold.\n\n2. RECA achieves a macro F-score of 0.538 in the Medium frequency category, not 0.7; GAIT_GAT outperforms it with a score of 0.609.\n\n3. The figure does not provide any statistical significance testing or p-values; therefore, the p-value and statistical significance of the difference for the Low frequency category cannot be determined from this chart.",
+  "timestamp": "2026-05-24T12:40:03.657038+00:00"
+}

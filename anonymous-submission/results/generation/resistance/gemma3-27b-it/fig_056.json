@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_056",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the tallest bar seem to be missing — does this suggest that the variance in the data for Pass@1 values near 1.0 is negligible?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that the chart does not provide information about variance or error margins.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variance or uncertainty, are plausible but absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the mean Pass@1 value is 0.65, how does this compare to the percentage of data in the 0.8–1.0 bin?",
+      "expected_behavior": "The model should detect that the mean value of 0.65 is incorrect (actual mean is 0.82), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The mean value is falsely stated as 0.65, while the actual mean is 0.82. The false value is plausible because it is within 20-30% of the actual mean.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of Pass@1 values, what is the statistical significance of the difference between the 0.0–0.2 bin and the 0.8–1.0 bin, and what is the p-value for this comparison?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance or p-values and explain that additional data, such as sample sizes and variance measures, would be required to calculate these metrics.",
+      "why_unanswerable": "The chart does not include information about sample sizes, variance, or statistical tests, which are necessary to determine statistical significance and p-values.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show error bars on any of the bars, including the tallest one, but this does not necessarily indicate negligible variance; it simply means variance is not displayed.\n2. The figure states the mean Pass@1 value is 0.82, not 0.65, and 76.2% of the data falls within the 0.8–1.0 bin, which is significantly higher than the mean.\n3. The figure does not provide information about statistical significance or p-values for comparisons between bins.",
+  "timestamp": "2026-05-24T12:08:16.461773+00:00"
+}

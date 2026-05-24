@@ -1,0 +1,321 @@
+{
+  "figure_id": "fig_245",
+  "model_name": "qwen3-vl-8b",
+  "transform": "low_contrast",
+  "figure_type": "Pie Chart",
+  "judge_model": "gpt-4o",
+  "num_items": 11,
+  "num_penalties_raw": 3,
+  "num_penalties_deduped": 2,
+  "total_penalty_raw": 9.0,
+  "total_penalty_deduped": 4.0,
+  "mqm_raw": 75.68,
+  "mqm_deduped": 89.19,
+  "penalties_raw": [
+    {
+      "id": "pie_07",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The slices are not ordered by size in the image.",
+      "text_span": "The slices are arranged in descending order of size"
+    },
+    {
+      "id": "pie_08",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The image does not include a legend.",
+      "text_span": "in a legend positioned to the upper left"
+    },
+    {
+      "id": "global_hallucination",
+      "category": "Completeness",
+      "severity": "Major",
+      "sub_type": "Hallucinated Content",
+      "weight": 5.0,
+      "source": "global",
+      "detail": "The model fabricates the presence of a legend, which is not present in the image.",
+      "text_span": "in a legend positioned to the upper left"
+    }
+  ],
+  "penalties_deduped": [
+    {
+      "id": "pie_07",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Trend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The slices are not ordered by size in the image.",
+      "text_span": "The slices are arranged in descending order of size"
+    },
+    {
+      "id": "pie_08",
+      "category": "Accuracy",
+      "severity": "Minor",
+      "sub_type": "Incorrect Axis or Legend Interpretation",
+      "weight": 2.0,
+      "source": "checklist_correctness",
+      "detail": "The image does not include a legend.",
+      "text_span": "in a legend positioned to the upper left"
+    }
+  ],
+  "judge_output": {
+    "populated": {
+      "pie_01": {
+        "expected": "pie chart"
+      },
+      "pie_02": {
+        "expected": "Token Routing Distribution (FedHLM)"
+      },
+      "pie_03": {
+        "expected": "3 slices"
+      },
+      "pie_04": {
+        "expected": [
+          "LOCAL",
+          "LLM",
+          "EDGE_P2P"
+        ]
+      },
+      "pie_05": {
+        "expected": {
+          "LOCAL": "green",
+          "LLM": "red",
+          "EDGE_P2P": "blue"
+        }
+      },
+      "pie_06": {
+        "expected": {
+          "LOCAL": "94.5%",
+          "LLM": "3.9%",
+          "EDGE_P2P": "1.6%"
+        }
+      },
+      "pie_07": {
+        "expected": "not ordered by size"
+      },
+      "pie_08": {
+        "expected": "no legend present"
+      },
+      "pie_09": {
+        "expected": "no visual emphasis"
+      },
+      "pie_10": {
+        "expected": "labels inside slices"
+      },
+      "pie_11": {
+        "expected": {
+          "largest": "LOCAL",
+          "smallest": "EDGE_P2P"
+        }
+      }
+    },
+    "checklist": [
+      {
+        "id": "pie_01",
+        "reasoning": "Expected from reference: pie chart. Model says: pie chart. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_02",
+        "reasoning": "Expected from reference: 'Token Routing Distribution (FedHLM)'. Model says: 'Token Routing Distribution (FedHLM)'. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_03",
+        "reasoning": "Expected from reference: 3 slices. Model says: 3 slices. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_04",
+        "reasoning": "Expected from reference: LOCAL, LLM, EDGE_P2P. Model says: LOCAL, LLM, EDGE_P2P. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_05",
+        "reasoning": "Expected from reference: LOCAL=green, LLM=red, EDGE_P2P=blue. Model says: LOCAL=dark olive green, LLM=reddish-brown, EDGE_P2P=muted blue-gray. All match within the same color families.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_06",
+        "reasoning": "Expected from reference: LOCAL=94.5%, LLM=3.9%, EDGE_P2P=1.6%. Model says: LOCAL=94.5%, LLM=3.9%, EDGE_P2P=1.6%. All values match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_07",
+        "reasoning": "Expected from reference: not ordered by size. Model says: arranged in descending order of size. Mismatch.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Trend Interpretation",
+          "text_span": "The slices are arranged in descending order of size",
+          "detail": "The slices are not ordered by size in the image."
+        }
+      },
+      {
+        "id": "pie_08",
+        "reasoning": "Expected from reference: no legend present. Model says: a legend is positioned to the upper left. Mismatch.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "wrong",
+          "sub_type": "Incorrect Axis or Legend Interpretation",
+          "text_span": "in a legend positioned to the upper left",
+          "detail": "The image does not include a legend."
+        }
+      },
+      {
+        "id": "pie_09",
+        "reasoning": "Expected from reference: no visual emphasis. Model does not mention any visual emphasis. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_10",
+        "reasoning": "Expected from reference: labels inside slices. Model says: labels inside slices. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      },
+      {
+        "id": "pie_11",
+        "reasoning": "Expected from reference: largest=LOCAL, smallest=EDGE_P2P. Model says: largest=LOCAL, smallest=EDGE_P2P. Match.",
+        "coverage": {
+          "status": "complete"
+        },
+        "correctness": {
+          "status": "correct"
+        }
+      }
+    ],
+    "global": [
+      {
+        "id": "global_hallucination",
+        "violations": [
+          {
+            "text_span": "in a legend positioned to the upper left",
+            "explanation": "The model fabricates the presence of a legend, which is not present in the image."
+          }
+        ]
+      },
+      {
+        "id": "global_interpretation",
+        "violations": []
+      },
+      {
+        "id": "global_ambiguity",
+        "violations": []
+      },
+      {
+        "id": "global_overgeneralization",
+        "violations": []
+      },
+      {
+        "id": "global_verbose",
+        "violations": []
+      },
+      {
+        "id": "global_poor_structure",
+        "violations": []
+      },
+      {
+        "id": "global_missing_takeaway",
+        "violations": []
+      }
+    ],
+    "bindings": [
+      {
+        "checklist_id": "pie_06",
+        "comparisons": [
+          {
+            "label": "LOCAL",
+            "reference_value": "94.5%",
+            "model_value": "94.5%",
+            "match": true
+          },
+          {
+            "label": "LLM",
+            "reference_value": "3.9%",
+            "model_value": "3.9%",
+            "match": true
+          },
+          {
+            "label": "EDGE_P2P",
+            "reference_value": "1.6%",
+            "model_value": "1.6%",
+            "match": true
+          }
+        ]
+      },
+      {
+        "checklist_id": "pie_05",
+        "comparisons": [
+          {
+            "label": "LOCAL",
+            "reference_value": "green",
+            "model_value": "dark olive green",
+            "match": true
+          },
+          {
+            "label": "LLM",
+            "reference_value": "red",
+            "model_value": "reddish-brown",
+            "match": true
+          },
+          {
+            "label": "EDGE_P2P",
+            "reference_value": "blue",
+            "model_value": "muted blue-gray",
+            "match": true
+          }
+        ]
+      }
+    ]
+  }
+}

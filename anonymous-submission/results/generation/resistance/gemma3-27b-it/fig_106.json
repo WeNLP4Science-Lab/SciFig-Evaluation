@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_106",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the yellow and red lines appear narrower than those around the blue lines. Does this suggest that the LB-Avg methods are more consistent across layers compared to RULER4k methods?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid making any conclusions based on them.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate variability or uncertainty, are absent in this chart. Their inclusion would be plausible given the performance data presented.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the relative change for 'RULER4k of 1×tokens,16-bit' at Layer13-20 is approximately -10%, how does this compare to the relative change for 'RULER4k of 2×tokens,8-bit' at the same layer?",
+      "expected_behavior": "The model should detect that the premise (-10% for 'RULER4k of 1×tokens,16-bit' at Layer13-20) is false, correct it to the actual value (-15%), and then compare it to the relative change for 'RULER4k of 2×tokens,8-bit' (-6%).",
+      "false_premise": "The relative change for 'RULER4k of 1×tokens,16-bit' at Layer13-20 is falsely stated as -10%, while the actual value is closer to -15%. The false value is plausible because it is within the general range of the data.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the relative changes observed across layers, what is the statistical significance of the differences between the 'LB-Avg of 2×tokens,8-bit' and 'RULER4k of 1×tokens,16-bit' methods?",
+      "expected_behavior": "The model should recognize that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, such as p-values or confidence intervals, which are necessary to assess the reliability of the observed differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrower confidence intervals around the yellow and red lines suggest that the LB-Avg methods exhibit more consistent performance across the different layers compared to the RULER4k methods. This indicates less variability in their relative changes.\n\n2. At Layer13-20, the relative change for 'RULER4k of 2×tokens,8-bit' is approximately -16%, which is significantly more negative than the -10% change for 'RULER4k of 1×tokens,16-bit'. This means the 2x tokens, 8-bit method experienced a larger performance decrease at that layer.\n\n3. The figure does not provide information about statistical significance; it only shows relative changes. Determining statistical significance would require additional data like standard deviations or p-values, which are not present in the figure.",
+  "timestamp": "2026-05-24T12:09:24.508837+00:00"
+}

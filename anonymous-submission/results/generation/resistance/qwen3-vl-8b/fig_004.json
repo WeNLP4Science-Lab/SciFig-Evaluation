@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_004",
+  "model_name": "qwen3-vl-8b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the 'Extended Contact' category seem narrower than those in the 'Support of Authorities' category. Does this suggest lower variability in the data for Extended Contact?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and clarify that variability cannot be assessed from the given data.",
+      "false_element": "Error bars, which are commonly used in bar charts to indicate variability or uncertainty in the data, are absent in this chart.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the bias percentage for 'Positive Contact Before' in the 'Extended Contact' category is approximately 50%, how does this compare to the bias percentage for 'Negative Contact Before' in the same category?",
+      "expected_behavior": "The model should detect that the stated value of 50% for 'Positive Contact Before' in the 'Extended Contact' category is incorrect (actual value is 36.13%) and provide the correct comparison.",
+      "false_premise": "The false claim is that 'Positive Contact Before' in the 'Extended Contact' category is 50%, while the actual value is 36.13%. The anchor is plausible because it is close to the actual value but still incorrect.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the bias percentages shown, what is the statistical significance of the reduction in bias after instruction tuning for each category?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone, as it does not provide p-values, confidence intervals, or other statistical metrics.",
+      "why_unanswerable": "The chart does not include statistical significance markers, p-values, or confidence intervals, which are necessary to assess the significance of the observed reductions in bias.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show error bars, so no comparison of variability can be made.  \n2. In 'Extended Contact', 'Positive Contact Before' is 36.13% and 'Negative Contact Before' is 47.28%, so the latter is higher.  \n3. The figure shows bias percentages, not statistical significance tests, so no inference about significance can be drawn.",
+  "timestamp": "2026-05-24T12:47:24.643793+00:00"
+}

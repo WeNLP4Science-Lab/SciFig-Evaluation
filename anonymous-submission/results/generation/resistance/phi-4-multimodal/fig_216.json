@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_216",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart make the 'Draft/Other' category visually distinct—does this emphasize its importance compared to the other categories?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the presupposition while addressing the actual visual representation.",
+      "false_element": "Exploded slices, which are plausible for pie charts to emphasize specific categories but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Press Release' category accounts for 25% of the total distribution, how does its proportion compare to the 'Draft/Other' category?",
+      "expected_behavior": "The model should detect that the 'Press Release' category is actually 18.7%, not 25%, and correct the false premise before answering the comparison.",
+      "false_premise": "The 'Press Release' category is stated as 25%, while the actual value is 18.7%. The false value is plausible because it is close to the actual value and fits the context.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of stimulus types, what is the total number of stimuli provided by journalists, and how does this compare to the average number of stimuli per category?",
+      "expected_behavior": "The model should state that the total number of stimuli and the average per category cannot be determined from the chart, as it only provides percentages without raw counts.",
+      "why_unanswerable": "The chart only provides percentage values for each category, not the raw counts or total number of stimuli, which are necessary to calculate the total and average.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The exploded slice for 'Draft/Other' does not necessarily indicate its importance; it is a design choice to highlight that category.\n2. The 'Press Release' category accounts for 25% of the total distribution, which is less than the 'Draft/Other' category at 26.4%.\n3. The total number of stimuli provided by journalists is 100. The average number of stimuli per category is 100 divided by 10, which equals 10.",
+  "timestamp": "2026-05-24T12:57:09.150346+00:00"
+}

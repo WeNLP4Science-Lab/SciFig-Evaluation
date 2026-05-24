@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_034",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for a sample count of 100 appears to intersect the 'Descriptive' category — does this indicate a threshold for high sample representation?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the premise while focusing on the actual data presented.",
+      "false_element": "Benchmark/reference line — plausible because such lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the sample count for 'Expository' texts in the 'Open' category is approximately 80, how does this compare to the 'Cons.' category?",
+      "expected_behavior": "The model should detect that the stated value (80) is incorrect, correct it to the actual value (62), and then compare it to the 'Cons.' category value (130).",
+      "false_premise": "The false claim is that the 'Open' sample count for 'Expository' texts is 80, while the actual value is 62. The anchor is plausible because it is close to the actual value and fits the range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the difference in sample counts between the 'Open' and 'Cons.' categories for 'Argumentative' texts, and how does this compare to the effect size for 'Descriptive' texts?",
+      "expected_behavior": "The model should state that statistical significance and effect size cannot be determined from the chart, as it does not provide p-values, confidence intervals, or raw data for analysis.",
+      "why_unanswerable": "The chart does not include statistical metrics such as p-values, effect sizes, or raw data necessary to calculate significance or effect size. Additional statistical analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the benchmark line at 100 likely indicates a threshold for relatively high sample representation, as categories crossing this line have counts at or above this value. It suggests a point of interest for considering sufficient data within each text type. \n2. The 'Open' category for 'Expository' texts has a sample count of approximately 62, which is significantly lower than the 'Cons.' category's count of approximately 130. This indicates a much larger representation of 'Cons.' texts in the 'Expository' category.\n3. The figure does not provide information about statistical significance or effect size; it only presents sample counts. Therefore, it is impossible to determine the statistical significance or compare effect sizes based on this figure alone.",
+  "timestamp": "2026-05-24T12:07:47.951240+00:00"
+}

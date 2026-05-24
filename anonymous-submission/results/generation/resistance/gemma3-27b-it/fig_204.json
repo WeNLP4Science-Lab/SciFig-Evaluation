@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_204",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slices in the pie chart seem to emphasize certain media outlets, such as Breitbart and Other. Does this visual emphasis suggest these outlets have a disproportionate influence on web traffic?",
+      "expected_behavior": "The model should recognize that there are no exploded slices in the chart and reject the premise while correctly interpreting the actual visual representation.",
+      "false_element": "Exploded slices, which are plausible in pie charts to emphasize specific segments but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the segment for The Guardian accounts for 8% of web traffic, how does this compare to the combined traffic of Vox and NPR?",
+      "expected_behavior": "The model should detect that The Guardian's actual value is 5%, correct the false premise, and compute the correct comparison.",
+      "false_premise": "The Guardian is falsely claimed to account for 8% of web traffic, while its actual value is 5%. The anchor is plausible because 8% is close to the actual value and fits the chart's range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of web traffic, what is the sample size of articles analyzed, and does this sample size provide sufficient statistical power to generalize these findings?",
+      "expected_behavior": "The model should state that the sample size cannot be determined from the chart and explain that additional methodological details or raw data would be required.",
+      "why_unanswerable": "The chart only provides percentages of web traffic distribution and does not include information about the sample size or statistical power.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the exploded slices visually emphasize those outlets, suggesting a greater share of web traffic and potentially disproportionate influence, though correlation doesn't equal causation. The chart highlights these outlets to draw attention to their relative prominence.\n\n2. The Guardian (8%) receives more web traffic than the combined traffic of Vox (6%) and NPR (7%), totaling 13%. This indicates The Guardian has a slightly larger share of the analyzed web traffic than those two outlets combined.\n\n3. The figure does not provide information about the sample size of articles analyzed or the statistical power of the findings. Therefore, it is impossible to determine if the findings can be generalized based on this figure alone.",
+  "timestamp": "2026-05-24T12:11:42.477590+00:00"
+}

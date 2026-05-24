@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_044",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line for a correlation threshold of 0.5 appears to intersect several bars in the Songs category. Does this indicate that these correlations are particularly strong compared to the other domains?",
+      "expected_behavior": "The model should recognize that no benchmark line exists in the chart and reject the presupposition while addressing the actual correlation values shown.",
+      "false_element": "Benchmark/reference line for correlation threshold, which is plausible because such lines are often used in bar charts to indicate thresholds or targets.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the correlation value for RPop_GT in the Basketball category is approximately 0.25, how does this compare to the value for RPop_GE in the same category?",
+      "expected_behavior": "The model should detect that the stated value for RPop_GT in Basketball is incorrect (actual value is approximately 0.125), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The correlation value for RPop_GT in Basketball is stated as 0.25, while the actual value is approximately 0.125. The anchor is plausible because it is close to the actual value but exaggerated.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the correlation values shown, what is the statistical significance (p-value) of the differences between Pop_GT and RPop_GT across all domains?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as sample sizes and p-values, would be required.",
+      "why_unanswerable": "The chart does not provide any information about statistical significance, sample sizes, or p-values, which are necessary to assess the significance of differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the intersection with the 0.5 threshold line indicates that the correlations for Songs are among the highest, suggesting strong relationships in this domain compared to Movies and Basketball.\n\n2. The correlation value for RPop_GE in the Basketball category is approximately 0.1, which is lower than the value for RPop_GT (approximately 0.25).\n\n3. The figure does not provide p-values or statistical significance for the differences between Pop_GT and RPop_GT across domains.",
+  "timestamp": "2026-05-24T12:44:16.351124+00:00"
+}

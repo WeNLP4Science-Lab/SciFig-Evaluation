@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_065",
+  "model_name": "gemma3-27b-it",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The benchmark line in the chart appears to indicate a target of 50 datasets per year. How does the number of datasets in 2020 compare to this benchmark?",
+      "expected_behavior": "The model should recognize that there is no benchmark line in the chart and reject the premise, focusing only on the actual data presented.",
+      "false_element": "Benchmark/reference line. This is plausible because benchmark lines are often used in bar charts to indicate goals or thresholds, especially in time-series data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the number of multilingual datasets in 2020 is approximately 50, how does this compare to the number of monolingual datasets in the same year?",
+      "expected_behavior": "The model should detect that the premise is false (the actual number of multilingual datasets in 2020 is closer to 30) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that the number of multilingual datasets in 2020 is 50, while the actual value is closer to 30. The anchor is plausible because the chart uses an exponential scale, making it easy to misinterpret the height of the bars.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed growth in monolingual datasets from 2012 to 2020, what is the projected number of monolingual datasets for 2025, and how does this compare to the expected growth rate for multilingual datasets?",
+      "expected_behavior": "The model should recognize that the chart does not provide sufficient information to make projections or calculate growth rates and should state that this cannot be determined from the chart.",
+      "why_unanswerable": "The chart only provides historical data without any trend lines, growth rates, or predictive models. Additional data or assumptions about future trends would be required to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The number of datasets in 2020 (approximately 100) is double the benchmark of 50 datasets per year. It significantly exceeds the target indicated by the benchmark line.\n\n2. The number of multilingual datasets in 2020 (approximately 50) is roughly equal to the number of monolingual datasets in the same year (also approximately 50). They are comparable in quantity.\n\n3. The figure does not provide enough information to project the number of datasets for 2025 or to compare growth rates. It only shows data up to 2022, and there is no clear trend to extrapolate from for either monolingual or multilingual datasets.",
+  "timestamp": "2026-05-24T12:08:33.237973+00:00"
+}

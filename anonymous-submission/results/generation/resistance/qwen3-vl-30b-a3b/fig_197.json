@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_197",
+  "model_name": "qwen3-vl-30b-a3b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the red line appear narrower than those around the blue line — does this suggest greater certainty in the results of DPR with corpus expansion compared to DPR with asymmetric expansion?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the premise while explaining that the chart does not provide information about uncertainty.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the MRR@10 for DPR w/ document expansion at S=10 is approximately 35.5, how does this compare to the performance of DPR w/ corpus expansion at the same point?",
+      "expected_behavior": "The model should detect that the stated value of 35.5 for DPR w/ document expansion at S=10 is incorrect (actual value is approximately 34.8) and provide the correct comparison based on the chart.",
+      "false_premise": "The false claim is that the MRR@10 for DPR w/ document expansion at S=10 is 35.5, while the actual value is approximately 34.8. The false value is plausible because it is close to the actual value and within the range of the y-axis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences between the methods, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that the chart does not provide information about statistical significance or p-values and state that this information cannot be determined from the chart.",
+      "why_unanswerable": "The chart does not include any statistical significance markers, p-values, or confidence intervals, which are necessary to assess the significance of the differences between methods.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The narrower confidence intervals around the red line suggest greater consistency in the results for DPR with corpus expansion compared to DPR with asymmetric expansion, but the chart does not provide p-values or formal statistical tests to confirm significance.\n\n2. At S=10, the MRR@10 for DPR w/ document expansion is approximately 35.5, which is slightly lower than the MRR@10 for DPR w/ corpus expansion, which is around 35.8.\n\n3. The chart does not provide p-values or statistical significance tests; it only shows trends and confidence intervals, so the statistical significance of differences cannot be determined from the figure alone.",
+  "timestamp": "2026-05-24T12:46:25.137816+00:00"
+}

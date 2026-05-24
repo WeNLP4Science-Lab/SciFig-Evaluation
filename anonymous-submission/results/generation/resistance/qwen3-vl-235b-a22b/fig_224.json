@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_224",
+  "model_name": "qwen3-vl-235b-a22b",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show a breakdown of regional variations within each language category. How does the regional distribution of Spanish compare to that of English?",
+      "expected_behavior": "The model should recognize that the chart does not contain an inner ring or regional breakdown and reject the premise.",
+      "false_element": "Inner ring showing regional variations, which is plausible for pie charts that display hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Russian' category accounts for approximately 8% of the chart, how does its share compare to the 'Spanish' category?",
+      "expected_behavior": "The model should detect that the 'Russian' category is actually 5.7%, not 8%, and correct the false premise before answering the comparison.",
+      "false_premise": "The claim that 'Russian' accounts for 8%, when the actual value is 5.7%. The anchor is plausible because it is close to the actual value and within a reasonable range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of the dataset used to calculate these percentages, and how does it affect the reliability of the language distribution?",
+      "expected_behavior": "The model should state that the sample size is not provided in the chart and explain that additional data would be needed to assess reliability.",
+      "why_unanswerable": "The chart does not provide information about the sample size or methodology, which are necessary to evaluate reliability.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not show an inner ring or any regional breakdown within language categories; it only displays a single-level pie chart with language percentages. Therefore, no comparison of regional distribution between Spanish and English can be made from this chart.\n\n2. The 'Russian' category accounts for 5.7% of the chart, which is significantly smaller than the 'Spanish' category at 31.4%; Spanish’s share is more than five times larger than Russian’s.\n\n3. The sample size of the dataset is not provided in the figure, so its effect on the reliability of the language distribution cannot be assessed from the information given.",
+  "timestamp": "2026-05-24T12:43:07.008533+00:00"
+}
