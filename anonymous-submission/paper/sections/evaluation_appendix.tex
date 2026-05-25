@@ -3,7 +3,9 @@
 \section{Evaluation Pipeline Details}
 \label{sec:appendix-eval-pipelines}
 
-This section records the implementation details behind each pipeline in the benchmark. Prompt texts are reproduced in Appendix~\ref{sec:appendix-prompts}.
+This section records the implementation details behind each pipeline in the benchmark. Prompt texts are reproduced in Appendix~\ref{sec:appendix-prompts}. Table~\ref{tab:dataset-comprehensive} provides a comprehensive breakdown of all dataset components and evaluation instances.
+
+\input{tables/table_a_dataset_comprehensive}
 
 % ═══════════════════════════════════════════════════════
 \subsection{MQM Evaluation Pipeline}
@@ -19,6 +21,8 @@ GPT-4o receives the model description, the source figure image, the expert refer
 
 \paragraph{Step 3. Penalty computation.}
 A rule-based engine maps each judge finding to a typed MQM penalty across three dimensions (Accuracy, Completeness, Clarity and Readability) with weights of 5.0/2.0 for Major/Minor accuracy errors, 5.0/2.0 for Major/Minor completeness errors, and 2.5/1.0 for Major/Minor clarity errors. Deduplication merges penalties that share the same text span or root cause, retaining only the highest-severity penalty per span. The final score is $\max(0,\; 100 - P \times 100 \mathbin{/} (N \times 5))$ where $P$ is the total penalty and $N$ is the number of checklist items. Accuracy sub-types are tracked separately (Incorrect Numerical Value, Incorrect Trend Interpretation, Incorrect Axis or Legend Interpretation, Incorrect Label Mapping).
+
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_mqm_pipeline.pdf}\caption{MQM evaluation pipeline.}\label{fig:uml-mqm}\end{figure}
 
 % ═══════════════════════════════════════════════════════
 \subsection{Transform Generation Pipeline}
@@ -50,6 +54,7 @@ A separate model (Mistral Large~3) checks each candidate against five quality cr
 \paragraph{Filter.}
 From the accepted set, one question per category per figure is retained, preferring higher difficulty. This produces 1{,}000 final questions across 250 figures, balanced across four categories.
 
+
 % ═══════════════════════════════════════════════════════
 \subsection{Resistance Probe Pipeline}
 \label{sec:appendix-resistance-pipeline}
@@ -68,6 +73,8 @@ The probe asks a domain-appropriate question that sounds like a standard analyti
 \paragraph{Evaluation rubric.}
 Responses are scored as 1.0 (clearly resists the false premise or admits the limitation), 0.5 (hedges or partially complies), or 0.0 (fully accepts the false premise or fabricates an answer).
 
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_resistance_pipeline.pdf}\caption{Resistance probe pipeline.}\label{fig:uml-resistance}\end{figure}
+
 % ═══════════════════════════════════════════════════════
 \subsection{Caption Bias Pipeline}
 \label{sec:appendix-caption-bias-pipeline}
@@ -79,6 +86,7 @@ GPT-4o generates a modified caption from the original caption and expert referen
 
 \paragraph{Evaluation.}
 Models describe the figure with the modified caption provided as context. A GPT-4o judge then evaluates each false claim using a randomised A/B design. For each claim, two statements are presented in random order: the caption's false claim and the visual reality. The judge determines which the description aligns with, preventing position bias. The resistance score for a model is the proportion of addressed claims for which the model follows the image rather than the caption. Claims not addressed in the description are excluded from the denominator.
+
 
 % ═══════════════════════════════════════════════════════
 \subsection{Selective Blur Pipeline}
@@ -99,7 +107,9 @@ Each proposed target string is matched back to an OCR bounding box using a three
 The matched bounding box region is first blended toward grey (blend factor 0.7) to suppress text contrast, then a heavy Gaussian blur (kernel size 75) is applied. This two-stage process ensures the text is rendered fully unreadable while keeping the surrounding figure intact.
 
 \paragraph{Step 5. Human review.}
-Each candidate is reviewed on the project dashboard, where annotators confirm the blur target or replace it with a more suitable alternative. Only confirmed targets enter the active and passive evaluation sets. The admittance/inductance distinction is explained with reference to Figure~2 in the main paper.
+Each candidate is reviewed on the project dashboard, where annotators confirm the blur target or replace it with a more suitable alternative. Only confirmed targets enter the active and passive evaluation sets. Figure~\ref{fig:blur-triptych} illustrates the output of this pipeline.
+
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_blur_pipeline.pdf}\caption{Selective blur pipeline.}\label{fig:uml-blur}\end{figure}
 
 % ═══════════════════════════════════════════════════════
 \subsection{Active and Passive Probe Evaluation}
@@ -115,6 +125,7 @@ The model receives a selectively blurred image with an open-ended description pr
 
 \paragraph{Scoring interpretation.}
 For admittance probes, reliable behaviour is to admit uncertainty and avoid fabrication. For inductance probes, reliable behaviour is to infer correctly from remaining visual context. Both protocols independently produce admittance and fabrication rates, enabling cross-protocol consistency checks.
+
 
 % ═══════════════════════════════════════════════════════
 \subsection{Capability Question Categories}

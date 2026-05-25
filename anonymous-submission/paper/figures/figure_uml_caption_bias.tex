@@ -1,0 +1,27 @@
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  node distance=0.35cm and 0.15cm,
+  every node/.style={\footnotesize},
+  box/.style={
+    draw=black!60, rounded corners=3pt, fill=#1,
+    minimum height=0.55cm, text width=2.0cm, align=center,
+    font=\footnotesize
+  },
+  box/.default={blue!6},
+  arr/.style={-stealth, thick, black!55},
+]
+  \node[box=orange!8]  (inp)   {Figure +\\Groundtruth};
+  \node[box=green!7, right=of inp]  (mod)   {GPT-4o\\Modified Caption\\(70/30 rule)};
+  \node[box, right=of mod]  (desc)  {Model\\Description};
+  \node[box, below=0.4cm of mod]  (judge) {A/B Judge\\Claim vs Reality};
+  \node[box=violet!10, right=of judge] (score) {Resistance\\Score};
+
+  \draw[arr] (inp)   -- (mod);
+  \draw[arr] (mod)   -- (desc);
+  \draw[arr] (desc)  |- (judge);
+  \draw[arr] (judge) -- (score);
+\end{tikzpicture}
+\caption{Caption bias pipeline. A modified caption embeds 2--3 false claims; an A/B judge measures whether the model follows visual evidence or the misleading caption.}
+\label{fig:uml-caption-bias}
+\end{figure}

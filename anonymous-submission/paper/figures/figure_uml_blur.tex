@@ -1,0 +1,29 @@
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  node distance=0.3cm and 0.15cm,
+  every node/.style={\footnotesize},
+  box/.style={
+    draw=black!60, rounded corners=3pt, fill=#1,
+    minimum height=0.55cm, text width=1.85cm, align=center,
+    font=\footnotesize
+  },
+  box/.default={blue!6},
+  arr/.style={-stealth, thick, black!55},
+]
+  \node[box=orange!8]  (img)   {Figure};
+  \node[box, right=of img]   (ocr)   {EasyOCR\\Text + Boxes};
+  \node[box=green!7, right=of ocr]   (tgt)   {GPT-4o\\Targets};
+  \node[box, below=0.35cm of img]   (fuz)   {Fuzzy Match\\Gaussian Blur};
+  \node[box, right=of fuz]   (rev)   {Human Review\\on Dashboard};
+  \node[box=violet!10, right=of rev] (out)   {Confirmed\\Blur Image};
+
+  \draw[arr] (img) -- (ocr);
+  \draw[arr] (ocr) -- (tgt);
+  \draw[arr] (tgt) |- (fuz);
+  \draw[arr] (fuz) -- (rev);
+  \draw[arr] (rev) -- (out);
+\end{tikzpicture}
+\caption{Selective blur pipeline. OCR-detected text is matched against GPT-4o-proposed targets, blurred via Gaussian kernel, and confirmed through human review. Figure~\ref{fig:blur-triptych} illustrates the output of this pipeline.}
+\label{fig:uml-blur}
+\end{figure}

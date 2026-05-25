@@ -1,0 +1,35 @@
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  node distance=0.3cm and 0.12cm,
+  every node/.style={\footnotesize},
+  box/.style={
+    draw=black!60, rounded corners=3pt, fill=#1,
+    minimum height=0.5cm, text width=1.7cm, align=center,
+    font=\footnotesize
+  },
+  box/.default={blue!6},
+  arr/.style={-stealth, thick, black!55},
+  lbl/.style={font=\footnotesize\bfseries, text=black!70},
+]
+  % Active row
+  \node[lbl] (la) {Active};
+  \node[box=orange!8, right=0.25cm of la]  (a1) {Blurred Image\\+ Question};
+  \node[box, right=of a1]         (a2) {Model\\Answer};
+  \node[box=violet!10, right=of a2] (a3) {Judge\\Admits?\\Fabricates?\\Correct?};
+
+  \draw[arr] (a1) -- (a2);
+  \draw[arr] (a2) -- (a3);
+
+  % Passive row
+  \node[lbl, below=0.55cm of la] (lp) {Passive};
+  \node[box=orange!8, right=0.25cm of lp]  (p1) {Blurred Image\\+ ``Describe''};
+  \node[box, right=of p1]         (p2) {Model\\Description};
+  \node[box=violet!10, right=of p2] (p3) {Judge\\Mentioned?\\Admits?\\Fabricates?\\Correct?};
+
+  \draw[arr] (p1) -- (p2);
+  \draw[arr] (p2) -- (p3);
+\end{tikzpicture}
+\caption{Active and passive evaluation protocols for selective blur. Active probes ask targeted questions; passive probes use open-ended description prompts. Both measure admission and fabrication behaviour.}
+\label{fig:uml-active-passive}
+\end{figure}

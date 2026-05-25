@@ -1,0 +1,27 @@
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  node distance=0.35cm and 0.15cm,
+  every node/.style={\footnotesize},
+  box/.style={
+    draw=black!60, rounded corners=3pt, fill=#1,
+    minimum height=0.55cm, text width=2.0cm, align=center,
+    font=\footnotesize
+  },
+  box/.default={blue!6},
+  arr/.style={-stealth, thick, black!55},
+]
+  \node[box=orange!8]  (inp)  {Figure +\\Annotation};
+  \node[box=green!7, right=of inp]  (seed) {GPT-4o Seeder\\4 Candidates};
+  \node[box, right=of seed] (val)  {Validator\\Model Filter};
+  \node[box, below=0.4cm of seed] (sel)  {1 Question\\per Category};
+  \node[box=violet!10, right=of sel] (cat)  {Count $\cdot$ Comp\\Compare $\cdot$ Pattern};
+
+  \draw[arr] (inp)  -- (seed);
+  \draw[arr] (seed) -- (val);
+  \draw[arr] (val)  |- (sel);
+  \draw[arr] (sel)  -- (cat);
+\end{tikzpicture}
+\caption{Capability question pipeline. A seeder generates candidates per category, a validator filters them, and one question per category per figure is retained.}
+\label{fig:uml-capability}
+\end{figure}
