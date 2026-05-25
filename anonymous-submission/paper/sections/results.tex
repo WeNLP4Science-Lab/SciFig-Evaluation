@@ -2,7 +2,7 @@
 \section{Experiments and Results}
 \label{sec:results}
 
-We evaluate eight vision-language models across 250 scientific figures and over 14 experimental conditions, yielding more than 23,000 model-output evaluations. The central finding is that model rankings under perception, reasoning, and behavioural evaluation are not the same ranking. GPT-5.2 produces the highest-quality descriptions in our benchmark (MQM 91.6) yet fabricates answers for elements it cannot see 98\% of the time, with nothing in its output to distinguish the fabrication from genuine analysis.
+We evaluate eight vision-language models across 250 scientific figures under 14 experimental conditions, yielding more than 23,000 model-output evaluations. The central finding is that model rankings shift across evaluation dimensions: a model that leads on perception does not necessarily lead on reasoning or behaviour. Table~\ref{tab:experimental-setup} summarises the experimental environment.
 
 \subsection{Models}
 \label{sec:models}
@@ -15,14 +15,16 @@ We select eight models spanning commercial and open-weight families, dense and m
 \paragraph{Baseline description quality.}
 GPT-5.2 leads with a baseline MQM of 91.6 [90.4, 92.8], followed by Gemini at 90.2 [88.9, 91.4] (Table~\ref{tab:mqm-results}). The 1.4-point gap is statistically significant ($p < 0.01$) but practically small (Cliff's $\delta = 0.09$). Llama~4, Qwen-235B, and Qwen-8B form a middle tier between 78.9 and 81.4, while Qwen-30B, Gemma, and Phi-4 trail. Phi-4's 62.2 score is driven mainly by completeness penalties, nearly 30 points below the leaders.
 
+Bar charts are easiest across all models (96.2 for GPT-5.2), pie charts hardest (49.2 for Phi-4), with line plots in between (Table~\ref{tab:mqm-chart-type}). Accuracy errors dominate the penalty budget, accounting for roughly four times more penalty weight than completeness errors for top models, while clarity penalties are fewer (Table~\ref{tab:mqm-dimensions}). The most frequent error sub-type is incorrect label mapping, where models bind a value, colour, or label to the wrong chart element, followed by missing key information and incorrect numerical values (Table~\ref{tab:error-subtypes}).
+
 \paragraph{Transform robustness.}
-Rotation is the most damaging perceptual transform, causing an average drop of 19.4 MQM points; noise is negligible and low contrast costs 4--7 points (Table~\ref{tab:mqm-results}; Figure~\ref{fig:degradation}). The most severe condition is in-paper-blur, where all models fall below 31 MQM points as they describe blurred page context rather than focusing on the embedded figure.
+Rotation is the most damaging perceptual transform, causing an average drop of 19.4 MQM points; noise is negligible and low contrast costs 4--7 points (Table~\ref{tab:mqm-results}; Figure~\ref{fig:degradation}). The in-paper condition, where models describe a figure embedded in its source PDF page, produces only modest drops of 2--5 points for most models.
 
 \paragraph{Selective blur.}
 Selectively blurring unrecoverable elements reduces MQM by roughly 8--10 points for top models, while blurring inferable elements produces smaller 1--3 point drops. GPT-5.2 scores 88.9 under inductance blur but 81.7 under admittance blur, showing that models behave differently when information is contextually recoverable versus simply gone.
 
 \paragraph{Caption bias on description quality.}
-Modified captions have little effect on MQM for resistant models: GPT-5.2 and Gemini both score 91.3 under modified captions, matching their baselines. Phi-4 remains low at 61.7, consistent with its near-zero caption-bias resistance ($R = 0.05$).
+Caption bias scores sit between the no-caption and full-caption baselines for most models, showing that even a poisoned caption improves completeness relative to no caption, while the false claims pull quality slightly below the clean-caption baseline. GPT-5.2 and Gemini both score 91.3 under modified captions, nearly matching their baselines, consistent with their high caption-bias resistance. Phi-4 remains low at 61.7, consistent with its near-zero resistance ($R = 0.05$).
 
 \subsection{Reasoning}
 \label{sec:reasoning-results}
@@ -47,11 +49,12 @@ Models fall along a caption dependency spectrum from visual independence to text
 \paragraph{Active admittance and inductance.}
 Gemini is the only model that consistently acknowledges visual limitations, admitting uncertainty in 90\% of cases [82\%, 98\%] when asked about selectively blurred elements (Table~\ref{tab:behavioral}; Figure~\ref{fig:ari}). No other model exceeds 22\%. GPT-5.2 admits limitations only 6\% of the time while fabricating answers 98\% of the time, a ``confident fabricator'' profile in which high descriptive fluency coexists with low epistemic caution.
 
-Inductance validates A-R-I empirically. When models fabricate answers for inferable elements, correctness ranges from 21\% to 80\%; for unrecoverable elements, correctness drops to 0--14\%. GPT-5.2 achieves 74\% inductance correctness versus 14\% admittance correctness, showing genuine contextual reasoning when context permits rather than random fabrication.
+Inductance validates A-R-I empirically. When models fabricate answers for inferable elements, correctness ranges from 21\% to 80\%; for unrecoverable elements, correctness drops to 0--14\%. Gemini leads inductance correctness at 80\%, followed by GPT-5.2 at 74\%, versus their respective admittance correctness of 14\% and 14\%, showing genuine contextual reasoning when context permits rather than random fabrication.
 
-\paragraph{Passive admittance.}
-Models are often more willing to acknowledge visual limitations in open-ended descriptions than when asked directly. GPT-5.2 mentions blur or illegibility for 26\% of admittance-blurred elements passively but admits uncertainty for only 6\% under targeted questioning. This suggests that direct questions create pressure to provide a definitive answer, while descriptions allow more natural hedging.
+\paragraph{Passive behaviour.}
+The active--passive split reveals divergent strategies across models. For admittance, GPT-5.2 mentions blur or illegibility for 26\% of blurred elements in open-ended descriptions but admits uncertainty for only 6\% under targeted questioning, suggesting that direct questions create pressure to provide a definitive answer. Gemini shows the opposite pattern: 90\% active admittance but 74\% passive, indicating it is more precise when prompted directly. Most other models rarely admit in either mode, with Qwen-8B, Qwen-30B, Gemma, and Phi-4 all at or below 6\% across both conditions.
 
+For passive inductance, GPT-5.2 and Gemini score comparably (68\% and 66\%), while the mid-tier models show a notable passive advantage: Llama~4 reaches 58\% passively versus 43\% actively, and the Qwen family ranges from 56\% to 62\% passively versus 29--35\% actively. This gap narrows for Gemini and GPT-5.2, whose active and passive inductance scores are within 12--14 percentage points of each other.
 \subsection{Ablation: Probe Designer Independence}
 \label{sec:ablation}
 
