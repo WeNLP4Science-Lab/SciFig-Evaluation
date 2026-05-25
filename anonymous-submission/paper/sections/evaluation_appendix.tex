@@ -3,43 +3,133 @@
 \section{Evaluation Pipeline Details}
 \label{sec:appendix-eval-pipelines}
 
-The UML overview in Appendix~\ref{sec:appendix-pipeline-uml} gives the end-to-end structure of the benchmark. This section records the implementation details behind each pipeline.
+This section records the implementation details behind each pipeline in the benchmark. Prompt texts are reproduced in Appendix~\ref{sec:appendix-prompts}.
 
-\subsection{Dataset Construction}
-\label{sec:appendix-dataset-pipeline}
-
-The corpus contains 250 English-language scientific figures from 187 arXiv papers published between 2023 and 2025. We retained the three chart types most common in the collection: 99 bar charts, 99 line plots, and 52 pie charts. Each figure is associated with the source paper, source page, figure number, caption, chart type, and a structured expert annotation. The annotations record axes, units, data series, category labels, colour mappings, approximate values, and salient trends. Two trained annotators produced the annotations and a third adjudicator resolved disagreements using the source PDF.
-
-\subsection{Checklist-Based MQM Pipeline}
+% ═══════════════════════════════════════════════════════
+\subsection{MQM Evaluation Pipeline}
 \label{sec:appendix-mqm-pipeline}
 
-For open-ended descriptions, the evaluator receives the model description, the source figure, the expert reference, a chart-type-specific checklist, global constraints, and binding instructions. The judge first populates expected checklist values from the reference, then evaluates the model description for coverage and correctness. A rule-based engine converts checklist failures and global violations into typed penalties, deduplicates overlapping penalties, and computes the final MQM score. Binding verification checks whether labels, values, colours, and visual elements are attached to the correct entities. The full severity breakdown is reported in Appendix~\ref{sec:mqm-details}.
+The MQM pipeline scores open-ended descriptions in three steps.
 
+\paragraph{Step 1. Checklist generation.}
+Each chart type has a hand-crafted checklist of visual elements the description should cover. Bar charts use 14 items (orientation, grouping, axis labels, value ranges, colours, legend entries, etc.), line plots use 15 items (markers, grid, trend direction, intersection points, etc.), and pie charts use 11 items (segment counts, label placement, ordering, etc.). Each item carries a severity tag (Major or Minor) that caps the maximum penalty for that item.
+
+\paragraph{Step 2. Judge scoring.}
+GPT-4o receives the model description, the source figure image, the expert reference, the chart-type checklist, global constraints, and binding instructions. It evaluates every checklist item on two axes: \emph{coverage} (complete, partial, or missing) and \emph{correctness} (correct, partial, wrong, or not applicable). It also flags global constraint violations such as hallucinated content. Binding verification checks that labels, numerical values, colours, and visual elements are attributed to the correct entity rather than a neighbouring one. For example, assigning a value from Series~A to Series~B triggers a binding error even if the value itself is mentioned.
+
+\paragraph{Step 3. Penalty computation.}
+A rule-based engine maps each judge finding to a typed MQM penalty across three dimensions (Accuracy, Completeness, Clarity and Readability) with weights of 5.0/2.0 for Major/Minor accuracy errors, 5.0/2.0 for Major/Minor completeness errors, and 2.5/1.0 for Major/Minor clarity errors. Deduplication merges penalties that share the same text span or root cause, retaining only the highest-severity penalty per span. The final score is $\max(0,\; 100 - P \times 100 \mathbin{/} (N \times 5))$ where $P$ is the total penalty and $N$ is the number of checklist items. Accuracy sub-types are tracked separately (Incorrect Numerical Value, Incorrect Trend Interpretation, Incorrect Axis or Legend Interpretation, Incorrect Label Mapping).
+
+% ═══════════════════════════════════════════════════════
+\subsection{Transform Generation Pipeline}
+\label{sec:appendix-transform-pipeline}
+
+We construct five transformed or in-paper conditions beyond the clean image.
+
+\paragraph{Image transforms.}
+Three direct pixel-level transforms are applied to each of the 250 figures. Gaussian noise adds random perturbation with $\sigma=25$. Low contrast compresses the dynamic range ($\alpha=0.3$, $\beta=50$). Rotation tilts the image by $15^{\circ}$ with white fill.
+
+\paragraph{In-paper conditions.}
+Two conditions embed the figure in its source context. For \emph{in-paper}, the source PDF page is rendered as an image and the figure is located by its page number. For \emph{in-paper-blur}, the same rendering is used but the figure region is blurred, testing whether models rely on surrounding page context (captions, body text) rather than the figure itself.
+
+\paragraph{Totals.}
+The transformed set contains 250 noise, 250 low-contrast, 250 rotated, 247 in-paper, and 246 in-paper-blur images, totalling 1{,}243 cases. The small shortfall in in-paper conditions reflects figures whose source page could not be located automatically.
+
+% ═══════════════════════════════════════════════════════
 \subsection{Capability Question Pipeline}
 \label{sec:appendix-capability-pipeline}
 
-Capability questions are generated in three stages. First, GPT-4o receives the figure image, chart type, and expert description, and generates three candidates for each of four categories: counting, computation, comparison, and pattern analysis. Second, Mistral Large 3 validates candidates category-by-category against the image. Third, accepted candidates are filtered by difficulty, retaining one question per category and figure. Rejected candidates are written to a review queue. This produces 1,000 final questions across 250 figures.
+Capability questions test four visual reasoning skills. The pipeline has three stages.
 
-\subsection{Visual Transform and Page-Context Pipelines}
-\label{sec:appendix-transform-pipeline}
+\paragraph{Seeder.}
+GPT-4o receives each figure image together with its chart type and expert annotation. It generates three candidate questions per category (counting, computation, comparison, and pattern analysis), each with an answer, reasoning trace, and referenced visual elements. Candidates must be answerable solely from the image.
 
-We construct five transformed or in-paper conditions beyond the clean image. Three are direct image transformations: Gaussian noise ($\sigma=25$), low contrast (alpha 0.3, beta 50), and 15-degree rotation with white fill. Two use the source paper page. For the in-paper condition, the source PDF page is rendered as an image and the target figure is located on the page. For the in-paper-blur condition, the page is rendered in the same way and the target figure region is blurred. The final transformed/in-paper set contains 250 noise images, 250 low-contrast images, 250 rotated images, 247 in-paper page images, and 246 in-paper-blur images, for 1,243 cases.
+\paragraph{Validator.}
+A separate model (Mistral Large~3) checks each candidate against five quality criteria: answerable from the image, unambiguous, challenging, correctly categorised, and visually grounded. Candidates that fail any criterion are rejected and written to a review queue.
 
-\subsection{Caption Bias and Resistance Pipelines}
+\paragraph{Filter.}
+From the accepted set, one question per category per figure is retained, preferring higher difficulty. This produces 1{,}000 final questions across 250 figures, balanced across four categories.
+
+% ═══════════════════════════════════════════════════════
+\subsection{Resistance Probe Pipeline}
 \label{sec:appendix-resistance-pipeline}
 
-Caption bias probes test whether a model follows visual evidence or a misleading caption. GPT-4o generates a modified caption from the original caption and expert reference, embedding exactly 2--3 false but plausible claims while preserving the rest of the caption. Models then describe the figure with this modified caption. The evaluator compares each model description against the false claim and the visual reality in randomized A/B order, preventing position bias. The resistance score is the proportion of addressed claims for which the model follows the image rather than the caption.
+Resistance probes test whether models fabricate information, accept false premises, or answer unanswerable questions. GPT-4o generates three probes per figure from the image and groundtruth description, one of each type.
 
-Resistance probes use three question types per figure. \emph{Inexist} probes presuppose a plausible but absent chart element. \emph{Contra} probes embed a wrong numerical premise and ask the model to build on it. \emph{Unanswerable} probes ask a domain-appropriate question that cannot be answered from the chart alone. Model responses are scored as 1.0 for clear resistance, 0.5 for partial hedging or partial compliance, and 0.0 for accepting the false premise or fabricating an answer.
+\paragraph{Inexist (absent element).}
+The probe presupposes a plausible but non-existent chart element using definite articles and subordinate clauses, exploiting co-occurrence priors \citep{loftus1975leading}. Example: ``\emph{The error bars in the third group appear wider than in the first. Does this indicate higher variance?}'' A correct model should reject the presupposition.
 
+\paragraph{Contra (false premise).}
+The probe embeds a specific wrong numerical value (20--30\% off from the actual) as a premise and asks the model to build on it, targeting anchoring bias \citep{tversky1974judgment}. Example: ``\emph{Given that Method~A achieves approximately 72\% accuracy, how does this compare to Method~B?}'' (actual: 58\%). A correct model should detect and correct the false premise.
+
+\paragraph{Unanswerable (beyond-chart).}
+The probe asks a domain-appropriate question that sounds like a standard analytical follow-up but cannot be answered from the chart, such as requesting sample sizes, p-values, or projections beyond the plotted range. A correct model should state that the information is not available.
+
+\paragraph{Evaluation rubric.}
+Responses are scored as 1.0 (clearly resists the false premise or admits the limitation), 0.5 (hedges or partially complies), or 0.0 (fully accepts the false premise or fabricates an answer).
+
+% ═══════════════════════════════════════════════════════
+\subsection{Caption Bias Pipeline}
+\label{sec:appendix-caption-bias-pipeline}
+
+Caption bias tests whether models follow visual evidence or defer to misleading captions.
+
+\paragraph{Modified caption generation.}
+GPT-4o generates a modified caption from the original caption and expert reference, applying four design principles. The \emph{70/30 rule} keeps approximately 70\% of the caption verifiably correct (chart type, axis labels, category names) while poisoning the remaining 30\% with exactly 2--3 false claims. The \emph{anchoring sweet spot} ensures wrong numbers are 20--40\% off from actual values. \emph{Peripheral misinformation} targets secondary details (minor trends, adjacent-category comparisons) rather than the most salient feature. Modification types include value anchors, trend mischaracterisations, comparison swaps, ranking inversions, and rate mischaracterisations.
+
+\paragraph{Evaluation.}
+Models describe the figure with the modified caption provided as context. A GPT-4o judge then evaluates each false claim using a randomised A/B design. For each claim, two statements are presented in random order: the caption's false claim and the visual reality. The judge determines which the description aligns with, preventing position bias. The resistance score for a model is the proportion of addressed claims for which the model follows the image rather than the caption. Claims not addressed in the description are excluded from the denominator.
+
+% ═══════════════════════════════════════════════════════
 \subsection{Selective Blur Pipeline}
 \label{sec:appendix-blur-pipeline}
 
-Selective blur creates two visually similar but conceptually different uncertainty conditions. The pipeline first extracts OCR text and bounding boxes from each figure. GPT-4o then sees the image, OCR text list, and expert description, and proposes ranked blur targets for two cases. Admittance targets are elements whose identity should be unrecoverable once blurred. Inductance targets are elements whose identity should remain inferable from surrounding visual context. The selected text is matched back to OCR boxes using exact, normalized, and fuzzy matching, then the target region is blended toward gray and heavily blurred. Probe files record the blurred text, target question, bounding box, and expected behaviour. Final selective blur targets are manually reviewed before inclusion in the active and passive evaluations.
+Selective blur creates two visually similar but conceptually different uncertainty conditions. The pipeline proceeds in five steps.
 
-\subsection{Probe Evaluation Rubrics}
-\label{sec:appendix-probe-rubrics}
+\paragraph{Step 1. OCR extraction.}
+EasyOCR extracts all text regions from the figure image, returning each detected string together with its bounding box coordinates.
 
-Active blur responses are judged along three binary dimensions: whether the model admits uncertainty, whether it fabricates a specific answer, and whether any fabricated answer is correct. Passive blur responses are judged similarly, but also record whether the model mentions the blurred element at all in an open-ended description. For admittance, reliable behaviour is to acknowledge unreadability and avoid unsupported specificity. For inductance, reliable behaviour is to infer correctly when the remaining visual context warrants it.
+\paragraph{Step 2. Target proposal.}
+GPT-4o receives the figure image, the full list of OCR-detected text strings, and the expert annotation. It proposes ranked blur candidates for two conditions. \emph{Admittance} targets are text elements whose identity becomes unrecoverable once blurred, so a truthful model should report that it cannot determine the answer. \emph{Inductance} targets are text elements whose identity remains inferable from surrounding visual context (e.g.\ a legend label recoverable from colour matching or axis units deducible from value patterns), so a capable model should infer the correct value.
 
-Caption bias responses are evaluated claim-by-claim. For each false claim, the judge receives the model description and two randomized statements: the modified caption claim and the visual reality. Responses are mapped back to image-following, caption-following, or not-addressed. Resistance probes are evaluated with type-specific rubrics: rejecting an absent element, correcting a false numerical premise, or stating that an unanswerable question cannot be determined from the chart.
+\paragraph{Step 3. Fuzzy text matching.}
+Each proposed target string is matched back to an OCR bounding box using a three-tier strategy. Exact matching is tried first, then normalised matching (handling common OCR confusions such as \texttt{l}/\texttt{1} and \texttt{o}/\texttt{0}), then character-level fuzzy matching with a minimum similarity threshold of 0.6. The highest-ranked candidate with a successful match is selected.
+
+\paragraph{Step 4. Blur application.}
+The matched bounding box region is first blended toward grey (blend factor 0.7) to suppress text contrast, then a heavy Gaussian blur (kernel size 75) is applied. This two-stage process ensures the text is rendered fully unreadable while keeping the surrounding figure intact.
+
+\paragraph{Step 5. Human review.}
+Each candidate is reviewed on the project dashboard, where annotators confirm the blur target or replace it with a more suitable alternative. Only confirmed targets enter the active and passive evaluation sets. The admittance/inductance distinction is explained with reference to Figure~2 in the main paper.
+
+% ═══════════════════════════════════════════════════════
+\subsection{Active and Passive Probe Evaluation}
+\label{sec:appendix-active-passive-eval}
+
+Selective blur responses are evaluated through two complementary protocols.
+
+\paragraph{Active evaluation.}
+The model receives a selectively blurred image together with a targeted question whose answer depends on the blurred element (e.g.\ ``What label appears in the second legend entry?''). No hint is given that anything has been altered. A GPT-4o judge scores the response on three binary dimensions: (i)~\emph{admits}, whether the model acknowledged that something was unclear or unreadable; (ii)~\emph{fabricates}, whether the model stated a specific value, name, or answer; and (iii)~\emph{correct}, whether any fabricated answer matched the expected value. A model can both admit and fabricate simultaneously (e.g.\ ``The label is obscured but appears to be X'').
+
+\paragraph{Passive evaluation.}
+The model receives a selectively blurred image with an open-ended description prompt (the same prompt used for baseline descriptions). A GPT-4o judge analyses whether the model's description (i)~\emph{mentioned} the blurred element's role at all, (ii)~\emph{admitted} uncertainty about it, (iii)~\emph{fabricated} a specific value for it, and (iv)~whether any fabrication was \emph{correct}. This captures whether models silently omit unreadable content or confidently fill in gaps.
+
+\paragraph{Scoring interpretation.}
+For admittance probes, reliable behaviour is to admit uncertainty and avoid fabrication. For inductance probes, reliable behaviour is to infer correctly from remaining visual context. Both protocols independently produce admittance and fabrication rates, enabling cross-protocol consistency checks.
+
+% ═══════════════════════════════════════════════════════
+\subsection{Capability Question Categories}
+\label{sec:appendix-capability-categories}
+
+The 1{,}000 capability questions are distributed across four categories, each targeting a distinct visual reasoning skill.
+
+\paragraph{Counting.}
+Questions require the model to enumerate discrete visual elements (bars, line series, pie segments, legend entries, axis ticks, subplots). This tests visual enumeration and spatial parsing. Examples: ``How many bars are shown in the grouped bar chart for the 2023 category?'' ``How many distinct line series appear in the plot?'' ``How many segments in the pie chart have percentage labels below 5\%?''
+
+\paragraph{Computation.}
+Questions require arithmetic operations on values read from the chart (differences, ratios, sums, averages). This tests whether models can extract and manipulate numerical information. Examples: ``What is the difference between the highest and lowest bars?'' ``What is the approximate ratio of Category~A to Category~B?'' ``What is the sum of all segments in the pie chart?''
+
+\paragraph{Comparison.}
+Questions require relative judgements between chart elements (which is larger, whether two series intersect, rank ordering). This tests relational reasoning without requiring exact values. Examples: ``Which method achieves the highest accuracy on Dataset~X?'' ``Do the two line series ever intersect?'' ``Which of the three smallest segments is closest in size to the median?''
+
+\paragraph{Pattern analysis.}
+Questions require the model to identify trends, inflection points, periodicity, or anomalies across the chart. This tests higher-order visual understanding. Examples: ``At what point does the upward trend reverse?'' ``Which region shows the steepest rate of decline between 2019 and 2022?'' ``Is there a visible seasonal pattern in the monthly data?''
