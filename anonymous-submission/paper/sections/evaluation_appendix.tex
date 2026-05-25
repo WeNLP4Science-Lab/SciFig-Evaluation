@@ -1,0 +1,169 @@
+%!TEX root = ../main.tex
+
+\section{Evaluation Pipeline Details}
+\label{sec:appendix-eval-pipelines}
+
+\tikzset{
+  pipeline/.style={rectangle, draw, rounded corners, align=center, minimum height=7mm, text width=2.7cm, font=\footnotesize},
+  smallpipe/.style={rectangle, draw, rounded corners, align=center, minimum height=6mm, text width=2.25cm, font=\scriptsize},
+  decisionpipe/.style={diamond, draw, aspect=2.1, align=center, inner sep=1pt, text width=2.0cm, font=\scriptsize},
+  arrowpipe/.style={-{Latex[length=2mm]}, thick}
+}
+
+\subsection{Dataset Construction}
+\label{sec:appendix-dataset-pipeline}
+
+The corpus contains 250 English-language scientific figures from 187 arXiv papers published between 2023 and 2025. We retained the three chart types most common in the collection: 99 bar charts, 99 line plots, and 52 pie charts. Each figure is associated with the source paper, source page, figure number, caption, chart type, and a structured expert annotation. The annotations record axes, units, data series, category labels, colour mappings, approximate values, and salient trends. Two trained annotators produced the annotations and a third adjudicator resolved disagreements using the source PDF.
+
+\subsection{Checklist-Based MQM Pipeline}
+\label{sec:appendix-mqm-pipeline}
+
+For open-ended descriptions, the evaluator receives the model description, the source figure, the expert reference, a chart-type-specific checklist, global constraints, and binding instructions. The judge first populates expected checklist values from the reference, then evaluates the model description for coverage and correctness. A rule-based engine converts checklist failures and global violations into typed penalties, deduplicates overlapping penalties, and computes the final MQM score. Binding verification checks whether labels, values, colours, and visual elements are attached to the correct entities. The full severity breakdown is reported in Appendix~\ref{sec:mqm-details}.
+
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.8cm]
+\node[pipeline] (fig) {Figure image\\+ expert reference};
+\node[pipeline, right=of fig] (desc) {Model\\description};
+\node[pipeline, right=of desc] (judge) {GPT-4o judge\\checklist scoring};
+\node[pipeline, right=of judge] (bind) {Binding\\verification};
+\node[pipeline, right=of bind] (rule) {Rule engine\\penalties};
+\node[pipeline, right=of rule] (score) {MQM score\\Accuracy, Completeness, Clarity};
+\draw[arrowpipe] (fig) -- (desc);
+\draw[arrowpipe] (desc) -- (judge);
+\draw[arrowpipe] (judge) -- (bind);
+\draw[arrowpipe] (bind) -- (rule);
+\draw[arrowpipe] (rule) -- (score);
+\end{tikzpicture}
+}
+\caption{UML-style activity diagram for checklist-based MQM evaluation. The judge produces structured checklist judgments; deterministic post-processing maps those judgments to final scores.}
+\label{fig:mqm-pipeline}
+\end{figure*}
+
+\subsection{Capability Question Pipeline}
+\label{sec:appendix-capability-pipeline}
+
+Capability questions are generated in three stages. First, GPT-4o receives the figure image, chart type, and expert description, and generates three candidates for each of four categories: counting, computation, comparison, and pattern analysis. Second, Mistral Large 3 validates candidates category-by-category against the image. Third, accepted candidates are filtered by difficulty, retaining one question per category and figure. Rejected candidates are written to a review queue. This produces 1,000 final questions across 250 figures.
+
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.75cm]
+\node[pipeline] (input) {Image + expert\\annotation};
+\node[pipeline, right=of input] (gen) {Generate 3\\candidates per type};
+\node[pipeline, right=of gen] (val) {Validate candidates\\with image};
+\node[decisionpipe, right=of val] (accept) {Accepted?};
+\node[pipeline, right=of accept] (select) {Select hardest\\accepted item};
+\node[pipeline, right=of select] (final) {Final 4 questions\\per figure};
+\node[pipeline, below=of accept] (review) {Review queue};
+\draw[arrowpipe] (input) -- (gen);
+\draw[arrowpipe] (gen) -- (val);
+\draw[arrowpipe] (val) -- (accept);
+\draw[arrowpipe] (accept) -- node[above, font=\scriptsize]{yes} (select);
+\draw[arrowpipe] (select) -- (final);
+\draw[arrowpipe] (accept) -- node[right, font=\scriptsize]{no} (review);
+\end{tikzpicture}
+}
+\caption{Capability question generation and filtering pipeline. Each figure yields one validated question for counting, computation, comparison, and pattern analysis.}
+\label{fig:capability-pipeline}
+\end{figure*}
+
+\subsection{Visual Transform and Page-Context Pipelines}
+\label{sec:appendix-transform-pipeline}
+
+We construct five transformed or page-context conditions beyond the clean image. Three are direct image transformations: Gaussian noise ($\sigma=25$), low contrast (alpha 0.3, beta 50), and 15-degree rotation with white fill. Two use the source paper page. For the in-paper condition, the source PDF page is rendered as an image and the target figure is located on the page. For the in-paper-blur condition, the page is rendered in the same way and the target figure region is blurred. The final transformed/page-context set contains 250 noise images, 250 low-contrast images, 250 rotated images, 247 in-paper page images, and 246 in-paper-blur images, for 1,243 cases.
+
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.75cm]
+\node[pipeline] (fig) {Clean figure};
+\node[pipeline, right=of fig] (trans) {Noise, low contrast, rotation};
+\node[pipeline, right=of trans] (desc1) {Description\\generation};
+\node[pipeline, below=1.0cm of fig] (pdf) {Source PDF\\+ page number};
+\node[pipeline, right=of pdf] (render) {Render page\\and trim reference};
+\node[pipeline, right=of render] (match) {Locate figure\\on page};
+\node[pipeline, right=of match] (blur) {Keep page or\\blur figure region};
+\node[pipeline, right=of blur] (desc2) {Description\\generation};
+\draw[arrowpipe] (fig) -- (trans);
+\draw[arrowpipe] (trans) -- (desc1);
+\draw[arrowpipe] (pdf) -- (render);
+\draw[arrowpipe] (render) -- (match);
+\draw[arrowpipe] (match) -- (blur);
+\draw[arrowpipe] (blur) -- (desc2);
+\end{tikzpicture}
+}
+\caption{Pipelines for visual transformations and page-context conditions. Direct transforms alter the isolated figure; page-context conditions render the source PDF page and optionally blur the target figure region.}
+\label{fig:transform-pipeline}
+\end{figure*}
+
+\subsection{Caption Bias and Resistance Pipelines}
+\label{sec:appendix-resistance-pipeline}
+
+Caption bias probes test whether a model follows visual evidence or a misleading caption. GPT-4o generates a modified caption from the original caption and expert reference, embedding exactly 2--3 false but plausible claims while preserving the rest of the caption. Models then describe the figure with this modified caption. The evaluator compares each model description against the false claim and the visual reality in randomized A/B order, preventing position bias. The resistance score is the proportion of addressed claims for which the model follows the image rather than the caption.
+
+Resistance probes use three question types per figure. \emph{Inexist} probes presuppose a plausible but absent chart element. \emph{Contra} probes embed a wrong numerical premise and ask the model to build on it. \emph{Unanswerable} probes ask a domain-appropriate question that cannot be answered from the chart alone. Model responses are scored as 1.0 for clear resistance, 0.5 for partial hedging or partial compliance, and 0.0 for accepting the false premise or fabricating an answer.
+
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.75cm]
+\node[smallpipe] (gt) {Image + caption\\+ reference};
+\node[smallpipe, right=of gt] (modcap) {Generate modified\\caption};
+\node[smallpipe, right=of modcap] (desc) {Model describes\\with caption};
+\node[smallpipe, right=of desc] (ab) {Randomized A/B\\claim judging};
+\node[smallpipe, right=of ab] (cr) {Caption bias\\resistance};
+\draw[arrowpipe] (gt) -- (modcap);
+\draw[arrowpipe] (modcap) -- (desc);
+\draw[arrowpipe] (desc) -- (ab);
+\draw[arrowpipe] (ab) -- (cr);
+\node[smallpipe, below=1.2cm of gt] (gt2) {Image + reference};
+\node[smallpipe, right=of gt2] (probe) {Generate inexist,\\contra, unanswerable};
+\node[smallpipe, right=of probe] (answer) {Model answers\\three probes};
+\node[smallpipe, right=of answer] (judge) {Rubric judge\\1.0 / 0.5 / 0.0};
+\node[smallpipe, right=of judge] (rs) {Resistance\\score};
+\draw[arrowpipe] (gt2) -- (probe);
+\draw[arrowpipe] (probe) -- (answer);
+\draw[arrowpipe] (answer) -- (judge);
+\draw[arrowpipe] (judge) -- (rs);
+\end{tikzpicture}
+}
+\caption{Pipelines for caption bias and resistance evaluation. Caption bias measures whether descriptions align with false caption claims or visual reality; resistance probes measure whether models reject false or unsupported questions.}
+\label{fig:resistance-pipeline}
+\end{figure*}
+
+\subsection{Selective Blur Pipeline}
+\label{sec:appendix-blur-pipeline}
+
+Selective blur creates two visually similar but conceptually different uncertainty conditions. The pipeline first extracts OCR text and bounding boxes from each figure. GPT-4o then sees the image, OCR text list, and expert description, and proposes ranked blur targets for two cases. Admittance targets are elements whose identity should be unrecoverable once blurred. Inductance targets are elements whose identity should remain inferable from surrounding visual context. The selected text is matched back to OCR boxes using exact, normalized, and fuzzy matching, then the target region is blended toward gray and heavily blurred. Probe files record the blurred text, target question, bounding box, and expected behaviour. Final blur candidates are manually reviewed before inclusion in the active and passive evaluations.
+
+\begin{figure*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=0.65cm]
+\node[pipeline] (fig) {Figure image};
+\node[pipeline, right=of fig] (ocr) {OCR text\\+ bounding boxes};
+\node[pipeline, right=of ocr] (select) {GPT-4o selects\\ranked targets};
+\node[pipeline, right=of select] (match) {Match target\\to OCR box};
+\node[pipeline, right=of match] (blur) {Apply selective\\blur};
+\node[pipeline, right=of blur] (review) {Human review\\and confirmation};
+\node[pipeline, below=1.0cm of blur] (eval) {Active questions\\+ passive descriptions};
+\draw[arrowpipe] (fig) -- (ocr);
+\draw[arrowpipe] (ocr) -- (select);
+\draw[arrowpipe] (select) -- (match);
+\draw[arrowpipe] (match) -- (blur);
+\draw[arrowpipe] (blur) -- (review);
+\draw[arrowpipe] (review) -- (eval);
+\end{tikzpicture}
+}
+\caption{Selective blur pipeline for admittance and inductance probes. The same mechanism creates unrecoverable and inferable blur conditions; the distinction lies in target selection and expected behaviour.}
+\label{fig:selective-blur-pipeline}
+\end{figure*}
+
+\subsection{Probe Evaluation Rubrics}
+\label{sec:appendix-probe-rubrics}
+
+Active blur responses are judged along three binary dimensions: whether the model admits uncertainty, whether it fabricates a specific answer, and whether any fabricated answer is correct. Passive blur responses are judged similarly, but also record whether the model mentions the blurred element at all in an open-ended description. For admittance, reliable behaviour is to acknowledge unreadability and avoid unsupported specificity. For inductance, reliable behaviour is to infer correctly when the remaining visual context warrants it.
+
+Caption bias responses are evaluated claim-by-claim. For each false claim, the judge receives the model description and two randomized statements: the modified caption claim and the visual reality. Responses are mapped back to image-following, caption-following, or not-addressed. Resistance probes are evaluated with type-specific rubrics: rejecting an absent element, correcting a false numerical premise, or stating that an unanswerable question cannot be determined from the chart.
