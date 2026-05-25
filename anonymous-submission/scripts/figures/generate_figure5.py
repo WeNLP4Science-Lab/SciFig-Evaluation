@@ -44,13 +44,27 @@ def load_data():
         info = MODEL_IDENTITY[mid]
         mqm = cis["baseline_mqm"].get(mid, {}).get("mean")
 
+        # Average active + passive for admittance
         act_adm = cis.get("active_probes", {}).get("admittance", {}).get(mid, {})
-        admittance = act_adm.get("admits", {}).get("mean") if act_adm else None
+        pas_adm = cis.get("passive_probes", {}).get("admittance", {}).get(mid, {})
+        act_adm_val = act_adm.get("admits", {}).get("mean") if act_adm else None
+        pas_adm_val = pas_adm.get("admits", {}).get("mean") if pas_adm else None
+        if act_adm_val is not None and pas_adm_val is not None:
+            admittance = (act_adm_val + pas_adm_val) / 2
+        else:
+            admittance = act_adm_val or pas_adm_val
 
         resistance = cis.get("resistance", {}).get(mid, {}).get("mean")
 
+        # Average active + passive for inductance
         act_ind = cis.get("active_probes", {}).get("inductance", {}).get(mid, {})
-        inductance = act_ind.get("correct_given_fab", {}).get("mean") if act_ind else None
+        pas_ind = cis.get("passive_probes", {}).get("inductance", {}).get(mid, {})
+        act_ind_val = act_ind.get("correct_given_fab", {}).get("mean") if act_ind else None
+        pas_ind_val = pas_ind.get("correct_given_fab", {}).get("mean") if pas_ind else None
+        if act_ind_val is not None and pas_ind_val is not None:
+            inductance = (act_ind_val + pas_ind_val) / 2
+        else:
+            inductance = act_ind_val or pas_ind_val
 
         capability = CAPABILITY_SCORES.get(mid)
 
@@ -66,7 +80,7 @@ def load_data():
 
 
 def create_figure(data):
-    fig, axes = plt.subplots(2, 3, figsize=(7.0, 3.8), constrained_layout=True)
+    fig, axes = plt.subplots(2, 3, figsize=(7.2, 4.2), constrained_layout=True)
 
     x_dims = [
         ("mqm", "MQM Score"),
@@ -92,7 +106,7 @@ def create_figure(data):
                     ax.scatter(x_val, y_val,
                               color=info["color"],
                               marker=info["marker"],
-                              s=45, zorder=3, edgecolors="white", linewidth=0.3)
+                              s=65, zorder=3, edgecolors="white", linewidth=0.5)
 
             # Diagonal guide
             xlim = ax.get_xlim()
@@ -114,7 +128,7 @@ def create_figure(data):
         info = MODEL_IDENTITY[mid]
         legend_elements.append(
             Line2D([0], [0], marker=info["marker"], color="w",
-                   markerfacecolor=info["color"], markersize=5,
+                   markerfacecolor=info["color"], markersize=6,
                    label=info["label"], markeredgecolor="white", markeredgewidth=0.3)
         )
 

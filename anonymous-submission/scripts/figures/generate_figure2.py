@@ -108,7 +108,7 @@ def load_data():
 
 def create_figure(data):
     """Create the two-panel degradation figure."""
-    fig, ax1 = plt.subplots(1, 1, figsize=(7.2, 3.0),
+    fig, ax1 = plt.subplots(1, 1, figsize=(7.2, 3.3),
                             constrained_layout=True)
 
     x_labels = ["Baseline\n(+cap.)"] + [cl for _, cl in CONDITIONS]
@@ -121,13 +121,13 @@ def create_figure(data):
         if model_id in HIGHLIGHT:
             color, ls, marker, lw = HIGHLIGHT[model_id]
             ax1.plot(x, scores, color=color, linestyle=ls, marker=marker,
-                     markersize=5, linewidth=lw, label=model_name, zorder=3)
+                     markersize=8, linewidth=2.5, label=model_name, zorder=3)
         else:
-            ax1.plot(x, scores, color=GREY, linestyle="-", linewidth=0.8,
+            ax1.plot(x, scores, color=GREY, linestyle="-", linewidth=1.0,
                      alpha=0.5, zorder=1)
             # Add model name at the right end
             ax1.annotate(model_name, (x[-1] + 0.15, scores[-1]),
-                        fontsize=6, color="#808080", va="center")
+                        fontsize=7, color="#808080", va="center")
 
     # Group separators
     for gb in GROUP_BOUNDARIES:
@@ -135,15 +135,15 @@ def create_figure(data):
 
     # Group labels at top
     for label, pos in zip(GROUP_LABELS, GROUP_POSITIONS):
-        ax1.text(pos + 0.5, 97, label, ha="center", fontsize=7, color="#888888",
+        ax1.text(pos + 0.5, 97, label, ha="center", fontsize=8, color="#888888",
                 fontstyle="italic")
 
-    ax1.set_ylabel("MQM Score", fontsize=9)
+    ax1.set_ylabel("MQM Score", fontsize=10)
     ax1.set_ylim(0, 100)
-    ax1.set_xlim(-0.3, len(x_labels) - 0.3)
+    ax1.set_xlim(-0.3, len(x_labels) + 0.5)
     ax1.set_xticks(x)
-    ax1.set_xticklabels(x_labels, fontsize=6.5, rotation=0)
-    ax1.legend(fontsize=7.5, loc="lower left", framealpha=0.9, edgecolor="#cccccc")
+    ax1.set_xticklabels(x_labels, fontsize=7.5, rotation=0)
+    ax1.legend(fontsize=8.5, loc="lower left", framealpha=0.9, edgecolor="#cccccc")
     ax1.spines["top"].set_visible(False)
     ax1.spines["right"].set_visible(False)
     ax1.grid(axis="y", alpha=0.2)

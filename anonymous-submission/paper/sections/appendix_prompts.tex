@@ -1,0 +1,103 @@
+\section{Prompt and Rubric Inventory}
+\label{sec:appendix-prompts}
+
+Table~\ref{tab:prompt-inventory} summarises the prompt families used in \textsc{SciFig-Eval}. The table separates evaluated-model prompts from generator and judge prompts. Below it, we reproduce the core instructions that define each task family; category-specific capability prompts instantiate the same schema for counting, computation, comparison, and pattern analysis.
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{1.5cm}p{12.7cm}@{}}
+\toprule
+\textbf{IDs} & \textbf{Prompt family, role, and purpose} \\
+\midrule
+D1--D4 & Description prompts for evaluated VLMs; produce neutral scientific figure descriptions by chart type. \\
+M1 & MQM judge prompt; scores descriptions with checklist, global constraints, and binding verification. \\
+Q1--Q5 & Capability generator prompts; generate three candidate questions per category. \\
+Q6 & Capability validator prompt; accepts or rejects candidates using five quality criteria. \\
+Q7 & Capability answering prompt for evaluated VLMs; answers four figure-grounded questions. \\
+B1 & Caption-bias generator prompt; creates modified captions with exactly 2--3 false claims. \\
+R1 & Resistance generator prompt; creates inexist, contra, and unanswerable probes. \\
+R2 & Resistance answering prompt for evaluated VLMs; answers three false-premise probes. \\
+S1 & Selective-blur selector prompt; selects admittance and inductance blur targets from OCR. \\
+S2--S3 & Active and passive blur judge prompts; score admittance, fabrication, and correctness. \\
+\bottomrule
+\end{tabular}
+\caption{Prompt inventory. IDs map to the implementation files listed below. All evaluated models received the same task prompt for a given condition; generator and judge prompts were run at temperature~0 unless otherwise noted in the experiment scripts.}
+\label{tab:prompt-inventory}
+\end{table}
+
+\noindent\textbf{Prompt identifiers.}
+\begingroup
+\footnotesize
+\begin{description}[leftmargin=1.3cm, itemsep=0pt, topsep=2pt]
+\item[D1--D4] \path{scripts/experiments/prompts/default.txt}, \path{bar_chart.txt}, \path{line_chart.txt}, \path{pie_chart.txt}.
+\item[M1] \path{scripts/experiments/evaluate_mqm.py}.
+\item[Q1--Q5] \path{scripts/capability_generation/prompts/system.txt}, \path{counting.txt}, \path{computation.txt}, \path{comparison.txt}, \path{pattern_analysis.txt}.
+\item[Q6] \path{scripts/capability_generation/prompts/validate.txt}.
+\item[Q7] \path{scripts/experiments/run_capability.py}.
+\item[B1] \path{scripts/experiments/generate_caption_bias.py}.
+\item[R1--R2] \path{scripts/experiments/generate_resistance_probes.py}, \path{scripts/experiments/run_resistance.py}.
+\item[S1--S3] \path{scripts/adversarial_transforms/selective_blur/prompts/identify_from_ocr.txt}, \path{scripts/experiments/evaluate_active_probes.py}, \path{scripts/experiments/evaluate_passive_probes.py}.
+\end{description}
+\endgroup
+
+\subsection{Description Generation Prompt}
+
+\noindent\textbf{System instruction.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+You are an annotator tasked with describing scientific figures in a structured but natural paragraph format. Your goal is to objectively describe what is visually shown in the figure, using neutral and technical language. Avoid interpreting results, drawing conclusions, or speculating on the meaning of the data. For each figure, write a single cohesive paragraph covering the purpose, axes, key visual elements, legends, grouping, subplots, highlights, sorting, and annotations visible in the figure.
+\end{quote}
+
+\subsection{Capability Question Prompts}
+
+\noindent\textbf{Generator system instruction.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+You are an expert scientific figure analyst specializing in generating challenging evaluation questions for chart understanding benchmarks. Your questions must be answerable solely from the provided figure, unambiguous, challenging, and grounded in specific visual elements. Always output valid JSON matching the specified schema.
+\end{quote}
+
+\noindent\textbf{Category templates.} Counting prompts require conditional, cross-category, boundary, or intersection counting. Computation prompts require arithmetic over visually extracted values. Comparison prompts require relative judgments across visual elements. Pattern-analysis prompts require structural patterns, trends, distributions, or consistency relationships across the figure. Each category prompt requests exactly three candidates with answer, answer type, reasoning trace, category, and referenced visual elements.
+
+\noindent\textbf{Validator instruction.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+You are a strict quality evaluator for scientific figure understanding questions. Evaluate each candidate question on five criteria: ANSWERABLE, UNAMBIGUOUS, CHALLENGING, CORRECT\_CATEGORY, and VISUAL\_GROUNDING. For each criterion answer PASS or FAIL with a brief reason, then assign ACCEPT or REJECT and difficulty hard or very\_hard.
+\end{quote}
+
+\noindent\textbf{Answering instruction.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+Please answer each of the following questions about this figure. Number your answers exactly as 1. 2. 3. 4. with each answer on a new line. Keep each answer concise (1--3 sentences).
+\end{quote}
+
+\subsection{Caption Bias and Resistance Prompts}
+
+\noindent\textbf{Caption-bias generation.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+Generate a psychology-informed modified caption for a scientific chart to test whether VLMs can resist misleading textual context. Approximately 70\% of the caption must remain verifiably correct, while exactly 2--3 subtle errors poison peripheral, hard-to-verify details. Keep chart type, category names, and axis labels correct; alter plausible values, trend characterisations, comparisons, rankings, or rates. Respond with JSON containing the modified caption, false claims, visual reality, modification type, psychological principle, and correct caption elements.
+\end{quote}
+
+\noindent\textbf{Resistance generation.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+Generate exactly three probes: an INEXIST probe that presupposes a plausible but absent chart element using definite articles; a CONTRA probe that embeds a specific false numerical premise and asks the model to build on it; and an UNANSWERABLE probe that asks a domain-appropriate question that cannot be answered from the chart alone. Each probe must include the expected resistant behaviour and the cognitive principle it targets.
+\end{quote}
+
+\noindent\textbf{Resistance answering.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+Please answer the following questions about this figure. Number your answers exactly as 1. 2. 3. with each answer on a new line. Keep each answer concise (1--3 sentences). If a question asks about something not present in the figure, say so clearly.
+\end{quote}
+
+\subsection{Selective Blur Prompts and Judging Rubrics}
+
+\noindent\textbf{Target selection.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+Select blur targets for two tests. ADMITTANCE targets are text elements that become completely unrecoverable when blurred, so a model should honestly say it cannot determine the answer. INDUCTANCE targets are text or numeric elements that can still be inferred through a specific reasoning path from remaining visible elements. Return ranked candidates, questions, and reasoning paths in JSON.
+\end{quote}
+
+\noindent\textbf{Active blur judge.}
+\begin{quote}\footnotesize\ttfamily\raggedright
+Evaluate whether the model acknowledged that something was unclear, blurred, unreadable, or impossible to determine; whether it provided a specific answer anyway; and whether any fabricated answer was correct. A model can both admit and fabricate. Return JSON with admits, fabricates, correct, and a brief reason.
+\end{quote}
+
+\noindent\textbf{Passive blur judge.}
+\begin{quote}\footnotesize\ttfamily
+Evaluate an open-ended description of a selectively blurred figure. Determine whether the description mentioned the blurred element's role, admitted uncertainty, fabricated a specific value or label, and whether the fabricated value was correct. Return JSON with mentioned, admits, fabricates, correct, and a brief reason.
+\end{quote}
