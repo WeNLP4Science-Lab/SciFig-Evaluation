@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_022",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_003",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all three charts have a perplexity value exactly equal to the maximum value in their respective chart?",
+      "answer": "3",
+      "answer_type": "exact",
+      "reasoning": "In each subplot (WikiText, PTB, C4), the tallest bar is the Uniform (blue) bar at 3 quantization bits. No other bar in that subplot reaches that maximum height, so it is 1 per subplot, totaling 3."
+    },
+    {
+      "category": "computation",
+      "question": "What is the total perplexity difference between 'Uniform' and 'Ours' across all quantization bits in the C4 dataset?",
+      "answer": "~30",
+      "answer_type": "approximate",
+      "reasoning": "From the C4 panel, Uniform vs Ours is roughly: 3 bits ~30 vs ~20.6 (diff ~9.4), 4 bits ~25.0 vs ~18.2 (diff ~6.8), 8 bits ~24.6 vs ~17.7 (diff ~6.9), 16 bits ~24.5 vs ~17.7 (diff ~6.8). Sum of differences \u2248 9.4+6.8+6.9+6.8 \u2248 29.9 (about 30)."
+    },
+    {
+      "category": "comparison",
+      "question": "In the WikiText dataset, which pair of bars (Uniform and Ours) has the smallest gap in perplexity across all quantization bits?",
+      "answer": "4 quantization bits",
+      "answer_type": "exact",
+      "reasoning": "In the WikiText panel, the Uniform-Ours gaps are smallest at 4 bits (Uniform ~27.0 vs Ours ~18.9, gap ~8.1). The 8- and 16-bit gaps are very close but slightly larger by visual reading."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Do the 'Uniform' bars exhibit a consistent ordering pattern across all datasets for each quantization bit category?",
+      "answer": "Yes",
+      "answer_type": "categorical",
+      "reasoning": "For every quantization bit (3, 4, 8, 16), the Uniform perplexity is highest on PTB, intermediate on WikiText, and lowest on C4 (PTB > WikiText > C4), so the cross-dataset ordering is consistent."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_026",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_003",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all stages are the shortest within their respective stage?",
+      "answer": "3",
+      "answer_type": "exact",
+      "reasoning": "In each of Stage 1, Stage 2, and Stage 3, the yellow patch-attention bar is the lowest among the four modules, so there is one shortest bar per stage (3 total)."
+    },
+    {
+      "category": "computation",
+      "question": "What is the percentage difference in Giga FLOPs between 'grouped attention (g=3)' and 'patch attention (k=3)' in Stage 2?",
+      "answer": "~14%",
+      "answer_type": "approximate",
+      "reasoning": "From Stage 2, grouped attention is about 0.12 GFLOPs and patch attention about 0.105 GFLOPs. Difference \u2248 0.12-0.105=0.015. Percentage difference relative to patch \u2248 (0.015/0.105)*100 \u2248 14%. (Estimated from the axis gridlines.)"
+    },
+    {
+      "category": "comparison",
+      "question": "Is the Giga FLOPs value of 'attention' in Stage 1 more than twice the value of 'attention' in Stage 2?",
+      "answer": "No",
+      "answer_type": "exact",
+      "reasoning": "Attention is ~0.28 in Stage 1 and ~0.16 in Stage 2. Twice Stage 2 is ~0.32, and 0.28 is less than 0.32, so it is not more than twice."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Across all stages, does the ordering of bar heights for the modules remain consistent, or does it change?",
+      "answer": "It changes",
+      "answer_type": "categorical",
+      "reasoning": "Stage 1 has attention as tallest and patch attention as shortest; Stage 2 still has attention tallest but feed-forward exceeds grouped attention; Stage 3 has feed-forward tallest. So the within-stage ranking is not consistent across stages."
+    }
+  ]
+}

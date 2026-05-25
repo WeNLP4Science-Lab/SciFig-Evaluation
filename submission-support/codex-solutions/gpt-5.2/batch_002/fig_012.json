@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_012",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_002",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars have a 'Search' segment taller than 2 seconds?",
+      "answer": 0,
+      "answer_type": "exact",
+      "reasoning": "The dark-navy 'Search' segments are ~1.8 sec (Avg.), ~1.3 sec (50%), ~1.6 sec (75%), and ~2.0 sec (90%). None clearly exceed (are taller than) 2 seconds; the 90% Search segment is about at the 2-second mark, not above it."
+    },
+    {
+      "category": "computation",
+      "question": "What is the total time for all components in the '75%' category, and how does it compare as a percentage to the total time in the 'Avg.' category?",
+      "answer": "~5.4 sec total; ~102% of Avg.",
+      "answer_type": "approximate",
+      "reasoning": "Visually summing the 75% stacked bar: Search ~1.6 + Fetch ~2.6 + Extract ~0.3 + Retrieval ~0.9 \u2248 5.4 sec. Avg. total is ~1.8 + ~2.3 + ~0.3 + ~0.9 \u2248 5.3 sec. Percentage \u2248 (5.4/5.3)*100 \u2248 102% (very similar totals)."
+    },
+    {
+      "category": "comparison",
+      "question": "Is the total height of the 'Search' segment in '90%' more than twice the height of the 'Search' segment in 'Avg.'?",
+      "answer": "No",
+      "answer_type": "exact",
+      "reasoning": "Search (dark-navy) is ~2.0 sec in 90% versus ~1.8 sec in Avg. Twice the Avg Search would be ~3.6 sec, which is greater than ~2.0 sec, so it is not more than twice."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Does the distribution of time across the four components ('Search,' 'Fetch,' 'Extract,' and 'Retrieval') remain consistent across all categories ('Avg.,' '50%,' '75%,' and '90%')?",
+      "answer": "No",
+      "answer_type": "categorical",
+      "reasoning": "The segment proportions shift: the 90% bar is dominated by a much larger Fetch segment (and a larger Retrieval top) compared with Avg./50%/75%, while 50% has a smaller overall stack with relatively smaller top segments. This indicates the component distribution is not consistent across categories."
+    }
+  ]
+}

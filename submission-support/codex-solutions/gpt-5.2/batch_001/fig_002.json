@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_002",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_001",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all datasets have an F1 Score above 90%?",
+      "answer": "10",
+      "answer_type": "approximate",
+      "reasoning": "Using the 90% gridline as reference: SMD has 4 bars above 90%; PSM has 3 (all except the blue bar); SWaT has 2 (green and purple are just above 90%); SMAP has 1 (green only); MSL and WADI have 0. Total = 4+3+2+1 = 10 bars (SWaT purple is close to the 90% line, so this count has slight uncertainty)."
+    },
+    {
+      "category": "computation",
+      "question": "What is the average F1 Score across all datasets for the 'MADLLM w/o prompt pool' configuration?",
+      "answer": "about 76%",
+      "answer_type": "approximate",
+      "reasoning": "Estimate the blue bars (w/o prompt pool) from the y-axis: SMD ~92, PSM ~77, SWaT ~83, SMAP ~69, MSL ~70, WADI ~64. Average ≈ (92+77+83+69+70+64)/6 = 455/6 ≈ 75.8%."
+    },
+    {
+      "category": "comparison",
+      "question": "For the SMAP dataset, is the height of the green (MADLLM) bar more than twice the height of the orange (MADLLM w/o skip embedding) bar?",
+      "answer": "No",
+      "answer_type": "categorical",
+      "reasoning": "On SMAP, the green bar is ~93% while the orange bar is ~67%. Twice the orange would be ~134%, which is far above the green bar, so it is not more than double."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Do any datasets exhibit a bimodal distribution of F1 Scores, where two configurations have significantly higher scores than the other two?",
+      "answer": "Yes (SWaT)",
+      "answer_type": "categorical",
+      "reasoning": "SWaT shows two higher scores (green and purple around ~91%) and two clearly lower scores (blue/orange around the mid-80s), creating a visible two-tier split compared with the tighter clusters in SMD or the single standout in SMAP."
+    }
+  ]
+}

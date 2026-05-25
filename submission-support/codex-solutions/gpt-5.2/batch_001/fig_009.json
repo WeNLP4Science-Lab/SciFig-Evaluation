@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_009",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_001",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all categories have a CoLeG-R value above 80%?",
+      "answer": "7",
+      "answer_type": "approximate",
+      "reasoning": "Bars clearly above 80% are: for LLaMA-2-7B, the +SFT on D0,D1 (~80.5) and +SFT on D0,D1,D2 (~83.5) (2 bars); for LLaMA-2-13B, +SFT on D0,D1 (~84.5) (1 bar); for LLaMA-2-70B, all four conditions are above 80 (~81, ~82, ~84.5, ~83.5) (4 bars). Total = 2+1+4 = 7 (the 13B +SFT on D0,D1,D2 bar sits around 80%, not clearly above)."
+    },
+    {
+      "category": "computation",
+      "question": "What is the average CoLeG-R (%) performance across all conditions for the LLAMA-2-13B model?",
+      "answer": "about 77%",
+      "answer_type": "approximate",
+      "reasoning": "Estimate LLaMA-2-13B bars as ~70 (no SFT), ~74 (+SFT on D0), ~84.5 (+SFT on D0,D1), and ~80 (+SFT on D0,D1,D2). Average ≈ (70 + 74 + 84.5 + 80) / 4 = 308.5 / 4 ≈ 77.1%."
+    },
+    {
+      "category": "comparison",
+      "question": "Which model and condition pair has the smallest difference in CoLeG-R (%) between the 'no SFT' and '+ SFT on D₀' conditions?",
+      "answer": "LLaMA-2-7B (difference ~0 percentage points)",
+      "answer_type": "approximate",
+      "reasoning": "For LLaMA-2-7B, the 'no SFT' and '+ SFT on D0' bars are essentially the same height (~66.5 vs ~66.5), smaller than the gaps for 13B (~4 points) and 70B (~1 point)."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "For the '+ SFT on D₀, D₁, D₂' condition, is the performance distribution across models symmetric or asymmetric?",
+      "answer": "Approximately symmetric",
+      "answer_type": "categorical",
+      "reasoning": "Under '+ SFT on D0,D1,D2', 7B and 70B are both around ~83.5%, while 13B is lower around ~80%. With the ends similar and the middle lower, the distribution is roughly symmetric (U-shaped)."
+    }
+  ]
+}

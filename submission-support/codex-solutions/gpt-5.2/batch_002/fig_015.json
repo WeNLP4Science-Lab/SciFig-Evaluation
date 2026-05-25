@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_015",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_002",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars have a ROUGE score greater than 20?",
+      "answer": "5",
+      "answer_type": "exact",
+      "reasoning": "Bars above 20 are ROUGE-1 at 500 (21.1), 1000 (38.3), 2000 (41.2), plus ROUGE-L at 1000 (30.7) and 2000 (33.4). All ROUGE-2 bars are <=19.1."
+    },
+    {
+      "category": "computation",
+      "question": "What is the percentage increase in the ROUGE-1 score from 100 diffusion steps to 2000 diffusion steps?",
+      "answer": "554%",
+      "answer_type": "approximate",
+      "reasoning": "Using the labeled ROUGE-1 values: 6.3 (100 steps) and 41.2 (2000 steps). Percent increase = ((41.2-6.3)/6.3)*100 = (34.9/6.3)*100 \u2248 554%."
+    },
+    {
+      "category": "comparison",
+      "question": "Between diffusion steps 1000 and 2000, which ROUGE score (ROUGE-1, ROUGE-2, or ROUGE-L) shows the smallest increase in value?",
+      "answer": "ROUGE-2",
+      "answer_type": "exact",
+      "reasoning": "From the labels: ROUGE-1 increases 41.2-38.3=2.9, ROUGE-2 increases 19.1-16.5=2.6, and ROUGE-L increases 33.4-30.7=2.7. The smallest increase is ROUGE-2 (2.6)."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Is the gap between ROUGE-1 and ROUGE-L scores largest at 1000 diffusion steps compared to other steps?",
+      "answer": "No",
+      "answer_type": "categorical",
+      "reasoning": "Compute ROUGE-1 minus ROUGE-L at each step (from labels): 100: 6.3-3.0=3.3; 250: 11.6-8.3=3.3; 500: 21.1-15.9=5.2; 1000: 38.3-30.7=7.6; 2000: 41.2-33.4=7.8. The largest gap is at 2000, not 1000."
+    }
+  ]
+}

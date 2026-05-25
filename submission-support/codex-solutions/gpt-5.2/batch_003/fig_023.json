@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_023",
+  "figure_type": "Bar Chart",
+  "model": "gpt-5.2",
+  "batch": "batch_003",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all categories have a negative log probability below -25?",
+      "answer": "8",
+      "answer_type": "exact",
+      "reasoning": "Only the Cardio group shows all 7 bars extending below the -25 tick (base plus all six fine-tunes are around -25.6 to -26.7). Outside Cardio, the only bar below -25 is the Neuro MistralV0.2-Base bar (around -25.3). All other bars stay above -25. Total = 7 + 1 = 8."
+    },
+    {
+      "category": "computation",
+      "question": "What is the percentage difference between the tallest bar (MistralV0.2-Base) and the shortest bar in the 'Infect' category?",
+      "answer": "~1.7%",
+      "answer_type": "approximate",
+      "reasoning": "In the Infect group, MistralV0.2-Base is about -23.8 and the most negative (shortest on the axis) fine-tuned bar is about -24.2. Absolute difference \u2248 |-23.8 - (-24.2)| = 0.4. Percentage difference relative to |shortest|: (0.4/24.2)*100 \u2248 1.65% (~1.7%). (Estimated from the y-axis ticks.)"
+    },
+    {
+      "category": "comparison",
+      "question": "In the 'Pediatrics' group, is the negative log probability of the MistralV0.2-Base bar more than twice the value of the Pediatrics (dark brown) bar?",
+      "answer": "No",
+      "answer_type": "exact",
+      "reasoning": "Pediatrics: MistralV0.2-Base is around -24.7 and the Pediatrics fine-tuned (dark brown) bar is around -24.0. Twice the dark-brown value would be about -48, which is far more negative; the base bar is not more than double in that sense."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Is there a consistent ordering pattern in the heights of the bars across all specialty groups, excluding the MistralV0.2-Base bars?",
+      "answer": "No",
+      "answer_type": "categorical",
+      "reasoning": "The fine-tuned bar ordering changes by specialty: e.g., in Cardio many fine-tunes cluster around -25.6 to -26.0, while in Infect they cluster near -23.0 to -23.2 and the relative ordering of shades differs from other groups. So there is no single consistent rank order across all groups."
+    }
+  ]
+}
