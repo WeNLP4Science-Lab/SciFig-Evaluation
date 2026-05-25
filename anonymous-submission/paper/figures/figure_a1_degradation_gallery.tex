@@ -1,60 +1,61 @@
 \clearpage
-\makeatletter
-\setlength{\@fptop}{0pt}
-\makeatother
-\begin{figure*}[p!]
-  \centering
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/figures/fig_042.png}
-    \caption{Clean}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/transforms/noise/fig_042.png}
-    \caption{Gaussian noise}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/transforms/low_contrast/fig_042.png}
-    \caption{Low contrast}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/transforms/rotation/fig_042.png}
-    \caption{Rotation}
-  \end{subfigure}
+\begin{nolinenumbers}
+\begingroup
+\newcommand{\galleryimage}[4]{%
+  \begin{tcolorbox}[
+    enhanced,
+    height=0.238\textheight,
+    valign=center,
+    boxsep=0.8mm,
+    left=0.7mm,
+    right=0.7mm,
+    top=0.7mm,
+    bottom=0.7mm,
+    colback=white,
+    colframe=black!55,
+    sharp corners,
+    arc=0pt,
+    before upper={\centering},
+    overlay={%
+      \draw[step=4mm, black!7, line width=0.2pt]
+        (interior.south west) grid (interior.north east);
+    }
+  ]
+    \includegraphics[width=\linewidth,height=0.188\textheight,keepaspectratio]{#2}\par
+    \vspace{0.15em}
+    {\scriptsize\textbf{#1} #3}\par
+    {\tiny\color{black!55} #4}
+  \end{tcolorbox}%
+}
 
-  \vspace{0.65em}
+\begin{center}
+{\large\bfseries Representative Visual Conditions for Figure 042}\par
+\vspace{0.15em}
+{\small Clean, transformed, page-context, caption-bias, and selective-blur variants.}\par
+\vspace{0.3em}
 
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/transforms/in_paper/fig_042.png}
-    \caption{In paper}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/transforms/in_paper_blur/fig_042.png}
-    \caption{In-paper blur}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/adversarial/admittance/fig_042.png}
-    \caption{Admittance blur}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{0.24\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{../dataset/adversarial/inductance/fig_042.png}
-    \caption{Inductance blur}
-  \end{subfigure}
+\begin{tcbraster}[
+  raster columns=3,
+  raster equal height=rows,
+  raster column skip=2.2mm,
+  raster row skip=2.2mm,
+  raster force size=false
+]
+\galleryimage{(a)}{../dataset/figures/fig_042.png}{Clean}{Reference figure}
+\galleryimage{(b)}{../dataset/transforms/noise/fig_042.png}{Gaussian noise}{$\sigma=25$}
+\galleryimage{(c)}{../dataset/transforms/low_contrast/fig_042.png}{Low contrast}{Reduced contrast}
+\galleryimage{(d)}{../dataset/transforms/rotation/fig_042.png}{Rotation}{15-degree tilt}
+\galleryimage{(e)}{../dataset/transforms/in_paper/fig_042.png}{In paper}{Rendered source page}
+\galleryimage{(f)}{../dataset/transforms/in_paper_blur/fig_042.png}{In-paper blur}{Figure region blurred}
+\galleryimage{(g)}{figures/fig_042_caption_bias.pdf}{Caption bias}{Misleading caption}
+\galleryimage{(h)}{../dataset/adversarial/admittance/fig_042.png}{Admittance blur}{Unrecoverable element}
+\galleryimage{(i)}{../dataset/adversarial/inductance/fig_042.png}{Inductance blur}{Inferable element}
+\end{tcbraster}
 
-  \caption{Representative visual conditions for Figure~042. The first row shows the clean figure and direct perceptual transformations. The second row shows document-context and selective-blur conditions. Admittance blur removes information intended to be unrecoverable; inductance blur removes information selected to remain inferable from context.}
-  \label{fig:appendix-degradation-gallery}
-\end{figure*}
+\vspace{0.2em}
+\captionof{figure}{Representative visual conditions for Figure~042. The grid shows the clean figure, direct perceptual transformations, page-context variants, caption-bias context, and selective-blur conditions.}
+\label{fig:appendix-degradation-gallery}
+\end{center}
+\endgroup
+\end{nolinenumbers}
 \clearpage

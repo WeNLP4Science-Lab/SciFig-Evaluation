@@ -1,6 +1,6 @@
 """Generate Figure 5: Cross-dimensional micro-scatter grid.
 
-2x3 grid: rows = (MQM, Capability), cols = (Admittance, Resistance, Inductance)
+3x2 grid: rows = (Admittance, Resistance, Inductance), cols = (MQM, Capability)
 Each model has consistent color + marker identity.
 
 Output: paper/figures/figure5_scatter.pdf
@@ -21,7 +21,7 @@ from model_identity import MODEL_IDENTITY, MODEL_ORDER
 STATS_PATH = Path(__file__).resolve().parents[2] / "results" / "statistics" / "all_statistics.json"
 OUT_PATH = Path(__file__).resolve().parents[2] / "paper" / "figures" / "figure5_scatter.pdf"
 
-# Capability scores from thesis (placeholder)
+# Capability scores from thesis
 CAPABILITY_SCORES = {
     "gpt-5.2": 78.4,
     "gemini-3.1-pro": 81.0,
@@ -80,21 +80,22 @@ def load_data():
 
 
 def create_figure(data):
-    fig, axes = plt.subplots(2, 3, figsize=(7.2, 4.2), constrained_layout=True)
+    fig, axes = plt.subplots(3, 2, figsize=(3.4, 5.0), constrained_layout=True)
 
-    x_dims = [
-        ("mqm", "MQM Score"),
-        ("capability", "Capability (%)"),
-    ]
-    y_dims = [
+    # Rows = behavioural dimensions, Cols = quality dimensions
+    rows = [
         ("admittance", "Admittance (%)"),
         ("resistance", "Resistance"),
         ("inductance", "Inductance (%)"),
     ]
+    cols = [
+        ("mqm", "MQM Score"),
+        ("capability", "Capability (%)"),
+    ]
 
-    for row, (x_key, x_label) in enumerate(x_dims):
-        for col, (y_key, y_label) in enumerate(y_dims):
-            ax = axes[row, col]
+    for row_i, (y_key, y_label) in enumerate(rows):
+        for col_i, (x_key, x_label) in enumerate(cols):
+            ax = axes[row_i, col_i]
 
             for mid in MODEL_ORDER:
                 d = data[mid]
@@ -106,7 +107,7 @@ def create_figure(data):
                     ax.scatter(x_val, y_val,
                               color=info["color"],
                               marker=info["marker"],
-                              s=65, zorder=3, edgecolors="white", linewidth=0.5)
+                              s=50, zorder=3, edgecolors="white", linewidth=0.4)
 
             # Diagonal guide
             xlim = ax.get_xlim()
@@ -115,26 +116,27 @@ def create_figure(data):
             ax.set_xlim(xlim)
             ax.set_ylim(ylim)
 
-            ax.set_xlabel(x_label, fontsize=6.5)
-            ax.set_ylabel(y_label, fontsize=6.5)
-            ax.tick_params(labelsize=5.5)
+            if row_i == 2:
+                ax.set_xlabel(x_label, fontsize=7)
+            ax.set_ylabel(y_label, fontsize=7) if col_i == 0 else None
+            ax.tick_params(labelsize=6)
             ax.spines["top"].set_visible(False)
             ax.spines["right"].set_visible(False)
             ax.grid(alpha=0.1)
 
-    # Legend
+    # Legend at bottom
     legend_elements = []
     for mid in MODEL_ORDER:
         info = MODEL_IDENTITY[mid]
         legend_elements.append(
             Line2D([0], [0], marker=info["marker"], color="w",
-                   markerfacecolor=info["color"], markersize=6,
+                   markerfacecolor=info["color"], markersize=5.5,
                    label=info["label"], markeredgecolor="white", markeredgewidth=0.3)
         )
 
     fig.legend(handles=legend_elements, loc="lower center",
-              ncol=4, fontsize=6, frameon=False,
-              bbox_to_anchor=(0.5, -0.06))
+              ncol=4, fontsize=5.5, frameon=False,
+              bbox_to_anchor=(0.5, -0.05))
 
     fig.savefig(str(OUT_PATH), dpi=300, bbox_inches="tight")
     print(f"Saved to {OUT_PATH}")
