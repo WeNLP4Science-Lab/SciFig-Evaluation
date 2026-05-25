@@ -108,9 +108,8 @@ def load_data():
 
 def create_figure(data):
     """Create the two-panel degradation figure."""
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(7.2, 5.5),
-                                     gridspec_kw={"height_ratios": [2.2, 1]},
-                                     constrained_layout=True)
+    fig, ax1 = plt.subplots(1, 1, figsize=(7.2, 3.0),
+                            constrained_layout=True)
 
     x_labels = ["Baseline\n(+cap.)"] + [cl for _, cl in CONDITIONS]
     x = np.arange(len(x_labels))
@@ -148,51 +147,7 @@ def create_figure(data):
     ax1.spines["top"].set_visible(False)
     ax1.spines["right"].set_visible(False)
     ax1.grid(axis="y", alpha=0.2)
-    ax1.set_title("(a) MQM across evaluation conditions", fontsize=9, pad=8, loc="left")
-
-    # ── Panel (b): Delta heatmap ──
-    model_names = [m[1] for m in MODELS]
-    cond_labels = [cl.replace("\n", " ") for _, cl in CONDITIONS]
-
-    # Compute deltas
-    delta_matrix = []
-    for model_id, model_name in MODELS:
-        baseline = data[model_id]["baseline"]
-        deltas = []
-        for i, (cond_id, cond_label) in enumerate(CONDITIONS):
-            score = data[model_id]["scores"][i + 1]  # +1 because scores[0] is baseline
-            deltas.append(score - baseline)
-        delta_matrix.append(deltas)
-
-    delta_matrix = np.array(delta_matrix)
-
-    # Heatmap
-    vmax = max(abs(delta_matrix.min()), abs(delta_matrix.max()))
-    im = ax2.imshow(delta_matrix, cmap="RdYlGn", aspect="auto",
-                    vmin=-80, vmax=10)
-
-    # Cell values
-    for i in range(len(MODELS)):
-        for j in range(len(CONDITIONS)):
-            val = delta_matrix[i, j]
-            color = "white" if abs(val) > 40 else "black"
-            ax2.text(j, i, f"{val:+.0f}", ha="center", va="center",
-                    fontsize=6, color=color, fontweight="bold" if abs(val) > 20 else "normal")
-
-    ax2.set_xticks(range(len(CONDITIONS)))
-    ax2.set_xticklabels(cond_labels, fontsize=6.5, rotation=30, ha="right")
-    ax2.set_yticks(range(len(MODELS)))
-    ax2.set_yticklabels(model_names, fontsize=7)
-    ax2.set_title("(b) MQM change from baseline (matched figures)", fontsize=9, pad=6, loc="left")
-
-    # Group separators on heatmap
-    for gb in GROUP_BOUNDARIES:
-        ax2.axvline(gb - 0.5 + 0.5, color="white", linewidth=1.5)
-
-    # Colorbar
-    cbar = fig.colorbar(im, ax=ax2, shrink=0.8, pad=0.02)
-    cbar.ax.tick_params(labelsize=6)
-    cbar.set_label("ΔMQM", fontsize=7)
+    ax1.set_title("MQM across evaluation conditions", fontsize=9, pad=8, loc="left")
 
     fig.savefig(str(OUT_PATH), dpi=300, bbox_inches="tight")
     print(f"Saved to {OUT_PATH}")

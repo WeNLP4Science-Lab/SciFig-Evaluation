@@ -2,45 +2,29 @@
 \section{Benchmark and Evaluation Framework}
 \label{sec:framework}
 
-\textsc{SciFig-Eval} evaluates VLMs on scientific figures along three dimensions: \emph{perception}, \emph{reasoning}, and \emph{behaviour}. Perception asks whether a model can produce an accurate open-ended description of a figure. Reasoning asks whether it can answer targeted analytical questions about the visual evidence. Behaviour asks how it acts when the visual evidence is degraded, incomplete, or contradicted by misleading context. The benchmark comprises 250 English-language scientific figures from 187 arXiv papers, spanning bar charts (99), line plots (99), and pie charts (52). Each figure is paired with structured expert annotations of axes, data series, labels, colour mappings, and trends.
+\textsc{SciFig-Eval} evaluates VLMs on scientific figures along three dimensions: \emph{perception}, whether a model accurately describes a figure; \emph{reasoning}, whether it answers targeted analytical questions about the visual evidence; and \emph{behaviour}, how it acts when evidence is degraded, incomplete, or contradicted by misleading context. The benchmark comprises 250 English-language figures from 187 arXiv papers, spanning bar charts (99), line plots (99), and pie charts (52), each paired with expert annotations of axes, data series, labels, colour mappings, and trends.
 
-The evaluation is organised by crossing two task formats with two evidence conditions (Table~\ref{tab:eval-matrix}). Standard conditions measure what models can perceive and reason about when the figure is clean. Adversarial conditions measure whether models remain reliable when the image or surrounding context becomes unreliable. Across eight models, these conditions yield more than 23,000 model-output evaluations.
-
-\begin{table}[t]
-\centering
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lp{2.8cm}p{2.85cm}@{}}
-\toprule
- & \textbf{Standard} & \textbf{Adversarial} \\
-\midrule
-\textbf{Description} & MQM-scored figure descriptions & Visual transforms, page context, caption bias, passive blur probes \\
-\textbf{Reasoning} & Capability questions & Resistance probes, active blur probes \\
-\bottomrule
-\end{tabular}
-\caption{The evaluation matrix for \textsc{SciFig-Eval}. Standard cells evaluate perception and reasoning under clean conditions. Adversarial cells evaluate behaviour under degraded visual evidence and misleading context.}
-\label{tab:eval-matrix}
-\end{table}
+We cross two task formats, open-ended description and targeted reasoning, with clean and adversarial evidence conditions. Standard conditions measure perception and reasoning on clean figures; adversarial conditions measure reliability when the image or surrounding context becomes unreliable. Across eight models, these conditions yield more than 23,000 model-output evaluations.
 
 \subsection{Standard Evaluation}
 \label{sec:mqm}
 
 \paragraph{Perception.}
-Models first produce open-ended descriptions of each figure. We score these descriptions with a checklist-based adaptation of Multidimensional Quality Metrics (MQM), using chart-type-specific checklists for bar charts, line plots, and pie charts. The judge assesses coverage and correctness for each checklist item, scans for global constraint violations, and a rule-based engine maps these judgments to Accuracy, Completeness, and Clarity penalties. Binding verification checks value-label-colour correspondences so that a model is penalised not only for naming visible elements, but also for binding them to the wrong visual evidence. Details of checklist construction, severity weights, penalty computation, and human validation appear in Appendix~\ref{sec:mqm-details} and Appendix~\ref{sec:appendix-mqm-pipeline}.
+Models first produce open-ended descriptions of each figure. We score them with a checklist-based adaptation of Multidimensional Quality Metrics (MQM), using chart-type-specific checklists for bar charts, line plots, and pie charts. The judge assesses coverage and correctness, scans for global constraint violations, and a rule engine maps judgments to Accuracy, Completeness, and Clarity penalties. Binding verification checks value-label-colour correspondences so that models are penalised for binding visible elements to the wrong evidence. Details appear in Appendix~\ref{sec:mqm-details} and Appendix~\ref{sec:appendix-mqm-pipeline}.
 
 \paragraph{Reasoning.}
-Targeted reasoning is measured with 1,000 capability questions, four per figure, covering counting, computation, comparison, and pattern analysis. Candidate questions are generated from the figure image and expert annotation, validated by a separate model, and filtered to one accepted question per category. This gives a controlled reasoning set whose answers are grounded in the same annotated figures used for perception evaluation. Full generation, validation, and filtering details appear in Appendix~\ref{sec:appendix-capability-pipeline}.
+Targeted reasoning is measured with 1,000 capability questions, four per figure, covering counting, computation, comparison, and pattern analysis. Candidate questions are generated from the figure image and expert annotation, validated by a separate model, and filtered to one accepted question per category. Full details appear in Appendix~\ref{sec:appendix-capability-pipeline}.
 
 \subsection{Behavioural Probes}
 \label{sec:caption-bias}
 \label{sec:resistance}
 
-Behavioural evaluation uses five probe families. Visual transforms test robustness to low contrast, Gaussian noise, rotation, full-page context, and full-page figure blur. Caption-bias probes pair 100 figures with modified captions containing 2--3 plausible but false claims, testing whether models follow text over visual evidence. Resistance probes test 250 figures with three false-premise questions each: non-existent chart elements, contradictory numerical premises, and questions that cannot be answered from the chart. Selective-blur admittance probes obscure unrecoverable elements in 50 figures, while selective-blur inductance probes obscure contextually inferable elements in 48 figures. The main results report aggregate behaviour; probe construction, prompt templates, scoring rubrics, and validation procedures are documented in Appendix~\ref{sec:probe-taxonomy}, Appendix~\ref{sec:dataset-details}, and Appendix~\ref{sec:appendix-eval-pipelines}.
+Behavioural evaluation uses five probe families. Visual transforms test robustness to low contrast, Gaussian noise, rotation, full-page context, and full-page figure blur. Caption-bias probes pair 100 figures with modified captions containing 2--3 plausible but false claims. Resistance probes test 250 figures with non-existent chart elements, contradictory numerical premises, and unanswerable questions. Selective-blur admittance probes obscure unrecoverable elements in 50 figures, while inductance probes obscure contextually inferable elements in 48 figures. Construction details and rubrics appear in Appendix~\ref{sec:probe-taxonomy}, Appendix~\ref{sec:dataset-details}, and Appendix~\ref{sec:appendix-eval-pipelines}.
 
 \subsection{The A-R-I Behavioural Framework}
 \label{sec:ari}
 
-The behavioural probes are unified by the Admittance--Resistance--Inductance (A-R-I) framework. A-R-I is designed to separate three behaviours that can be conflated by ordinary accuracy metrics.
+The behavioural probes are unified by the Admittance--Resistance--Inductance (A-R-I) framework, which separates behaviours that ordinary accuracy metrics conflate.
 
 \paragraph{Admittance} measures epistemic honesty under visual uncertainty. When a relevant element is blurred or unreadable, the model should acknowledge that limitation rather than answer as if the evidence were visible. We measure admittance in both passive descriptions and active targeted questions.
 
