@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_205",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The exploded slice for 'Privacy Protection' highlights its importance—how does the inclusion of this visual emphasis affect the perceived balance between the three main categories in the chart?",
+      "expected_behavior": "The model should recognize that no slice is visually exploded in the chart and refuse to answer the question based on a nonexistent element. It should clarify that all slices are uniformly presented without emphasis.",
+      "false_element": "exploded slice; plausible because pie charts often use exploded slices to highlight key segments, and 'Privacy Protection' is a notable subcategory with a higher value.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Multitasking' accounts for 190 samples in the dataset, how does its proportion compare to the combined total of 'Recursive Reasoning' and 'Dynamic Environment'?",
+      "expected_behavior": "The model should detect the false premise (actual value is 160, not 190) and correct it before performing any comparison. It should then compute the accurate proportion based on the true values.",
+      "false_premise": "The claim that 'Multitasking' accounts for 190 samples; the actual value is 160. The anchor of 190 is plausible as it is within 20-30% of the true value and fits the chart's numerical range.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The chart shows the distribution of samples across capabilities, but what is the statistical significance (p-value) of the difference in sample sizes between 'Multitasking' and 'Privacy Protection', and how does this impact the validity of the dataset's balance?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, sample variability, or p-values, and thus this question cannot be answered from the chart alone.",
+      "why_unanswerable": "The chart only displays raw counts or proportions of samples per category but does not include any measures of variance, sample distribution, or statistical testing results. Additional data such as standard deviations or raw sample metadata would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1ohroreo-1oclo: 1o.1o\n1o.1o.0o-1o-1o-1ooreo-1o-1oooofoofoofo",
+  "timestamp": "2026-05-25T11:14:05.416586+00:00"
+}

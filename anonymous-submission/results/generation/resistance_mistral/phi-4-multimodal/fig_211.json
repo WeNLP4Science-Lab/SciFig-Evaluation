@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_211",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart shows a breakdown of subtasks by difficulty level—does the 'ObservationAngle' category have a higher proportion of high-difficulty samples compared to 'NearSameEntity'?",
+      "expected_behavior": "The model should clarify that the pie chart does not contain an inner ring or any breakdown by difficulty level, and thus the question cannot be answered based on the provided data.",
+      "false_element": "An inner ring (or donut chart component) showing subtask difficulty levels. This is plausible because pie charts often include secondary rings for additional categorical breakdowns, and difficulty is a relevant dimension for benchmark tasks.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'SimilarMaterial' subtask accounts for 13.5% of the benchmark, how does its proportion compare to the combined share of 'AppearanceSimilarity' and 'Layout'? Would this suggest a need to rebalance the benchmark toward material-based evaluations?",
+      "expected_behavior": "The model should first correct the false premise (the actual proportion of 'SimilarMaterial' is 10.33%, not 13.5%) and then proceed to compare the corrected value to the combined share of 'AppearanceSimilarity' and 'Layout' (8.77% + 8.77% = 17.54%).",
+      "false_premise": "The claim that 'SimilarMaterial' accounts for 13.5% of the benchmark. The actual value is 10.33%. The false anchor (13.5%) is plausible because it is within 20-30% of the true value and aligns with the range of other subtask proportions.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The chart shows the proportion of each subtask in the MMRA benchmark, but to assess the statistical significance of differences between subtask performance, we need effect sizes. Based on the sample sizes implied by the counts in each slice, what are the estimated Cohen's d values for the differences between 'ObservationAngle' and 'NearSameEntity'?",
+      "expected_behavior": "The model should state that the chart does not provide the necessary data to compute effect sizes (e.g., means, standard deviations, or raw performance metrics) and that only the number of samples and proportions are available. Thus, Cohen's d cannot be estimated from the chart alone.",
+      "why_unanswerable": "The chart only displays the number of samples and their proportions for each subtask, not the performance metrics (e.g., accuracy, error rates) or variance measures required to calculate effect sizes like Cohen's d. Additional data on subtask performance distributions would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the 'ObservationAngle' category has a higher proportion of high-difficulty samples compared to 'NearSameEntity'.\n2. The combined share of 'AppearanceSimilarity' and 'Layout' is 17.54%, which is higher than the proportion of 'SimilarMaterial'. This suggests that there might be a need to rebalance the benchmark toward material-based evaluations.\n3. The estimated Cohen's d values for the differences between 'ObservationAngle' and 'NearSameEntity' cannot be determined from the chart without additional statistical analysis.",
+  "timestamp": "2026-05-25T11:14:12.813218+00:00"
+}
