@@ -1,0 +1,51 @@
+\section{API Configuration and Reproducibility}
+\label{sec:appendix-reproducibility}
+
+All experiments use deterministic decoding (\texttt{temperature\,=\,0}) and a fixed random seed of 42 for any sampling operations (e.g., A/B ordering randomisation in the caption-bias judge). This section documents the exact model identifiers, backends, and API settings used throughout the evaluation.
+
+\subsection{Judge Model}
+
+All automated evaluation (MQM scoring, caption-bias judgement, resistance probe assessment, and selective-blur probe judgement) uses \textbf{GPT-4o} deployed on Azure OpenAI (East US 2 region), API version \texttt{2024-12-01-preview}.
+
+\subsection{Evaluated Models}
+
+Table~\ref{tab:model-config} lists the eight VLMs evaluated, with their routing backend and model identifier.
+
+\begin{table}[h!]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Display name} & \textbf{Backend} & \textbf{Model ID} \\
+\midrule
+Gemini 3.1 Pro     & OpenRouter & \texttt{google/gemini-3.1-pro-preview} \\
+GPT-5.2            & Azure      & \texttt{gpt-5-2} \\
+Llama 4 Maverick   & OpenRouter & \texttt{meta-llama/llama-4-maverick-17b-128e-instruct} \\
+Qwen3-VL 235B      & OpenRouter & \texttt{qwen/qwen3-vl-235b-a22b-instruct} \\
+Qwen3-VL 30B       & OpenRouter & \texttt{qwen/qwen3-vl-30b-a3b-instruct} \\
+Qwen3-VL 8B        & OpenRouter & \texttt{qwen/qwen3-vl-8b-instruct} \\
+Gemma 3 27B IT     & OpenRouter & \texttt{google/gemma-3-27b-it} \\
+Phi-4 Multimodal   & Azure      & \texttt{phi-4-multimodal} \\
+\bottomrule
+\end{tabular}
+\caption{Model configurations. Azure models are accessed via the Azure OpenAI service (East US 2 region). OpenRouter models are accessed via \texttt{https://openrouter.ai/api/v1}.}
+\label{tab:model-config}
+\end{table}
+
+\subsection{Generation Parameters}
+
+\begin{itemize}[nosep]
+  \item \textbf{Temperature} = 0 for all API calls (generation and evaluation).
+  \item \textbf{Max tokens} = 2{,}048 (default); Gemini 3.1 Pro uses 16{,}000 to accommodate longer outputs.
+  \item \textbf{Random seed} = 42 for all sampling operations (e.g., A/B ordering in caption-bias evaluation).
+  \item \textbf{Azure API version} = \texttt{2024-12-01-preview}.
+\end{itemize}
+
+\subsection{Routing}
+
+GPT-5.2 and Phi-4 Multimodal are routed through Azure OpenAI. All other models (open-weight) are routed through OpenRouter. This split reflects cost optimisation, as Azure pricing is lower for the two proprietary models while OpenRouter provides convenient access to open-weight model APIs.
+
+\subsection{Data and Sampling}
+
+The evaluation dataset comprises 250 scientific figures sampled from arXiv publications across four languages (English, Bulgarian, Chinese, German). Figures were drawn from the larger 1{,}005-figure thesis dataset using stratified sampling to preserve the chart-type distribution. The random seed for this sampling was 42.

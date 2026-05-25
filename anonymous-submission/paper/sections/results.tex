@@ -2,7 +2,7 @@
 \section{Experiments and Results}
 \label{sec:results}
 
-We evaluate eight vision-language models across 250 scientific figures and over 14 experimental conditions, yielding more than 23,000 model-output evaluations. The central finding is that model rankings under perception, reasoning, and behavioural evaluation are not the same ranking. GPT-5.2 produces the highest-quality descriptions in our benchmark (MQM 91.6) yet fabricates answers for elements it cannot see 94\% of the time, with nothing in its output to distinguish the fabrication from genuine analysis.
+We evaluate eight vision-language models across 250 scientific figures and over 14 experimental conditions, yielding more than 23,000 model-output evaluations. The central finding is that model rankings under perception, reasoning, and behavioural evaluation are not the same ranking. GPT-5.2 produces the highest-quality descriptions in our benchmark (MQM 91.6) yet fabricates answers for elements it cannot see 98\% of the time, with nothing in its output to distinguish the fabrication from genuine analysis.
 
 \subsection{Models}
 \label{sec:models}
@@ -22,23 +22,27 @@ Rotation is the most damaging perceptual transform, causing an average MQM drop 
 Selectively blurring unrecoverable elements reduces MQM by roughly 8--10 points for top models, while blurring inferable elements produces smaller 1--3 point drops. GPT-5.2 scores 88.9 under inductance blur but 81.7 under admittance blur, showing that models behave differently when information is contextually recoverable versus simply gone.
 
 \paragraph{Caption bias on description quality.}
-Poisoned captions have little effect on MQM for resistant models: GPT-5.2 and Gemini both score 91.3 under modified captions, matching their baselines. Phi-4 remains low at 61.7, consistent with its near-zero caption-bias resistance ($R = 0.05$).
+Modified captions have little effect on MQM for resistant models: GPT-5.2 and Gemini both score 91.3 under modified captions, matching their baselines. Phi-4 remains low at 61.7, consistent with its near-zero caption-bias resistance ($R = 0.05$).
 
 \subsection{Reasoning}
 \label{sec:reasoning-results}
 
-Capability questions test targeted extraction of quantitative and relational information. Gemini leads overall, while GPT-5.2 is strongest on computation and pattern analysis (Table~\ref{tab:behavioral}). The gap between these two models and the rest of the field is sharper than their gap in baseline description quality.
+Capability questions test targeted extraction of quantitative and relational information from scientific figures (Table~\ref{tab:behavioral}). Gemini leads overall at 81.0\%, with GPT-5.2 second at 78.4\%. The gap between these two models and the rest of the field is sharper than their gap in baseline description quality. Phi-4 scores catastrophically low across all categories (8.6\% overall), and Gemma also underperforms at 27.2\%.
+
+The four question categories reveal complementary strengths. On counting, Gemini dominates at 89.2\% versus GPT-5.2 at 76.1\%, suggesting stronger visual enumeration. GPT-5.2 takes the lead on computation (82.8\% versus 79.4\%), where multi-step arithmetic from chart values is required. Comparison questions again favour Gemini (89.6\% versus 77.9\%), while pattern analysis is the closest category, with GPT-5.2 narrowly ahead (72.0\% versus 70.0\%).
+
+These per-category results reveal that reasoning ability is not monolithic. Gemini excels at tasks grounded in direct visual extraction (counting, comparison), while GPT-5.2 is strongest when the task demands derived numerical operations (computation) or higher-level trend interpretation (pattern analysis). Both models sharply outperform the remaining six, none of which exceed 53.4\% on any single category. The Qwen family shows modest gains with scale but remains well below the frontier pair on every reasoning dimension.
 
 \subsection{Behaviour}
 \label{sec:behaviour-results}
 
 Model rankings under behavioural evaluation diverge from quality rankings at precisely the points that matter for deployment. GPT-5.2 ranks first on description quality but falls to fourth on active admittance, while Gemini leads on nearly every behavioural dimension despite placing second on quality (Table~\ref{tab:behavioral}).
 
-\paragraph{Resistance to hallucination probes.}
+\paragraph{Resistance to false-premise probes.}
 Gemini achieves the highest overall resistance at 0.91 [0.89, 0.93], followed by GPT-5.2 at 0.81 [0.79, 0.84]. Phi-4 anchors the bottom at 0.21 [0.18, 0.24]. The Gemini--GPT-5.2 gap is significant ($p < 0.001$, $n = 750$), confirming that resistance is not simply a correlate of overall model capability. Probe difficulty follows a clear gradient: unanswerable probes are easiest to resist, inexist probes grounded in presupposition embedding are hardest, and contra probes with false numerical anchors fall between them.
 
 \paragraph{Caption bias resistance.}
-Models fall along a caption dependency spectrum from visual independence to textual dependency (Table~\ref{tab:behavioral}, Cap.\ Bias~R). Gemini and GPT-5.2 both reach 0.89 [0.85, 0.93], Llama~4 provides moderate resistance at 0.74, and Phi-4 echoes poisoned caption content over visual evidence in 95\% of cases. Within Qwen, caption resistance is non-monotonic, suggesting that active parameter count alone does not explain caption independence.
+Models fall along a caption dependency spectrum from visual independence to textual dependency (Table~\ref{tab:behavioral}, Cap.\ Bias~R). Gemini and GPT-5.2 both reach 0.89 [0.85, 0.93], Llama~4 provides moderate resistance at 0.74, and Phi-4 echoes modified caption content over visual evidence in 95\% of cases. Within Qwen, caption resistance is non-monotonic, suggesting that active parameter count alone does not explain caption independence.
 
 \paragraph{Active admittance and inductance.}
 Gemini is the only model that consistently acknowledges visual limitations, admitting uncertainty in 90\% of cases [82\%, 98\%] when asked about selectively blurred elements (Table~\ref{tab:behavioral}; Figure~\ref{fig:ari}). No other model exceeds 22\%. GPT-5.2 admits limitations only 6\% of the time while fabricating answers 98\% of the time, a ``confident fabricator'' profile in which high descriptive fluency coexists with low epistemic caution.

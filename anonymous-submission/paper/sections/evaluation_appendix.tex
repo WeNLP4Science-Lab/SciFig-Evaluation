@@ -23,7 +23,7 @@ Capability questions are generated in three stages. First, GPT-4o receives the f
 \subsection{Visual Transform and Page-Context Pipelines}
 \label{sec:appendix-transform-pipeline}
 
-We construct five transformed or page-context conditions beyond the clean image. Three are direct image transformations: Gaussian noise ($\sigma=25$), low contrast (alpha 0.3, beta 50), and 15-degree rotation with white fill. Two use the source paper page. For the in-paper condition, the source PDF page is rendered as an image and the target figure is located on the page. For the in-paper-blur condition, the page is rendered in the same way and the target figure region is blurred. The final transformed/page-context set contains 250 noise images, 250 low-contrast images, 250 rotated images, 247 in-paper page images, and 246 in-paper-blur images, for 1,243 cases.
+We construct five transformed or in-paper conditions beyond the clean image. Three are direct image transformations: Gaussian noise ($\sigma=25$), low contrast (alpha 0.3, beta 50), and 15-degree rotation with white fill. Two use the source paper page. For the in-paper condition, the source PDF page is rendered as an image and the target figure is located on the page. For the in-paper-blur condition, the page is rendered in the same way and the target figure region is blurred. The final transformed/in-paper set contains 250 noise images, 250 low-contrast images, 250 rotated images, 247 in-paper page images, and 246 in-paper-blur images, for 1,243 cases.
 
 \subsection{Caption Bias and Resistance Pipelines}
 \label{sec:appendix-resistance-pipeline}
@@ -35,7 +35,7 @@ Resistance probes use three question types per figure. \emph{Inexist} probes pre
 \subsection{Selective Blur Pipeline}
 \label{sec:appendix-blur-pipeline}
 
-Selective blur creates two visually similar but conceptually different uncertainty conditions. The pipeline first extracts OCR text and bounding boxes from each figure. GPT-4o then sees the image, OCR text list, and expert description, and proposes ranked blur targets for two cases. Admittance targets are elements whose identity should be unrecoverable once blurred. Inductance targets are elements whose identity should remain inferable from surrounding visual context. The selected text is matched back to OCR boxes using exact, normalized, and fuzzy matching, then the target region is blended toward gray and heavily blurred. Probe files record the blurred text, target question, bounding box, and expected behaviour. Final blur candidates are manually reviewed before inclusion in the active and passive evaluations.
+Selective blur creates two visually similar but conceptually different uncertainty conditions. The pipeline first extracts OCR text and bounding boxes from each figure. GPT-4o then sees the image, OCR text list, and expert description, and proposes ranked blur targets for two cases. Admittance targets are elements whose identity should be unrecoverable once blurred. Inductance targets are elements whose identity should remain inferable from surrounding visual context. The selected text is matched back to OCR boxes using exact, normalized, and fuzzy matching, then the target region is blended toward gray and heavily blurred. Probe files record the blurred text, target question, bounding box, and expected behaviour. Final selective blur targets are manually reviewed before inclusion in the active and passive evaluations.
 
 \subsection{Probe Evaluation Rubrics}
 \label{sec:appendix-probe-rubrics}
