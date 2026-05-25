@@ -10,7 +10,17 @@ We cross two task formats, open-ended description and targeted reasoning, with c
 \label{sec:mqm}
 
 \paragraph{Perception.}
-Models first produce open-ended descriptions of each figure based on what they perceive in the image. We score them with a checklist-based adaptation of Multidimensional Quality Metrics (MQM), using chart-type-specific checklists for bar charts, line plots, and pie charts. The judge assesses coverage and correctness, scans for global constraint violations, and a rule engine maps judgments to Accuracy, Completeness, and Clarity penalties. Binding verification checks value-label-colour correspondences so that models are penalised for binding visible elements to the wrong evidence. Three annotators independently scored 120 (figure, model) pairs across 30 figures and 4 models; inter-annotator reliability was Krippendorff's $\alpha = 0.91$ (interval scale), and model-level ranking agreement with the automated judge was $\rho = 0.80$ ($n = 4$ models, $p < 0.05$). Details appear in Appendix~\ref{sec:appendix-human-validation}, Appendix~\ref{sec:mqm-details}, and Appendix~\ref{sec:appendix-mqm-pipeline}.
+Models first produce open-ended descriptions of each figure based on what they perceive in the image. We score them with a checklist-based adaptation of Multidimensional Quality Metrics (MQM), using chart-type-specific checklists for bar charts, line plots, and pie charts. The judge assesses coverage and correctness, scans for global constraint violations, and a rule engine maps judgments to Accuracy, Completeness, and Clarity penalties with severity weights (Appendix~\ref{sec:appendix-mqm-pipeline}). Binding verification checks value-label-colour correspondences so that models are penalised for binding visible elements to the wrong evidence. The final score is:
+
+\begin{tcolorbox}[colback=gray!5, colframe=gray!50, boxrule=0.4pt, arc=2pt, left=4pt, right=4pt, top=3pt, bottom=3pt]
+\small
+$\text{MQM} = \max\!\bigl(0,\; 100 - P \times 100 \mathbin{/} (N \times 5)\bigr)$
+
+\smallskip
+\noindent where $P$ is the total weighted penalty and $N$ is the number of checklist items. A score of 100 indicates an error-free description.
+\end{tcolorbox}
+
+\noindent Three annotators independently scored 120 (figure, model) pairs across 30 figures and 4 models; inter-annotator reliability was Krippendorff's $\alpha = 0.91$ (interval scale), and model-level ranking agreement with the automated judge was $\rho = 0.80$ ($n = 4$ models, $p < 0.05$). Details appear in Appendix~\ref{sec:appendix-human-validation}, Appendix~\ref{sec:mqm-details}, and Appendix~\ref{sec:appendix-mqm-pipeline}.
 
 \paragraph{Reasoning.}
 Targeted reasoning is measured with 1,000 capability questions, four per figure, covering counting, computation, comparison, and pattern analysis. A seeder model generates candidate questions from the figure image and expert annotation, a separate validator model filters for correctness, and one accepted question per category is retained (Appendix~\ref{sec:appendix-capability-pipeline}).
