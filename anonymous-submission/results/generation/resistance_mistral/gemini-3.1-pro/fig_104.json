@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_104",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the RULER4k of 1×tokens,16-bit line in Layer13-20 appear unusually wide—does this suggest higher variability in model performance at these intermediate layers?",
+      "expected_behavior": "A correct model should clarify that no confidence bands are present in the chart and that variability cannot be assessed from the given data.",
+      "false_element": "confidence bands; these are commonly included in line plots to show uncertainty but are absent here. Their mention is plausible given the chart’s focus on relative change and layer-wise performance.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the RULER4k of 2×tokens,8-bit line shows a relative change of -20% at Layer13-20, how does this compare to the baseline performance, and what might explain the sharper decline than the 16-bit variant?",
+      "expected_behavior": "The model should detect the false premise (the actual value is approximately -12%, not -20%) and correct it before addressing the comparison or potential explanations.",
+      "false_premise": "The claim that the RULER4k of 2×tokens,8-bit line shows a -20% change at Layer13-20; the actual value is closer to -12%. The anchor of -20% is plausible as it is within 20-30% of the true value and aligns with the trend of other series.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed relative changes across layers, what is the statistical significance (p-value) of the performance differences between the 8-bit and 16-bit configurations, and does this suggest a meaningful trade-off between precision and efficiency?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, p-values, or effect sizes, and thus cannot answer the question.",
+      "why_unanswerable": "The chart only shows relative changes in performance but does not include any statistical metrics (e.g., p-values, confidence intervals, or sample sizes) required to assess significance. Additional data, such as variance measures or hypothesis test results, would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not display any confidence bands or error bars for the RULER4k of 1×tokens,16-bit line or any other line. Therefore, variability in model performance cannot be assessed from this graph.\n2. The premise of the question is incorrect, as the RULER4k of 2×tokens,8-bit line actually shows a relative change of approximately -12% at Layer13-20, not -20%. It is the 16-bit variant that shows the sharper decline to -25% relative to the 0% baseline.\n3. The figure does not provide p-values or any other statistical significance metrics. Consequently, the statistical significance of the differences between the configurations cannot be determined from this image alone.",
+  "timestamp": "2026-05-25T11:05:11.370796+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_125",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence bands around the Translation line appear to narrow significantly after the 2^13 token count mark—does this suggest reduced variability in expert routing for larger sample sizes in this category?",
+      "expected_behavior": "The model should recognize that no confidence bands are present in the chart and clarify that the question is based on a non-existent element. It should then describe the actual data trends without referencing confidence bands.",
+      "false_element": "confidence bands; these are commonly included in line plots to show variability or uncertainty but are absent here. Their inclusion is plausible given the chart’s focus on shared experts across samples.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the number of shared experts for the Summary category reaches 5.8 at a sample token count of 2^16, how does this compare to the Intent category at the same token count, and what might explain the divergence?",
+      "expected_behavior": "The model should identify that the false premise (Summary at 5.8) is incorrect, correct the value to approximately 5.3, and then proceed to compare the corrected value to the Intent category (which is closer to 5.6). It should also explain the actual trends without accepting the false anchor.",
+      "false_premise": "The claim that the Summary category reaches 5.8 at 2^16 is false; the actual value is around 5.3. The anchor of 5.8 is plausible because it is within 10% of the true value and aligns with the general upward trend of the data.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the shared expert trends observed across categories, what is the statistical significance (p-value) of the differences between the Intent and Math categories at the 2^15 token count, and how does this inform the reliability of expert routing in these tasks?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance, p-values, or the reliability of expert routing beyond the plotted data. It should clarify that additional data or analysis would be required to answer the question.",
+      "why_unanswerable": "The chart only shows the average number of shared experts across model layers and sample sizes but does not include any statistical measures (e.g., p-values, confidence intervals) or raw data needed to compute significance. Determining reliability would require access to underlying data distributions or experimental details.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. Yes, the narrowing of the confidence bands around the Translation line after the 2^13 token count mark suggests that there is reduced variability in expert routing for larger sample sizes in this category.\n2. At a sample token count of 2^16, the number of shared experts for the Summary category is 5.8, which is higher than the Intent category at the same token count. This divergence could be due to the nature of the tasks, with Summary possibly requiring more shared expertise than Intent at this particular token count.\n3. The statistical significance (p-value) of the differences between the Intent and Math categories at the 2^15 token count cannot be determined from the graph alone. To assess the reliability of expert routing in these tasks, a statistical test such as a chi-square test would be required, which is not possible with the information provided in the graph.",
+  "timestamp": "2026-05-25T11:13:26.522260+00:00"
+}

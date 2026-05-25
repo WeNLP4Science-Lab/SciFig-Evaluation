@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_249",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart shows a breakdown of sub-tasks within article generation—does the 'research summarization' sub-task account for more than half of the 83.2% slice?",
+      "expected_behavior": "The model should clarify that the pie chart does not contain an inner ring or any sub-task breakdown, and thus the question cannot be answered based on the provided data.",
+      "false_element": "inner ring (sub-task breakdown); plausible because pie charts often include secondary rings or hierarchical data, especially in task distribution analyses.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that headline generation accounts for 22.5% of the tasks, how does this compare to the proportion of article generation tasks, and what might explain the smaller gap between the two categories?",
+      "expected_behavior": "The model should correct the false premise by stating that headline generation actually accounts for 16.8%, not 22.5%, and then proceed with the comparison based on the accurate values.",
+      "false_premise": "Headline generation accounts for 22.5% (actual: 16.8%); the anchor is plausible because it is within 20-30% of the true value and aligns with common rounding or estimation errors.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the distribution of task types, what is the sample size of the verified Wildchat journalist-LLM conversations, and does this provide sufficient statistical power to detect a 5% difference in task preference with 95% confidence?",
+      "expected_behavior": "The model should state that the chart does not provide the sample size or raw counts underlying the percentages, and thus statistical power cannot be determined from the chart alone.",
+      "why_unanswerable": "The chart only shows percentages, not raw counts or sample sizes. Calculating statistical power requires knowing the total number of observations, which is not provided. Additional data such as raw counts or standard deviations would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain an inner ring or show any breakdown of sub-tasks such as 'research summarization'.\n2. The premise of the question is incorrect, as the figure explicitly shows headline generation accounts for 16.8% of the tasks, not 22.5%. \n3. The sample size and specific details about the dataset (such as Wildchat journalist-LLM conversations) are not present in the figure, making it impossible to determine statistical power.",
+  "timestamp": "2026-05-25T11:08:52.869181+00:00"
+}

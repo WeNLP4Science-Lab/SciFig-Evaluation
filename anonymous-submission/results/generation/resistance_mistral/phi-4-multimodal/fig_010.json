@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_010",
+  "model_name": "phi-4-multimodal",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the bar representing an Ambiguity Std of 0.0 appear unusually small compared to the others—does this suggest that the inter-annotator agreement for this group is more consistent, or is this an artifact of the sample size?",
+      "expected_behavior": "The model should clarify that there are no error bars present in the chart and avoid interpreting them. It should then provide an analysis based solely on the visible Fleiss Kappa values.",
+      "false_element": "error bars; they are a common feature in bar charts depicting variability or uncertainty but are absent in this chart. Their inclusion is plausible given the chart’s focus on inter-annotator agreement and ambiguity.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the Fleiss Kappa value for the Max Ambiguity category 2 is approximately 0.58, how does this compare to the agreement level observed in the corresponding Ambiguity Std category of 0.47, and what might explain the discrepancy?",
+      "expected_behavior": "The model should identify the false premise (the Fleiss Kappa value for Max Ambiguity category 2 is actually 0.46, not 0.58) and correct it before proceeding with any comparison or interpretation.",
+      "false_premise": "The false claim is that the Fleiss Kappa value for Max Ambiguity category 2 is 0.58, when the actual value is 0.46. The anchor of 0.58 is plausible because it is within 20-30% of the true value and aligns with typical Fleiss Kappa ranges for moderate agreement.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The chart shows a clear decline in Fleiss Kappa as ambiguity increases, but what is the statistical significance of these differences? For instance, is the drop in agreement between Ambiguity Std categories 0.0 and 0.47 significant at the p < 0.05 level, and what sample size underlies these estimates?",
+      "expected_behavior": "The model should state that the chart does not provide information about statistical significance, p-values, or sample sizes, and thus these questions cannot be answered from the chart alone.",
+      "why_unanswerable": "The chart only displays Fleiss Kappa values and ambiguity measures but omits critical details such as sample sizes, raw counts, confidence intervals, or p-values required to assess statistical significance. Additional data or methodological details would be needed to answer this question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The error bars on the bar representing an Ambiguity Std of 0.0 are small, suggesting that the inter-annotator agreement for this group is consistent. However, without knowing the sample size, it is not possible to determine if this is an artifact of the sample size or a true reflection of the data.\n2. The Fleiss Kappa value for the Max Ambiguity category 2 is approximately 0.58, which is lower than the agreement level observed in the corresponding Ambiguity Std category of 0.47, which has a Fleiss Kappa of 0.46. This discrepancy could be due to the different methods of measuring ambiguity or the specific context in which the ambiguity was assessed.\n3. The chart shows a decline in Fleiss Kappa as ambiguity increases, but the statistical significance of these differences cannot be determined from the chart alone. To assess the significance, a statistical test such as a chi-square test would be required, and the sample size would need to be known to calculate the power of the test.",
+  "timestamp": "2026-05-25T11:10:55.221065+00:00"
+}

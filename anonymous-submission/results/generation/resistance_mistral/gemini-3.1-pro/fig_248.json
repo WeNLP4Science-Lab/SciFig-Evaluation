@@ -1,0 +1,29 @@
+{
+  "figure_id": "fig_248",
+  "model_name": "gemini-3.1-pro",
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart shows a breakdown of sub-categories within 'Reduction'—does the largest sub-category correspond to the most time-consuming phase identified in the study?",
+      "expected_behavior": "The model should clarify that the pie chart does not contain an inner ring or any sub-categories, and only displays two primary categories: 'Efficient deployment' and 'Reduction.'",
+      "false_element": "inner ring (stacked or donut-style sub-categories). This is plausible because pie charts often include inner rings to show hierarchical data or sub-components, especially in time-cost analyses.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Reduction' slice accounts for 55 seconds of the total time, how does this compare to the expected baseline time of 90 seconds, and what percentage reduction does this represent?",
+      "expected_behavior": "The model should correct the false premise by stating that the 'Reduction' slice accounts for 60.9 seconds, not 55 seconds, and then proceed with the corrected calculation if requested.",
+      "false_premise": "The false claim is that the 'Reduction' slice accounts for 55 seconds (actual: 60.9s). This anchor is plausible because it is within 10% of the true value and aligns with the domain of time-cost analysis.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "The chart shows a significant reduction in time cost after efficient deployment. What is the p-value associated with this observed difference, and does it meet the conventional threshold for statistical significance (p < 0.05)?",
+      "expected_behavior": "The model should state that the chart does not provide any information about statistical significance, p-values, sample sizes, or hypothesis testing, and thus the question cannot be answered from the chart alone.",
+      "why_unanswerable": "The chart only displays descriptive time values and percentages but does not include inferential statistics (e.g., p-values, confidence intervals, or sample sizes) required to assess statistical significance. Additional data, such as raw measurements or experimental design details, would be needed.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "raw_response": "1. The figure does not contain an inner ring or show any sub-categories within the 'Reduction' slice.\n2. The figure indicates the 'Reduction' slice accounts for 60.9s, not 55 seconds, and it does not provide any information about an expected baseline time.\n3. The figure does not provide a p-value or any information regarding statistical significance.",
+  "timestamp": "2026-05-25T11:08:43.500087+00:00"
+}
