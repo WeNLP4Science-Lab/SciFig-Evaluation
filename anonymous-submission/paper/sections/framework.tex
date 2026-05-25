@@ -2,15 +2,17 @@
 \section{Benchmark and Evaluation Framework}
 \label{sec:framework}
 
-\textsc{SciFig-Eval} evaluates VLMs on scientific figures along three dimensions: \emph{perception}, whether a model accurately describes a figure based on what it perceives (sees); \emph{reasoning}, whether it answers targeted analytical questions about the visual evidence; and \emph{behaviour}, how it acts when evidence is degraded, incomplete, or contradicted by misleading context. The benchmark comprises 250 English-language figures from 187 arXiv papers, spanning bar charts (99), line plots (99), and pie charts (52), each paired with expert annotations of axes, data series, labels, colour mappings, and trends.
+\textsc{SciFig-Eval} evaluates the perception and understanding of scientific figures by VLMs along three dimensions: \emph{perception}, whether a model accurately describes a figure based on what it perceives (sees); \emph{reasoning}, whether it answers targeted analytical questions about the visual evidence; and \emph{behaviour}, how it acts when evidence is degraded, incomplete, or contradicted by misleading context. 
 
-We cross two task formats, open-ended description and targeted reasoning, with clean and adversarial evidence conditions. Standard conditions measure perception and reasoning on clean figures; adversarial conditions measure reliability when the image or surrounding context becomes unreliable. Across eight models, these conditions yield more than 23,000 model-output evaluations.
+The benchmark comprises 250 English-language figures from 187 arXiv papers, spanning bar charts (99), line plots (99), and pie charts (52), each paired with expert annotations of axes, data series, labels, colour mappings, and trends.
+
+Our evaluation tasks primarily comprise open-ended descriptions and targeted reasoning tasks. For the reasoning tasks, we additionally test two conditions: standard/clean and adversarial. Standard conditions measure perception and reasoning on unperturbed figures; adversarial conditions measure model robustness when distortions or missing elements in the figure images make them an unreliable source of truth. Across eight models, these conditions yield more than 23,000 model-output evaluations.
 
 \subsection{Standard Evaluation}
 \label{sec:mqm}
 
 \paragraph{Perception.}
-Models first produce open-ended descriptions of each figure based on what they perceive in the image. We score them with a checklist-based adaptation of Multidimensional Quality Metrics (MQM), using chart-type-specific checklists for bar charts, line plots, and pie charts. The judge assesses coverage and correctness, scans for global constraint violations, and a rule engine maps judgments to Accuracy, Completeness, and Clarity penalties with severity weights (Appendix~\ref{sec:appendix-mqm-pipeline}). Binding verification checks value-label-colour correspondences so that models are penalised for binding visible elements to the wrong evidence. The final score is:
+Models first produce open-ended descriptions of each figure based on what they perceive in the image. With the LLM-as-a-judge approach, we score them with a checklist-based adaptation of Multidimensional Quality Metrics (MQM) using chart-type-specific checklists for bar charts, line plots, and pie charts. The LLM judge assesses coverage using the chart-type-specific checklist, evaluates correctness by comparing details of the model-generated figure description to the expert-written gold-standard ones, and scans for global constraint violations. A rule engine then maps error judgments to Accuracy, Completeness, and Clarity types, with severity-weighted penalties (Appendix~\ref{sec:appendix-mqm-pipeline}). The final score is:
 
 \begin{tcolorbox}[colback=gray!5, colframe=gray!50, boxrule=0.4pt, arc=2pt, left=4pt, right=4pt, top=3pt, bottom=3pt]
 \small
@@ -20,16 +22,18 @@ $\text{MQM} = \max\!\bigl(0,\; 100 - P \times 100 \mathbin{/} (N \times 5)\bigr)
 \noindent where $P$ is the total weighted penalty and $N$ is the number of checklist items. A score of 100 indicates an error-free description.
 \end{tcolorbox}
 
-\noindent Three annotators independently scored 120 (figure, model) pairs across 30 figures and 4 models; inter-annotator reliability was Krippendorff's $\alpha = 0.91$ (interval scale), and model-level ranking agreement with the automated judge was $\rho = 0.80$ ($n = 4$ models, $p < 0.05$). Details appear in Appendix~\ref{sec:appendix-human-validation}, Appendix~\ref{sec:mqm-details}, and Appendix~\ref{sec:appendix-mqm-pipeline}.
+\noindent Three human annotators independently scored 120 (figure, model) pairs across 30 figures and 4 models; inter-annotator reliability was Krippendorff's $\alpha = 0.91$ (interval scale), and model-level ranking agreement with the automated judge was $\rho = 0.80$ ($n = 4$ models, $p < 0.05$). Details appear in Appendix~\ref{sec:appendix-human-validation}, Appendix~\ref{sec:mqm-details}, and Appendix~\ref{sec:appendix-mqm-pipeline}.
 
 \paragraph{Reasoning.}
-Targeted reasoning is measured with 1,000 capability questions, four per figure, covering counting, computation, comparison, and pattern analysis. A seeder model generates candidate questions from the figure image and expert annotation, a separate validator model filters for correctness, and one accepted question per category is retained (Appendix~\ref{sec:appendix-capability-pipeline}).
+Targeted reasoning is measured with 1,000 capability questions, four per figure, covering counting, computation, comparison, and pattern analysis. To curate the capability question set, we use a seeder model (GPT-4o) to generate candidate questions from the figure image and expert annotation, a separate validator model (mistral-large-2512) filters for correctness/appropriateness, and one accepted question per category is retained (Appendix~\ref{sec:appendix-capability-pipeline}). Humans then solved each of the capability questions to arrive at human-evaluated groundtruth answers.
+
+
 
 \subsection{Behavioural Probes}
 \label{sec:caption-bias}
 \label{sec:resistance}
 
-Behavioural evaluation uses five probe families. Visual transforms, generated by an automated image-processing pipeline (Appendix~\ref{sec:appendix-transform-pipeline}), test robustness to low contrast, Gaussian noise, rotation, full-page context, and full-page figure blur. The in-paper condition embeds the figure in its original PDF page to test whether models can identify and describe a target figure in context. An in-paper-blur variant, in which the figure itself is blurred within the page, measures how much contextual information models can extract from surrounding page text alone. Caption-bias probes pair 100 figures with modified captions containing 2--3 plausible but false claims. Resistance probes test 250 figures with non-existent chart elements, contradictory numerical premises, and unanswerable questions, for example:
+Behavioural evaluation uses five probe dimensions. Visual transforms, generated by an automated image-processing pipeline (Appendix~\ref{sec:appendix-transform-pipeline}), test robustness to low contrast, Gaussian noise, rotation, full-page context, and full-page figure blur. The in-paper condition embeds the figure in its original PDF page to test whether models can identify and describe a target figure in context. An in-paper-blur variant, in which the figure itself is blurred within the page, measures how much contextual information models can extract from surrounding page text alone. Caption-bias probes pair 100 figures with modified captions containing 2--3 plausible but false claims. Resistance probes test 250 figures with non-existent chart elements, contradictory numerical premises, and unanswerable questions, for example:
 
 \begin{quote}\small
 \textbf{Inexist:} ``The error bars in the third group appear wider than in the first. Does this indicate higher variance?'' (presupposition: error bars do not exist)\\
@@ -38,6 +42,10 @@ Behavioural evaluation uses five probe families. Visual transforms, generated by
 \end{quote}
 
 Selective-blur admittance probes obscure unrecoverable elements in 50 figures, while inductance probes obscure contextually inferable elements in 48 figures. An OCR-based pipeline extracts text regions, a selector model identifies blur targets, and human reviewers confirm each candidate on a purpose-built dashboard (Appendix~\ref{sec:appendix-blur-pipeline}). Construction details and rubrics appear in Appendix~\ref{sec:probe-taxonomy}, Appendix~\ref{sec:dataset-details}, and Appendix~\ref{sec:appendix-eval-pipelines}.
+
+
+
+
 
 \subsection{The A-R-I Behavioural Framework}
 \label{sec:ari}
