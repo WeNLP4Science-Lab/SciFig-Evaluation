@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_104",
+  "figure_type": "Line Plot",
+  "model": "autoagent",
+  "timestamp": "2026-05-24T00:00:00Z",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many lines dip below -10% at any layer grouping?",
+      "answer": 2,
+      "answer_type": "exact",
+      "reasoning": "The light blue line (RULER4k of 2×tokens, 8-bit) dips to about -12% at Layer13-20, and the dark blue line (RULER4k of 1×tokens, 16-bit) dips to -25% at Layer13-20. The yellow and red LB-Avg lines remain above -10% throughout."
+    },
+    {
+      "category": "computation",
+      "question": "What is the average relative change across all layers for the 'RULER4k of 1×tokens,16-bit' series?",
+      "answer": -10.2,
+      "answer_type": "approximate",
+      "reasoning": "The dark blue series has values of approximately -2.5% at Layer1-4, -25% at Layer13-20, and -3% at Layer29-32. The average is (-2.5 + -25 + -3) / 3 = -10.17%, rounded to -10.2%."
+    },
+    {
+      "category": "comparison",
+      "question": "Between 'RULER4k of 1×tokens,16-bit' and 'RULER4k of 2×tokens,8-bit', which line shows a larger recovery in relative change from 'Layer13-20' to 'Layer29-32'?",
+      "answer": "'RULER4k of 1×tokens,16-bit' shows a larger recovery, increasing by approximately 22% (from -25% to -3%), while 'RULER4k of 2×tokens,8-bit' increases by approximately 10.5% (from -12% to -1.5%).",
+      "answer_type": "exact",
+      "reasoning": "At Layer13-20, the dark blue line is at -25% and the light blue at -12%. At Layer29-32, they recover to -3% and -1.5% respectively. The dark blue recovery of 22 percentage points exceeds the light blue recovery of 10.5 percentage points."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Which line exhibits the most pronounced non-monotonic trend, and what is the nature of this trend?",
+      "answer": "The dark blue line ('RULER4k of 1×tokens,16-bit') exhibits the most pronounced non-monotonic trend, with a sharp decrease to -25% at 'Layer13-20' followed by a recovery to near -3% at 'Layer29-32'.",
+      "answer_type": "categorical",
+      "reasoning": "The dark blue line shows the largest V-shaped dip among all series, dropping from -2.5% to -25% in the middle layers before recovering. No other line has a dip of comparable magnitude."
+    }
+  ]
+}

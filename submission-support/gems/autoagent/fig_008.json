@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_008",
+  "figure_type": "Bar Chart",
+  "model": "autoagent",
+  "timestamp": "2026-05-24T12:10:00Z",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many sparsity rates have at least one bar (either Per-Output or Per-Layer) with a perplexity value above 100?",
+      "answer": 1,
+      "answer_type": "exact",
+      "reasoning": "On the log scale, only at 80% sparsity do both bars exceed 10² (~100): Per-Output is approximately 500 and Per-Layer approximately 900. All lower sparsity rates stay well below 100."
+    },
+    {
+      "category": "computation",
+      "question": "What is the ratio of the Perplexity for Per-Layer to Per-Output at a sparsity rate of 70%?",
+      "answer": 2.0,
+      "answer_type": "approximate",
+      "reasoning": "At 70% sparsity, Per-Layer perplexity is approximately 40 and Per-Output is approximately 20, giving a ratio of 40 / 20 = 2.0."
+    },
+    {
+      "category": "comparison",
+      "question": "Rank the sparsity rates of 40%, 50%, and 60% in ascending order of the difference in perplexity between Per-Output and Per-Layer configurations.",
+      "answer": "40% < 50% < 60%",
+      "answer_type": "exact",
+      "reasoning": "Approximate Per-Layer minus Per-Output gaps are ~0.5 at 40%, ~0.5 at 50%, and ~1 at 60%, so the difference is smallest at 40% and largest at 60%."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Does the gap between the Per-Layer and Per-Output configurations widen as sparsity rate increases, and if so, at which sparsity rates is this most pronounced?",
+      "answer": "Yes, the gap widens as sparsity rate increases, and this is most pronounced at 70% and 80% sparsity rates.",
+      "answer_type": "categorical",
+      "reasoning": "Per-Layer and Per-Output bars are nearly equal up to 60%, then diverge sharply at 70% (40 vs 20) and 80% (~900 vs ~500), where the Per-Layer penalty is largest."
+    }
+  ]
+}

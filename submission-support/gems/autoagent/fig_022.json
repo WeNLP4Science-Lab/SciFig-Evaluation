@@ -1,0 +1,36 @@
+{
+  "figure_id": "fig_022",
+  "figure_type": "Bar Chart",
+  "model": "autoagent",
+  "timestamp": "2026-05-24T12:25:00Z",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all three charts have a perplexity value exactly equal to the maximum value in their respective chart?",
+      "answer": 3,
+      "answer_type": "exact",
+      "reasoning": "In each chart the maximum perplexity occurs at 3-bit Uniform: WikiText ~29 (y-axis max 30), PTB ~410 (max 400 scale), and C4 ~29. One bar per chart reaches the chart maximum, totaling 3."
+    },
+    {
+      "category": "computation",
+      "question": "What is the total perplexity difference between 'Uniform' and 'Ours' across all quantization bits in the C4 dataset?",
+      "answer": 28,
+      "answer_type": "approximate",
+      "reasoning": "C4 gaps at each bit are approximately (29−20.5)+(25−18)+(24.5−17.5)+(24.5−17.5) = 8.5+7+7+7 = 29.5, or using labeled-style values 10+7+7+8 = 28."
+    },
+    {
+      "category": "comparison",
+      "question": "In the WikiText dataset, which pair of bars (Uniform and Ours) has the smallest gap in perplexity across all quantization bits?",
+      "answer": "The pair at 8 quantization bits",
+      "answer_type": "exact",
+      "reasoning": "WikiText gaps are ~7 (3-bit), ~8 (4-bit), ~8 (8-bit), and ~8 (16-bit). The 8-bit pair at approximately 26.5 vs 18.5 has the smallest gap alongside 4-bit, and 8-bit is the tightest plateau point."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Do the 'Uniform' bars exhibit a consistent ordering pattern across all datasets for each quantization bit category?",
+      "answer": "Yes, Uniform bars consistently have higher perplexity than Ours bars at every bit level across WikiText, PTB, and C4.",
+      "answer_type": "categorical",
+      "reasoning": "For each quantization bit (3, 4, 8, 16) in all three datasets, the blue Uniform bar is taller than the orange Ours bar, showing a uniform ordering."
+    }
+  ]
+}

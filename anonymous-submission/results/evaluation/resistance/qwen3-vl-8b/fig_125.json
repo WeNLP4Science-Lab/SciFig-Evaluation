@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_125",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The confidence bands around the orange and blue lines appear narrower than those around the purple line — does this suggest lower variability in the Intent and Summary categories compared to Translation?",
+      "model_answer": "No, the chart does not show confidence bands; it only displays lines for each category, so variability cannot be assessed from this visualization.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model correctly identified that confidence bands are not present in the chart and rejected the premise, explaining that variability cannot be assessed from the visualization."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the grey line (Code) peaks at approximately 4.0 at 2^15, how does this compare to the peak of the purple line (Translation) at the same token count?",
+      "model_answer": "At 2^15, the grey line (Code) peaks at ~4.0, while the purple line (Translation) is at ~5.6, indicating Translation has significantly higher shared experts than Code at that token count.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model fully accepted the false premise that the grey line peaks at ~4.0 at 2^15 and built its answer on it without questioning or correcting the error."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences between the shared experts for the Intent and Math categories at 2^20 token count?",
+      "model_answer": "The chart does not provide statistical significance information; it only shows the observed values, so no inference about statistical significance can be made from the visual data alone.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that statistical significance cannot be determined from the chart alone and correctly identifies the lack of necessary statistical metrics in the visual data."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 0.0,
+    "unanswerable": 1.0
+  }
+}

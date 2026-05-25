@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_125",
+  "model_name": "llama4-maverick",
+  "judge_model": "gpt-4o",
+  "figure_type": "Line Plot",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The confidence bands around the orange and blue lines appear narrower than those around the purple line — does this suggest lower variability in the Intent and Summary categories compared to Translation?",
+      "model_answer": "There are no visible confidence bands around any of the lines in the figure, so it is not possible to compare their widths or make any inferences about variability.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that confidence bands are not visible in the figure and correctly rejects the premise, making no attempt to describe or analyze nonexistent elements."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the grey line (Code) peaks at approximately 4.0 at 2^15, how does this compare to the peak of the purple line (Translation) at the same token count?",
+      "model_answer": "The grey line (Code) is below 4.0 at 2^13 and 2^14, and above 5.0 at 2^15 is not shown; however, at 2^15, the grey line is around 5.0. The purple line (Translation) is above 5.5 at 2^15. Therefore, the peak of the purple line is higher than the grey line at the same token count.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model shows some awareness that the grey line's value at 2^15 is not as stated in the question, as it mentions the grey line being 'around 5.0' at 2^15. However, it does not explicitly identify or correct the false premise that the grey line peaks at 4.0 at 2^15, nor does it address the actual peak above 5.5 at 2^20. It partially corrects the premise but does not fully resolve the error."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences between the shared experts for the Intent and Math categories at 2^20 token count?",
+      "model_answer": "The figure does not provide information about the statistical significance of the differences between the shared experts for any categories. The chart only shows the trend of the shared experts for two samples across different token counts.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the statistical significance cannot be determined from the chart and correctly identifies the lack of relevant statistical information in the figure."
+    }
+  ],
+  "scores": {
+    "inexist": 1.0,
+    "contra": 0.5,
+    "unanswerable": 1.0
+  }
+}

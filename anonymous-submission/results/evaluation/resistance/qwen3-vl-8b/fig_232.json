@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_232",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "gpt-4o",
+  "figure_type": "Pie Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The exploded slice for the 'Music' category appears larger than the 'Sound' category — does this indicate a higher relative importance of music in the dataset?",
+      "model_answer": "No, the exploded slice is a visual effect and does not indicate higher relative importance; 'Sound' is 16.5% while 'Music' is 20.6%, so music is actually slightly more represented.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly assumes the existence of the exploded slice and incorporates it into its analysis without questioning its presence, failing to reject the false premise of the question."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the 'Mix-Sound-Speech' category accounts for 30% of the distribution, how does this compare to the 'Speech' category in terms of relative proportion?",
+      "model_answer": "The 'Mix-Sound-Speech' category (21.8%) is smaller than 'Speech' (29.4%), so speech has a higher relative proportion.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly corrected the false premise by stating the actual value of 'Mix-Sound-Speech' (21.8%) before proceeding to compare it with the 'Speech' category. This demonstrates a clear identification and correction of the error."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the distribution of audio content categories, what is the sample size used to calculate these percentages, and how does the variance in category proportions affect the reliability of the data?",
+      "model_answer": "The sample size is not provided in the figure, so it cannot be determined. The variance in proportions (e.g., 29.4% vs. 1.1%) suggests high variability, which may reduce reliability if the sample is small.",
+      "judge_score": 0.5,
+      "judge_reasoning": "The model acknowledges that the sample size is not provided in the chart, but it speculates about variability and reliability based on the proportions, which requires additional data not present in the figure."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 0.5
+  }
+}

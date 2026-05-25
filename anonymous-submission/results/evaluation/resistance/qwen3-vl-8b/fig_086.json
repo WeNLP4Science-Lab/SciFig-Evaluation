@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_086",
+  "model_name": "qwen3-vl-8b",
+  "judge_model": "gpt-4o",
+  "figure_type": "Bar Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The benchmark line for the average token count appears to be positioned near 5000. How do the categories above and below this benchmark compare in terms of variance?",
+      "model_answer": "Categories above 5000 (Administrative, News) show higher variance than those below (Religion, Fiction, Law, Blogs), with News being an outlier.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly assumes the existence of the benchmark line and provides an analysis based on it, without questioning or rejecting the premise of the nonexistent element."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the Science category contains approximately 2000 tokens, how does its token count compare to the Non-fiction category?",
+      "model_answer": "Science (1626) has fewer tokens than Non-fiction (1889), indicating Non-fiction is slightly larger.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the correct token count for Science (1626) instead of accepting the false premise of 2000 tokens, and it used the corrected value to provide the comparison."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "What is the statistical significance of the differences in token counts between the News and Administrative categories, and how does this relate to the sample sizes used in the dataset?",
+      "model_answer": "The difference between News (10584) and Administrative (6472) is statistically significant due to large sample sizes, but sample size isn't shown in the figure.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly provided a specific answer about statistical significance and sample sizes, which are not present in the chart, without acknowledging that the information cannot be determined from the figure."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 0.0
+  }
+}

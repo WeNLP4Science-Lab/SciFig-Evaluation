@@ -1,0 +1,35 @@
+{
+  "figure_id": "fig_002",
+  "figure_type": "Bar Chart",
+  "model": "autoagent",
+  "answers": [
+    {
+      "category": "counting",
+      "question": "How many bars across all datasets have an F1 Score above 90%?",
+      "answer": 10,
+      "answer_type": "exact",
+      "reasoning": "Bars above 90%: SMD has four (green ~93, purple ~91, blue ~92, orange ~92); PSM has three (green ~97, purple ~96, orange ~95); SWaT has two (green ~91, purple ~90); SMAP has one (green ~93); MSL and WADI have none. Total = 4 + 3 + 2 + 1 = 10."
+    },
+    {
+      "category": "computation",
+      "question": "What is the average F1 Score across all datasets for the 'MADLLM w/o prompt pool' configuration?",
+      "answer": 75.7,
+      "answer_type": "approximate",
+      "reasoning": "Blue bars (MADLLM w/o prompt pool): SMD ~92, PSM ~77, SWaT ~83, SMAP ~70, MSL ~70, WADI ~64. Sum ≈ 456; average ≈ 456/6 ≈ 75.7%."
+    },
+    {
+      "category": "comparison",
+      "question": "For the SMAP dataset, is the height of the green (MADLLM) bar more than twice the height of the orange (MADLLM w/o skip embedding) bar?",
+      "answer": "No",
+      "answer_type": "exact",
+      "reasoning": "On SMAP, the green bar is ~93% and the orange bar is ~67%. Twice the orange bar is ~134%, and 93% is less than 134%, so the green bar is not more than twice the orange bar."
+    },
+    {
+      "category": "pattern_analysis",
+      "question": "Do any datasets exhibit a bimodal distribution of F1 Scores, where two configurations have significantly higher scores than the other two?",
+      "answer": "Yes, SMAP shows a bimodal-like pattern: the green MADLLM bar (~93%) is much higher than the blue and purple bars (~70%) and the orange bar (~67%) is the lowest.",
+      "answer_type": "categorical",
+      "reasoning": "SMAP separates one high-performing configuration (green) from a cluster of lower scores, with orange lowest, matching a split between one high bar and three relatively low bars."
+    }
+  ]
+}

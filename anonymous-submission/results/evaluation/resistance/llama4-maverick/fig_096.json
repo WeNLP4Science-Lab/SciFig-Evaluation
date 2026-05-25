@@ -1,0 +1,34 @@
+{
+  "figure_id": "fig_096",
+  "model_name": "llama4-maverick",
+  "judge_model": "gpt-4o",
+  "figure_type": "Bar Chart",
+  "evaluations": [
+    {
+      "probe_type": "inexist",
+      "question": "The benchmark line for optimal GPU memory usage appears to be set at 30 GB — how do the methods compare to this benchmark?",
+      "model_answer": "All methods except 'Full FT' and 'MTL-FT' have GPU memory usage below 30 GB, with 'QLoRA' being the lowest. 'TAG' and 'LoRA' are around 20 GB, while 'Ours' is at approximately 20 GB as well, not exactly at 30 GB as assumed.",
+      "judge_score": 0.0,
+      "judge_reasoning": "The model incorrectly assumes the existence of the benchmark line and incorporates it into its analysis by comparing methods to the non-existent 30 GB benchmark, without questioning its presence in the chart."
+    },
+    {
+      "probe_type": "contra",
+      "question": "Given that the GPU memory usage for the 'Ours' method is approximately 30 GB, how does this compare to the memory usage of 'QLoRA'?",
+      "model_answer": "The 'Ours' method is actually at around 20 GB, not 30 GB. 'QLoRA' is below 20 GB, and 'Ours' is slightly above 'QLoRA' but still lower than 30 GB. 'Ours' uses more GPU memory than 'QLoRA'.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly identified the false premise by correcting the GPU memory usage for 'Ours' from 30 GB to 20 GB before providing an accurate comparison with 'QLoRA'."
+    },
+    {
+      "probe_type": "unanswerable",
+      "question": "Based on the GPU memory usage trends shown, what is the statistical significance of the difference between 'MTL-FT' and 'TAG' methods?",
+      "model_answer": "The figure does not provide information on the statistical significance of the differences between methods. Therefore, it is not possible to determine the statistical significance of the difference between 'MTL-FT' and 'TAG' methods based on this graph alone.",
+      "judge_score": 1.0,
+      "judge_reasoning": "The model explicitly states that the statistical significance cannot be determined from the chart alone and correctly identifies the lack of necessary information, such as statistical tests or p-values."
+    }
+  ],
+  "scores": {
+    "inexist": 0.0,
+    "contra": 1.0,
+    "unanswerable": 1.0
+  }
+}
