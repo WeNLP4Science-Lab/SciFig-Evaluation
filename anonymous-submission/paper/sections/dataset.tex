@@ -2,41 +2,22 @@
 \subsection{Dataset}
 \label{sec:dataset}
 
-\textsc{SciFig-Eval} prioritizes annotation depth over corpus scale. The benchmark comprises 250 English-language scientific figures extracted from 187 arXiv papers published between 2023 and 2025, spanning NLP, machine learning, and computational linguistics. We sample the three chart types that dominate scientific reporting: bar charts (99), line plots (99), and pie charts (52). Each figure is paired with a structured expert annotation describing axes, data series, labels, colour mappings, and trends. Two trained annotators with graduate-level NLP expertise produced these annotations, achieving 94\% agreement on verifiable checklist items (exact values, label names, axis ranges). Disagreements were resolved by a third adjudicator consulting the source PDF. We additionally record source page numbers and verified figure numbers, enabling in-paper evaluation where the model receives the full PDF page.
+\textsc{SciFig-Eval} comprises 250 English-language scientific figures from 187 arXiv papers (2023--2025), each paired with an expert description produced by two trained annotators (94\% agreement) with a third adjudicator for disagreements. Table~\ref{tab:dataset-summary} summarises the benchmark components; full details appear in Appendix~\ref{sec:dataset-details} (Table~\ref{tab:dataset-comprehensive}).
 
-The depth of evaluation per figure is what distinguishes \textsc{SciFig-Eval} from prior benchmarks. Each of the 100 primary figures is evaluated across 14 experimental conditions and 8~models, spanning perception (MQM descriptions), reasoning (capability questions), and behaviour (admittance, resistance, and inductance probes). This yields over 23,000 individual evaluation instances from 250 figures, each one independently scored and traceable to a specific figure, model, and condition.
-
-\paragraph{Evaluation subsets.}
-From the 250-figure pool, we construct a primary subset of 100 figures (40 bar, 40 line, 20 pie) via stratified random sampling (seed$=$42), and a nested ablation subset of 50 figures (20/20/10) for probe-designer independence studies (\S\ref{sec:ablation}).
-
-\paragraph{Adversarial stimuli.}
-We construct four categories of adversarial stimuli, each targeting a distinct dimension of the A-R-I framework. \emph{Resistance probes} (250 figures, three types per figure) test whether models push back on false premises embedded through presupposition, anchoring, and implicature. \emph{Caption bias probes} (100 figures) pair each figure with a modified caption embedding 2--3 plausible but incorrect claims. \emph{Admittance blur} (50 figures) selectively obscures chart elements whose identity cannot be recovered from context, testing whether models acknowledge uncertainty or fabricate. \emph{Inductance blur} (48 figures) obscures elements that remain inferable from surrounding visual cues, testing whether models reason from context or guess. Blur candidates were identified through multi-model consensus and confirmed via human review on a purpose-built dashboard. Full construction details appear in Appendix~\ref{sec:dataset-details}.
-
-% ── Table 1: Dataset statistics ──
 \begin{table}[t]
 \centering
-\small
+\scriptsize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lr@{}}
 \toprule
 \textbf{Component} & \textbf{Count} \\
 \midrule
-\multicolumn{2}{@{}l}{\emph{Figure corpus}} \\
-\quad Bar charts & 99 \\
-\quad Line plots & 99 \\
-\quad Pie charts & 52 \\
-\quad Total figures & 250 \\
-\midrule
-\multicolumn{2}{@{}l}{\emph{Evaluation subsets}} \\
-\quad Primary subset (40/40/20) & 100 \\
-\quad Ablation subset (20/20/10) & 50 \\
-\midrule
-\multicolumn{2}{@{}l}{\emph{Adversarial stimuli}} \\
-\quad Resistance probes & 250 \\
-\quad Caption bias probes & 100 \\
-\quad Admittance selective blur & 50 \\
-\quad Inductance selective blur & 48 \\
+Baseline figures with expert descriptions (99B\,/\,99L\,/\,52P) & 250 \\
+Figure transforms & 1{,}341 \\
+Reasoning questions with human-reviewed solutions & 1{,}000 \\
+Behavioural probes & 948 \\
 \bottomrule
 \end{tabular}
-\caption{Dataset statistics for \textsc{SciFig-Eval}. The figure corpus spans three chart types drawn from arXiv papers. Evaluation subsets are stratified samples (seed$=$42). Adversarial stimuli target distinct behavioural dimensions of the A-R-I framework.}
-\label{tab:dataset}
+\caption{Benchmark summary. B\,=\,bar, L\,=\,line, P\,=\,pie.}
+\label{tab:dataset-summary}
 \end{table}
