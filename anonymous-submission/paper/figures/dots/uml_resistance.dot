@@ -1,0 +1,97 @@
+digraph resistance_pipeline {
+    rankdir=LR;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.5;
+    ranksep=0.6;
+
+    node [fontname="Times New Roman", fontsize=9, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#888888",
+          arrowsize=0.5, penwidth=0.7];
+
+    // --- Input ---
+    corpus [
+        shape=cylinder, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«input»</FONT></TD></TR>
+            <TR><TD><B>Figure + GT</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">250 figures</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 1 ---
+    generator [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«stage 1 · GPT-4o»</FONT></TD></TR>
+            <TR><TD><B>Probe Generator</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">3 probes per figure</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 2: Probe types (linear, no cluster to avoid overlap) ---
+    inexist [
+        shape=component, style=filled, fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>Inexist</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">presupposition</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    contra [
+        shape=component, style=filled, fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>Contra</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">false anchor</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    unanswerable [
+        shape=component, style=filled, fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.6,
+        label=<<TABLE BORDER="0" CELLPADDING="0">
+            <TR><TD><B>Unanswerable</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="6">beyond-chart</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 3 ---
+    judge [
+        shape=box, style="filled,rounded", fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«stage 2 · GPT-4o»</FONT></TD></TR>
+            <TR><TD><B>Resistance Judge</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">1.0 / 0.5 / 0.0 rubric</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Output ---
+    scores [
+        shape=cylinder, style=filled, fillcolor="#FCE4EC",
+        color="#C62828", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#C62828">«output»</FONT></TD></TR>
+            <TR><TD><B>Resistance Scores</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">750 probes × 8 models</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // Force vertical stacking of probe types
+    {rank=same; inexist; contra; unanswerable;}
+
+    // --- Edges ---
+    corpus -> generator [label="image + GT", weight=10];
+    generator -> inexist [weight=5];
+    generator -> contra [weight=5];
+    generator -> unanswerable [weight=5];
+    inexist -> judge [weight=5];
+    contra -> judge [weight=5];
+    unanswerable -> judge [weight=5];
+    judge -> scores [weight=10];
+}

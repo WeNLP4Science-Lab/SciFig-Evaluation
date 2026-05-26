@@ -1,0 +1,76 @@
+digraph active_passive_pipeline {
+    rankdir=LR;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.5;
+    ranksep=0.6;
+
+    node [fontname="Times New Roman", fontsize=9, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#888888",
+          arrowsize=0.5, penwidth=0.7];
+
+    // --- Input ---
+    blurred [
+        shape=cylinder, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«input»</FONT></TD></TR>
+            <TR><TD><B>Blurred Figure</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">adm / ind</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Two protocols (stacked vertically) ---
+    active [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«active»</FONT></TD></TR>
+            <TR><TD><B>Targeted Question</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">image + probe question</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    passive [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«passive»</FONT></TD></TR>
+            <TR><TD><B>Open Description</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">image + describe prompt</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // Force vertical stacking
+    {rank=same; active; passive;}
+
+    // --- Judge ---
+    judge [
+        shape=box, style="filled,rounded", fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«judge · GPT-4o»</FONT></TD></TR>
+            <TR><TD><B>Behavioural Judge</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">admits · fabricates · correct</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Output ---
+    scores [
+        shape=cylinder, style=filled, fillcolor="#FCE4EC",
+        color="#C62828", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#C62828">«output»</FONT></TD></TR>
+            <TR><TD><B>A-R-I Scores</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">per model × protocol</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Edges ---
+    blurred -> active [label="+ question", weight=5];
+    blurred -> passive [label="+ prompt", weight=5];
+    active -> judge [label="response", weight=5];
+    passive -> judge [label="description", weight=5];
+    judge -> scores [weight=10];
+}

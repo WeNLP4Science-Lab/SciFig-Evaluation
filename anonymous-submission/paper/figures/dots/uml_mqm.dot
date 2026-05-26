@@ -1,0 +1,75 @@
+digraph mqm_pipeline {
+    rankdir=LR;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.5;
+    ranksep=0.6;
+    splines=true;
+
+    node [fontname="Times New Roman", fontsize=9, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#888888",
+          arrowsize=0.5, penwidth=0.7];
+
+    // --- Input ---
+    figure [
+        shape=cylinder, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«input»</FONT></TD></TR>
+            <TR><TD><B>Figure + GT</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">250 figures</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 1 ---
+    checklist [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«stage 1»</FONT></TD></TR>
+            <TR><TD><B>Chart-Type Checklist</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">14 bar · 15 line · 11 pie</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 2 ---
+    judge [
+        shape=box, style="filled,rounded", fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«stage 2 · GPT-4o»</FONT></TD></TR>
+            <TR><TD><B>Judge</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">coverage + correctness</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">binding verification</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 3 ---
+    engine [
+        shape=box, style="filled,rounded", fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#AA3377">«stage 3»</FONT></TD></TR>
+            <TR><TD><B>Penalty Engine</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">dedup + binding</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Output ---
+    score [
+        shape=cylinder, style=filled, fillcolor="#FCE4EC",
+        color="#C62828", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#C62828">«output»</FONT></TD></TR>
+            <TR><TD><B>MQM Score</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">0–100</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Edges (linear, no crossing) ---
+    figure -> checklist [label="select", weight=10];
+    checklist -> judge [label="items", weight=10];
+    judge -> engine [label="findings", weight=10];
+    engine -> score [label="weighted", weight=10];
+}

@@ -1,0 +1,99 @@
+digraph blur_pipeline {
+    rankdir=LR;
+    bgcolor="transparent";
+    dpi=300;
+    pad=0.3;
+    nodesep=0.5;
+    ranksep=0.6;
+    splines=true;
+
+    node [fontname="Times New Roman", fontsize=9, penwidth=0.8];
+    edge [fontname="Times New Roman", fontsize=7, color="#888888",
+          arrowsize=0.5, penwidth=0.7];
+
+    // --- Input ---
+    figure [
+        shape=cylinder, style=filled, fillcolor="#E8F0FE",
+        color="#4477AA", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#4477AA">«input»</FONT></TD></TR>
+            <TR><TD><B>Figure + GT</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">250 figures</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 1 ---
+    ocr [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«stage 1 · EasyOCR»</FONT></TD></TR>
+            <TR><TD><B>OCR Extraction</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">text + bounding boxes</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 2 ---
+    selector [
+        shape=box, style="filled,rounded", fillcolor="#FFF3E0",
+        color="#EE6677", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#EE6677">«stage 2 · GPT-4o»</FONT></TD></TR>
+            <TR><TD><B>Target Selector</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">admittance + inductance</FONT></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">ranked candidates</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 3 ---
+    matcher [
+        shape=box, style="filled,rounded", fillcolor="#E8F5E9",
+        color="#228833", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#228833">«stage 3»</FONT></TD></TR>
+            <TR><TD><B>Fuzzy OCR Match</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">exact → normalised → fuzzy</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 4 ---
+    blur [
+        shape=box, style="filled,rounded", fillcolor="#F3E5F5",
+        color="#AA3377", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#AA3377">«stage 4»</FONT></TD></TR>
+            <TR><TD><B>Blur Application</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">grey blend + Gaussian k75</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Stage 5 ---
+    review [
+        shape=box, style="filled,rounded", fillcolor="#E3F2FD",
+        color="#1565C0", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#1565C0">«stage 5»</FONT></TD></TR>
+            <TR><TD><B>Human Review</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">dashboard · confirm/reject</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Output ---
+    output [
+        shape=cylinder, style=filled, fillcolor="#FCE4EC",
+        color="#C62828", penwidth=0.8,
+        label=<<TABLE BORDER="0" CELLPADDING="1">
+            <TR><TD><FONT POINT-SIZE="7" COLOR="#C62828">«output»</FONT></TD></TR>
+            <TR><TD><B>Blur Probes</B></TD></TR>
+            <TR><TD><FONT POINT-SIZE="7">228 adm · 215 ind</FONT></TD></TR>
+        </TABLE>>
+    ];
+
+    // --- Edges (linear flow, no crossing) ---
+    figure -> ocr [label="image", weight=10];
+    ocr -> selector [label="texts + boxes", weight=10];
+    selector -> matcher [label="targets", weight=10];
+    matcher -> blur [label="matched bbox", weight=10];
+    blur -> review [label="blurred", weight=10];
+    review -> output [label="confirmed", weight=10];
+}
