@@ -3,14 +3,14 @@ import { motion, useInView } from 'motion/react'
 import { MODELS, MQM, ADMITTANCE } from '../../data/landing_data'
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
 }
 
 // The 4 most informative models to feature (rest crowd the visual)
@@ -232,7 +232,7 @@ function BarSegment({ value, max, color, rightLabel, delay, inView, emphasise }:
       <div style={{
         flex: 1, height: emphasise ? 14 : 10,
         borderRadius: emphasise ? 7 : 5,
-        background: 'rgba(255,255,255,0.04)',
+        background: 'var(--t-overlay-soft)',
         overflow: 'hidden', position: 'relative',
       }}>
         <motion.div

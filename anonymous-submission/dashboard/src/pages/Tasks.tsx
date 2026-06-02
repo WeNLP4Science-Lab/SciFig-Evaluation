@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
 const c = {
-  bg: '#09090b', surface: '#131316', surfaceHover: '#1c1c21',
-  surfaceActive: '#232329', surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)', borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa', muted: '#a1a1aa', dim: '#52525b', accent: '#3b82f6',
+  bg: 'var(--t-bg)', surface: 'var(--t-surface)', surfaceHover: 'var(--t-surface-hover)',
+  surfaceActive: 'var(--t-surface-active)', surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)', borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)', muted: 'var(--t-muted)', dim: 'var(--t-dim)', accent: 'var(--t-accent)',
 }
 
 const CHART_TYPES = ['Bar Chart', 'Line Plot', 'Pie Chart'] as const

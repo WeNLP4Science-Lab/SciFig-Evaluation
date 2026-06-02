@@ -3,13 +3,13 @@ import { motion, useInView } from 'motion/react'
 import { CROSS_DIM, CROSS_DIM_LABELS } from '../../data/landing_data'
 
 const c = {
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
 }
 
 const SHORT_LABELS = ['MQM', 'Resist', 'CapB', 'Adm', 'Ind']
@@ -90,7 +90,7 @@ export default function CrossDimHeatmap() {
             {row.map((val, j) => {
               const isDiag = i === j
               const isHovered = hovered && hovered[0] === i && hovered[1] === j
-              const fillColor = isDiag ? 'rgba(255,255,255,0.04)' : rhoToColor(val)
+              const fillColor = isDiag ? 'var(--t-overlay-soft)' : rhoToColor(val)
               return (
                 <motion.div
                   key={j}

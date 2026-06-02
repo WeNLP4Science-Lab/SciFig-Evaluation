@@ -90,17 +90,17 @@ interface CaptionBiasData {
 }
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceHover: '#1c1c21',
-  surfaceActive: '#232329',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
-  accent: '#3b82f6',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceHover: 'var(--t-surface-hover)',
+  surfaceActive: 'var(--t-surface-active)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
+  accent: 'var(--t-accent)',
 }
 
 const TYPE_DOT: Record<string, string> = {
@@ -247,7 +247,7 @@ export default function FigureDetail({ figureId, onBack, auth }: {
       <div style={{
         position: 'sticky', top: 0, zIndex: 20,
         borderBottom: `1px solid ${c.border}`,
-        background: 'rgba(9,9,11,0.92)', backdropFilter: 'blur(12px)',
+        background: 'var(--t-overlay-glass)', backdropFilter: 'blur(12px)',
       }}>
         <div className="page-container" style={{
           height: 48, display: 'flex', alignItems: 'center', gap: 12,
@@ -285,6 +285,7 @@ export default function FigureDetail({ figureId, onBack, auth }: {
           }}>
             {figure.figure_type}
           </span>
+
         </div>
       </div>
 
@@ -627,7 +628,7 @@ function VariantHero({ figureId, caption, activeVariant, availableVariants, onSe
                   position: 'absolute', top: 14, left: 14,
                   fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
                   letterSpacing: '0.08em', padding: '4px 9px', borderRadius: 4,
-                  color: c.fg, background: 'rgba(255,255,255,0.06)',
+                  color: c.fg, background: 'var(--t-border)',
                   border: `1px solid ${c.borderStrong}`, lineHeight: 1,
                   backdropFilter: 'blur(8px)',
                 }}
@@ -731,8 +732,8 @@ function VariantHero({ figureId, caption, activeVariant, availableVariants, onSe
                       inset: '-4px -4px auto -4px',
                       aspectRatio: '1 / 1',
                       borderRadius: 11,
-                      border: `1px solid rgba(255,255,255,0.28)`,
-                      boxShadow: '0 0 0 4px rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.4)',
+                      border: `1px solid var(--t-overlay-strong)`,
+                      boxShadow: '0 0 0 4px var(--t-overlay-soft), 0 8px 32px rgba(0,0,0,0.4)',
                       pointerEvents: 'none',
                       zIndex: 2,
                     }}
@@ -1269,8 +1270,8 @@ function SegmentedTabBar({ tabs, active, onSelect }: {
                     style={{
                       position: 'absolute', inset: 0,
                       borderRadius: 7,
-                      background: 'rgba(255,255,255,0.08)',
-                      border: '1px solid rgba(255,255,255,0.12)',
+                      background: 'var(--t-overlay-medium)',
+                      border: '1px solid var(--t-overlay-strong)',
                       zIndex: -1,
                     }}
                   />
@@ -1285,7 +1286,7 @@ function SegmentedTabBar({ tabs, active, onSelect }: {
                   <motion.span
                     animate={{
                       color: isActive ? c.fg : c.dim,
-                      background: isActive ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
+                      background: isActive ? 'var(--t-overlay-strong)' : 'var(--t-overlay-soft)',
                     }}
                     transition={{ duration: 0.18 }}
                     style={{

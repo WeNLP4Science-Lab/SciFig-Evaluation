@@ -3,14 +3,14 @@ import { motion, useInView } from 'motion/react'
 import { MODELS, MQM, ADMITTANCE, overallResistance } from '../../data/landing_data'
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
 }
 
 interface ScatterPoint {
@@ -152,7 +152,7 @@ function ScatterPanel({
             <line
               x1={marginLeft} x2={width - marginRight}
               y1={yScale(t)} y2={yScale(t)}
-              stroke="rgba(255,255,255,0.05)" strokeWidth={1}
+              stroke="var(--t-overlay-soft)" strokeWidth={1}
               strokeDasharray={t === 0 ? '' : '2 3'}
             />
             <text
@@ -172,7 +172,7 @@ function ScatterPanel({
             <line
               x1={xScale(t)} x2={xScale(t)}
               y1={marginTop} y2={marginTop + plotH}
-              stroke="rgba(255,255,255,0.04)" strokeWidth={1}
+              stroke="var(--t-overlay-soft)" strokeWidth={1}
               strokeDasharray="2 3"
             />
             <text

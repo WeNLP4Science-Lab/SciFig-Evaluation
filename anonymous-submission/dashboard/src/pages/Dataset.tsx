@@ -41,24 +41,28 @@ const TYPE_SHORT: Record<string, string> = {
 /* ── Shared inline style constants ── */
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceHover: '#1c1c21',
-  surfaceActive: '#232329',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
-  accent: '#3b82f6',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceHover: 'var(--t-surface-hover)',
+  surfaceActive: 'var(--t-surface-active)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
+  accent: 'var(--t-accent)',
 }
 
 /* ── Main Component ── */
 
 import { figureInRange, isAnnotationMode, getSavedAuth } from '../auth'
+import SciFigLogo from '../components/SciFigLogo'
 
-export default function Dataset({ onSelectFigure }: { onSelectFigure: (id: string) => void }) {
+export default function Dataset({ onSelectFigure, onBackToHome }: {
+  onSelectFigure: (id: string) => void
+  onBackToHome?: () => void
+}) {
   const [data, setData] = useState<FigureEntry[]>([])
   const [filter, setFilter] = useState<FilterType>('All')
   const [search, setSearch] = useState('')
@@ -108,9 +112,76 @@ export default function Dataset({ onSelectFigure }: { onSelectFigure: (id: strin
 
   return (
     <div style={{ minHeight: '100vh' }}>
+      {/* ── Top nav strip (back to landing) ── */}
+      <div style={{
+        position: 'sticky', top: 0, zIndex: 25,
+        background: 'var(--t-overlay-glass)',
+        backdropFilter: 'blur(14px)',
+        borderBottom: `1px solid ${c.border}`,
+      }}>
+        <div className="page-container" style={{
+          height: 52,
+          display: 'flex', alignItems: 'center', gap: 12,
+        }}>
+          {onBackToHome && (
+            <motion.button
+              onClick={onBackToHome}
+              whileHover={{ x: -2, opacity: 0.85 }}
+              whileTap={{ scale: 0.96 }}
+              transition={SPRING}
+              style={{
+                background: 'none', border: 'none', padding: 0,
+                cursor: 'pointer', fontFamily: 'inherit',
+                display: 'flex', alignItems: 'center', gap: 9,
+                color: c.fg,
+              }}
+              aria-label="Back to home"
+            >
+              <SciFigLogo size={22} id="dataset-nav-logo" />
+              <span style={{ fontSize: 13, fontWeight: 600, color: c.fg }}>
+                SciFig-Eval
+              </span>
+            </motion.button>
+          )}
+
+          <span style={{ color: c.dim, fontSize: 12 }}>/</span>
+
+          <span style={{
+            fontSize: 12, color: c.muted, fontWeight: 500,
+          }}>
+            Dataset
+          </span>
+
+          <div style={{ flex: 1 }} />
+
+          {onBackToHome && (
+            <motion.button
+              onClick={onBackToHome}
+              whileHover={{ x: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={SPRING}
+              style={{
+                background: 'none', border: 'none',
+                fontSize: 12, color: c.muted, cursor: 'pointer',
+                fontFamily: 'inherit',
+                display: 'flex', alignItems: 'center', gap: 5,
+                padding: '6px 10px', borderRadius: 6,
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 3L5 8l5 5" />
+              </svg>
+              Back to landing
+            </motion.button>
+          )}
+        </div>
+      </div>
+
       {/* ── Header ── */}
       <header style={{ borderBottom: `1px solid ${c.border}` }}>
-        <div className="page-container" style={{ paddingTop: 48, paddingBottom: 36 }}>
+        <div className="page-container" style={{
+          paddingTop: 48, paddingBottom: 36,
+        }}>
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
@@ -146,7 +217,7 @@ export default function Dataset({ onSelectFigure }: { onSelectFigure: (id: strin
       <div style={{
         borderBottom: `1px solid ${c.border}`,
         position: 'sticky', top: 0, zIndex: 20,
-        background: 'rgba(9,9,11,0.92)', backdropFilter: 'blur(12px)',
+        background: 'var(--t-overlay-glass)', backdropFilter: 'blur(12px)',
       }}>
         <div className="page-container" style={{
           height: 44, display: 'flex', alignItems: 'center', gap: 16,
@@ -182,8 +253,8 @@ export default function Dataset({ onSelectFigure }: { onSelectFigure: (id: strin
                         style={{
                           position: 'absolute', inset: 0,
                           borderRadius: 7,
-                          background: 'rgba(255,255,255,0.08)',
-                          border: '1px solid rgba(255,255,255,0.12)',
+                          background: 'var(--t-overlay-medium)',
+                          border: '1px solid var(--t-overlay-strong)',
                           zIndex: -1,
                         }}
                       />
@@ -223,7 +294,7 @@ export default function Dataset({ onSelectFigure }: { onSelectFigure: (id: strin
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: 12,
+              gap: 18,
             }}
           >
             <AnimatePresence mode="popLayout" initial={false}>
@@ -415,7 +486,7 @@ function SearchInput({ value, onChange }: { value: string; onChange: (v: string)
             style={{
               position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)',
               width: 18, height: 18, borderRadius: '50%', border: 'none',
-              background: 'rgba(255,255,255,0.06)', color: c.muted,
+              background: 'var(--t-border)', color: c.muted,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               cursor: 'pointer', padding: 0,
             }}
@@ -570,7 +641,7 @@ function StatsHub({ figureCount, chartCounts }: {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: 12,
+            gap: 16,
           }}
         >
           <MarqueeStat
@@ -649,6 +720,7 @@ function MarqueeStat({ value, label, sublabel, segments }: {
         borderRadius: 12,
         border: `1px solid ${c.border}`,
         background: c.surface,
+        boxShadow: 'var(--t-card-shadow)',
         padding: '16px 18px 14px',
         overflow: 'hidden',
       }}
@@ -688,7 +760,7 @@ function MarqueeStat({ value, label, sublabel, segments }: {
         {/* Composition bar */}
         <div style={{
           display: 'flex', height: 5, borderRadius: 3, overflow: 'hidden',
-          background: 'rgba(255,255,255,0.04)', gap: 2,
+          background: 'var(--t-overlay-soft)', gap: 2,
           marginBottom: 10,
         }}>
           {segments.map((s, i) => (
@@ -799,6 +871,7 @@ function Card({ item, index, isLoaded, onLoad, onClick }: {
         borderRadius: 10,
         border: `1px solid ${hovered ? c.borderStrong : c.border}`,
         background: c.surface,
+        boxShadow: hovered ? 'var(--t-card-shadow-hover)' : 'var(--t-card-shadow)',
         overflow: 'hidden',
         cursor: 'pointer',
         display: 'flex',
@@ -809,11 +882,14 @@ function Card({ item, index, isLoaded, onLoad, onClick }: {
         transformStyle: 'preserve-3d',
         willChange: 'transform',
         position: 'relative',
+        transition: 'box-shadow 0.25s ease',
       }}
     >
       {/* Thumbnail */}
       <div style={{
-        position: 'relative', aspectRatio: '4/3', background: c.bg, overflow: 'hidden',
+        position: 'relative', aspectRatio: '4/3',
+        background: c.surfaceHover,
+        overflow: 'hidden',
       }}>
         {!isLoaded && (
           <div style={{

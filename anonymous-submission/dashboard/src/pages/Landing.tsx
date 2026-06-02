@@ -5,7 +5,10 @@ import {
 } from 'motion/react'
 import DisconnectChart from '../components/landing/DisconnectChart'
 import AriDumbbell from '../components/landing/AriDumbbell'
-import HeroMiniCard from '../components/landing/HeroMiniCard'
+import ModelQuoteRail from '../components/landing/ModelQuoteRail'
+import ThemeToggle from '../components/ThemeToggle'
+import SciFigLogo from '../components/SciFigLogo'
+import { useTheme } from '../theme'
 import PaperFigure from '../components/landing/PaperFigure'
 import GroupedBarChart from '../components/landing/GroupedBarChart'
 import FigureProbeExplorer from '../components/landing/FigureProbeExplorer'
@@ -14,16 +17,16 @@ import { BENCHMARK_STATS, METHOD_CREDIBILITY } from '../data/landing_data'
 const SPRING = { type: 'spring' as const, stiffness: 320, damping: 30, mass: 0.8 }
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  surfaceHover: '#1c1c21',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
-  accent: '#3b82f6',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  surfaceHover: 'var(--t-surface-hover)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
+  accent: 'var(--t-accent)',
 }
 
 interface NavSection { id: string; label: string }
@@ -60,7 +63,7 @@ export default function Landing({ onExploreDataset }: { onExploreDataset: () => 
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: c.bg, color: c.fg }}>
+    <div style={{ minHeight: '100vh', color: c.fg }}>
       <StickyNav
         active={activeSection}
         onJump={scrollTo}
@@ -105,16 +108,22 @@ function StickyNav({ active, onJump, onExploreDataset }: {
   onJump: (id: string) => void
   onExploreDataset: () => void
 }) {
+  const { theme } = useTheme()
   const { scrollY } = useScroll()
   const bgOpacity = useTransform(scrollY, [0, 80], [0, 0.92])
   const borderOpacity = useTransform(scrollY, [0, 80], [0, 1])
+
+  // Theme-aware glass colours
+  const navBgRGB = theme === 'dark' ? '9,9,11' : '250,250,247'
+  const navBorderRGB = theme === 'dark' ? '255,255,255' : '28,25,23'
+  const baseBorderAlpha = theme === 'dark' ? 0.06 : 0.08
 
   return (
     <motion.nav
       style={{
         position: 'sticky', top: 0, zIndex: 30,
-        background: useTransform(bgOpacity, v => `rgba(9,9,11,${v})`),
-        borderBottom: useTransform(borderOpacity, v => `1px solid rgba(255,255,255,${0.06 * v})`),
+        background: useTransform(bgOpacity, v => `rgba(${navBgRGB},${v})`),
+        borderBottom: useTransform(borderOpacity, v => `1px solid rgba(${navBorderRGB},${baseBorderAlpha * v})`),
         backdropFilter: 'blur(14px)',
       }}
     >
@@ -128,16 +137,12 @@ function StickyNav({ active, onJump, onExploreDataset }: {
           whileHover={{ opacity: 0.85 }}
           style={{
             background: 'none', border: 'none', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', gap: 10,
+            display: 'flex', alignItems: 'center', gap: 9,
             padding: 0, fontFamily: 'inherit',
+            color: c.fg,
           }}
         >
-          <div style={{
-            width: 26, height: 26, borderRadius: 7, background: c.accent,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <span style={{ color: '#fff', fontSize: 10, fontWeight: 700 }}>SF</span>
-          </div>
+          <SciFigLogo size={22} id="nav-logo" />
           <span style={{ fontSize: 13, fontWeight: 600, color: c.fg }}>
             SciFig-Eval
           </span>
@@ -168,8 +173,8 @@ function StickyNav({ active, onJump, onExploreDataset }: {
                       style={{
                         position: 'absolute', inset: 0,
                         borderRadius: 6,
-                        background: 'rgba(255,255,255,0.08)',
-                        border: '1px solid rgba(255,255,255,0.12)',
+                        background: 'var(--t-overlay-medium)',
+                        border: '1px solid var(--t-overlay-strong)',
                         zIndex: -1,
                       }}
                     />
@@ -186,7 +191,7 @@ function StickyNav({ active, onJump, onExploreDataset }: {
           </div>
         </LayoutGroup>
 
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <NavCTA label="Paper" comingSoon />
           <NavCTA label="Dataset" onClick={onExploreDataset} primary />
         </div>
@@ -221,8 +226,8 @@ function NavCTA({ label, primary, external, comingSoon, onClick }: {
           fontSize: 8.5, fontWeight: 600, textTransform: 'uppercase',
           letterSpacing: '0.06em',
           padding: '2px 5px', borderRadius: 3,
-          background: 'rgba(255,255,255,0.08)',
-          border: '1px solid rgba(255,255,255,0.12)',
+          background: 'var(--t-overlay-medium)',
+          border: '1px solid var(--t-overlay-strong)',
           lineHeight: 1,
         }}>
           Soon
@@ -251,62 +256,71 @@ function Hero({ onExploreDataset }: { onExploreDataset: () => void }) {
       <div style={{
         position: 'relative',
         maxWidth: 1180, margin: '0 auto',
-        padding: '88px 32px 96px',
+        padding: '120px 32px 24px',
+        textAlign: 'center',
       }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.35fr) minmax(280px, 1fr)',
-          gap: 56,
-          alignItems: 'center',
-        }}>
-          {/* Left column */}
-          <div>
-            <HeroHeadline text="How Do VLMs Behave When Blind or Misled?" />
+        {/* Eyebrow — conceptual logo + wordmark */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 9,
+            margin: '0 0 28px',
+            color: c.muted,
+          }}
+        >
+          <SciFigLogo size={22} id="hero-logo" />
+          <span style={{
+            fontSize: 14, fontWeight: 500, color: c.fg,
+            letterSpacing: '-0.005em',
+          }}>
+            SciFig-Eval
+          </span>
+        </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                fontSize: 'clamp(15px, 1.3vw, 17px)',
-                color: c.muted, marginTop: 18, lineHeight: 1.55,
-                fontWeight: 400, maxWidth: 600,
-              }}
-            >
-              Behavioural Evaluation of VLMs on Scientific Figures.
-            </motion.p>
+        {/* Big centered headline */}
+        <HeroHeadline text="How Do VLMs Behave When Blind or Misled?" />
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.85, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                fontSize: 14.5, color: c.muted, lineHeight: 1.7,
-                margin: '22px 0 0', maxWidth: 580,
-              }}
-            >
-              A diagnostic benchmark of <Num value={figs} /> scientific figures,{' '}
-              <Num value={models} /> frontier vision-language models, and{' '}
-              <Num value={evals} />+ evaluations. We measure not what models say,
-              but how they{' '}
-              <em style={{ color: c.fg, fontStyle: 'normal', fontWeight: 500 }}>behave</em>{' '}
-              when visual evidence is missing or misleading.
-            </motion.p>
+        {/* Subhead */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.85, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontSize: 'clamp(16px, 1.3vw, 19px)',
+            color: c.muted, lineHeight: 1.55,
+            margin: '32px auto 0', maxWidth: 720,
+            fontWeight: 400,
+          }}
+        >
+          Behavioural Evaluation of VLMs on Scientific Figures —{' '}
+          <Num value={figs} /> figures, <Num value={models} /> frontier models,{' '}
+          <Num value={evals} />+ evaluations.
+        </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              style={{ marginTop: 32, display: 'flex', gap: 10, flexWrap: 'wrap' }}
-            >
-              <HeroCTA label="Explore the dataset" primary onClick={onExploreDataset} icon="grid" />
-              <HeroCTA label="Read the paper" icon="paper" comingSoon />
-            </motion.div>
-          </div>
+        {/* Centered pill CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            marginTop: 40,
+            display: 'flex', gap: 14, justifyContent: 'center', alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <HeroCTA label="Start exploring" primary onClick={onExploreDataset} />
+          <HeroCTA label="Read about the paper" arrow comingSoon />
+        </motion.div>
+      </div>
 
-          {/* Right column — live demo card */}
-          <HeroMiniCard />
-        </div>
+      {/* Model quote rail — sits under hero, partial overflow on the sides */}
+      <div style={{
+        position: 'relative',
+        paddingTop: 64, paddingBottom: 72,
+      }}>
+        <ModelQuoteRail />
       </div>
     </div>
   )
@@ -320,20 +334,22 @@ function HeroHeadline({ text }: { text: string }) {
       animate="visible"
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: 0.045, delayChildren: 0.1 } },
+        visible: { transition: { staggerChildren: 0.045, delayChildren: 0.15 } },
       }}
       style={{
-        fontSize: 'clamp(34px, 4.4vw, 58px)',
-        fontWeight: 600, letterSpacing: '-0.025em',
-        color: c.fg, lineHeight: 1.05, margin: 0,
-        display: 'flex', flexWrap: 'wrap', gap: '0.26em',
+        fontSize: 'clamp(42px, 6.6vw, 92px)',
+        fontWeight: 700, letterSpacing: '-0.035em',
+        color: c.fg, lineHeight: 1.0, margin: 0,
+        display: 'flex', flexWrap: 'wrap', gap: '0.18em',
+        justifyContent: 'center',
+        maxWidth: 1080, marginInline: 'auto',
       }}
     >
       {words.map((w, i) => (
         <motion.span
           key={i}
           variants={{
-            hidden: { opacity: 0, y: 24, filter: 'blur(10px)' },
+            hidden: { opacity: 0, y: 28, filter: 'blur(10px)' },
             visible: {
               opacity: 1, y: 0, filter: 'blur(0px)',
               transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
@@ -348,35 +364,47 @@ function HeroHeadline({ text }: { text: string }) {
   )
 }
 
-function HeroCTA({ label, primary, icon, comingSoon, onClick }: {
-  label: string; primary?: boolean; icon?: 'grid' | 'paper' | 'code'; comingSoon?: boolean; onClick?: () => void
+function HeroCTA({ label, primary, icon, arrow, comingSoon, onClick }: {
+  label: string
+  primary?: boolean
+  icon?: 'grid' | 'paper' | 'code'
+  arrow?: boolean
+  comingSoon?: boolean
+  onClick?: () => void
 }) {
   return (
     <motion.button
       onClick={comingSoon ? undefined : onClick}
-      whileHover={comingSoon ? undefined : { y: -2 }}
+      whileHover={comingSoon ? undefined : { scale: 1.03 }}
       whileTap={comingSoon ? undefined : { scale: 0.97 }}
       transition={SPRING}
       style={{
-        padding: '11px 20px', borderRadius: 9,
-        fontFamily: 'inherit', fontSize: 13, fontWeight: 500,
+        padding: primary ? '12px 24px' : '11px 20px',
+        borderRadius: 999,
+        fontFamily: 'inherit', fontSize: 14, fontWeight: 500,
         cursor: comingSoon ? 'default' : 'pointer',
-        display: 'flex', alignItems: 'center', gap: 8,
-        background: primary ? c.fg : c.surface,
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        background: primary ? c.fg : 'transparent',
         color: primary ? c.bg : c.fg,
-        border: primary ? 'none' : `1px solid ${c.borderStrong}`,
-        opacity: comingSoon ? 0.6 : 1,
+        border: 'none',
+        opacity: comingSoon ? 0.5 : 1,
       }}
     >
       <CTAIcon kind={icon} primary={primary} />
       {label}
+      {arrow && (
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 4h7v7" />
+          <path d="M5 11L12 4" />
+        </svg>
+      )}
       {comingSoon && (
         <span style={{
           fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
-          letterSpacing: '0.06em',
-          padding: '2px 6px', borderRadius: 3,
-          background: 'rgba(255,255,255,0.08)',
-          border: '1px solid rgba(255,255,255,0.12)',
+          letterSpacing: '0.08em',
+          padding: '3px 8px', borderRadius: 999,
+          background: 'var(--t-overlay-medium)',
+          border: '1px solid var(--t-overlay-strong)',
           lineHeight: 1,
         }}>
           Soon
@@ -423,7 +451,7 @@ function AuroraGlow() {
         style={{
           position: 'absolute', top: -200, left: -100,
           width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(59,130,246,0.16), transparent 65%)',
+          background: 'radial-gradient(circle, var(--t-aurora-blue), transparent 65%)',
           filter: 'blur(60px)', pointerEvents: 'none',
         }}
       />
@@ -433,7 +461,7 @@ function AuroraGlow() {
         style={{
           position: 'absolute', top: -100, right: -150,
           width: 500, height: 500, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(34,197,94,0.12), transparent 65%)',
+          background: 'radial-gradient(circle, var(--t-aurora-green), transparent 65%)',
           filter: 'blur(70px)', pointerEvents: 'none',
         }}
       />
@@ -938,7 +966,7 @@ function Footer({ onExploreDataset }: { onExploreDataset: () => void }) {
   }
 
   return (
-    <footer style={{ background: c.bg }}>
+    <footer>
       <div style={{
         maxWidth: 1180, margin: '0 auto',
         padding: '64px 32px 48px',

@@ -4,6 +4,7 @@ import Dataset from './pages/Dataset'
 import FigureDetail from './pages/FigureDetail'
 import Tasks from './pages/Tasks'
 import Login from './components/Login'
+import BackgroundGrid from './components/BackgroundGrid'
 import { isAnnotationMode, getSavedAuth, loginAPI, clearAuth as clearStoredAuth, displayName, type AuthState } from './auth'
 
 const sections = ['home', 'dataset', 'tasks', 'evaluation', 'analytics'] as const
@@ -80,14 +81,17 @@ export default function App() {
     return <Login onLogin={setAuth} />
   }
   if (annotateMode && !authChecked) {
-    return <div style={{ minHeight: '100vh', background: '#09090b' }} />
+    return <div style={{ minHeight: '100vh', background: 'var(--t-bg)' }} />
   }
 
   // Hide the sidebar everywhere except annotation mode (annotators need logout).
   const showSidebar = annotateMode
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#09090b' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--t-bg)', position: 'relative' }}>
+      {/* ── Ambient gridlines (behind everything, persists across views) ── */}
+      <BackgroundGrid />
+
       {/* ── Sidebar (annotation mode only) ── */}
       {showSidebar && (
       <nav
@@ -96,8 +100,8 @@ export default function App() {
         style={{
           position: 'fixed', left: 0, top: 0, bottom: 0,
           width: open ? 192 : 52,
-          background: '#09090b',
-          borderRight: '1px solid rgba(255,255,255,0.06)',
+          background: 'var(--t-bg)',
+          borderRight: '1px solid var(--t-border)',
           display: 'flex', flexDirection: 'column',
           zIndex: 40,
           transition: 'width 0.2s cubic-bezier(0.4,0,0.2,1)',
@@ -107,7 +111,7 @@ export default function App() {
         {/* Logo */}
         <div style={{
           height: 52, display: 'flex', alignItems: 'center', padding: '0 13px',
-          borderBottom: '1px solid rgba(255,255,255,0.06)', flexShrink: 0,
+          borderBottom: '1px solid var(--t-border)', flexShrink: 0,
         }}>
           <div style={{
             width: 26, height: 26, borderRadius: 7, background: '#3b82f6',
@@ -116,7 +120,7 @@ export default function App() {
             <span style={{ color: '#fff', fontSize: 10, fontWeight: 700 }}>SF</span>
           </div>
           <span style={{
-            marginLeft: 12, fontSize: 13, fontWeight: 600, color: '#fafafa',
+            marginLeft: 12, fontSize: 13, fontWeight: 600, color: 'var(--t-fg)',
             whiteSpace: 'nowrap', opacity: open ? 1 : 0, transition: 'opacity 0.15s ease',
           }}>
             SciFig-Eval
@@ -136,14 +140,14 @@ export default function App() {
                   display: 'flex', alignItems: 'center', gap: 10,
                   width: '100%', height: 34, padding: '0 8px', borderRadius: 6,
                   border: 'none',
-                  background: isActive ? '#232329' : 'transparent',
-                  color: isActive ? '#fafafa' : ready ? '#a1a1aa' : '#52525b',
+                  background: isActive ? 'var(--t-surface-active)' : 'transparent',
+                  color: isActive ? 'var(--t-fg)' : ready ? 'var(--t-muted)' : 'var(--t-dim)',
                   fontSize: 13, fontWeight: isActive ? 500 : 400,
                   fontFamily: 'inherit', cursor: ready ? 'pointer' : 'default',
                   marginBottom: 2, transition: 'background 0.15s, color 0.15s',
                 }}
-                onMouseEnter={e => { if (ready && !isActive) { e.currentTarget.style.background = '#1c1c21'; e.currentTarget.style.color = '#fafafa' } }}
-                onMouseLeave={e => { if (!isActive) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = ready ? '#a1a1aa' : '#52525b' } }}
+                onMouseEnter={e => { if (ready && !isActive) { e.currentTarget.style.background = 'var(--t-surface-hover)'; e.currentTarget.style.color = 'var(--t-fg)' } }}
+                onMouseLeave={e => { if (!isActive) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = ready ? 'var(--t-muted)' : 'var(--t-dim)' } }}
               >
                 <NavIcon id={id} />
                 <span style={{
@@ -156,8 +160,8 @@ export default function App() {
                     <span style={{
                       fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
                       letterSpacing: '0.05em', padding: '1px 6px', borderRadius: 4,
-                      background: '#131316', border: '1px solid rgba(255,255,255,0.06)',
-                      color: '#52525b',
+                      background: 'var(--t-surface)', border: '1px solid var(--t-border)',
+                      color: 'var(--t-dim)',
                     }}>Soon</span>
                   )}
                 </span>
@@ -169,7 +173,7 @@ export default function App() {
         {/* Annotator badge + logout */}
         {auth && (
           <div style={{
-            padding: '8px 10px', borderTop: '1px solid rgba(255,255,255,0.06)',
+            padding: '8px 10px', borderTop: '1px solid var(--t-border)',
             overflow: 'hidden',
           }}>
             <div style={{
@@ -179,19 +183,19 @@ export default function App() {
               <div style={{
                 width: 8, height: 8, borderRadius: '50%', background: '#22c55e', flexShrink: 0,
               }} />
-              <span style={{ fontSize: 11, color: '#a1a1aa', whiteSpace: 'nowrap', flex: 1 }}>
+              <span style={{ fontSize: 11, color: 'var(--t-muted)', whiteSpace: 'nowrap', flex: 1 }}>
                 {displayName(auth.name)}
               </span>
               <button
                 onClick={() => { clearStoredAuth(); setAuth(null) }}
                 style={{
                   background: 'none', border: 'none', cursor: 'pointer',
-                  color: '#52525b', fontSize: 10, fontFamily: 'inherit',
+                  color: 'var(--t-dim)', fontSize: 10, fontFamily: 'inherit',
                   padding: '2px 0', whiteSpace: 'nowrap',
                   transition: 'color 0.15s',
                 }}
-                onMouseEnter={e => e.currentTarget.style.color = '#fafafa'}
-                onMouseLeave={e => e.currentTarget.style.color = '#52525b'}
+                onMouseEnter={e => e.currentTarget.style.color = 'var(--t-fg)'}
+                onMouseLeave={e => e.currentTarget.style.color = 'var(--t-dim)'}
               >
                 Logout
               </button>
@@ -208,7 +212,7 @@ export default function App() {
       )}
 
       {/* ── Main ── */}
-      <main style={{ flex: 1, marginLeft: showSidebar ? 52 : 0 }}>
+      <main style={{ flex: 1, marginLeft: showSidebar ? 52 : 0, position: 'relative', zIndex: 1 }}>
         {selectedFigure ? (
           <FigureDetail
             figureId={selectedFigure}
@@ -218,7 +222,7 @@ export default function App() {
         ) : (
           <>
             {active === 'home' && <Landing onExploreDataset={() => switchSection('dataset')} />}
-            {active === 'dataset' && <Dataset onSelectFigure={selectFigure} />}
+            {active === 'dataset' && <Dataset onSelectFigure={selectFigure} onBackToHome={() => switchSection('home')} />}
             {active === 'tasks' && <Tasks />}
             {active === 'evaluation' && <PlaceholderPage label="Evaluation" />}
             {active === 'analytics' && <PlaceholderPage label="Result Analytics" />}
@@ -233,8 +237,8 @@ function PlaceholderPage({ label }: { label: string }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <div style={{ textAlign: 'center' }}>
-        <p style={{ fontSize: 18, fontWeight: 500, color: '#a1a1aa' }}>{label}</p>
-        <p style={{ fontSize: 13, color: '#52525b', marginTop: 6 }}>Coming soon</p>
+        <p style={{ fontSize: 18, fontWeight: 500, color: 'var(--t-muted)' }}>{label}</p>
+        <p style={{ fontSize: 13, color: 'var(--t-dim)', marginTop: 6 }}>Coming soon</p>
       </div>
     </div>
   )

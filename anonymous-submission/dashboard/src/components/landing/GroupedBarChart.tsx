@@ -3,14 +3,14 @@ import { motion, useInView } from 'motion/react'
 import { MODELS, CAPABILITY } from '../../data/landing_data'
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
 }
 
 const CATEGORIES = [
@@ -98,7 +98,7 @@ export default function GroupedBarChart() {
             <line
               x1={marginLeft} x2={width - marginRight}
               y1={marginTop + yScale(t)} y2={marginTop + yScale(t)}
-              stroke="rgba(255,255,255,0.05)" strokeWidth={1}
+              stroke="var(--t-overlay-soft)" strokeWidth={1}
               strokeDasharray={t === 0 ? '' : '2 3'}
             />
             <text
@@ -133,7 +133,7 @@ export default function GroupedBarChart() {
                 <rect
                   x={gx - 4} y={marginTop - 4}
                   width={groupW + 8} height={plotH + 8}
-                  fill="rgba(255,255,255,0.03)"
+                  fill="var(--t-overlay-soft)"
                   rx={4}
                 />
               )}

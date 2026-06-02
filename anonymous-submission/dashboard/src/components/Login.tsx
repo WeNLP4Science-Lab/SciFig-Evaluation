@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { ANNOTATORS, DISPLAY_NAME, resolveRealName, loginAPI, saveAuth, type Annotator, type AuthState } from '../auth'
 
 const c = {
-  bg: '#09090b', surface: '#131316', border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)', fg: '#fafafa', muted: '#a1a1aa',
-  dim: '#52525b', accent: '#3b82f6',
+  bg: 'var(--t-bg)', surface: 'var(--t-surface)', border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)', fg: 'var(--t-fg)', muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)', accent: 'var(--t-accent)',
 }
 
 export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void }) {

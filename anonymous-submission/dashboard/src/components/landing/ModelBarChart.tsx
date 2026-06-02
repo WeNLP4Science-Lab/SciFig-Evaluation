@@ -2,14 +2,14 @@ import { motion } from 'motion/react'
 import { MODELS } from '../../data/landing_data'
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
 }
 
 export interface ModelBarChartProps {
@@ -76,7 +76,7 @@ export default function ModelBarChart({
               <div style={{
                 position: 'relative', height: 9,
                 borderRadius: 5,
-                background: 'rgba(255,255,255,0.04)',
+                background: 'var(--t-overlay-soft)',
                 overflow: 'hidden',
               }}>
                 <motion.div

@@ -5,14 +5,14 @@ import { MODELS } from '../../data/landing_data'
 const SPRING = { type: 'spring' as const, stiffness: 320, damping: 30, mass: 0.8 }
 
 const c = {
-  bg: '#09090b',
-  surface: '#131316',
-  surfaceRaised: '#18181b',
-  border: 'rgba(255,255,255,0.06)',
-  borderStrong: 'rgba(255,255,255,0.1)',
-  fg: '#fafafa',
-  muted: '#a1a1aa',
-  dim: '#52525b',
+  bg: 'var(--t-bg)',
+  surface: 'var(--t-surface)',
+  surfaceRaised: 'var(--t-surface-raised)',
+  border: 'var(--t-border)',
+  borderStrong: 'var(--t-border-strong)',
+  fg: 'var(--t-fg)',
+  muted: 'var(--t-muted)',
+  dim: 'var(--t-dim)',
 }
 
 // Real example from the paper hook (Fig 1)
@@ -121,8 +121,8 @@ export default function LiveExample() {
                     style={{
                       position: 'absolute', inset: 0,
                       borderRadius: 6,
-                      background: v === 'blurred' ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.08)',
-                      border: v === 'blurred' ? '1px solid rgba(239,68,68,0.25)' : '1px solid rgba(255,255,255,0.12)',
+                      background: v === 'blurred' ? 'rgba(239,68,68,0.12)' : 'var(--t-overlay-medium)',
+                      border: v === 'blurred' ? '1px solid rgba(239,68,68,0.25)' : '1px solid var(--t-overlay-strong)',
                       zIndex: -1,
                     }}
                   />
