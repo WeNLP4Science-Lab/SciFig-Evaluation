@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
+import Landing from './pages/Landing'
 import Dataset from './pages/Dataset'
 import FigureDetail from './pages/FigureDetail'
 import Tasks from './pages/Tasks'
 import Login from './components/Login'
-import { isAnnotationMode, getSavedAuth, loginAPI, clearAuth as clearStoredAuth, type AuthState } from './auth'
+import { isAnnotationMode, getSavedAuth, loginAPI, clearAuth as clearStoredAuth, displayName, type AuthState } from './auth'
 
-const sections = ['dataset', 'tasks', 'evaluation', 'analytics'] as const
+const sections = ['home', 'dataset', 'tasks', 'evaluation', 'analytics'] as const
 type Section = typeof sections[number]
 
 const sectionMeta: Record<Section, { label: string; ready: boolean }> = {
+  home:       { label: 'Home',       ready: true },
   dataset:    { label: 'Dataset',    ready: true },
   tasks:      { label: 'Tasks',      ready: true },
   evaluation: { label: 'Evaluation', ready: false },
@@ -16,12 +18,12 @@ const sectionMeta: Record<Section, { label: string; ready: boolean }> = {
 }
 
 export default function App() {
-  // Read section from hash on load
+  // Read section from hash on load. Default to 'home' for the landing page.
   const getHashState = () => {
     const hash = window.location.hash.replace('#', '')
     if (hash.startsWith('fig_')) return { section: 'dataset' as Section, figure: hash }
     if (sections.includes(hash as Section)) return { section: hash as Section, figure: null }
-    return { section: 'dataset' as Section, figure: null }
+    return { section: 'home' as Section, figure: null }
   }
   const initial = getHashState()
   const [active, setActive] = useState<Section>(initial.section)
@@ -81,9 +83,13 @@ export default function App() {
     return <div style={{ minHeight: '100vh', background: '#09090b' }} />
   }
 
+  // Hide the sidebar everywhere except annotation mode (annotators need logout).
+  const showSidebar = annotateMode
+
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#09090b' }}>
-      {/* ── Sidebar ── */}
+      {/* ── Sidebar (annotation mode only) ── */}
+      {showSidebar && (
       <nav
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -174,7 +180,7 @@ export default function App() {
                 width: 8, height: 8, borderRadius: '50%', background: '#22c55e', flexShrink: 0,
               }} />
               <span style={{ fontSize: 11, color: '#a1a1aa', whiteSpace: 'nowrap', flex: 1 }}>
-                {auth.name}
+                {displayName(auth.name)}
               </span>
               <button
                 onClick={() => { clearStoredAuth(); setAuth(null) }}
@@ -199,9 +205,10 @@ export default function App() {
           </div>
         )}
       </nav>
+      )}
 
       {/* ── Main ── */}
-      <main style={{ flex: 1, marginLeft: 52 }}>
+      <main style={{ flex: 1, marginLeft: showSidebar ? 52 : 0 }}>
         {selectedFigure ? (
           <FigureDetail
             figureId={selectedFigure}
@@ -210,6 +217,7 @@ export default function App() {
           />
         ) : (
           <>
+            {active === 'home' && <Landing onExploreDataset={() => switchSection('dataset')} />}
             {active === 'dataset' && <Dataset onSelectFigure={selectFigure} />}
             {active === 'tasks' && <Tasks />}
             {active === 'evaluation' && <PlaceholderPage label="Evaluation" />}
@@ -234,6 +242,13 @@ function PlaceholderPage({ label }: { label: string }) {
 
 function NavIcon({ id }: { id: string }) {
   const s = { width: 18, height: 18, flexShrink: 0 } as const
+  if (id === 'home') return (
+    <svg style={s} viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.5 8L9 2.5l6.5 5.5" />
+      <path d="M4 7.5V15h10V7.5" />
+      <path d="M7 15v-4h4v4" />
+    </svg>
+  )
   if (id === 'tasks') return (
     <svg style={s} viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 9l3 3 7-7" /><rect x="2" y="2" width="14" height="14" rx="2" />

@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the ASR values for each category appear to vary in width, particularly for 'WNBA' and 'Estadio'. Does this suggest greater uncertainty in these categories compared to others?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while explaining that the chart does not provide information about uncertainty.",
+      "false_element": "Confidence intervals, which are plausible in a line plot to indicate uncertainty or variability in the data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the ASR value for 'bb' in the 'start' series is approximately 0.7, how does this compare to the 'random' series at the same category?",
+      "expected_behavior": "The model should detect that the ASR value for 'bb' in the 'start' series is actually 0.5, not 0.7, and correct the false premise before answering the comparison question.",
+      "false_premise": "The ASR value for 'bb' in the 'start' series is falsely stated as 0.7, while the actual value is 0.5. The anchor is plausible because it is close to the values in other categories.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the trends observed in the chart, what is the statistical significance of the differences in ASR values between the 'start' and 'random' series for the 'WNBA' category?",
+      "expected_behavior": "The model should state that the statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or any other metrics that would allow for such an analysis. These metrics are not included in the chart.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_139",
+  "figure_type": "Line Plot"
+}

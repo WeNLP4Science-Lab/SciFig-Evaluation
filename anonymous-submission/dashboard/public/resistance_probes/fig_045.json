@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars on the token counts for 3 shots appear narrower than those for 1 shot — does this suggest lower variability in the data for 3 shots?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the presupposition while focusing on the actual data presented.",
+      "false_element": "Error bars, which are plausible for this bar chart as they often indicate variability or uncertainty in token counts.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the token count for 2 shots is approximately 2000, how does this compare to the token count for 4 shots?",
+      "expected_behavior": "The model should detect that the token count for 2 shots is actually 4780 (not 2000), correct the false premise, and provide the accurate comparison.",
+      "false_premise": "The token count for 2 shots is falsely stated as 2000, while the actual value is 4780. The anchor is plausible because it is within the range of token counts shown but significantly off.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the statistical significance of the reduction in token counts across the number of shots, and does this align with the p-values calculated for each group?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as no statistical analysis or methodology details are provided.",
+      "why_unanswerable": "The chart does not include statistical significance markers, p-values, or any information about the underlying statistical tests or sample sizes required to calculate them.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_045",
+  "figure_type": "Bar Chart"
+}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ANNOTATORS, loginAPI, saveAuth, type Annotator, type AuthState } from '../auth'
+import { ANNOTATORS, DISPLAY_NAME, resolveRealName, loginAPI, saveAuth, type Annotator, type AuthState } from '../auth'
 
 const c = {
   bg: '#09090b', surface: '#131316', border: 'rgba(255,255,255,0.06)',
@@ -8,19 +8,22 @@ const c = {
 }
 
 export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void }) {
-  const [name, setName] = useState<Annotator | ''>('')
+  // `selectedAlias` is what the user sees and selects (e.g. "User 1")
+  // We resolve it to the real name only when calling the API.
+  const [selectedAlias, setSelectedAlias] = useState<string>('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
-    if (!name || !password) return
+    if (!selectedAlias || !password) return
     setLoading(true)
     setError('')
     try {
-      const res = await loginAPI(name, password)
+      const realName = resolveRealName(selectedAlias) as Annotator
+      const res = await loginAPI(realName, password)
       if (res.ok) {
-        const auth = { name, password }
+        const auth = { name: realName, password }
         saveAuth(auth)
         onLogin(auth)
       } else {
@@ -53,16 +56,16 @@ export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void 
           Annotation Mode
         </h2>
         <p style={{ fontSize: 13, color: c.muted, margin: '0 0 24px' }}>
-          Select your name and enter your password to begin annotating.
+          Select your user ID and enter your password to begin annotating.
         </p>
 
-        {/* Name dropdown */}
+        {/* User dropdown — aliases only */}
         <label style={{ fontSize: 11, fontWeight: 600, color: c.dim, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-          Annotator
+          User
         </label>
         <select
-          value={name}
-          onChange={e => setName(e.target.value as Annotator)}
+          value={selectedAlias}
+          onChange={e => setSelectedAlias(e.target.value)}
           style={{
             width: '100%', height: 36, marginTop: 6, marginBottom: 16,
             padding: '0 10px', borderRadius: 6, fontSize: 13, fontFamily: 'inherit',
@@ -70,8 +73,10 @@ export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void 
             appearance: 'none', cursor: 'pointer',
           }}
         >
-          <option value="" disabled>Select your name...</option>
-          {ANNOTATORS.map(a => <option key={a} value={a}>{a}</option>)}
+          <option value="" disabled>Select your user ID...</option>
+          {ANNOTATORS.map(a => (
+            <option key={a} value={DISPLAY_NAME[a]}>{DISPLAY_NAME[a]}</option>
+          ))}
         </select>
 
         {/* Password */}
@@ -98,12 +103,12 @@ export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void 
 
         <button
           onClick={handleSubmit}
-          disabled={!name || !password || loading}
+          disabled={!selectedAlias || !password || loading}
           style={{
             width: '100%', height: 36, borderRadius: 6, border: 'none',
-            background: name && password ? c.accent : c.dim,
+            background: selectedAlias && password ? c.accent : c.dim,
             color: '#fff', fontSize: 13, fontWeight: 500, fontFamily: 'inherit',
-            cursor: name && password ? 'pointer' : 'default',
+            cursor: selectedAlias && password ? 'pointer' : 'default',
             opacity: loading ? 0.6 : 1,
           }}
         >

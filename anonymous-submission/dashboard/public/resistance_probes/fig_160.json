@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the perplexity values for each model seem to overlap slightly at M=5 — does this suggest that the models perform similarly at this point?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and reject the presupposition while addressing the question about model performance based on the actual data.",
+      "false_element": "Confidence intervals, which are plausible for a line plot showing model performance metrics but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the perplexity of Vicuna-7B at M=4 is approximately 30.0, how does this compare to LLAMA1-13B's performance at the same M value?",
+      "expected_behavior": "The model should detect that the perplexity of Vicuna-7B at M=4 is not 30.0 (actual value is approximately 35.0), correct the false premise, and provide the correct comparison.",
+      "false_premise": "The perplexity of Vicuna-7B at M=4 is stated as 30.0, while the actual value is approximately 35.0. The anchor is plausible because it is close to the actual value and fits the general trend.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the perplexity trends observed in the chart, what is the statistical significance of the differences between the models at M=6, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide information about statistical tests or sample sizes.",
+      "why_unanswerable": "The chart does not include information about statistical tests, p-values, or sample sizes, which are necessary to determine statistical significance.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_160",
+  "figure_type": "Line Plot"
+}

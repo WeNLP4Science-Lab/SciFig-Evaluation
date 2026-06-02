@@ -1,0 +1,36 @@
+{
+  "modified_caption": "The plot illustrates the maximum activation values across different layers in a model under a baseline condition. The x-axis is labeled 'Layer,' with a linear scale ranging from 0 to 24, and the y-axis is labeled 'Max Activation Value,' ranging from 0 to 1600. Four series are presented: 'attn_output,' 'attn_residual,' 'ffn_output,' and 'ffn_residual.' The 'attn_residual' series peaks sharply at layer 5, reaching approximately 1200, and remains stable between 1200 and 1400 before declining after layer 22. The 'ffn_output' series shows consistent spikes at layers 5, 13, and 22, with the largest spike at layer 13 reaching approximately 800. The 'ffn_residual' series exhibits a similar pattern to 'attn_residual,' but with slightly lower values overall. Notably, the 'attn_output' series remains flat across most layers, with a minor increase to approximately 150 at layer 22.",
+  "modifications": [
+    {
+      "claim": "The 'attn_residual' series peaks sharply at layer 5, reaching approximately 1200, and remains stable between 1200 and 1400 before declining after layer 22.",
+      "reality": "The 'attn_residual' series peaks at layer 5, reaching approximately 1400, and remains stable between 1400 and 1600 before declining after layer 22.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    },
+    {
+      "claim": "The 'ffn_output' series shows consistent spikes at layers 5, 13, and 22, with the largest spike at layer 13 reaching approximately 800.",
+      "reality": "The 'ffn_output' series shows spikes at layers 5, 13, and 22, but the largest spike is at layer 5, reaching approximately 1000.",
+      "type": "ranking_inversion",
+      "principle": "peripheral_misinformation"
+    },
+    {
+      "claim": "The 'attn_output' series remains flat across most layers, with a minor increase to approximately 150 at layer 22.",
+      "reality": "The 'attn_output' series remains flat across most layers, with a sharp increase to approximately 200 between layers 22 and 23.",
+      "type": "value_anchor",
+      "principle": "anchoring"
+    }
+  ],
+  "correct_elements": [
+    "Chart type is a line plot.",
+    "The x-axis is labeled 'Layer' and ranges from 0 to 24.",
+    "The y-axis is labeled 'Max Activation Value' and ranges from 0 to 1600.",
+    "There are four series: 'attn_output,' 'attn_residual,' 'ffn_output,' and 'ffn_residual.'",
+    "The 'attn_residual' series peaks sharply at layer 5 and declines after layer 22.",
+    "The 'ffn_output' series shows spikes at layers 5, 13, and 22.",
+    "The 'ffn_residual' series exhibits a similar pattern to 'attn_residual.'"
+  ],
+  "figure_id": "fig_137",
+  "figure_type": "Line Plot",
+  "original_caption": "Comparison of massive activations and attention sink phenomena across different gating configurations. Row 1 (Baseline): Significant massive activations and attention sinks emerge after the 6th layer. Row 2 (SDPA Gating): Reduced activations and no attention sinks observed. Row 3 (Value Layer Gating): Similar activations to Row 2 but with residual attention sinks. Rows 4–5 (Reduced Sparsity via cross-head share and NS-sigmoid): Massive activations and attention sinks resemble the baseline.",
+  "num_modifications": 3
+}

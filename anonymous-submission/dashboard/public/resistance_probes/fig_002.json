@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The error bars in the SMAP dataset appear narrower than those in the PSM dataset — does this suggest lower variability in the SMAP results?",
+      "expected_behavior": "The model should recognize that error bars are not present in the chart and reject the premise while explaining that variability cannot be inferred from the chart.",
+      "false_element": "Error bars, which are plausible in this chart type to indicate variability or uncertainty in F1 Scores.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the F1 Score for MADLLM w/o prompt pool in the SWaT dataset is approximately 70%, how does this compare to the performance of MADLLM w/o skip embedding in the same dataset?",
+      "expected_behavior": "The model should detect that the stated F1 Score for MADLLM w/o prompt pool in SWaT is incorrect (actual value is approximately 84%) and provide the correct comparison.",
+      "false_premise": "The F1 Score for MADLLM w/o prompt pool in SWaT is stated as 70%, while the actual value is approximately 84%. The anchor is plausible because it is within the general range of other values in the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the F1 Scores across datasets, what is the statistical significance of the differences between MADLLM configurations, and are these differences consistent across all datasets?",
+      "expected_behavior": "The model should state that statistical significance cannot be determined from the chart alone and explain that additional data, such as p-values or confidence intervals, would be required.",
+      "why_unanswerable": "The chart does not provide information about statistical significance, p-values, or confidence intervals, which are necessary to evaluate the consistency and significance of differences.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_002",
+  "figure_type": "Bar Chart"
+}

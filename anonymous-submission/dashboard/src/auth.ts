@@ -1,4 +1,40 @@
+// Real annotator identities — still used as Azure record keys (do not change without
+// migrating the underlying tables). All UI exposure goes through DISPLAY_NAME.
 export const ANNOTATORS = ["Admin", "Wei", "Bana", "Ananya", "Paul", "John", "Benedict", "Anthony", "Dan"] as const
+
+/* ── Public aliases ──
+ * Mapping from real name → public alias. The UI ONLY shows aliases; the API/Azure
+ * keys still use real names so prior annotations remain reachable. Keep this in
+ * sync with REAL_NAME_FROM_ALIAS below.
+ */
+export const DISPLAY_NAME: Record<string, string> = {
+  Admin:    "Admin",
+  Wei:      "User 1",
+  Bana:     "User 2",
+  Ananya:   "User 3",
+  Paul:     "User 4",
+  John:     "User 5",
+  Benedict: "User 6",
+  Anthony:  "User 7",
+  Dan:      "User 8",
+}
+
+export const REAL_NAME_FROM_ALIAS: Record<string, string> = Object.fromEntries(
+  Object.entries(DISPLAY_NAME).map(([real, alias]) => [alias, real])
+)
+
+/** Public-facing name for any internal annotator identifier. */
+export function displayName(name: string | undefined | null): string {
+  if (!name) return ''
+  return DISPLAY_NAME[name] || name
+}
+
+/** Accept either an alias or a real name and return the canonical real name. */
+export function resolveRealName(input: string): string {
+  if (REAL_NAME_FROM_ALIAS[input]) return REAL_NAME_FROM_ALIAS[input]
+  if (DISPLAY_NAME[input]) return input  // already real
+  return input
+}
 
 // Figure assignments per annotator. null = see all (Admin).
 const ANNOTATOR_FIGURES: Record<string, string[] | null> = {

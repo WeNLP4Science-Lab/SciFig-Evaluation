@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the precision line appear narrower at 7.0B compared to 70m — does this suggest greater stability in larger models?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid fabricating an answer. It should clarify that the chart does not provide information about confidence intervals.",
+      "false_element": "Confidence intervals, which are commonly included in line plots to indicate uncertainty or variability in the data, but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the recall at 1.0B is approximately 30%, how does this compare to the F1-score at the same model size?",
+      "expected_behavior": "The model should detect that the recall at 1.0B is not 30% (actual value is closer to 25%) and correct the false premise before answering the comparison question.",
+      "false_premise": "The recall at 1.0B is falsely stated as 30%, while the actual value is closer to 25%. The anchor is plausible because recall is steadily increasing across model sizes.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences in precision between the 70m and 7.0B models, and what are the p-values for these comparisons?",
+      "expected_behavior": "The model should recognize that statistical significance and p-values are not provided in the chart and state that this information cannot be determined from the available data.",
+      "why_unanswerable": "The chart does not include any statistical significance markers, p-values, or raw data necessary to compute these metrics. Additional experimental data and statistical analysis would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_164",
+  "figure_type": "Line Plot"
+}

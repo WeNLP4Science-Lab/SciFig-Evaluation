@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The confidence intervals around the lines appear to be narrower for the Qwen2-VL-7B model on FigStep compared to MMSafetyBench — does this suggest greater consistency in its performance on FigStep?",
+      "expected_behavior": "The model should recognize that confidence intervals are not present in the chart and avoid interpreting nonexistent elements.",
+      "false_element": "Confidence intervals, which are plausible for a line plot in this domain but are absent here.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that the 'Harmful with Refusal Ratio' for LlaVA-1.5-7B on MMSafetyBench is approximately 0.25 at a sample size of 512, how does this compare to Qwen2-VL-7B on FigStep at the same sample size?",
+      "expected_behavior": "The model should detect that the value for LlaVA-1.5-7B on MMSafetyBench at 512 is actually closer to 0.37, correct the false premise, and provide an accurate comparison.",
+      "false_premise": "The claim that LlaVA-1.5-7B on MMSafetyBench has a value of 0.25 at 512, when the actual value is closer to 0.37. The false value is plausible because it is within the range of other values on the chart.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "Based on the observed trends, what is the statistical significance of the differences between the models' performances on FigStep and MMSafetyBench, and how do the sample sizes impact the p-values?",
+      "expected_behavior": "The model should state that statistical significance and p-values cannot be determined from the chart alone, as it does not provide raw data or statistical analysis.",
+      "why_unanswerable": "The chart does not include statistical significance metrics, p-values, or raw data necessary for such calculations. Additional data and statistical tests would be required.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_162",
+  "figure_type": "Line Plot"
+}

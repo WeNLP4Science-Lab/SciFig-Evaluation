@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
-import { getAnnotations, saveAnnotation, getReviews, saveReview, type AuthState, type AnnotationEntry, type ReviewEntry } from '../auth'
+import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
+import { getAnnotations, saveAnnotation, getReviews, saveReview, displayName, type AuthState, type AnnotationEntry, type ReviewEntry } from '../auth'
+
+const SPRING = { type: 'spring' as const, stiffness: 320, damping: 30, mass: 0.8 }
+const SPRING_SOFT = { type: 'spring' as const, stiffness: 180, damping: 26, mass: 0.9 }
 
 /* ── Types ── */
 
@@ -52,6 +56,39 @@ interface ProbeData {
   ocr_texts?: string[]
 }
 
+interface ResistanceProbe {
+  type: 'inexist' | 'contra' | 'unanswerable'
+  question: string
+  expected_behavior: string
+  false_element?: string
+  false_premise?: string
+  why_unanswerable?: string
+  principle: string
+}
+
+interface ResistanceData {
+  probes: ResistanceProbe[]
+  figure_id: string
+  figure_type: string
+}
+
+interface CaptionBiasModification {
+  claim: string
+  reality: string
+  type: string
+  principle: string
+}
+
+interface CaptionBiasData {
+  modified_caption: string
+  modifications: CaptionBiasModification[]
+  correct_elements: string[]
+  figure_id: string
+  figure_type: string
+  original_caption: string
+  num_modifications: number
+}
+
 const c = {
   bg: '#09090b',
   surface: '#131316',
@@ -91,6 +128,40 @@ const CAT_LABELS: Record<string, string> = {
   pattern_analysis: 'Pattern Analysis',
 }
 
+interface VariantDef {
+  id: string
+  label: string
+  path: string | null
+  description: string
+}
+
+type TabId = 'info' | 'questions' | 'blur' | 'hallucination' | 'caption_bias'
+
+interface TabDef {
+  id: TabId
+  label: string
+  shortLabel: string
+}
+
+const TABS: TabDef[] = [
+  { id: 'info',          label: 'Information',          shortLabel: 'Info' },
+  { id: 'questions',     label: 'Capability Questions', shortLabel: 'Reasoning' },
+  { id: 'blur',          label: 'Selective Blur',       shortLabel: 'Blur' },
+  { id: 'hallucination', label: 'Hallucination',        shortLabel: 'Hallucinate' },
+  { id: 'caption_bias',  label: 'Caption Bias',         shortLabel: 'Caption' },
+]
+
+const VARIANTS: VariantDef[] = [
+  { id: 'original',         label: 'Original',         path: null,                          description: 'Untouched figure as published.' },
+  { id: 'rotation',         label: 'Rotation',         path: '/transforms/rotation',        description: 'Rotated to test orientation robustness.' },
+  { id: 'noise',            label: 'Noise',            path: '/transforms/noise',           description: 'Gaussian noise overlay.' },
+  { id: 'low_contrast',     label: 'Low Contrast',     path: '/transforms/low_contrast',    description: 'Reduced luminance contrast.' },
+  { id: 'in_paper',         label: 'In-Paper',         path: '/transforms/in_paper',        description: 'Figure embedded in its source PDF page.' },
+  { id: 'in_paper_blur',    label: 'In-Paper Blur',    path: '/transforms/in_paper_blur',   description: 'In-paper variant with the figure region blurred.' },
+  { id: 'admittance_blur',  label: 'Admittance Blur',  path: '/adversarial_admittance',     description: 'Unrecoverable element blurred — tests epistemic honesty.' },
+  { id: 'inductance_blur',  label: 'Inductance Blur',  path: '/adversarial_inductance',     description: 'Inferable element blurred — tests contextual reasoning.' },
+]
+
 /* ── Main ── */
 
 export default function FigureDetail({ figureId, onBack, auth }: {
@@ -101,11 +172,15 @@ export default function FigureDetail({ figureId, onBack, auth }: {
   const [figure, setFigure] = useState<FigureEntry | null>(null)
   const [capability, setCapability] = useState<CapabilityData | null>(null)
   const [probe, setProbe] = useState<ProbeData | null>(null)
-  const [activeTab, setActiveTab] = useState<'info' | 'questions' | 'adversarial'>('info')
+  const [resistance, setResistance] = useState<ResistanceData | null>(null)
+  const [captionBias, setCaptionBias] = useState<CaptionBiasData | null>(null)
+  const [activeTab, setActiveTab] = useState<TabId>('info')
   const [annIdx, setAnnIdx] = useState(0)
   const [expandedQ, setExpandedQ] = useState<number | null>(null)
   const [annotations, setAnnotations] = useState<AnnotationEntry[]>([])
   const [reviews, setReviews] = useState<ReviewEntry[]>([])
+  const [activeVariant, setActiveVariant] = useState<string>('original')
+  const [availableVariants, setAvailableVariants] = useState<Set<string>>(new Set(['original']))
 
   const loadAnnotations = useCallback(() => {
     if (auth) {
@@ -129,7 +204,30 @@ export default function FigureDetail({ figureId, onBack, auth }: {
       .then(r => { if (r.ok) return r.json(); return null })
       .then(d => { if (d) setProbe(d) })
       .catch(() => {})
+    fetch(`/resistance_probes/${figureId}.json`)
+      .then(r => { if (r.ok) return r.json(); return null })
+      .then(d => { if (d) setResistance(d); else setResistance(null) })
+      .catch(() => setResistance(null))
+    fetch(`/caption_bias/${figureId}.json`)
+      .then(r => { if (r.ok) return r.json(); return null })
+      .then(d => { if (d) setCaptionBias(d); else setCaptionBias(null) })
+      .catch(() => setCaptionBias(null))
     loadAnnotations()
+
+    setActiveVariant('original')
+    const checkAvailable = async () => {
+      const avail = new Set<string>(['original'])
+      const checks: [string, string][] = VARIANTS
+        .filter(v => v.path)
+        .map(v => [v.id, `${v.path}/${figureId}.png`])
+      await Promise.all(checks.map(([id, url]) =>
+        fetch(url, { method: 'HEAD' })
+          .then(r => { if (r.ok) avail.add(id) })
+          .catch(() => {})
+      ))
+      setAvailableVariants(avail)
+    }
+    checkAvailable()
   }, [figureId])
 
   useEffect(() => {
@@ -194,24 +292,19 @@ export default function FigureDetail({ figureId, onBack, auth }: {
       <div className="page-container" style={{ paddingTop: 32, paddingBottom: 48 }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 420px', gap: 32 }}>
 
-          {/* Left: Figure Image */}
+          {/* Left: Figure Image + Variant Grid */}
           <div>
-            <div style={{
-              borderRadius: 12, border: `1px solid ${c.border}`,
-              background: c.surface, padding: 24,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              minHeight: 400,
-            }}>
-              <img
-                src={`/figures/${figureId}.png`}
-                alt={figure.caption || figureId}
-                style={{ maxWidth: '100%', maxHeight: '60vh', objectFit: 'contain' }}
-              />
-            </div>
+            <VariantHero
+              figureId={figureId}
+              caption={figure.caption}
+              activeVariant={activeVariant}
+              availableVariants={availableVariants}
+              onSelect={setActiveVariant}
+            />
 
             {/* Paper info below image */}
             {figure.paper_title && (
-              <div style={{ marginTop: 16 }}>
+              <div style={{ marginTop: 20 }}>
                 <p style={{ fontSize: 14, color: c.fg, lineHeight: 1.6 }}>
                   {figure.paper_title}
                 </p>
@@ -229,32 +322,26 @@ export default function FigureDetail({ figureId, onBack, auth }: {
 
           {/* Right: Tabs Panel */}
           <div>
-            {/* Tab Headers */}
-            <div style={{
-              display: 'flex', gap: 0,
-              borderBottom: `1px solid ${c.border}`, marginBottom: 20,
-            }}>
-              <TabButton
-                label="Information"
-                active={activeTab === 'info'}
-                onClick={() => setActiveTab('info')}
-              />
-              <TabButton
-                label={`Capability Questions${capability ? ` (${capability.questions.length})` : ''}`}
-                active={activeTab === 'questions'}
-                onClick={() => setActiveTab('questions')}
-                badge={capability ? capability.questions.length : undefined}
-              />
-              <TabButton
-                label="Adversarial"
-                active={activeTab === 'adversarial'}
-                onClick={() => setActiveTab('adversarial')}
-              />
-            </div>
+            <SegmentedTabBar
+              tabs={TABS.map(t => ({
+                ...t,
+                badge:
+                  t.id === 'questions' ? capability?.questions.length :
+                  t.id === 'hallucination' ? resistance?.probes.length :
+                  t.id === 'caption_bias' ? captionBias?.modifications.length :
+                  undefined,
+                disabled:
+                  (t.id === 'hallucination' && !resistance) ||
+                  (t.id === 'caption_bias' && !captionBias),
+              }))}
+              active={activeTab}
+              onSelect={setActiveTab}
+            />
 
             {/* Tab Content */}
+            <AnimatePresence mode="wait" initial={false}>
             {activeTab === 'info' && (
-              <div style={{ animation: 'fadeIn 0.2s ease-out both' }}>
+              <TabPanel key="info">
                 {/* Annotations */}
                 {figure.annotations.length > 0 && (
                   <Section label={`Annotations (${figure.annotations.length})`}>
@@ -356,13 +443,13 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                     onSaved={loadAnnotations}
                   />
                 )}
-              </div>
+              </TabPanel>
             )}
 
             {activeTab === 'questions' && (
-              <div style={{ animation: 'fadeIn 0.2s ease-out both' }}>
+              <TabPanel key="questions">
                 {capability && capability.questions.length > 0 ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <StaggerList>
                     {capability.questions.map((q, i) => (
                       <QuestionCard
                         key={i}
@@ -376,23 +463,17 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                         onSaved={loadAnnotations}
                       />
                     ))}
-                  </div>
+                  </StaggerList>
                 ) : (
-                  <div style={{
-                    textAlign: 'center', padding: '48px 0',
-                    color: c.dim, fontSize: 13,
-                  }}>
-                    No capability questions generated yet
-                  </div>
+                  <EmptyState text="No capability questions generated yet" />
                 )}
-              </div>
+              </TabPanel>
             )}
 
-            {activeTab === 'adversarial' && (
-              <div style={{ animation: 'fadeIn 0.2s ease-out both' }}>
+            {activeTab === 'blur' && (
+              <TabPanel key="blur">
                 {probe && probe.selective_blur ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                    {/* Admittance */}
                     {probe.selective_blur.admittance && (
                       <BlurCard
                         type="admittance"
@@ -409,7 +490,6 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                       />
                     )}
 
-                    {/* Inductance */}
                     {probe.selective_blur.inductance && (
                       <BlurCard
                         type="inductance"
@@ -427,22 +507,279 @@ export default function FigureDetail({ figureId, onBack, auth }: {
                     )}
 
                     {!probe.selective_blur.admittance && !probe.selective_blur.inductance && (
-                      <div style={{ textAlign: 'center', padding: '48px 0', color: c.dim, fontSize: 13 }}>
-                        No adversarial probes generated for this figure
-                      </div>
+                      <EmptyState text="No selective-blur probes generated for this figure" />
                     )}
                   </div>
                 ) : (
-                  <div style={{ textAlign: 'center', padding: '48px 0', color: c.dim, fontSize: 13 }}>
-                    No adversarial data available
-                  </div>
+                  <EmptyState text="No blur probes available" />
                 )}
-              </div>
+              </TabPanel>
             )}
+
+            {activeTab === 'hallucination' && (
+              <TabPanel key="hallucination">
+                {resistance && resistance.probes.length > 0 ? (
+                  <StaggerList>
+                    {resistance.probes.map((p, i) => (
+                      <ResistanceCard key={`${p.type}-${i}`} probe={p} index={i} />
+                    ))}
+                  </StaggerList>
+                ) : (
+                  <EmptyState text="No hallucination probes available" />
+                )}
+              </TabPanel>
+            )}
+
+            {activeTab === 'caption_bias' && (
+              <TabPanel key="caption_bias">
+                {captionBias ? (
+                  <CaptionBiasCard data={captionBias} originalCaption={figure.caption} />
+                ) : (
+                  <EmptyState text="No caption-bias data for this figure" />
+                )}
+              </TabPanel>
+            )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
     </div>
+  )
+}
+
+/* ── Variant Hero (image + SSENSE-style grid, premium motion) ── */
+
+function VariantHero({ figureId, caption, activeVariant, availableVariants, onSelect }: {
+  figureId: string
+  caption?: string
+  activeVariant: string
+  availableVariants: Set<string>
+  onSelect: (id: string) => void
+}) {
+  const variants = VARIANTS.filter(v => availableVariants.has(v.id))
+  const active = variants.find(v => v.id === activeVariant) || VARIANTS[0]
+  const heroSrc = active.path ? `${active.path}/${figureId}.png` : `/figures/${figureId}.png`
+
+  // Preload every available variant once we know which exist — kills click lag
+  useEffect(() => {
+    variants.forEach(v => {
+      const src = v.path ? `${v.path}/${figureId}.png` : `/figures/${figureId}.png`
+      const img = new Image()
+      img.decoding = 'async'
+      img.src = src
+    })
+  }, [figureId, variants.length])
+
+  return (
+    <LayoutGroup id="variant-hero">
+      <div>
+        {/* Hero — instant overlapping crossfade between variants */}
+        <motion.div
+          layout
+          transition={SPRING_SOFT}
+          style={{
+            borderRadius: 12, border: `1px solid ${c.border}`,
+            background: c.surface, padding: 24,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            minHeight: 400, position: 'relative', overflow: 'hidden',
+          }}
+        >
+          <AnimatePresence initial={false}>
+            <motion.img
+              key={active.id}
+              src={heroSrc}
+              alt={caption || figureId}
+              decoding="async"
+              fetchPriority="high"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              style={{
+                position: 'absolute',
+                top: 24, left: 24, right: 24, bottom: 24,
+                margin: 'auto',
+                maxWidth: 'calc(100% - 48px)', maxHeight: '60vh', objectFit: 'contain',
+                willChange: 'opacity',
+              }}
+            />
+          </AnimatePresence>
+          {/* Invisible spacer to maintain hero box height */}
+          <img
+            src={heroSrc}
+            alt=""
+            aria-hidden
+            style={{
+              maxWidth: '100%', maxHeight: '60vh', objectFit: 'contain',
+              visibility: 'hidden',
+            }}
+          />
+
+          <AnimatePresence>
+            {active.id !== 'original' && (
+              <motion.span
+                key={`badge-${active.id}`}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={SPRING}
+                style={{
+                  position: 'absolute', top: 14, left: 14,
+                  fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+                  letterSpacing: '0.08em', padding: '4px 9px', borderRadius: 4,
+                  color: c.fg, background: 'rgba(255,255,255,0.06)',
+                  border: `1px solid ${c.borderStrong}`, lineHeight: 1,
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                {active.label}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* Caption strip — vertical flip between labels */}
+        <div style={{
+          marginTop: 14, marginBottom: 14,
+          display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+          gap: 16, minHeight: 36,
+        }}>
+          <div style={{ overflow: 'hidden' }}>
+            <p style={{
+              fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.1em', color: c.dim, margin: 0, lineHeight: 1,
+            }}>
+              Currently viewing
+            </p>
+            <div style={{ position: 'relative', height: 18, marginTop: 6 }}>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.p
+                  key={active.id}
+                  initial={{ y: 14, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -14, opacity: 0 }}
+                  transition={SPRING}
+                  style={{
+                    position: 'absolute', inset: 0,
+                    fontSize: 13, color: c.fg, margin: 0, fontWeight: 500,
+                  }}
+                >
+                  {active.label}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+          </div>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.p
+              key={`desc-${active.id}`}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                fontSize: 11, color: c.muted, margin: 0, lineHeight: 1.5,
+                maxWidth: '60%', textAlign: 'right',
+              }}
+            >
+              {active.description}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+
+        {/* Variant grid — staggered entrance + floating active ring */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.04, delayChildren: 0.05 } },
+          }}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gap: 10,
+          }}
+        >
+          {variants.map(v => {
+            const isActive = v.id === active.id
+            const src = v.path ? `${v.path}/${figureId}.png` : `/figures/${figureId}.png`
+            return (
+              <motion.button
+                key={v.id}
+                onClick={() => onSelect(v.id)}
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  visible: { opacity: 1, y: 0, transition: SPRING },
+                }}
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.97 }}
+                transition={SPRING}
+                style={{
+                  display: 'flex', flexDirection: 'column', alignItems: 'stretch',
+                  gap: 6, padding: 0, background: 'none', border: 'none',
+                  cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left',
+                  position: 'relative',
+                }}
+              >
+                {/* Floating active ring — slides between tiles via shared layoutId */}
+                {isActive && (
+                  <motion.div
+                    layoutId="variant-active-ring"
+                    transition={SPRING}
+                    style={{
+                      position: 'absolute',
+                      inset: '-4px -4px auto -4px',
+                      aspectRatio: '1 / 1',
+                      borderRadius: 11,
+                      border: `1px solid rgba(255,255,255,0.28)`,
+                      boxShadow: '0 0 0 4px rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.4)',
+                      pointerEvents: 'none',
+                      zIndex: 2,
+                    }}
+                  />
+                )}
+                <motion.div
+                  animate={{ opacity: isActive ? 1 : 0.62 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.18 }}
+                  style={{
+                    aspectRatio: '1 / 1',
+                    borderRadius: 8,
+                    background: c.surface,
+                    border: `1px solid ${c.border}`,
+                    padding: 6,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <motion.img
+                    src={src}
+                    alt={v.label}
+                    loading="lazy"
+                    initial={{ filter: 'blur(6px)', opacity: 0 }}
+                    animate={{ filter: 'blur(0px)', opacity: 1 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }}
+                  />
+                </motion.div>
+                <motion.p
+                  animate={{ color: isActive ? c.fg : c.dim }}
+                  transition={{ duration: 0.18 }}
+                  style={{
+                    margin: 0,
+                    fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+                    letterSpacing: '0.07em',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {v.label}
+                </motion.p>
+              </motion.button>
+            )
+          })}
+        </motion.div>
+      </div>
+    </LayoutGroup>
   )
 }
 
@@ -882,24 +1219,495 @@ function QuestionCard({ question, index, expanded, onToggle, auth, figureId, ann
 
 /* ── Shared Components ── */
 
-function TabButton({ label, active, onClick }: {
-  label: string; active: boolean; onClick: () => void; badge?: number
+function SegmentedTabBar({ tabs, active, onSelect }: {
+  tabs: Array<TabDef & { badge?: number; disabled?: boolean }>
+  active: TabId
+  onSelect: (id: TabId) => void
 }) {
   return (
-    <button
-      onClick={onClick}
+    <div style={{ position: 'relative', marginBottom: 22 }}>
+      <div
+        style={{
+          display: 'flex', gap: 2,
+          padding: 4,
+          borderRadius: 10,
+          background: c.surface,
+          border: `1px solid ${c.border}`,
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+        }}
+        className="hide-scrollbar"
+      >
+        <LayoutGroup id="tab-bar">
+          {tabs.map(t => {
+            const isActive = t.id === active
+            return (
+              <motion.button
+                key={t.id}
+                onClick={() => !t.disabled && onSelect(t.id)}
+                whileTap={t.disabled ? undefined : { scale: 0.96 }}
+                transition={SPRING}
+                style={{
+                  position: 'relative',
+                  flex: '0 0 auto',
+                  padding: '7px 14px',
+                  background: 'none', border: 'none',
+                  cursor: t.disabled ? 'default' : 'pointer',
+                  fontFamily: 'inherit',
+                  fontSize: 11, fontWeight: 500,
+                  whiteSpace: 'nowrap',
+                  borderRadius: 7,
+                  opacity: t.disabled ? 0.35 : 1,
+                  zIndex: 1,
+                  display: 'flex', alignItems: 'center', gap: 6,
+                }}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="tab-pill"
+                    transition={SPRING}
+                    style={{
+                      position: 'absolute', inset: 0,
+                      borderRadius: 7,
+                      background: 'rgba(255,255,255,0.08)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      zIndex: -1,
+                    }}
+                  />
+                )}
+                <motion.span
+                  animate={{ color: isActive ? c.fg : c.muted }}
+                  transition={{ duration: 0.18 }}
+                >
+                  {t.shortLabel}
+                </motion.span>
+                {typeof t.badge === 'number' && t.badge > 0 && (
+                  <motion.span
+                    animate={{
+                      color: isActive ? c.fg : c.dim,
+                      background: isActive ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.04)',
+                    }}
+                    transition={{ duration: 0.18 }}
+                    style={{
+                      fontSize: 9, fontWeight: 600,
+                      padding: '1px 6px', borderRadius: 4,
+                      fontFamily: 'JetBrains Mono, monospace',
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {t.badge}
+                  </motion.span>
+                )}
+              </motion.button>
+            )
+          })}
+        </LayoutGroup>
+      </div>
+      {/* Fade edges */}
+      <div style={{
+        position: 'absolute', top: 0, bottom: 0, right: 0, width: 24,
+        background: `linear-gradient(to right, transparent, ${c.bg})`,
+        pointerEvents: 'none', borderTopRightRadius: 10, borderBottomRightRadius: 10,
+      }} />
+    </div>
+  )
+}
+
+function TabPanel({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -6 }}
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function StaggerList({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.05, delayChildren: 0.04 } },
+      }}
+      style={{ display: 'flex', flexDirection: 'column', gap: 12 }}
+    >
+      {Array.isArray(children) ? children.map((child, i) => (
+        <motion.div
+          key={i}
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0, transition: SPRING },
+          }}
+        >
+          {child}
+        </motion.div>
+      )) : (
+        <motion.div variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: SPRING } }}>
+          {children}
+        </motion.div>
+      )}
+    </motion.div>
+  )
+}
+
+function EmptyState({ text }: { text: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.25 }}
       style={{
-        padding: '10px 16px', background: 'none', border: 'none',
-        borderBottom: active ? '2px solid #3b82f6' : '2px solid transparent',
-        cursor: 'pointer', fontFamily: 'inherit',
-        fontSize: 12, fontWeight: active ? 500 : 400,
-        color: active ? c.fg : c.muted,
-        transition: 'all 0.15s ease',
-        marginBottom: -1,
+        textAlign: 'center', padding: '48px 0',
+        color: c.dim, fontSize: 13,
       }}
     >
-      {label}
-    </button>
+      {text}
+    </motion.div>
+  )
+}
+
+/* ── Resistance Probe Card ── */
+
+const RESISTANCE_META: Record<ResistanceProbe['type'], { label: string; color: string; bg: string; description: string }> = {
+  inexist:      { label: 'Inexist',      color: '#a855f7', bg: 'rgba(168,85,247,0.08)', description: 'False premise about a chart element that does not exist' },
+  contra:       { label: 'Contra',       color: '#f97316', bg: 'rgba(249,115,22,0.08)', description: 'False numerical anchor that contradicts the chart' },
+  unanswerable: { label: 'Unanswerable', color: '#06b6d4', bg: 'rgba(6,182,212,0.08)',  description: 'Question that cannot be answered from the figure alone' },
+}
+
+function ResistanceCard({ probe, index }: { probe: ResistanceProbe; index: number }) {
+  const meta = RESISTANCE_META[probe.type]
+  const detail = probe.false_element || probe.false_premise || probe.why_unanswerable
+
+  return (
+    <div style={{
+      borderRadius: 10, border: `1px solid ${c.border}`,
+      background: c.surface, overflow: 'hidden',
+    }}>
+      <div style={{
+        padding: '14px 16px',
+        borderBottom: `1px solid ${c.border}`,
+        display: 'flex', alignItems: 'flex-start', gap: 10,
+      }}>
+        <span style={{
+          width: 22, height: 22, borderRadius: 6,
+          background: meta.bg, color: meta.color,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 11, fontWeight: 600, flexShrink: 0, marginTop: 1,
+        }}>
+          {index + 1}
+        </span>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+            <span style={{
+              fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.06em', color: meta.color,
+              padding: '2px 7px', borderRadius: 4,
+              background: meta.bg, border: `1px solid ${meta.color}30`,
+              lineHeight: 1,
+            }}>
+              {meta.label}
+            </span>
+          </div>
+          <p style={{ fontSize: 11, color: c.dim, margin: 0, lineHeight: 1.5 }}>
+            {meta.description}
+          </p>
+        </div>
+      </div>
+
+      <div style={{ padding: '14px 16px' }}>
+        <p style={{
+          fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+          letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+        }}>
+          Probe Question
+        </p>
+        <div style={{
+          borderRadius: 8, background: c.surfaceRaised,
+          border: `1px solid ${c.border}`, padding: 12, marginBottom: 14,
+        }}>
+          <p style={{ fontSize: 13, color: c.fg, lineHeight: 1.6, margin: 0 }}>
+            {probe.question}
+          </p>
+        </div>
+
+        <p style={{
+          fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+          letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+        }}>
+          Expected Behaviour
+        </p>
+        <p style={{ fontSize: 12, color: c.muted, lineHeight: 1.6, margin: '0 0 14px' }}>
+          {probe.expected_behavior}
+        </p>
+
+        {detail && (
+          <>
+            <p style={{
+              fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+            }}>
+              {probe.type === 'inexist' ? 'Why Plausible' : probe.type === 'contra' ? 'False Anchor' : 'Why Unanswerable'}
+            </p>
+            <p style={{ fontSize: 12, color: c.muted, lineHeight: 1.6, margin: '0 0 14px' }}>
+              {detail}
+            </p>
+          </>
+        )}
+
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {probe.principle.split(',').map(p => p.trim()).filter(Boolean).map(p => (
+            <span key={p} style={{
+              fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.05em', color: c.muted,
+              padding: '2px 7px', borderRadius: 4,
+              background: c.surfaceRaised, border: `1px solid ${c.border}`,
+              lineHeight: 1.3,
+            }}>
+              {p.replace(/_/g, ' ')}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── Caption Bias Card ── */
+
+function CaptionBiasCard({ data, originalCaption }: {
+  data: CaptionBiasData
+  originalCaption?: string
+}) {
+  const [view, setView] = useState<'modified' | 'original'>('modified')
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null)
+
+  const highlightCaption = (text: string) => {
+    let result: React.ReactNode[] = [text]
+    data.modifications.forEach((mod, idx) => {
+      const next: React.ReactNode[] = []
+      result.forEach(segment => {
+        if (typeof segment !== 'string') { next.push(segment); return }
+        const at = segment.indexOf(mod.claim)
+        if (at === -1) { next.push(segment); return }
+        next.push(segment.slice(0, at))
+        next.push(
+          <motion.span
+            key={`mod-${idx}`}
+            onClick={() => setExpandedIdx(expandedIdx === idx ? null : idx)}
+            whileHover={{ background: 'rgba(245,158,11,0.18)' }}
+            transition={{ duration: 0.15 }}
+            style={{
+              background: 'rgba(245,158,11,0.1)',
+              borderBottom: '1px dashed #f59e0b',
+              padding: '0 2px', cursor: 'pointer',
+              color: '#fcd34d',
+            }}
+          >
+            {mod.claim}
+          </motion.span>
+        )
+        next.push(segment.slice(at + mod.claim.length))
+      })
+      result = next
+    })
+    return result
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {/* Caption view toggle */}
+      <div style={{ display: 'flex', gap: 4 }}>
+        {(['modified', 'original'] as const).map(v => (
+          <motion.button
+            key={v}
+            onClick={() => setView(v)}
+            whileTap={{ scale: 0.96 }}
+            transition={SPRING}
+            style={{
+              position: 'relative',
+              padding: '6px 14px', borderRadius: 6,
+              fontFamily: 'inherit', fontSize: 11, fontWeight: 500,
+              background: 'none', border: 'none', cursor: 'pointer',
+              zIndex: 1,
+            }}
+          >
+            {view === v && (
+              <motion.span
+                layoutId="caption-view-pill"
+                transition={SPRING}
+                style={{
+                  position: 'absolute', inset: 0,
+                  borderRadius: 6,
+                  background: 'rgba(245,158,11,0.1)',
+                  border: '1px solid rgba(245,158,11,0.25)',
+                  zIndex: -1,
+                }}
+              />
+            )}
+            <motion.span animate={{ color: view === v ? '#f59e0b' : c.dim }} transition={{ duration: 0.18 }}>
+              {v === 'modified' ? 'Modified' : 'Original'}
+            </motion.span>
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Caption text */}
+      <div style={{
+        borderRadius: 10, border: `1px solid ${c.border}`,
+        background: c.surface, padding: 16,
+        position: 'relative',
+      }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          marginBottom: 10,
+        }}>
+          <span style={{
+            fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+            letterSpacing: '0.06em', color: c.dim, lineHeight: 1,
+          }}>
+            {view === 'modified' ? 'Caption with Bias' : 'Original Caption'}
+          </span>
+          {view === 'modified' && (
+            <span style={{
+              fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              padding: '2px 7px', borderRadius: 4,
+              background: 'rgba(245,158,11,0.1)', color: '#f59e0b',
+              border: '1px solid rgba(245,158,11,0.25)',
+              lineHeight: 1,
+            }}>
+              {data.num_modifications} false claim{data.num_modifications !== 1 ? 's' : ''}
+            </span>
+          )}
+        </div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.p
+            key={view}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              fontSize: 12.5, color: c.muted, lineHeight: 1.75,
+              margin: 0, fontStyle: 'italic',
+            }}
+          >
+            {view === 'modified' ? highlightCaption(data.modified_caption) : (originalCaption || 'No original caption available.')}
+          </motion.p>
+        </AnimatePresence>
+      </div>
+
+      {/* Modifications list */}
+      <div>
+        <p style={{
+          fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+          letterSpacing: '0.08em', color: c.dim, margin: '0 0 10px',
+        }}>
+          False Claims ({data.modifications.length})
+        </p>
+        <StaggerList>
+          {data.modifications.map((mod, i) => {
+            const isOpen = expandedIdx === i
+            return (
+              <motion.div
+                key={i}
+                layout
+                transition={SPRING_SOFT}
+                style={{
+                  borderRadius: 10, border: `1px solid ${c.border}`,
+                  background: c.surface, overflow: 'hidden',
+                }}
+              >
+                <motion.button
+                  onClick={() => setExpandedIdx(isOpen ? null : i)}
+                  whileTap={{ scale: 0.995 }}
+                  style={{
+                    width: '100%', display: 'flex', alignItems: 'flex-start', gap: 10,
+                    padding: '12px 14px', background: 'none', border: 'none',
+                    cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit',
+                  }}
+                >
+                  <span style={{
+                    width: 20, height: 20, borderRadius: 5,
+                    background: 'rgba(245,158,11,0.1)', color: '#f59e0b',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 10, fontWeight: 600, flexShrink: 0, marginTop: 1,
+                  }}>
+                    {i + 1}
+                  </span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', gap: 6, marginBottom: 4 }}>
+                      <span style={{
+                        fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+                        letterSpacing: '0.05em', color: c.muted,
+                        padding: '1px 6px', borderRadius: 4,
+                        background: c.surfaceRaised, border: `1px solid ${c.border}`,
+                      }}>
+                        {mod.type.replace(/_/g, ' ')}
+                      </span>
+                      <span style={{
+                        fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+                        letterSpacing: '0.05em', color: c.muted,
+                        padding: '1px 6px', borderRadius: 4,
+                        background: c.surfaceRaised, border: `1px solid ${c.border}`,
+                      }}>
+                        {mod.principle.replace(/_/g, ' ')}
+                      </span>
+                    </div>
+                    <p style={{
+                      fontSize: 12, color: '#fcd34d', lineHeight: 1.5, margin: 0,
+                      fontStyle: 'italic',
+                    }}>
+                      “{mod.claim}”
+                    </p>
+                  </div>
+                  <motion.svg
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={SPRING}
+                    width="14" height="14" viewBox="0 0 16 16"
+                    fill="none" stroke={c.dim} strokeWidth="1.5" strokeLinecap="round"
+                    style={{ flexShrink: 0, marginTop: 4 }}
+                  >
+                    <path d="M4 6l4 4 4-4" />
+                  </motion.svg>
+                </motion.button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={SPRING_SOFT}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <div style={{
+                        padding: '0 14px 14px 44px',
+                      }}>
+                        <p style={{
+                          fontSize: 10, fontWeight: 600, textTransform: 'uppercase',
+                          letterSpacing: '0.06em', color: c.dim, margin: '0 0 6px',
+                        }}>
+                          Reality
+                        </p>
+                        <p style={{ fontSize: 12, color: '#86efac', lineHeight: 1.6, margin: 0 }}>
+                          {mod.reality}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
+        </StaggerList>
+      </div>
+    </div>
   )
 }
 
@@ -992,7 +1800,7 @@ function AnnotationForm({ auth, figureId, category, annotations, onSaved }: {
       {!isAdmin && (
         <>
           <p style={{ ...labelStyle, marginBottom: 8 }}>
-            Your Annotation ({auth.name})
+            Your Annotation ({displayName(auth.name)})
           </p>
 
           <div style={{ marginBottom: 12 }}>
@@ -1066,7 +1874,7 @@ function AnnotationForm({ auth, figureId, category, annotations, onSaved }: {
               background: c.surfaceRaised, border: `1px solid ${c.border}`,
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-                <span style={{ fontSize: 11, fontWeight: 600, color: c.fg }}>{a.annotator}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, color: c.fg }}>{displayName(a.annotator)}</span>
                 {a.change_requested && (
                   <span style={{
                     fontSize: 8, fontWeight: 600, color: '#f59e0b', textTransform: 'uppercase',

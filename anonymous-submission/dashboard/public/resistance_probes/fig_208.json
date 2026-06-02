@@ -1,0 +1,27 @@
+{
+  "probes": [
+    {
+      "type": "inexist",
+      "question": "The inner ring of the pie chart appears to show subcategories within 'People Blogs' — how do these subcategories compare in percentage to the outer ring categories?",
+      "expected_behavior": "The model should recognize that there is no inner ring in the chart and reject the premise, stating that subcategories are not shown.",
+      "false_element": "Inner ring, which is plausible for pie charts that display hierarchical or nested data.",
+      "principle": "presupposition_embedding, co_occurrence"
+    },
+    {
+      "type": "contra",
+      "question": "Given that 'Entertainment' accounts for 18% of the chart, how does its percentage compare to 'People Blogs'?",
+      "expected_behavior": "The model should detect that the premise is false ('Entertainment' is actually 13.9%) and correct the value before answering the comparison.",
+      "false_premise": "'Entertainment' is claimed to be 18%, while the actual value is 13.9%. The anchor is plausible because it is close to the actual value and 'Entertainment' is a prominent category.",
+      "principle": "anchoring, subordinate_embedding"
+    },
+    {
+      "type": "unanswerable",
+      "question": "What is the sample size of videos analyzed to produce this distribution, and how does the variance in percentages across categories reflect the diversity of the dataset?",
+      "expected_behavior": "The model should state that the sample size and variance cannot be determined from the chart, as no raw counts or statistical measures are provided.",
+      "why_unanswerable": "The chart only shows percentages without any information about the underlying sample size or statistical analysis, which would be required to answer the question.",
+      "principle": "domain_conventions, refusal_cost"
+    }
+  ],
+  "figure_id": "fig_208",
+  "figure_type": "Pie Chart"
+}
