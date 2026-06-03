@@ -62,7 +62,6 @@ export default function ScatterChart() {
           referenceLine
           referenceLabel="If quality predicted behaviour"
           yFormat={v => `${Math.round(v)}`}
-          colorAccent="#ef4444"
         />
         <ScatterPanel
           title="Perception → Resistance"
@@ -77,7 +76,6 @@ export default function ScatterChart() {
           referenceLine
           referenceLabel="Reference"
           yFormat={v => (v / 100).toFixed(2)}
-          colorAccent="#a855f7"
         />
       </div>
 
@@ -97,7 +95,7 @@ export default function ScatterChart() {
 
 function ScatterPanel({
   title, xLabel, yLabel, xRange, yRange, points, inView, hovered, setHovered,
-  referenceLine, referenceLabel, yFormat, colorAccent,
+  referenceLine, referenceLabel, yFormat,
 }: {
   title: string
   xLabel: string; yLabel: string
@@ -109,7 +107,6 @@ function ScatterPanel({
   referenceLine?: boolean
   referenceLabel?: string
   yFormat: (v: number) => string
-  colorAccent: string
 }) {
   const width = 360
   const height = 280

@@ -151,15 +151,20 @@ const TABS: TabDef[] = [
   { id: 'caption_bias',  label: 'Caption Bias',         shortLabel: 'Caption' },
 ]
 
+// Transform PNGs (~1.5 GB) live in Azure Blob Storage rather than the SWA
+// bundle, which is capped at 250 MB on the free tier. Selective-blur images
+// stay in /public so they ship with the dashboard.
+const BLOB_TRANSFORMS = 'https://scifigblobs.blob.core.windows.net/transforms'
+
 const VARIANTS: VariantDef[] = [
   { id: 'original',         label: 'Original',         path: null,                          description: 'Untouched figure as published.' },
-  { id: 'rotation',         label: 'Rotation',         path: '/transforms/rotation',        description: 'Rotated to test orientation robustness.' },
-  { id: 'noise',            label: 'Noise',            path: '/transforms/noise',           description: 'Gaussian noise overlay.' },
-  { id: 'low_contrast',     label: 'Low Contrast',     path: '/transforms/low_contrast',    description: 'Reduced luminance contrast.' },
-  { id: 'in_paper',         label: 'In-Paper',         path: '/transforms/in_paper',        description: 'Figure embedded in its source PDF page.' },
-  { id: 'in_paper_blur',    label: 'In-Paper Blur',    path: '/transforms/in_paper_blur',   description: 'In-paper variant with the figure region blurred.' },
-  { id: 'admittance_blur',  label: 'Admittance Blur',  path: '/adversarial_admittance',     description: 'Unrecoverable element blurred — tests epistemic honesty.' },
-  { id: 'inductance_blur',  label: 'Inductance Blur',  path: '/adversarial_inductance',     description: 'Inferable element blurred — tests contextual reasoning.' },
+  { id: 'rotation',         label: 'Rotation',         path: `${BLOB_TRANSFORMS}/rotation`,        description: 'Rotated to test orientation robustness.' },
+  { id: 'noise',            label: 'Noise',            path: `${BLOB_TRANSFORMS}/noise`,           description: 'Gaussian noise overlay.' },
+  { id: 'low_contrast',     label: 'Low Contrast',     path: `${BLOB_TRANSFORMS}/low_contrast`,    description: 'Reduced luminance contrast.' },
+  { id: 'in_paper',         label: 'In-Paper',         path: `${BLOB_TRANSFORMS}/in_paper`,        description: 'Figure embedded in its source PDF page.' },
+  { id: 'in_paper_blur',    label: 'In-Paper Blur',    path: `${BLOB_TRANSFORMS}/in_paper_blur`,   description: 'In-paper variant with the figure region blurred.' },
+  { id: 'admittance_blur',  label: 'Admittance Blur',  path: '/adversarial_admittance',            description: 'Unrecoverable element blurred — tests epistemic honesty.' },
+  { id: 'inductance_blur',  label: 'Inductance Blur',  path: '/adversarial_inductance',            description: 'Inferable element blurred — tests contextual reasoning.' },
 ]
 
 /* ── Main ── */

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'motion/react'
-import { MODELS, ADMITTANCE, INDUCTANCE, RESISTANCE, overallResistance } from '../../data/landing_data'
+import { MODELS, ADMITTANCE, INDUCTANCE, overallResistance } from '../../data/landing_data'
 
 const c = {
   bg: 'var(--t-bg)',

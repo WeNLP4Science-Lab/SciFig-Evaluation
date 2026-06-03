@@ -104,7 +104,6 @@ export default function Dataset({ onSelectFigure, onBackToHome }: {
   }, [baseData])
 
   const papers = useMemo(() => new Set(baseData.map(d => d.arxiv_id)).size, [baseData])
-  const totalAnns = useMemo(() => baseData.reduce((s, d) => s + d.annotation_count, 0), [baseData])
 
   const markLoaded = useCallback((id: string) => {
     setLoaded(prev => new Set(prev).add(id))

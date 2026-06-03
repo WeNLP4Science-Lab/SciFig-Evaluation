@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import {
   motion, useScroll, useTransform, useInView, useMotionValue, animate,
-  AnimatePresence, LayoutGroup,
+  LayoutGroup,
 } from 'motion/react'
 import DisconnectChart from '../components/landing/DisconnectChart'
 import AriDumbbell from '../components/landing/AriDumbbell'
 import ModelQuoteRail from '../components/landing/ModelQuoteRail'
-import ThemeToggle from '../components/ThemeToggle'
 import SciFigLogo from '../components/SciFigLogo'
 import { useTheme } from '../theme'
 import PaperFigure from '../components/landing/PaperFigure'
@@ -337,12 +336,12 @@ function HeroHeadline({ text }: { text: string }) {
         visible: { transition: { staggerChildren: 0.045, delayChildren: 0.15 } },
       }}
       style={{
-        fontSize: 'clamp(42px, 6.6vw, 92px)',
-        fontWeight: 700, letterSpacing: '-0.035em',
-        color: c.fg, lineHeight: 1.0, margin: 0,
-        display: 'flex', flexWrap: 'wrap', gap: '0.18em',
+        fontSize: 'clamp(34px, 5vw, 72px)',
+        fontWeight: 700, letterSpacing: '-0.03em',
+        color: c.fg, lineHeight: 1.08, margin: 0,
+        display: 'flex', flexWrap: 'wrap', gap: '0.2em',
         justifyContent: 'center',
-        maxWidth: 1080, marginInline: 'auto',
+        maxWidth: 920, marginInline: 'auto',
       }}
     >
       {words.map((w, i) => (

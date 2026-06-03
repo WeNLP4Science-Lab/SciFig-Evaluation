@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { motion } from 'motion/react'
 
 const FIG_ID = 'fig_064'
-const QUESTION = "Which category has the highest number of conversations marked as 'Yes' for being deceived?"
 
 const c = {
   bg: 'var(--t-bg)',
