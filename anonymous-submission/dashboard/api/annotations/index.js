@@ -1,4 +1,4 @@
-const { ensureTables, annotationsTable, passwordsTable, ANNOTATORS } = require("../shared");
+const { ensureTables, annotationsTable, passwordsTable, isKnownAlias, toReal, toAlias } = require("../shared");
 
 module.exports = async function (context, req) {
   await ensureTables();
@@ -18,7 +18,7 @@ module.exports = async function (context, req) {
       results.push({
         figure_id: entity.partitionKey,
         category: entity.category,
-        annotator: entity.annotator,
+        annotator: toAlias(entity.annotator),
         answer: entity.answer,
         edited_question: entity.editedQuestion || null,
         change_requested: entity.changeRequested === true,
@@ -39,15 +39,17 @@ module.exports = async function (context, req) {
     return;
   }
 
-  if (!ANNOTATORS.includes(annotator)) {
+  if (!isKnownAlias(annotator)) {
     context.res = { status: 403, body: { error: "unknown annotator" }, headers: { "Content-Type": "application/json" } };
     return;
   }
 
+  const realName = toReal(annotator);
+
   // Verify password
   const pw = passwordsTable();
   try {
-    const entity = await pw.getEntity("auth", annotator);
+    const entity = await pw.getEntity("auth", realName);
     if (entity.password !== password) {
       context.res = { status: 401, body: { error: "wrong password" }, headers: { "Content-Type": "application/json" } };
       return;
@@ -58,13 +60,13 @@ module.exports = async function (context, req) {
   }
 
   const table = annotationsTable();
-  const rowKey = `${category}_${annotator}`;
+  const rowKey = `${category}_${realName}`;
 
   await table.upsertEntity({
     partitionKey: figure_id,
     rowKey,
     category,
-    annotator,
+    annotator: realName,
     answer: String(answer),
     editedQuestion: edited_question || "",
     changeRequested: !!edited_question,

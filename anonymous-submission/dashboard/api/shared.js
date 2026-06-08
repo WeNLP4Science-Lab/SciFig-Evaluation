@@ -18,12 +18,45 @@ async function ensureTables() {
   initialized = true;
 }
 
-const ANNOTATORS = ["Admin", "Wei", "Bana", "Ananya", "Paul", "John", "Benedict", "Anthony", "Dan"];
+// Server-only mapping. Browser bundle only ever sees the aliases.
+// Azure tables are keyed by real names (historical), so we translate at the API boundary.
+const ALIAS_TO_REAL = {
+  "Admin":  "Admin",
+  "User 1": "Wei",
+  "User 2": "Bana",
+  "User 3": "Ananya",
+  "User 4": "Paul",
+  "User 5": "John",
+  "User 6": "Benedict",
+  "User 7": "Anthony",
+  "User 8": "Dan",
+};
+
+const REAL_TO_ALIAS = Object.fromEntries(
+  Object.entries(ALIAS_TO_REAL).map(([alias, real]) => [real, alias])
+);
+
+const ALIASES = Object.keys(ALIAS_TO_REAL);
+
+function toReal(alias) {
+  return ALIAS_TO_REAL[alias] || null;
+}
+
+function toAlias(real) {
+  return REAL_TO_ALIAS[real] || real;
+}
+
+function isKnownAlias(alias) {
+  return ALIAS_TO_REAL.hasOwnProperty(alias);
+}
 
 module.exports = {
   ensureTables,
   passwordsTable: () => getTableClient("passwords"),
   annotationsTable: () => getTableClient("annotations"),
   reviewsTable: () => getTableClient("reviews"),
-  ANNOTATORS,
+  ALIASES,
+  toReal,
+  toAlias,
+  isKnownAlias,
 };

@@ -7,6 +7,7 @@ import DisconnectChart from '../components/landing/DisconnectChart'
 import AriDumbbell from '../components/landing/AriDumbbell'
 import ModelQuoteRail from '../components/landing/ModelQuoteRail'
 import SciFigLogo from '../components/SciFigLogo'
+import ThemeToggle from '../components/ThemeToggle'
 import { useTheme } from '../theme'
 import PaperFigure from '../components/landing/PaperFigure'
 import GroupedBarChart from '../components/landing/GroupedBarChart'
@@ -35,7 +36,6 @@ const SECTIONS: NavSection[] = [
   { id: 'reasoning',   label: 'Reasoning' },
   { id: 'behaviour',   label: 'Behaviour' },
   { id: 'method',      label: 'Method' },
-  { id: 'authors',     label: 'Authors' },
 ]
 
 export default function Landing({ onExploreDataset }: { onExploreDataset: () => void }) {
@@ -89,10 +89,6 @@ export default function Landing({ onExploreDataset }: { onExploreDataset: () => 
 
       <Section id="method" label="Method credibility" subtitle="What backs these numbers up.">
         <MethodCredibility />
-      </Section>
-
-      <Section id="authors" label="Authors">
-        <Authors />
       </Section>
 
       <Footer onExploreDataset={onExploreDataset} />
@@ -193,6 +189,7 @@ function StickyNav({ active, onJump, onExploreDataset }: {
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <NavCTA label="Paper" comingSoon />
           <NavCTA label="Dataset" onClick={onExploreDataset} primary />
+          <ThemeToggle />
         </div>
       </div>
     </motion.nav>
@@ -309,7 +306,7 @@ function Hero({ onExploreDataset }: { onExploreDataset: () => void }) {
             flexWrap: 'wrap',
           }}
         >
-          <HeroCTA label="Start exploring" primary onClick={onExploreDataset} />
+          <HeroCTA label="Explore dataset" primary onClick={onExploreDataset} />
           <HeroCTA label="Read about the paper" arrow comingSoon />
         </motion.div>
       </div>
@@ -917,43 +914,15 @@ function MethodTile({ number, label, value, detail, index }: {
   )
 }
 
-/* ── 06 · Authors ── */
-
-function Authors() {
-  return (
-    <div style={{
-      padding: '32px 28px',
-      borderRadius: 12, border: `1px solid ${c.border}`,
-      background: c.surface,
-      textAlign: 'center',
-    }}>
-      <p style={{
-        fontSize: 11, fontWeight: 600, textTransform: 'uppercase',
-        letterSpacing: '0.1em', color: c.muted,
-        margin: '0 0 14px',
-      }}>
-        Anonymous · under review
-      </p>
-      <p style={{
-        fontSize: 14, color: c.muted, lineHeight: 1.6,
-        margin: 0, maxWidth: 540, marginInline: 'auto',
-      }}>
-        Author names, affiliations, acknowledgements, and funding statement will be revealed upon acceptance.
-      </p>
-    </div>
-  )
-}
-
 /* ── Footer ── */
 
 function Footer({ onExploreDataset }: { onExploreDataset: () => void }) {
   const [copied, setCopied] = useState(false)
-  const bibtex = `@inproceedings{scifigeval,
-  title     = {How Do VLMs Behave When Blind or Misled?
-               Behavioural Evaluation of VLMs on Scientific Figures},
-  author    = {Anonymous},
-  booktitle = {Anonymous Submission, Under Review},
-  year      = {2026},
+  const bibtex = `@article{scifigeval2026,
+  title = {How Do VLMs Behave When Blind or Misled?
+           Behavioural Evaluation of VLMs on Scientific Figures},
+  year  = {2026},
+  note  = {Full citation coming soon},
 }`
 
   const copyBibtex = async () => {

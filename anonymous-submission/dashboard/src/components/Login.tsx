@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ANNOTATORS, DISPLAY_NAME, resolveRealName, loginAPI, saveAuth, type Annotator, type AuthState } from '../auth'
+import { ANNOTATORS, loginAPI, saveAuth, type Annotator, type AuthState } from '../auth'
 
 const c = {
   bg: 'var(--t-bg)', surface: 'var(--t-surface)', border: 'var(--t-border)',
@@ -8,8 +8,6 @@ const c = {
 }
 
 export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void }) {
-  // `selectedAlias` is what the user sees and selects (e.g. "User 1")
-  // We resolve it to the real name only when calling the API.
   const [selectedAlias, setSelectedAlias] = useState<string>('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -20,10 +18,10 @@ export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void 
     setLoading(true)
     setError('')
     try {
-      const realName = resolveRealName(selectedAlias) as Annotator
-      const res = await loginAPI(realName, password)
+      const alias = selectedAlias as Annotator
+      const res = await loginAPI(alias, password)
       if (res.ok) {
-        const auth = { name: realName, password }
+        const auth = { name: alias, password }
         saveAuth(auth)
         onLogin(auth)
       } else {
@@ -75,7 +73,7 @@ export default function Login({ onLogin }: { onLogin: (auth: AuthState) => void 
         >
           <option value="" disabled>Select your user ID...</option>
           {ANNOTATORS.map(a => (
-            <option key={a} value={DISPLAY_NAME[a]}>{DISPLAY_NAME[a]}</option>
+            <option key={a} value={a}>{a}</option>
           ))}
         </select>
 

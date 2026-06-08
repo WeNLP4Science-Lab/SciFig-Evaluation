@@ -1,4 +1,4 @@
-const { ensureTables, passwordsTable, ANNOTATORS } = require("../shared");
+const { ensureTables, passwordsTable, isKnownAlias, toReal } = require("../shared");
 
 module.exports = async function (context, req) {
   await ensureTables();
@@ -9,15 +9,16 @@ module.exports = async function (context, req) {
     return;
   }
 
-  if (!ANNOTATORS.includes(name)) {
+  if (!isKnownAlias(name)) {
     context.res = { status: 403, body: { error: "unknown annotator" }, headers: { "Content-Type": "application/json" } };
     return;
   }
 
+  const realName = toReal(name);
   const table = passwordsTable();
 
   try {
-    const entity = await table.getEntity("auth", name);
+    const entity = await table.getEntity("auth", realName);
     if (entity.password === password) {
       context.res = { body: { ok: true, name }, headers: { "Content-Type": "application/json" } };
     } else {
@@ -25,7 +26,7 @@ module.exports = async function (context, req) {
     }
   } catch (e) {
     if (e.statusCode === 404) {
-      await table.createEntity({ partitionKey: "auth", rowKey: name, password });
+      await table.createEntity({ partitionKey: "auth", rowKey: realName, password });
       context.res = { body: { ok: true, name, created: true }, headers: { "Content-Type": "application/json" } };
     } else {
       context.res = { status: 500, body: { error: e.message }, headers: { "Content-Type": "application/json" } };

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, LayoutGroup } from 'motion/react'
+import ThemeToggle from '../components/ThemeToggle'
 import { getAnnotations, saveAnnotation, getReviews, saveReview, displayName, type AuthState, type AnnotationEntry, type ReviewEntry } from '../auth'
 
 const SPRING = { type: 'spring' as const, stiffness: 320, damping: 30, mass: 0.8 }
@@ -291,6 +292,8 @@ export default function FigureDetail({ figureId, onBack, auth }: {
             {figure.figure_type}
           </span>
 
+          <div style={{ flex: 1 }} />
+          <ThemeToggle />
         </div>
       </div>
 

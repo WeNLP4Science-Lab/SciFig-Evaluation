@@ -58,6 +58,7 @@ const c = {
 
 import { figureInRange, isAnnotationMode, getSavedAuth } from '../auth'
 import SciFigLogo from '../components/SciFigLogo'
+import ThemeToggle from '../components/ThemeToggle'
 
 export default function Dataset({ onSelectFigure, onBackToHome }: {
   onSelectFigure: (id: string) => void
@@ -173,6 +174,7 @@ export default function Dataset({ onSelectFigure, onBackToHome }: {
               Back to landing
             </motion.button>
           )}
+          <ThemeToggle />
         </div>
       </div>
 

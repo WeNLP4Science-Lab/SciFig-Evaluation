@@ -1,4 +1,4 @@
-const { ensureTables, reviewsTable, passwordsTable, ANNOTATORS } = require("../shared");
+const { ensureTables, reviewsTable, passwordsTable, isKnownAlias, toReal, toAlias } = require("../shared");
 
 module.exports = async function (context, req) {
   await ensureTables();
@@ -18,7 +18,7 @@ module.exports = async function (context, req) {
       results.push({
         figure_id: entity.partitionKey,
         review_type: entity.reviewType,
-        annotator: entity.annotator,
+        annotator: toAlias(entity.annotator),
         // Metadata reviews
         pdf_page: entity.pdfPage || null,
         figure_number: entity.figureNumber || null,
@@ -45,15 +45,17 @@ module.exports = async function (context, req) {
     return;
   }
 
-  if (!ANNOTATORS.includes(annotator)) {
+  if (!isKnownAlias(annotator)) {
     context.res = { status: 403, body: { error: "unknown annotator" }, headers: { "Content-Type": "application/json" } };
     return;
   }
 
+  const realName = toReal(annotator);
+
   // Verify password
   const pw = passwordsTable();
   try {
-    const entity = await pw.getEntity("auth", annotator);
+    const entity = await pw.getEntity("auth", realName);
     if (entity.password !== password) {
       context.res = { status: 401, body: { error: "wrong password" }, headers: { "Content-Type": "application/json" } };
       return;
@@ -64,13 +66,13 @@ module.exports = async function (context, req) {
   }
 
   const table = reviewsTable();
-  const rowKey = `${review_type}_${annotator}`;
+  const rowKey = `${review_type}_${realName}`;
 
   const entity = {
     partitionKey: figure_id,
     rowKey,
     reviewType: review_type,
-    annotator,
+    annotator: realName,
     pdfPage: fields.pdf_page || "",
     figureNumber: fields.figure_number || "",
     captionEdit: fields.caption || "",
