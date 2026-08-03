@@ -1,0 +1,131 @@
+%!TEX root = ../main.tex
+
+\section{Evaluation Pipeline Details}
+\label{sec:appendix-eval-pipelines}
+
+This section records the implementation details behind each pipeline in the benchmark. Prompt texts are reproduced in Appendix~\ref{sec:appendix-prompts}; dataset scale is summarised in Table~\ref{tab:dataset-comprehensive}.
+
+% ═══════════════════════════════════════════════════════
+\subsection{MQM Evaluation Pipeline}
+\label{sec:appendix-mqm-pipeline}
+
+The MQM pipeline scores open-ended descriptions in three steps.
+
+\paragraph{Step 1. Checklist generation.}
+Each chart type has a hand-crafted checklist of visual elements the description should cover. Bar charts use 14 items (orientation, grouping, axis labels, value ranges, colours, legend entries, etc.), line plots use 15 items (markers, grid, trend direction, intersection points, etc.), and pie charts use 11 items (segment counts, label placement, ordering, etc.). Each item carries a severity tag (Major or Minor) that caps the maximum penalty for that item.
+
+\paragraph{Step 2. Judge scoring.}
+GPT-4o receives the model description, the source figure image, the expert reference, the chart-type checklist, global constraints, and binding instructions. It evaluates every checklist item on two axes: \emph{coverage} (complete, partial, or missing) and \emph{correctness} (correct, partial, wrong, or not applicable). It also flags global constraint violations such as hallucinated content. Binding verification checks that labels, numerical values, colours, and visual elements are attributed to the correct entity rather than a neighbouring one. For example, assigning a value from Series~A to Series~B triggers a binding error even if the value itself is mentioned.
+
+\paragraph{Step 3. Penalty computation.}
+A rule-based engine maps each judge finding to a typed MQM penalty across three dimensions (Accuracy, Completeness, Clarity and Readability) with weights of 5.0/2.0 for Major/Minor accuracy errors, 5.0/2.0 for Major/Minor completeness errors, and 2.5/1.0 for Major/Minor clarity errors. Deduplication merges penalties that share the same text span or root cause, retaining only the highest-severity penalty per span. The final score is $\max(0,\; 100 - P \times 100 \mathbin{/} (N \times 5))$ where $P$ is the total penalty and $N$ is the number of checklist items. Accuracy sub-types are tracked separately (Incorrect Numerical Value, Incorrect Trend Interpretation, Incorrect Axis or Legend Interpretation, Incorrect Label Mapping).
+
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_mqm_pipeline.pdf}\caption{MQM evaluation pipeline.}\label{fig:uml-mqm}\end{figure}
+
+% ═══════════════════════════════════════════════════════
+\subsection{Transform Generation Pipeline}
+\label{sec:appendix-transform-pipeline}
+
+We construct five transformed or in-paper conditions beyond the clean image.
+
+\paragraph{Image transforms.}
+Three direct pixel-level transforms are applied to each of the 250 figures. Gaussian noise adds random perturbation with $\sigma=25$. Low contrast compresses the dynamic range ($\alpha=0.3$, $\beta=50$). Rotation tilts the image by $15^{\circ}$ with white fill.
+
+\paragraph{In-paper conditions.}
+Two conditions embed the figure in its source context. For \emph{in-paper}, the source PDF page is rendered as an image and the figure is located by its page number. For \emph{in-paper-blur}, the same rendering is used but the figure region is blurred, testing whether models rely on surrounding page context (captions, body text) rather than the figure itself.
+
+\paragraph{Totals.}
+The transformed set contains 250 noise, 250 low-contrast, 250 rotated, 247 in-paper, and 246 in-paper-blur images, totalling 1{,}243 cases. The small shortfall in in-paper conditions reflects figures whose source page could not be located automatically.
+
+% ═══════════════════════════════════════════════════════
+\subsection{Capability Question Pipeline}
+\label{sec:appendix-capability-pipeline}
+
+Capability questions test four visual reasoning skills. The pipeline has three stages.
+
+\paragraph{Seeder.}
+GPT-4o receives each figure image together with its chart type and expert annotation. It generates three candidate questions per category (counting, computation, comparison, and pattern analysis), each with an answer, reasoning trace, and referenced visual elements. Candidates must be answerable solely from the image.
+
+\paragraph{Validator.}
+A separate model (Mistral Large~3) checks each candidate against five quality criteria: answerable from the image, unambiguous, challenging, correctly categorised, and visually grounded. Candidates that fail any criterion are rejected and written to a review queue.
+
+\paragraph{Filter.}
+From the accepted set, one question per category per figure is retained, preferring higher difficulty. This produces 1{,}000 final questions across 250 figures, balanced across four categories.
+
+
+% ═══════════════════════════════════════════════════════
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_capability_pipeline.pdf}\caption{Capability question pipeline.}\label{fig:uml-capability}\end{figure}
+\subsection{Resistance Probe Pipeline}
+\label{sec:appendix-resistance-pipeline}
+
+Resistance probes test whether models fabricate information, accept false premises, or answer unanswerable questions. GPT-4o generates three probes per figure from the image and groundtruth description, one of each type.
+
+\paragraph{Inexist (absent element).}
+The probe presupposes a plausible but non-existent chart element using definite articles and subordinate clauses, exploiting co-occurrence priors \citep{loftus1975leading}. Example: ``\emph{The error bars in the third group appear wider than in the first. Does this indicate higher variance?}'' A correct model should reject the presupposition.
+
+\paragraph{Contra (false premise).}
+The probe embeds a specific wrong numerical value (20--30\% off from the actual) as a premise and asks the model to build on it, targeting anchoring bias \citep{tversky1974judgment}. Example: ``\emph{Given that Method~A achieves approximately 72\% accuracy, how does this compare to Method~B?}'' (actual: 58\%). A correct model should detect and correct the false premise.
+
+\paragraph{Unanswerable (beyond-chart).}
+The probe asks a domain-appropriate question that sounds like a standard analytical follow-up but cannot be answered from the chart, such as requesting sample sizes, p-values, or projections beyond the plotted range. A correct model should state that the information is not available.
+
+\paragraph{Evaluation rubric.}
+Responses are scored as 1.0 (clearly resists the false premise or admits the limitation), 0.5 (hedges or partially complies), or 0.0 (fully accepts the false premise or fabricates an answer).
+
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_resistance_pipeline.pdf}\caption{Resistance probe pipeline.}\label{fig:uml-resistance}\end{figure}
+
+% ═══════════════════════════════════════════════════════
+\subsection{Caption Bias Pipeline}
+\label{sec:appendix-caption-bias-pipeline}
+
+Caption bias tests whether models follow visual evidence or defer to misleading captions.
+
+\paragraph{Modified caption generation.}
+GPT-4o generates a modified caption from the original caption and expert reference, applying four design principles. The \emph{70/30 rule} keeps approximately 70\% of the caption verifiably correct (chart type, axis labels, category names) while poisoning the remaining 30\% with exactly 2--3 false claims. The \emph{anchoring sweet spot} ensures wrong numbers are 20--40\% off from actual values. \emph{Peripheral misinformation} targets secondary details (minor trends, adjacent-category comparisons) rather than the most salient feature. Modification types include value anchors, trend mischaracterisations, comparison swaps, ranking inversions, and rate mischaracterisations.
+
+\paragraph{Evaluation.}
+Models describe the figure with the modified caption provided as context. A GPT-4o judge then evaluates each false claim using a randomised A/B design. For each claim, two statements are presented in random order: the caption's false claim and the visual reality. The judge determines which the description aligns with, preventing position bias. The resistance score for a model is the proportion of addressed claims for which the model follows the image rather than the caption. Claims not addressed in the description are excluded from the denominator.
+
+
+% ═══════════════════════════════════════════════════════
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_caption_bias_pipeline.pdf}\caption{Caption bias pipeline.}\label{fig:uml-caption-bias}\end{figure}
+\subsection{Selective Blur Pipeline}
+\label{sec:appendix-blur-pipeline}
+
+Selective blur creates two visually similar but conceptually different uncertainty conditions. The pipeline proceeds in five steps.
+
+\paragraph{Step 1. OCR extraction.}
+EasyOCR extracts all text regions from the figure image, returning each detected string together with its bounding box coordinates.
+
+\paragraph{Step 2. Target proposal.}
+GPT-4o receives the figure image, the full list of OCR-detected text strings, and the expert annotation. It proposes ranked blur candidates for two conditions. \emph{Admittance} targets are text elements whose identity becomes unrecoverable once blurred, so a truthful model should report that it cannot determine the answer. \emph{Inductance} targets are text elements whose identity remains inferable from surrounding visual context (e.g.\ a legend label recoverable from colour matching or axis units deducible from value patterns), so a capable model should infer the correct value.
+
+\paragraph{Step 3. Fuzzy text matching.}
+Each proposed target string is matched back to an OCR bounding box using a three-tier strategy. Exact matching is tried first, then normalised matching (handling common OCR confusions such as \texttt{l}/\texttt{1} and \texttt{o}/\texttt{0}), then character-level fuzzy matching with a minimum similarity threshold of 0.6. The highest-ranked candidate with a successful match is selected.
+
+\paragraph{Step 4. Blur application.}
+The matched bounding box region is first blended toward grey (blend factor 0.7) to suppress text contrast, then a heavy Gaussian blur (kernel size 75) is applied. This two-stage process ensures the text is rendered fully unreadable while keeping the surrounding figure intact.
+
+\paragraph{Step 5. Human review.}
+Each candidate is reviewed on the project dashboard, where annotators confirm the blur target or replace it with a more suitable alternative. Only confirmed targets enter the active and passive evaluation sets. Figure~\ref{fig:blur-triptych} illustrates the output of this pipeline.
+
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_blur_pipeline.pdf}\caption{Selective blur pipeline.}\label{fig:uml-blur}\end{figure}
+
+% ═══════════════════════════════════════════════════════
+\subsection{Active and Passive Probe Evaluation}
+\label{sec:appendix-active-passive-eval}
+
+Selective blur responses are evaluated through two complementary protocols.
+
+\paragraph{Active evaluation.}
+The model receives a selectively blurred image together with a targeted question whose answer depends on the blurred element (e.g.\ ``What label appears in the second legend entry?''). No hint is given that anything has been altered. A GPT-4o judge scores the response on three binary dimensions: (i)~\emph{admits}, whether the model acknowledged that something was unclear or unreadable; (ii)~\emph{fabricates}, whether the model stated a specific value, name, or answer; and (iii)~\emph{correct}, whether any fabricated answer matched the expected value. A model can both admit and fabricate simultaneously (e.g.\ ``The label is obscured but appears to be X'').
+
+\paragraph{Passive evaluation.}
+The model receives a selectively blurred image with an open-ended description prompt (the same prompt used for baseline descriptions). A GPT-4o judge analyses whether the model's description (i)~\emph{mentioned} the blurred element's role at all, (ii)~\emph{admitted} uncertainty about it, (iii)~\emph{fabricated} a specific value for it, and (iv)~whether any fabrication was \emph{correct}. This captures whether models silently omit unreadable content or confidently fill in gaps.
+
+\paragraph{Scoring interpretation.}
+For admittance probes, reliable behaviour is to admit uncertainty and avoid fabrication. For inductance probes, reliable behaviour is to infer correctly from remaining visual context. Both protocols independently produce admittance and fabrication rates, enabling cross-protocol consistency checks.
+
+
+% ═══════════════════════════════════════════════════════
+\begin{figure}[h]\centering\includegraphics[width=\columnwidth]{figures/uml_active_passive_pipeline.pdf}\caption{Active and passive probe evaluation.}\label{fig:uml-active-passive}\end{figure}

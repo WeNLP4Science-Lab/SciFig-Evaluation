@@ -1,0 +1,58 @@
+%!TEX root = ../main.tex
+\section{Conclusion}
+\label{sec:conclusion}
+Perception and reasoning scores mask a third dimension of VLM competence. \textsc{SciFig-Eval} evaluates eight models across description quality, targeted reasoning, and behavioural reliability, showing that strong perception does not guarantee reliable behaviour. GPT-5.2 and Gemini 3.1 Pro differ by only 1.4 MQM points, yet their admittance rates differ by 63 percentage points.
+
+To analyse these behaviours, we introduce the A-R-I framework, which decomposes model behaviour into admittance, resistance, and inductance. These dimensions expose failure modes invisible to conventional quality metrics and generalise beyond scientific figures to settings where models must acknowledge uncertainty, resist misleading context, and infer from partial evidence.
+
+Our findings highlight an immediate practical risk: selecting VLMs for scientific workflows based only on accuracy benchmarks may embed confident fabrication into the research pipeline. \textit{Behaviour must therefore be evaluated separately and \textsc{SciFig-Eval} provides a framework for doing so.}
+
+
+\am{More broadly, we envision the A-R-I framework as a general paradigm for evaluating trustworthy multimodal reasoning, and future work can extend it to diverse benchmarks and application domains, including healthcare, autonomous systems, and document understanding.}
+
+\todo{SE: I like the paper, but more examples would be helpful. It's often very dense, and some parts of the setup could be better illustrated, e.g., are there questions with answer choices? And models must choose the correct ones under blur, etc.? Also, I didn't understand what caption means here... PAUL}
+
+% Perception and reasoning scores mask a third dimension of VLM competence that matters for deployment. \textsc{SciFig-Eval} evaluates eight models across description quality, targeted reasoning, and behavioural reliability, showing that the first two dimensions are poor predictors of the third. GPT-5.2 and Gemini 3.1 Pro score within 1.4 MQM points on perception, yet their admittance rates differ by 63 percentage points.
+
+% To systematically analyze these behaviours, we introduce A-R-I framework, which decomposes behaviour into admittance, resistance, and inductance, each revealing failure modes invisible to quality scores. The framework is not specific to scientific figures: any domain where models must acknowledge uncertainty, refuse misleading premises, or infer from partial evidence can apply the same decomposition.
+
+% Several directions extend this work. Broader coverage of tables, multi-panel figures, scientific diagrams, and additional languages would test whether these behavioural patterns generalise. Training interventions that improve admittance without sacrificing description quality remain practically important.
+
+% The practical implication is immediate. Selecting VLMs for scientific workflows on quality benchmarks alone risks embedding a confident fabricator into the research pipeline. Behaviour must be measured separately, and \textsc{SciFig-Eval} provides the framework to do so.
+
+%Perception and reasoning metrics capture only part of VLM competence. Our results show that behavioural reliability forms a distinct dimension that is critical for real-world deployment. Across eight models evaluated on description quality, targeted reasoning, and behavioural robustness, \textsc{SciFig-Eval} reveals that strong perception and reasoning performance do not necessarily translate into reliable behaviour under uncertainty. GPT-5.2 and Gemini differ by only 1.4 MQM points in perception quality, yet their admittance rates differ by 63 percentage points, highlighting a substantial gap in how models handle missing or unreadable evidence.
+
+% To systematically analyze these behaviours, we introduce the A-R-I framework, which decomposes model reliability into admittance, resistance, and inductance. This decomposition exposes failure modes that remain invisible to aggregate quality scores alone. Although developed for scientific figure understanding, the framework generalizes naturally to other domains in which models must acknowledge uncertainty, resist misleading context, and reason cautiously from partial evidence.
+
+% Several directions remain for future work. Expanding coverage to tables, multi-panel figures, scientific diagrams, and multilingual scientific content would help determine whether these behavioural patterns generalize across modalities and domains. Another important direction is developing training or alignment strategies that improve uncertainty acknowledgement and robustness without degrading perception quality.
+
+% The broader implication is practical as well as methodological. Selecting VLMs for scientific workflows based solely on quality benchmarks risks deploying systems that appear highly capable while remaining behaviourally unreliable. Behavioural reliability must therefore be evaluated independently, and \textsc{SciFig-Eval} provides a framework for doing so.
+
+\section*{Limitations}
+
+% Our evaluation covers English-language bar charts, line plots, and pie charts. This scope enabled depth of analysis but findings may not transfer to scatter plots, heatmaps, schematic diagrams, or domains outside the computer science and machine learning literature prevalent on arXiv.
+
+% The dataset remains modest in absolute count. We validated stability through split-half reliability ($\rho = 0.979$) and scale analysis showing convergence at 100 figures, but broader scientific corpora warrant investigation.
+
+% Automated evaluation used GPT-4o as the primary judge. Human validation on < 200 annotated pairs yielded Krippendorff's $\alpha = 0.91$ and model-level ranking agreement of $\rho = 0.80$ ($n = 4$ models). The probe designer ablation shows robustness to switching the probe generator from GPT-4o to Mistral Large~3. For capability questions, where GPT-4o serves as both question seeder and answer judge, a cross-judge check with Mistral Large~3 scoring 344 questions preserved model rankings perfectly ($\rho = 1.000$, Table~\ref{tab:capability-judge-ablation}), indicating that the seeder--judge overlap does not bias the evaluation.
+
+
+Our evaluation focuses on English-language bar charts, line plots, and pie charts. %While this allows for a detailed and controlled analysis, the results may not generalize to other visualization types such as scatter plots, heatmaps, or schematic diagrams, nor to domains beyond the computer science and machine learning literature commonly found on arXiv.
+\am{We selected these chart types because they constitute the majority of visualization types in our collected arXiv corpus, enabling a large-scale benchmark with consistent, high-quality human annotations. Nevertheless, the benchmark does not currently cover more complex scientific visualizations such as scatter plots, heatmaps, network diagrams, or schematic figures. Extending SCIFIG-EVAL to these visualization types is an important direction for future work.}
+
+The dataset is relatively small in absolute size. We assess its reliability using split-half analysis, which yields a high stability score ($\rho = 0.979$), and scale experiments showing performance convergence at around 100 figures. Nevertheless, extending the study to larger and more diverse scientific corpora remains an important direction for future work.
+
+Automated evaluation is primarily conducted using GPT-4o as the judge model. Human validation on fewer than 200 annotated pairs shows strong agreement, with Krippendorff’s $\alpha = 0.91$ and model-level ranking correlation of $\rho = 0.80$ across four models. We further test robustness via an ablation on the probe designer, finding consistent results when replacing GPT-4o with Mistral Large 3 as the probe generator. For capability-focused questions where GPT-4o is used both to generate questions and to judge answers we perform an additional cross-judge evaluation using Mistral Large 3 over 344 questions. This preserves model rankings exactly ($\rho = 1.000$, Table~\ref{tab:capability-judge-ablation}), suggesting that seeder–judge overlap does not introduce measurable bias in our setting.
+
+\am{Although our behavioural results suggest that instruction-following behaviour contributes to failures on false-premise probes, the benchmark cannot conclusively distinguish this effect from limitations in multimodal grounding. Future work should isolate these factors through controlled interventions on prompting and alignment.}
+
+\section*{Ethics Statement}
+
+All scientific figures in \textsc{SciFig-Eval} are sourced from arXiv preprints, which are openly accessible and licensed for research use. The dataset contains no personally identifiable information. Human annotations were performed by consenting graduate researchers who were informed of the study's purpose. %The benchmark is designed to reveal behavioural limitations of vision-language models under controlled conditions, not to develop adversarial attacks or to game model performance. The dataset, evaluation scripts, model outputs, and prompts will be released upon publication.
+
+The benchmark is intended to study behavioural limitations of vision-language models under controlled settings, rather than to develop adversarial attacks or facilitate performance gaming. The dataset, evaluation scripts, model outputs, and prompts will be released upon publication to support reproducibility and further research.
+
+\section*{Acknowledgments}
+We are grateful to Doroteya Stoyanova, Ying Xuan, Jonas Gnauck, Goutham Muralikrishnan, Pawan Saxena, and Prasanna Vishweshwar Bhat for their help with annotation. They are financially supported by the University of Aberdeen. The NLLG group (UTN) gratefully acknowledges support
+from the German Research Foundation (DFG) via
+the Heisenberg Grant EG 375/5-1.

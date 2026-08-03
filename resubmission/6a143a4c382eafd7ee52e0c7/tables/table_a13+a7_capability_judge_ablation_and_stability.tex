@@ -1,0 +1,54 @@
+\begin{table*}[h]
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Model} & \textbf{GPT-4o} & \textbf{Mistral} & \textbf{$\Delta$} \\
+\midrule
+\mdot{clrGemini}Gemini 3.1 Pro   & 87.2 & 90.7 & $-$3.5 \\
+\mdot{clrGPT}GPT-5.2              & 84.9 & 88.4 & $-$3.5 \\
+\mdot{clrLlama}Llama 4 Maverick   & 61.6 & 66.3 & $-$4.7 \\
+\mdot{clrQwen8}Qwen3-VL 8B        & 60.5 & 65.1 & $-$4.7 \\
+\mdot{clrQwen235}Qwen3-VL 235B    & 57.0 & 61.6 & $-$4.7 \\
+\mdot{clrQwen30}Qwen3-VL 30B      & 48.8 & 47.7 & $+$1.2 \\
+\mdot{clrGemma}Gemma 3 27B        & 34.9 & 39.5 & $-$4.7 \\
+\mdot{clrPhi}Phi-4 Multimodal     & 10.5 & 11.6 & $-$1.2 \\
+\midrule
+\multicolumn{3}{@{}l}{Spearman $\rho$} & 1.000 \\
+\multicolumn{3}{@{}l}{Pearson $r$} & 0.997 \\
+\multicolumn{3}{@{}l}{Exact agreement (per-question)} & 87.2\% \\
+\multicolumn{3}{@{}l}{Matched questions} & 344 \\
+\bottomrule
+\end{tabular}
+\caption{Cross-judge validation for capability questions. GPT-4o and Mistral Large~3 independently score the same model responses on 344 English-language questions. Mistral is slightly more lenient (mean $+$3.2 pp) but the offset is uniform: model rankings are perfectly preserved ($\rho = 1.000$).}
+\label{tab:capability-judge-ablation}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Stability Measure} & \textbf{Value} \\
+\midrule
+Split-half reliability ($\rho$) & 0.979 [0.929, 1.000] \\
+Stratified $\rho$ (Bar Chart vs Line Plot) & 0.976 \\
+Stratified $\rho$ (Bar Chart vs Pie Chart) & 0.905 \\
+Stratified $\rho$ (Line Plot vs Pie Chart) & 0.952 \\
+\midrule
+\multicolumn{2}{@{}l}{\emph{Scale validation (100 vs 250 figures)}} \\
+\quad GPT-5.2 & 0.82 $\rightarrow$ 0.81 \\
+\quad Gemini & 0.92 $\rightarrow$ 0.91 \\
+\quad Llama 4 & 0.78 $\rightarrow$ 0.78 \\
+\quad Qwen-235B & 0.74 $\rightarrow$ 0.75 \\
+\quad Qwen-8B & 0.58 $\rightarrow$ 0.57 \\
+\quad Qwen-30B & 0.43 $\rightarrow$ 0.45 \\
+\quad Gemma & 0.44 $\rightarrow$ 0.45 \\
+\quad Phi-4 & 0.22 $\rightarrow$ 0.21 \\
+\bottomrule
+\end{tabular}
+\caption{Stability analysis. Split-half reliability computed over 100 random splits. Stratified $\rho$ shows rank correlation between chart types. Scale validation compares resistance scores on 100 vs 250 figures.}
+\label{tab:stability}
+\end{minipage}
+\end{table*}

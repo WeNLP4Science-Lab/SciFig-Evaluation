@@ -1,0 +1,54 @@
+\begin{table*}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Component} & \textbf{Details} \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Dataset}} \\
+Figures & 250 from 187 arXiv papers \\
+Chart types & Bar (99), Line (99), Pie (52) \\
+Language & English \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Models (8 evaluated)}} \\
+Commercial & GPT-5.2, Gemini 3.1 Pro, Phi-4 \\
+Open-weight & Llama 4 Maverick, Qwen3-VL \\
+ & (235B, 30B, 8B), Gemma 3 27B \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Judge and probe generation}} \\
+Primary judge & GPT-4o (Azure, East US 2) \\
+Cross-judge & Mistral Large 3 (OpenRouter) \\
+Probe designer & GPT-4o; Mistral Large 3 (ablation) \\
+Capability validator & Mistral Large 3 \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{API and inference}} \\
+Azure API version & \texttt{2024-12-01-preview} \\
+OpenRouter endpoint & \texttt{openrouter.ai/api/v1} \\
+Temperature & 0 (all calls) \\
+Max tokens & 2{,}048 (Gemini: 16{,}000) \\
+Random seed & 42 \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Software and tools}} \\
+API client & OpenAI Python SDK \\
+Image processing & OpenCV, NumPy, Pillow \\
+OCR & EasyOCR \\
+Statistics & SciPy (bootstrap, Cliff's $\delta$) \\
+Review dashboard & React, Tailwind CSS \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Evaluation scale}} \\
+Conditions & 14 (1 baseline + 13 probes) \\
+Total evaluations & $>$34{,}000 model-output pairs \\
+Human annotations & 120 pairs, 3 annotators \\
+\midrule
+\multicolumn{2}{@{}l}{\textit{Reproducibility}} \\
+Runs per condition & 1 (deterministic at temp\,=\,0) \\
+Experiment period & March--May 2026 \\
+Confidence intervals & Bootstrap ($B$\,=\,10{,}000) \\
+Sampling seed & 42 (dataset sampling, A/B order) \\
+Total API calls & $\sim$24{,}700 \\
+\bottomrule
+\end{tabular}
+\caption{Experimental setup summary. Full model identifiers and routing details appear in Appendix~\ref{sec:appendix-reproducibility}.}
+\label{tab:experimental-setup}
+\end{table*}

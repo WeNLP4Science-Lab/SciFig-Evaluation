@@ -1,0 +1,10 @@
+\subsection{Human Evaluation and Inter-Annotator Agreement}
+\label{sec:appendix-human-validation}
+
+Three annotators with graduate-level NLP expertise independently scored 120 (figure, model) pairs spanning 30 figures and 4 models (GPT-5.2, Qwen3-VL-30B, Qwen3-VL-8B, Gemma3-27B) using the MQM rubric described in \S\ref{sec:mqm}. Each annotator assigned a single MQM score (0--100) per pair. Of these 120 pairs, 39 received independent scores from two annotators, enabling direct agreement computation.
+
+\paragraph{Inter-annotator reliability.}
+We report Krippendorff's $\alpha$ on the interval scale, which accounts for chance agreement and treats MQM scores as continuous measurements. On the 39 double-annotated pairs, $\alpha = 0.91$, exceeding the 0.80 threshold conventionally regarded as reliable \citep{krippendorff2011computing}. The intraclass correlation coefficient ICC(2,1) was 0.91, Pearson $r = 0.92$ ($p < 10^{-16}$), and Spearman $\rho = 0.87$ ($p < 10^{-12}$). The mean absolute score difference between annotators was 7.6 MQM points on the 100-point scale.
+
+\paragraph{Human-judge agreement.}
+We compared human MQM scores against automated GPT-4o judge scores on the same 120 pairs. Model-level ranking agreement (averaging scores per model, then ranking) yielded Spearman $\rho = 0.80$ ($n = 4$ models). Per-pair Pearson correlation was $r = 0.65$, with a mean absolute error of 16.9 points. The automated judge tends to be stricter on mid-tier models (mean bias of $-14.8$ points for Qwen-30B) and slightly more lenient on the weakest model (mean bias of $+1.1$ for Gemma~3 27B). These biases are consistent across figures and do not affect model-level rankings.

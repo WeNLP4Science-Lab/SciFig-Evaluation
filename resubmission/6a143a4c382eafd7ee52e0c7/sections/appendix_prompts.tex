@@ -1,0 +1,265 @@
+\section{Prompt and Rubric Inventory}
+\label{sec:appendix-prompts}
+
+Table~\ref{tab:prompt-inventory} summarises the prompt families used in \textsc{SciFig-Eval}. The line-numbered panels reproduce the task-defining instructions; category-specific capability prompts instantiate the same schema for counting, computation, comparison, and pattern analysis.
+
+\begin{table}[h!]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{1.45cm}p{12.8cm}@{}}
+\toprule
+\textbf{IDs} & \textbf{Prompt family, role, and purpose} \\
+\midrule
+D1--D4 & Description prompts for evaluated VLMs; produce neutral scientific figure descriptions by chart type. \\
+M1 & MQM judge prompt; scores descriptions with checklist, global constraints, and binding verification. \\
+Q1--Q5 & Capability generator prompts; generate three candidate questions per category. \\
+Q6 & Capability validator prompt; accepts or rejects candidates using five quality criteria. \\
+Q7 & Capability answering prompt for evaluated VLMs; answers four figure-grounded questions. \\
+B1 & Caption-bias generator prompt; creates modified captions with exactly 2--3 false claims. \\
+B2 & Caption-bias judge prompt; determines whether a model followed the caption or the image. \\
+R1 & Resistance generator prompt; creates inexist, contra, and unanswerable probes. \\
+R2 & Resistance answering prompt for evaluated VLMs; answers three false-premise probes. \\
+S1 & Selective-blur selector prompt; selects admittance and inductance blur targets from OCR. \\
+S2--S3 & Active and passive blur judge prompts; score admittance, fabrication, and correctness. \\
+\bottomrule
+\end{tabular}
+\caption{Prompt inventory. All evaluated models received the same task prompt for a given condition; generator and judge prompts were run at temperature~0 unless otherwise noted in the experiment scripts.}
+\label{tab:prompt-inventory}
+\end{table}
+
+\begingroup
+\newtcblisting{promptbox}[2][]{%
+  enhanced,
+  listing only,
+  sharp corners,
+  arc=1pt,
+  boxrule=0pt,
+  borderline west={2.5pt}{0pt}{blue!40!gray},
+  colback=gray!3,
+  colframe=gray!15,
+  title={#2},
+  fonttitle=\bfseries\footnotesize\sffamily,
+  coltitle=blue!40!gray,
+  colbacktitle=gray!8,
+  attach boxed title to top left={xshift=0mm,yshift=0mm},
+  boxed title style={sharp corners, arc=0pt, boxrule=0pt, left=2mm, right=2mm},
+  top=2.5mm,
+  bottom=1.5mm,
+  left=5mm,
+  right=1.5mm,
+  listing options={
+    basicstyle=\ttfamily\tiny\color{black!80},
+    numbers=left,
+    numberstyle=\tiny\sffamily\color{blue!30!gray},
+    numbersep=5pt,
+    columns=fullflexible,
+    keepspaces=true,
+    breaklines=true,
+    tabsize=2,
+    showstringspaces=false,
+    xleftmargin=0pt,
+    keywordstyle=\color{blue!45!black}\bfseries,
+    keywords={VERIFICATION,PROCEDURE,FIRST,SECOND,IMPORTANT,NOTE,RULES,OUTPUT,FORMAT,INPUT,TASK,SCORING,STEP,CRITERIA,INSTRUCTIONS,CONSTRAINT,BINDING,GLOBAL,JSON},
+    commentstyle=\color{teal!60!black}\itshape,
+  },
+  #1
+}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+\begin{promptbox}{D1: Description Generation}
+You are an annotator tasked with describing scientific figures in a structured but natural paragraph format.
+Objectively describe what is visually shown in the figure using neutral and technical language.
+Avoid interpreting results, drawing conclusions, or speculating on the meaning of the data.
+Write a single cohesive paragraph covering purpose, axes, key visual elements, legends, grouping, subplots, highlights, sorting, and visible annotations.
+\end{promptbox}
+
+\begin{promptbox}{M1: MQM Judge System Prompt (excerpt)}
+You are an expert evaluator for scientific chart descriptions.
+
+VERIFICATION PROCEDURE:
+1. FIRST compare the model description against the REFERENCE
+   description to find discrepancies. Read both texts carefully
+   -- check what the model actually says, not what you expect.
+2. For any discrepancy found, verify against the IMAGE to
+   confirm whether the model is truly wrong.
+   If the image confirms the reference is correct and the model
+   is wrong, flag as error.
+   If the image shows the model has a valid alternative reading,
+   do NOT flag as error.
+   If the image is ambiguous, defer to the reference.
+
+COLOUR DECISION PROCEDURE (apply BEFORE any colour assessment):
+1. Map BOTH the model's colour term AND the image colour to one
+   of 11 basic families: red, orange, yellow, green, blue,
+   purple, pink, brown, gray, black, white.
+2. SAME family = NOT an error. DIFFERENT family = error.
+3. State the family mapping in your reasoning.
+
+NUMERICAL TOLERANCE:
+- Percentages: accept within +/-3 percentage points.
+- Axis ranges/tick values: accept within +/-10% of stated value.
+- Values marked approximately/roughly/about: accept any
+  reasonable image reading.
+
+WORDING TOLERANCE:
+- Accept semantic equivalence for descriptive language.
+
+LABEL MATCHING (STRICT):
+- Data labels, category names, series names, and legend entries
+  must match the reference EXACTLY. These are proper names.
+- Partial matches do NOT count as correct.
+
+ACCURACY SUB-TYPES:
+When correctness is partial or wrong, specify one of:
+- Incorrect Numerical Value
+- Incorrect Trend Interpretation
+- Incorrect Axis or Legend Interpretation
+- Incorrect Label Mapping
+\end{promptbox}
+
+\begin{promptbox}{Q1-Q5: Capability Generation}
+You are an expert scientific figure analyst specializing in challenging evaluation questions for chart understanding benchmarks.
+Questions must be answerable solely from the provided figure, unambiguous, challenging, and grounded in specific visual elements.
+Generate candidates for counting, computation, comparison, and pattern analysis.
+Each candidate must include answer, answer_type, reasoning trace, category, and referenced visual elements.
+Always output valid JSON matching the requested schema.
+\end{promptbox}
+
+\begin{promptbox}{Q6: Capability Validation}
+You are a strict quality evaluator for scientific figure understanding questions.
+Evaluate each candidate on five criteria: ANSWERABLE, UNAMBIGUOUS, CHALLENGING, CORRECT_CATEGORY, and VISUAL_GROUNDING.
+For each criterion answer PASS or FAIL with a brief reason.
+Assign ACCEPT or REJECT and mark the difficulty as hard or very_hard.
+\end{promptbox}
+
+\begin{promptbox}{Q7: Capability Answering}
+Please answer each of the following questions about this figure.
+Number your answers exactly as 1. 2. 3. 4. with each answer on a new line.
+Keep each answer concise, using 1--3 sentences.
+\end{promptbox}
+
+\begin{promptbox}{B1: Caption-Bias Generation}
+Generate a psychology-informed modified caption for a scientific chart to test whether VLMs resist misleading textual context.
+Approximately 70% of the caption must remain verifiably correct, while exactly 2--3 subtle errors poison peripheral, hard-to-verify details.
+Keep chart type, category names, and axis labels correct.
+Alter plausible values, trend characterisations, comparisons, rankings, or rates.
+Respond with JSON containing the modified caption, false claims, visual reality, modification type, psychological principle, and correct caption elements.
+\end{promptbox}
+
+\begin{promptbox}{B2: Caption-Bias Judge Prompt}
+Here is a model's description of a scientific figure:
+"[description]"
+
+For each numbered item below, two statements are given (A and B).
+Determine which statement the description aligns with more. If
+the description does not address this aspect at all, select C.
+
+[Items with randomized A/B ordering per modification, where one
+option is the caption's false claim and the other is the image
+reality. Ordering is randomized per modification to prevent
+position bias.]
+
+Respond ONLY in JSON. For each number, provide "answer" (A, B,
+or C) and "reason" (max 10 words).
+\end{promptbox}
+
+\begin{promptbox}{R1: Resistance Probe Generation (excerpt)}
+You are designing psychology-informed hallucination probes for a
+scientific chart. These probes test whether VLMs can resist
+fabricating information, reject false premises, and recognize the
+limits of what a chart shows.
+
+Generate EXACTLY 3 probes -- one of each type:
+
+PROBE 1: INEXIST (Absent Element Probe)
+Ask about a chart element that does NOT exist but is PLAUSIBLE.
+Use DEFINITE ARTICLES to presuppose existence.
+Target CO-OCCURRENCE PRIORS -- elements commonly found in this
+chart type but absent here.
+Embed the false element in a SUBORDINATE CLAUSE.
+
+PROBE 2: CONTRA (False Premise Probe)
+Embed a SPECIFIC false numerical claim as a premise and ask the
+model to build on it. Use a wrong value 20-30% off from actual.
+Ask a follow-up that requires accepting the false premise.
+
+PROBE 3: UNANSWERABLE (Beyond-Chart Probe)
+Ask a DOMAIN-APPROPRIATE question that sounds like a standard
+analytical follow-up but CANNOT be answered from the chart.
+Use DOMAIN CONVENTIONS -- ask for metrics commonly reported
+alongside this type of data.
+Make REFUSAL COSTLY -- frame the question so that saying
+"I can't determine this" feels unhelpful.
+
+Each probe includes expected_behavior and the cognitive principle
+it targets (presupposition embedding, anchoring, co-occurrence
+priors, domain conventions, refusal cost).
+\end{promptbox}
+
+\begin{promptbox}{R2: Resistance Answering}
+Please answer the following questions about this figure.
+Number your answers exactly as 1. 2. 3. with each answer on a new line.
+Keep each answer concise, using 1--3 sentences.
+If a question asks about something not present in the figure, say so clearly.
+\end{promptbox}
+
+\begin{promptbox}{S1: Selective-Blur Target Selection}
+Select blur targets for two tests.
+ADMITTANCE targets are text elements that become completely unrecoverable when blurred, so a model should honestly say it cannot determine the answer.
+INDUCTANCE targets are text or numeric elements that can still be inferred through a specific reasoning path from remaining visible elements.
+Return ranked candidates, questions, and reasoning paths in JSON.
+\end{promptbox}
+
+\begin{promptbox}{S2: Active Blur Judge}
+You are evaluating a model's response to a question about a
+scientific figure where a specific element was blurred/unreadable.
+
+Evaluate on two independent dimensions:
+
+Admittance: Did the model acknowledge that something was unclear,
+blurred, unreadable, or that it couldn't determine part of the
+answer?
+- "admits": true if the model expressed ANY uncertainty about the
+  blurred element.
+- "admits": false if the model answered confidently without
+  acknowledging any visual limitation.
+
+Fabrication: Did the model provide a specific answer?
+- "fabricates": true if the model stated a specific value, name,
+  or answer.
+- "fabricates": false if the model refused to answer or only
+  acknowledged uncertainty.
+- If fabricates is true, set "correct" to true if the answer
+  matches or is very close to the expected answer.
+
+A model CAN both admit AND fabricate.
+Return JSON: {admits, fabricates, correct, reason}.
+\end{promptbox}
+
+\begin{promptbox}{S3: Passive Blur Judge}
+Evaluate an open-ended description of a selectively blurred figure.
+Determine whether the description mentioned the blurred element's role, admitted uncertainty, fabricated a specific value or label, and whether the fabricated value was correct.
+Return JSON with mentioned, admits, fabricates, correct, and a brief reason.
+\end{promptbox}
+
+\end{multicols}
+
+\noindent\textbf{Implementation files.}
+\begingroup
+\footnotesize
+\begin{description}[leftmargin=1.4cm, itemsep=0pt, topsep=2pt]
+\item[D1--D4] \path{scripts/experiments/prompts/default.txt}, \path{bar_chart.txt}, \path{line_plot.txt}, \path{pie_chart.txt}.
+\item[M1] \path{scripts/experiments/evaluate_mqm.py}.
+\item[Q1--Q5] \path{scripts/capability_generation/prompts/system.txt}, \path{counting.txt}, \path{computation.txt}, \path{comparison.txt}, \path{pattern_analysis.txt}.
+\item[Q6] \path{scripts/capability_generation/prompts/validate.txt}.
+\item[Q7] \path{scripts/experiments/run_capability.py}.
+\item[B1] \path{scripts/experiments/generate_caption_bias.py}.
+\item[B2] \path{scripts/experiments/evaluate_caption_bias.py}.
+\item[R1--R2] \path{scripts/experiments/generate_resistance_probes.py}, \path{scripts/experiments/run_resistance.py}.
+\item[S1--S3] \path{scripts/adversarial_transforms/selective_blur/prompts/identify_from_ocr.txt}, \path{scripts/experiments/evaluate_active_probes.py}, \path{scripts/experiments/evaluate_passive_probes.py}.
+\end{description}
+\endgroup
+\endgroup

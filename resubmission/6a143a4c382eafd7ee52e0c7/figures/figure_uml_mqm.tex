@@ -1,0 +1,31 @@
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+  node distance=0.35cm and 0.15cm,
+  every node/.style={\footnotesize},
+  box/.style={
+    draw=black!60, rounded corners=3pt, fill=#1,
+    minimum height=0.55cm, text width=2.0cm, align=center,
+    font=\footnotesize
+  },
+  box/.default={blue!6},
+  arr/.style={-stealth, thick, black!55},
+]
+  \node[box=orange!8]  (img)   {Figure Image};
+  \node[box, right=of img]  (chk)   {Checklist\\(14/15/11 items)};
+  \node[box=green!7, right=of chk]  (judge) {GPT-4o Judge\\Coverage +\\Correctness};
+  \node[box, below=of img]  (rule)  {Rule Engine\\Penalties};
+  \node[box, right=of rule] (bind)  {Binding\\Verification};
+  \node[box, right=of bind] (dedup) {Deduplication};
+  \node[box=violet!10, below=of bind] (score) {MQM Score};
+
+  \draw[arr] (img)   -- (chk);
+  \draw[arr] (chk)   -- (judge);
+  \draw[arr] (judge) |- (rule);
+  \draw[arr] (rule)  -- (bind);
+  \draw[arr] (bind)  -- (dedup);
+  \draw[arr] (dedup) |- (score);
+\end{tikzpicture}
+\caption{MQM evaluation pipeline. Chart-type checklists feed a GPT-4o judge whose findings pass through penalty computation, binding verification, and deduplication to produce a final score.}
+\label{fig:uml-mqm}
+\end{figure}

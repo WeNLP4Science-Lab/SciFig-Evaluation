@@ -1,0 +1,158 @@
+\documentclass[11pt]{article}
+
+% Anonymous review version
+\usepackage[review]{acl}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{pifont}
+\usepackage[most]{tcolorbox}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
+\usepackage{amssymb}
+\usepackage[normalem]{ulem}
+% Model identity colors
+\definecolor{clrGPT}{HTML}{1f77b4}
+\definecolor{clrGemini}{HTML}{2ca02c}
+\definecolor{clrLlama}{HTML}{ff7f0e}
+\definecolor{clrQwen235}{HTML}{9467bd}
+\definecolor{clrQwen30}{HTML}{c5b0d5}
+\definecolor{clrQwen8}{HTML}{7b4ea3}
+\definecolor{clrGemma}{HTML}{17becf}
+\definecolor{clrPhi}{HTML}{d62728}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+% \renewcommand{\baselinestretch}{0.97}
+% Model dot command
+\newcommand{\mdot}[1]{\textcolor{#1}{$\bullet$}\,}
+\newcommand{\wz}[1]{\textcolor{red}{#1}}
+\newcommand{\am}[1]{\textcolor{green}{#1}}
+\title{How Do VLMs Behave When Blind or Misled? \\
+Behavioral Evaluation of VLMs on Scientific Figures}
+
+\author{
+  \textbf{Paul Osemudiame Oamen}\textsuperscript{1},
+  \textbf{Owusu-Banahene Osei}\textsuperscript{1},
+  \textbf{Ananya Mukherjee}\textsuperscript{2},\\
+  \textbf{Christian Greisinger}\textsuperscript{3},
+    \textbf{Steffen Eger}\textsuperscript{3},
+  \textbf{Pius Onobhayedo}\textsuperscript{4}, 
+  \textbf{Wei Zhao}\textsuperscript{1} \\
+  \textsuperscript{1} The Aberdeen NLP Research Group, University of Aberdeen, UK \\
+  \textsuperscript{2} Indian Institute of Technology Madras, India \\ \textsuperscript{3} University of Technology Nuremberg, Germany \\ \textsuperscript{4} University of Southern California, USA \\
+  Project website: \href{https://mango-dune-05852c00f.7.azurestaticapps.net/}{https://mango-dune-05852c00f.7.azurestaticapps.net/}\\
+  % \href{mailto:p.oamen.25@abdn.ac.uk}{p.oamen.25@abdn.ac.uk} \ \ \href{mailto:wei.zhao@abdn.ac.uk}{wei.zhao@abdn.ac.uk}
+}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\input{figures/figure1_hook}
+
+\input{sections/introduction}
+
+\input{sections/related_work}
+
+\input{sections/framework}
+\input{figures/figure4_blur_triptych}
+
+\input{tables/table3_description_quality}
+\input{tables/table4_behavioral}
+\input{figures/figure2_results_overview}
+
+\input{figures/figure5_analysis_scatter}
+
+\input{sections/results}
+
+\input{sections/analysis}
+
+\input{sections/conclusion}
+
+\bibliography{references}
+
+\clearpage
+\appendix
+\begin{nolinenumbers}
+\raggedbottom
+\onecolumn
+
+\section{Benchmark Scope and Dataset}
+\label{sec:appendix-scope-taxonomy}
+\label{sec:benchmark-comparison}
+\label{sec:dataset-details}
+\label{sec:probe-taxonomy}
+\label{sec:appendix-capability-categories}
+
+This appendix summarises the benchmark scope, evaluation scale, probe taxonomy, and capability-question design. Table captions provide the detailed organisation for each component.
+
+\input{tables/table_a10_benchmark_comparison}
+\input{tables/table_a_dataset_comprehensive}
+\input{tables/table_a11_probe_taxonomy}
+\input{tables/table_a15_capability_categories}
+\clearpage
+
+\twocolumn
+\input{sections/evaluation_appendix}
+
+\clearpage
+\onecolumn
+\input{figures/figure_a1_degradation_gallery}
+\twocolumn
+
+\section{Validation and Reliability}
+\label{sec:appendix-validation}
+\input{sections/appendix_human_validation}
+\label{sec:probe-designer-ablation}
+\label{sec:stability-details}
+\input{tables/table_a13+a7_capability_judge_ablation_and_stability}
+\input{tables/table_a6_ablation}
+
+\section{Supplementary Quantitative Results}
+\label{sec:appendix-quant-results}
+
+\subsection{Capability and Cross-Dimensional Summaries}
+\label{sec:cross-dim}
+\label{sec:capability-results}
+\input{tables/table_a12_capability_results}
+\input{tables/table_a9_cross_dimensional}
+
+\subsection{Description Quality and Behaviour Details}
+\label{sec:appendix-chart-type}
+\label{sec:mqm-details}
+\label{sec:caption-bias-details}
+\label{sec:significance}
+\input{tables/table_a1+a2_chart_type_mqm_and_mqm_dimensions}
+\input{tables/table_a3_error_subtypes}
+\input{tables/table_a4_caption_bias_type}
+\input{tables/table_a5_significance}
+\clearpage
+
+\input{sections/appendix_reproducibility}
+\input{tables/table_a14_experimental_setup}
+
+\clearpage
+\onecolumn
+\input{sections/appendix_prompts}
+\clearpage
+\end{nolinenumbers}
+\twocolumn
+
+\end{document}
