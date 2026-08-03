@@ -48,6 +48,35 @@ The correct siblings under the base keys (already matching the thesis) remain an
 
 ---
 
+## 📋 State of remaining `and others` truncations in `references.bib`
+
+Eight entries still have `and others` in their author lists. Categorised by whether we CAN fix them from thesis, whether the thesis has the same truncation, or whether the entry is NOT in the thesis at all.
+
+### Can be fixed from thesis (thesis source has full lists)
+
+| Key | Current (submission) | Thesis full list |
+|---|---|---|
+| **`wang2024charxiv`** | 10 named + `others` | **13 authors** — Wang, Zirui; Xia, Mengzhou; He, Luxi; Chen, Howard; Liu, Yitao; Zhu, Richard; Liang, Kaiqu; Wu, Xindi; Liu, Haotian; Malladi, Sadhika; **Chevalier, Alexis; Arora, Sanjeev; Chen, Danqi** ← the 3 missing |
+| **`zheng2023judging`** | 11 named + `others` | **13 authors** — Zheng, Lianmin; Chiang, Wei-Lin; Sheng, Ying; Zhuang, Siyuan; Wu, Zhanghao; Zhuang, Yonghao; Lin, Zi; Li, Zhuohan; Li, Dacheng; Xing, Eric P.; **Zhang, Hao; Gonzalez, Joseph E.; Stoica, Ion** ← the 3 missing |
+
+### Same truncation in thesis (leave as-is)
+
+| Key | Notes |
+|---|---|
+| `sharma2024sycophancy` | Thesis has 10 named + et al. Note: thesis records it as `sharma2023sycophancy` @article arXiv 2310.13548 (2023). Submission has @inproceedings ICLR 2024. Both descriptions defensibly correct (arXiv preprint 2023 → ICLR 2024) |
+| `kadavath2022language` | Thesis has 10 named + et al. Underlying paper has 36+ authors; truncation is standard bibtex practice |
+
+### NOT in thesis — need manual arXiv verification
+
+| Key | State | arXiv target |
+|---|---|---|
+| `zhang2025scientificllms` | 10 named + `others` (first author is Hu, not Zhang) | arXiv 2508.21148 |
+| `sun2024aligning` | 10 named + `others` | Verify |
+| `bai2024hallucination` | Only 1 named + `others` — very truncated | arXiv 2404.18930 |
+| `lu2024mathvista` | Only 1 named + `others` — very truncated | arXiv 2310.02255 |
+
+---
+
 ## ⚠️ Raised (NOT fixed — need manual verification against arXiv/DOI)
 
 These entries are cited in the paper but are NOT present in the thesis `.bbl`. Each needs manual verification against the live source. **Do not edit these based on memory or LLM output** — that is what caused the desk rejection.
@@ -97,4 +126,7 @@ These entries are cited in the paper but are NOT present in the thesis `.bbl`. E
 - **Total in `references.bib`:** ~64 entries
 - **Deleted (hallucinated audit markers):** 6
 - **Corrected (thesis-verified):** 14
-- **Raised (need manual verification, not touched):** ~24 in references.bib + 1 duplicate in custom.bib
+- **Ready to fix from thesis (see "Can be fixed from thesis" table above):** 2 (`wang2024charxiv`, `zheng2023judging`)
+- **Same truncation in thesis (leave):** 2 (`sharma2024sycophancy`, `kadavath2022language`)
+- **Raised (need manual arXiv verification, not touched):** ~24 in references.bib + 1 duplicate in custom.bib
+  - Includes 4 with `and others` truncations that need arXiv lookup (`zhang2025scientificllms`, `sun2024aligning`, `bai2024hallucination`, `lu2024mathvista`)
