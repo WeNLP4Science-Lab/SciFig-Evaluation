@@ -2,9 +2,7 @@
 \section{Analysis}
 \label{sec:analysis}
 \paragraph{The perception-behaviour disconnect.}
-Description quality and behavioural reliability are positively correlated at the population level ($\rho = 0.83$--$0.95$, Table~\ref{tab:cross-dim}), yet the correlation masks the reversals that matter most. GPT-5.2 ranks first on MQM (91.6) but fourth on active admittance (8\%); Gemini 3.1 Pro ranks second on MQM (90.2) but first on admittance (71\%), resistance (0.91), and caption bias resistance (0.89). Split-half reliability of $\rho = 0.979$ over 100 random splits (Table~\ref{tab:stability}) confirms that this divergence is stable. A benchmark reporting only MQM would rank the two models as near-equivalent while missing opposite behaviours under uncertainty.
-
-\todo{SE: Fig. 4 never referenced? - PAUL}
+Description quality and behavioural reliability are positively correlated at the population level ($\rho = 0.83$--$0.95$, Table~\ref{tab:cross-dim}), yet the correlation masks the reversals that matter most. GPT-5.2 ranks first on MQM (91.6) but fourth on active admittance (8\%); Gemini 3.1 Pro ranks second on MQM (90.2) but first on admittance (71\%), resistance (0.91), and caption bias resistance (0.89) (Figure~\ref{fig:scatter}). Split-half reliability of $\rho = 0.979$ over 100 random splits (Table~\ref{tab:stability}) confirms that this divergence is stable. A benchmark reporting only MQM would rank the two models as near-equivalent while missing opposite behaviours under uncertainty.
 
 \paragraph{Presupposition embedding as the strongest deception vector.}
 Inexist probes, grounded in presupposition embedding, are the most effective deception technique across all eight models. Llama~4 Maverick resists explicit false values at 0.76 but drops to 0.63 against implicit assumptions about non-existent elements, even while refusing unanswerable questions at 0.94. This mirrors eyewitness testimony findings where definite articles such as ``the broken headlight'' induce false memories of objects never present \citep{loftus1975leading}. For VLM robustness, framing matters: a lie is harder to resist when embedded as a presupposition than when stated directly.
@@ -23,27 +21,32 @@ These findings are robust to methodological choices. The probe designer ablation
 
 
 
-\section{Analysis}
-\label{sec:analysis}
-
-\am{The A-R-I framework reveals behavioural distinctions that conventional perception and reasoning benchmarks largely overlook. While the Results section quantifies model performance across perception, reasoning, and behaviour, the following analyses examine what these patterns reveal about VLM reliability under uncertainty, misleading context, and incomplete visual evidence.}
-
-\paragraph{Behaviour extends beyond perception and reasoning.}
-\am{Description quality and behavioural reliability are positively correlated at the population level ($\rho = 0.83$--$0.95$, Table~\ref{tab:cross-dim}), yet the correlation masks the reversals that matter most. GPT-5.2 achieves the highest MQM score but ranks fourth on active admittance, whereas Gemini~3.1 Pro trails by only 1.4 MQM points while leading other behavioural dimensions. Split-half reliability ($\rho = 0.979$ over 100 random splits; Table~\ref{tab:stability}) confirms that this divergence is stable rather than a sampling artifact.\textit{ Evaluating perception and reasoning alone would therefore rank these models as near-equivalent while overlooking fundamentally different behaviours under uncertainty.}}
-
-\paragraph{Admittance: Direct questioning suppresses uncertainty acknowledgement.}
-\am{Models acknowledge uncertainty far less often when directly questioned than when generating open-ended descriptions. GPT-5.2 explicitly identifies blurred or unreadable regions nearly three times more frequently during description than when asked targeted questions, while Gemini~3.1 Pro maintains comparatively high admittance across both settings. \textit{This asymmetry is consistent with helpfulness objectives introduced through RLHF~\citep{sharma2024sycophancy}, where direct questions implicitly encourage definitive answers even when the underlying evidence is insufficient.} The A-R-I framework captures this behavioural tendency through the admittance dimension.}
-
-\paragraph{Resistance: Implicit false premises are harder to reject.}
-\am{Among all behavioural probes, Inexist questions grounded in presupposition embedding, are the most effective deception technique across all eight models. Llama~4 resists explicit false values at 0.76 but drops to 0.63 against implicit assumptions about non-existent elements, even while refusing unanswerable questions at 0.94. This mirrors eyewitness testimony findings where definite articles such as `the broken headlight'' induce false memories of objects never present \citep{loftus1975leading}.\textit{ For VLM robustness, framing matters: a lie is harder to resist when embedded as a presupposition than when stated directly.}}
-
-\paragraph{Resistance: Caption dependence reflects training rather than capability.}
-\am{Caption bias resistance reveals a behavioural pattern that overall model capability cannot explain. Phi-4 Multimodal closely follows misleading captions despite substantially lower MQM scores, whereas Gemma-3-27B-IT shows greater resistance despite weaker perceptual performance. If caption dependence were purely a consequence of model quality, weaker models would exhibit uniformly poor resistance. Instead,\textit{ caption dependency appears more tied to instruction tuning that encourages models to prioritise provided textual context over visual evidence.}}
-
-\paragraph{Inductance: Context enables evidence-grounded inference.}
-\am{Inductance complements admittance by measuring whether models can infer missing information when sufficient contextual evidence remains. Across all models, \textit{correctness is consistently higher when selectively blurred information is recoverable from surrounding visual context than when it is genuinely unrecoverable. }Gemini~3.1 Pro and GPT-5.2 achieve the highest inductance scores, demonstrating that reliable behaviour requires more than simply abstaining. It also requires producing evidence-grounded inferences while avoiding unsupported fabrication.}
-
-\paragraph{Behavioural conclusions are methodologically robust.}
-\am{These findings are robust to methodological choices. The probe designer ablation (Table~\ref{tab:ablation}) shows negligible differences when switching probe generation from GPT-4o to Mistral Large~3, and scale validation shows that resistance scores computed on 100-figure subset closely match the full 250-figure set, with max model-level deviation of 0.02}
-
-\am{These failures may arise from instruction-following behaviour rather than deficient visual perception, given the strong perception performance of leading models (MQM > 90). However, our benchmark does not disentangle these factors, which we leave for future work.}
+% ---- Duplicate \section{Analysis} block: commented out for now, do not delete ----
+% Ananya's rewritten paragraphs preserved here in case any of them is preferred over
+% the corresponding original above. Uncomment individually if reintroducing.
+%
+% \section{Analysis}
+% \label{sec:analysis}
+%
+% \am{The A-R-I framework reveals behavioural distinctions that conventional perception and reasoning benchmarks largely overlook. While the Results section quantifies model performance across perception, reasoning, and behaviour, the following analyses examine what these patterns reveal about VLM reliability under uncertainty, misleading context, and incomplete visual evidence.}
+%
+% \paragraph{Behaviour extends beyond perception and reasoning.}
+% \am{Description quality and behavioural reliability are positively correlated at the population level ($\rho = 0.83$--$0.95$, Table~\ref{tab:cross-dim}), yet the correlation masks the reversals that matter most. GPT-5.2 achieves the highest MQM score but ranks fourth on active admittance, whereas Gemini~3.1 Pro trails by only 1.4 MQM points while leading other behavioural dimensions. Split-half reliability ($\rho = 0.979$ over 100 random splits; Table~\ref{tab:stability}) confirms that this divergence is stable rather than a sampling artifact.\textit{ Evaluating perception and reasoning alone would therefore rank these models as near-equivalent while overlooking fundamentally different behaviours under uncertainty.}}
+%
+% \paragraph{Admittance: Direct questioning suppresses uncertainty acknowledgement.}
+% \am{Models acknowledge uncertainty far less often when directly questioned than when generating open-ended descriptions. GPT-5.2 explicitly identifies blurred or unreadable regions nearly three times more frequently during description than when asked targeted questions, while Gemini~3.1 Pro maintains comparatively high admittance across both settings. \textit{This asymmetry is consistent with helpfulness objectives introduced through RLHF~\citep{sharma2024sycophancy}, where direct questions implicitly encourage definitive answers even when the underlying evidence is insufficient.} The A-R-I framework captures this behavioural tendency through the admittance dimension.}
+%
+% \paragraph{Resistance: Implicit false premises are harder to reject.}
+% \am{Among all behavioural probes, Inexist questions grounded in presupposition embedding, are the most effective deception technique across all eight models. Llama~4 resists explicit false values at 0.76 but drops to 0.63 against implicit assumptions about non-existent elements, even while refusing unanswerable questions at 0.94. This mirrors eyewitness testimony findings where definite articles such as `the broken headlight'' induce false memories of objects never present \citep{loftus1975leading}.\textit{ For VLM robustness, framing matters: a lie is harder to resist when embedded as a presupposition than when stated directly.}}
+%
+% \paragraph{Resistance: Caption dependence reflects training rather than capability.}
+% \am{Caption bias resistance reveals a behavioural pattern that overall model capability cannot explain. Phi-4 Multimodal closely follows misleading captions despite substantially lower MQM scores, whereas Gemma-3-27B-IT shows greater resistance despite weaker perceptual performance. If caption dependence were purely a consequence of model quality, weaker models would exhibit uniformly poor resistance. Instead,\textit{ caption dependency appears more tied to instruction tuning that encourages models to prioritise provided textual context over visual evidence.}}
+%
+% \paragraph{Inductance: Context enables evidence-grounded inference.}
+% \am{Inductance complements admittance by measuring whether models can infer missing information when sufficient contextual evidence remains. Across all models, \textit{correctness is consistently higher when selectively blurred information is recoverable from surrounding visual context than when it is genuinely unrecoverable. }Gemini~3.1 Pro and GPT-5.2 achieve the highest inductance scores, demonstrating that reliable behaviour requires more than simply abstaining. It also requires producing evidence-grounded inferences while avoiding unsupported fabrication.}
+%
+% \paragraph{Behavioural conclusions are methodologically robust.}
+% \am{These findings are robust to methodological choices. The probe designer ablation (Table~\ref{tab:ablation}) shows negligible differences when switching probe generation from GPT-4o to Mistral Large~3, and scale validation shows that resistance scores computed on 100-figure subset closely match the full 250-figure set, with max model-level deviation of 0.02}
+%
+% \am{These failures may arise from instruction-following behaviour rather than deficient visual perception, given the strong perception performance of leading models (MQM > 90). However, our benchmark does not disentangle these factors, which we leave for future work.}
+% ---- end duplicate block ----
