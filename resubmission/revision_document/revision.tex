@@ -1,0 +1,190 @@
+\documentclass[11pt]{article}
+
+\usepackage[review]{acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{fvextra}
+\usepackage{float}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{url}
+
+\hbadness=10000
+\vbadness=10000
+\hfuzz=20pt
+\vfuzz=20pt
+\emergencystretch=2em
+
+\renewcommand{\texttt}[1]{\emph{#1}}
+
+% =========================================================
+% Revision-doc macros
+% =========================================================
+\newcommand{\RevisionPaperTitle}{How Do VLMs Behave When Blind or Misled? Behavioral Evaluation of VLMs on Scientific Figures}
+\newcommand{\RevisionSubmissionVenue}{ACL ARR 2026 Resubmission}
+\newcommand{\RevisionOriginalSubmissionNumber}{14568 (May 2026)}
+
+\definecolor{revisiongreen}{RGB}{0,150,0}
+\definecolor{revisionred}{RGB}{200,0,0}
+
+\newcommand{\revsec}[1]{\textcolor{revisiongreen}{#1}}
+\newcommand{\redrev}[1]{\textcolor{revisionred}{#1}}
+
+\newenvironment{reviewercomment}{%
+  \begin{quote}\small\itshape
+}{%
+  \end{quote}
+}
+
+\newcommand{\response}{\noindent\textbf{Response.}~}
+
+\newcommand{\revisionitem}[3]{%
+  \subsection{#1}
+  \begin{reviewercomment}
+  ``#2''
+  \end{reviewercomment}
+  \response #3\par
+}
+
+\begin{document}
+
+\title{Explanation of Revisions for:\\
+``\RevisionPaperTitle''\\[0.5em]
+\normalsize\textmd{Original submission: \#\RevisionOriginalSubmissionNumber}}
+
+\author{Anonymous ACL submission}
+
+\maketitle
+
+We thank the reviewers, area chairs, and program chairs for their constructive feedback in the May 2026 round. All three reviewers (h9tb, No6d, LhRb) recommended acceptance after the rebuttal (Conference / Findings / Findings), and the aggregate outcome was a clear positive vote. However, the paper was subsequently desk-rejected because six bibliographic entries were flagged as hallucinated. We address that issue first, as it is the single most consequential finding from the previous cycle, and then describe how the revised manuscript incorporates every substantive weakness raised by each reviewer. Section pointers to the revised paper appear in \revsec{green} in this document.
+
+% =========================================================
+\section{Response to Program Chairs (Desk Rejection)}
+% =========================================================
+
+\revisionitem
+{Hallucinated bibliographic entries}
+{Six citations in the submitted bibliography were flagged as hallucinated by the Program Chairs, resulting in desk rejection.}
+{All six flagged works are \emph{genuine} publications and existed with \emph{correct} bibliographic entries in the first author's MSc thesis (University of Aberdeen) that predates the ARR submission. That thesis bibliography is preserved in a public timestamped commit (12 May 2026): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl}. When adapting the thesis for the ARR submission, we used an LLM-assisted workflow (Claude Code) to transfer the bibliography and this introduced author-list truncations and incorrect first-author names, even though the original cited works are valid. Our pre-submission review of the bibliography was inadequate for which we take full responsibility. The revised submission has a fully verified bibliography with every entry cross-checked against the timestamped thesis bibliography and the primary sources. The six flagged works and their verified sources are:
+\begin{enumerate}[nosep,leftmargin=*]
+\item \textbf{SciFIBench} (Roberts et al., NeurIPS 2024).\\
+Publication: \url{https://proceedings.neurips.cc/paper_files/paper/2024/file/217bb44ab14621754db8a392163e6b07-Paper-Datasets_and_Benchmarks_Track.pdf}\\
+Thesis bib entry (line 428): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl#L428}
+\item \textbf{ChartMuseum} (Tang et al., NeurIPS 2025).\\
+Publication: \url{https://arxiv.org/abs/2505.13444}\\
+Thesis bib entry (line 474): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl#L474}
+\item \textbf{The Perils of Chart Deception} (Mahbub et al.).\\
+Publication: \url{https://arxiv.org/abs/2508.09716}\\
+Thesis bib entry (line 310): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl#L310}
+\item \textbf{Selective ``Selective Prediction''} (Srinivasan et al., ACL Findings 2024).\\
+Publication: \url{https://aclanthology.org/2024.findings-acl.767/}\\
+Thesis bib entry (line 466): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl#L466}
+\item \textbf{SycEval} (Fanous et al.).\\
+Publication: \url{https://arxiv.org/abs/2502.08177}\\
+Thesis bib entry (line 95): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl#L95}
+\item \textbf{MultiChartQA} (Zhu et al., NAACL 2025).\\
+Publication: \url{https://aclanthology.org/2025.naacl-long.566/}\\
+Thesis bib entry (line 618): \url{https://github.com/WeNLP4Science-Lab/SciFig-Evaluation/blob/59acad99e4bdbdc55ad516fbc1d100e62fa15752/thesis-work/support/thesis/main/abdnthesis.bbl#L618}
+\end{enumerate}
+No LLM assistance was used for the revised bibliography. Every entry was verified manually against the corresponding publication venue or arXiv record. See \revsec{references.bib} and \revsec{Appendix bibliography audit trail}.}
+
+% =========================================================
+\section{Response to Reviewer h9tb (previously Overall 4, Conference)}
+% =========================================================
+
+\revisionitem
+{W1: Limited chart-type coverage (bar, line, pie only)}
+{Modern scientific literature frequently uses more complex visualisations such as scatter plots and heatmaps; limiting the dataset to three basic types narrows the benchmark's claim to represent open-world scientific figure understanding.}
+{We selected bar charts, line plots, and pie charts because they are among the most common chart types in scientific writing; pie charts specifically cover part-of-whole encoding alongside categorical and continuous comparisons. The chart-type selection rationale now appears explicitly in \revsec{Section 3.1 (Dataset)} and the limitation of not covering scatter plots, heatmaps, network diagrams, and schematic figures is stated in \revsec{Limitations}. In parallel, the revised manuscript reinforces the scale of our contribution: our overall human annotation campaign involved 5 annotators for over 600 hours across figure descriptions, reasoning-question post-editing, blur-target confirmation, and MQM validation, expanding the 250 base figures into over 34{,}000 evaluation instances through five stress-testing strategies. See \revsec{Section 3.1}.}
+
+\revisionitem
+{W2: Inexist probe failure -- visual blindness or instruction-tuning?}
+{The paper does not isolate whether Inexist failure stems from true visual blindness or from instruction-tuning alignment pressures.}
+{Inexist failure is unlikely to reflect visual blindness because top models attain MQM $\geq 90$ on the perception task, demonstrating strong visual capability. We now state this argument explicitly in \revsec{Limitations}: instruction-following behaviour is a more plausible driver, though we cannot conclusively disentangle it from multimodal grounding limitations without controlled interventions on prompting and alignment. See \revsec{Limitations}.}
+
+\revisionitem
+{C1: Llama 4 naming consistency}
+{Please be consistent in writing the name of Llama 4.}
+{All references to the model are now standardised as ``Llama~4 Maverick'' throughout the manuscript, matching the full model identifier used in Appendix B and the OpenRouter model card. See \revsec{Section 4 (Models)} and \revsec{Appendix Reproducibility}.}
+
+% =========================================================
+\section{Response to Reviewer No6d (previously Overall 3, Findings)}
+% =========================================================
+
+\revisionitem
+{W1: Stress tests build on existing techniques; A-R-I renames known dimensions}
+{Most stress tests build on existing ideas (image perturbation, caption bias, false-premise probing, uncertainty acknowledgment) rather than introducing new techniques, and the A-R-I framework largely renames and reorganises known behavioural dimensions.}
+{Our contribution is the \emph{adaptation and integration}, not the invention of new probe techniques. Two adaptations are novel: (i) matched-condition perturbations on open-ended descriptions scored via an MQM-adapted rubric that captures error types and severity, rather than binary accuracy or closed-form QA metrics used in prior work; and (ii) OCR-driven selective blurring separating inferable from non-inferable evidence, a controlled visual-uncertainty design. On A-R-I: the framework extends prior uncertainty evaluation from a binary refuse-or-answer decision to three regimes distinguished by the \emph{presence} and \emph{recoverability} of the underlying evidence. In particular, \emph{Inductance} (inference under recoverable uncertainty) is, to our knowledge, novel as an evaluation axis. We now make these arguments explicit in \revsec{Section 3.3 (A-R-I Framework)} with the sharpened opener ``Unlike prior uncertainty evaluations, A-R-I distinguishes three behavioural regimes based on the presence of the underlying evidence and its recoverability from surrounding context.''}
+
+\revisionitem
+{W2 / C1: Real-world grounding of stress conditions}
+{The paper does not explain how often these stress conditions occur in real scientific workflows.}
+{A dedicated paragraph now maps each probe family to a documented deployment failure mode. Visual transforms and selective blur mirror degraded PDF rendering, OCR loss, cropping, and low-resolution inputs; caption-bias probes represent incorrect figure-caption retrieval in document processing and multimodal RAG; false-premise probes represent erroneous premises introduced by users or propagated between agents; and the page-context condition represents models processing figures within complete scientific documents. See \revsec{Section 3.2 (Real-world grounding)}.}
+
+\revisionitem
+{W3: Modest benchmark size (250 figures, 3 chart types)}
+{The benchmark comprises only 250 figures across three chart types, which is modest for a benchmark paper.}
+{The 250 base figures expand through five evaluation strategies into over 34{,}000 evaluation instances across eight VLMs, and rest on a substantial human annotation campaign: 5 annotators over 600 hours spanning 250 figure descriptions (3 annotators, $\sim$240 hrs), 1{,}000 reasoning-question post-edits (4 annotators, $\sim$200 hrs), 443 selective-blur target confirmations (3 annotators, $\sim$100 hrs), and MQM human validation (3 annotators, $\sim$90 hrs). This annotation depth is what makes 250 figures a substantive benchmark rather than a modest one. See \revsec{Section 3.1 (Dataset)}.}
+
+\revisionitem
+{W4: GPT-4o judge dependence and item-level agreement}
+{The main evaluation relies heavily on GPT-4o as the judge; the paper should report direct agreement between GPT-4o and humans at the item level, and clarify the exact judge version.}
+{The revised \revsec{Appendix A.1 (Human Evaluation and Inter-Annotator Agreement)} now reports item-level correlation across all 120 pairs (Pearson $r = 0.68$, Spearman $\rho = 0.58$, both $p < 10^{-11}$) alongside the previously reported model-level agreement ($\rho = 0.80$, $n = 4$). We also report a comparative item-level agreement for Mistral Large\,3 as an alternative judge ($\rho = 0.65$, $r = 0.80$), demonstrating that dispersion reflects LLM-judge calibration rather than GPT-4o specifically. Beyond scalar scores, we assess \emph{error-type taxonomy agreement}: GPT-4o and humans agree on which error types occur (F1 = 0.87 at the top-level Accuracy category, F1 = 0.70 on the two sub-types most tied to visual evidence). A new table (\revsec{Table 7}) reports the full per-error-type breakdown. Judge version drift is addressed in a new closing paragraph of the reproducibility appendix (\revsec{Appendix B}), which specifies exact model identifiers, backends, and API versions and notes that absolute-score offsets do not alter model-level rankings.}
+
+\revisionitem
+{C2: Position A-R-I more modestly}
+{It would help to position A-R-I more modestly, as a diagnostic taxonomy rather than a new evaluation paradigm.}
+{The Conclusion previously projected A-R-I as a ``general paradigm'' for trustworthy multimodal reasoning; that vision statement has been removed from the revised manuscript. A-R-I is now presented purely as a diagnostic decomposition of behavioural reliability with no ``paradigm'' framing. See \revsec{Conclusion}.}
+
+% =========================================================
+\section{Response to Reviewer LhRb (previously Overall 3, Findings)}
+% =========================================================
+
+\revisionitem
+{W1: Dataset scale and diverse sources}
+{250 figures is limited for the broad space of scientific figures; broader human evaluation or more diverse figure sources would strengthen the benchmark.}
+{The 250 $\to$ 34{,}000 expansion via five stress-testing strategies and the 5-annotator / 600-hour annotation campaign are now described in \revsec{Section 3.1 (Dataset)}. Chart-type coverage rationale is stated honestly (line plots and bar charts are common in scientific writing; pie charts are included for part-of-whole encoding coverage) and the limitation of not covering scatter plots, heatmaps, network diagrams, or schematic figures is documented in \revsec{Limitations}. See also our response to h9tb W1.}
+
+\revisionitem
+{W2: GPT-4o involvement in probe generation and judging}
+{GPT-4o is used quite heavily in probe generation and judging; broader validation would strengthen the paper.}
+{Probe generation always includes human-in-the-loop review: GPT-generated descriptions, capability questions, and selective-blur targets are reviewed and corrected by human annotators. Judge validation is addressed via (i) the expanded item-level and error-type agreement analysis in \revsec{Appendix A.1} described in the response to No6d W4, and (ii) an alternative-judge ablation using Mistral Large\,3 that preserves model-level rankings ($\rho = 0.80$). See \revsec{Appendix A.1} and \revsec{Table 7}.}
+
+\revisionitem
+{W3 / C3: A-R-I sufficiency and completeness}
+{A-R-I is useful but its three dimensions may not be sufficient to cover behavioural reliability; A-R-I should be better justified as a necessary and relatively complete decomposition.}
+{A dedicated scope paragraph in \revsec{Section 3.3} now states which axes are out of scope and cites representative prior work for each: confidence calibration and multi-turn visual-dialogue consistency. The paragraph also explains \emph{why} we chose the three A-R-I dimensions: they respond directly to our research question and target critical deployment risks (silent fabrication, context manipulation, and failure to reason from partial evidence when sufficient context remains). Our findings show the three dimensions are empirically separable: models that resist false premises can still fail to acknowledge missing evidence, and models that admit uncertainty readily may nonetheless fabricate under targeted questioning.}
+
+\revisionitem
+{C2: Model version drift}
+{The paper should discuss model version drift, especially for API models such as GPT and Gemini.}
+{A version-drift caveat is added to the reproducibility appendix, noting that commercial API models (GPT-5.2, Gemini~3.1 Pro, and the GPT-4o judge) may drift as providers retrain or deprecate versions, that we pin exact identifiers and API versions in the same appendix to enable snapshot-level reproduction, and that open-weight models routed through OpenRouter are cached at stable weights and are not subject to this concern. See \revsec{Appendix B}.}
+
+% =========================================================
+\section{Cross-cutting Editorial Improvements}
+% =========================================================
+
+Beyond reviewer-prompted revisions, the manuscript received the following structural improvements:
+
+\begin{itemize}[nosep,leftmargin=*]
+\item \textbf{Section 3.2 Standard Evaluation restructured for parallel presentation.} The Perception, Reasoning, and Behaviour paragraphs now share a common four-part shape (Task $\rightarrow$ Output $\rightarrow$ Data preparation $\rightarrow$ Evaluation) so the reader can compare methodologies side by side. See \revsec{Section 3.2}.
+\item \textbf{Behaviour paragraph restructured around A-R-I.} The previous ``five probe dimensions'' framing collapsed perception robustness (transforms, in-paper) and behaviour (caption bias, resistance, selective-blur) into one list. Perception robustness is now covered in the Perception paragraph, and Behaviour is limited to the two probe families that map cleanly to the A-R-I axes: Resistance (caption-bias, inexist, contra, unanswerable) and Selective-blur (admittance, inductance). Example probes drawn from the actual benchmark (fig\_042) are shown inline. See \revsec{Section 3.2}.
+\item \textbf{Related Work restructured to eliminate methodology duplication.} The previous ``Evaluation Methodology'' subsection restated our own methodology multiple times. It is renamed \emph{Methodological Foundations} to signal that we build on prior evaluation work (honesty, abstention, sycophancy, MQM, LLM-as-judge). Methodology is described in \revsec{Section 3} only. Kadavath et al. (2022) is now attributed within the honesty/abstention citation list. See \revsec{Section 2 (Related Work)}.
+\item \textbf{Abstract tightened for parallelism and factual accuracy.} The opener now uses ``VLM benchmarks'' (compound noun), introduces the VLM acronym on first mention, and softens ``overlooking'' to ``with limited attention to'' (defensible against reviewers pointing to POPE, SycEval, or calibration research). The results sentence pairs reasoning scores (78.4\% / 81.0\%) alongside perception (MQM 91.6 / 90.2) to support the ``perception and reasoning accuracy alone do not guarantee behavioural reliability'' claim in the closer. See \revsec{Abstract}.
+\item \textbf{Introduction domain-generalisation paragraph split into two sentences} for cleaner separation of the framework definition from the domain examples. Three action verbs (\emph{recognise, acknowledge, reason through}) replace the ambiguous ``distinguish X from Y and Z'' construction. See \revsec{Section 1}.
+\item \textbf{Fully verified bibliography.} All entries were cross-checked against publication venues, arXiv records, and the original thesis bibliography (see Response to Program Chairs above). See \revsec{references.bib}.
+\end{itemize}
+
+\end{document}
