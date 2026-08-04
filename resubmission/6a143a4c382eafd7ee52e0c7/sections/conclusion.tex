@@ -2,13 +2,11 @@
 \section{Conclusion}
 \label{sec:conclusion}
 Perception and reasoning scores mask a third dimension of VLM competence. \textsc{SciFig-Eval} evaluates eight models across description quality, targeted reasoning, and behavioural reliability, showing that strong perception does not guarantee reliable behaviour. GPT-5.2 and Gemini 3.1 Pro differ by only 1.4 MQM points, yet their admittance rates differ by 63 percentage points.
-
 To analyse these behaviours, we introduce the A-R-I framework, which decomposes model behaviour into admittance, resistance, and inductance. These dimensions expose failure modes invisible to conventional quality metrics and generalise beyond scientific figures to settings where models must acknowledge uncertainty, resist misleading context, and infer from partial evidence.
-
 Our findings highlight an immediate practical risk: selecting VLMs for scientific workflows based only on accuracy benchmarks may embed confident fabrication into the research pipeline. \textit{Behaviour must therefore be evaluated separately and \textsc{SciFig-Eval} provides a framework for doing so.}
 
 
-\am{More broadly, we envision A-R-I as a general framework for evaluating trustworthy multimodal reasoning, and future work can extend it to diverse benchmarks and application domains, including healthcare, autonomous systems, and document understanding.}
+% \am{More broadly, we envision A-R-I as a general framework for evaluating trustworthy multimodal reasoning, and future work can extend it to diverse benchmarks and application domains, including healthcare, autonomous systems, and document understanding.}
 
 % Perception and reasoning scores mask a third dimension of VLM competence that matters for deployment. \textsc{SciFig-Eval} evaluates eight models across description quality, targeted reasoning, and behavioural reliability, showing that the first two dimensions are poor predictors of the third. GPT-5.2 and Gemini 3.1 Pro score within 1.4 MQM points on perception, yet their admittance rates differ by 63 percentage points.
 
@@ -35,8 +33,8 @@ Our findings highlight an immediate practical risk: selecting VLMs for scientifi
 % Automated evaluation used GPT-4o as the primary judge. Human validation on < 200 annotated pairs yielded Krippendorff's $\alpha = 0.91$ and model-level ranking agreement of $\rho = 0.80$ ($n = 4$ models). The probe designer ablation shows robustness to switching the probe generator from GPT-4o to Mistral Large~3. For capability questions, where GPT-4o serves as both question seeder and answer judge, a cross-judge check with Mistral Large~3 scoring 344 questions preserved model rankings perfectly ($\rho = 1.000$, Table~\ref{tab:capability-judge-ablation}), indicating that the seeder--judge overlap does not bias the evaluation.
 
 
-Our evaluation focuses on English-language bar charts, line plots, and pie charts. %While this allows for a detailed and controlled analysis, the results may not generalize to other visualization types such as scatter plots, heatmaps, or schematic diagrams, nor to domains beyond the computer science and machine learning literature commonly found on arXiv.
-\am{We selected these chart types because they constitute the majority of visualization types in our collected arXiv corpus, enabling a large-scale benchmark with consistent, high-quality human annotations. Nevertheless, the benchmark does not currently cover more complex scientific visualizations such as scatter plots, heatmaps, network diagrams, or schematic figures. Extending SCIFIG-EVAL to these visualization types is an important direction for future work.}
+\po{Our evaluation focuses on bar charts, line plots, and pie charts, though scatter plots, heatmaps, network diagrams, and schematic figures are also common in scientific research. Extending \textsc{SciFig-Eval} to these visualisation types and across non-English corpora would be an important direction for future work.}
+% \am{We selected these chart types because they constitute the majority of visualization types in our collected arXiv corpus, enabling a large-scale benchmark with consistent, high-quality human annotations. Nevertheless, the benchmark does not currently cover more complex scientific visualizations such as scatter plots, heatmaps, network diagrams, or schematic figures. Extending SCIFIG-EVAL to these visualization types is an important direction for future work.}
 
 The dataset is relatively small in absolute size. We assess its reliability using split-half analysis, which yields a high stability score ($\rho = 0.979$), and scale experiments showing performance convergence at around 100 figures. Nevertheless, extending the study to larger and more diverse scientific corpora remains an important direction for future work.
 
@@ -44,7 +42,7 @@ Automated evaluation is primarily conducted using GPT-4o as the judge model. Hum
 
 \am{Although our behavioural results suggest that instruction-following behaviour contributes to failures on false-premise probes, the benchmark cannot conclusively distinguish this effect from limitations in multimodal grounding. Future work should isolate these factors through controlled interventions on prompting and alignment.}
 
-\section*{Ethics Statement}
+\section*{Ethical Considerations}
 
 All scientific figures in \textsc{SciFig-Eval} are sourced from arXiv preprints, which are openly accessible and licensed for research use. The dataset contains no personally identifiable information. Human annotations were performed by consenting graduate researchers who were informed of the study's purpose. %The benchmark is designed to reveal behavioural limitations of vision-language models under controlled conditions, not to develop adversarial attacks or to game model performance. The dataset, evaluation scripts, model outputs, and prompts will be released upon publication.
 
