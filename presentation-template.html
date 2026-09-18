@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Presentation Template — Reveal.js</title>
+
+  <!-- Reveal.js core + a minimal theme (from jsDelivr CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS — edit these to change the whole deck at once.
+       ============================================================ */
+    :root {
+      --bg:        #F7F7F5;
+      --surface:   #FFFFFF;
+      --fg:        #1C1C28;
+      --fg-muted:  #52525E;
+      --fg-dim:    #8E8E9A;
+      --border:    #D8D8DC;
+      --accent:    #7B6FA0;     /* subtle purple */
+      --brand-gpt:    #10A37F;
+      --brand-claude: #D97706;
+      --brand-gemini: #4285F4;
+      --font:      -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* Reveal overrides for the design system */
+    .reveal              { font-family: var(--font); color: var(--fg); }
+    .reveal .slides      { text-align: left; }
+    .reveal section      { padding: 40px 60px; }
+    .reveal h1, .reveal h2, .reveal h3 { color: var(--fg); font-weight: 600; letter-spacing: -0.02em; text-transform: none; }
+    .reveal h1           { font-size: 2.6em; line-height: 1.1; }
+    .reveal h2           { font-size: 1.9em; line-height: 1.15; }
+    .reveal h3           { font-size: 1.2em; }
+    .reveal p            { color: var(--fg-muted); line-height: 1.55; font-size: 0.9em; }
+    .reveal a            { color: var(--accent); text-decoration: none; }
+    .reveal .muted       { color: var(--fg-muted); }
+    .reveal .dim         { color: var(--fg-dim); font-size: 0.8em; }
+    .reveal .eyebrow     { font-size: 0.6em; font-weight: 600; text-transform: uppercase;
+                           letter-spacing: 0.12em; color: var(--fg-dim); margin: 0 0 12px; }
+    .reveal .accent      { color: var(--accent); }
+
+    /* Layout helpers */
+    .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card      { padding: 20px; background: var(--surface); border: 1px solid var(--border);
+                 border-radius: 10px; }
+    .card h3   { margin: 12px 0 6px; font-size: 1em; }
+    .card p    { margin: 0; font-size: 0.75em; }
+    .stat-big  { font-size: 4em; font-weight: 700; color: var(--accent); line-height: 1;
+                 letter-spacing: -0.03em; margin: 0; }
+
+    table.compare        { width: 100%; border-collapse: collapse; font-size: 0.7em; }
+    table.compare th,
+    table.compare td     { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    table.compare thead th{ font-size: 0.85em; font-weight: 600; color: var(--fg-dim);
+                           text-transform: uppercase; letter-spacing: 0.08em; }
+    table.compare .ours  { background: rgba(123, 111, 160, 0.08); font-weight: 600; }
+    table.compare .yes   { color: #16A34A; }
+    table.compare .no    { color: var(--fg-dim); }
+    table.compare .maybe { color: #EA580C; }
+
+    /* Inline-SVG image placeholder — pure CSS, no external asset dependencies */
+    .img-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; aspect-ratio: 16 / 10;
+      border: 2px dashed var(--border); border-radius: 8px;
+      background: var(--surface);
+      color: var(--fg-dim); font-size: 0.75em; text-align: center;
+      padding: 20px; box-sizing: border-box;
+    }
+    .img-placeholder.square { aspect-ratio: 1 / 1; }
+    .img-placeholder.wide   { aspect-ratio: 16 / 6; }
+
+    /* Chip pills (used for author affiliations, tags, etc.) */
+    .chip { display: inline-block; padding: 4px 10px; border-radius: 999px;
+            background: var(--surface); border: 1px solid var(--border);
+            font-size: 0.65em; color: var(--fg-muted); margin: 2px 4px 2px 0; }
+
+    /* Full-bleed slide */
+    .full-bleed { position: absolute; inset: 0; padding: 0; }
+    .full-bleed .img-placeholder { height: 100%; aspect-ratio: unset; border: none; border-radius: 0; }
+
+    /* Dark-mode: uncomment or trigger via a Reveal config option if you want */
+    /*
+    :root { --bg: #111114; --surface: #1A1A1E; --fg: #E8E6E3;
+            --fg-muted: #9E9DA6; --fg-dim: #6E6D76; --border: #3A3A42; }
+    */
+  </style>
+</head>
+
+<body style="background: var(--bg);">
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ============================================================
+         SLIDE 1 — TITLE
+         Replace: paper title, subtitle, author list, affiliations, venue.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <p class="eyebrow">Your Venue · 2026</p>
+      <h1 style="max-width: 900px;">
+        Your Paper Title Goes Here:<br>
+        A Descriptive Subtitle If You Want One
+      </h1>
+      <p style="margin-top: 32px; font-size: 0.85em;">
+        <strong>First Author</strong><sup>1</sup>,
+        <strong>Second Author</strong><sup>2</sup>,
+        <strong>Third Author</strong><sup>1</sup>,
+        <strong>Fourth Author</strong><sup>3</sup>
+      </p>
+      <p class="dim" style="margin-top: 6px;">
+        <sup>1</sup>Your University &nbsp;·&nbsp;
+        <sup>2</sup>Second Institution &nbsp;·&nbsp;
+        <sup>3</sup>Third Institution
+      </p>
+      <p class="dim" style="margin-top: 24px;">
+        <a href="#">arxiv.org/abs/XXXX.XXXXX</a> · <a href="#">project website</a>
+      </p>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 2 — SECTION DIVIDER
+         Big numbered section marker between chapters of the deck.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <p class="eyebrow accent">Part 1</p>
+      <h1 style="max-width: 800px;">The problem, in one sentence.</h1>
+      <p style="max-width: 620px; margin-top: 24px; font-size: 1em;">
+        A short elaboration of the section theme — one paragraph that primes the audience for what's coming.
+      </p>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 3 — TWO-COLUMN (text + image)
+         Left: heading + bullets. Right: image or chart placeholder.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <p class="eyebrow">Motivation</p>
+      <h2 style="margin-bottom: 24px;">Why this matters now.</h2>
+      <div class="two-col">
+        <div>
+          <p style="font-size: 1em;">
+            Set up the problem in 2–3 sentences. Lead with the observation that surprised you, not the abstract framing.
+          </p>
+          <ul style="font-size: 0.85em; color: var(--fg-muted); line-height: 1.7;">
+            <li>Concrete symptom the audience already recognizes</li>
+            <li>Why existing approaches miss it</li>
+            <li>What changes if the problem is solved</li>
+          </ul>
+        </div>
+        <div class="img-placeholder">
+          <!-- REPLACE: put a <img src="your-image.png" alt="..." style="width:100%; border-radius: 8px;"> here -->
+          Replace with a chart, photo, or diagram<br>(aspect ~16:10)
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 4 — BIG-NUMBER STAT
+         Single showstopper number, tight caption.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <div style="text-align: center;">
+        <p class="stat-big">96%</p>
+        <p style="font-size: 1.4em; color: var(--fg); font-weight: 500; margin-top: 12px;">
+          of the time, the top model confidently invents an answer<br>
+          about content it literally cannot see.
+        </p>
+        <p class="dim" style="margin-top: 24px;">Replace with your own headline metric.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 5 — CARD GRID (logos, competitors, or exemplars)
+         Three-up grid; each card has an image, a name, and a stat.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <p class="eyebrow">Landscape</p>
+      <h2 style="margin-bottom: 28px;">Who else is playing in this space.</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="img-placeholder square">Logo / product screenshot</div>
+          <h3>Product Name</h3>
+          <p class="muted">One-line stat or claim about scale, reach, or capability.</p>
+        </div>
+        <div class="card">
+          <div class="img-placeholder square">Logo / product screenshot</div>
+          <h3>Product Name</h3>
+          <p class="muted">One-line stat or claim about scale, reach, or capability.</p>
+        </div>
+        <div class="card">
+          <div class="img-placeholder square">Logo / product screenshot</div>
+          <h3>Product Name</h3>
+          <p class="muted">One-line stat or claim about scale, reach, or capability.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 6 — QUOTE / PULL-QUOTE
+         Big centered quote with attribution below.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p style="font-size: 2em; font-weight: 400; color: var(--fg); line-height: 1.3; letter-spacing: -0.015em;">
+          "A memorable sentence from a domain expert, a user, or a model transcript that captures the essence of the problem."
+        </p>
+        <p class="dim" style="margin-top: 32px; font-size: 0.85em;">
+          — Attribution, Role or Source, Year
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 7 — COMPARISON TABLE
+         Grid vs prior work; your row highlighted as `ours`.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <p class="eyebrow">Prior work vs. ours</p>
+      <h2 style="margin-bottom: 24px;">Where existing benchmarks fall short.</h2>
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Benchmark</th>
+            <th>Dimension A</th>
+            <th>Dimension B</th>
+            <th>Dimension C</th>
+            <th>Dimension D</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prior Benchmark 1</td>
+            <td class="yes">✓</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Prior Benchmark 2</td>
+            <td class="yes">✓</td>
+            <td class="maybe">~</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Prior Benchmark 3</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="maybe">~</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr class="ours">
+            <td>Your Work (ours)</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 8 — FULL-BLEED IMAGE + OVERLAY CAPTION
+         Image edge-to-edge, caption band at the bottom.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <div class="full-bleed">
+        <div class="img-placeholder" style="width: 100%; height: 100%;">
+          Replace with hero image, screenshot, or diagram (edge-to-edge)
+        </div>
+        <div style="position: absolute; left: 0; right: 0; bottom: 0;
+                    padding: 24px 60px; background: linear-gradient(transparent, rgba(0,0,0,0.55));">
+          <p style="color: white; margin: 0; font-size: 0.95em;">
+            One-sentence caption. This layout is for a visual you want the audience to <em>look at</em>, not scan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 9 — METHOD / PIPELINE
+         Three linked boxes with arrows implied by layout.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <p class="eyebrow">Method</p>
+      <h2 style="margin-bottom: 32px;">Our pipeline in three steps.</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+        <div class="card">
+          <p class="eyebrow accent" style="margin-bottom: 8px;">Step 1</p>
+          <h3 style="margin: 0 0 8px;">Collect</h3>
+          <p class="muted">What goes in — data source, sampling scheme, or user action.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow accent" style="margin-bottom: 8px;">Step 2</p>
+          <h3 style="margin: 0 0 8px;">Transform</h3>
+          <p class="muted">Core operation — the interesting bit that makes your method different.</p>
+        </div>
+        <div class="card">
+          <p class="eyebrow accent" style="margin-bottom: 8px;">Step 3</p>
+          <h3 style="margin: 0 0 8px;">Evaluate</h3>
+          <p class="muted">Output — what a user, judge, or downstream task sees.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SLIDE 10 — CLOSING / THANK YOU
+         Wrap: contact, project links, QR placeholder.
+         ============================================================ -->
+    <section data-background-color="#F7F7F5">
+      <div style="max-width: 780px;">
+        <h1 style="font-size: 3em; margin-bottom: 24px;">Thanks.</h1>
+        <p style="font-size: 1.1em; color: var(--fg-muted); max-width: 560px;">
+          One-sentence takeaway you want the audience to remember when they walk out of the room.
+        </p>
+        <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 200px; gap: 40px; align-items: center;">
+          <div>
+            <p class="eyebrow">Find the work</p>
+            <p style="margin: 4px 0;"><a href="#">Paper: arxiv.org/abs/XXXX.XXXXX</a></p>
+            <p style="margin: 4px 0;"><a href="#">Project: your-project-site.com</a></p>
+            <p style="margin: 4px 0;"><a href="#">Contact: you@example.com</a></p>
+          </div>
+          <div class="img-placeholder square" style="font-size: 0.7em;">
+            QR code
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    controls: true,
+    controlsTutorial: false,
+    transition: 'fade',
+    transitionSpeed: 'slow',
+    center: false,        // false = top-align content; set true for vertical centering
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.5,
+  });
+</script>
+
+<!-- ============================================================
+     HOW TO USE THIS TEMPLATE
+     ============================================================
+     1. Open this file directly in a browser (double-click) —
+        Reveal.js loads from CDN, no build step required.
+
+     2. Edit slide content between <section> ... </section> tags.
+        Each slide is annotated with a comment describing its layout.
+
+     3. Change the design system by editing the CSS variables at
+        the top of the <style> block: --bg, --fg, --accent, etc.
+        Every color in the deck updates when you change one variable.
+
+     4. Replace image placeholders (.img-placeholder divs) with
+        real <img src="..."> tags. Example:
+          <img src="your-figure.png" alt="Description"
+               style="width: 100%; border-radius: 8px;">
+
+     5. Add slides by duplicating any <section> block. Reveal.js
+        uses vertical stacking too — wrap <section>s in a parent
+        <section> to make a nested vertical column.
+
+     6. Keyboard: arrow keys to navigate, `s` for speaker notes,
+        `f` for full-screen, `esc` for overview.
+
+     Reveal.js docs: https://revealjs.com/
+     ============================================================ -->
+
+</body>
+</html>
