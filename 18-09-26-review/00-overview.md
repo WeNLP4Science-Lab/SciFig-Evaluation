@@ -65,10 +65,17 @@ Ranked by how many reviewers raised them:
 ### 🟢 Editorial (PC comment, 31 Aug 2026)
 - **Figure font size** too small in multiple figures (Figs 2, 5–11). Not desk-rejected but must be fixed for camera-ready or resubmission.
 
-## Reviewer-specific files
+## Reviewer folders
 
-- `reviewer-MMh1.md` — most rigorous methodological review; borderline conference (3.5)
-- `reviewer-YLTQ.md` — high confidence, focuses on scope claims and reproducibility; Findings (3.0)
-- `reviewer-yQSV.md` — most critical; focuses on numerical inconsistencies, competitor citations, metric limitations; Borderline Findings (2.5)
-- `reviewer-k3yc.md` — high confidence, echoes MMh1's methodological concerns; Findings (3.0)
+Each reviewer gets a folder as we work through them:
+- `review.md` — the original review
+- `assessment.md` — per-weakness validity check against the PDF
+- `W<n>-response.md` — draft response to each weakness
+
+Current status:
+- **`reviewer-MMh1/`** — folder; assessment + W1, W2 response drafts done · 3.5 Borderline Conference
+- `reviewer-YLTQ.md` — raw review only · 3.0 Findings · scope + reproducibility focus
+- `reviewer-yQSV.md` — raw review only · 2.5 Borderline Findings · most critical, numerical inconsistencies + wrong CHART-NOISe citation
+- `reviewer-k3yc.md` — raw review only · 3.0 Findings · echoes MMh1's methodology concerns
 - `pc-comment.md` — Program Chairs' figure-size heads-up
+- `previous-reviews.md` — May round context (h9tb / No6d / LhRb) — captures which concerns are repeats
